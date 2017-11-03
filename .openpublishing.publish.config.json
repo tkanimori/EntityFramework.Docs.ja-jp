@@ -6,7 +6,7 @@
       "build_source_folder": "entity-framework",
       "build_output_subfolder": "ef",
       "locale": "ja-JP",
-      "open_to_public_contributors": false,
+      "open_to_public_contributors": true,
       "type_mapping": {
         "Conceptual": "Content",
         "ManagedReference": "Content",
@@ -19,10 +19,15 @@
     "divega@microsoft.com"
   ],
   "branches_to_filter": [
-    "live-sxs",
-    "master-sxs"
+    "live",
+    "master"
   ],
+  "git_repository_url_open_to_public_contributors": "https://github.com/aspnet/EntityFramework.Docs.ja-jp",
+  "git_repository_branch_open_to_public_contributors": "live",
   "continue_with_document_error": true,
+  "contribution_branch_mappings": {
+			    "live-sxs": "live"
+  },
   "skip_source_output_uploading": false,
   "need_preview_pull_request": true,
   "dependent_repositories": [
