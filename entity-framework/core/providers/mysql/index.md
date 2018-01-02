@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 4900b882-79c5-40d2-a44a-ccb0292f6ed9
 ms.technology: entity-framework-core
 uid: core/providers/mysql/index
-ms.openlocfilehash: c151845c8b08ef6a668b352f15545752156b0a9d
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: 1500d017cb463c3f394131a79b9063ff90cce5e2
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="mysql-ef-core-database-provider"></a>MySQL EF Core データベース プロバイダー
 
@@ -22,7 +22,7 @@ ms.lasthandoff: 11/15/2017
 > [!NOTE]  
 > このプロバイダーは、Entity Framework Core プロジェクトの一部として保守管理されていません。 サードパーティ プロバイダーの利用を検討するとき、要件に合うよう、品質、使用許諾、サポートなどを必ず評価してください。
 
-## <a name="install"></a>Install
+## <a name="install"></a>インストール
 
 [MySql.Data.EntityFrameworkCore NuGet パッケージ](https://www.nuget.org/packages/MySql.Data.EntityFrameworkCore)をインストールします。
 
@@ -43,3 +43,5 @@ Install-Package MySql.Data.EntityFrameworkCore -Pre
 * .NET Framework (4.5.1 以降)
 
 * .NET Core
+
+バージョンの互換性の情報については、MySQL のドキュメントの[ここ](https://dev.mysql.com/doc/connector-net/en/connector-net-versions.html)と[ここ](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework-core.html)を確認してください
