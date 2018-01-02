@@ -1,0 +1,45 @@
+- name: Docs
+  tocHref: /
+  topicHref: /
+  items:
+    - name: Entity Framework
+      tocHref: /ef/
+      topicHref: /ef/index
+      items:
+        - name: EF Core と EF6 を比較する
+          tocHref: /ef/efcore-and-ef6/
+          topicHref: /ef/efcore-and-ef6/index
+        - name: Entity Framework Core
+          tocHref: /ef/core/
+          topicHref: /ef/core/index
+          items:
+            - name: 新機能
+              tocHref: /ef/core/what-is-new/
+              topicHref: /ef/core/what-is-new/index
+            - name: 作業の開始
+              tocHref: /ef/core/get-started/
+              topicHref: /ef/core/get-started/index
+            - name: モデルの作成
+              tocHref: /ef/core/modeling/
+              topicHref: /ef/core/modeling/index
+            - name: データのクエリ
+              tocHref: /ef/core/querying/
+              topicHref: /ef/core/querying/index
+            - name: データの保存
+              tocHref: /ef/core/saving/
+              topicHref: /ef/core/saving/index
+            - name: データベース プロバイダー
+              tocHref: /ef/core/providers/
+              topicHref: /ef/core/providers/index
+            - name: コマンド ライン リファレンス
+              tocHref: /ef/core/miscellaneous/cli/
+              topicHref: /ef/core/miscellaneous/cli/index
+            - name: ツールと拡張機能
+              tocHref: /ef/core/extensions/
+              topicHref: /ef/core/extensions/index
+            - name: その他
+              tocHref: /ef/core/miscellaneous/
+              topicHref: /ef/core/miscellaneous/index
+        - name: Entity Framework 6
+          tocHref: /ef/ef6/
+          topicHref: /ef/ef6/index
