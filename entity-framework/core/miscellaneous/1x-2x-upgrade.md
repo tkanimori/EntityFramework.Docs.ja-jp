@@ -6,11 +6,11 @@ ms.date: 8/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 ms.technology: entity-framework-core
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 0bd1ea2476621f826cca7d4a526a49a1b902acf8
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: 380f27c9f00943a2909ec7b876e151572a67dc37
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF コア 2.0 へのアプリケーションのアップグレード
 
@@ -31,9 +31,9 @@ EF コア 2.0 に既存のアプリケーションの更新が必要です。
 1. 具体的にを参照してください、[アプリケーションのサービス プロバイダーを初期化するための新しいパターン](#new-way-of-getting-application-services)以下で説明します。
 
 > [!TIP]  
-> この新しいパターンを強くお勧めし、Entity Framework の中核となる移行と同様に、製品の機能の動作するために必要な 2.0 アプリケーションの更新うちに導入します。 他の一般的な手段[実装*IDesignTimeDbContextFactory\<TContext >*](configuring-dbcontext.md#using-idesigntimedbcontextfactorytcontext)です。
+> この新しいパターンを強くお勧めし、Entity Framework の中核となる移行と同様に、製品の機能の動作するために必要な 2.0 アプリケーションの更新うちに導入します。 他の一般的な手段[実装*IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory)です。
 
-2. ASP.NET Core 2.0 を対象とするアプリケーションでは、サード パーティ製データベース プロバイダーに加えて追加の依存関係なく、EF コア 2.0 を使用できます。 ただし、以前のバージョンの ASP.NET Core をターゲットとするアプリケーションでは、EF コア 2.0 を使用するために ASP.NET Core 2.0 にアップグレードする必要があります。 2.0 に ASP.NET Core アプリケーションのアップグレードに関する詳細を参照してください[ASP.NET Core のドキュメントにあるサブジェクトに](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/)です。
+2. ASP.NET Core 2.0 を対象とするアプリケーションは、サードパーティ データベース プロバイダー以外の依存関係を追加せずに EF Core 2.0 を使用できます。 ただし、以前のバージョンの ASP.NET Core をターゲットとするアプリケーションでは、EF コア 2.0 を使用するために ASP.NET Core 2.0 にアップグレードする必要があります。 2.0 に ASP.NET Core アプリケーションのアップグレードに関する詳細を参照してください[ASP.NET Core のドキュメントにあるサブジェクトに](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/)です。
 
 ## <a name="breaking-changes"></a>互換性に影響する変更点
 
@@ -102,9 +102,9 @@ EF チームによって、SQL Server と SQLite プロバイダーが付属し�
 
 注: これらの変更では、ほとんどのアプリケーション コードを影響はありません。
 
-イベント Id に送信されたメッセージについて、 [ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs)が 2.0 に変更します。 イベント Id は、EF コア コード全体では一意ようになりました。 これらのメッセージようになりましたもパターンに従う、標準の構造化されたログ記録の例については、MVC で使用します。
+イベント Id に送信されたメッセージについて、 [ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs)が 2.0 に変更します。 イベント ID が EF Core コード全体で一意になりました。 これらのメッセージはまた、たとえば MVC で使用される構造化されたログ記録の標準パターンに従います。
 
-ロガーのカテゴリも変更します。 これで、よく知られた一連のカテゴリを使用してアクセスがある[DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs)です。
+ロガー カテゴリも変更されました。 現在、[DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs) 経由でアクセスされる既知のカテゴリ セットがあります。
 
 [DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md)イベントは、対応するとして同じイベント ID 名を使用するようになりました`ILogger`メッセージ。 イベント ペイロードは、すべての標準型から派生した[EventData](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/EventData.cs)です。
 
@@ -114,7 +114,7 @@ Id は、新しい Microsoft.EntityFrameworkCore.Diagnostics 名前空間にも 
 
 ### <a name="ef-core-relational-metadata-api-changes"></a>EF コア リレーショナル メタデータ API の変更
 
-EF コア 2.0 はこれで、異なるビルド[IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs)プロバイダーごとに異なる使用されています。 これは通常、アプリケーションに対して透過的です。 これが容易になります下位レベルのメタデータ Api の単純化するいずれかにアクセスするよう_リレーショナル メタデータの一般的な概念_への呼び出しが行われる常に`.Relational`の代わりに`.SqlServer`、 `.Sqlite`, などです。たとえば、1.1.x コード次のようにします。
+EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、_一般的なリレーショナル メタデータ コンセプト_へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。たとえば、1.1.x コード次のようにします。
 
 ``` csharp
 var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName;

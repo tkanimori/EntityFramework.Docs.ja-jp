@@ -4,28 +4,37 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/27/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 5fcd9e362d76127e7acadd9e552ef3ac90967a37
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+uid: core/miscellaneous/cli/dbcontext-creation
+ms.openlocfilehash: a899c474cc45437bff7c82ce5bddeb915b15c3b0
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 12/22/2017
 ---
 <a name="design-time-dbcontext-creation"></a>デザイン時 DbContext 作成
 ==============================
-コマンドには、デザイン時に作成 DbContext インスタンスが必要がある、EF ツールの一部は時間 (たとえば、移行のコマンドを実行している) 場合。 ツールを作成しようとするさまざまな方法があります。
+EF コア ツールのコマンドの一部 (たとえば、[移行][ 1]コマンド) 派生を必要と`DbContext`アプリケーションの詳細を収集するためにデザイン時に作成されるインスタンスエンティティ型とデータベースのスキーマにどのようにマッピングされます。 ほとんどの場合では望ましくを`DbContext`これにより作成された方法だと同じ方法で構成された[実行時に構成されている][2]です。
+
+さまざまな方法で作成しようとする、ツール、 `DbContext`:
 
 <a name="from-application-services"></a>アプリケーション サービスから
 -------------------------
-スタートアップ プロジェクトが ASP.NET Core アプリケーションの場合は、ツールは、アプリケーションのサービス プロバイダーから DbContext オブジェクトを取得しようとします。 呼び出すことによって取得する`Program.BuildWebHost()`にアクセスして、`IWebHost.Services`プロパティです。 使用して、DbContext 登録`IServiceCollection.AddDbContext<TContext>()`見つかった、この方法で作成されたことができます。 このパターンが[ASP.NET Core 2.0 で導入されました][1]
+スタートアップ プロジェクトが ASP.NET Core アプリケーションの場合は、ツールは、アプリケーションのサービス プロバイダーから DbContext オブジェクトを取得しようとします。
 
-<a name="using-the-default-constructor"></a>既定のコンス トラクターを使用します。
------------------------------
-DbContext をアプリケーション サービス プロバイダーから取得できない場合、ツールは、プロジェクト内、DbContext 型を探します。 既定のコンス トラクターを使用して作成しようとするとします。
+このツールは、まずを呼び出すことによって、サービス プロバイダーを取得する`Program.BuildWebHost()`にアクセスして、`IWebHost.Services`プロパティです。
+
+> [!NOTE]
+> 新しい ASP.NET Core 2.0 アプリケーションを作成するときに、既定ではこのフックが含まれています。 ツールを EF Core および ASP.NET Core の以前のバージョンを実行してみます`Startup.ConfigureServices`不要になったアプリケーションのサービス プロバイダーが、このパターンを取得するために正常に動作コア 2.0 の ASP.NET アプリケーションで直接です。 2.0 の ASP.NET Core 1.x アプリケーションをアップグレードする場合は[変更、`Program`新しいパターンに従うクラス][3]です。
+
+`DbContext`自体と、コンス トラクターであらゆる依存先が、アプリケーションのサービス プロバイダーでサービスとして登録する必要があります。 これを行う簡単に用意することによって[のコンス トラクター、`DbContext`のインスタンスを受け取る`DbContextOptions<TContext>`を引数として][ 4]を使用して、 [ `AddDbContext<TContext>` メソッド][5].
+
+<a name="using-a-constructor-with-no-parameters"></a>パラメーターなしのコンス トラクターを使用します。
+--------------------------------------
+DbContext をアプリケーション サービス プロバイダーから取得できない場合、ツールを探して、派生`DbContext`プロジェクト内の型。 パラメーターなしのコンス トラクターを使用してインスタンスを作成してください。 既定のコンス トラクターになる可能性が、`DbContext`を使用して、構成、 [ `OnConfiguring` ] [ 6]メソッドです。
 
 <a name="from-a-design-time-factory"></a>デザイン時のファクトリから
 --------------------------
-見分けることができます、ツールを実装することによって、DbContext を作成する方法`IDesignTimeDbContextFactory`です。 このインターフェイスを実装するクラスがプロジェクト内で見つかった場合、ツールは DbContext を作成するその他の方法をバイパスします。
-常に、これらは、デザイン時に、ファクトリを使用します。 ファクトリは、ランタイムではなくデザイン時の DbContext を異なる方法で構成する必要がある場合に特に便利です。
+見分けることができます、ツールを実装することによって、DbContext を作成する方法、`IDesignTimeDbContextFactory<TContext>`インターフェイス: このインターフェイスを実装するクラスを派生したのと同じプロジェクトのいずれかで見つかった場合は`DbContext`またはアプリケーションのスタートアップ プロジェクトでは、ツールのバイパスDbContext および使用して、デザイン時のファクトリを作成する代わりに他の方法です。
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -47,7 +56,15 @@ namespace MyProject
 ```
 
 > [!NOTE]
-> `args`パラメーターは現在使用されていません。 ある[問題][ 2]追跡ツールからのデザイン時の引数を指定する機能。
+> `args`パラメーターは現在使用されていません。 ある[問題][ 7]追跡ツールからのデザイン時の引数を指定する機能。
 
-  [1]: https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/#update-main-method-in-programcs
-  [2]: https://github.com/aspnet/EntityFrameworkCore/issues/8332
+デザイン時のファクトリは、場合は、DbContext を異なる方法で、実行時ではなくデザイン時用に構成する必要がある場合に特に便利です、 `DbContext` DI をまったく使用しない場合に、追加のパラメーターは、DI に登録されていないコンス トラクターがかかるか、一部の場合理由をしないようにする、 `BuildWebHost` ASP.NET Core アプリケーションの内のメソッド  
+`Main` クラス。
+
+  [1]: xref:core/managing-schemas/migrations/index
+  [2]: xref:core/miscellaneous/configuring-dbcontext
+  [3]: https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/#update-main-method-in-programcs
+  [4]: xref:core/miscellaneous/configuring-dbcontext#constructor-argument
+  [5]: xref:core/miscellaneous/configuring-dbcontext#using-dbcontext-with-dependency-injection
+  [6]: xref:core/miscellaneous/configuring-dbcontext#onconfiguring
+  [7]: https://github.com/aspnet/EntityFrameworkCore/issues/8332

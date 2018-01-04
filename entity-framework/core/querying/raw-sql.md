@@ -6,18 +6,18 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: ddf3a841800684688d50dcf9323f4d83c851222f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 79894c7b9fd9e40cdf14460abf5d872ee2f4b9f0
+ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 12/22/2017
 ---
 # <a name="raw-sql-queries"></a>生の SQL クエリ
 
 Entity Framework Core では、リレーショナル データベースを使用する場合、生の SQL クエリをドロップ ダウンすることができます。 実行するクエリは、LINQ を使用して表現できない場合、またはデータベースに送信される非効率的な SQL での LINQ クエリを使用するが結果として得られる場合、これは役立つあります。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="limitations"></a>制限事項
 
@@ -29,6 +29,13 @@ Entity Framework Core では、リレーショナル データベースを使用
 * 結果セット内の列名は、プロパティにマップする列名と一致する必要があります。 これとは異なる SQL クエリの生のプロパティ/列マッピングは無視されました、結果セット列名は、プロパティの名前と一致する必要がある EF6 に注意してください。
 
 * SQL クエリでは、関連するデータを含めることはできません。 ただし、多くの場合を組み込むことができますを使用して、クエリの上に、`Include`関連データを返す演算子 (を参照してください[関連データを含む](#including-related-data))。
+
+* `SELECT`このメソッドに渡されたステートメント一般的には、コンポーザブル: EF 中核となる場合は、サーバー上の他のクエリ演算子を評価する必要があります (例: 変換 LINQ 演算子の後に適用する`FromSql`)、指定された SQL はサブクエリとして扱われます。 これは、渡された SQL では、文字またはなど、サブクエリに無効なオプションを含める必要がありますいないことを意味します。
+  * 最後のセミコロン
+  * SQL Server で、後続のクエリ レベル ヒント、例。`OPTION (HASH JOIN)`
+  * SQL Server 上、`ORDER BY`の伴わない句`TOP 100 PERCENT`で、`SELECT`句
+
+* 以外の SQL ステートメント`SELECT`コンポーザブルでないとして自動的に認識されます。 その結果、ストアド プロシージャの完全な結果は常に、クライアントに返されます、後に、LINQ 演算子が適用される`FromSql`メモリ内に評価されます。 
 
 ## <a name="basic-raw-sql-queries"></a>基本的な生 SQL クエリ
 
