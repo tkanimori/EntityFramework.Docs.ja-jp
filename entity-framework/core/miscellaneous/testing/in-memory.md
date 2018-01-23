@@ -6,18 +6,18 @@ ms.date: 10/27/2016
 ms.assetid: 0d0590f1-1ea3-4d5c-8f44-db17395cd3f3
 ms.technology: entity-framework-core
 uid: core/miscellaneous/testing/in-memory
-ms.openlocfilehash: c5c48c575e9fd693d1f28d1a6d10eb83ebbc9d70
-ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
+ms.openlocfilehash: 33690e3424d0777930d3cb8167575fb0f4ddd8f7
+ms.sourcegitcommit: d096484dcf9eff73d9943fa60db7a418b10ca0b3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/05/2017
+ms.lasthandoff: 01/22/2018
 ---
 # <a name="testing-with-inmemory"></a>InMemory でテストします。
 
 InMemory プロバイダーは、実際のデータベース操作のオーバーヘッドがなく、実際のデータベースへの接続を概算するためのものを使用してコンポーネントをテストする場合に便利です。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing)は GitHub で確認できます。
 
 ## <a name="inmemory-is-not-a-relational-database"></a>InMemory はリレーショナル データベースではありません。
 
@@ -64,6 +64,6 @@ EF コア データベース プロバイダーはリレーショナル デー�
 InMemory データベースを使用するテスト クラスの例を次に示します。 各テスト メソッドでは、各方法に独自の InMemory データベースつまり、一意のデータベース名を指定します。
 
 >[!TIP]
-> 使用する、 `.UseInMemoryDatabase()` Nuget パッケージの参照の拡張メソッドで`Microsoft.EntityFrameworkCore.InMemory`です。
+> 使用する、 `.UseInMemoryDatabase()` NuGet パッケージの参照の拡張メソッドで`Microsoft.EntityFrameworkCore.InMemory`です。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/InMemory/BlogServiceTests.cs)]

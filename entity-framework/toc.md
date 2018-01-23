@@ -50,12 +50,12 @@
 ##### [列マッピング](core/modeling/relational/columns.md)
 ##### [データの種類](core/modeling/relational/data-types.md)
 ##### [主キー](core/modeling/relational/primary-keys.md)
-##### [[既定のスキーマ]](core/modeling/relational/default-schema.md)
+##### [既定のスキーマ](core/modeling/relational/default-schema.md)
 ##### [計算列](core/modeling/relational/computed-columns.md)
 ##### [シーケンス](core/modeling/relational/sequences.md)
 ##### [既定値](core/modeling/relational/default-values.md)
 ##### [インデックス](core/modeling/relational/indexes.md)
-##### [Foreign Key Constraints](core/modeling/relational/fk-constraints.md)
+##### [外部キー制約](core/modeling/relational/fk-constraints.md)
 ##### [代替キー (一意の制約)](core/modeling/relational/unique-constraints.md)
 ##### [継承 (リレーショナル データベース)](core/modeling/relational/inheritance.md)
 
@@ -129,6 +129,7 @@
 #### [Microsoft.EntityFrameworkCore.AutoHistory](core/extensions/autohistory.md)
 #### [Microsoft.EntityFrameworkCore.DynamicLinq](core/extensions/dynamiclinq.md)
 #### [Microsoft.EntityFrameworkCore.UnitOfWork](core/extensions/unitofwork.md)
+#### [NeinLinq.EntityFrameworkCore](core/extensions/neinlinq.md)
 
 ### その他
 #### [接続文字列](core/miscellaneous/connection-strings.md)

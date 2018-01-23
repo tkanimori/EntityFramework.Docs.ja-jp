@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: cd26bd2e6f85083f73d97b1356d0ba38f53e0b8f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: ec69bb128890a1e0b72fe77014f37747585bb5a5
+ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 01/22/2018
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -20,7 +20,7 @@ Entity Framework Core では、関連エンティティの読み込みをモデ�
 * **遅延読み込み**ナビゲーション プロパティにアクセスする場合、関連するデータが透過的にデータベースから読み込むことを意味します。 遅延読み込みは、まだ EF Core では可能ではありません。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="eager-loading"></a>一括読み込み
 
@@ -42,6 +42,9 @@ Entity Framework Core では、関連エンティティの読み込みをモデ�
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleThenInclude)]
 
+> [!NOTE]  
+> Visual Studio の現在のバージョンが不適切なコードの入力候補オプションを提供を正しい式を使用する場合に、構文エラーが発生フラグが付けられますが、`ThenInclude`メソッド コレクション ナビゲーション プロパティ。 これは、https://github.com/dotnet/roslyn/issues/8237 で追跡 IntelliSense バグが発生する可能性です。 これらの見かけ上の構文エラーを無視するコードが正しいと正常にコンパイルできる限り安全です。 
+
 複数の呼び出しをチェーンする`ThenInclude`関連データのレベルを含めてさらに続行します。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleThenIncludes)]
@@ -50,7 +53,7 @@ Entity Framework Core では、関連エンティティの読み込みをモデ�
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-いずれかが含まれるエンティティの複数の関連エンティティを追加することがあります。 たとえば、クエリを実行するときに`Blog`が含まれています、`Posts`両方を格納して、`Author`と`Tags`の`Posts`です。 これを行うには、ルートからのパスを含めるそれぞれを指定する必要があります。 たとえば、 `Blog -> Posts -> Author` や `Blog -> Posts -> Tags`。 表示される冗長な結合、EF の統合はほとんどの場合、結合 SQL を生成するときにありません。
+いずれかが含まれるエンティティの複数の関連エンティティを追加することがあります。 たとえば、クエリを実行するときに`Blog`が含まれています、`Posts`両方を格納して、`Author`と`Tags`の`Posts`です。 これを行うには、ルートからのパスを含めるそれぞれを指定する必要があります。 たとえば、`Blog -> Posts -> Author`と`Blog -> Posts -> Tags`です。 表示される冗長な結合、EF の統合はほとんどの場合、結合 SQL を生成するときにありません。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 

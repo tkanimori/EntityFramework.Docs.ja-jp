@@ -6,17 +6,17 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: a9481fe851cc264ab3eaecad052c2e683ae57a44
-ms.sourcegitcommit: 5367516f063cb42804ec92c31cdf76322554f2b5
+ms.openlocfilehash: e1cb194d7c7472af59eb44fe2a084fa16c40c186
+ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/08/2017
+ms.lasthandoff: 01/22/2018
 ---
 # <a name="cascade-delete"></a>連鎖削除
 
 連鎖削除は、関連する行の削除を自動的にトリガーする行の削除を許可する特性を記述するデータベース用語で通常使用されます。 EF コア削除動作覆われても、密接に関連する概念は、親との関係があるときに子エンティティの自動削除が切断されている--この i「孤立アイテムの削除」と呼ばれます。
 
-EF コアは、いくつかの別の削除動作を実装して、個々 のリレーションシップの削除の動作を構成できます。 EF コアも実装して、 [リレーションシップの requiredness](../modeling/relationships.md#required-and-optional-relationships) に基づいてリレーションシップごとに役立つ既定削除動作を自動的に構成している表記規則 。
+EF コアは、いくつかの別の削除動作を実装して、個々 のリレーションシップの削除の動作を構成できます。 EF コアも実装して、[リレーションシップの requiredness] に基づいてリレーションシップごとに役立つ既定削除動作を自動的に構成している表記規則 (../modeling/relationships.md#required-and-optional-relationships)。
 
 ## <a name="delete-behaviors"></a>動作を削除します。
 削除の動作が定義されている、 *DeleteBehavior*列挙子を入力しに渡されることができます、 *OnDelete* fluent API を制御するかどうかの切断するプリンシパル/親エンティティの削除、依存する/子エンティティへのリレーションシップによっては、依存する/子エンティティに副作用が必要です。
@@ -67,7 +67,7 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
 
 ## <a name="entity-deletion-examples"></a>エンティティの削除の例
 
-次のコードの一部である、[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/)実行をダウンロードすることができます。 このサンプルでは、親エンティティが削除されたときの各オプションと必須の両方のリレーションシップの削除の動作の動作を示します。
+次のコードの一部である、[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/)をダウンロードして実行できます。 このサンプルでは、親エンティティが削除されたときの各オプションと必須の両方のリレーションシップの削除の動作の動作を示します。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
