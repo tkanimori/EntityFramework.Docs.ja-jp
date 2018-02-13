@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 0ea02876b9594d54c971a7b70fcf7ce591e56ba0
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 0b145217d40027c4b8e4746e9c5651652a28c9eb
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="disconnected-entities"></a>切断されているエンティティ
 
@@ -20,6 +20,9 @@ DbContext インスタンスでは、データベースから返されるエン�
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/)は GitHub で確認できます。
+
+> [!TIP]
+> EF コアは、指定された主キーの値を持つエンティティの 1 つのインスタンスのみを追跡できます。 この問題は、コンテキストが空で、開始するよう、各--作業単位の有効期間が短いコンテキストを使用する最善の方法があります、それに付随するエンティティを保存してそれらのエンティティとし、コンテキストが破棄されて破棄されます。
 
 ## <a name="identifying-new-entities"></a>新しいエンティティを識別します。
 
@@ -85,6 +88,10 @@ Update メソッドは、通常、更新、挿入ではないエンティティ�
 > 追跡対象エンティティの別の値を持つプロパティを変更済みとして SetValues にマークされるだけです。 これは、更新が送信されると、実際に変更された列のみが更新されることを意味します。 (と何が変更された場合、更新プログラムは送信されませんまったく)。
 
 ## <a name="working-with-graphs"></a>グラフの操作
+
+### <a name="identity-resolution"></a>Id 解決
+
+前述のように、EF コアは指定された主キーの値を持つエンティティの 1 つのインスタンスをのみ追跡できます。 グラフを操作するときに、この不変性は保持され、コンテキストは、1 つだけ作業単位を使用する必要がありますになるようグラフが作成されたことをお勧め必要があります。 グラフには、重複が含まれているが場合、必要がありますを 1 つに複数のインスタンスを統合する EF に送信する前に、グラフを処理します。 これは、できない可能性があります trivial にインスタンスがある競合する値、およびリレーションシップのため、統合の重複は競合の解決を避けるために、アプリケーション パイプラインにできるだけ早く行う必要があります。
 
 ### <a name="all-newall-existing-entities"></a>すべての新しいまたはすべて既存のエンティティ
 

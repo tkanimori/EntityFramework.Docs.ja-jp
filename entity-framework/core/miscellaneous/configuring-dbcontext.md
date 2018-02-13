@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 ms.technology: entity-framework-core
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: de26e3b28851d4dc4e50f0490093dd05ad489b31
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 6980acd53b0a74055af7a1e04b476f4625c327c9
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext を構成します。
 
@@ -18,15 +18,15 @@ ms.lasthandoff: 12/22/2017
 
 ## <a name="design-time-dbcontext-configuration"></a>デザイン時 DbContext 構成
 
-などの EF コア デザイン時ツール[移行](xref:core/managing-schemas/migrations/index)を検出しての作業のインスタンスを作成する必要がある、`DbContext`型アプリケーションのエンティティ型とデータベース スキーマへのマップ方法に関する詳細情報を収集するためにします。 ツールを簡単に作成できる限り、このプロセスは自動可能、`DbContext`をそれが構成されます同様にラント時の構成方法とするようにします。
+などの EF コア デザイン時ツール[移行](xref:core/managing-schemas/migrations/index)を検出しての作業のインスタンスを作成する必要がある、`DbContext`型アプリケーションのエンティティ型とデータベース スキーマへのマップ方法に関する詳細情報を収集するためにします。 ツールを簡単に作成できる限り、このプロセスは自動可能、`DbContext`をそれが構成されます同様に実行時の構成方法とするようにします。
 
 必要な構成情報を提供する任意のパターンの中に、`DbContext`ランタイムの使用を必要とするツールで作業ができ、`DbContext`デザイン時にのみ使用できますパターンの数に制限します。 これらについては説明でより詳しく、[コンテキストの作成にデザイン時](xref:core/miscellaneous/cli/dbcontext-creation)セクションです。
 
 ## <a name="configuring-dbcontextoptions"></a>DbContextOptions を構成します。
 
-`DbContext`インスタンスがあります`DbContextOptions`のすべての作業を実行します。 `DbContextOptions`インスタンスなどの構成情報を実行します。
+`DbContext` インスタンスがあります`DbContextOptions`のすべての作業を実行します。 `DbContextOptions`インスタンスなどの構成情報を実行します。
 
-- データベース プロバイダーを使用するのには、通常などのメソッドを呼び出すことによって選択`UseSqlServer`または`UseSqlite`
+- データベース プロバイダーを使用するのには、通常などのメソッドを呼び出すことによって選択`UseSqlServer`または `UseSqlite`
 - 任意の必要な接続文字列またはデータベースのインスタンスの識別子通常に渡される引数として上記プロバイダーの選択メソッド
 - 通常、プロバイダーの選択メソッドの呼び出しの内部チェーンも、任意のプロバイダー レベル オプションの動作セレクター
 - 通常チェーン プロバイダー セレクター メソッドは前に、または後に [全般]、EF コア動作セレクター
@@ -108,7 +108,7 @@ using (var context = new BloggingContext())
 
 使用して EF コア サポート`DbContext`依存性の注入コンテナーにします。 使用して、DbContext 型をサービス コンテナーに追加することができます、`AddDbContext<TContext>`メソッドです。
 
-`AddDbContext<TContext>`両方、DbContext 型と、`TContext`と、対応する`DbContextOptions<TContext>`サービス コンテナーからの挿入用に使用できます。
+`AddDbContext<TContext>` 両方、DbContext 型と、`TContext`と、対応する`DbContextOptions<TContext>`サービス コンテナーからの挿入用に使用できます。
 
 参照してください[読み取り多く](#more-reading)下依存関係の挿入の詳細についてはします。
 
