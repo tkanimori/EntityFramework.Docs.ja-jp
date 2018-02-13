@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: 06f1f18b-3267-4f79-b94e-173f9db0a7cb
 ms.technology: entity-framework-core
 uid: core/get-started/full-dotnet/index
-ms.openlocfilehash: c69c851e8e2cda944fdf1901c19b0c45cf9ac942
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b6b265ed8742459921b7ba4f3f04720eb43d06da
+ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/12/2018
 ---
 # <a name="getting-started-with-ef-core-on-net-framework"></a>.NET Framework での EF Core の概要
 
@@ -19,4 +19,4 @@ ms.lasthandoff: 10/27/2017
 これらのチュートリアルで学習した手法は、WPF や WinForms など、.NET Framework を対象とするあらゆるアプリケーションで使用できます。
 
 > [!NOTE]  
-> これらのチュートリアルとそれに付属するサンプルは EF Core 2.0 を使用するように更新されています (引き続き EF Core 1.1 を使用する UWP チュートリアルを除く)。 ただし、ほとんどの場合、命令を最小限変更するだけで、以前のリリースを使用するアプリケーションを作成できるはずです。
+> これらのチュートリアルと付属のサンプルは、EF Core 2.0 を使用するために更新されました。 ただし、ほとんどの場合、命令を最小限変更するだけで、以前のリリースを使用するアプリケーションを作成できるはずです。
