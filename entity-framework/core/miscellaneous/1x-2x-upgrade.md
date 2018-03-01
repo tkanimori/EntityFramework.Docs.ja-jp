@@ -6,11 +6,11 @@ ms.date: 8/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 ms.technology: entity-framework-core
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 380f27c9f00943a2909ec7b876e151572a67dc37
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 30f4de794d42b1385145286e77c2e7c67987fea6
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF コア 2.0 へのアプリケーションのアップグレード
 
@@ -78,15 +78,15 @@ namespace AspNetCoreDotNetCore2._0App
 
 2.0 リリース、`IDbContextFactory<TContext>`引き続き存在しますが、不使用とマークされます。
 
-### <a name="dbcontextfactoryoptions-removed"></a>DbContextFactoryOptions の削除
+### <a name="dbcontextfactoryoptions-removed"></a>DbContextFactoryOptions removed
 
 変更のため、ASP.NET Core 2.0 上で説明した、ことを確認しました`DbContextFactoryOptions`が不要になった新しい`IDesignTimeDbContextFactory<TContext>`インターフェイスです。 ここでは、代替の代わりに使用する必要があります。
 
-DbContextFactoryOptions | 代替
---- | ---
-ApplicationBasePath | AppContext.BaseDirectory
-ContentRootPath | Directory.GetCurrentDirectory()
-EnvironmentName | Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT")
+| DbContextFactoryOptions | 代替                                                  |
+|:------------------------|:-------------------------------------------------------------|
+| ApplicationBasePath     | AppContext.BaseDirectory                                     |
+| ContentRootPath         | Directory.GetCurrentDirectory()                              |
+| EnvironmentName         | Environment.GetEnvironmentVariable("ASPNETCORE_ENVIRONMENT") |
 
 ### <a name="design-time-working-directory-changed"></a>デザイン時の作業ディレクトリが変更されました
 
@@ -159,7 +159,7 @@ optionsBuilder.UseInMemoryDatabase("MyDatabase");
 
 ### <a name="new-clientsetnull-delete-behavior"></a>新しい ClientSetNull 削除の動作
 
-以前のリリースで[DeleteBehavior.Restrict](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/DeleteBehavior.cs)がエンティティの動作がコンテキストによって追跡以上の一致した閉じたこと`SetNull`セマンティクスです。 EF コア 2.0 で新しい`ClientSetNull`動作が省略可能なリレーションシップの既定値として導入されました。 この動作は、`SetNull`追跡対象のエンティティのセマンティクスと`Restrict`EF コアを使用して作成されたデータベースの動作です。 経験では、これらは、追跡対象のエンティティとデータベースの最も期待/役に立つの動作です。 `DeleteBehavior.Restrict`省略可能なリレーションシップを設定すると、追跡対象のエンティティのようになりました受け入れられます。
+以前のリリースで[DeleteBehavior.Restrict](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/DeleteBehavior.cs)がエンティティの動作がコンテキストによって追跡以上の一致した閉じたこと`SetNull`セマンティクスです。 EF コア 2.0 で新しい`ClientSetNull`動作が省略可能なリレーションシップの既定値として導入されました。 この動作は、`SetNull`追跡対象のエンティティのセマンティクスと`Restrict`EF コアを使用して作成されたデータベースの動作です。 経験では、これらは、追跡対象のエンティティとデータベースの最も期待/役に立つの動作です。 `DeleteBehavior.Restrict` 省略可能なリレーションシップを設定すると、追跡対象のエンティティのようになりました受け入れられます。
 
 ### <a name="provider-design-time-packages-removed"></a>プロバイダーのデザイン時パッケージの削除
 
