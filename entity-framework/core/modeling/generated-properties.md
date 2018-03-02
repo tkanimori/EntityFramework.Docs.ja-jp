@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 2d79bf1339ebe522c39fe8971d908c30e1f4dca0
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 892494461bcf49ee10d05c972da0ba19ca003c35
+ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="generated-values"></a>生成される値
 
@@ -48,9 +48,9 @@ ms.lasthandoff: 10/27/2017
 >
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.sql)]
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-規則では、整数または GUID データ型の主キーを追加で生成された値を持つセットアップとなります。 他のすべてのプロパティには、値を生成しないとセットアップはできます。
+慣例により、型 short、int 型の非複合主キーが long、または Guid が追加で生成された値が設定されます。 他のすべてのプロパティには、値を生成しないとセットアップはできます。
 
 ## <a name="data-annotations"></a>データの注釈
 
@@ -85,7 +85,7 @@ Fluent API を使用して、特定のプロパティの値の生成のパター
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> `ValueGeneratedOnAdd()`EF を追加したエンティティの値が生成される、EF が値を生成する実際のメカニズムを設定することは保証されませんを理解したことができます。  参照してください[で生成された値を追加](#value-generated-on-add)詳細についてはします。
+> `ValueGeneratedOnAdd()` EF を追加したエンティティの値が生成される、EF が値を生成する実際のメカニズムを設定することは保証されませんを理解したことができます。  参照してください[で生成された値を追加](#value-generated-on-add)詳細についてはします。
 
 ### <a name="value-generated-on-add-or-update-fluent-api"></a>生成された値を追加または更新 (Fluent API)
 

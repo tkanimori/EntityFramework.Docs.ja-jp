@@ -6,18 +6,18 @@ ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: ec69bb128890a1e0b72fe77014f37747585bb5a5
-ms.sourcegitcommit: 3b21a7fdeddc7b3c70d9b7777b72bef61f59216c
+ms.openlocfilehash: dadc6235c3879ae27ad5c99988a5e594872045df
+ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/22/2018
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
 Entity Framework Core では、関連エンティティの読み込みをモデルで、ナビゲーション プロパティを使用することができます。 関連するデータの読み込みに使用される 3 つの一般的な O/RM パターンがあります。
 * **一括読み込み**最初のクエリの一部として、データベースから、関連するデータが読み込まれたことを意味します。
 * **明示的な読み込み**は後で、データベースから、関連するデータを明示的に読み込むことを意味します。
-* **遅延読み込み**ナビゲーション プロパティにアクセスする場合、関連するデータが透過的にデータベースから読み込むことを意味します。 遅延読み込みは、まだ EF Core では可能ではありません。
+* **遅延読み込み**ナビゲーション プロパティにアクセスする場合、関連するデータが透過的にデータベースから読み込むことを意味します。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
@@ -57,6 +57,61 @@ Entity Framework Core では、関連エンティティの読み込みをモデ�
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
+### <a name="include-on-derived-types"></a>派生型では、します。
+
+ナビゲーションを使用して、派生型でのみ定義から関連するデータを含めることができます`Include`と`ThenInclude`です。 
+
+次のようなモデルを指定します。
+
+```Csharp
+    public class SchoolContext : DbContext
+    {
+        public DbSet<Person> People { get; set; }
+        public DbSet<School> Schools { get; set; }
+
+        protected override void OnModelCreating(ModelBuilder modelBuilder)
+        {
+            modelBuilder.Entity<School>().HasMany(s => s.Students).WithOne(s => s.School);
+        }
+    }
+
+    public class Person
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+    }
+
+    public class Student : Person
+    {
+        public School School { get; set; }
+    }
+
+    public class School
+    {
+        public int Id { get; set; }
+        public string Name { get; set; }
+
+        public List<Student> Students { get; set; }
+    }
+```
+
+内容`School`受講者は、すべてのユーザーのナビゲーションを集中的に読み込めるパターンの番号を使用します。
+
+- キャストを使用してください。
+```Csharp
+context.People.Include(person => ((Student)person).School).ToList()
+```
+
+- 使用して`as`演算子
+```Csharp
+context.People.Include(person => (person as Student).School).ToList()
+```
+
+- オーバー ロードを使用して`Include`型のパラメーターを受け取る `string`
+```Csharp
+context.People.Include("Student").ToList()
+```
+
 ### <a name="ignored-includes"></a>無視が含まれています
 
 不要になったクエリの開始とエンティティ型のインスタンスを返すように、クエリを変更する場合は、include 演算子は無視されます。
@@ -94,13 +149,174 @@ LINQ クエリを表すナビゲーション プロパティの内容を取得�
 
 ## <a name="lazy-loading"></a>遅延読み込み
 
-遅延読み込みが EF のコアでまだサポートされていません。 表示することができます、[遅延読み込みバックログ項目に、](https://github.com/aspnet/EntityFramework/issues/3797)この機能を追跡するためにします。
+> [!NOTE]  
+> この機能は、EF コア 2.1 で導入されました。
+
+遅延読み込みを使用する最も簡単な方法は、インストールすることによって、 [Microsoft.EntityFramworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)パッケージと呼び出しを有効にすると`UseLazyLoadingProxies`です。 例:
+```Csharp
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseLazyLoadingProxies()
+        .UseSqlServer(myConnectionString);
+```
+または、AddDbContext を使用する場合。
+```Csharp
+    .AddDbContext<BloggingContext>(
+        b => b.UseLazyLoadingProxies()
+              .UseSqlServer(myConnectionString));
+```
+EF コアを遅延読み込みがされる--オーバーライド可能なナビゲーション プロパティに対して有効にする必要があります`virtual`およびクラスから継承されることができます。 たとえば、次のエンティティで、`Post.Blog`と`Blog.Posts`遅延読み込みされたナビゲーション プロパティになります。
+```Csharp
+public class Blog
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public virtual ICollection<Post> Posts { get; set; }
+}
+
+public class Post
+{
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public virtual Blog Blog { get; set; }
+}
+```
+### <a name="lazy-loading-without-proxies"></a>プロキシなしの遅延読み込み
+
+遅延読み込みのプロキシを挿入することによって機能、 `ILazyLoader` 」の説明に従って、エンティティ サービス[エンティティ型のコンス トラクター](../modeling/constructors.md)です。 例:
+```Csharp
+public class Blog
+{
+    private ICollection<Post> _posts;
+
+    public Blog()
+    {
+    }
+
+    private Blog(ILazyLoader lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private ILazyLoader LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public ICollection<Post> Posts
+    {
+        get => LazyLoader?.Load(this, ref _posts);
+        set => _posts = value;
+    }
+}
+
+public class Post
+{
+    private Blog _blog;
+
+    public Post()
+    {
+    }
+
+    private Post(ILazyLoader lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private ILazyLoader LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public Blog Blog
+    {
+        get => LazyLoader?.Load(this, ref _blog);
+        set => _blog = value;
+    }
+}
+```
+これから継承するエンティティ型または仮想するナビゲーション プロパティを必要としないできで作成されたエンティティ インスタンス`new`遅延読み込み 1 回に、コンテキストにアタッチします。 ただしへの参照が必要、`ILazyLoader`サービスで、エンティティ型を EF コア アセンブリに結合します。 この EF コアを回避するを許可、`ILazyLoader.Load`代理人として挿入するメソッド。 例:
+```Csharp
+public class Blog
+{
+    private ICollection<Post> _posts;
+
+    public Blog()
+    {
+    }
+
+    private Blog(Action<object, string> lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private Action<object, string> LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public ICollection<Post> Posts
+    {
+        get => LazyLoader?.Load(this, ref _posts);
+        set => _posts = value;
+    }
+}
+
+public class Post
+{
+    private Blog _blog;
+
+    public Post()
+    {
+    }
+
+    private Post(Action<object, string> lazyLoader)
+    {
+        LazyLoader = lazyLoader;
+    }
+
+    private Action<object, string> LazyLoader { get; set; }
+
+    public int Id { get; set; }
+    public string Title { get; set; }
+    public string Content { get; set; }
+
+    public Blog Blog
+    {
+        get => LazyLoader?.Load(this, ref _blog);
+        set => _blog = value;
+    }
+}
+```
+使用して上記のコード、`Load`ビット クリーナー デリゲートを使用できるようにする拡張メソッド。
+```Csharp
+public static class PocoLoadingExtensions
+{
+    public static TRelated Load<TRelated>(
+        this Action<object, string> loader,
+        object entity,
+        ref TRelated navigationField,
+        [CallerMemberName] string navigationName = null)
+        where TRelated : class
+    {
+        loader?.Invoke(entity, navigationName);
+
+        return navigationField;
+    }
+}
+```
+> [!NOTE]  
+> 遅延読み込みデリゲート コンス トラクターのパラメーターには、"lazyLoader"を呼び出す必要があります。 今後のリリースでこれが予定されて別の名前を使用する構成。
 
 ## <a name="related-data-and-serialization"></a>関連データとシリアル化
 
 EF コアは自動的に修正をナビゲーション プロパティ、しまうサイクルで、オブジェクト グラフ内ためです。 たとえば、ブログを読み込みが関連付けられて投稿投稿のコレクションを参照するブログ オブジェクトになります。 これらの投稿の各ブログへの参照になります。
 
-一部のシリアル化フレームワークでは、このようなサイクルは許可されません。 たとえば、Json.NET であっても、循環参照が発生したときの場合、次の例外がスローされます。
+一部のシリアル化フレームワークでは、このようなサイクルは許可されません。 たとえば、Json.NET では、循環参照が発生した場合、次の例外がスローされます。
 
 > Newtonsoft.Json.JsonSerializationException: 自己のループを型 'MyApplication.Models.Blog' と 'ブログ' プロパティの検出を参照します。
 
