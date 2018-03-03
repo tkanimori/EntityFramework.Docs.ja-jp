@@ -7,10 +7,10 @@ ms.assetid: d0168c04-d30d-4219-98f8-a54690cea3c6
 ms.technology: entity-framework-core
 uid: core/providers/firebird-community/index
 ms.openlocfilehash: 682988a91ef04dbd552588a537f53124b931f17d
-ms.sourcegitcommit: 1cbd3d3cd92bdaf8223b8821c58200bcfed10ede
+ms.sourcegitcommit: 6ed04bb05a3d05c367f0f55616807af2bf4037ae
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/23/2017
+ms.lasthandoff: 02/27/2018
 ---
 # <a name="firebird-ef-core-database-provider"></a>Firebird EF Core データベース プロバイダー
 
@@ -20,7 +20,7 @@ ms.lasthandoff: 11/23/2017
 >
 > このプロバイダーは、Entity Framework Core プロジェクトの一部として保守管理されていません。 サードパーティ プロバイダーの利用を検討するとき、要件に合うよう、品質、使用許諾、サポートなどを必ず評価してください。
 
-## <a name="install"></a>Install
+## <a name="install"></a>インストール
 
 [EntityFrameworkCore.FirebirdSQL NuGet パッケージ](https://www.nuget.org/packages/EntityFrameworkCore.FirebirdSQL)をインストールします。
 

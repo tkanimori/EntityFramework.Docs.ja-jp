@@ -7,10 +7,10 @@ ms.assetid: 5ecd1b22-c68e-4d87-ba39-b0761f4d5b90
 ms.technology: entity-framework-core
 uid: core/providers/npgsql/index
 ms.openlocfilehash: acf2e18d7a608b0d75b571a5ac0199d84f86066b
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.sourcegitcommit: 6ed04bb05a3d05c367f0f55616807af2bf4037ae
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/27/2018
 ---
 # <a name="npgsql-ef-core-database-provider-for-postgresql"></a>PostgreSQL の Npgsql EF Core データベース プロバイダー
 
@@ -19,7 +19,7 @@ ms.lasthandoff: 11/15/2017
 > [!NOTE]  
 > このプロバイダーは、Entity Framework Core プロジェクトの一部として保守管理されていません。 サードパーティ プロバイダーの利用を検討するとき、要件に合うよう、品質、使用許諾、サポートなどを必ず評価してください。
 
-## <a name="install"></a>Install
+## <a name="install"></a>インストール
 
 [Npgsql.EntityFrameworkCore.PostgreSQL NuGet パッケージ](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL)をインストールします。
 
