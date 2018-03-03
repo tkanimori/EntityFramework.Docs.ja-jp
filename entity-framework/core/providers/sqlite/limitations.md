@@ -6,11 +6,11 @@ ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 ms.technology: entity-framework-core
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 3e0f375fa3e01747565cc158af02f6d21f6ae898
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 8a60ccfc61a5757df8ebedf257379d4d3dbffbf6
+ms.sourcegitcommit: 60b831318c4f5ec99061e8af6a7c9e7c03b3469c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/02/2018
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF コア データベース プロバイダーの制限事項
 
@@ -42,8 +42,8 @@ SQLite データベース エンジンは、多数の他のリレーショナル
 | DropPrimaryKey       | ✗          |                  |
 | DropTable            | ✔          | 1              |
 | DropUniqueConstraint | ✗          |                  |
-| RenameColumn         | ✔          | 2.1              |
-| RenameIndex          | ✔          | 1              |
+| RenameColumn         | ✗          |                  |
+| RenameIndex          | ✔          | 2.1              |
 | RenameTable          | ✔          | 1              |
 | EnsureSchema         | ✔ (何も行いません)  | 2.0              |
 | DropSchema           | ✔ (何も行いません)  | 2.0              |
