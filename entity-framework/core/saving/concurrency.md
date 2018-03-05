@@ -1,31 +1,59 @@
 ---
-title: "同時実行制御 - EF コアの処理"
+title: "同時実行の競合の EF コアの処理"
 author: rowanmiller
 ms.author: divega
-ms.date: 10/27/2016
-ms.assetid: bce0539d-b0cd-457d-be71-f7ca16f3baea
+ms.date: 03/03/2018
 ms.technology: entity-framework-core
 uid: core/saving/concurrency
-ms.openlocfilehash: bbd3e154c1b27b16c7d8f8fbf9ed51df0849795c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 288d9c6fced5ebbaa2c366248c68547502c3698e
+ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/05/2018
 ---
-# <a name="handling-concurrency"></a>同時実行の処理
+# <a name="handling-concurrency-conflicts"></a>同時実行の競合の処理
 
-プロパティが、同時実行トークンとして構成されている場合 EF は、その他のユーザーが変更なし、データベース内でその値そのレコードに変更を保存するときにでチェックされます。
+> [!NOTE]
+> このページは、EF Core での同時実行制御のしくみと、アプリケーションで同時実行の競合を処理する方法を説明します。 参照してください[同時実行トークン](xref:core/modeling/concurrency)モデルの同時実行トークンを構成する方法の詳細。
 
-> [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Concurrency/)GitHub でします。
+> [!TIP]
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Concurrency/)は GitHub で確認できます。
 
-## <a name="how-concurrency-handling-works-in-ef-core"></a>EF Core での同時実行処理のしくみ
+_データベースの同時実行_状況で複数のプロセスまたはユーザーへのアクセスまたはデータベース内の同じデータを同時に変更を指します。 _同時実行制御_同時変更の有無でデータの一貫性を確保するために使用する特定のメカニズムを指します。
 
-Entity Framework Core での同時実行処理のしくみの詳細については、次を参照してください。[同時実行トークン](../modeling/concurrency.md)です。
+EF Core を実装する_オプティミスティック同時実行制御_ロックやことにより、複数のプロセスまたはユーザーの同期のオーバーヘッドなしとは独立して変更を加えることを意味します。 理想的な状況でこれらの変更は互いに影響しませんので、できるとを成功させるのにします。 最悪のシナリオで 2 つ以上のプロセスは、競合する変更を行うし、うち片方だけが成功する必要があります。
+
+## <a name="how-concurrency-control-works-in-ef-core"></a>EF Core での同時実行制御のしくみ
+
+同時実行トークンを使用してオプティミスティック同時実行制御を実装するように構成のプロパティ: 中に update または delete 操作が実行されるたびに`SaveChanges`元のに対して、データベースに対する同時実行トークンの値が比較EF コアによって読み取られた値。
+
+- 値が一致した場合、操作が完了することができます。
+- 値が一致しない場合、EF Core では、他のユーザーが競合する操作が実行して、現在のトランザクションを中止前提としています。
+
+別のユーザーが現在の操作と競合する操作を実行すると、状況と呼ばれる_同時実行の競合_です。
+
+データベース プロバイダーは、同時実行トークンの値の比較の実装を担当します。
+
+リレーショナル データベースの EF コアにはで同時実行トークンの値については、チェックが含まれています、`WHERE`いずれかの句`UPDATE`または`DELETE`ステートメントです。 ステートメントを実行した後は、EF コアは、影響を受けた行の数を読み取ります。
+
+行が影響はないと、同時実行の競合が検出されると、および EF コアをスロー`DbUpdateConcurrencyException`です。
+
+構成することがありますたとえば、`LastName`で`Person`同時実行トークンであります。 ユーザーに任意の更新操作が 同時実行制御チェックが含まれます、`WHERE`句。
+
+``` sql
+UPDATE [Person] SET [FirstName] = @p1
+WHERE [PersonId] = @p0 AND [LastName] = @p2;
+```
 
 ## <a name="resolving-concurrency-conflicts"></a>同時実行の競合を解決します。
 
-同時実行の競合を解決するには、データベースに加えられた変更と、現在のユーザーから、保留中の変更をマージするアルゴリズムを使用してが含まれます。 正確な方法、アプリケーションは異なりますが、一般的な方法をユーザーに値を表示し、データベースに格納するための正しい値を決定する、です。
+引き続き使用する前の例では、1 人のユーザーが、いくつかの変更を保存しようとしています。、 `Person`、別のユーザーが既に変更されて、 `LastName` 、例外がスローされます。
+
+この時点では、アプリケーションでしただけで更新が競合する変更のため失敗したことをユーザーに通知し、上に移動します。 このレコードがまだ同じの実際のユーザーを表すことを確認し、操作を再試行するユーザー入力を求めることが望ましい場合があります。
+
+このプロセスの例は、_同時実行の競合を解決する_です。
+
+同時実行の競合を解決するには、現在の保留中の変更をマージが含まれます`DbContext`値で、データベースにします。 どのような値を取得マージして、アプリケーションによって異なります、ユーザー入力から指示可能性があります。
 
 **同時実行の競合を解決するために使用可能な値の 3 つのセットがあります。**
 
@@ -35,106 +63,13 @@ Entity Framework Core での同時実行処理のしくみの詳細について�
 
 * **値をデータベース**はデータベースに格納されている値です。
 
-同時実行の競合を処理する catch、`DbUpdateConcurrencyException`中に`SaveChanges()`を使用して`DbUpdateConcurrencyException.Entries`を影響を受けるエンティティでは、一連の変更を準備し、再試行、`SaveChanges()`操作します。
+同時実行の競合を処理する一般的な方法です。
 
-次の例では、`Person.FirstName`と`Person.LastName`同時実行トークンとしてセットアップします。 `// TODO:`をデータベースに保存する値を選択するアプリケーション固有のロジックを含めると、場所にコメントです。
+1. キャッチ`DbUpdateConcurrencyException`中に`SaveChanges`です。
+2. 使用して`DbUpdateConcurrencyException.Entries`影響を受けるエンティティの一連の変更を準備します。
+3. データベースの現在の値を反映するように、同時実行トークンの元の値を更新します。
+4. 競合が発生しないまでは、プロセスを再試行してください。
 
-<!-- [!code-csharp[Main](samples/core/Saving/Saving/Concurrency/Sample.cs?highlight=53,54)] -->
-``` csharp
-using Microsoft.EntityFrameworkCore;
-using System;
-using System.ComponentModel.DataAnnotations;
-using System.Linq;
+次の例では、`Person.FirstName`と`Person.LastName`は、同時実行トークンとしてセットアップします。 `// TODO:`を保存する値を選択するアプリケーション固有のロジックを含める場所にコメントです。
 
-namespace EFSaving.Concurrency
-{
-    public class Sample
-    {
-        public static void Run()
-        {
-            // Ensure database is created and has a person in it
-            using (var context = new PersonContext())
-            {
-                context.Database.EnsureDeleted();
-                context.Database.EnsureCreated();
-
-                context.People.Add(new Person { FirstName = "John", LastName = "Doe" });
-                context.SaveChanges();
-            }
-
-            using (var context = new PersonContext())
-            {
-                // Fetch a person from database and change phone number
-                var person = context.People.Single(p => p.PersonId == 1);
-                person.PhoneNumber = "555-555-5555";
-
-                // Change the persons name in the database (will cause a concurrency conflict)
-                context.Database.ExecuteSqlCommand("UPDATE dbo.People SET FirstName = 'Jane' WHERE PersonId = 1");
-
-                try
-                {
-                    // Attempt to save changes to the database
-                    context.SaveChanges();
-                }
-                catch (DbUpdateConcurrencyException ex)
-                {
-                    foreach (var entry in ex.Entries)
-                    {
-                        if (entry.Entity is Person)
-                        {
-                            // Using a NoTracking query means we get the entity but it is not tracked by the context
-                            // and will not be merged with existing entities in the context.
-                            var databaseEntity = context.People.AsNoTracking().Single(p => p.PersonId == ((Person)entry.Entity).PersonId);
-                            var databaseEntry = context.Entry(databaseEntity);
-
-                            foreach (var property in entry.Metadata.GetProperties())
-                            {
-                                var proposedValue = entry.Property(property.Name).CurrentValue;
-                                var originalValue = entry.Property(property.Name).OriginalValue;
-                                var databaseValue = databaseEntry.Property(property.Name).CurrentValue;
-
-                                // TODO: Logic to decide which value should be written to database
-                                // entry.Property(property.Name).CurrentValue = <value to be saved>;
-
-                                // Update original values to
-                                entry.Property(property.Name).OriginalValue = databaseEntry.Property(property.Name).CurrentValue;
-                            }
-                        }
-                        else
-                        {
-                            throw new NotSupportedException("Don't know how to handle concurrency conflicts for " + entry.Metadata.Name);
-                        }
-                    }
-
-                    // Retry the save operation
-                    context.SaveChanges();
-                }
-            }
-        }
-
-        public class PersonContext : DbContext
-        {
-            public DbSet<Person> People { get; set; }
-
-            protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-            {
-                optionsBuilder.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=EFSaving.Concurrency;Trusted_Connection=True;");
-            }
-        }
-
-        public class Person
-        {
-            public int PersonId { get; set; }
-
-            [ConcurrencyCheck]
-            public string FirstName { get; set; }
-
-            [ConcurrencyCheck]
-            public string LastName { get; set; }
-
-            public string PhoneNumber { get; set; }
-        }
-
-    }
-}
-```
+[!code-csharp[Main](../../../samples/core/Saving/Saving/Concurrency/Sample.cs?name=ConcurrencyHandlingCode&highlight=34-35)]

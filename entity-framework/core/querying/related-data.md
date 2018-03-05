@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: dadc6235c3879ae27ad5c99988a5e594872045df
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: 0d7705e0e5368435536e98d319c853ea8c732643
+ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/05/2018
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -152,7 +152,7 @@ LINQ クエリを表すナビゲーション プロパティの内容を取得�
 > [!NOTE]  
 > この機能は、EF コア 2.1 で導入されました。
 
-遅延読み込みを使用する最も簡単な方法は、インストールすることによって、 [Microsoft.EntityFramworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)パッケージと呼び出しを有効にすると`UseLazyLoadingProxies`です。 例:
+遅延読み込みを使用する最も簡単な方法は、インストールすることによって、 [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)パッケージと呼び出しを有効にすると`UseLazyLoadingProxies`です。 例:
 ```Csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
