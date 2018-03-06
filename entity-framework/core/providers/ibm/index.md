@@ -7,10 +7,10 @@ ms.assetid: 825e5332-5aa3-4600-9efb-ab71aaff59ec
 ms.technology: entity-framework-core
 uid: core/providers/ibm/index
 ms.openlocfilehash: a9caa8df63850d4f6b5f2164dad7ac5af7504076
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.sourcegitcommit: 6ed04bb05a3d05c367f0f55616807af2bf4037ae
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/27/2018
 ---
 # <a name="ibm-data-server-db2-ef-core-database-providers"></a>IBM Data Server (DB2) EF Core データベース プロバイダー
 
@@ -19,7 +19,7 @@ ms.lasthandoff: 11/15/2017
 > [!NOTE]  
 > このプロバイダーは、Entity Framework Core プロジェクトの一部として保守管理されていません。 サードパーティ プロバイダーの利用を検討するとき、要件に合うよう、品質、使用許諾、サポートなどを必ず評価してください。
 
-## <a name="install"></a>Install
+## <a name="install"></a>インストール
 
 Windows 上で IBM データ サーバーを操作するには、[IBM.EntityFrameworkCore NuGet パッケージ](https://www.nuget.org/packages/IBM.EntityFrameworkCore)をインストールします。
 

@@ -6,11 +6,11 @@ ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 ms.technology: entity-framework-core
 uid: core/index
-ms.openlocfilehash: 13de9cf98111b8e253e073c591fcec04206b4c4f
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: c76b4cd318151b502c549fa0a82800f9987ed94c
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="entity-framework-core-quick-overview"></a>Entity Framework Core 概要
 
@@ -20,16 +20,18 @@ EF Core はオブジェクト リレーショナル マッパー (O/RM) であ�
 
 コードを記述しながら学習したいのであれば、EF Core [入門](get-started/index.md)ガイドのご利用をお勧めします。
 
-## <a name="latest-version-ef-core-20"></a>最新版: EF Core 2.0
+## <a name="what-is-new-in-ef-core"></a>EF Core の新機能
 
-EF Core に精通しており、新しいバージョンの詳細をすぐに知りたい場合は、以下を参照してください。
+EF Core に精通しており、最新リリースの詳細をすぐに知りたい場合は、以下を参照してください。
 
-- **[EF Core 2.0 の新機能](what-is-new/index.md)**
-- **[既存アプリケーションを EF Core 2.0 にアップグレードする](miscellaneous/1x-2x-upgrade.md)**
+- **[EF Core 2.1 (現在プレビュー) の新機能](xref:core/what-is-new/ef-core-2.1)**
+- **[EF Core 2.0 (最新リリース バージョン) の新機能](xref:core/what-is-new/ef-core-2.0)**
+- **[既存アプリケーションを EF Core 2.0 にアップグレードする](xref:core/miscellaneous/1x-2x-upgrade)**
+
 
 ## <a name="get-entity-framework-core"></a>Entity Framework Core を入手する
 
-使用するデータベース プロバイダーに対して [NuGet パッケージ](https://docs.nuget.org/ndocs/quickstart/use-a-package)をインストールします。 例: クロスプラットフォーム開発で SQL Server プロバイダーをインストールするためにコマンド ラインで `dotnet` ツールを使用する場合、次のようになります。
+使用するデータベース プロバイダーに対して [NuGet パッケージ](https://docs.nuget.org/ndocs/quickstart/use-a-package)をインストールします。 たとえば、 クロスプラットフォーム開発で SQL Server プロバイダーをインストールするためにコマンド ラインで `dotnet` ツールを使用する場合、次のようになります。
 
 ``` Console
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer

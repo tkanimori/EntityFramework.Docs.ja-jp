@@ -6,17 +6,17 @@ ms.date: 10/27/2016
 ms.assetid: 9af0cba7-7605-4f8f-9cfa-dd616fcb880c
 ms.technology: entity-framework-core
 uid: core/providers/in-memory/index
-ms.openlocfilehash: a8e05f50837f3da554b338475d24215706dfa2ec
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: 356af9390a8aafa5afe35f333cd1e6ac1988390d
+ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 02/28/2018
 ---
 # <a name="ef-core-in-memory-database-provider"></a>EF Core In-Memory データベース プロバイダー
 
-このデータベース プロバイダーにより、メモリ内のデータベースで Entity Framework Core を使用することが許可されます。 Entity Framework Core を使用するコードをテストするときに便利です。 このプロバイダーは [EntityFramework GitHub プロジェクト](https://github.com/aspnet/EntityFramework)の一部として保守管理されます。
+このデータベース プロバイダーにより、メモリ内のデータベースで Entity Framework Core を使用することが許可されます。 これはテストに役立つことがあります。ただし、リレーショナル データベースのテストの置き換えとしてはインメモリ モードの SQLite プロバイダーの方が適しています。 このプロバイダーは、[Entity Framework Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore)の一部として保守管理されています。
 
-## <a name="install"></a>Install
+## <a name="install"></a>インストール
 
 [Microsoft.EntityFrameworkCore.InMemory NuGet パッケージ](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory/)をインストールします。
 
