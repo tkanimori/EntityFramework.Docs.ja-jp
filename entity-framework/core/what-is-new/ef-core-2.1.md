@@ -1,0 +1,151 @@
+---
+title: "EF Core 2.1 の新機能 - EF Core"
+author: divega
+ms.author: divega
+ms.date: 2/20/2018
+ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
+ms.technology: entity-framework-core
+uid: core/what-is-new/ef-core-2.1
+ms.openlocfilehash: 1e5e9839bae1e5da4082d90c02d098bb3b2b43bd
+ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 02/28/2018
+---
+# <a name="new-features-in-ef-core-21"></a>EF Core 2.1 の新機能
+> [!NOTE]  
+> このリリースはまだプレビュー段階です。
+
+数多くの小さな機能強化と 100 を超える製品のバグ修正の他に、EF Core 2.1 にはいくつかの新機能が含まれています。
+
+## <a name="lazy-loading"></a>遅延読み込み
+EF Core に、すべてのユーザーが自身のナビゲーション プロパティを必要なときに読み込むことができるエンティティ クラスを作成するために必要なビルド ブロックが含まれるようになりました。 また、これらのビルド ブロックを利用して、最小限の変更を行ったエンティティ クラス (仮想ナビゲーション プロパティが指定されたクラスなど) に基づいて遅延読み込みを生成する新しいパッケージ Microsoft.EntityFrameworkCore.Proxies も作成しました。
+
+このトピックの詳細については、[遅延読み込みのセクション](xref:core/querying/related-data#lazy-loading)をご覧ください。
+
+## <a name="parameters-in-entity-constructors"></a>エンティティ コンストラクターのパラメーター
+遅延読み込みに必要なビルド ブロックの 1 つとして、コンストラクターでパラメーターを受け取るエンティティを作成できるようにしました。 パラメーターを使用して、プロパティ値、遅延読み込みデリゲート、およびサービスを挿入することができます。
+
+このトピックの詳細については、[パラメーターが指定されたエンティティ コンストラクターに関するセクション](xref:core/modeling/constructors)をご覧ください。
+
+## <a name="value-conversions"></a>値変換
+これまで、EF Core では、基になるデータベース プロバイダーでネイティブにサポートされる型のプロパティしかマップできませんでした。 値は、変換されずに列とプロパティの間で相互にコピーされていました。 EF Core 2.1 以降では、列から取得された値を、値変換を適用して変換してから、プロパティに適用することができます。その逆も可能です。 必要に応じて、規則によって適用できる多くの変換に加え、列とプロパティ間のカスタム変換を登録できるようにする明示的な構成 API もあります。 この機能の用途をいくつか次に示します。
+
+- 列挙型を文字列として格納する
+- 符号なし整数と SQL Server とのマッピング
+- プロパティ値の自動での暗号化と復号化
+
+このトピックの詳細については、[値変換のセクション](xref:core/modeling/value-conversions)をご覧ください。  
+
+## <a name="linq-groupby-translation"></a>LINQ GroupBy 変換
+EF Core 2.1 より前のバージョンでは、GroupBy LINQ 演算子は常にメモリ内で評価されていました。 これを最も一般的なケースの SQL GROUP BY 句に変換することがサポートされるようになりました。
+
+この例では、さまざまな集計関数の計算に使用される GroupBy を使用したクエリを示しています。
+
+``` csharp
+var query = context.Orders
+    .GroupBy(o => new { o.CustomerId, o.EmployeeId })
+    .Select(g => new
+        {
+          g.Key.CustomerId,
+          g.Key.EmployeeId,
+          Sum = g.Sum(o => o.Amount),
+          Min = g.Min(o => o.Amount),
+          Max = g.Max(o => o.Amount),
+          Avg = g.Average(o => Amount)
+        });
+```
+
+対応する SQL 変換は、次のようになります。
+
+``` SQL
+SELECT [o].[CustomerId], [o].[EmployeeId],
+    SUM([o].[Amount]), MIN([o].[Amount]), MAX([o].[Amount]), AVG([o].[Amount])
+FROM [Orders] AS [o]
+GROUP BY [o].[CustomerId], [o].[EmployeeId];
+```
+
+## <a name="data-seeding"></a>データのシード処理
+新しいリリースでは、データベースに入力する初期データを提供することができます。 EF6 とは異なり、データのシード処理がモデルの構成の一部としてエンティティ型に関連付けられています。 EF Core の移行では、データベースをモデルの新しいバージョンにアップグレードするときに、挿入、更新、または削除のどの操作を適用する必要があるかを自動的に計算できます。
+
+次の例に示すように、これを使用して `OnModelCreating` の Post にシード データを構成できます。
+
+``` csharp
+modelBuilder.Entity<Post>().SeedData(new Post{ Id = 1, Text = "Hello World!" });
+```
+
+このトピックの詳細については、[データのシード処理に関するセクション](xref:core/modeling/data-seeding)をご覧ください。  
+
+## <a name="query-types"></a>クエリ型
+EF Core モデルにクエリ型を含めることができるようになりました。 エンティティ型とは異なり、クエリ型には定義されたキーがないため、クエリ型を挿入、削除または更新することができません (つまり、読み取り専用です)。ただし、クエリによって直接返すことができます。 クエリ型の使用シナリオをいくつか次に示します。
+
+- 主キーを使用しないビューへのマッピング
+- 主キーを使用しないテーブルへのマッピング
+- モデルで定義されているクエリへのマッピング
+- `FromSql()` クエリの戻り値の型として機能
+
+このトピックの詳細については、[クエリ型に関するセクション](xref:core/modeling/query-types)をご覧ください。
+
+## <a name="include-for-derived-types"></a>派生型の Include
+`Include` メソッドの式を記述する際に、派生型でのみ定義されているナビゲーション プロパティを指定できるようになりました。 `Include` の厳密に型指定されたバージョンについては、明示的なキャストまたは `as` 演算子を使用してサポートします。 また、`Include` の文字列バージョンの派生型で定義されているナビゲーション プロパティの名前の参照もサポートされるようになりました。
+
+``` csharp
+var option1 = context.People.Include(p => ((Student)p).School);
+var option2 = context.People.Include(p => (p as Student).School);
+var option3 = context.People.Include("School");
+```
+
+このトピックの詳細については、[派生型を使用した Include に関するセクション](xref:core/querying/related-data#include-on-derived-types)をご覧ください。
+
+## <a name="systemtransactions-support"></a>System.Transactions のサポート
+TransactionScope などの System.Transactions 機能が使用できるようになりました。 これは、この機能をサポートするデータベース プロバイダーを使用する場合、.NET Framework と .NET Core の両方で機能します。
+
+このトピックの詳細については、[System.Transactions に関するセクション](xref:core/saving/transactions#using-systemtransactions)をご覧ください。
+
+## <a name="better-column-ordering-in-initial-migration"></a>最初の移行での列の順序付けの改善
+お客様のフィードバックに基づき、移行で最初に生成されるテーブルの列を、クラスで宣言されているプロパティと同じ順序になるように更新しました。 EF Core では、最初にテーブルが作成されると、その後で新しいメンバーを追加するときに順序を変更できないことに注意してください。
+
+## <a name="optimization-of-correlated-subqueries"></a>相関サブクエリの最適化
+プロジェクションでナビゲーション プロパティを使用して、ルート クエリからのデータと相関サブクエリからのデータが結合される多くの一般的なシナリオで、"N + 1" SQL クエリの実行を回避するようにクエリ変換を改善しました。 最適化には、サブクエリからの結果のバッファリングが必要なため、新しい動作を受け入れるようにクエリを変更する必要があります。
+
+例として、次のクエリは、通常、Customers (顧客) の 1 つのクエリに加え、Orders の N 個 ("N" は返された顧客の数) の個別のクエリに変換されます。
+
+``` csharp
+var query = context.Customers.Select(
+    c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount));
+```
+
+適切な場所に `ToList()` を含めることで、最適化を有効にするバッファリングが Orders に適していることを示します。
+
+``` csharp
+var query = context.Customers.Select(
+    c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount).ToList());
+```
+
+このクエリは、Customers と Orders の 2 つの SQL クエリにのみ変換されることに注意してください。
+
+### <a name="ownedattribute"></a>OwnedAttribute
+
+`[Owned]` で型に注釈を付けるだけで、[所有エンティティ型](xref:core/modeling/owned-entities)を構成して、所有者エンティティをモデルに確実に追加できるようになりました。
+
+``` csharp
+[Owned]
+public class StreetAddress
+{
+    public string Street { get; set; }
+    public string City { get; set; }
+}
+
+public class Order
+{
+    public int Id { get; set; }
+    public StreetAddress ShippingAddress { get; set; }
+}
+```
+
+## <a name="database-provider-compatibility"></a>データベース プロバイダーの互換性
+
+EF Core 2.1 は、EF Core 2.0 用に作成されたデータベース プロバイダーと互換性があるように設計されています。 上記で説明した機能の一部 (値変換など) では更新されたプロバイダーが必要ですが、それ以外 (遅延読み込みなど) は既存のプロバイダーで機能します。
+
+> [!TIP]
+> 予期しない非互換性や新機能で何らかの問題が見つかった場合、またはそれらに対するフィードバックがある場合は、[問題の追跡ツール](https://github.com/aspnet/EntityFrameworkCore/issues/new)を使用して報告してください。
