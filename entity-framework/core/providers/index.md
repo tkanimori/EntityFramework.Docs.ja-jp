@@ -6,11 +6,11 @@ ms.date: 2/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 ms.technology: entity-framework-core
 uid: core/providers/index
-ms.openlocfilehash: 520afe85af5a2eacbfc2764fdc0a8addb78c07ab
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 6311f6a336198b45d307fa8c4318abd2e64e9df0
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 03/08/2018
 ---
 # <a name="database-providers"></a>データベース プロバイダー
 
@@ -71,7 +71,8 @@ install-package provider_package_name
 インストールされたら、`DbContext` で、`OnConfiguring` メソッド、または依存関係注入コンテナーを使用している場合は `AddDbContext` メソッドを使用してプロバイダーを構成します。 たとえば、 次の行は、渡された接続文字列を使用して、SQL Server プロバイダーを構成します。
 
 ``` csharp
-  optionsBuilder.UseSqlServer("Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
+optionsBuilder.UseSqlServer(
+    "Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
 ```  
 
 データベース プロバイダーは、特定のデータベースに固有の機能を有効にするように EF Core を拡張できます。 いくつかの概念はほとんどのデータベースに共通しており、プライマリ EF Core コンポーネントに含まれています。 そのような概念には、LINQ のクエリの表現、トランザクション、データベースから読み込んだときのオブジェクトの変更追跡などがあります。 いくつかの概念は、特定のプロバイダーに固有のものです。 たとえば、SQL Server プロバイダーの場合、[メモリが最適化されたテーブル (SQL Server 固有の機能) を構成できます](xref:core/providers/sql-server/memory-optimized-tables)。 その他の概念は、プロバイダーのクラスに固有のものです。 たとえば、リレーショナル データベースの EF Core プロバイダーの場合、一般的な `Microsoft.EntityFrameworkCore.Relational` ライブラリに基づいてビルドします。このライブラリは、テーブルと列のマッピングや外部キー制約などを構成するための API を提供します。プロバイダーは通常、NuGet パッケージとして配布されます。
