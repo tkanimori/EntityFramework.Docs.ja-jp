@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 076e9251850ba10df323cd25922aa8b95b3a5491
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: db25ed55e3724ee71743e563f39a6e4b16c17589
+ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 03/08/2018
 ---
 <a name="entity-framework-core-tools"></a>Entity Framework Core ツール
 ===========================
@@ -24,15 +24,9 @@ Entity Framework Core ツールは、EF Core アプリの開発で役立ちま�
 ----------
 このツールは、.NET Framework または .NET Core を対象とするプロジェクトをサポートします。
 
-プロジェクトが別のフレームワーク (Universal Windows や Xamarin など) を対象としている場合、別個の .NET Standard プロジェクトを作成し、サポートされているフレームワークの 1 つをクロスターゲットすることをお勧めします。
+クラス ライブラリを使用する場合、可能であれば .NET Core または .NET Framework の使用を検討してください。 これにより、.NET ツールで発生する問題が最小限に抑えられます。 代わりに .NET Standard クラス ライブラリを使用する場合は、クラス ライブラリに読み込むことができる具体的なターゲット プラットフォームがツールに含まれるように、.NET Framework または .NET Core を対象とするスタートアップ プロジェクトを使用する必要があります。 このスタートアップ プロジェクトは実際のコードを持たないダミー プロジェクトにすることができ、ツールのターゲットを提供するためだけに必要とされます。
 
-たとえば、.NET Core をクロスターゲットするには、プロジェクトを右クリックし、**[Edit \*.csproj]\(*csproj の編集\)** を選択します。 `TargetFramework` プロパティを次のように更新します。 (プロパティ名は複数形になります。)
-
-``` xml
-<TargetFrameworks>netcoreapp2.0;netstandard2.0</TargetFrameworks>
-```
-
-.NET Standard クラス ライブラリを使用している場合、スタートアップ プロジェクトのターゲットが .NET Framework または .NET Core であれば、クロスターゲットの必要はありません。
+プロジェクトが別のフレームワーク (ユニバーサル Windows や Xamarin など) を対象としている場合、個別の .NET Standard クラス ライブラリを作成する必要があります。 この場合、上記の指示に従って、ツールで使用できるスタートアップ プロジェクトも作成してください。
 
 <a name="startup-and-target-projects"></a>スタートアップ プロジェクトとターゲット プロジェクト
 ---------------------------
