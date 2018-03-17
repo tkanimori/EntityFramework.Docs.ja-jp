@@ -6,11 +6,11 @@ ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: 19a371c65da33e8209cc1ab3423a67c34ddae61e
-ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
+ms.openlocfilehash: dfd08cd1c30debddc79740bbf05c39c22e973855
+ms.sourcegitcommit: 01b5cf3b7c983bcced91e7cc4c78391ced2d2caa
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/08/2018
+ms.lasthandoff: 03/17/2018
 ---
 # <a name="query-types"></a>クエリの種類
 > [!NOTE]
@@ -20,7 +20,7 @@ ms.lasthandoff: 03/08/2018
 
 そのエンティティ型に概念的に似ています。
 
-- POCO (C#) のいずれかと、モデルに追加される型では```OnModelCreating```を使用して、```ModelBuilder.Query```メソッド、または DbContext「セット」プロパティを介して (クエリがこのようなプロパティを型として型指定されて```DbQuery<T>```ではなく```DbSet<T>```)。
+- POCO (C#) のいずれかと、モデルに追加される型では```OnModelCreating```を使用して、```ModelBuilder.Query```メソッド、または DbContext「セット」プロパティを介して (クエリがこのようなプロパティを型として型指定されて```DbQuery<T>```なく```DbSet<T>```)。
 - 正規のエンティティ型と同じマッピング機能の多くをサポートしています。 たとえば、継承の割り当て、ナビゲーション (limitiations 以下を参照してください) と、リレーショナル ストアを使用してターゲット データベースのスキーマ オブジェクトを構成する機能の```ToTable```、 ```HasColumn``` fluent api のメソッド (またはデータ注釈)。
 
 クエリの種類はエンティティを異なるの型します。
