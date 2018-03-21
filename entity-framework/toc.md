@@ -13,10 +13,11 @@
 ## [Entity Framework Core](core/index.md)
 
 ### [EF Core の新機能](core/what-is-new/index.md)
+#### [EF Core ロードマップ](core/what-is-new/roadmap.md)
 #### [EF Core 2.1 (プレビュー)](core/what-is-new/ef-core-2.1.md)
-#### [EF コア 2.0 (最新リリース)](core/what-is-new/ef-core-2.0.md)
-#### [EF Core 1.1 (以前のバージョン)](core/what-is-new/ef-core-1.1.md)
-#### [EF Core 1.0 (以前のバージョン)](core/what-is-new/ef-core-1.0.md)
+#### [EF Core 2.0 (最新リリース)](core/what-is-new/ef-core-2.0.md)
+#### [EF Core 1.1](core/what-is-new/ef-core-1.1.md)
+#### [EF Core 1.0](core/what-is-new/ef-core-1.0.md)
 
 ### [はじめに](core/get-started/index.md)
 #### [EF Core のインストール](core/get-started/install/index.md)

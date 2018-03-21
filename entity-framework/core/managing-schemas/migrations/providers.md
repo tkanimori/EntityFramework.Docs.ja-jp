@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/8/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 6b278a5ae270b6a84269dffd72eeca609b168cdd
-ms.sourcegitcommit: 3b6159db8a6c0653f13c7b528367b4e69ac3d51e
+ms.openlocfilehash: d950e74ed4cef7d4274aabcf3eda7b0b735574c6
+ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/28/2017
+ms.lasthandoff: 03/20/2018
 ---
 <a name="migrations-with-multiple-providers"></a>複数のプロバイダーと移行
 ==================================
@@ -20,7 +20,7 @@ ms.lasthandoff: 11/28/2017
 
 これは 1 つの方法として各移行のセットを格納する[別のアセンブリに][ 2] 2 つの移行を追加する間、アクティブなプロバイダーと移行アセンブリを手動で切り替えるとします。
 
-ツールでの作業を容易になりますが、新しい型を作成するもう 1 つの方法は、DbContext から派生して、アクティブなプロバイダーをオーバーライドします。 この型はデザイン時使用の追加または移行を適用するときに時間します。
+ツールを使用して作業が容易にもう 1 つの方法では、DbContext から派生し、アクティブなプロバイダーを上書きする新しい型を作成します。 この型はデザイン時使用の追加または移行を適用するときに時間します。
 
 ``` csharp
 class MySqliteDbContext : MyDbContext
