@@ -1,21 +1,18 @@
 ---
-title: "ASP.NET Core - 既存のデータベース - EF Core の概要"
+title: ASP.NET Core - 既存のデータベース - EF Core の概要
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: afd99d68d2ba25ce58a21dc48d2c7ce27f208807
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: db2469d0badd428734425c1f568667f00bef2f4f
+ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>既存のデータベースを使用した ASP.NET Core での EF Core の概要
-
-> [!IMPORTANT]  
-> [.NET Core SDK](https://www.microsoft.com/net/download/core) では、`project.json` と Visual Studio 2015 はサポートされなくなりました。 .NET Core で開発を行っているすべてのユーザーには、[project.json から csproj に移行](https://docs.microsoft.com/dotnet/articles/core/migration/)、および [Visual Studio 2017](https://www.visualstudio.com/downloads/) に移行することをお勧めします。
 
 このチュートリアルでは、Entity Framework を使用して基本的なデータ アクセスを実行する ASP.NET Core MVC アプリケーションを作成します。 既存のデータベースに基づく Entity Framework モデルを作成するために、リバース エンジニアリングを使用します。
 
@@ -93,7 +90,7 @@ Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Conn
 `The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet` という内容のエラーが表示された場合は、Visual Studio を閉じて再度開きます。
 
 > [!TIP]  
-> 上記のコマンドに引数 `-Tables` を追加すると、エンティティを生成するテーブルを指定できます。 例: `-Tables Blog,Post`。
+> 上記のコマンドに引数 `-Tables` を追加すると、エンティティを生成するテーブルを指定できます。 たとえば、 `-Tables Blog,Post`。
 
 リバース エンジニアリングのプロセスにより、既存のデータベースのスキーマに基づいてエンティティ クラス (`Blog.cs` & `Post.cs`) と派生コンテキスト (`BloggingContext.cs`) が作成されます。
 
@@ -144,7 +141,7 @@ public partial class BloggingContext : DbContext
 
 ASP.NET Core では、**Startup.cs** 内で構成を行うのが一般的です。 このパターンに合わせるために、データベース プロバイダーの構成を **Startup.cs** に移動します。
 
-* 開く `Models\BloggingContext.cs`
+* `Models\BloggingContext.cs` を開きます
 * `OnConfiguring(...)` メソッドを削除します
 
 ``` csharp
@@ -202,6 +199,6 @@ MVC コントローラーで利用するために、`BloggingContext` をサー�
 * **[新規作成]** をクリックします。
 * 新しいブログの **URL** を入力して、**[作成]** をクリックします。
 
-![image](_static/create.png)
+![イメージ](_static/create.png)
 
-![image](_static/index-existing-db.png)
+![イメージ](_static/index-existing-db.png)

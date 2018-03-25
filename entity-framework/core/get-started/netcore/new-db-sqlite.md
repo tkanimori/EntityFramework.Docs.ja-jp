@@ -1,26 +1,23 @@
 ---
-title: ".NET Core - 新しいデータベース - EF Core の概要"
+title: .NET Core - 新しいデータベース - EF Core の概要
 author: rick-anderson
 ms.author: riande
 ms.author2: tdykstra
-description: "Entity Framework Core を使用した .NET Core の概要"
-keywords: ".NET Core, Entity Framework Core, VS コード, Visual Studio コード, Mac, Linux"
+description: Entity Framework Core を使用した .NET Core の概要
+keywords: .NET Core, Entity Framework Core, VS コード, Visual Studio コード, Mac, Linux
 ms.date: 04/05/2017
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 ms.technology: entity-framework-core
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 3becf75e7a513a3aa18c3c2daf628b65327365b0
-ms.sourcegitcommit: 0858f157b806f4a881b94ddbeecf1ece1d53e1e0
+ms.openlocfilehash: 2511dfa3f3262bb12c2058dc1c402b7dcc4c670d
+ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/21/2018
+ms.lasthandoff: 03/23/2018
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>新しいデータベースを使用した .NET Core コンソール アプリでの EF Core の概要
 
 このチュートリアルでは、Entity Framework Core を使用して SQLite データベースに基本的なデータ アクセスを実行する .NET Core コンソール アプリを作成します。 モデルからの移行によってデータベースを作成します。 ASP.NET Core MVC を使用する Visual Studio バージョンについては [ASP.NET Core - 新しいデータベース](xref:core/get-started/aspnetcore/new-db)に関する記事をご覧ください。
-
-> [!NOTE]  
-> [.NET Core SDK](https://www.microsoft.com/net/download/core) では、`project.json` と Visual Studio 2015 はサポートされなくなりました。 [project.json から csproj への移行](https://docs.microsoft.com/dotnet/articles/core/migration/)をお勧めします。 Visual Studio を使用している場合は、[Visual Studio 2017](https://www.visualstudio.com/downloads/) に移行することをお勧めします。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/NetCore/ConsoleApp.SQLite)は GitHub で確認できます。
