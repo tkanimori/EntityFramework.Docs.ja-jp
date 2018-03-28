@@ -1,15 +1,15 @@
 ---
-title: "EF Core と EF6 - 自社に適しているのはどちらか"
+title: EF Core と EF6 - 自社に適しているのはどちらか
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 288f825b-b3e6-4096-971b-d0a1cb96770e
 uid: efcore-and-ef6/choosing
-ms.openlocfilehash: 9a113e0965fa75a03510199fb75165f6e9be0bbd
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: f0a632902384a65ea3cddf752ad262c7a2e89e2e
+ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 03/20/2018
 ---
 # <a name="ef-core-and-ef6-which-one-is-right-for-you"></a>EF Core と EF6 - 自社に適しているのはどちらか
 
@@ -17,13 +17,11 @@ ms.lasthandoff: 10/27/2017
 
 ## <a name="guidance-for-new-applications"></a>新しいアプリケーションのガイダンス
 
-EF Core は新製品で、重要な O/RM 機能がまだ一部欠けているため、今のところ多くのアプリケーションにとって EF6 が最適な選択となっています。
+EF Core のすべての機能を活用する必要があり、EF Core にまだ実装されていない任意の機能を自分のアプリケーションで必要としない場合は、新しいアプリケーションに EF Core を使用することを検討してください。
 
-**次のタイプのアプリケーションでは、EF Core を使用されることをお勧めします。**
+EF6 には .NET Framework 4.0 (または以降のバージョン) が必要であり、Windows 上でのみサポートされますが (つまり、.NET Core では実行されず、その他のオペレーティング システムではサポートされません)、これらの制約を許容でき、アプリケーションに EF6 では利用できない EF Core の新機能が必要なければ、EF6 を引き続き新しいアプリケーションに選択することができます。
 
-* EF Core に未実装の機能を必要としないアプリケーション。 EF Core が自社のアプリケーションにとって適切な選択かどうかを確認するには、[機能の比較](features.md)に関する記事をご覧ください。
-
-* ユニバーサル Windows プラットフォーム (UWP) アプリケーションや ASP.NET Core アプリケーションなど、.NET Core をターゲットとするアプリケーション。 EF6 では .NET Framework (.NET Framework 4.5 など) が必要なため、これらのアプリケーションは EF6 を使用できません。
+EF Core が自社のアプリケーションにとって適切な選択かどうかを確認するには、[機能の比較](features.md)に関する記事をご覧ください。
 
 ## <a name="guidance-for-existing-ef6-applications"></a>既存の EF6 アプリケーションに関するガイダンス
 
