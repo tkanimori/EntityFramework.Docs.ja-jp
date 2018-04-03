@@ -1,5 +1,5 @@
 ---
-title: "プロバイダーの作成、データベースの EF コア"
+title: プロバイダーの作成、データベースの EF コア
 author: anmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -16,7 +16,7 @@ ms.lasthandoff: 02/28/2018
 
 Entity Framework のコア データベース プロバイダーの作成方法の詳細については、次を参照してください。 [EF コア プロバイダーを記述するように](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/)によって[Arthur ヴィッカース](https://github.com/ajcvickers)です。
 
-コード ベースを EF Core はオープン ソースであるため、参照として使用できるいくつかのデータベース プロバイダーを含んでいます。 Https://github.com/aspnet/EntityFrameworkCore でソース コードを検索することができます。
+コード ベースを EF Core はオープン ソースであるため、参照として使用できるいくつかのデータベース プロバイダーを含んでいます。 https://github.com/aspnet/EntityFrameworkCore でソース コードを検索することができます。
 
 ## <a name="the-providers-beware-label"></a>プロバイダー ラベルに注意してください
 
