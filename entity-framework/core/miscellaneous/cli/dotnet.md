@@ -1,14 +1,14 @@
 ---
-title: .NET Core CLI - EF Core
+title: '.NET core CLI: EF コア'
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 8a52cb8259bb381729a33a8161aec4b73f69f45d
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 396d31c9d0c0f47d299f49e82e557ed29b8420e7
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 <a name="ef-core-net-command-line-tools"></a>EF コア .NET コマンド ライン ツール
 ===============================
@@ -65,6 +65,9 @@ dotnet ef
 
 スタートアップ プロジェクトは、プロジェクトのコードを実行したとき、ツールによってエミュレートされるプロジェクトです。 また、現在のディレクトリで、プロジェクトの既定値を使用して変更することができます、 **--スタートアップ プロジェクト**オプション。
 
+> [!NOTE]
+> たとえば、次のようなりますを別のプロジェクトにインストールされている EF コアを持つ web アプリケーションのデータベースを更新します`dotnet ef database update --project {project-path}`(からの web アプリのディレクトリ)。
+
 一般的なオプション:
 
 |    |                                  |                             |
@@ -74,10 +77,10 @@ dotnet ef
 | -p | --project \<PROJECT>             | 使用するプロジェクトです。         |
 | -s | --startup-project \<PROJECT>     | 使用するスタートアップ プロジェクトです。 |
 |    | --framework \<FRAMEWORK >         | ターゲット フレームワーク。       |
-|    | --configuration \<CONFIGURATION> | 使用する構成。   |
-|    | --runtime \<IDENTIFIER>          | 使用するランタイム。         |
+|    | --構成\<構成 > | 使用する構成。   |
+|    | --ランタイム\<識別子 >          | 使用するランタイム。         |
 | -h | -ヘルプ                           | ヘルプ情報を表示します。      |
-| -v | --verbose                        | 詳細出力を表示します。        |
+| -v | -詳細                        | 詳細出力を表示します。        |
 |    | --no-color                       | しないと、出力が色分けして表示します。      |
 |    | --prefix-output                  | 出力レベルをプレフィックスします。   |
 
@@ -96,10 +99,10 @@ dotnet ef
 
 |    |           |                                                          |
 |:---|:----------|:---------------------------------------------------------|
-| -f | --force   | しないことを確認します。                                           |
-|    | --dry-run | データベースは削除しますが、それを削除しないを表示します。 |
+| -f | --強制   | しないことを確認します。                                           |
+|    | --予行 | データベースは削除しますが、それを削除しないを表示します。 |
 
-### <a name="dotnet-ef-database-update"></a>dotnet ef database update
+### <a name="dotnet-ef-database-update"></a>dotnet ef データベースの更新
 
 指定された移行するには、データベースを更新します。
 
@@ -107,13 +110,13 @@ dotnet ef
 
 |              |                                                                                              |
 |:-------------|:---------------------------------------------------------------------------------------------|
-| \<MIGRATION> | Target の移行。 0 の場合、すべての移行は元に戻せません。 既定値は最後に移行します。 |
+| \<移行 &GT; | Target の移行。 0 の場合、すべての移行は元に戻せません。 既定値は最後に移行します。 |
 
-### <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext info
+### <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext 情報
 
 DbContext 型に関する情報を取得します。
 
-### <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext list
+### <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext 一覧
 
 使用可能な DbContext 型を一覧表示します。
 
@@ -125,19 +128,20 @@ DbContext 型に関する情報を取得します。
 
 |               |                                                                     |
 |:--------------|:--------------------------------------------------------------------|
-| \<CONNECTION> | データベースへの接続文字列。                              |
-| \<PROVIDER>   | 使用するプロバイダー。 (例。 Microsoft.EntityFrameworkCore.SqlServer) |
+| \<接続 &GT; | データベースへの接続文字列。                              |
+| \<プロバイダー &GT;   | 使用するプロバイダー。 (例: Microsoft.EntityFrameworkCore.SqlServer) |
 
 オプション:
 
 |                 |                                         |                                                                                                  |
 |:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <nobr>-d</nobr> | --data-annotations                      | 属性を使用すると、(可能な場合)、モデルを構成できます。 省略すると、fluent API のみが使用されます。 |
+| <nobr>-d</nobr> | -データ注釈                      | 属性を使用すると、(可能な場合)、モデルを構成できます。 省略すると、fluent API のみが使用されます。 |
 | -c              | --context \<NAME>                       | DbContext の名前。                                                                       |
-| -f              | --force                                 | 既存のファイルを上書きします。                                                                        |
+|                 | --コンテキスト dir\<パス >                   | DbContext ファイルを配置するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。             |
+| -f              | --強制                                 | 既存のファイルを上書きします。                                                                        |
 | -o              | --output-dir \<PATH>                    | ファイルを置くディレクトリです。 パスでは、プロジェクト ディレクトリに対して相対的です。                      |
-|                 | <nobr>--schema \<SCHEMA_NAME>...</nobr> | エンティティ型を生成するテーブルのスキーマです。                                              |
-| -t              | --table \<TABLE_NAME>...                | エンティティ型を生成するテーブル。                                                         |
+|                 | <nobr>-スキーマ\<SCHEMA_NAME >.</nobr> | エンティティ型を生成するテーブルのスキーマです。                                              |
+| -t              | -テーブル\<TABLE_NAME >.                | エンティティ型を生成するテーブル。                                                         |
 |                 | --use-database-names                    | データベースから直接テーブルおよび列名を使用します。                                           |
 
 ### <a name="dotnet-ef-migrations-add"></a>dotnet ef 移行を追加します。
@@ -168,7 +172,7 @@ DbContext 型に関する情報を取得します。
 
 |    |         |                                                                       |
 |:---|:--------|:----------------------------------------------------------------------|
-| -f | --force | 移行をデータベースに適用されているかどうかをチェックしないでください。 |
+| -f | --強制 | それがデータベースに適用された場合は、移行を戻します。 |
 
 ### <a name="dotnet-ef-migrations-script"></a>dotnet ef 移行スクリプト
 
@@ -185,7 +189,7 @@ DbContext 型に関する情報を取得します。
 
 |    |                  |                                                                    |
 |:---|:-----------------|:-------------------------------------------------------------------|
-| -o | --output \<FILE> | 結果を書き込むファイルです。                                   |
+| -o | --出力\<ファイル > | 結果を書き込むファイルです。                                   |
 | -i | --idempotent     | すべての移行でのデータベースで使用できるスクリプトを生成します。 |
 
 

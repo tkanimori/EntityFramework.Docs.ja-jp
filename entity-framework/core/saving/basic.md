@@ -1,29 +1,32 @@
 ---
-title: "基本的な保存の EF コア"
+title: 基本的な保存の EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 ms.technology: entity-framework-core
 uid: core/saving/basic
-ms.openlocfilehash: e99d755b8f7c42b15a73cfdb6a2f8999a405a739
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: deead323301dc4a0ee0748b4536ddff4596b99e6
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="basic-save"></a>基本の保存
 
 追加、変更、および、コンテキストおよびエンティティ クラスを使用してデータを削除する方法を説明します。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Basics/)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Basics/)は GitHub で確認できます。
 
 ## <a name="adding-data"></a>データの追加
 
 使用して、 *DbSet.Add*エンティティ クラスの新しいインスタンスを追加するメソッド。 データを呼び出すと、データベース内に挿入される*SaveChanges*です。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Add)]
+
+> [!TIP]  
+> エンティティのすべてのグラフ上のすべての作業の追加、アタッチ、および Update メソッド、渡された」の説明に従って、[関連データ](related-data.md)セクションです。 または、EntityEntry.State プロパティを使用して、1 つのエンティティの状態を設定できます。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
 
 ## <a name="updating-data"></a>データの更新
 

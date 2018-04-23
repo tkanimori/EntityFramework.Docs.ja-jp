@@ -1,14 +1,14 @@
 ---
-title: "Package Manager Console (Visual Studio) - EF コア"
+title: Package Manager Console (Visual Studio) - EF コア
 author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: aacf8c8564a3966db6202c9ff1c1c02a19a10814
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: a53455a78db4bc504c45abafdacf9a15381f608e
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 <a name="ef-core-package-manager-console-tools"></a>EF コア パッケージ マネージャー コンソール ツール
 =====================================
@@ -74,8 +74,8 @@ Get-Help about_EntityFrameworkCore
 
 |                                   |                                                                                                                  |
 |:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| ***-Name*** \<String>             | 移行の名前。                                                                                       |
-| <nobr>-OutputDir \<String></nobr> | ディレクトリ (およびサブ名前空間) を使用します。 パスでは、プロジェクト ディレクトリに対して相対的です。 既定値は「移行」です。 |
+| ***-名前***\<文字列 >             | 移行の名前。                                                                                       |
+| <nobr>-OutputDir\<文字列 ></nobr> | ディレクトリ (およびサブ名前空間) を使用します。 パスでは、プロジェクト ディレクトリに対して相対的です。 既定値は「移行」です。 |
 
 > [!NOTE]
 > 内のパラメーター**太字**が必要ですとで*斜体*位置指定されます。
@@ -100,11 +100,11 @@ DbContext 型に関する情報を取得します。
 
 パラメーター:
 
-|        |                                                                       |
-|:-------|:----------------------------------------------------------------------|
-| -Force | 移行をデータベースに適用されているかどうかをチェックしないでください。 |
+|        |                                                              |
+|:-------|:-------------------------------------------------------------|
+| -Force | それがデータベースに適用された場合は、移行を戻します。 |
 
-### <a name="scaffold-dbcontext"></a>Scaffold-DbContext
+### <a name="scaffold-dbcontext"></a>Scaffold DbContext
 
 スキャフォールディング データベースの DbContext とエンティティの型。
 
@@ -112,9 +112,10 @@ DbContext 型に関する情報を取得します。
 
 |                                          |                                                                                                  |
 |:-----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <nobr>***-Connection*** \<String></nobr> | データベースへの接続文字列。                                                           |
-| ***-Provider*** \<String>                | 使用するプロバイダー。 (例。 Microsoft.EntityFrameworkCore.SqlServer)                              |
-| -OutputDir \<String>                     | ファイルを置くディレクトリです。 パスでは、プロジェクト ディレクトリに対して相対的です。                      |
+| <nobr>***の接続***\<文字列 ></nobr> | データベースへの接続文字列。                                                           |
+| ***-プロバイダー*** \<文字列 >                | 使用するプロバイダー。 (例: Microsoft.EntityFrameworkCore.SqlServer)                              |
+| -OutputDir\<文字列 >                     | ファイルを置くディレクトリです。 パスでは、プロジェクト ディレクトリに対して相対的です。                      |
+| -ContextDir\<文字列 >                    | DbContext ファイルを配置するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。             |
 | -Context \<String>                       | 生成する DbContext の名前。                                                           |
 | -Schemas \<String[]>                     | エンティティ型を生成するテーブルのスキーマです。                                              |
 | -Tables \<String[]>                      | エンティティ型を生成するテーブル。                                                         |
@@ -122,7 +123,7 @@ DbContext 型に関する情報を取得します。
 | -UseDatabaseNames                        | データベースから直接テーブルおよび列名を使用します。                                           |
 | -Force                                   | 既存のファイルを上書きします。                                                                        |
 
-### <a name="script-migration"></a>Script-Migration
+### <a name="script-migration"></a>スクリプトの移行
 
 移行からの SQL スクリプトを生成します。
 
@@ -130,8 +131,8 @@ DbContext 型に関する情報を取得します。
 
 |                   |                                                                    |
 |:------------------|:-------------------------------------------------------------------|
-| *-From* \<String> | 開始の移行。 既定値は 0 (最初のデータベース)。      |
-| *-To* \<String>   | 終了の移行。 既定値は最後に移行します。              |
+| *-から*\<文字列 > | 開始の移行。 既定値は 0 (最初のデータベース)。      |
+| *-* \<文字列 >   | 終了の移行。 既定値は最後に移行します。              |
 | -Idempotent       | すべての移行でのデータベースで使用できるスクリプトを生成します。 |
 | -出力\<文字列 > | 結果を書き込むファイルです。                                   |
 

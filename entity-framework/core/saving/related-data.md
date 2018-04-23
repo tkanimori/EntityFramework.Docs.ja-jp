@@ -1,23 +1,23 @@
 ---
-title: "関連するデータの EF コアの保存"
+title: 関連するデータの EF コアの保存
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
 ms.technology: entity-framework-core
 uid: core/saving/related-data
-ms.openlocfilehash: 078879163002cb66e0f0f439415789963181ec15
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b0ed25267c85e82db18d8a89693b6040db7e4b34
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="saving-related-data"></a>関連するデータの保存
 
 分離のエンティティだけでなく行うことも、モデルで定義されているリレーションシップを使用します。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/)は GitHub で確認できます。
 
 ## <a name="adding-a-graph-of-new-entities"></a>新しいエンティティのグラフを追加します。
 
@@ -26,6 +26,9 @@ ms.lasthandoff: 10/27/2017
 次の例では、ブログと 3 つの関連する投稿はすべて、データベースに挿入します。 投稿が検出され、追加、経由で到達可能であるため、`Blog.Posts`ナビゲーション プロパティ。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
+
+> [!TIP]  
+> EntityEntry.State プロパティを使用すると、1 つのエンティティの状態を設定できます。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
 
 ## <a name="adding-a-related-entity"></a>関連するエンティティの追加
 
