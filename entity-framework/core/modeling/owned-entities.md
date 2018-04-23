@@ -1,16 +1,16 @@
 ---
-title: "エンティティ型 – EF コアを所有しています。"
+title: エンティティ型 – EF コアを所有しています。
 author: julielerman
 ms.author: divega
 ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: a6823377eb626ca92263c31351e1aef61db5a787
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: f2f05499a3e3494f420d916df2db19667a6f1e29
+ms.sourcegitcommit: 26f33758c47399ae933f22fec8e1d19fa7d2c0b7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/19/2018
 ---
 # <a name="owned-entity-types"></a>所有されているエンティティの種類
 
@@ -21,7 +21,7 @@ EF コアは、その他のエンティティ型のナビゲーション プロ�
 
 ## <a name="explicit-configuration"></a>明示的な構成
 
-エンティティの種類は含まれません EF のコアでモデルの規約によって所有されています。 使用することができます、`OwnsOne`メソッドで`OnModelCreating`を持つ型の注釈を設定または`OwnedAttrbibute`(EF コア 2.1 の新機能) を所有する型として型を構成します。
+エンティティの種類は含まれません EF のコアでモデルの規約によって所有されています。 使用することができます、`OwnsOne`メソッドで`OnModelCreating`を持つ型の注釈を設定または`OwnedAttribute`(EF コア 2.1 の新機能) を所有する型として型を構成します。
 
 この例では、StreetAddress は identity プロパティは含まずに型です。 特定の注文の配送先住所を指定するために、Order 型のプロパティとして使用されます。 `OnModelCreating`、使用して、 `OwnsOne` ShippingAddress プロパティが所有する型のエンティティの順序を指定します。
 
@@ -113,7 +113,7 @@ EF コアがこれらのオブジェクトの追跡対象のインスタンス�
 
 ## <a name="nested-owned-types"></a>入れ子になった所有されている型
 
-この例では、OrderDetails は BillingAddress と両方 StreetAddress 型である ShippingAddress を所有します。 [OrderDetails Order type が所有します。
+この例では、OrderDetails は BillingAddress と両方 StreetAddress 型である ShippingAddress を所有します。 OrderDetails Order type が所有します。
 
 ``` csharp
 public class Order

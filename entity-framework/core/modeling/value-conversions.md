@@ -1,16 +1,16 @@
 ---
-title: "値の変換の EF コア"
+title: 値の変換の EF コア
 author: ajcvickers
 ms.author: divega
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 50acba39cdec16caa9300fcaf47ab6242a4f69fb
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 329d2757059462468ca30772d37789343c03ba7b
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="value-conversions"></a>値の変換
 
@@ -60,7 +60,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## <a name="the-valueconverter-class"></a>ValueConverter クラス
 
-呼び出す`HasConversion`上記のように作成されます、`ValueConverter`インスタンスし、プロパティに設定します。 `ValueConverter`代わりに明示的に作成することができます。 例:
+呼び出す`HasConversion`上記のように作成されます、`ValueConverter`インスタンスし、プロパティに設定します。 `ValueConverter`代わりに明示的に作成することができます。 例えば:
 ```Csharp
 var converter = new ValueConverter<EquineBeast, string>(
     v => v.ToString(),
@@ -137,6 +137,6 @@ public class Rider
 
 値の変換システムのいくつかの既知の現在制限があります。
 * 前述のよう`null`変換することはできません。
-* 現在、1 つのプロパティの multuple 列またはその逆への変換を分散する方法はありません。
+* 現在、1 つのプロパティを複数の列またはその逆の変換を分散する方法はありません。
 * 値の変換の使用可能性がある機能に影響の EF コアの式を SQL に変換します。 このような場合に警告が記録されます。
 今後のリリースでは、これらの制限の削除を検討しています。
