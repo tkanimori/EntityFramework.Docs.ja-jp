@@ -1,22 +1,22 @@
 ---
-title: "EF Core 2.1 の新機能 - EF Core"
+title: EF Core 2.1 の新機能 - EF Core
 author: divega
 ms.author: divega
 ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: bb1e691e0f22bd36467d58c02bde22c63067207e
-ms.sourcegitcommit: fcaeaf085171dfb5c080ec42df1d1df8dfe204fb
+ms.openlocfilehash: db1648095aa4d612af53f4e10a30be36edc40da5
+ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/15/2018
+ms.lasthandoff: 04/16/2018
 ---
 # <a name="new-features-in-ef-core-21"></a>EF Core 2.1 の新機能
 > [!NOTE]  
 > このリリースはまだプレビュー段階です。
 
-数多くの小さな機能強化と 100 を超える製品のバグ修正の他に、EF Core 2.1 にはいくつかの新機能が含まれています。
+多数のバグ修正と小さな機能およびパフォーマンスの強化だけでなく、EF Core 2.1 にはいくつかの魅力的な新機能が含まれています。
 
 ## <a name="lazy-loading"></a>遅延読み込み
 EF Core に、すべてのユーザーが自身のナビゲーション プロパティを必要なときに読み込むことができるエンティティ クラスを作成するために必要なビルド ブロックが含まれるようになりました。 また、これらのビルド ブロックを利用して、最小限の変更を行ったエンティティ クラス (仮想ナビゲーション プロパティが指定されたクラスなど) に基づいて遅延読み込みを生成する新しいパッケージ Microsoft.EntityFrameworkCore.Proxies も作成しました。
@@ -71,7 +71,7 @@ GROUP BY [o].[CustomerId], [o].[EmployeeId];
 次の例に示すように、これを使用して `OnModelCreating` の Post にシード データを構成できます。
 
 ``` csharp
-modelBuilder.Entity<Post>().SeedData(new Post{ Id = 1, Text = "Hello World!" });
+modelBuilder.Entity<Post>().HasData(new Post{ Id = 1, Text = "Hello World!" });
 ```
 
 このトピックの詳細については、[データのシード処理に関するセクション](xref:core/modeling/data-seeding)をご覧ください。  
@@ -143,9 +143,29 @@ public class Order
 }
 ```
 
+## <a name="new-dotnet-ef-global-tool"></a>新しい dotnet-ef グローバル ツール
+
+_dotnet-ef_ コマンドが .NET CLI グローバル ツールに変換され、移行を使用したり、既存のデータベースから DbContext をスキャフォールディングしたりするために、プロジェクトで DotNetCliToolReference を使用する必要がなくなります。
+
+## <a name="microsoftentityframeworkcoreabstractions-package"></a>Microsoft.EntityFrameworkCore.Abstractions パッケージ
+この新しいパッケージに含まれる属性とインターフェイスをプロジェクトで使用すると、EF コアの依存関係全体を取得しなくても、EF Core の機能を使用できます。 たとえば、 プレビュー 1 で導入された [Owned] 属性は、ここに移動されました。
+
+## <a name="state-change-events"></a>状態変更イベント
+
+`ChangeTracker` の新しい `Tracked` および `StateChanged` イベントを使用すると、エンティティの DbContext への移行またはその状態の変化に対応するロジックを記述することができます。
+
+## <a name="raw-sql-parameter-analyzer"></a>生 SQL パラメーター アナライザー
+
+EF Core に組み込まれた新しいコード アナライザーは、`FromSql` や `ExecuteSqlCommand` などの生 SQL API の安全ではない可能性がある使用法を検出します。 たとえば、 次のクエリでは、_minAge_ がパラメーター化されていないため、警告が発生します。
+
+``` csharp
+var sql = $"SELECT * FROM People WHERE Age > {minAge}";
+var query = context.People.FromSql(sql);
+```
+
 ## <a name="database-provider-compatibility"></a>データベース プロバイダーの互換性
 
-EF Core 2.1 は、EF Core 2.0 用に作成されたデータベース プロバイダーと互換性があるように設計されています。 上記で説明した機能の一部 (値変換など) では更新されたプロバイダーが必要ですが、それ以外 (遅延読み込みなど) は既存のプロバイダーで機能します。
+EF Core 2.1 は、EF Core 2.0 用に作成されたデータベース プロバイダーと互換性があるように設計されており、そうでない場合は少なくとも最小限の変更が必要です。 上記で説明した機能の一部 (値変換など) では更新されたプロバイダーが必要ですが、それ以外 (遅延読み込みなど) は既存のプロバイダーで機能します。
 
 > [!TIP]
 > 予期しない非互換性や新機能で何らかの問題が見つかった場合、またはそれらに対するフィードバックがある場合は、[問題の追跡ツール](https://github.com/aspnet/EntityFrameworkCore/issues/new)を使用して報告してください。
