@@ -1,16 +1,16 @@
 ---
-title: "生成された値: EF コア"
+title: '生成された値: EF コア'
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
 ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 892494461bcf49ee10d05c972da0ba19ca003c35
-ms.sourcegitcommit: 4b7d3d3e258b0d9cb778bb45a9f4a33c0792e38e
+ms.openlocfilehash: 88ccc2da3c2b6cbba8920d7113c82e769b459897
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="generated-values"></a>生成される値
 
@@ -28,7 +28,7 @@ ms.lasthandoff: 02/28/2018
 
 使用されているデータベース プロバイダーによって、値があります EF またはデータベース内のクライアント側を生成します。 値は、データベースによって生成される場合、し、EF 可能性があります値を割り当てる一時コンテキストにエンティティを追加するとします。 この一時的な値は、中にデータベースで生成された値で置き換えられます`SaveChanges()`です。
 
-プロパティに割り当てられている値を持つコンテキストにエンティティを追加する場合、EF を新たに生成するのではなく、その値を挿入しようとします。 プロパティは、CLR の既定値が割り当てられていない場合に割り当てられた値を持つと見なされます (`null`の`string`、`0`の`int`、`Guid.Empty`の`Guid`, などです。)。 詳細については、次を参照してください。[生成されたプロパティの値を明示的](..\saving\explicit-values-generated-properties.md)です。
+プロパティに割り当てられている値を持つコンテキストにエンティティを追加する場合、EF を新たに生成するのではなく、その値を挿入しようとします。 プロパティは、CLR の既定値が割り当てられていない場合に割り当てられた値を持つと見なされます (`null`の`string`、`0`の`int`、`Guid.Empty`の`Guid`, などです。)。 詳細については、次を参照してください。[生成されたプロパティの値を明示的](../saving/explicit-values-generated-properties.md)です。
 
 > [!WARNING]  
 > 追加されたエンティティの値を生成する方法は、使用中のデータベース プロバイダーによって異なります。 データベース プロバイダーのプロパティの種類によっての値を生成可能性があります自動セットアップしますが、他のユーザーがあります値を生成する方法を手動で設定します。
@@ -39,13 +39,13 @@ ms.lasthandoff: 02/28/2018
 
 生成された値に追加または更新プログラムが (insert または update) レコードを保存するたびに、新しい値が生成されることを意味します。
 
-同様に`value generated on add`新しく追加された値が生成される値ではなく挿入することは、エンティティのインスタンスのプロパティの値を指定する場合は、します。 更新するときに、明示的な値を設定することもできます。 詳細については、次を参照してください。[生成されたプロパティの値を明示的](..\saving\explicit-values-generated-properties.md)です。
+同様に`value generated on add`新しく追加された値が生成される値ではなく挿入することは、エンティティのインスタンスのプロパティの値を指定する場合は、します。 更新するときに、明示的な値を設定することもできます。 詳細については、次を参照してください。[生成されたプロパティの値を明示的](../saving/explicit-values-generated-properties.md)です。
 
-> [!WARNING]  
+> [!WARNING]
 > 追加と更新されたエンティティの値を生成する方法は、使用中のデータベース プロバイダーによって異なります。 データベース プロバイダー、他のユーザーが必要とする値を生成する方法を手動でセットアップするプロパティの種類によっての値を生成が自動的にセットアップ可能性があります。
->
+> 
 > たとえば、SQL Server を使用して`byte[]`で生成されるように設定されているプロパティの追加または更新、および環境でのセットアップになります、同時実行トークンとしてマークされている、`rowversion`データ型の値はデータベースで生成するようにします。 ただし、設定した場合、`DateTime`プロパティが生成されるで追加または更新の値を生成する方法をセットアップする必要があります。 既定値を構成するには、1 つの方法は、 `GETDATE()` (を参照してください[既定値](relational/default-values.md)) を新しい行の値を生成します。 データベース トリガーを使用して、(次の例のトリガー) などの更新時に値を生成する可能性があります。
->
+> 
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.sql)]
 
 ## <a name="conventions"></a>規約

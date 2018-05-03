@@ -6,17 +6,17 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 1ab9d114e27aac0bec972df631a426c8ce87a518
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 0fc8929c56d4c657b7fb1e3c8e4b1a71659220c9
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="cascade-delete"></a>連鎖削除
 
-連鎖削除は、関連する行の削除を自動的にトリガーする行の削除を許可する特性を記述するデータベース用語で通常使用されます。 EF コア削除動作覆われても、密接に関連する概念は、親との関係があるときに子エンティティの自動削除が切断されている--この i「孤立アイテムの削除」と呼ばれます。
+連鎖削除は、関連する行の削除を自動的にトリガーする行の削除を許可する特性を記述するデータベース用語で通常使用されます。 EF コア削除動作覆われても密接に関連する概念は、親とのリレーションシップが切断されている--ときに子エンティティの自動削除をこれはよくと呼ばれます「孤立アイテムの削除」。
 
-EF コアは、いくつかの別の削除動作を実装して、個々 のリレーションシップの削除の動作を構成できます。 EF コアも実装して、に基づいてリレーションシップごとに役立つ既定削除動作を自動的に構成している表記規則 [リレーションシップの requiredness] (../modeling/relationships.md#required-and-optional-relationships)。
+EF コアは、いくつかの別の削除動作を実装して、個々 のリレーションシップの削除の動作を構成できます。 EF コアもに基づいてリレーションシップごとに役立つ既定削除動作を自動的に構成している表記規則を実装、[リレーションシップの requiredness](../modeling/relationships.md#required-and-optional-relationships)です。
 
 ## <a name="delete-behaviors"></a>動作を削除します。
 削除の動作が定義されている、 *DeleteBehavior*列挙子を入力しに渡されることができます、 *OnDelete* fluent API を制御するかどうかの切断するプリンシパル/親エンティティの削除、依存する/子エンティティへのリレーションシップによっては、依存する/子エンティティに副作用が必要です。
@@ -63,7 +63,7 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
 > EF6 とは異なり、EF コアで連鎖的な影響実行されないが、すぐに、代わりに SaveChanges が呼び出されたときだけです。
 
 > [!NOTE]  
-> **EF コア 2.0 での変更:**以前のリリースで*制限*原因となる省略可能な外部キーのプロパティを設定する追跡対象の依存エンティティは null、既定値は省略可能なリレーションシップの動作を削除します。 EF コア 2.0 で、 *ClientSetNull*をその動作を表す導入され、省略可能なリレーションシップの既定値になりました。 動作*Restrict*依存エンティティのすべての副作用を持たないは調整されました。
+> **EF コア 2.0 での変更:** 以前のリリースで*制限*原因となる省略可能な外部キーのプロパティを設定する追跡対象の依存エンティティは null、既定値は省略可能なリレーションシップの動作を削除します。 EF コア 2.0 で、 *ClientSetNull*をその動作を表す導入され、省略可能なリレーションシップの既定値になりました。 動作*Restrict*依存エンティティのすべての副作用を持たないは調整されました。
 
 ## <a name="entity-deletion-examples"></a>エンティティの削除の例
 

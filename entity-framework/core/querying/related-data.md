@@ -1,16 +1,16 @@
 ---
-title: "読み込みに関連したデータの EF コア"
+title: 読み込みに関連したデータの EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: 0d7705e0e5368435536e98d319c853ea8c732643
-ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
+ms.openlocfilehash: 5f1fb9376300739ab0e306d9d60e7ec71aa2d2e7
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/05/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -43,7 +43,7 @@ Entity Framework Core では、関連エンティティの読み込みをモデ�
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleThenInclude)]
 
 > [!NOTE]  
-> Visual Studio の現在のバージョンが不適切なコードの入力候補オプションを提供を正しい式を使用する場合に、構文エラーが発生フラグが付けられますが、`ThenInclude`メソッド コレクション ナビゲーション プロパティ。 これは、https://github.com/dotnet/roslyn/issues/8237 で追跡 IntelliSense バグが発生する可能性です。 これらの見かけ上の構文エラーを無視するコードが正しいと正常にコンパイルできる限り安全です。 
+> Visual Studio の現在のバージョンが不適切なコードの入力候補オプションを提供を正しい式を使用する場合に、構文エラーが発生フラグが付けられますが、`ThenInclude`メソッド コレクション ナビゲーション プロパティ。 これは、IntelliSense のバグの追跡の現象https://github.com/dotnet/roslyn/issues/8237です。 これらの見かけ上の構文エラーを無視するコードが正しいと正常にコンパイルできる限り安全です。 
 
 複数の呼び出しをチェーンする`ThenInclude`関連データのレベルを含めてさらに続行します。
 
@@ -98,19 +98,19 @@ Entity Framework Core では、関連エンティティの読み込みをモデ�
 内容`School`受講者は、すべてのユーザーのナビゲーションを集中的に読み込めるパターンの番号を使用します。
 
 - キャストを使用してください。
-```Csharp
-context.People.Include(person => ((Student)person).School).ToList()
-```
+  ```Csharp
+  context.People.Include(person => ((Student)person).School).ToList()
+  ```
 
 - 使用して`as`演算子
-```Csharp
-context.People.Include(person => (person as Student).School).ToList()
-```
+  ```Csharp
+  context.People.Include(person => (person as Student).School).ToList()
+  ```
 
 - オーバー ロードを使用して`Include`型のパラメーターを受け取る `string`
-```Csharp
-context.People.Include("Student").ToList()
-```
+  ```Csharp
+  context.People.Include("Student").ToList()
+  ```
 
 ### <a name="ignored-includes"></a>無視が含まれています
 
@@ -152,7 +152,7 @@ LINQ クエリを表すナビゲーション プロパティの内容を取得�
 > [!NOTE]  
 > この機能は、EF コア 2.1 で導入されました。
 
-遅延読み込みを使用する最も簡単な方法は、インストールすることによって、 [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)パッケージと呼び出しを有効にすると`UseLazyLoadingProxies`です。 例:
+遅延読み込みを使用する最も簡単な方法は、インストールすることによって、 [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)パッケージと呼び出しを有効にすると`UseLazyLoadingProxies`です。 例えば:
 ```Csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
@@ -186,7 +186,7 @@ public class Post
 ```
 ### <a name="lazy-loading-without-proxies"></a>プロキシなしの遅延読み込み
 
-遅延読み込みのプロキシを挿入することによって機能、 `ILazyLoader` 」の説明に従って、エンティティ サービス[エンティティ型のコンス トラクター](../modeling/constructors.md)です。 例:
+遅延読み込みのプロキシを挿入することによって機能、 `ILazyLoader` 」の説明に従って、エンティティ サービス[エンティティ型のコンス トラクター](../modeling/constructors.md)です。 例えば:
 ```Csharp
 public class Blog
 {
@@ -239,7 +239,7 @@ public class Post
     }
 }
 ```
-これから継承するエンティティ型または仮想するナビゲーション プロパティを必要としないできで作成されたエンティティ インスタンス`new`遅延読み込み 1 回に、コンテキストにアタッチします。 ただしへの参照が必要、`ILazyLoader`サービスで、エンティティ型を EF コア アセンブリに結合します。 この EF コアを回避するを許可、`ILazyLoader.Load`代理人として挿入するメソッド。 例:
+これから継承するエンティティ型または仮想するナビゲーション プロパティを必要としないできで作成されたエンティティ インスタンス`new`遅延読み込み 1 回に、コンテキストにアタッチします。 ただしへの参照が必要、`ILazyLoader`サービスで、エンティティ型を EF コア アセンブリに結合します。 この EF コアを回避するを許可、`ILazyLoader.Load`代理人として挿入するメソッド。 例えば:
 ```Csharp
 public class Blog
 {

@@ -1,16 +1,16 @@
 ---
-title: "リバース エンジニア リングの EF コア"
+title: "\U0001F527 リバース エンジニア リングの EF コア"
 author: smitpatel
 ms.author: divega
 ms.date: 10/30/2017
 ms.technology: entity-framework-core
 ms.openlocfilehash: 6bec5185714211a93afe012a296112337a563b04
-ms.sourcegitcommit: 5367516f063cb42804ec92c31cdf76322554f2b5
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/08/2017
+ms.lasthandoff: 04/26/2018
 ---
-# <a name="-reverse-engineering"></a>🔧リバース エンジニア リング
+# <a name="-reverse-engineering"></a>🔧 リバース エンジニア リング
 
 > [!NOTE]
 > このトピックはまだ作成されておりません。 この状態を追跡できます[問題][ 1]パブリックの GitHub の問題の追跡ツールを使用します。 方法などについて[投稿][ 2] GitHub でします。
