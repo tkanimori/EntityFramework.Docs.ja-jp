@@ -1,5 +1,5 @@
 ---
-title: "ASP.NET Core - 新しいデータベース - EF Core の概要"
+title: ASP.NET Core - 新しいデータベース - EF Core の概要
 author: rick-anderson
 ms.author: riande
 ms.author2: tdykstra
@@ -8,11 +8,11 @@ ms.topic: get-started-article
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 ms.technology: entity-framework-core
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: f6ed19d3c5d2ae8d1f5756558e50c1f0dddd2f07
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: 80477ca57b8b3df6de8ba3595c9056c6b8412040
+ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2018
+ms.lasthandoff: 04/26/2018
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>新しいデータベースを使用した ASP.NET Core での EF Core の概要
 
@@ -65,7 +65,7 @@ ms.lasthandoff: 02/12/2018
 * 名前に「**Model.cs**」を入力して **[OK]** をクリックします。
 * このファイルの内容を次のコードに置き換えます。
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Models/Model.cs)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Models/Model.cs)]
 
 注: 実際のアプリでは、モデルの各クラスは別のファイルに記述するのが一般的です。 わかりやすくするために、このチュートリアルではすべてのクラスを 1 つのファイルに記述しています。
 
@@ -78,13 +78,13 @@ MVC コントローラーで利用するために、`BloggingContext` をサー�
 * **Startup.cs** を開きます。
 * 次の `using` ステートメントを追加します。
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs#AddedUsings)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs#AddedUsings)]
 
 `AddDbContext` メソッドを追加して、それをサービスとして登録します。
 
 * `ConfigureServices` メソッドに次のコードを追加します。
 
- [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
+  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.NewDb/Startup.cs?name=ConfigureServices&highlight=7-8)]
 
 注: 実際のアプリでは、接続文字列は構成ファイルに記述するのが一般的です。 わかりやすくするために、接続文字列はコード内に定義しています。 詳細については、「[接続文字列](../../miscellaneous/connection-strings.md)」をご覧ください。
 
@@ -111,7 +111,7 @@ MVC コントローラーで利用するために、`BloggingContext` をサー�
 * **ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、**[追加] > [コントローラー]** の順に選択します。
 * **[Entity Framework を使用したビューがある MVC コントローラー]** を選択し、**[OK]** をクリックします。
 * **[モデル クラス]** に **Blog** を、**[データ コンテキスト クラス]** に **BloggingContext** を設定します。
-* **[追加]**をクリックします。
+* **[追加]** をクリックします。
 
 
 ## <a name="run-the-application"></a>アプリケーションの実行

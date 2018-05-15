@@ -4,11 +4,11 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/6/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 396d31c9d0c0f47d299f49e82e557ed29b8420e7
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: d053d53bd50d2e7d16223c5b4e4009c9bb2298bb
+ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/14/2018
 ---
 <a name="ef-core-net-command-line-tools"></a>EF コア .NET コマンド ライン ツール
 ===============================
@@ -19,14 +19,18 @@ Entity Framework Core .NET コマンド ライン ツールは、クロス プ�
 
 <a name="installing-the-tools"></a>ツールのインストール
 --------------------
-次の手順を使用して EF コア .NET コマンド ライン ツールをインストールします。
+> [!NOTE]
+> .NET Core SDK バージョン 2.1.300 おり、新しい**dotnet ef** EF コア 2.0 およびそれ以降のバージョンと互換性のあるコマンド。 したがって最新バージョンの .NET Core SDK と EF Core ランタイムを使用している場合をインストールする必要はありませんし、このセクションの残りの部分を無視することができます。
+>
+> その一方で、 **dotnet ef**ツール .NET Core SDK バージョン 2.1.300 に含まれていると、それ以降は EF コア バージョン 1.0 および 1.1 と互換性がありません。 .NET Core SDK 2.1.300 をあるコンピューター上で以前のバージョンの EF コアを使用するプロジェクトで作業することができます以降がインストールされて、前にバージョン 2.1.200 もインストールする必要がありますまたは SDK の古い変更してその古いバージョンを使用するアプリケーションを構成して、 [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json)ファイル。 このファイルは、(プロジェクトの上に 1 つ) のソリューション ディレクトリに通常含まれます。 下の installlation 命令で開始できます。
+
+以前のバージョンの .NET Core SDK では、次の手順を使用して EF コア .NET コマンド ライン ツールをインストールすることができます。
 
 1. プロジェクト ファイルを編集し、DotNetCliToolReference 項目 (下記参照) として Microsoft.EntityFrameworkCore.Tools.DotNet を追加
 2. 次のコマンドを実行します。
 
        dotnet add package Microsoft.EntityFrameworkCore.Design
        dotnet restore
-
 
 作成されたプロジェクトは、次のようになります。
 

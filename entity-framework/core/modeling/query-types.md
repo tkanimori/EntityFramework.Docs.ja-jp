@@ -6,11 +6,11 @@ ms.date: 2/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 ms.technology: entity-framework-core
 uid: core/modeling/query-types
-ms.openlocfilehash: 4e02f106e086d243b23a60c02838f32555be210e
-ms.sourcegitcommit: 26f33758c47399ae933f22fec8e1d19fa7d2c0b7
+ms.openlocfilehash: f16e3a130f3a4f92b2bf6014f2df0ca4eec56a25
+ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/19/2018
+ms.lasthandoff: 05/14/2018
 ---
 # <a name="query-types"></a>クエリの種類
 > [!NOTE]
@@ -28,7 +28,10 @@ ms.lasthandoff: 04/19/2018
 - 定義するキーは不要です。
 - 変更追跡されることはありません、 _DbContext_とそのためことはありません挿入、更新または削除、データベースでします。
 - 規則によって検出されることはありません。
-- サブセットのみがサポートのナビゲーションのマッピング機能 - 具体的には、リレーションシップのプリンシパル end として機能しない可能性があります。
+- 具体的には、ナビゲーションのマッピング機能 - のサブセットをサポートのみ。
+  - リレーションシップのプリンシパル end として機能する可能性があることはありません。
+  - エンティティを指す参照ナビゲーション プロパティのみを含み、ことができます。
+  - エンティティは、クエリの型にナビゲーション プロパティを含めることはできません。
 - 対処する、 _ModelBuilder_を使用して、`Query`メソッドではなく、`Entity`メソッドです。
 - マップされて、 _DbContext_型のプロパティを介して`DbQuery<T>`なく `DbSet<T>`
 - 使用してデータベース オブジェクトにマップされて、`ToView`メソッド、なく`ToTable`です。
