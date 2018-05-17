@@ -6,11 +6,11 @@ ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 329d2757059462468ca30772d37789343c03ba7b
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 3e97c05a87ad9b4817c03f446031ea6c74704f5b
+ms.sourcegitcommit: 605e42232854ce44bae09624a6eebc35b8e2473b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 05/16/2018
 ---
 # <a name="value-conversions"></a>値の変換
 
@@ -43,7 +43,7 @@ public enum EquineBeast
     Unicorn
 }
 ```
-(例: enum 値を文字列として格納する OnModelCreating で変換を定義することができますし、「ロバ」、「ラバ」...)データベース。
+(例: enum 値を文字列として格納する OnModelCreating で変換を定義することができますし、「ロバ」、「ラバ」...])データベース。
 ```Csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -60,7 +60,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## <a name="the-valueconverter-class"></a>ValueConverter クラス
 
-呼び出す`HasConversion`上記のように作成されます、`ValueConverter`インスタンスし、プロパティに設定します。 `ValueConverter`代わりに明示的に作成することができます。 例えば:
+呼び出す`HasConversion`上記のように作成されます、`ValueConverter`インスタンスし、プロパティに設定します。 `ValueConverter`代わりに明示的に作成することができます。 例:
 ```Csharp
 var converter = new ValueConverter<EquineBeast, string>(
     v => v.ToString(),
@@ -78,7 +78,7 @@ modelBuilder
 
 ## <a name="built-in-converters"></a>組み込みのコンバーター
 
-EF コアを同梱し、一連の定義済み`ValueConverter`で見つかった、クラス、`Microsoft.EntityFrameworkCore.Storage.Converters`名前空間。 これらの数値は、次のとおりです。
+EF コアを同梱し、一連の定義済み`ValueConverter`で見つかった、クラス、`Microsoft.EntityFrameworkCore.Storage.ValueConversion`名前空間。 これらの数値は、次のとおりです。
 * `BoolToZeroOneConverter` -0 と 1 つに Bool
 * `BoolToStringConverter` -"Y"および"N"などの文字列をブール値
 * `BoolToTwoValuesConverter` 2 つの値をブール値
