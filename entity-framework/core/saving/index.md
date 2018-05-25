@@ -1,5 +1,5 @@
 ---
-title: "データの保存 - EF Core"
+title: データの保存 - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
