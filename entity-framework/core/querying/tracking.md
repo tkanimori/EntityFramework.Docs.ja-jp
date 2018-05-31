@@ -1,5 +1,5 @@
 ---
-title: "Vs を追跡します。No 追跡クエリの EF コア"
+title: 追跡と追跡なしのクエリ - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,22 +8,23 @@ ms.technology: entity-framework-core
 uid: core/querying/tracking
 ms.openlocfilehash: 9a22c893f3b1e9991560e25e0252287a2844b39e
 ms.sourcegitcommit: 3b6159db8a6c0653f13c7b528367b4e69ac3d51e
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 11/28/2017
+ms.locfileid: "26053962"
 ---
-# <a name="tracking-vs-no-tracking-queries"></a>Vs を追跡します。No 追跡クエリ
+# <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 
-Entity Framework Core は、変更トラッカーのエンティティのインスタンスに関する情報を保持するかどうかは、コントロールの動作を追跡します。 エンティティで検出されたすべての変更を中にデータベースに永続化のエンティティを管理している場合`SaveChanges()`です。 追跡クエリから取得されたエンティティと DbContext インスタンスに以前に読み込まれたエンティティの間エンティティ Framework Core もフィックス アップ ナビゲーション プロパティ。
+Entity Framework Core が、変更追跡のエンティティ インスタンスに関する情報を保持するかどうかは、追跡の動作によって制御されます。 エンティティが追跡されている場合、エンティティ内で検出された変更はすべて、`SaveChanges()` の間にデータベースに対して永続化されます。 また、Entity Framework Core は、追跡クエリから取得されたエンティティと、DbContext インスタンスに以前に読み込まれたエンティティ間のナビゲーション プロパティを修正します。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="tracking-queries"></a>追跡クエリ
 
-既定では、エンティティ型を返すクエリを追跡します。 つまり、これらのエンティティのインスタンスに変更を加えることができますが、によって保存されたこれらの変更`SaveChanges()`です。
+既定では、エンティティ型を返すクエリは、追跡を行います。 つまり、それらのエンティティ インスタンスに変更を加えて、`SaveChanges()` によって永続化された変更を保持できます。
 
-次の例では、ブログの規制への変更が検出され、中にデータベースに永続化`SaveChanges()`です。
+次の例では、ブログ評価に対する変更が検出され、`SaveChanges()` の間にデータベースに対して永続化されています。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
 ``` csharp
@@ -35,11 +36,11 @@ using (var context = new BloggingContext())
 }
 ```
 
-## <a name="no-tracking-queries"></a>No 追跡クエリ
+## <a name="no-tracking-queries"></a>追跡なしのクエリ
 
-追跡クエリはありません便利結果を読み取り専用のシナリオで使用されます。 これらは、セットアップの変更情報を追跡する必要はありませんので、実行する方が手軽です。
+追跡なしのクエリは、読み取り専用のシナリオで結果が使用される場合に役立ちます。 変更追跡の情報を設定する必要がないので、これらのクエリは、より迅速に実行されます。
 
-なしの追跡に、個々 のクエリを交換することができます。
+次のように、追跡なしになるように個々のクエリをスワップできます。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=4)] -->
 ``` csharp
@@ -51,7 +52,7 @@ using (var context = new BloggingContext())
 }
 ```
 
-既定のインスタンス レベルのコンテキストの動作を追跡を変更することもできます。
+また、コンテキスト インスタンスのレベルで、既定の追跡動作を変更できます。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=3)] -->
 ``` csharp
@@ -64,11 +65,11 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> 追跡クエリには引き続き実行クエリ内の id 解決を実行しません。 結果セットには、複数回には、同じエンティティが含まれています場合、は、結果セットに発生するたびに、そのエンティティ クラスの同じインスタンスが返されます。 ただし、弱い参照は、返されたエンティティの追跡に使用されます。 同じ id を持つ前の結果がスコープ外に出るし、ガベージ コレクションの実行する場合、は、エンティティの新しいインスタンスを取得可能性があります。 詳細については、次を参照してください。[クエリのしくみ](overview.md)です。
+> 追跡なしのクエリでは、実行しているクエリ内で ID の解決を行います。 結果セットに同じエンティティが複数回含まれている場合、結果セット内での各同時実行に対して、エンティティ クラスの同じインスタンスが返されます。 ただし、既に返されたエンティティの追跡を継続するために、弱参照が使用されます。 同じ ID の前の結果が範囲外になっている場合は、ガベージ コレクションが実行され、新しいエンティティ インスタンスを取得できます。 詳細については、「[クエリのしくみ](overview.md)」を参照してください。
 
 ## <a name="tracking-and-projections"></a>追跡と予測
 
-結果には、エンティティ型が含まれている場合、クエリの結果の型に、エンティティ型がされていない場合でも引き続き追跡される既定です。 次のクエリで、匿名型のインスタンスが返されます`Blog`結果セットの追跡に使用されます。
+クエリの結果の型がエンティティ型ではない場合でも、結果にエンティティ型が含まれていれば、既定で引き続き追跡されます。 次のクエリでは、匿名の型が返され、結果セット内で `Blog` のインスタンスが追跡されます。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=7)] -->
 ``` csharp
@@ -84,7 +85,7 @@ using (var context = new BloggingContext())
 }
 ```
 
-結果セットに、エンティティ型が含まれていない場合は、追跡は行われません。 匿名型が返されます次のクエリでは、エンティティ (ただし、実際のエンティティ型のインスタンスがない) からの値の一部ではありません追跡実行されます。
+結果セットにエンティティ型が含まれていない場合、追跡なしのクエリが実行されます。 次のクエリでは、エンティティからいくつかの値を持つ (ただし、実際のエンティティ型のインスタンスはない) 匿名の型が返され 、追跡は行われていません。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
 ``` csharp

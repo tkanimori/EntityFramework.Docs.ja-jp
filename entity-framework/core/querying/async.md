@@ -1,5 +1,5 @@
 ---
-title: "非同期クエリ - EF コア"
+title: 非同期クエリ - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 01/24/2017
@@ -8,20 +8,21 @@ ms.technology: entity-framework-core
 uid: core/querying/async
 ms.openlocfilehash: 6554f04d0edfe0ca2ee72ebed8b878a1997a9500
 ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052682"
 ---
 # <a name="asynchronous-queries"></a>非同期クエリ
 
-非同期クエリでは、クエリは、データベース内で実行中に、スレッドがブロックされないようにします。 固定のシック クライアント アプリケーションの UI を防ぐことができます。 非同期操作では、ここで、スレッドを解放して、データベースの操作が完了するまで、他の要求を処理する web アプリケーションでスループットを向上できるもします。 詳細については、次を参照してください。 [c# での非同期プログラミング](https://docs.microsoft.com/dotnet/csharp/async)です。
+非同期クエリでは、クエリがデータベースで実行されている間の、スレッドのブロックを回避します。 これは、シック クライアント アプリケーションの UI の凍結を防止するために役立つ場合があります。 また、非同期操作では、データベース操作が完了している間に、他の要求を処理するためにスレッドを解放できるので、Web アプリケーションでのスループットを向上させることができます。 詳細については、「[C# での非同期プログラミング](https://docs.microsoft.com/dotnet/csharp/async)」を参照してください。
 
 > [!WARNING]  
-> EF コアは、同じコンテキスト インスタンスで実行されている複数の並列操作をサポートしていません。 常に、次の操作を開始する前に完了するための操作を待つ必要があります。 使用してこれは、通常、`await`各非同期操作ではキーワードです。
+> EF Core は、同じコンテキスト インスタンス上での複数の並列操作の実行をサポートしていません。 次の操作を開始する前に、操作が完了するまで常に待機する必要があります。 これは通常、各同期操作において `await` キーワードを使用することで行われます。
 
-Entity Framework Core では、によって、クエリが実行される LINQ メソッドと返される結果の代わりとして使用できる非同期の拡張メソッドのセットを提供します。 例としては、 `ToListAsync()`、 `ToArrayAsync()`、 `SingleAsync()`, などです。バージョンがあるいない非同期 LINQ 演算子のように`Where(...)`、`OrderBy(...)`などのみこれらのメソッドは LINQ 式ツリーを構築し、データベースで実行するクエリが発生しないためです。
+Entity Framework Core では、クエリを実行して結果を返すための LINQ メソッドの代替として使用できる、一連の非同期拡張メソッドを提供しています。 例として、`ToListAsync()`、`ToArrayAsync()`、`SingleAsync()` などがあります。`Where(...)`、`OrderBy(...)` などの LINQ 演算子の非同期バージョンはありません。これらのメソッドでは LINQ 式のツリーのみをビルドし、データベースでのクエリの実行は発生しないためです。
 
 > [!IMPORTANT]  
-> EF コア async 拡張メソッドが定義されている、`Microsoft.EntityFrameworkCore`名前空間。 この名前空間は、使用できるメソッドをインポートする必要があります。
+> EF Core の非同期拡張メソッドは、`Microsoft.EntityFrameworkCore` 名前空間で定義されています。 メソッドを使用可能にするには、この名前空間がインポートされている必要があります。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/Async/Sample.cs#Sample)]

@@ -1,5 +1,5 @@
 ---
-title: "クライアントとします。サーバー上の評価の EF コア"
+title: クライアントとサーバーの評価 - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,20 +8,21 @@ ms.technology: entity-framework-core
 uid: core/querying/client-eval
 ms.openlocfilehash: e1852b780041e9e92fb4d25129175346e3a601a3
 ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052652"
 ---
-# <a name="client-vs-server-evaluation"></a>クライアントとします。サーバーの評価
+# <a name="client-vs-server-evaluation"></a>クライアントとサーバーの評価
 
-Entity Framework のコアには、クライアントとのデータベースにプッシュされる部分で評価されるクエリの一部がサポートされています。 クエリのどの部分は、データベースで評価されるかどうか、データベース プロバイダーの責任です。
+Entity Framework Core では、クライアント上でクエリの一部を評価し、一部をデータベースにプッシュする機能をサポートしています。 クエリのどの部分がデータベースで評価されるかの識別は、データベース プロバイダーが行います。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="client-evaluation"></a>クライアントの評価
 
-次の例では、ヘルパー メソッドを SQL Server データベースから返されるブログの Url を標準化するために使用されます。 SQL Server プロバイダーにこのメソッドを実装する方法に関する洞察があるないために、SQL に変換することはできません。 クエリの他のすべての側面が評価される、データベースで、渡す、返された`URL`このメソッドでは、クライアント上で実行されます。
+次の例では、SQL Server データベースから返されるブログの URL を標準化するために、ヘルパー メソッドが使用されています。 SQL Server プロバイダーはこのメソッドの実装方法に関する分析情報を保持していないため、このメソッドを SQL に変換することはできません。 クエリの他の側面はすべてデータベースで評価されますが、このメソッド経由で返された `URL` の受け渡しは、クライアント上で実行されます。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/Sample.cs?highlight=6)] -->
 ``` csharp
@@ -50,9 +51,9 @@ public static string StandardizeUrl(string url)
 }
 ```
 
-## <a name="disabling-client-evaluation"></a>クライアントの評価を無効にします。
+## <a name="disabling-client-evaluation"></a>クライアントの評価を無効にする
 
-クライアントの評価は、場合によってはパフォーマンスが低下する可能性が非常に便利ですが。 ヘルパー メソッドが現在使用されているフィルターで、次のクエリを検討してください。 これは、データベースで実行することはできません、ため、クライアントでデータがメモリとし、フィルターに取り込まれたすべてが適用されます。 データ、およびそのデータの量はフィルターで除外額、に応じてこの結果、パフォーマンスが低下します。
+クライアントの評価は非常に便利な場合もありますが、一部の例では、パフォーマンスが低下する恐れがあります。 次のクエリを検討してください。このクエリでは現在、ヘルパー メソッドがフィルター内で使用されています。 データベース内ではこれを実行できないので、すべてのデータがメモリ内にプルされて、クライアント上でフィルターが適用されます。 データ量と、そのデータがフィルターで除外される量によっては、このことがパフォーマンス低下につながります。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/Sample.cs)] -->
 ``` csharp
@@ -61,7 +62,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-既定では、クライアントの評価が実行されるときに、EF コアは警告を記録します。 参照してください[ログ](../miscellaneous/logging.md)ログ出力を表示する方法の詳細についてです。 スローまたは何もしないクライアントの評価が発生した場合は、動作を変更できます。 では通常、コンテキストでのオプションを設定するときにこれは、 `DbContext.OnConfiguring`、または`Startup.cs`ASP.NET Core を使用している場合。
+既定では、クライアントの評価が実行されると、EF Core は警告を記録します。 ログ記録の出力の表示に関する詳細については、[ログ記録](../miscellaneous/logging.md)に関するページを参照してください。 クライアントの評価が行われる場合の動作を、エラーをスローするか、または何もしないかに変更できます。 ASP.NET Core を使用している場合、通常は `DbContext.OnConfiguring` または `Startup.cs` でコンテキストのオプションを設定するときに、この変更が行われます。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
 ``` csharp

@@ -1,5 +1,5 @@
 ---
-title: "基本的なクエリの EF コア"
+title: 基本的なクエリ - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,22 +8,23 @@ ms.technology: entity-framework-core
 uid: core/querying/basic
 ms.openlocfilehash: 5070faf2aeeffad680e24e7de5a0ffa03a8f0064
 ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052552"
 ---
 # <a name="basic-queries"></a>基本的なクエリ
 
 言語統合クエリ (LINQ) を使用して、データベースからエンティティを読み込む方法を説明します。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="101-linq-samples"></a>101 個の LINQ サンプル
 
-このページは、Entity Framework のコアで一般的なタスクを実現するために、いくつかの例を示します。 LINQ で何ができるかを示すサンプルの広範囲に、次を参照してください。 [101 個の LINQ サンプル](https://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b)です。
+このページでは、Entity Framework Core で一般的なタスクを実現するいくつかの例を示します。 LINQ で何ができるかを示す広範囲なサンプルについては、「[101 LINQ Samples](https://code.msdn.microsoft.com/101-LINQ-Samples-3fb9811b)」(101 個の LINQ サンプル) 参照してください。
 
-## <a name="loading-all-data"></a>すべてのデータを読み込み
+## <a name="loading-all-data"></a>すべてのデータの読み込み
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Basics/Sample.cs)] -->
 ``` csharp
@@ -33,7 +34,7 @@ using (var context = new BloggingContext())
 }
 ```
 
-## <a name="loading-a-single-entity"></a>1 つのエンティティの読み込み
+## <a name="loading-a-single-entity"></a>単一のエンティティの読み込み
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/Basics/Sample.cs)] -->
 ``` csharp

@@ -1,5 +1,5 @@
 ---
-title: 基本的な保存の EF コア
+title: 基本の保存 - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,47 +8,48 @@ ms.technology: entity-framework-core
 uid: core/saving/basic
 ms.openlocfilehash: deead323301dc4a0ee0748b4536ddff4596b99e6
 ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 04/16/2018
+ms.locfileid: "31006664"
 ---
 # <a name="basic-save"></a>基本の保存
 
-追加、変更、および、コンテキストおよびエンティティ クラスを使用してデータを削除する方法を説明します。
+コンテキストとエンティティ クラスを使用してデータを追加、変更、および削除する方法を説明します。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Basics/)は GitHub で確認できます。
 
 ## <a name="adding-data"></a>データの追加
 
-使用して、 *DbSet.Add*エンティティ クラスの新しいインスタンスを追加するメソッド。 データを呼び出すと、データベース内に挿入される*SaveChanges*です。
+エンティティ クラスの新しいインスタンスを追加するには、*DbSet.Add* メソッドを使用します。 データは、*SaveChanges* が呼び出されたときにデータベースに挿入されます。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Add)]
 
 > [!TIP]  
-> エンティティのすべてのグラフ上のすべての作業の追加、アタッチ、および Update メソッド、渡された」の説明に従って、[関連データ](related-data.md)セクションです。 または、EntityEntry.State プロパティを使用して、1 つのエンティティの状態を設定できます。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
+> Add、Attach、および Update メソッドは、そのすべてが「[関連データ](related-data.md)」で説明するように、すべてのエンティティで動作します。 EntityEntry.State プロパティを使用して、単一のエンティティの状態を設定できます。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
 
 ## <a name="updating-data"></a>データの更新
 
-EF は、コンテキストによって追跡されている既存のエンティティに行われた変更を自動的に検出されます。 これには、エンティティをデータベースから読み込み/クエリして以前に追加され、データベースに保存されているエンティティが含まれます。
+EF は、コンテキストによって追跡されている既存のエンティティに対して行われた変更を自動的に検出します。 これには、データベースから読み込む/クエリするエンティティと、既に追加され、データベースに保存されているエンティティが含まれます。
 
-プロパティに割り当てられた値を単に変更し、呼び出す*SaveChanges*です。
+プロパティに割り当てられる値を変更した後、*SaveChanges* を呼び出すだけです。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Update)]
 
 ## <a name="deleting-data"></a>データの削除
 
-使用して、 *DbSet.Remove*するエンティティ クラスのインスタンスを削除するメソッド。
+エンティティ クラスのインスタンスを削除するには、*DbSet.Remove* メソッドを使用します。
 
-エンティティがデータベースに既に存在する場合、中には削除されます*SaveChanges*です。 エンティティが (つまり追跡追加されると)、データベースに保存されていない場合それがコンテキストから削除されますあり、使用できなくなります挿入時に*SaveChanges*と呼びます。
+エンティティが既にデータベースに存在する場合は、*SaveChanges* の処理中に削除されます。 エンティティがまだデータベースに保存されていない (追加時に追跡される) 場合は、コンテキストから削除され、*SaveChanges* が呼び出されたときにエンティティが挿入されることはなくなります。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#Remove)]
 
-## <a name="multiple-operations-in-a-single-savechanges"></a>1 つの SaveChanges で複数の操作
+## <a name="multiple-operations-in-a-single-savechanges"></a>1 つの SaveChanges 内の複数の操作
 
-1 回の呼び出しに複数の追加/更新/削除操作を組み合わせることができます*SaveChanges*です。
+複数の追加/更新/削除操作を組み合わせて、*SaveChanges* の 1 回の呼び出しで使用できます。
 
 > [!NOTE]  
-> ほとんどのデータベース プロバイダーの*SaveChanges*がトランザクションです。 つまり、すべての操作の成功または失敗が操作しない左部分的に適用されます。
+> ほとんどのデータベース プロバイダーでは、*SaveChanges* はトランザクションです。 これは、すべての操作が成功するか失敗するかのいずれかであり、操作の一部のみが適用されることはないことを意味します。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Basics/Sample.cs#MultipleOperations)]

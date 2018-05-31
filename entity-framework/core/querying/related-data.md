@@ -1,5 +1,5 @@
 ---
-title: 読み込みに関連したデータの EF コア
+title: 関連データの読み込み - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,60 +8,61 @@ ms.technology: entity-framework-core
 uid: core/querying/related-data
 ms.openlocfilehash: 5f1fb9376300739ab0e306d9d60e7ec71aa2d2e7
 ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812652"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
-Entity Framework Core では、関連エンティティの読み込みをモデルで、ナビゲーション プロパティを使用することができます。 関連するデータの読み込みに使用される 3 つの一般的な O/RM パターンがあります。
-* **一括読み込み**最初のクエリの一部として、データベースから、関連するデータが読み込まれたことを意味します。
-* **明示的な読み込み**は後で、データベースから、関連するデータを明示的に読み込むことを意味します。
-* **遅延読み込み**ナビゲーション プロパティにアクセスする場合、関連するデータが透過的にデータベースから読み込むことを意味します。
+Entity Framework Core を使用すると、モデル内でナビゲーション プロパティを使用して関連エンティティを読み込むことができます。 関連データの読み込みに使用される共通の O/RM パターンが 3 つあります。
+* **一括読み込み**。初期クエリの一部としてデータベースから関連データが読み込まれることを意味します。
+* **明示的読み込み**。後でデータベースから明示的に関連データが読み込まれることを意味します。
+* **遅延読み込み**。ナビゲーション プロパティにアクセスしたときに、データベースから透過的に関連データが読み込まれることを意味します。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="eager-loading"></a>一括読み込み
 
-使用することができます、`Include`クエリの結果に含まれる関連データを指定します。 次の例では、ブログの結果に返される必要があります、`Posts`プロパティとして、関連する投稿に設定されます。
+`Include` メソッドを使用して、クエリ結果に含める関連データを指定することができます。 次の例では、結果で返されるブログには `Posts` プロパティに関連する投稿が設定されます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleInclude)]
 
 > [!TIP]  
-> Entity Framework Core は自動的に修正をするナビゲーション プロパティをコンテキストのインスタンスに以前に読み込まれたその他のエンティティです。 場合でも、明示的には、ナビゲーション プロパティのデータを含まない、いくつかの場合は、プロパティを作成してか、以前に読み込まれたすべての関連するエンティティ。
+> Entity Framework Core は、以前にコンテキスト インスタンスに読み込まれた他のエンティティに対して、ナビゲーション プロパティを自動的に修正します。 そのため、ナビゲーション プロパティのデータを明示的に含めていない場合でも、関連エンティティの一部またはすべてが以前に読み込まれていれば、プロパティを設定することができます。
 
 
-単一のクエリでは、複数のリレーションシップから関連するデータを含めることができます。
+複数のリレーションシップの関連データを 1 つのクエリに含めることができます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleIncludes)]
 
-### <a name="including-multiple-levels"></a>複数のレベルを含む
+### <a name="including-multiple-levels"></a>複数のレベルを含める
 
-使用して関連するデータの複数のレベルを含むへのリレーションシップを通じてドリルダウンすることができます、`ThenInclude`メソッドです。 次の例では、すべてのブログの関連する投稿を各投稿の作成者を読み込みます。
+`ThenInclude` メソッドを使用して、リレーションシップをドリル ダウンし、複数のレベルの関連データを含めることができます。 次の例では、すべてのブログ、関連記事、および各投稿の作成者を読み込みます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#SingleThenInclude)]
 
 > [!NOTE]  
-> Visual Studio の現在のバージョンが不適切なコードの入力候補オプションを提供を正しい式を使用する場合に、構文エラーが発生フラグが付けられますが、`ThenInclude`メソッド コレクション ナビゲーション プロパティ。 これは、IntelliSense のバグの追跡の現象https://github.com/dotnet/roslyn/issues/8237です。 これらの見かけ上の構文エラーを無視するコードが正しいと正常にコンパイルできる限り安全です。 
+> Visual Studio の現在のバージョンでは、適切なコード補完オプションが提供されていないため、コレクションのナビゲーション プロパティのあとに `ThenInclude` メソッドを使用すると、正しい式に構文エラーのフラグが付けられる可能性があります。 これは https://github.com/dotnet/roslyn/issues/8237 で追跡された IntelliSense のバグの症状です。 コードが正しく、正常にコンパイルできる限り、このような見せかけ上の構文エラーは無視しても構いません。 
 
-複数の呼び出しをチェーンする`ThenInclude`関連データのレベルを含めてさらに続行します。
+`ThenInclude` に対して複数の呼び出しを連鎖させて、さらなるレベルの関連データを含めることができます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleThenIncludes)]
 
-これを同じクエリで複数のレベルと複数のルートから関連するデータを含めるにはすべてを組み合わせることができます。
+このすべてを組み合わせて、複数のレベルと複数のルートの関連データを同じクエリ内に含めることができます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-いずれかが含まれるエンティティの複数の関連エンティティを追加することがあります。 たとえば、クエリを実行するときに`Blog`が含まれています、`Posts`両方を格納して、`Author`と`Tags`の`Posts`です。 これを行うには、ルートからのパスを含めるそれぞれを指定する必要があります。 たとえば、`Blog -> Posts -> Author`と`Blog -> Posts -> Tags`です。 表示される冗長な結合、EF の統合はほとんどの場合、結合 SQL を生成するときにありません。
+含まれているエンティティの 1 つについて複数の関連エンティティを含めることができます。 たとえば、`Blog` をクエリするときに、`Posts` を含め、さらに `Posts` の `Author` と `Tags` の両方を含めたい場合があります。 この場合、ルートから始まる各インクルード パスを指定する必要があります。 たとえば、`Blog -> Posts -> Author` と`Blog -> Posts -> Tags` です。 これで冗長的な結合を実現することにはならず、ほとんどの場合、SQL を生成するときに EF で結合は統合されます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
-### <a name="include-on-derived-types"></a>派生型では、します。
+### <a name="include-on-derived-types"></a>派生型に対するインクルード
 
-ナビゲーションを使用して、派生型でのみ定義から関連するデータを含めることができます`Include`と`ThenInclude`です。 
+`Include` と `ThenInclude` を使用して、派生型にのみ定義されているナビゲーションの関連データを含めることができます。 
 
-次のようなモデルを指定します。
+次のモデルがあるとします。
 
 ```Csharp
     public class SchoolContext : DbContext
@@ -95,77 +96,77 @@ Entity Framework Core では、関連エンティティの読み込みをモデ�
     }
 ```
 
-内容`School`受講者は、すべてのユーザーのナビゲーションを集中的に読み込めるパターンの番号を使用します。
+生徒である全ユーザーの `School` ナビゲーションの内容を一括して読み込むには、いくつかのパターンを使用できます。
 
-- キャストを使用してください。
+- キャストを使用する
   ```Csharp
   context.People.Include(person => ((Student)person).School).ToList()
   ```
 
-- 使用して`as`演算子
+- `as` 演算子を使用する
   ```Csharp
   context.People.Include(person => (person as Student).School).ToList()
   ```
 
-- オーバー ロードを使用して`Include`型のパラメーターを受け取る `string`
+- 型 `string` のパラメーターを受け取る `Include` のオーバーロードを使用する
   ```Csharp
   context.People.Include("Student").ToList()
   ```
 
-### <a name="ignored-includes"></a>無視が含まれています
+### <a name="ignored-includes"></a>無視されるインクルード
 
-不要になったクエリの開始とエンティティ型のインスタンスを返すように、クエリを変更する場合は、include 演算子は無視されます。
+クエリが開始されたエンティティ型のインスタンスを返さないようにクエリを変更した場合、インクルード演算子は無視されます。
 
-次の例では、include 演算子に基づいて、 `Blog`、ところが、`Select`演算子を使用して、匿名型を取得するクエリを変更します。 この場合、include 演算子がある影響しません。
+次の例では、インクルード演算子は `Blog` に基づいていますが、匿名型を返すようにクエリを変更するために `Select` 演算子が使用されています。 この場合、インクルード演算子には何の効果もありません。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#IgnoredInclude)]
 
-既定では、EF コアが、警告をログとは、演算子は無視されます。 参照してください[ログ](../miscellaneous/logging.md)ログ出力を表示する方法の詳細についてです。 スローするか、何もする include 演算子が無視される動作を変更できます。 では通常、コンテキストでのオプションを設定するときにこれは、 `DbContext.OnConfiguring`、または`Startup.cs`ASP.NET Core を使用している場合。
+既定では、インクルード演算子が無視されると、EF Core では警告をログに記録します。 ログ記録の出力の表示に関する詳細については、[ログ記録](../miscellaneous/logging.md)に関するページを参照してください。 インクルード演算子が無視された場合の動作を、エラーをスローするか、または何もしないかに変更できます。 ASP.NET Core を使用している場合、通常は `DbContext.OnConfiguring` または `Startup.cs` でコンテキストのオプションを設定するときに、この変更が行われます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/ThrowOnIgnoredInclude/BloggingContext.cs#OnConfiguring)]
 
 ## <a name="explicit-loading"></a>明示的読み込み
 
 > [!NOTE]  
-> この機能は、EF コア 1.1 で導入されました。
+> この機能は、EF Core 1.1 で導入されました。
 
-使用して、ナビゲーション プロパティを明示的に読み込むことができます、 `DbContext.Entry(...)` API です。
+`DbContext.Entry(...)` API を使用してナビゲーション プロパティを明示的に読み込むことができます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#Eager)]
 
-ナビゲーション プロパティは、関連エンティティを返す別のクエリを実行することによっても明示的に読み込むことができます。 変更の追跡が有効になっているかどうか、EF コアのすべてのエンティティは既に読み込まれているを参照する新たに読み込まれたエンティティのナビゲーション プロパティを設定を参照してくださいに既に読み込まれているエンティティのナビゲーション プロパティを設定が自動的にエンティティを読み込むときに、新たに読み込まれたエンティティです。
+また、関連エンティティを返す個別のクエリを実行することで、ナビゲーション プロパティを明示的に読み込むこともできます。 変更の追跡が有効な場合、エンティティを読み込むと、EF Core は、既に読み込まれているエンティティがあれば参照するように、新しく読み込まれたエンティティのナビゲーション プロパティを自動的に設定します。また、新しく読み込まれたエンティティを参照するように、既に読み込まれているエンティティのナビゲーション プロパティを自動的に設定します。
 
-### <a name="querying-related-entities"></a>関連エンティティのクエリを実行します。
+### <a name="querying-related-entities"></a>関連エンティティのクエリ
 
-LINQ クエリを表すナビゲーション プロパティの内容を取得することもできます。
+また、ナビゲーション プロパティの内容を表す LINQ クエリを取得することもできます。
 
-これにより、それらをメモリに読み込むことがなく、関連エンティティを aggregate 操作を実行しているなどの作業を行うことができます。
+そのため、関連エンティティをメモリに読み込まずに集計演算子を実行するなどの操作を行うことができます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#NavQueryAggregate)]
 
-関連エンティティは、メモリに読み込まれるをフィルターすることもできます。
+関連エンティティがメモリに読み込まれるようにフィルター処理することもできます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Querying/RelatedData/Sample.cs#NavQueryFiltered)]
 
 ## <a name="lazy-loading"></a>遅延読み込み
 
 > [!NOTE]  
-> この機能は、EF コア 2.1 で導入されました。
+> この機能は、EF Core 2.1 で導入されました。
 
-遅延読み込みを使用する最も簡単な方法は、インストールすることによって、 [Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/)パッケージと呼び出しを有効にすると`UseLazyLoadingProxies`です。 例えば:
+遅延読み込みを使用するには、[Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) パッケージをインストールし、`UseLazyLoadingProxies` を呼び出して有効にする方法が最も簡単です。 例:
 ```Csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .UseLazyLoadingProxies()
         .UseSqlServer(myConnectionString);
 ```
-または、AddDbContext を使用する場合。
+または、AddDbContext を使用する場合:
 ```Csharp
     .AddDbContext<BloggingContext>(
         b => b.UseLazyLoadingProxies()
               .UseSqlServer(myConnectionString));
 ```
-EF コアを遅延読み込みがされる--オーバーライド可能なナビゲーション プロパティに対して有効にする必要があります`virtual`およびクラスから継承されることができます。 たとえば、次のエンティティで、`Post.Blog`と`Blog.Posts`遅延読み込みされたナビゲーション プロパティになります。
+EF Core は、オーバーライド可能なナビゲーション プロパティの場合に遅延読み込みを有効にします。つまり `virtual` であり、継承可能なクラスの ナビゲーション プロパティである必要があります。 たとえば、次のエンティティでは、`Post.Blog` および `Blog.Posts` ナビゲーション プロパティの遅延読み込みが実行されます。
 ```Csharp
 public class Blog
 {
@@ -184,9 +185,9 @@ public class Post
     public virtual Blog Blog { get; set; }
 }
 ```
-### <a name="lazy-loading-without-proxies"></a>プロキシなしの遅延読み込み
+### <a name="lazy-loading-without-proxies"></a>プロキシを使用しない遅延読み込み
 
-遅延読み込みのプロキシを挿入することによって機能、 `ILazyLoader` 」の説明に従って、エンティティ サービス[エンティティ型のコンス トラクター](../modeling/constructors.md)です。 例えば:
+遅延読み込みプロキシは、[エンティティ型コンストラクター](../modeling/constructors.md)に関するページで説明されているように、エンティティに `ILazyLoader` サービスを挿入することで機能します。 例:
 ```Csharp
 public class Blog
 {
@@ -239,7 +240,7 @@ public class Post
     }
 }
 ```
-これから継承するエンティティ型または仮想するナビゲーション プロパティを必要としないできで作成されたエンティティ インスタンス`new`遅延読み込み 1 回に、コンテキストにアタッチします。 ただしへの参照が必要、`ILazyLoader`サービスで、エンティティ型を EF コア アセンブリに結合します。 この EF コアを回避するを許可、`ILazyLoader.Load`代理人として挿入するメソッド。 例えば:
+この場合、エンティティ型を継承したり、ナビゲーション プロパティを仮想にしたりする必要はありません。コンテキストにアタッチされたときに、`new` で作成されたエンティティ インスタンスの遅延読み込みを実行することができます。 ただし、エンティティ型を EF Core アセンブリに結合する `ILazyLoader` サービスを参照する必要があります。 これを回避するため、EF Core では `ILazyLoader.Load` メソッドをデリゲートとして挿入することができます。 例:
 ```Csharp
 public class Blog
 {
@@ -292,7 +293,7 @@ public class Post
     }
 }
 ```
-使用して上記のコード、`Load`ビット クリーナー デリゲートを使用できるようにする拡張メソッド。
+上記のコードでは、デリゲートの使用をビット クリーナーにするために、拡張メソッド `Load` を使用しています。
 ```Csharp
 public static class PocoLoadingExtensions
 {
@@ -310,17 +311,17 @@ public static class PocoLoadingExtensions
 }
 ```
 > [!NOTE]  
-> 遅延読み込みデリゲート コンス トラクターのパラメーターには、"lazyLoader"を呼び出す必要があります。 今後のリリースでこれが予定されて別の名前を使用する構成。
+> 遅延読み込みデリゲートのコンストラクター パラメーターは、"lazyLoader" と指定する必要があります。 これに別の名前を使用する構成が今後のリリースで計画されています。
 
 ## <a name="related-data-and-serialization"></a>関連データとシリアル化
 
-EF コアは自動的に修正をナビゲーション プロパティ、しまうサイクルで、オブジェクト グラフ内ためです。 たとえば、ブログを読み込みが関連付けられて投稿投稿のコレクションを参照するブログ オブジェクトになります。 これらの投稿の各ブログへの参照になります。
+EF Core はナビゲーション プロパティを自動的に修正するので、最終的にオブジェクト グラフの循環が生じる可能性があります。 たとえば、ブログとその関連する投稿を読み込むと、投稿のコレクションを参照するブログ オブジェクトになります。 これらの各投稿には元のブログへの参照が含まれることになります。
 
-一部のシリアル化フレームワークでは、このようなサイクルは許可されません。 たとえば、Json.NET では、循環参照が発生した場合、次の例外がスローされます。
+一部のシリアル化フレームワークでは、このような循環は許可されていません。 たとえば、Json.NET では、循環が発生した場合に次の例外をスローします。
 
-> Newtonsoft.Json.JsonSerializationException: 自己のループを型 'MyApplication.Models.Blog' と 'ブログ' プロパティの検出を参照します。
+> Newtonsoft.Json.JsonSerializationException: Self referencing loop detected for property 'Blog' with type 'MyApplication.Models.Blog'.
 
-ASP.NET Core を使用している場合は、オブジェクト グラフ内で見つかったサイクルを無視する Json.NET を構成できます。 これには、`ConfigureServices(...)`メソッド`Startup.cs`です。
+ASP.NET Core を使用している場合は、オブジェクト グラフで見つかった循環を無視するように Json.NET を構成できます。 この操作は、`Startup.cs` の `ConfigureServices(...)` メソッドで実行します。
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)

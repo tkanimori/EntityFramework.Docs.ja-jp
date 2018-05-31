@@ -1,5 +1,5 @@
 ---
-title: 連鎖削除 - EF コア
+title: 連鎖削除 - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,72 +8,73 @@ ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
 ms.openlocfilehash: 0fc8929c56d4c657b7fb1e3c8e4b1a71659220c9
 ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812678"
 ---
 # <a name="cascade-delete"></a>連鎖削除
 
-連鎖削除は、関連する行の削除を自動的にトリガーする行の削除を許可する特性を記述するデータベース用語で通常使用されます。 EF コア削除動作覆われても密接に関連する概念は、親とのリレーションシップが切断されている--ときに子エンティティの自動削除をこれはよくと呼ばれます「孤立アイテムの削除」。
+連鎖削除は、一般的に使用されているデータベース用語です。関連する行の削除を自動的にトリガーするための、行の削除を可能にする特性を示します。 EF Core の削除動作にも含まれる密接に関連した概念として、親エンティティとのリレーションシップが切断されたときの子エンティティの自動削除があります。これは一般に "孤立の削除" と呼ばれます。
 
-EF コアは、いくつかの別の削除動作を実装して、個々 のリレーションシップの削除の動作を構成できます。 EF コアもに基づいてリレーションシップごとに役立つ既定削除動作を自動的に構成している表記規則を実装、[リレーションシップの requiredness](../modeling/relationships.md#required-and-optional-relationships)です。
+EF Core は複数の削除動作を実装しており、個々のリレーションシップの削除動作を構成できます。 また、EF Core は[リレーションシップの必要性](../modeling/relationships.md#required-and-optional-relationships)に基づいて、各リレーションシップに対して有用な既定の削除動作を自動的に構成する規則も実装しています。
 
-## <a name="delete-behaviors"></a>動作を削除します。
-削除の動作が定義されている、 *DeleteBehavior*列挙子を入力しに渡されることができます、 *OnDelete* fluent API を制御するかどうかの切断するプリンシパル/親エンティティの削除、依存する/子エンティティへのリレーションシップによっては、依存する/子エンティティに副作用が必要です。
+## <a name="delete-behaviors"></a>削除動作
+削除動作は、*DeleteBehavior* 列挙子型で定義されます。また、*OnDelete* fluent API に渡して、プリンシパル/親エンティティの削除または依存/子エンティティとのリレーションシップの切断が、依存/子エンティティに副作用を及ぼすかどうかを制御することができます。
 
-プリンシパル/親エンティティを削除または子へのリレーションシップが切断された場合に、EF は実行できる 3 つの操作です。
-* 子/依存ファイルを削除することができます。
-* 子の外部キーの値を設定することができますを null に
-* 子が変更されません。
+プリンシパル/親エンティティが削除されたとき、またはその子とのリレーションシップが切断されたときに EF が実行する可能性があるアクションは次の 3 つです。
+* 子/依存が削除される可能性があります
+* 子の外部キー (FK) 値が null に設定される可能性があります
+* 子は変更されません
 
 > [!NOTE]  
-> EF の主要なモデルで構成されている、delete の動作は EF コアを使用してプリンシパル エンティティが削除され、依存エンティティは (つまり追跡対象の依存ファイル) のメモリに読み込まれるときにのみ適用されます。 対応するカスケード動作は、データベースは、コンテキストによって追跡されていないデータを確実にセットアップには、適用するために必要なアクションである必要があります。 EF コアを使用して、データベースを作成するこの連鎖動作がセットアップするためになります。
+> EF Core モデルに構成されている削除動作は、EF Core を使用してプリンシパル エンティティが削除され、依存エンティティがメモリ内に読み込まれている場合 (つまり、追跡されている依存エンティティの場合) にのみ適用されます。 対応する連鎖動作をデータベースに設定し、コンテキストによって追跡されていないデータに対して必要なアクションが適用されるようにする必要があります。 EF Core を使用してデータベースを作成すると、この連鎖動作が設定されます。
 
-2 番目のアクションの外部キーの値を null に設定が正しくない場合、外部キー値が許容されません。 (Null 非許容の外部キーは、必要なリレーションシップに相当) です。このような場合は、EF コアは、SaveChanges が呼び出されると、データベースに変更を永続化することはできませんのでれた時点で例外がスローされるまでに、外部キー プロパティが null としてマークされているを追跡します。 データベースからの制約に違反することに似ています。
+上記の 2 番目のアクションで、外部キーが Null 許容でない場合、外部キー値を null に設定する操作は無効になります  (Null 許容ではない外部キーは、必須のリレーションシップと同等です)。このような場合、EF Core は、SaveChanges が呼び出されるまで外部キーのプロパティが null とマークされていたことを追跡します。このとき、変更をデータベースに永続化できないため、例外がスローされます。 これは、データベースから制約違反を受け取る場合と似ています。
 
-動作を削除 4 つ以下の表に記載されています。 省略可能なリレーションシップ (null 許容の外部キー) の場合、_は_null 外部キーの値、その結果、次の影響を保存します。
+次の表に示すように、削除動作は 4 つあります。 省略可能なリレーションシップ (Null 許容の外部キー) の場合、null の外部キー値を保存することが_できます_。その結果、次のような影響があります。
 
-| 動作名               | メモリに依存する/子への影響    | データベースに依存する/子への影響  |
+| 動作名               | メモリ内の依存/子への影響    | データベース内の依存/子への影響  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
-| **Cascade**                 | エンティティが削除されます。                   | エンティティが削除されます。                   |
-| **ClientSetNull** (既定) | 外部キー プロパティが設定を null に | なし                                   |
-| **SetNull**                 | 外部キー プロパティが設定を null に | 外部キー プロパティが設定を null に |
-| **制限します。**                | なし                                   | なし                                   |
+| **Cascade**                 | エンティティは削除されます                   | エンティティは削除されます                   |
+| **ClientSetNull** (既定) | 外部キー プロパティは null に設定されます | なし                                   |
+| **SetNull**                 | 外部キー プロパティは null に設定されます | 外部キー プロパティは null に設定されます |
+| **Restrict**                | なし                                   | なし                                   |
 
-必要なリレーションシップ (null 非許容の外部キー) は_いない_null 外部キーの値、その結果、次の影響を保存します。
+必須のリレーションシップ (Null 許容ではない外部キー) の場合、null の外部キー値を保存することが_できません_。その結果、次のような影響があります。
 
-| 動作名         | メモリに依存する/子への影響 | データベースに依存する/子への影響 |
+| 動作名         | メモリ内の依存/子への影響 | データベース内の依存/子への影響 |
 |:----------------------|:------------------------------------|:--------------------------------------|
-| **Cascade** (既定) | エンティティが削除されます。                | エンティティが削除されます。                  |
-| **ClientSetNull**     | SaveChanges がスローされます。                  | なし                                  |
-| **SetNull**           | SaveChanges がスローされます。                  | SaveChanges がスローされます。                    |
-| **制限します。**          | なし                                | なし                                  |
+| **Cascade** (既定) | エンティティは削除されます                | エンティティは削除されます                  |
+| **ClientSetNull**     | SaveChanges がスローされます                  | なし                                  |
+| **SetNull**           | SaveChanges がスローされます                  | SaveChanges がスローされます                    |
+| **Restrict**          | なし                                | なし                                  |
 
-上記の表で*None*制約違反が発生することができます。 たとえば、プリンシパル/子エンティティが削除された場合は、依存する/子の外部キーを変更するアクションは実行されませんし、データベース可能性がありますがスローされます SaveChanges で外部制約違反のため。
+上記の表の "*なし*" は制約違反を引き起こす可能性があります。 たとえば、プリンシパル/子エンティティが削除されても、依存/子の外部キーを変更するアクションが実行されない場合、データベースは外部制約違反のために SaveChanges をスローする可能性があります。
 
-レベルが高い場合。
-* 存在するために、親エンティティが存在して、子を自動的に削除するために対処するための EF しを使用する場合*Cascade*です。
-  * 通常、親は、なしに存在できないエンティティを必要なリレーションシップを使用して*Cascade*既定値です。
-* 処理する際は、外部キーがない、EF しを使用して、親がない可能性がありますまたは可能性のあるエンティティをした場合*ClientSetNull*
-  * 通常、親は、なしに存在可能なエンティティを省略可能なリレーションシップを使用して*ClientSetNull*既定値です。
-  * 子の外部キーに null 値を伝達しようとするデータベースの場合と、子エンティティが読み込まれていない、を使用して*SetNull*です。 ただし、データベースには、これをサポートする必要があり、次のようにデータベースを構成することができますと、その他の制限を実際に多くの場合、このオプションができなくなります。 その理由は*SetNull*は既定ではありません。
-* EF コアしれたエンティティを自動的に削除または外部キーに自動的には、null を使用したくない場合*Restrict*です。 注意が必要であること、コード子エンティティと、外部キーの値の同期を保つ手動でそれ以外の場合の制約の例外がスローされます。
+高レベルでは:
+* 親なしでは存在できないエンティティがあり、EF で子を自動的に削除したい場合は、*Cascade* を使用します。
+  * 通常、親なしでは存在できないエンティティは、必須のリレーションシップを使用します。この場合、*Cascade* が既定です。
+* エンティティが親を持つ場合と持たない場合があり、EF で外部キーを自動機に null にする場合は、*ClientSetNull* を使用します。
+  * 通常、親なしでは存在できるエンティティは、省略可能なリレーションシップを使用します。この場合、*ClientSetNull* が既定です。
+  * 子エンティティが読み込まれていない場合でも、データベースで null 値が子外部キーに伝達されるようにするには、*SetNull* を使用します。 ただし、データベースがこれをサポートしている必要があります。また、このようにデータベースを構成すると、他の制限が生じる可能性があります。そのため、多くの場合、実際にはこのオプションは実用的ではありません。 これが *SetNull* が既定ではない理由です。
+* エンティティの削除や外部キーを null にする処理を EF Core で自動実行しないようにするには、*Restrict* を使用します。 この場合、コードで子エンティティとその外部キー値を手動で継続的に同期させる必要があります。そうしないと、制約の例外がスローされます。
 
 > [!NOTE]
-> EF6 とは異なり、EF コアで連鎖的な影響実行されないが、すぐに、代わりに SaveChanges が呼び出されたときだけです。
+> EF Core は EF6 とは異なり、連鎖の影響はすぐに発生するのではなく、SaveChanges が呼び出されたときにのみ発生します。
 
 > [!NOTE]  
-> **EF コア 2.0 での変更:** 以前のリリースで*制限*原因となる省略可能な外部キーのプロパティを設定する追跡対象の依存エンティティは null、既定値は省略可能なリレーションシップの動作を削除します。 EF コア 2.0 で、 *ClientSetNull*をその動作を表す導入され、省略可能なリレーションシップの既定値になりました。 動作*Restrict*依存エンティティのすべての副作用を持たないは調整されました。
+> **EF Core 2.0 の変更点**: 以前のリリースでは、*Restrict* を使用すると、追跡されている依存エンティティの省略可能な外部キーのプロパティが null に設定されていました。これは、省略可能なリレーションシップの既定の削除動作でした。 EF Core 2.0 では、その動作を表す *ClientSetNull* が導入され、省略可能なリレーションシップの既定になりました。 *Restrict* の動作は、依存エンティティに対する副作用がないように調整されました。
 
-## <a name="entity-deletion-examples"></a>エンティティの削除の例
+## <a name="entity-deletion-examples"></a>エンティティ削除の例
 
-次のコードの一部である、[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/)をダウンロードして実行できます。 このサンプルでは、親エンティティが削除されたときの各オプションと必須の両方のリレーションシップの削除の動作の動作を示します。
+以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/)の一部です。 このサンプルは、親エンティティが削除されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で、何が起こるかを示しています。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
-何が起こっているかを理解するには、各バリエーションについて説明しましょう。
+各動作のサンプルを見て、何が起こるかを理解しましょう。
 
-### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>必須またはオプションの関係を持つ DeleteBehavior.Cascade
+### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>必須または省略可能なリレーションシップがある DeleteBehavior.Cascade
 
 ```
   After loading entities:
@@ -97,12 +98,12 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
       Post '1' is in state Detached with FK '1' and no reference to a blog.
 ```
 
-* ブログが削除済みとしてマークされています。
-* 投稿初期状態のまま Unchanged SaveChanges まで連鎖が発生しないため
-* SaveChanges が両方の依存/子 (投稿) を次のプリンシパル/親 (ブログ) の削除を送信します。
-* データベースから削除されているようになりましたので、保存した後のすべてのエンティティがデタッチ済み
+* ブログは Deleted とマークされています
+* SaveChanges まで連鎖が発生しないため、初期段階で投稿は Unchanged のままです
+* SaveChanges は、両方の依存/子 (投稿) の削除、次にプリンシパル/親 (ブログ) の削除を送信します。
+* 保存後、すべてのエンティティは、データベースから削除されているのでデタッチされます
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull または必要なリレーションシップを持つ DeleteBehavior.SetNull
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>必須のリレーションシップがある DeleteBehavior.ClientSetNull または DeleteBehavior.SetNull
 
 ```
   After loading entities:
@@ -121,11 +122,11 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
   SaveChanges threw DbUpdateException: Cannot insert the value NULL into column 'BlogId', table 'EFSaving.CascadeDelete.dbo.Posts'; column does not allow nulls. UPDATE fails. The statement has been terminated.
 ```
 
-* ブログが削除済みとしてマークされています。
-* 投稿初期状態のまま Unchanged SaveChanges まで連鎖が発生しないため
-* Post FK を null に設定、SaveChanges が試行されますが、外部キーが null 許容ではないためにこれが失敗します。
+* ブログは Deleted とマークされています
+* SaveChanges まで連鎖が発生しないため、初期段階で投稿は Unchanged のままです
+* SaveChanges は投稿 FK を null に設定しようとしますが、FK が Null 許容ではないため失敗します
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull または省略可能なリレーションシップを持つ DeleteBehavior.SetNull
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>省略可能なリレーションシップがある DeleteBehavior.ClientSetNull または DeleteBehavior.SetNull
 
 ```
   After loading entities:
@@ -149,13 +150,13 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
       Post '1' is in state Unchanged with FK 'null' and no reference to a blog.
 ```
 
-* ブログが削除済みとしてマークされています。
-* 投稿初期状態のまま Unchanged SaveChanges まで連鎖が発生しないため
-* SaveChanges 試行を null に、プリンシパル/親 (ブログ) を削除する前に両方の依存/子供 (投稿) の外部キーを設定します。
-* 保存した後、プリンシパル/親 (ブログ) 削除されますが、追跡されます dependents/子供 (投稿)
-* 追跡対象の依存/子供 (投稿) ようになりました FK の null 値を持ち、親への参照、削除されたプリンシパル/(ブログ) は削除されました
+* ブログは Deleted とマークされています
+* SaveChanges まで連鎖が発生しないため、初期段階で投稿は Unchanged のままです
+* SaveChanges は、プリンシパル/親 (ブログ) を削除する前に、依存/子 (投稿) 両方の FK を null に設定します
+* 保存後、プリンシパル/親 (ブログ) は削除されますが、依存/子 (投稿) は引き続き追跡されます
+* 追跡されている依存/子 (投稿) には null の FK 値があり、削除されたプリンシパル/親 (ブログ) への参照は削除されました
 
-### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>必須またはオプションの関係を持つ DeleteBehavior.Restrict
+### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>必須または省略可能なリレーションシップがある DeleteBehavior.Restrict
 
 ```
   After loading entities:
@@ -172,19 +173,19 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
   SaveChanges threw InvalidOperationException: The association between entity types 'Blog' and 'Post' has been severed but the foreign key for this relationship cannot be set to null. If the dependent entity should be deleted, then setup the relationship to use cascade deletes.
 ```
 
-* ブログが削除済みとしてマークされています。
-* 投稿初期状態のまま Unchanged SaveChanges まで連鎖が発生しないため
-* *Restrict*自動的に、外部キーを null に設定、EF に指示して、null 以外は状態、保存せずに SaveChanges がスローされます
+* ブログは Deleted とマークされています
+* SaveChanges まで連鎖が発生しないため、初期段階で投稿は Unchanged のままです
+* *Restrict* は、EF に対して FK を自動的に null に設定しないように指示しますが、Null 許容ではないままなので、SaveChanges は保存せずに例外をスローします
 
-## <a name="delete-orphans-examples"></a>孤立ファイルの例の削除
+## <a name="delete-orphans-examples"></a>孤立の削除例
 
-次のコードの一部である、[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/)実行をダウンロードすることができます。 このサンプルでは、親/プリンシパルとその子/依存オブジェクト間のリレーションシップが切断されたときの各オプションと必須の両方のリレーションシップの削除の動作の動作を示します。 この例では、リレーションシップは、プリンシパル/親 (ブログ) のコレクション ナビゲーション プロパティから依存ファイル/子供 (投稿) を削除することによって切断されます。 ただし、動作は代わりに依存する/子からのプリンシパル/親への参照は null にする場合と同じです。
+以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/)の一部です。 このサンプルは、親/プリンシパルとその子/依存のリレーションシップが切断されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で何が起こるかを示しています。 この例では、プリンシパル/親 (ブログ) のコレクション ナビゲーション プロパティから依存/子 (投稿) を削除することで、リレーションシップが切断されています。 ただし、依存/子からプリンシパル/親への参照が null に設定される場合、動作は同じです。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 
-何が起こっているかを理解するには、各バリエーションについて説明しましょう。
+各動作のサンプルを見て、何が起こるかを理解しましょう。
 
-### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>必須またはオプションの関係を持つ DeleteBehavior.Cascade
+### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>必須または省略可能なリレーションシップがある DeleteBehavior.Cascade
 
 ```
   After loading entities:
@@ -207,12 +208,12 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
       Post '1' is in state Detached with FK '1' and no reference to a blog.
 ```
 
-* Null としてマークする外部キー リレーションシップを切断する原因となったために、投稿が変更済みとしてマークされます。
-  * FK が null 許容でない場合、実際の値は変わりません null に設定されている場合でも
-* SaveChanges は、dependents/子供 (投稿) の削除を送信します。
-* データベースから削除されているようになりましたので、保存した後、依存オブジェクト/子供 (投稿) がデタッチされました。
+* リレーションシップを切断すると FK は null とマークされるので、投稿は Modified とマークされます
+  * FK が Null 許容でない場合、null とマークされていても実際の値は変更されません
+* SaveChanges は依存/子 (投稿) の削除を送信します
+* 保存後、依存/子 (投稿) はデータベースから削除されているので、デタッチされます
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>DeleteBehavior.ClientSetNull または必要なリレーションシップを持つ DeleteBehavior.SetNull
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>必須のリレーションシップがある DeleteBehavior.ClientSetNull または DeleteBehavior.SetNull
 
 ```
   After loading entities:
@@ -231,11 +232,11 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
   SaveChanges threw DbUpdateException: Cannot insert the value NULL into column 'BlogId', table 'EFSaving.CascadeDelete.dbo.Posts'; column does not allow nulls. UPDATE fails. The statement has been terminated.
 ```
 
-* Null としてマークする外部キー リレーションシップを切断する原因となったために、投稿が変更済みとしてマークされます。
-  * FK が null 許容でない場合、実際の値は変わりません null に設定されている場合でも
-* Post FK を null に設定、SaveChanges が試行されますが、外部キーが null 許容ではないためにこれが失敗します。
+* リレーションシップを切断すると FK は null とマークされるので、投稿は Modified とマークされます
+  * FK が Null 許容でない場合、null とマークされていても実際の値は変更されません
+* SaveChanges は投稿 FK を null に設定しようとしますが、FK が Null 許容ではないため失敗します
 
-### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>DeleteBehavior.ClientSetNull または省略可能なリレーションシップを持つ DeleteBehavior.SetNull
+### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>省略可能なリレーションシップがある DeleteBehavior.ClientSetNull または DeleteBehavior.SetNull
 
 ```
   After loading entities:
@@ -258,12 +259,12 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
       Post '1' is in state Unchanged with FK 'null' and no reference to a blog.
 ```
 
-* Null としてマークする外部キー リレーションシップを切断する原因となったために、投稿が変更済みとしてマークされます。
-  * FK が null 許容でない場合、実際の値は変わりません null に設定されている場合でも
-* SaveChanges を null に両方の依存/子供 (投稿) の外部キーを設定します。
-* 保存した後 dependents/子供 (投稿) ようになりました FK の null 値を持ち、親への参照、削除されたプリンシパル/(ブログ) は削除されました
+* リレーションシップを切断すると FK は null とマークされるので、投稿は Modified とマークされます
+  * FK が Null 許容でない場合、null とマークされていても実際の値は変更されません
+* SaveChanges は、両方の依存/子 (投稿) の FK を null に設定します
+* 保存後、依存/子 (投稿) には null の FK 値があり、削除されたプリンシパル/親 (ブログ) への参照は削除されました
 
-### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>必須またはオプションの関係を持つ DeleteBehavior.Restrict
+### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>必須または省略可能なリレーションシップがある DeleteBehavior.Restrict
 
 ```
   After loading entities:
@@ -280,13 +281,13 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
   SaveChanges threw InvalidOperationException: The association between entity types 'Blog' and 'Post' has been severed but the foreign key for this relationship cannot be set to null. If the dependent entity should be deleted, then setup the relationship to use cascade deletes.
 ```
 
-* Null としてマークする外部キー リレーションシップを切断する原因となったために、投稿が変更済みとしてマークされます。
-  * FK が null 許容でない場合、実際の値は変わりません null に設定されている場合でも
-* *Restrict*自動的に、外部キーを null に設定、EF に指示して、null 以外は状態、保存せずに SaveChanges がスローされます
+* リレーションシップを切断すると FK は null とマークされるので、投稿は Modified とマークされます
+  * FK が Null 許容でない場合、null とマークされていても実際の値は変更されません
+* *Restrict* は、EF に対して FK を自動的に null に設定しないように指示しますが、Null 許容ではないままなので、SaveChanges は保存せずに例外をスローします
 
-## <a name="cascading-to-untracked-entities"></a>追跡対象でないエンティティにカスケード
+## <a name="cascading-to-untracked-entities"></a>追跡されていないエンティティに対する連鎖
 
-呼び出すと*SaveChanges*、cascade delete ルールは、コンテキストによって追跡されているすべてのエンティティに適用されます。 これは、すべての前に示した例では、これが理由をプリンシパル/親 (ブログ) とすべての依存/の子 (投稿) の両方を削除する SQL が生成されました。
+*SaveChanges* を呼び出すと、コンテキストによっては、追跡されているすべてのエンティティに連鎖削除ルールが適用されます。 これは上記のすべての例で起こる状況です。プリンシパル/親 (ブログ) とすべての依存/子 (投稿) の両方を削除する SQL を生成したのは、このためです。
 
 ```sql
     DELETE FROM [Posts] WHERE [PostId] = 1
@@ -294,10 +295,10 @@ EF コアは、いくつかの別の削除動作を実装して、個々 のリ�
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-プリンシパルが読み込まれる--だけの場合など、クエリが行われる場合せずブログ、`Include(b => b.Posts)`投稿--含めることも、SaveChanges のみが生成されますをプリンシパル/親を削除する SQL:
+プリンシパルのみが読み込まれている場合 (たとえば、投稿に `Include(b => b.Posts)` がないブログに対してクエリが実行された場合など) にのみ、SaveChanges はプリンシパル/親を削除する SQL を生成します。
 
 ```sql
     DELETE FROM [Blogs] WHERE [BlogId] = 1
 ```
 
-依存オブジェクトまたは子 (投稿) は、データベースが構成されている対応するカスケード動作にのみ削除されます。 EF を使用してデータベースを作成すると、この連鎖動作がセットアップするためになります。
+データベースに対応する連鎖動作が構成されている場合にのみ、依存者/子 (投稿) は削除されます。 EF を使用してデータベースを作成すると、この連鎖動作が設定されます。

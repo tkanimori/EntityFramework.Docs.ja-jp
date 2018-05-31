@@ -1,5 +1,5 @@
 ---
-title: トランザクションの EF コア
+title: トランザクション - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,28 +8,29 @@ ms.technology: entity-framework-core
 uid: core/saving/transactions
 ms.openlocfilehash: fe4c0d6ad7ccb2e97dc94fbf2eb26a41e7fbcb19
 ms.sourcegitcommit: 7113e8675f26cbb546200824512078bf360225df
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 03/28/2018
+ms.locfileid: "30202498"
 ---
 # <a name="using-transactions"></a>トランザクションの使用
 
-トランザクションはアトミックな方法で処理される複数のデータベース操作を許可します。 トランザクションがコミットされた場合は、すべての操作が正常にデータベースに適用します。 トランザクションがロールバックされた場合は、データベースにどの操作も適用されます。
+トランザクションは、複数のデータベース操作をアトミックな方法で処理することを可能にします。 トランザクションがコミットされる場合は、すべての操作がデータベースに正常に適用されます。 トランザクションがロールバックされるる場合、データベースに適用される操作はありません。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Transactions/)は GitHub で確認できます。
 
-## <a name="default-transaction-behavior"></a>既定のトランザクション動作
+## <a name="default-transaction-behavior"></a>既定のトランザクションの動作
 
-既定では、データベース プロバイダーが、トランザクションをサポートしている場合のすべての変更を 1 回の呼び出しで`SaveChanges()`トランザクションに適用されます。 変更が失敗した場合、トランザクションがロールバックされ、どの変更は、データベースに適用します。 つまり、`SaveChanges()`完全に成功、または、データベース エラーが発生した場合は、未変更の状態のままにすることが保証されます。
+既定では、データベース プロバイダーがトランザクションをサポートしている場合は、`SaveChanges()` への 1 回の呼び出しに含まれるすべての変更がトランザクションに適用されます。 いずれかの変更が失敗した場合、トランザクションはロールバックされ、変更は、データベースにまったく適用されません。 つまり、`SaveChanges()` は、完全に成功するか、エラーが発生した場合はデータベースを未変更のままにすることが保証されます。
 
-ほとんどのアプリケーションでこの既定の動作で十分です。 アプリケーションの要件とみなす必要な場合に手動でのみ、トランザクションを制御する必要があります。
+ほとんどのアプリケーションでは、この既定の動作で十分です。 アプリケーションの要件を満たすために必要であると考えた場合にのみ、トランザクションを手動で制御する必要があります。
 
-## <a name="controlling-transactions"></a>トランザクションを制御します。
+## <a name="controlling-transactions"></a>トランザクションを制御する
 
-使用することができます、`DbContext.Database`はじめに、コミット、API とのトランザクションをロールバックします。 次の例は 2 つ`SaveChanges()`操作と LINQ クエリを単一のトランザクションで実行されています。
+トランザクションは、`DbContext.Database` API を使用して、開始、コミット、およびロールバックできます。 次の例は、単一のトランザクションで実行される 2 つの `SaveChanges()` 操作と LINQ クエリを示しています。
 
-すべてのデータベース プロバイダーは、トランザクションをサポートします。 スローする可能性が一部のプロバイダーまたはトランザクションの Api が呼び出されたときに行いません。
+すべてのデータベース プロバイダーがトランザクションをサポートしているわけではありません。 トランザクション API が呼び出された場合、一部のプロバイダーでは、例外がスローされるか、何もも実行されないことがあります。
 
 <!-- [!code-csharp[Main](samples/core/Saving/Saving/Transactions/ControllingTransaction/Sample.cs?highlight=3,17,18,19)] -->
 ``` csharp
@@ -61,24 +62,24 @@ ms.lasthandoff: 03/28/2018
         }
 ```
 
-## <a name="cross-context-transaction-relational-databases-only"></a>クロス コンテキスト トランザクション (リレーショナル データベースのみ)
+## <a name="cross-context-transaction-relational-databases-only"></a>クロスコンテキスト トランザクション (リレーショナル データベースのみ)
 
-複数のコンテキストのインスタンス間でトランザクションを共有することもできます。 この機能は、の使用が必要とするために、リレーショナル データベース プロバイダーを使用する場合にのみ使用可能な`DbTransaction`と`DbConnection`、これは、リレーショナル データベースに固有です。
+複数のコンテキスト インスタンス間でトランザクションを共有することもできます。 この機能は、リレーショナル データベースに固有の `DbTransaction` と `DbConnection` を使用する必要があるため、リレーショナル データベース プロバイダーを使用する場合にのみ利用できます。
 
-トランザクションを共有するコンテキストを共有両方、`DbConnection`と`DbTransaction`です。
+トランザクションを共有するには、コンテキストが `DbConnection` と `DbTransaction` の両方を共有する必要があります。
 
-### <a name="allow-connection-to-be-externally-provided"></a>提供される外部接続を許可します。
+### <a name="allow-connection-to-be-externally-provided"></a>接続の外部提供を可能にする
 
-共有、`DbConnection`を構築するときに、コンテキストに接続を渡すことが必要です。
+`DbConnection` の共有では、コンテキストの構築時に、コンテキストに接続を渡すことができるようにする必要があります。
 
-許可する最も簡単な方法`DbConnection`を外部的に提供するには、使用を停止するが、`DbContext.OnConfiguring`メソッド コンテキストを構成し、外部で作成する`DbContextOptions`コンテキスト コンス トラクターに渡すとします。
+`DbConnection` の外部提供を許可する最も簡単な方法は、`DbContext.OnConfiguring` メソッドを使用するコンテキストの構成を停止し、`DbContextOptions` を外部で作成し、それをコンテキスト コンストラクターに渡すことです。
 
 > [!TIP]  
-> `DbContextOptionsBuilder` 使用される API は、`DbContext.OnConfiguring`コンテキストを構成するようになりましたしようとする外部で使用して作成する`DbContextOptions`です。
+> `DbContextOptionsBuilder` は、コンテキストを構成する `DbContext.OnConfiguring` 内で使用される API であり、その API を外部で使用して、`DbContextOptions` を作成します。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
 
-使用を継続するという方法も`DbContext.OnConfiguring`は受け付け、`DbConnection`が保存されで使用して`DbContext.OnConfiguring`です。
+別の方法は、`DbContext.OnConfiguring` を引き続き使用しますが、保存された `DbConnection` を受け取って `DbContext.OnConfiguring` で使用することです。
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -99,26 +100,26 @@ public class BloggingContext : DbContext
 }
 ```
 
-### <a name="share-connection-and-transaction"></a>共有接続とトランザクション
+### <a name="share-connection-and-transaction"></a>接続とトランザクションの共有
 
-同じ接続を共有する複数のコンテキストのインスタンスを作成できます。 使用して、 `DbContext.Database.UseTransaction(DbTransaction)` API を両方のコンテキストで、同じトランザクションに参加します。
+同じ接続を共有する複数のコンテキスト インスタンスを作成できるようになりました。 次に、`DbContext.Database.UseTransaction(DbTransaction)` API を使用して、両方のコンテキストを同じトランザクションに参加させます。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
 
-## <a name="using-external-dbtransactions-relational-databases-only"></a>外部 DbTransactions (リレーショナル データベースのみ) を使用します。
+## <a name="using-external-dbtransactions-relational-databases-only"></a>外部 DbTransactions の使用 (リレーショナル データベースのみ)
 
-リレーショナル データベースへのアクセスを複数のデータ アクセス テクノロジを使用している場合は、これらのさまざまなテクノロジによって実行される操作の間でトランザクションを共有します。
+複数のデータ アクセス テクノロジを使用してリレーショナル データベースにアクセスしている場合、これらの異なるテクノロジによって実行される操作の間でトランザクションを共有できます。
 
-次の例では、同じトランザクションで ADO.NET SqlClient 操作とエンティティ フレームワークの主要な操作を実行する方法を示します。
+次の例は、同じトランザクション内で ADO.NET SqlClient 操作と Entity Framework Core 操作を実行する方法を示しています。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
 
 ## <a name="using-systemtransactions"></a>System.Transactions の使用
 
 > [!NOTE]  
-> この機能は、EF コア 2.1 の新機能です。
+> これは EF Core 2.1 の新機能です。
 
-大きいスコープの間で調整する必要がある場合は、アンビエント トランザクションを使用して行うことができます。
+大規模なスコープで調整を行う必要がある場合は、アンビエント トランザクションを使用できます。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,24,25,26)]
 
@@ -126,11 +127,11 @@ public class BloggingContext : DbContext
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,13,26,27,28)]
 
-### <a name="limitations-of-systemtransactions"></a>System.Transactions の制限事項  
+### <a name="limitations-of-systemtransactions"></a>System.Transactions の制限  
 
-1. EF コアは、System.Transactions についてサポートを実装するデータベースのプロバイダーに依存します。 サポートは非常に共通の ADO.NET プロバイダーの .NET Framework、API を .NET Core 最近追加されただけし、したがってサポートはできません、広範囲にわたる。 場合は、プロバイダーは、System.Transactions についてサポートを実装していない、可能であればこれらの Api への呼び出しを完全に無視することです。 .NET Core の SqlClient では、2.1 以降からサポートことです。 .NET Core 2.0 SqlClient は例外をスローのしようとする機能を使用します。 
+1. EF Core は、System.Transactions に対するサポートの実装をデータベース プロバイダーに依存しています。 .NET Framework の ADO.NET プロバイダーの間では、サポートは非常に一般的ですが、この API は .NET Core 最近追加されたため、広い範囲でサポートされているとは言えません。 プロバイダーが System.Transactions のサポートを実装していない場合、これらの API への呼び出しは、完全に無視される可能があります。 SqlClient for .NET Core では、2.1 以降、それをサポートします。 SqlClient for .NET Core 2.0 では、この機能を使用しようとすると、例外がスローされます。 
 
    > [!IMPORTANT]  
-   > API が正常に動作プロバイダーでトランザクションを管理するために依存する前にテストすることをお勧めします。 そうでないデータベース プロバイダーの保守管理者に連絡することをお勧めしています。 
+   > この API に依存してトランザクションを管理する前に、お使いのプロバイダーで API が正常に動作することをテストすることをお勧めします。 そうでない場合は、データベース プロバイダーの保守管理者に連絡することが推奨されます。 
 
-2. バージョン 2.1 では、.NET Core での System.Transactions の実装は含まれません分散トランザクションのサポート、したがって使用することはできません`TransactionScope`または`CommitableTransaction`複数のリソース マネージャー間でトランザクションを調整します。 
+2. バージョン 2.1 の時点では、.NET Core での System.Transactions の実装には、分散トランザクションのサポートは含まれていません。したがって、`TransactionScope` または `CommitableTransaction` を使用して複数のリソース マネージャー間でトランザクションを調整することはできません。 

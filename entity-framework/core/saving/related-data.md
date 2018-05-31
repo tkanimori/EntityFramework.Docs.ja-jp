@@ -1,5 +1,5 @@
 ---
-title: 関連するデータの EF コアの保存
+title: 関連データの保存 - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -8,56 +8,57 @@ ms.technology: entity-framework-core
 uid: core/saving/related-data
 ms.openlocfilehash: b0ed25267c85e82db18d8a89693b6040db7e4b34
 ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 04/16/2018
+ms.locfileid: "31006651"
 ---
-# <a name="saving-related-data"></a>関連するデータの保存
+# <a name="saving-related-data"></a>関連データの保存
 
-分離のエンティティだけでなく行うことも、モデルで定義されているリレーションシップを使用します。
+分離されたエンティティに加え、モデルに定義されたリレーションシップを活用することもできます。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/)は GitHub で確認できます。
 
-## <a name="adding-a-graph-of-new-entities"></a>新しいエンティティのグラフを追加します。
+## <a name="adding-a-graph-of-new-entities"></a>新しいエンティティ グループの追加
 
-いくつかの新しい関連エンティティを作成する場合、コンテキストへのうちの 1 つの追加により、他のユーザーを追加するされます。
+関連するいくつかの新しいエンティティを作成しているときに、いずれかのエンティティをコンテキストに追加すると、他のエンティティも同様に追加されます。
 
-次の例では、ブログと 3 つの関連する投稿はすべて、データベースに挿入します。 投稿が検出され、追加、経由で到達可能であるため、`Blog.Posts`ナビゲーション プロパティ。
+次の例では、ブログと 3 つの関連する投稿のすべてがデータベースに挿入されます。 これらの投稿が検出され、追加されるのは、`Blog.Posts` ナビゲーション プロパティ経由で到達可能であるためです。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
 
 > [!TIP]  
-> EntityEntry.State プロパティを使用すると、1 つのエンティティの状態を設定できます。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
+> 単一のエンティティの状態を設定するには、EntityEntry.State プロパティを使用します。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
 
-## <a name="adding-a-related-entity"></a>関連するエンティティの追加
+## <a name="adding-a-related-entity"></a>関連エンティティの追加
 
-コンテキストによって既に追跡されているエンティティのナビゲーション プロパティから、新しいエンティティを参照する場合、エンティティが検出され、データベースに挿入します。
+コンテキストによって既に追跡されているエンティティのナビゲーション プロパティから新しいエンティティを参照した場合、そのエンティティが検出され、データベースに挿入されます。
 
-次の例で、`post`に追加されるため、エンティティが挿入された、`Posts`のプロパティ、`blog`データベースからフェッチされているエンティティ。
+次の例では、データベースからフェッチされた `blog` エンティティの `Posts` プロパティに `post` エンティティが追加されているため、そのエンティティが挿入されます。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingRelatedEntity)]
 
-## <a name="changing-relationships"></a>リレーションシップを変更します。
+## <a name="changing-relationships"></a>リレーションシップの変更
 
-エンティティのナビゲーション プロパティを変更すると、対応する変更部分は、データベースの外部キー列になります。
+エンティティのナビゲーション プロパティを変更すると、データベース内の外部キー列に対応する変更が行われます。
 
-次の例で、`post`新しいに属しているエンティティが更新された`blog`エンティティのためその`Blog` をポイントするナビゲーション プロパティが設定`blog`です。 なお`blog`コンテキストによって既に追跡されているエンティティのナビゲーション プロパティによって参照される新しいエンティティであるために、データベースに挿入もされます (`post`)。
+次の例では、`Blog` ナビゲーション プロパティが `blog` をポイントするように設定されているため、`post` エンティティが新しい `blog` エンティティに所属するように更新されます。 コンテキストによって既に追跡されているエンティティ (`post`) のナビゲーション プロパティによって参照される新しいエンティティであるため、`blog` もデータベースに挿入されることに注意してください。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#ChangingRelationships)]
 
-## <a name="removing-relationships"></a>リレーションシップを削除します。
+## <a name="removing-relationships"></a>リレーションシップの削除
 
-リレーションシップを削除するには参照ナビゲーションに設定して`null`、またはコレクションのナビゲーションから、関連するエンティティを削除します。
+参照ナビゲーションを `null` に設定するか、コレクション ナビゲーションから関連エンティティを削除することで、リレーションシップを削除できます。
 
-関係を削除すると、依存エンティティに副作用があることができます、カスケードに従ってリレーションシップで構成されている動作を削除します。
+リレーションシップの削除は、リレーションシップに構成された連鎖削除動作に従って、依存エンティティに影響を与える可能性があります。
 
-既定では、必須のリレーションシップで連鎖削除の動作が構成され、子/依存エンティティは、データベースから削除されます。 省略可能なリレーションシップで連鎖削除が構成されていない既定では、外部キー プロパティが設定されますを null にします。
+必須リレーションシップでは、連鎖削除動作が既定で構成され、子/依存エンティティがデータベースから削除されます。 省略可能なリレーションシップでは、連鎖削除は既定では構成されていませんが、外部キー プロパティが null 設定されます。
 
-参照してください[必須および省略可能なリレーションシップ](../modeling/relationships.md#required-and-optional-relationships)に関係の requiredness を構成する方法について説明します。
+リレーションシップが必須かどうかを構成する方法については、「[Required and Optional Relationships](../modeling/relationships.md#required-and-optional-relationships)」(必須リレーションシップと省略可能なリレーションシップ) を参照してください。
 
-参照してください[連鎖削除](cascade-delete.md)それらを構成する方法に明示的に、慣例の選択方法、連鎖が動作を削除する方法の詳細についてが機能します。
+連鎖削除の動作方法、それらを明示的に構成する方法、および慣例に従った選択方法については、「[連鎖削除](cascade-delete.md)」を参照してください。
 
-次の例では、連鎖削除が構成されている間のリレーションシップに`Blog`と`Post`ので、`post`エンティティをデータベースから削除します。
+次の例では、`Blog` と `Post` 間のリレーションシップに連鎖削除が構成されているため、`post` エンティティがデータベースから削除されます。
 
 [!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#RemovingRelationships)]
