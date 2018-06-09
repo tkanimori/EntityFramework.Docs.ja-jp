@@ -1,25 +1,26 @@
 ---
-title: "ログ - EF コア"
+title: ログ - EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 ms.technology: entity-framework-core
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 807560e563eddfb72d4286353b1403a0d2e2a441
-ms.sourcegitcommit: 5367516f063cb42804ec92c31cdf76322554f2b5
+ms.openlocfilehash: 60d76bf3360eb47cdd9836494c1f135d1005a215
+ms.sourcegitcommit: 3adf1267be92effc3c9daa893906a7f36834204f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/08/2017
+ms.lasthandoff: 06/08/2018
+ms.locfileid: "35232137"
 ---
-# <a name="logging"></a>ログ
+# <a name="logging"></a>ログの記録
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging)GitHub でします。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging)は GitHub で確認できます。
 
 ## <a name="aspnet-core-applications"></a>ASP.NET Core アプリケーション
 
-ASP.NET Core のログ記録機構と自動的に統合し、EF コアされるたびに`AddDbContext`または`AddDbContextPool`を使用します。 したがって、ASP.NET Core を使用する場合のログ記録する必要があります構成する」の説明に従って、 [ASP.NET Core ドキュメント](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)です。
+ASP.NET Core のログ記録メカニズムと自動的に統合し、EF コアされるたびに`AddDbContext`または`AddDbContextPool`を使用します。 したがって、ASP.NET Core を使用する場合のログ記録する必要があります構成する」の説明に従って、 [ASP.NET Core ドキュメント](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)です。
 
 ## <a name="other-applications"></a>他のアプリケーション
 
@@ -36,7 +37,7 @@ EF コアの現在のログ記録には、1 つまたは複数の ILoggerProvide
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#DefineLoggerFactory)]
 
-このシングルトン/グローバル インスタンスしに登録する EF コア上、`DbContextOptionsBuilder`です。 例:
+このシングルトン/グローバル インスタンスしに登録する EF コア上、`DbContextOptionsBuilder`です。 例えば:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#RegisterLoggerFactory)]
 
@@ -45,7 +46,7 @@ EF コアの現在のログ記録には、1 つまたは複数の ILoggerProvide
 
 ## <a name="filtering-what-is-logged"></a>記録する内容をフィルター処理
 
-記録する内容をフィルター処理する最も簡単な方法では、ILoggerProvider を登録するときにそれを構成します。 例:
+記録する内容をフィルター処理する最も簡単な方法では、ILoggerProvider を登録するときにそれを構成します。 例えば:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContextWithFiltering.cs#DefineLoggerFactory)]
 
