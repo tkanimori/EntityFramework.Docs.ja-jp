@@ -1,15 +1,16 @@
 ---
-title: "移行 - EF Core"
+title: 移行 - EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
 ms.technology: entity-framework-core
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 24fbe344eba9b99929d905ac2b9e49c68a1a4323
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: dd164125c053497af94773011127853ad10d27a6
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/22/2017
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754510"
 ---
 <a name="migrations"></a>移行
 ==========
@@ -144,7 +145,7 @@ dotnet ef database update LastGoodMigration
 * 関数
 * ストアド プロシージャ
 * トリガー
-* ビュー
+* Views
 * その他
 
 <a name="generating-a-sql-script"></a>SQL スクリプトを生成する
