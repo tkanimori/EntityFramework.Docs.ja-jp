@@ -127,7 +127,7 @@
 #### [1.0 RC2 から RTM にアップグレード](core/miscellaneous/rc2-rtm-upgrade.md)
 #### [EF Core 2.0 にアップグレード](core/miscellaneous/1x-2x-upgrade.md)
 
-### [⤤ API リファレンス](https://docs.microsoft.com/dotnet/api/?view=efcore-2.0)
+### [⤤ API リファレンス](https://docs.microsoft.com/dotnet/api/?view=efcore-2.1)
 
 ## [Entity Framework 6](ef6/index.md)
 ### [⤤ ドキュメント](http://msdn.com/data/ef)
