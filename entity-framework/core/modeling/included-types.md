@@ -1,5 +1,5 @@
 ---
-title: "含む & 種類 - EF コアを除外します。"
+title: 含む & 種類 - EF コアを除外します。
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052602"
 ---
 # <a name="including--excluding-types"></a><span data-ttu-id="36c32-102">含むと種類を除外します。</span><span class="sxs-lookup"><span data-stu-id="36c32-102">Including & Excluding Types</span></span>
 

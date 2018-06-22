@@ -1,5 +1,5 @@
 ---
-title: "必須/オプションのプロパティ - EF コア"
+title: 必須/オプションのプロパティ - EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052852"
 ---
 # <a name="required-and-optional-properties"></a><span data-ttu-id="ae735-102">必須およびオプションのプロパティ</span><span class="sxs-lookup"><span data-stu-id="ae735-102">Required and Optional Properties</span></span>
 

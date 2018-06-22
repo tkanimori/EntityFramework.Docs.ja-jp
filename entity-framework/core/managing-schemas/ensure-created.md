@@ -1,5 +1,5 @@
 ---
-title: "作成および Api の EF コアの削除"
+title: "\U0001F527作成および Api の EF コアの削除"
 author: bricelam
 ms.author: bricelam
 ms.date: 11/10/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26053822"
 ---
 # <a name="-create-and-drop-apis"></a><span data-ttu-id="9cb14-102">🔧作成および Api の削除</span><span class="sxs-lookup"><span data-stu-id="9cb14-102">🔧 Create and Drop APIs</span></span>
 

@@ -1,5 +1,5 @@
 ---
-title: "データベース スキーマを管理する - EF Core"
+title: データベース スキーマを管理する - EF Core
 author: bricelam
 ms.author: divega
 ms.date: 10/30/2017
@@ -9,6 +9,7 @@ ms.sourcegitcommit: b467368cc350e6059fdc0949e042a41cb11e61d9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26049384"
 ---
 # <a name="managing-database-schemas"></a><span data-ttu-id="a9c98-102">データベース スキーマを管理する</span><span class="sxs-lookup"><span data-stu-id="a9c98-102">Managing Database Schemas</span></span>
 <span data-ttu-id="a9c98-103">EF Core には、EF Core モデルとデータベース スキーマを同期させる主要な方法が 2 つ用意されています。いずれかを選ぶ際は、EF Core とデータベース スキーマのどちらが信頼できる情報源か判断します。</span><span class="sxs-lookup"><span data-stu-id="a9c98-103">EF Core provides two primary ways of keeping your EF Core model and database schema in sync. To choose between the two, decide whether your EF Core model or the database schema is the source of truth.</span></span>

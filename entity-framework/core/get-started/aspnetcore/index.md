@@ -1,5 +1,5 @@
 ---
-title: "ASP.NET Core の概要 - EF Core"
+title: ASP.NET Core の概要 - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26048894"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core"></a><span data-ttu-id="e6c1b-102">ASP.NET Core での EF Core の概要</span><span class="sxs-lookup"><span data-stu-id="e6c1b-102">Getting Started with EF Core on ASP.NET Core</span></span>
 

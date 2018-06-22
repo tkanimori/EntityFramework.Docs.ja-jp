@@ -1,5 +1,5 @@
 ---
-title: "EF6 から EF Core - コードに基づくモデルを移植への移植"
+title: EF6 から EF Core - コードに基づくモデルを移植への移植
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052952"
 ---
 # <a name="porting-an-ef6-code-based-model-to-ef-core"></a><span data-ttu-id="f2ecf-102">EF core EF6 コードに基づくモデルの移植</span><span class="sxs-lookup"><span data-stu-id="f2ecf-102">Porting an EF6 Code-Based Model to EF Core</span></span>
 

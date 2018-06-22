@@ -1,5 +1,5 @@
 ---
-title: "SQLite データベース プロバイダー - EF Core"
+title: SQLite データベース プロバイダー - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678749"
 ---
 # <a name="sqlite-ef-core-database-provider"></a><span data-ttu-id="a91ec-102">SQLite EF Core データベース プロバイダー</span><span class="sxs-lookup"><span data-stu-id="a91ec-102">SQLite EF Core Database Provider</span></span>
 

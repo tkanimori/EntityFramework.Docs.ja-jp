@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26048874"
 ---
 # <a name="saving-data"></a><span data-ttu-id="a5472-102">データの保存</span><span class="sxs-lookup"><span data-stu-id="a5472-102">Saving Data</span></span>
 

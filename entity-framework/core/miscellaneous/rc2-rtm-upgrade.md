@@ -11,6 +11,7 @@ ms.sourcegitcommit: 90139dbd6f485473afda0788a5a314c9aa601ea0
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 03/23/2018
+ms.locfileid: "30151041"
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a><span data-ttu-id="c5549-102">EF Core 1.0 RC2 から RTM にアップグレードします。</span><span class="sxs-lookup"><span data-stu-id="c5549-102">Upgrading from EF Core 1.0 RC2 to RTM</span></span>
 

@@ -1,5 +1,5 @@
 ---
-title: "最大長の EF コア"
+title: 最大長の EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052672"
 ---
 # <a name="maximum-length"></a><span data-ttu-id="f1851-102">最大長</span><span class="sxs-lookup"><span data-stu-id="f1851-102">Maximum Length</span></span>
 

@@ -1,5 +1,5 @@
 ---
-title: "EF Core のインストール"
+title: EF Core のインストール
 author: divega
 ms.author: divega
 ms.date: 08/06/2017
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 11/15/2017
+ms.locfileid: "26049244"
 ---
 # <a name="installing-ef-core"></a><span data-ttu-id="778a5-102">EF Core のインストール</span><span class="sxs-lookup"><span data-stu-id="778a5-102">Installing EF Core</span></span>
 

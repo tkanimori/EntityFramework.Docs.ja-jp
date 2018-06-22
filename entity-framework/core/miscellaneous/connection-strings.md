@@ -1,5 +1,5 @@
 ---
-title: "接続文字列の EF コア"
+title: 接続文字列の EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052532"
 ---
 # <a name="connection-strings"></a><span data-ttu-id="bf0e6-102">接続文字列</span><span class="sxs-lookup"><span data-stu-id="bf0e6-102">Connection Strings</span></span>
 

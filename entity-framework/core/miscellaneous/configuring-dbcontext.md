@@ -1,5 +1,5 @@
 ---
-title: "DbContext - EF Core の構成"
+title: DbContext - EF Core の構成
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 02/12/2018
+ms.locfileid: "29152391"
 ---
 # <a name="configuring-a-dbcontext"></a><span data-ttu-id="0fbc1-102">DbContext を構成します。</span><span class="sxs-lookup"><span data-stu-id="0fbc1-102">Configuring a DbContext</span></span>
 

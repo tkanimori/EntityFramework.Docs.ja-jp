@@ -1,5 +1,5 @@
 ---
-title: "以前のバージョンから EF コア 2 - EF コアへのアップグレード"
+title: 以前のバージョンから EF コア 2 - EF コアへのアップグレード
 author: divega
 ms.author: divega
 ms.date: 8/13/2017
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678615"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a><span data-ttu-id="8da81-102">以前のバージョンから EF コア 2.0 へのアプリケーションのアップグレード</span><span class="sxs-lookup"><span data-stu-id="8da81-102">Upgrading applications from previous versions to EF Core 2.0</span></span>
 

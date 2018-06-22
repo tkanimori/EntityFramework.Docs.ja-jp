@@ -1,5 +1,5 @@
 ---
-title: "リレーションシップの EF コア"
+title: リレーションシップの EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26053032"
 ---
 # <a name="relationships"></a><span data-ttu-id="bc298-102">関係</span><span class="sxs-lookup"><span data-stu-id="bc298-102">Relationships</span></span>
 
@@ -23,21 +24,21 @@ ms.lasthandoff: 10/27/2017
 
 <span data-ttu-id="bc298-108">リレーションシップの記述に使用される用語の数があります。</span><span class="sxs-lookup"><span data-stu-id="bc298-108">There are a number of terms used to describe relationships</span></span>
 
-* <span data-ttu-id="bc298-109">**依存エンティティ:**これは、外部キー プロパティを含むエンティティです。</span><span class="sxs-lookup"><span data-stu-id="bc298-109">**Dependent entity:** This is the entity that contains the foreign key property(s).</span></span> <span data-ttu-id="bc298-110">リレーションシップの 'child' と呼ばれることがあります。</span><span class="sxs-lookup"><span data-stu-id="bc298-110">Sometimes referred to as the 'child' of the relationship.</span></span>
+* <span data-ttu-id="bc298-109">**依存エンティティ:** これは、外部キー プロパティを含むエンティティです。</span><span class="sxs-lookup"><span data-stu-id="bc298-109">**Dependent entity:** This is the entity that contains the foreign key property(s).</span></span> <span data-ttu-id="bc298-110">リレーションシップの 'child' と呼ばれることがあります。</span><span class="sxs-lookup"><span data-stu-id="bc298-110">Sometimes referred to as the 'child' of the relationship.</span></span>
 
-* <span data-ttu-id="bc298-111">**プリンシパル エンティティ:**これは、プライマリ/代替のキー プロパティを含むエンティティです。</span><span class="sxs-lookup"><span data-stu-id="bc298-111">**Principal entity:** This is the entity that contains the primary/alternate key property(s).</span></span> <span data-ttu-id="bc298-112">リレーションシップの 'parent' と呼ばれることがあります。</span><span class="sxs-lookup"><span data-stu-id="bc298-112">Sometimes referred to as the 'parent' of the relationship.</span></span>
+* <span data-ttu-id="bc298-111">**プリンシパル エンティティ:** これは、プライマリ/代替のキー プロパティを含むエンティティです。</span><span class="sxs-lookup"><span data-stu-id="bc298-111">**Principal entity:** This is the entity that contains the primary/alternate key property(s).</span></span> <span data-ttu-id="bc298-112">リレーションシップの 'parent' と呼ばれることがあります。</span><span class="sxs-lookup"><span data-stu-id="bc298-112">Sometimes referred to as the 'parent' of the relationship.</span></span>
 
-* <span data-ttu-id="bc298-113">**外部キー:**エンティティに関連するプリンシパル キー プロパティの値を格納するために使用される、依存エンティティのプロパティです。</span><span class="sxs-lookup"><span data-stu-id="bc298-113">**Foreign key:** The property(s) in the dependent entity that is used to store the values of the principal key property that the entity is related to.</span></span>
+* <span data-ttu-id="bc298-113">**外部キー:** エンティティに関連するプリンシパル キー プロパティの値を格納するために使用される、依存エンティティのプロパティです。</span><span class="sxs-lookup"><span data-stu-id="bc298-113">**Foreign key:** The property(s) in the dependent entity that is used to store the values of the principal key property that the entity is related to.</span></span>
 
-* <span data-ttu-id="bc298-114">**プリンシパル キー:**プリンシパル エンティティを一意に識別するプロパティです。</span><span class="sxs-lookup"><span data-stu-id="bc298-114">**Principal key:** The property(s) that uniquely identifies the principal entity.</span></span> <span data-ttu-id="bc298-115">主キーや代替キーがあります。</span><span class="sxs-lookup"><span data-stu-id="bc298-115">This may be the primary key or an alternate key.</span></span>
+* <span data-ttu-id="bc298-114">**プリンシパル キー:** プリンシパル エンティティを一意に識別するプロパティです。</span><span class="sxs-lookup"><span data-stu-id="bc298-114">**Principal key:** The property(s) that uniquely identifies the principal entity.</span></span> <span data-ttu-id="bc298-115">主キーや代替キーがあります。</span><span class="sxs-lookup"><span data-stu-id="bc298-115">This may be the primary key or an alternate key.</span></span>
 
-* <span data-ttu-id="bc298-116">**ナビゲーション プロパティ。**関連会計主体への参照を格納しているプリンシパルや依存するエンティティで定義されたプロパティ。</span><span class="sxs-lookup"><span data-stu-id="bc298-116">**Navigation property:** A property defined on the principal and/or dependent entity that contains a reference(s) to the related entity(s).</span></span>
+* <span data-ttu-id="bc298-116">**ナビゲーション プロパティ。** 関連会計主体への参照を格納しているプリンシパルや依存するエンティティで定義されたプロパティ。</span><span class="sxs-lookup"><span data-stu-id="bc298-116">**Navigation property:** A property defined on the principal and/or dependent entity that contains a reference(s) to the related entity(s).</span></span>
 
-  * <span data-ttu-id="bc298-117">**コレクション ナビゲーション プロパティ。**を多くの関連エンティティへの参照を含むナビゲーション プロパティ。</span><span class="sxs-lookup"><span data-stu-id="bc298-117">**Collection navigation property:** A navigation property that contains references to many related entities.</span></span>
+  * <span data-ttu-id="bc298-117">**コレクション ナビゲーション プロパティ。** を多くの関連エンティティへの参照を含むナビゲーション プロパティ。</span><span class="sxs-lookup"><span data-stu-id="bc298-117">**Collection navigation property:** A navigation property that contains references to many related entities.</span></span>
 
   * <span data-ttu-id="bc298-118">**ナビゲーション プロパティの参照:** 1 つの関連するエンティティへの参照を保持するナビゲーション プロパティ。</span><span class="sxs-lookup"><span data-stu-id="bc298-118">**Reference navigation property:** A navigation property that holds a reference to a single related entity.</span></span>
 
-  * <span data-ttu-id="bc298-119">**逆ナビゲーション プロパティ。**特定のナビゲーション プロパティを検討する場合、リレーションシップのもう一方の端のナビゲーション プロパティに関係する用語です。</span><span class="sxs-lookup"><span data-stu-id="bc298-119">**Inverse navigation property:** When discussing a particular navigation property, this term refers to the navigation property on the other end of the relationship.</span></span>
+  * <span data-ttu-id="bc298-119">**逆ナビゲーション プロパティ。** 特定のナビゲーション プロパティを検討する場合、リレーションシップのもう一方の端のナビゲーション プロパティに関係する用語です。</span><span class="sxs-lookup"><span data-stu-id="bc298-119">**Inverse navigation property:** When discussing a particular navigation property, this term refers to the navigation property on the other end of the relationship.</span></span>
 
 <span data-ttu-id="bc298-120">次のコード リストは、一対多関係を示しています`Blog`と。`Post`</span><span class="sxs-lookup"><span data-stu-id="bc298-120">The following code listing shows a one-to-many relationship between `Blog` and `Post`</span></span>
 

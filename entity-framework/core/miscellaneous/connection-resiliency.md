@@ -1,5 +1,5 @@
 ---
-title: "接続の回復の EF コア"
+title: 接続の回復の EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 11/15/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 11/05/2017
+ms.locfileid: "26053532"
 ---
 # <a name="connection-resiliency"></a><span data-ttu-id="825ce-102">接続の回復</span><span class="sxs-lookup"><span data-stu-id="825ce-102">Connection Resiliency</span></span>
 

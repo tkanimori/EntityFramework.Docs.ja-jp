@@ -11,6 +11,7 @@ ms.sourcegitcommit: 605e42232854ce44bae09624a6eebc35b8e2473b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 05/16/2018
+ms.locfileid: "34191117"
 ---
 # <a name="value-conversions"></a><span data-ttu-id="b0264-102">値の変換</span><span class="sxs-lookup"><span data-stu-id="b0264-102">Value Conversions</span></span>
 

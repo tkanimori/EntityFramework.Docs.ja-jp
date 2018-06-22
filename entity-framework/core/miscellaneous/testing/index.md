@@ -1,5 +1,5 @@
 ---
-title: "Entity Framework でコンポーネントをテストする - EF Core"
+title: Entity Framework でコンポーネントをテストする - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26048864"
 ---
 # <a name="testing"></a><span data-ttu-id="80795-102">テスト中</span><span class="sxs-lookup"><span data-stu-id="80795-102">Testing</span></span>
 

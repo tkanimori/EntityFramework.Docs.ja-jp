@@ -1,5 +1,5 @@
 ---
-title: "キー (プライマリ) - EF コア"
+title: キー (プライマリ) - EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052572"
 ---
 # <a name="keys-primary"></a><span data-ttu-id="74434-102">キー (プライマリ)</span><span class="sxs-lookup"><span data-stu-id="74434-102">Keys (primary)</span></span>
 

@@ -1,5 +1,5 @@
 ---
-title: "含む (&) のプロパティ - EF コアの除外"
+title: 含む (&) のプロパティ - EF コアの除外
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052492"
 ---
 # <a name="including--excluding-properties"></a><span data-ttu-id="f7bde-102">含む (&) プロパティを除外</span><span class="sxs-lookup"><span data-stu-id="f7bde-102">Including & Excluding Properties</span></span>
 

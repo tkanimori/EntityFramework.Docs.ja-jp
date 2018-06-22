@@ -1,5 +1,5 @@
 ---
-title: "計算列の EF コア"
+title: 計算列の EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052482"
 ---
 # <a name="computed-columns"></a><span data-ttu-id="4e713-102">計算列</span><span class="sxs-lookup"><span data-stu-id="4e713-102">Computed Columns</span></span>
 

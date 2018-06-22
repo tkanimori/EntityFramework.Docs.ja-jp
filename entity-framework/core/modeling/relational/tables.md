@@ -1,5 +1,5 @@
 ---
-title: "テーブルのマッピング - EF コア"
+title: テーブルのマッピング - EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052732"
 ---
 # <a name="table-mapping"></a><span data-ttu-id="cd02e-102">テーブルのマッピング</span><span class="sxs-lookup"><span data-stu-id="cd02e-102">Table Mapping</span></span>
 
