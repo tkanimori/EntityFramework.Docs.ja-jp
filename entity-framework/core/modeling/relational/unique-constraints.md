@@ -1,5 +1,5 @@
 ---
-title: "代替キー (一意制約) - EF コア"
+title: 代替キー (一意制約) - EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052792"
 ---
 # <a name="alternate-keys-unique-constraints"></a>代替キー (一意制約)
 

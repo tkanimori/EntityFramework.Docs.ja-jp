@@ -1,5 +1,5 @@
 ---
-title: "UWP - 新しいデータベース - EF Core の概要"
+title: UWP - 新しいデータベース - EF Core の概要
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -12,6 +12,7 @@ ms.sourcegitcommit: 96324e58c02b97277395ed43173bf13ac80d2012
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 12/01/2017
+ms.locfileid: "26049835"
 ---
 # <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a>データベースを新たに作成して使用するユニバーサル Windows プラットフォーム (UWP) 上の EF Core の概要
 

@@ -1,5 +1,5 @@
 ---
-title: "サポートされている .NET 実装 - EF Core"
+title: サポートされている .NET 実装 - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 08/30/2017
@@ -10,6 +10,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678677"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>EF Core でサポートされている .NET 実装
 

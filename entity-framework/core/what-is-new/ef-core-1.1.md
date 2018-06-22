@@ -1,5 +1,5 @@
 ---
-title: "EF Core 1.1 の新機能 - EF Core"
+title: EF Core 1.1 の新機能 - EF Core
 author: divega
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26049675"
 ---
 # <a name="new-features-in-ef-core-11"></a>EF Core 1.1 の新機能
 

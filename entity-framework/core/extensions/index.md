@@ -1,5 +1,5 @@
 ---
-title: "ツールと拡張機能 - EF Core"
+title: ツールと拡張機能 - EF Core
 author: ErikEJ
 ms.author: divega
 ms.date: 7/3/2018
@@ -11,6 +11,7 @@ ms.sourcegitcommit: fc68321c211aca38f7b9dc3a75677c6ca1b2524b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 03/08/2018
+ms.locfileid: "29769440"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 

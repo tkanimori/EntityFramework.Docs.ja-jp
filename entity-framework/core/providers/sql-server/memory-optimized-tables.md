@@ -1,5 +1,5 @@
 ---
-title: "Microsoft SQL Server データベース プロバイダーのメモリ最適化テーブルの EF コア"
+title: Microsoft SQL Server データベース プロバイダーのメモリ最適化テーブルの EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052642"
 ---
 # <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a>メモリ最適化テーブルで SQL Server EF コア データベース プロバイダーのサポートします。
 

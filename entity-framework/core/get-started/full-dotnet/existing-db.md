@@ -11,6 +11,7 @@ ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 04/26/2018
+ms.locfileid: "31812626"
 ---
 # <a name="getting-started-with-ef-core-on-net-framework-with-an-existing-database"></a>既存のデータベースを使用した .NET Framework での EF Core の概要
 

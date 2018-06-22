@@ -1,5 +1,5 @@
 ---
-title: "SQLite - EF Core でのテスト"
+title: SQLite - EF Core でのテスト
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 10/27/2017
+ms.locfileid: "26052702"
 ---
 # <a name="testing-with-sqlite"></a>SQLite でテストします。
 

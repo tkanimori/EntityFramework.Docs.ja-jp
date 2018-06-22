@@ -1,5 +1,5 @@
 ---
-title: "複数のモデルと同じ DbContext 型 - EF コア間で切り替える"
+title: 複数のモデルと同じ DbContext 型 - EF コア間で切り替える
 author: AndriySvyryd
 ms.author: divega
 ms.date: 12/10/2017
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678723"
 ---
 # <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>同じ DbContext 型を持つ複数のモデル間で切り替える
 

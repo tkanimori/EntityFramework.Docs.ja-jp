@@ -1,5 +1,5 @@
 ---
-title: "EF Core と EF6 を比較する"
+title: EF Core と EF6 を比較する
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -10,6 +10,7 @@ ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
 ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 03/20/2018
+ms.locfileid: "30002757"
 ---
 # <a name="compare-ef-core--ef6"></a>EF Core と EF6 を比較する
 

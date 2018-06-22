@@ -1,5 +1,5 @@
 ---
-title: "同時実行トークン - EF コア"
+title: 同時実行トークン - EF コア
 author: rowanmiller
 ms.author: divega
 ms.date: 03/03/2018
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 03/05/2018
+ms.locfileid: "29745488"
 ---
 # <a name="concurrency-tokens"></a>同時実行制御トークン
 
@@ -39,7 +40,7 @@ Fluent API を使用して、同時実行トークンとしてプロパティを
 
 タイムスタンプは、新しい値がデータベースによって生成された行が挿入または更新するたびに場所プロパティです。 プロパティは、同時実行トークンとしても扱われます。 これにより、その他のユーザー データのクエリを実行するために更新しようとしている行を変更した場合、例外が表示されます。
 
-これを実現する方法については、使用中のデータベース プロバイダーによって決まります。 SQL Server のタイムスタンプは、通常で使用される、 *byte[]*となるプロパティの設定として、 *ROWVERSION*データベース内の列です。
+これを実現する方法については、使用中のデータベース プロバイダーによって決まります。 SQL Server のタイムスタンプは、通常で使用される、 *byte[]* となるプロパティの設定として、 *ROWVERSION*データベース内の列です。
 
 ### <a name="conventions"></a>規約
 

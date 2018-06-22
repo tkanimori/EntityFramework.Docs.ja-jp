@@ -1,5 +1,5 @@
 ---
-title: "EF Core 1.0 RC1 から RC2 - EF コアへのアップグレード"
+title: EF Core 1.0 RC1 から RC2 - EF コアへのアップグレード
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 02/28/2018
+ms.locfileid: "29678628"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a>EF Core 1.0 RC1 から RC2 1.0 へのアップグレード
 

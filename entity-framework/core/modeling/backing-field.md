@@ -1,5 +1,5 @@
 ---
-title: "EF コアをバックアップするには、フィールド-"
+title: EF コアをバックアップするには、フィールド-
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
@@ -11,6 +11,7 @@ ms.sourcegitcommit: 860ec5d047342fbc4063a0de881c9861cc1f8813
 ms.translationtype: MT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 11/05/2017
+ms.locfileid: "26053462"
 ---
 # <a name="backing-fields"></a>バッキング フィールド
 
