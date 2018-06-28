@@ -6,20 +6,19 @@ ms.date: 2/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: db1648095aa4d612af53f4e10a30be36edc40da5
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: 2372a6b2e3f3b7b1d9214a6ea321fe28cea45fff
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754426"
 ---
 # <a name="new-features-in-ef-core-21"></a>EF Core 2.1 の新機能
-> [!NOTE]  
-> このリリースはまだプレビュー段階です。
 
 多数のバグ修正と小さな機能およびパフォーマンスの強化だけでなく、EF Core 2.1 にはいくつかの魅力的な新機能が含まれています。
 
 ## <a name="lazy-loading"></a>遅延読み込み
-EF Core に、すべてのユーザーが自身のナビゲーション プロパティを必要なときに読み込むことができるエンティティ クラスを作成するために必要なビルド ブロックが含まれるようになりました。 また、これらのビルド ブロックを利用して、最小限の変更を行ったエンティティ クラス (仮想ナビゲーション プロパティが指定されたクラスなど) に基づいて遅延読み込みを生成する新しいパッケージ Microsoft.EntityFrameworkCore.Proxies も作成しました。
+EF Core に、すべてのユーザーが自身のナビゲーション プロパティを必要なときに読み込むことができるエンティティ クラスを作成するために必要なビルド ブロックが含まれるようになりました。 また、これらのビルド ブロックを利用して、最小限の変更を行ったエンティティ クラス (仮想ナビゲーション プロパティが指定されたクラスなど) に基づいて遅延読み込みプロキシ クラスを生成する、新しいパッケージ Microsoft.EntityFrameworkCore.Proxies も作成しました。
 
 このトピックの詳細については、[遅延読み込みのセクション](xref:core/querying/related-data#lazy-loading)をご覧ください。
 
@@ -38,7 +37,7 @@ EF Core に、すべてのユーザーが自身のナビゲーション プロ�
 このトピックの詳細については、[値変換のセクション](xref:core/modeling/value-conversions)をご覧ください。  
 
 ## <a name="linq-groupby-translation"></a>LINQ GroupBy 変換
-EF Core 2.1 より前のバージョンでは、GroupBy LINQ 演算子は常にメモリ内で評価されていました。 これを最も一般的なケースの SQL GROUP BY 句に変換することがサポートされるようになりました。
+EF Core 2.1 より前のバージョンでは、GroupBy LINQ 演算子は常にメモリ内で評価されます。 これを最も一般的なケースの SQL GROUP BY 句に変換することがサポートされるようになりました。
 
 この例では、さまざまな集計関数の計算に使用される GroupBy を使用したクエリを示しています。
 
@@ -124,7 +123,7 @@ var query = context.Customers.Select(
 
 このクエリは、Customers と Orders の 2 つの SQL クエリにのみ変換されることに注意してください。
 
-## <a name="ownedattribute"></a>OwnedAttribute
+## <a name="owned-attribute"></a>[Owned] 属性
 
 `[Owned]` で型に注釈を付けるだけで、[所有エンティティ型](xref:core/modeling/owned-entities)を構成して、所有者エンティティをモデルに確実に追加できるようになりました。
 
@@ -143,12 +142,14 @@ public class Order
 }
 ```
 
-## <a name="new-dotnet-ef-global-tool"></a>新しい dotnet-ef グローバル ツール
+## <a name="command-line-tool-dotnet-ef-included-in-net-core-sdk"></a>.NET Core SDK に含まれるコマンド ライン ツール dotnet-ef
 
-_dotnet-ef_ コマンドが .NET CLI グローバル ツールに変換され、移行を使用したり、既存のデータベースから DbContext をスキャフォールディングしたりするために、プロジェクトで DotNetCliToolReference を使用する必要がなくなります。
+_dotnet-ef_ コマンドは .NET Core SDK の一部になりました。したがって、移行を使用したり、既存のデータベースから DbContext をスキャフォールディングしたりするために、プロジェクトで DotNetCliToolReference を利用する必要がなくなります。
+
+さまざまなバージョンの .NET Core SDK と EF Core でコマンド ライン ツールを有効にする方法の詳細については、「[ツールのインストール](xref:core/miscellaneous/cli/dotnet#installing-the-tools)」のセクションを参照してください。
 
 ## <a name="microsoftentityframeworkcoreabstractions-package"></a>Microsoft.EntityFrameworkCore.Abstractions パッケージ
-この新しいパッケージに含まれる属性とインターフェイスをプロジェクトで使用すると、EF コアの依存関係全体を取得しなくても、EF Core の機能を使用できます。 たとえば、 プレビュー 1 で導入された [Owned] 属性は、ここに移動されました。
+この新しいパッケージに含まれる属性とインターフェイスをプロジェクトで使用すると、EF コアの依存関係全体を取得しなくても、EF Core の機能を使用できます。 たとえば、[Owned] 属性と ILazyLoader インターフェイスはここにあります。
 
 ## <a name="state-change-events"></a>状態変更イベント
 
@@ -165,7 +166,7 @@ var query = context.People.FromSql(sql);
 
 ## <a name="database-provider-compatibility"></a>データベース プロバイダーの互換性
 
-EF Core 2.1 は、EF Core 2.0 用に作成されたデータベース プロバイダーと互換性があるように設計されており、そうでない場合は少なくとも最小限の変更が必要です。 上記で説明した機能の一部 (値変換など) では更新されたプロバイダーが必要ですが、それ以外 (遅延読み込みなど) は既存のプロバイダーで機能します。
+EF Core 2.1 を操作する場合は、更新済みであるか、少なくともテスト済みであるプロバイダーで EF Core 2.1 を使用することをお勧めします。
 
 > [!TIP]
 > 予期しない非互換性や新機能で何らかの問題が見つかった場合、またはそれらに対するフィードバックがある場合は、[問題の追跡ツール](https://github.com/aspnet/EntityFrameworkCore/issues/new)を使用して報告してください。

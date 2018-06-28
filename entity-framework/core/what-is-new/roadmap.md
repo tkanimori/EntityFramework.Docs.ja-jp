@@ -6,22 +6,21 @@ ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 ms.technology: entity-framework-core
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: 6c10e64a4fa3bf26dc0da64bb9e102c8b76d3a6e
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: e23f5d7b1ff95bead310fa8e618a88c161a4e10c
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2018
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "34754445"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core のロードマップ
 
 > [!IMPORTANT]
 > 機能セットと今後のリリースのスケジュールは、常に変更される可能性があることに注意してください。また、このページを最新の状態に保持するようにしていますが、最新のプランが反映されていない場合もあります。
 
-EF Core 2.1 の 2 番目のプレビューは、2018 年 4 月にリリースされました。 このリリースの詳細については、「[EF Core 2.1 の新機能](xref:core/what-is-new/ef-core-2.1)」で確認できます。
+安定したバージョンの EF Core 2.1 は、2018 年 5 月 30 日にリリースされました。 このリリースの詳細については、「[EF Core 2.1 の新機能](xref:core/what-is-new/ef-core-2.1)」を参照してください。
 
-毎月、EF Core 2.1 の追加のプレビューをリリースし、2018 年の第 2 四半期に最終版をリリースする予定です。
-
-2.1 以降のリリースに関する[リリースの計画](#release-planning-process)は完成していません。
+2.1 以降の次のリリースに関する[リリースの計画プロセス](#release-planning-process)は完成していません。
 
 ## <a name="schedule"></a>スケジュール
 
