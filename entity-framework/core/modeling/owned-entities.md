@@ -1,29 +1,30 @@
 ---
-title: エンティティ型 – EF コアを所有しています。
+title: 所有エンティティの型 - EF Core
 author: julielerman
 ms.author: divega
 ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: f2f05499a3e3494f420d916df2db19667a6f1e29
-ms.sourcegitcommit: 26f33758c47399ae933f22fec8e1d19fa7d2c0b7
+ms.openlocfilehash: 768429b857b09c1974f4ade31b5bbb6b1c7e15c3
+ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/19/2018
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "37911876"
 ---
-# <a name="owned-entity-types"></a>所有されているエンティティの種類
+# <a name="owned-entity-types"></a>所有鉛てぃてぃ型
 
 >[!NOTE]
-> この機能は、EF コア 2.0 の新機能です。
+> この機能は、EF Core 2.0 の新機能です。
 
-EF コアは、その他のエンティティ型のナビゲーション プロパティにだけ表示される可能性がモデルのエンティティ型にできます。 これらと呼ばれます_エンティティ型を所有している_です。 所有されているエンティティ型を含むエンティティがその_所有者_です。
+EF Core では、その他のエンティティ型のナビゲーション プロパティにのみ表示できるモデルのエンティティ型にできます。 これらと呼ばれます_エンティティ型を所有している_します。 所有鉛てぃてぃ型を含むエンティティはその_所有者_します。
 
 ## <a name="explicit-configuration"></a>明示的な構成
 
-エンティティの種類は含まれません EF のコアでモデルの規約によって所有されています。 使用することができます、`OwnsOne`メソッドで`OnModelCreating`を持つ型の注釈を設定または`OwnedAttribute`(EF コア 2.1 の新機能) を所有する型として型を構成します。
+エンティティ型は含まれません EF Core によって、モデルの規則により所有されています。 使用することができます、`OwnsOne`メソッド`OnModelCreating`を持つ型の注釈を設定または`OwnedAttribute`(EF Core 2.1 の新機能) 所有型として型を構成します。
 
-この例では、StreetAddress は identity プロパティは含まずに型です。 特定の注文の配送先住所を指定するために、Order 型のプロパティとして使用されます。 `OnModelCreating`、使用して、 `OwnsOne` ShippingAddress プロパティが所有する型のエンティティの順序を指定します。
+この例では、StreetAddress は identity プロパティは含まずの一種です。 特定の注文の配送先住所を指定するために、Order 型のプロパティとして使用されます。 `OnModelCreating`を使用して、 `OwnsOne` ShippingAddress プロパティが、Order 型の所有エンティティであることを指定するメソッド。
 
 ``` csharp
 public class StreetAddress
@@ -42,7 +43,7 @@ public class Order
 modelBuilder.Entity<Order>().OwnsOne(p => p.ShippingAddress);
 ```
 
-ShippingAddress プロパティが Order type にプライベートである場合は、文字列形式を使用することができます、`OwnsOne`メソッド。
+ShippingAddress プロパティが Order type でプライベートの場合は、文字列形式を使用することができます、`OwnsOne`メソッド。
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(typeof(StreetAddress), "ShippingAddress");
@@ -67,20 +68,20 @@ public class Order
 
 ## <a name="implicit-keys"></a>暗黙的なキー
 
-EF コア 2.0 および 2.1 でのみ参照ナビゲーション プロパティは所有されている型を指すことができます。 所有されているデータ型のコレクションはサポートされていません。 これらの参照は、型がオーナーを使用して常に一対一のリレーションシップを持つ、そのため、不要なそれぞれのキー値を所有します。 前の例では、StreetAddress 型はキー プロパティを定義するのには必要ありません。  
+EF Core 2.0 および 2.1 では、参照ナビゲーション プロパティのみが所有型を指定できます。 所有型のコレクションがサポートされていません。 これらの参照は所有型が常に一対一のリレーションシップを持つ所有者と、そのため、独自のキー値が不要です。 前の例ではキー プロパティを定義する、StreetAddress 型は必要ありません。  
 
-EF コアがこれらのオブジェクトを追跡する方法を理解するためにとして主キーが作成されたことを考えるとわかりやすく、[プロパティをシャドウ](xref:core/modeling/shadow-properties)所有されている型。 所有されている型のインスタンスのキーの値は、所有者のインスタンスのキーの値と同じになります。      
+EF Core がこれらのオブジェクトを追跡する方法を理解する順番として主キーが作成されたことを考えるとわかり、[プロパティをシャドウ](xref:core/modeling/shadow-properties)所有型にします。 所有型のインスタンスのキーの値は、所有者のインスタンスのキーの値と同じになります。      
 
-## <a name="mapping-owned-types-with-table-splitting"></a>マッピングは、テーブル分割を含む型を所有しています。
+## <a name="mapping-owned-types-with-table-splitting"></a>マッピングは、テーブル分割を持つ型を所有しています。
 
-リレーショナル データベースを使用する場合の型を所有している慣例にマップされます所有者と同じテーブル。 2 つのテーブルを分割する必要があります。 一部の列は、所有者のデータの格納に使用すると、所有されているエンティティのデータの格納に使用されるいくつかの列です。 これは、テーブル分割と呼ばれる一般的な機能です。
+リレーショナル データベースを使用して、慣例所有型にマップされます、所有者と同じテーブル。 2 つのテーブルを分割する必要があります。 一部の列は、所有者のデータの格納に使用すると、所有エンティティのデータの格納に使用されるいくつかの列。 これは、テーブル分割と呼ばれる一般的な機能です。
 
 > [!TIP]
-> テーブル分割と共に格納されている型がある所有されている EF6 で使用する方法の複合型にも同様に非常に使用します。
+> テーブル分割と保存されている種類は、所有する EF6 で使用する方法の複合型にも同様に非常に使用します。
 
-慣例により、EF コアは列の名前をデータベースのパターンに従って、所有されているエンティティ型のプロパティの_EntityProperty_OwnedEntityProperty_です。 したがって、StreetAddress プロパティは、ShippingAddress_Street ShippingAddress_City の名前を使用、Orders テーブルに表示されます。
+規則により、EF Core は、次のパターンの所有鉛てぃてぃ型のプロパティのデータベース列を名前は_EntityProperty_OwnedEntityProperty_します。 そのため、StreetAddress プロパティは、ShippingAddress_Street と ShippingAddress_City 名前と Orders テーブルに表示されます。
 
-追加することができます、`HasColumnName`それらの列の名前を変更するメソッド。 ここで、StreetAddress はパブリック プロパティの場合、マッピングになります
+追加することができます、`HasColumnName`それらの列の名前を変更するメソッド。 StreetAddress のパブリック プロパティがある場合は、マッピングになります
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(
@@ -92,13 +93,13 @@ modelBuilder.Entity<Order>().OwnsOne(
         });
 ```
 
-## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>所有されている複数の種類で同じ .NET 型の共有
+## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>複数の所有型の間で同じ .NET 型の共有
 
-所有されているエンティティ型することができます、所有されているエンティティの他の型と同じ .NET 型したがって .NET 型可能性がありますいない所有されている型を特定することです。
+所有鉛てぃてぃ型できます別の所有鉛てぃてぃ型と同じ .NET 型したがって .NET 型できない可能性があります所有型を識別するために十分な。
 
-ような場合、所有者から所有されているエンティティを指すプロパティになります、_ナビゲーションを定義する_所有されているエンティティ型のです。 EF コアの観点からは、定義のナビゲーションは、.NET 型と共に、その型の id の一部です。   
+その場合、所有者から所有エンティティを指すプロパティになります、_ナビゲーションを定義する_の所有鉛てぃてぃ型。 EF Core の観点からは、定義となるナビゲーションは、.NET 型と型の id の一部です。   
 
-たとえば、次のクラスで ShippingAddress と BillingAddress が両方とも同じ .NET 型、StreetAddress の。
+たとえば、次のクラスで ShippingAddress および BillingAddress は同じ .NET 型、StreetAddress いずれです。
 
 ``` csharp
 public class Order
@@ -109,11 +110,11 @@ public class Order
 }
 ```
 
-EF コアがこれらのオブジェクトの追跡対象のインスタンスを区別する方法を理解するのには、所有者のキーの値と共に、インスタンスのキーの一部と、所有されている型の .NET 型定義のナビゲーションがなくなっていることを考えるとわかりやすく場合があります。
+EF Core がこれらのオブジェクトの追跡対象のインスタンスを区別する方法を理解するためには、定義となるナビゲーションが所有者のキーの値と共にインスタンスのキーの一部と所有型の .NET 型になったことを考えるとわかり場合があります。
 
-## <a name="nested-owned-types"></a>入れ子になった所有されている型
+## <a name="nested-owned-types"></a>入れ子にされた所有型
 
-この例では、OrderDetails は BillingAddress と両方 StreetAddress 型である ShippingAddress を所有します。 OrderDetails Order type が所有します。
+この例では、OrderDetails は、BillingAddress と ShippingAddress、これらは両方の StreetAddress 型を所有します。 OrderDetails Order type が所有します。
 
 ``` csharp
 public class Order
@@ -129,6 +130,12 @@ public class OrderDetails
     public StreetAddress ShippingAddress { get; set; }
 }
 
+public enum OrderStatus
+{
+    Pending,
+    Shipped
+}
+
 public class StreetAddress
 {
     public string Street { get; set; }
@@ -136,7 +143,7 @@ public class StreetAddress
 }
 ```
 
-チェーンに可能であれば、 `OwnsOne` fluent のマッピングをこのモデルを構成する方法。
+チェーンすることができます、`OwnsOne`メソッドでこのモデルを構成する fluent マッピング。
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
@@ -146,9 +153,9 @@ modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
     });
 ```
 
-使用して同じことを実現するために可能であれば`OwnedAttribute`OrderDetails と StreetAdress の両方でします。
+使用して同じことを実現することは`OwnedAttribute`OrderDetails と StreetAdress の両方でします。
 
-入れ子になった所有されている種類に加えて、所有されている型は、正規のエンティティを参照できます。 次の例では、国は、正規の (つまり以外が所有するエンティティを示します。
+入れ子になったの所有型だけでなく、所有型は正規のエンティティを参照できます。 次の例では、国は、通常の (つまり非が所有している) エンティティは。
 
 ``` csharp
 public class StreetAddress
@@ -159,11 +166,11 @@ public class StreetAddress
 }
 ```
 
-この機能は、EF6 の複合型とは別に所有されているエンティティ型を設定します。
+この機能は、EF6 の複合型とは別の所有鉛てぃてぃ型を設定します。
 
-## <a name="storing-owned-types-in-separate-tables"></a>別のテーブルに所有されている種類のファイルを格納します。
+## <a name="storing-owned-types-in-separate-tables"></a>別のテーブルに所有型を格納します。
 
-また、EF6 複合型とは異なりは、所有されている型を所有者から別のテーブルに格納できます。 所有者と同じテーブルを所有している型にマップする規則を無効にするために呼び出すことができますだけ`ToTable`別のテーブル名を指定します。 次の例はマップ OrderDetails と、その 2 つのアドレスを別のテーブルに注文から。
+また、EF6 の複合型とは異なりは、所有型を所有者から別のテーブルに格納できます。 所有型を所有者と同じテーブルにマップする規則を上書きするために呼び出すだけでできます`ToTable`別のテーブルの名前を指定します。 次の例では、OrderDetails と、その 2 つのアドレスにマップされます、別のテーブルの順序。
 
 ``` csharp
 modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
@@ -173,9 +180,9 @@ modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
     }).ToTable("OrderDetails");
 ```
 
-## <a name="querying-owned-types"></a>所有されている種類のクエリを実行します。
+## <a name="querying-owned-types"></a>所有型を問い合わせています
 
-所有者に問い合わせるとき、所有されている型が既定で含まれます。 使用する必要はありません、`Include`メソッド、所有されている型が別のテーブルに格納されている場合でもです。 前に説明したモデルに基づいて、次のクエリはプル順序、OrderDetails と保留中のすべての注文がデータベースの 2 つの所有されている StreeAddresses:
+所有者に問い合わせるとき、所有されている型が既定で含まれます。 使用する必要はありません、`Include`所有型が別のテーブルに格納されている場合でも、メソッド。 前に説明したモデルに基づいて、次のクエリは Order、OrderDetails およびデータベースからすべての保留中の注文の 2 つの所有 StreeAddresses をプルします。
 
 ``` csharp
 var orders = context.Orders.Where(o => o.Status == OrderStatus.Pending);
@@ -183,15 +190,17 @@ var orders = context.Orders.Where(o => o.Status == OrderStatus.Pending);
 
 ## <a name="limitations"></a>制限事項
 
-所有されているエンティティ型の制限事項を示します。 これらの制限事項の一部は、所有されている方法の種類の作業に基本的ないくつかもあれば、将来のリリースを削除したい時点での制限。
+これらの制限の一部は所有されているどのエンティティ型の作業を基本的な機能がいくつか他のユーザー制限は今後のリリースを削除するいただく可能性があります。
 
+### <a name="shortcomings-in-previous-versions"></a>以前のバージョンの欠点
+- EF Core 2.0 では、ナビゲーションには、所有エンティティが別のテーブルに所有者の階層から明示的にマップされていない限り、派生エンティティ型のエンティティ型を宣言できませんを所有します。 EF Core 2.1 でこの制限が削除されました
+ 
 ### <a name="current-shortcomings"></a>現在の欠点
-- 所有されている型の継承はサポートされていません
-- 所有されている型はコレクション ナビゲーション プロパティを指すことはできません。
-- テーブル分割を使用しているので、既定では、型も、別のテーブルを明示的にマップされている場合を除きには次の制限があります所有しています。
-   - 派生型で所有していることはできません。
-   - 定義するナビゲーション プロパティを設定することはできませんを null に (つまり所有するテーブルが同じでは常に必要)
+- 継承階層を含む所有エンティティ型はサポートされていません
+- 所有鉛てぃてぃ型がで、コレクション ナビゲーション プロパティ (ナビゲーションは現在サポートされている唯一の参照) によって指されることはできません。
+- 明示的に、所有者から別のテーブルにマップされていないエンティティ型を null にすることはできませんを所有する可能性のあるナビゲーション 
+- (これは、所有鉛てぃてぃ型を使用して実装することはできません。 値オブジェクトのよく知られているシナリオ) 複数の所有者で所有鉛てぃてぃ型のインスタンスを共有することはできません。
 
-### <a name="by-design-restrictions"></a>デザインにより制限
+### <a name="by-design-restrictions"></a>設計による制限
 - 作成することはできません、 `DbSet<T>`
-- 呼び出すことはできません`Entity<T>()`に所有されている型 `ModelBuilder`
+- 呼び出すことはできません`Entity<T>()`所有型の使用 `ModelBuilder`
