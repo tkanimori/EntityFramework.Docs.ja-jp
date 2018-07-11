@@ -29,7 +29,7 @@
 #### [ASP.NET Core](core/get-started/aspnetcore/index.md)
 ##### [ASP.NET Core - 新しいデータベース](core/get-started/aspnetcore/new-db.md)
 ##### [ASP.NET Core - 既存のデータベース](core/get-started/aspnetcore/existing-db.md)
-##### [ASP.NET Core サイトの EF Core チュートリアル](https://docs.asp.net/en/latest/data/ef-mvc/intro.html)
+##### [EF Core と Razor ページ](/aspnet/core/data/ef-rp/intro)
 #### [ユニバーサル Windows プラットフォーム (UWP)](core/get-started/uwp/index.md)
 ##### [UWP - 新しいデータベース](core/get-started/uwp/getting-started.md)
 

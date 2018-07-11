@@ -1,20 +1,56 @@
 ---
-title: Entity Framework 6
-author: rowanmiller
+title: Entity Framework 6 の概要
+author: divega
+ms.date: 2016-10-23
+ms.prod: entity-framework
 ms.author: divega
-ms.date: 10/27/2016
-ms.assetid: d16eb5be-7e94-477a-84cd-e6dce25df12a
+ms.manager: avickers
 ms.technology: entity-framework-6
+ms.topic: article
+ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
+caps.latest.revision: 5
 uid: ef6/index
-ms.openlocfilehash: 235a1404e56b5a78a3ef4f85e37c84a8bde2c014
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: df661f19afdeef53257c86bdd32b1444737c9b0a
+ms.sourcegitcommit: 45494121254ad4fdcec613d1dd22d850068d6f39
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26048904"
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "37913500"
 ---
-# <a name="entity-framework-6"></a><span data-ttu-id="f5fe1-102">Entity Framework 6</span><span class="sxs-lookup"><span data-stu-id="f5fe1-102">Entity Framework 6</span></span>
+# <a name="entity-framework-6-quick-overview"></a><span data-ttu-id="d8041-102">Entity Framework 6 の概要</span><span class="sxs-lookup"><span data-stu-id="d8041-102">Entity Framework 6 Quick Overview</span></span>
 
-<span data-ttu-id="f5fe1-103">Entity Framework 6 (EF6) は試験の結果、信頼性が立証されたデータ アクセス テクノロジです。何年にもわたり機能が蓄積され、安定しています。</span><span class="sxs-lookup"><span data-stu-id="f5fe1-103">Entity Framework 6 (EF6) is a tried and tested data access technology with many years of features and stabilization.</span></span> <span data-ttu-id="f5fe1-104">2008 年に初めて、.NET Framework 3.5 SP1 と Visual Studio 2008 SP1 の一部としてリリースされました。</span><span class="sxs-lookup"><span data-stu-id="f5fe1-104">It first released in 2008, as part of .NET Framework 3.5 SP1 and Visual Studio 2008 SP1.</span></span> <span data-ttu-id="f5fe1-105">EF4.1 リリース以降、[EntityFramework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/)として出荷されています。これは NuGet.org で現在最も人気のあるパッケージの 1 つです。</span><span class="sxs-lookup"><span data-stu-id="f5fe1-105">Starting with the EF4.1 release it has shipped as the [EntityFramework NuGet package](https://www.nuget.org/packages/EntityFramework/) - currently one of the most popular packages on NuGet.org.</span></span>
+<span data-ttu-id="d8041-103">Entity Framework 6 (EF6) は、機能開発および安定化に何年もの時間が費やされてきた、十分に検証された .NET 用のオブジェクト リレーショナル マッパー (O/RM) です。</span><span class="sxs-lookup"><span data-stu-id="d8041-103">Entity Framework 6 (EF6) is a tried and tested object-relational mapper (O/RM) for .NET with many years of feature development and stabilization.</span></span>
 
-<span data-ttu-id="f5fe1-106">Entity Framework 6 ドキュメントは現在、[msdn.com/data/ef](http://msdn.com/data/ef) でご覧いただけます。</span><span class="sxs-lookup"><span data-stu-id="f5fe1-106">The Entity Framework 6 documentation is currently available at [msdn.com/data/ef](http://msdn.com/data/ef).</span></span>
+<span data-ttu-id="d8041-104">EF6 には、次のような多数の一般的な O/RM 機能が実装されています。</span><span class="sxs-lookup"><span data-stu-id="d8041-104">EF6 implements many popular O/RM features:</span></span>
+- <span data-ttu-id="d8041-105">どの種類の EF にも依存しない "永続化非依存" ("POCO" (単純な従来の CLR オブジェクト) とも呼ばれる) エンティティ クラスのマッピング。</span><span class="sxs-lookup"><span data-stu-id="d8041-105">Mapping of "persistence ignorant" (also known as "POCO", for Plan-Old CLR Object) entity classes which do not depend on any EF types</span></span>
+- <span data-ttu-id="d8041-106">変更の自動追跡</span><span class="sxs-lookup"><span data-stu-id="d8041-106">Automatic change tracking</span></span>
+- <span data-ttu-id="d8041-107">ID 解決および作業単位</span><span class="sxs-lookup"><span data-stu-id="d8041-107">Identity resolution and Unit of Work</span></span>
+- <span data-ttu-id="d8041-108">Eager、lazy および明示的読み込み</span><span class="sxs-lookup"><span data-stu-id="d8041-108">Eager, lazy and explicit loading</span></span>
+- <span data-ttu-id="d8041-109">LINQ (言語統合クエリ) を使用した厳密に型指定されたクエリの変換</span><span class="sxs-lookup"><span data-stu-id="d8041-109">Translation of strongly-typed queries using LINQ (Language INtegrated Query)</span></span> 
+- <span data-ttu-id="d8041-110">次などのサポートを含む、豊富なマッピング機能があります。</span><span class="sxs-lookup"><span data-stu-id="d8041-110">Rich mapping capabilities, including support for:</span></span>
+  - <span data-ttu-id="d8041-111">継承 (Table-Per-Hierarchy、Table-Per-Type、Table-Per-Concrete-lass)</span><span class="sxs-lookup"><span data-stu-id="d8041-111">Inheritance (table per hierarchy, table per type and table per concrete class)</span></span>
+  - <span data-ttu-id="d8041-112">複合型</span><span class="sxs-lookup"><span data-stu-id="d8041-112">Complex types</span></span>
+  - <span data-ttu-id="d8041-113">ストアド プロシージャ</span><span class="sxs-lookup"><span data-stu-id="d8041-113">Stored procedures</span></span>
+- <span data-ttu-id="d8041-114">エンティティ モデルを作成するビジュアル デザイナー。</span><span class="sxs-lookup"><span data-stu-id="d8041-114">A visual designer to create entity models.</span></span>
+- <span data-ttu-id="d8041-115">コードを記述することにより、エンティティ モデルの作成をサポートする "Code First" エクスペリエンス。</span><span class="sxs-lookup"><span data-stu-id="d8041-115">A "Code First" experience that supports creating entity models by writing code.</span></span>
+- <span data-ttu-id="d8041-116">モデルは既存のデータベースから生成し手作業で編集するか、最初から生成して新しいデータベースの作成に使用できます。</span><span class="sxs-lookup"><span data-stu-id="d8041-116">Models can either be generated form existing databases and then hand-edited, or they can be created from scratch and then used to generate new databases.</span></span>
+- <span data-ttu-id="d8041-117">ASP.NET を含む .NET Framework アプリケーション モデルとの統合および、WPF と WinForms を介したデータ バインド。</span><span class="sxs-lookup"><span data-stu-id="d8041-117">Integration with .NET Framework application models, including ASP.NET, and through databinding, with WPF and WinForms.</span></span>
+- <span data-ttu-id="d8041-118">ADO.NET に基づくデータベース接続、および SQL Server、Oracle、MySQL、SQLite、PostgreSQL、DB2 などへの接続に使用可能な多数のプロバイダー。</span><span class="sxs-lookup"><span data-stu-id="d8041-118">Database connectivity based on ADO.NET and numerous providers available to connect to SQL Server, Oracle, MySQL, SQLite, PostgreSQL, DB2, etc.</span></span>
+
+<span data-ttu-id="d8041-119">EF6 は、O/RM として、リレーショナルおよびオブジェクト指向の世界のインピーダンス不整合を減らします。開発者はこれにより、アプリケーションのドメインを表す厳密に型指定された .NET オブジェクトを使用した、リレーショナル データベースに格納されたデータをやり取りするアプリケーションを記述でき、通常は記述する必要のあるデータ アクセス "プラミング" コードの大部分を記述する必要がなくなります。</span><span class="sxs-lookup"><span data-stu-id="d8041-119">As an O/RM, EF6 reduces the impedance mismatch between the relational and object-oriented worlds, enabling developers to write applications that interact with data stored in relational databases using strongly-typed .NET objects that represent the application's domain, and eliminating the need for a large portion of the data access "plumbing" code that they usually need to write.</span></span>
+
+## <a name="should-i-use-ef6-or-ef-core"></a><span data-ttu-id="d8041-120">EF6 または EF Core のどちらを使用すべきか</span><span class="sxs-lookup"><span data-stu-id="d8041-120">Should I use EF6 or EF Core?</span></span>
+
+<span data-ttu-id="d8041-121">EF Core は、EF6 と非常によく似た機能およびメリットを持つ、Entity Framework の最新の簡易拡張バージョンです。</span><span class="sxs-lookup"><span data-stu-id="d8041-121">EF Core is a more modern, lightweight and extensible version of Entity Framework that has very similar capabilities and benefits to EF6.</span></span>
+<span data-ttu-id="d8041-122">EF Core は完全に書き直されたもので、EF6 にはない機能が多数含まれています。ただし、EF6 にある最も高度ないくつかのマッピング機能は含まれていません。</span><span class="sxs-lookup"><span data-stu-id="d8041-122">EF Core is a complete rewrite and contains many new features not available in EF6, although it also still lacks some of the most advanced mapping capabilities of EF6.</span></span>
+<span data-ttu-id="d8041-123">機能セットが要件に合う場合、新しいアプリケーションでは EF Core を使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="d8041-123">We recommend using EF Core in new applications as long as the feature set matches your requirements.</span></span>
+<span data-ttu-id="d8041-124">「[EF Core と EF6 を比較する](xref:efcore-and-ef6/index)」ではこの選択についてより詳しく検証しています。</span><span class="sxs-lookup"><span data-stu-id="d8041-124">[Compare EF Core & EF6](xref:efcore-and-ef6/index) examines this choice in greater detail.</span></span>
+
+## <a name="get-startedef6get-startedmd"></a>[<span data-ttu-id="d8041-125">開始するには</span><span class="sxs-lookup"><span data-stu-id="d8041-125">Get Started</span></span>](~/ef6/get-started.md)
+
+<span data-ttu-id="d8041-126">EntityFramework NuGet パッケージをプロジェクトに追加するか、Entity Framework Tools for Visual Studio をインストールします。</span><span class="sxs-lookup"><span data-stu-id="d8041-126">Add the EntityFramework NuGet package to your project or install the Entity Framework Tools for Visual Studio.</span></span> <span data-ttu-id="d8041-127">次いでビデオを見たり、チュートリアルやより高度なドキュメントを読み、Entity Framework 6 を最大限に活用できるようにします。</span><span class="sxs-lookup"><span data-stu-id="d8041-127">Then watch videos, read tutorials, and advanced documentation to help you make the most of Entity Framework 6.</span></span>
+
+## <a name="past-entity-framework-versions"></a><span data-ttu-id="d8041-128">過去の Entity Framework のバージョン</span><span class="sxs-lookup"><span data-stu-id="d8041-128">Past Entity Framework Versions</span></span>
+
+<span data-ttu-id="d8041-129">これは、Entity Framework 6 の最新バージョン用のドキュメントですが、ほとんどが過去のリリースにも当てはまります。</span><span class="sxs-lookup"><span data-stu-id="d8041-129">This is the documentation for the latest version of Entity Framework 6, although much of it also applies to past releases.</span></span>
+<span data-ttu-id="d8041-130">EF のすべてのリリース一覧およびそれらによって導入された機能については、「[What's New](~/ef6/what-is-new/index.md)」 (新機能) と「[Past Releases](~/ef6/what-is-new/past-releases.md)」 (以前のリリース) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="d8041-130">Check out [What's New](~/ef6/what-is-new/index.md) and [Past Releases](~/ef6/what-is-new/past-releases.md) for a complete list of EF releases and the features they introduced.</span></span>
