@@ -1,28 +1,28 @@
 ---
-title: テーブルのマッピング - EF コア
+title: テーブルのマッピング - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c807aa4c-7845-443d-b8d0-bfc9b42691a3
 ms.technology: entity-framework-core
 uid: core/modeling/relational/tables
-ms.openlocfilehash: 73957d9c77e6856bfb65e10e6b373c337101f7d9
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: ef6080b5d543c2a68a680be2b9effc1c9d531030
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052732"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949010"
 ---
-# <a name="table-mapping"></a>テーブルのマッピング
+# <a name="table-mapping"></a>テーブル マッピング
 
 > [!NOTE]  
-> このセクションの構成は、一般にリレーショナル データベースに適用されます。 ここで示すように拡張メソッドが使用可能になるリレーショナル データベース プロバイダーをインストールするときに (共有のため*Microsoft.EntityFrameworkCore.Relational*パッケージ)。
+> このセクションの構成は、リレーショナル データベース全般に適用されます。 ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。
 
-テーブル マッピングは、テーブル データをからクエリし、データベース内に保存する必要がありますを識別します。
+テーブル マッピングは、テーブル データをからクエリを実行し、データベース内に保存する必要がありますを識別します。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-慣例により、各エンティティになりますセットアップと同じ名前のテーブルにマップする、`DbSet<TEntity>`派生のコンテキストにエンティティを公開するプロパティです。 ない場合は`DbSet<TEntity>`が含まれる指定されたエンティティのクラス名を使用します。
+慣例により、各エンティティして設定されると、同じ名前のテーブルにマップする、`DbSet<TEntity>`派生コンテキストでエンティティを公開するプロパティ。 ない場合は`DbSet<TEntity>`が含まれる指定されたエンティティのクラス名を使用します。
 
 ## <a name="data-annotations"></a>データの注釈
 
@@ -40,7 +40,7 @@ public class Blog
 }
 ```
 
-このテーブルに所属するスキーマを指定することができます。
+テーブルが属するスキーマを指定することもできます。
 
 ``` csharp
 [Table("blogs", Schema = "blogging")]
@@ -77,7 +77,7 @@ public class Blog
 }
 ```
 
-このテーブルに所属するスキーマを指定することができます。
+テーブルが属するスキーマを指定することもできます。
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/TableAndSchema.cs?highlight=2)] -->
 ``` csharp
