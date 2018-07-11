@@ -6,12 +6,12 @@ ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 768429b857b09c1974f4ade31b5bbb6b1c7e15c3
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 476a1dcaadcd99eba0cd4f5f0ac40c32a97af5c9
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911876"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949428"
 ---
 # <a name="owned-entity-types"></a>所有鉛てぃてぃ型
 
@@ -155,7 +155,7 @@ modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
 
 使用して同じことを実現することは`OwnedAttribute`OrderDetails と StreetAdress の両方でします。
 
-入れ子になったの所有型だけでなく、所有型は正規のエンティティを参照できます。 次の例では、国は、通常の (つまり非が所有している) エンティティは。
+入れ子になったの所有型だけでなく、所有型は正規のエンティティを参照できます。 次の例では、国は、通常の非所有エンティティは。
 
 ``` csharp
 public class StreetAddress
@@ -182,7 +182,7 @@ modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, od =>
 
 ## <a name="querying-owned-types"></a>所有型を問い合わせています
 
-所有者に問い合わせるとき、所有されている型が既定で含まれます。 使用する必要はありません、`Include`所有型が別のテーブルに格納されている場合でも、メソッド。 前に説明したモデルに基づいて、次のクエリは Order、OrderDetails およびデータベースからすべての保留中の注文の 2 つの所有 StreeAddresses をプルします。
+所有者に問い合わせるとき、所有されている型が既定で含まれます。 使用する必要はありません、`Include`所有型が別のテーブルに格納されている場合でも、メソッド。 前に説明したモデルに基づいて、次のクエリは Order、OrderDetails およびデータベースからすべての保留中の注文の 2 つの所有 StreetAddresses をプルします。
 
 ``` csharp
 var orders = context.Orders.Where(o => o.Status == OrderStatus.Pending);
@@ -194,11 +194,11 @@ var orders = context.Orders.Where(o => o.Status == OrderStatus.Pending);
 
 ### <a name="shortcomings-in-previous-versions"></a>以前のバージョンの欠点
 - EF Core 2.0 では、ナビゲーションには、所有エンティティが別のテーブルに所有者の階層から明示的にマップされていない限り、派生エンティティ型のエンティティ型を宣言できませんを所有します。 EF Core 2.1 でこの制限が削除されました
- 
+
 ### <a name="current-shortcomings"></a>現在の欠点
 - 継承階層を含む所有エンティティ型はサポートされていません
 - 所有鉛てぃてぃ型がで、コレクション ナビゲーション プロパティ (ナビゲーションは現在サポートされている唯一の参照) によって指されることはできません。
-- 明示的に、所有者から別のテーブルにマップされていないエンティティ型を null にすることはできませんを所有する可能性のあるナビゲーション 
+- 明示的に、所有者から別のテーブルにマップされていないエンティティ型を null にすることはできませんを所有する可能性のあるナビゲーション
 - (これは、所有鉛てぃてぃ型を使用して実装することはできません。 値オブジェクトのよく知られているシナリオ) 複数の所有者で所有鉛てぃてぃ型のインスタンスを共有することはできません。
 
 ### <a name="by-design-restrictions"></a>設計による制限

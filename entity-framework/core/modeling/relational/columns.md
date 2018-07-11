@@ -1,28 +1,28 @@
 ---
-title: 列のマッピング - EF コア
+title: 列のマッピング - EF Core
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 05a47de9-1078-488e-a823-b516a4208f33
 ms.technology: entity-framework-core
 uid: core/modeling/relational/columns
-ms.openlocfilehash: 697b966dbac892e332fe65feaa4dd11f00dd8298
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: ac3ab2ce3faa54eb8e862d01dcecb48cb0d1f811
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052902"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949412"
 ---
-# <a name="column-mapping"></a>列のマッピング
+# <a name="column-mapping"></a>列マッピング
 
 > [!NOTE]  
-> このセクションの構成は、一般にリレーショナル データベースに適用されます。 ここで示すように拡張メソッドが使用可能になるリレーショナル データベース プロバイダーをインストールするときに (共有のため*Microsoft.EntityFrameworkCore.Relational*パッケージ)。
+> このセクションの構成は、リレーショナル データベース全般に適用されます。 ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。
 
-列マッピングは、列データをからクエリし、データベース内に保存する必要がありますを識別します。
+列マッピングは、列データをからクエリを実行し、データベース内に保存する必要がありますを識別します。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-慣例により、各プロパティをプロパティと同じ名前の列にマップするセットアップとなります。
+慣例により、プロパティと同じ名前の列にマップする各プロパティ設定されます。
 
 ## <a name="data-annotations"></a>データの注釈
 
