@@ -12,14 +12,14 @@
 
 ## [Entity Framework Core](core/index.md)
 
-### [EF Core の新機能](core/what-is-new/index.md)
+### [新機能](core/what-is-new/index.md)
 #### [EF Core ロードマップ](core/what-is-new/roadmap.md)
 #### [EF Core 2.1](core/what-is-new/ef-core-2.1.md)
 #### [EF Core 2.0](core/what-is-new/ef-core-2.0.md)
 #### [EF Core 1.1](core/what-is-new/ef-core-1.1.md)
 #### [EF Core 1.0](core/what-is-new/ef-core-1.0.md)
 
-### [はじめに](core/get-started/index.md)
+### [開始するには](core/get-started/index.md)
 #### [EF Core のインストール](core/get-started/install/index.md)
 #### [.NET framework (コンソール、WinForms、WPF など)](core/get-started/full-dotnet/index.md)
 ##### [.NET Framework - 新しいデータベース](core/get-started/full-dotnet/new-db.md)
@@ -67,6 +67,16 @@
 ##### [代替キー (一意の制約)](core/modeling/relational/unique-constraints.md)
 ##### [継承 (リレーショナル データベース)](core/modeling/relational/inheritance.md)
 
+### [データベース スキーマを管理する](core/managing-schemas/index.md)
+#### [移行](core/managing-schemas/migrations/index.md)
+##### [チーム環境](core/managing-schemas/migrations/teams.md)
+##### [カスタム操作](core/managing-schemas/migrations/operations.md)
+##### [別個のプロジェクトを使用する](core/managing-schemas/migrations/projects.md)
+##### [複数のプロバイダー](core/managing-schemas/migrations/providers.md)
+##### [カスタム履歴テーブル](core/managing-schemas/migrations/history-table.md)
+#### [🔧 Create API と Drop API](core/managing-schemas/ensure-created.md)
+#### [🔧 リバース エンジニアリング](core/managing-schemas/scaffolding.md)
+
 ### [データのクエリ](core/querying/index.md)
 #### [基本のクエリ](core/querying/basic.md)
 #### [関連データの読み込み](core/querying/related-data.md)
@@ -97,23 +107,13 @@
 #### [InMemory (テスト用)](core/providers/in-memory/index.md)
 #### [データベース プロバイダーを記述する](core/providers/writing-a-provider.md)
 
-### [データベース スキーマを管理する](core/managing-schemas/index.md)
-#### [移行](core/managing-schemas/migrations/index.md)
-##### [チーム環境](core/managing-schemas/migrations/teams.md)
-##### [カスタム操作](core/managing-schemas/migrations/operations.md)
-##### [別個のプロジェクトを使用する](core/managing-schemas/migrations/projects.md)
-##### [複数のプロバイダー](core/managing-schemas/migrations/providers.md)
-##### [カスタム履歴テーブル](core/managing-schemas/migrations/history-table.md)
-#### [🔧 Create API と Drop API](core/managing-schemas/ensure-created.md)
-#### [🔧 リバース エンジニアリング](core/managing-schemas/scaffolding.md)
+### [ツールと拡張機能](core/extensions/index.md)
 
 ### [Command-Line Reference (コマンド ライン リファレンス)](core/miscellaneous/cli/index.md)
 #### [パッケージ マネージャー コンソール (Visual Studio)](core/miscellaneous/cli/powershell.md)
 #### [.NET Core CLI](core/miscellaneous/cli/dotnet.md)
 #### [デザイン時 DbContext 作成](core/miscellaneous/cli/dbcontext-creation.md)
 #### [デザイン時サービス](core/miscellaneous/cli/services.md)
-
-### [ツールと拡張機能](core/extensions/index.md)
 
 ### その他
 #### [接続文字列](core/miscellaneous/connection-strings.md)
@@ -127,8 +127,158 @@
 #### [1.0 RC2 から RTM にアップグレード](core/miscellaneous/rc2-rtm-upgrade.md)
 #### [EF Core 2.0 にアップグレード](core/miscellaneous/1x-2x-upgrade.md)
 
-### [⤤ API リファレンス](https://docs.microsoft.com/dotnet/api/?view=efcore-2.1)
+### [⤤ EF Core API リファレンス](https://docs.microsoft.com/dotnet/api/?view=efcore-2.1)
 
 ## [Entity Framework 6](ef6/index.md)
-### [⤤ ドキュメント](http://msdn.com/data/ef)
-### [⤤ API リファレンス](https://msdn.microsoft.com/library/dn223258.aspx)
+
+### [新機能](ef6/what-is-new/index.md)
+#### [ロードマップ](ef6/what-is-new/roadmap.md)
+#### [以前のリリース](ef6/what-is-new/past-releases.md)
+#### [EF6 へのアップグレード](ef6/what-is-new/upgrading-to-ef6.md)
+#### [Visual Studio のリリース](ef6/what-is-new/visual-studio.md)
+
+### [開始するには](ef6/get-started.md)
+
+### [ASP.NET Core の基礎の概要](ef6/fundamentals/index.md)
+#### [Entity Framework を取得する](ef6/fundamentals/install.md)
+#### [DbContext の操作](ef6/fundamentals/working-with-dbcontext.md)
+#### [リレーションシップについて](ef6/fundamentals/relationships.md)
+#### [非同期クエリと保存](ef6/fundamentals/async.md)
+#### 構成
+##### [コード ベース](ef6/fundamentals/configuring/code-based.md)
+##### [構成ファイル](ef6/fundamentals/configuring/config-file.md)
+##### [接続文字列](ef6/fundamentals/configuring/connection-strings.md)
+##### [依存関係の解決](ef6/fundamentals/configuring/dependency-resolution.md)
+#### [接続管理](ef6/fundamentals/connection-management.md)
+#### 接続の復元性
+##### [再試行ロジック](ef6/fundamentals/connection-resiliency/retry-logic.md)
+##### [トランザクションのコミットの失敗](ef6/fundamentals/connection-resiliency/commit-failures.md)
+#### データ バインド
+##### [WinForms](ef6/fundamentals/databinding/winforms.md)
+##### [WPF](ef6/fundamentals/databinding/wpf.md)
+#### [接続解除エンティティ](ef6/fundamentals/disconnected-entities/index.md)
+##### [自己追跡エンティティ](ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md)
+###### [チュートリアル](ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md)
+#### [ログとインターセプト](ef6/fundamentals/logging-and-interception.md)
+#### パフォーマンス
+##### [パフォーマンスに関する考慮事項 (ホワイトペーパー)](ef6/fundamentals/performance/perf-whitepaper.md)
+##### [NGEN の使用](ef6/fundamentals/performance/ngen.md)
+##### [事前生成済みビューの使用](ef6/fundamentals/performance/pre-generated-views.md)
+#### [プロバイダー](ef6/fundamentals/providers/index.md)
+##### [EF6 プロバイダー モデル](ef6/fundamentals/providers/provider-model.md)
+##### [プロバイダーでの空間サポート](ef6/fundamentals/providers/spatial-support.md)
+#### [プロキシの使用](ef6/fundamentals/proxies.md)
+#### EF6 のテスト
+##### [モックの使用](ef6/fundamentals/testing/mocking.md)
+##### [独自のテスト ダブルの作成](ef6/fundamentals/testing/writing-test-doubles.md)
+##### [EF4 でのテストの容易性 (記事)](ef6/fundamentals/testing/testability-article.md)
+
+### [モデルの作成](ef6/modeling/index.md)
+#### Code First の使用
+##### ワークフロー
+###### [新しいデータベースの場合](ef6/modeling/code-first/workflows/new-database.md)
+###### [既存のデータベースの場合](ef6/modeling/code-first/workflows/existing-database.md)
+##### [データの注釈](ef6/modeling/code-first/data-annotations.md)
+##### [Dbset](ef6/modeling/code-first/dbsets.md)
+##### データの種類
+###### [列挙型](ef6/modeling/code-first/data-types/enums.md)
+###### [空間](ef6/modeling/code-first/data-types/spatial.md)
+##### 規約
+###### [組み込みの規約](ef6/modeling/code-first/conventions/built-in.md)
+###### [カスタム規約](ef6/modeling/code-first/conventions/custom.md)
+###### [モデルの規則](ef6/modeling/code-first/conventions/model.md)
+##### スムーズな構成
+###### [リレーションシップ](ef6/modeling/code-first/fluent/relationships.md)
+###### [種類とプロパティ](ef6/modeling/code-first/fluent/types-and-properties.md)
+###### [Visual Basic での使用](ef6/modeling/code-first/fluent/vb.md)
+###### [ストアド プロシージャ マッピング](ef6/modeling/code-first/fluent/cud-stored-procedures.md)
+##### [移行](ef6/modeling/code-first/migrations/index.md)
+###### [自動移行](ef6/modeling/code-first/migrations/automatic.md)
+###### [既存データベースの操作](ef6/modeling/code-first/migrations/existing-database.md)
+###### [移行履歴のカスタマイズ](ef6/modeling/code-first/migrations/history-customization.md)
+###### [Migrate.exe の使用](ef6/modeling/code-first/migrations/migrate-exe.md)
+###### [チーム環境での移行](ef6/modeling/code-first/migrations/teams.md)
+
+#### EF デザイナーの使用
+##### ワークフロー
+###### [Model First](ef6/modeling/designer/workflows/model-first.md)
+###### [Database First](ef6/modeling/designer/workflows/database-first.md)
+##### データの種類
+###### [複合型](ef6/modeling/designer/data-types/complex-types.md)
+###### [列挙型](ef6/modeling/designer/data-types/enums.md)
+###### [空間](ef6/modeling/designer/data-types/spatial.md)
+##### マッピングの分割
+###### [エンティティ分割](ef6/modeling/designer/entity-splitting.md)
+###### [テーブル分割](ef6/modeling/designer/table-splitting.md)
+##### 継承のマッピング
+###### [Table-Per-Hierarchy](ef6/modeling/designer/inheritance/tph.md)
+###### [Table-Per-Type](ef6/modeling/designer/inheritance/tpt.md)
+##### ストアド プロシージャのマッピング
+###### [クエリ](ef6/modeling/designer/stored-procedures/query.md)
+###### [更新](ef6/modeling/designer/stored-procedures/cud.md)
+##### [マッピングのリレーションシップ](ef6/modeling/designer/relationships.md)
+##### [複数のダイアグラム](ef6/modeling/designer/multiple-diagrams.md)
+##### [ランタイム バージョンの選択](ef6/modeling/designer/select-runtime-version.md)
+##### [コード生成](ef6/modeling/designer/codegen/index.md)
+###### [従来の ObjectContext](ef6/modeling/designer/codegen/legacy-objectcontext.md)
+##### 詳細設定
+###### EDMX ファイル形式
+####### [CSDL 仕様](ef6/modeling/designer/advanced/edmx/csdl-spec.md)
+####### [MSL 仕様](ef6/modeling/designer/advanced/edmx/msl-spec.md)
+####### [SSDL 仕様](ef6/modeling/designer/advanced/edmx/ssdl-spec.md)
+###### [クエリの定義](ef6/modeling/designer/advanced/defining-query.md)
+###### [複数結果セット](ef6/modeling/designer/advanced/multiple-result-sets.md)
+###### [テーブル値関数](ef6/modeling/designer/advanced/tvfs.md)
+##### [キーボード ショートカット](ef6/modeling/designer/keyboard-shortcuts.md)
+
+### [データのクエリ](ef6/querying/index.md)
+#### [Load メソッド](ef6/querying/load-method.md)
+#### [ローカル データ](ef6/querying/local-data.md)
+#### [追跡と非追跡クエリ](ef6/querying/no-tracking.md)
+#### [生 SQL クエリの使用](ef6/querying/raw-sql.md)
+#### [関連データのクエリ](ef6/querying/related-data.md)
+
+### [データの保存](ef6/saving/index.md)
+#### 変更追跡
+##### [自動検出の変更](ef6/saving/change-tracking/auto-detect-changes.md)
+##### [エンティティ状態](ef6/saving/change-tracking/entity-state.md)
+##### [プロパティの値](ef6/saving/change-tracking/property-values.md)
+#### [同時実行の競合の処理](ef6/saving/concurrency.md)
+#### [トランザクションの使用](ef6/saving/transactions.md)
+#### [データの検証](ef6/saving/validation.md)
+
+### [その他のリソース](ef6/resources/index.md)
+#### [ブログ](ef6/resources/blogs.md)
+#### [ケース スタディ](ef6/resources/case-studies.md)
+#### [ヘルプ情報の入手](ef6/resources/get-help.md)
+#### [用語集](ef6/resources/glossary.md)
+#### [School サンプル データベース](ef6/resources/school-database.md)
+#### [ツールと拡張機能](ef6/resources/tools.md)
+#### ライセンス
+##### EF5
+###### [中国語 - 簡体字](ef6/resources/licenses/ef5/chs.md)
+###### [中国語 - 繁体字](ef6/resources/licenses/ef5/cht.md)
+###### [ドイツ語](ef6/resources/licenses/ef5/deu.md)
+###### [英語](ef6/resources/licenses/ef5/enu.md)
+###### [スペイン語](ef6/resources/licenses/ef5/esn.md)
+###### [フランス語](ef6/resources/licenses/ef5/fra.md)
+###### [イタリア語](ef6/resources/licenses/ef5/ita.md)
+###### [日本語](ef6/resources/licenses/ef5/jpn.md)
+###### [韓国語](ef6/resources/licenses/ef5/kor.md)
+###### [ロシア語](ef6/resources/licenses/ef5/rus.md)
+##### EF6
+###### プレリリース
+####### [アルファ](ef6/resources/licenses/ef6/prerelease/alpha.md)
+####### [ベータ - リリース候補](ef6/resources/licenses/ef6/prerelease/beta-rc.md)
+###### [中国語 - 簡体字](ef6/resources/licenses/ef6/chs.md)
+###### [中国語 - 繁体字](ef6/resources/licenses/ef6/cht.md)
+###### [ドイツ語](ef6/resources/licenses/ef6/deu.md)
+###### [英語](ef6/resources/licenses/ef6/enu.md)
+###### [スペイン語](ef6/resources/licenses/ef6/esn.md)
+###### [フランス語](ef6/resources/licenses/ef6/fra.md)
+###### [イタリア語](ef6/resources/licenses/ef6/ita.md)
+###### [日本語](ef6/resources/licenses/ef6/jpn.md)
+###### [韓国語](ef6/resources/licenses/ef6/kor.md)
+###### [ロシア語](ef6/resources/licenses/ef6/rus.md)
+
+### [⤤ EF6 API リファレンス](https://msdn.microsoft.com/library/dn223258.aspx)
