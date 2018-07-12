@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
 caps.latest.revision: 3
-ms.openlocfilehash: 1941337da55e5bb63efba42360c87c1c0f6ee325
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 5c7431985e2e404060197615bf281fcf3b318403
+ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911716"
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "37914285"
 ---
 # <a name="code-first-migrations"></a>Code First Migrations
 Code First Migrations は、Code First ワークフローを使用している場合に、アプリケーションのデータベース スキーマを進化させるために推奨される方法です。 移行では次を許可するツール セットを提供します。
@@ -310,7 +310,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
 
 Code First Migrations では、実際に変更を適用するのではなく、移行パイプラインを実行しますが、これにより変更が .sql ファイルに書き込まれます。 スクリプトが生成されると、表示または保存できるように、Visual Studio で開かれます。
 
-### <a name="generating-idempotent-scripts-ef6-onwards"></a>べき等スクリプトを生成する (EF6 以降)
+### <a name="generating-idempotent-scripts"></a>べき等スクリプトを生成する
 
 EF6 以降、**–SourceMigration $InitialDatabase** を指定した場合、生成されたスクリプトは "べき等" になります。 べき等スクリプトでは、任意のバージョンのデータベースを最新バージョン (または、**–TargetMigration** を使用する場合、指定されたバージョン) にアップグレードできます。 生成されたスクリプトには、**\_\_MigrationsHistory** テーブルを確認し、以前に適用されている変更のみを適用するロジックが含まれます。
 

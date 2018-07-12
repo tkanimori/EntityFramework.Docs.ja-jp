@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
 caps.latest.revision: 3
-ms.openlocfilehash: e06dc1c35f8d74772e5c7d69b29553288fd652d0
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 8a656ca73a7e1a628f4053ff7ad47f5c1b17d878
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911726"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949180"
 ---
 # <a name="designer-code-generation-templates"></a>デザイナー コード生成テンプレート
 Entity Framework Designer を使用してモデルを作成するときには、クラスと派生コンテキストは自動的に生成されます。 既定のコードの生成に加えて、生成されるコードをカスタマイズするために使用できる多数のテンプレートも提供します。 これらのテンプレートは、T4 テキスト テンプレートとして提供され、必要な場合は、テンプレートをカスタマイズすることができます。
@@ -151,7 +151,7 @@ Visual Studio ギャラリーからテンプレートをダウンロードして
 
 ### <a name="what-are-the-web-sites-templates"></a>"Web サイト" テンプレートとは
 
-"Web サイト" テンプレート (つまり C\# Web サイト**用 **EF 5.x DbContext ジェネレーター) は、**[ファイル] -&gt; [新規] -&gt; [Web サイト]** を選択して作成された Web サイト プロジェクトで使用されます。これらは、**[ファイル] -&gt; [新規] -&gt; [プロジェクト]** を選択して作成した標準のテンプレートを使用する Web アプリケーションとは異なります。 Visual Studio の項目テンプレートのシステムで必要なため、別々のテンプレートを提供しています。
+"Web サイト" テンプレート (たとえば **EF 5.x DbContext Generator for C\# Web サイト**) は、**[ファイル] -&gt; [新規] -&gt; [Web サイト]** を選択して作成された Web サイト プロジェクトで使用されます。これらは、**[ファイル] -&gt; [新規] -&gt; [プロジェクト]** を選択して作成した標準のテンプレートを使用する Web アプリケーションとは異なります。 Visual Studio の項目テンプレートのシステムで必要なため、別々のテンプレートを提供しています。
 
 ## <a name="using-a-template"></a>テンプレートを使用する
 
