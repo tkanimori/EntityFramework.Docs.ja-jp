@@ -6,18 +6,18 @@ ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 ms.technology: entity-framework-core
 uid: core/index
-ms.openlocfilehash: 3befcbd3ff3da5dd159e6e6cb5fe7140c81317c2
-ms.sourcegitcommit: a2b38dedc88ca3ccbfe7b1db9602ca02da8294cd
+ms.openlocfilehash: 103e5e069687950a8411f2d92c7b5a191844e0ae
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/31/2018
-ms.locfileid: "34686663"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37948991"
 ---
 # <a name="entity-framework-core-quick-overview"></a>Entity Framework Core 概要
 
 Entity Framework (EF) Core は人気の Entity Framework データ アクセス テクノロジの軽量版であり、拡張性に優れ、プラットフォームに依存しません。
 
-EF Core はオブジェクト リレーショナル マッパー (O/RM) として機能します。これにより、.NET 開発者は .NET オブジェクトを使用してデータベースを操作できます。通常は開発者が記述する必要があるほとんどのデータ アクセス コードが不要になります。 
+EF Core はオブジェクト リレーショナル マッパー (O/RM) として機能します。これにより、.NET 開発者は .NET オブジェクトを使用してデータベースを操作できます。通常は開発者が記述する必要があるほとんどのデータ アクセス コードが不要になります。
 
 EF Core は多くのデータベース エンジンに対応しています。詳細については、「[Database Providers](providers/index.md)」(データベース プロバイダー) を参照してください。
 
@@ -33,7 +33,7 @@ EF Core に精通しており、最新リリースの詳細をすぐに知りた
 
 ## <a name="get-entity-framework-core"></a>Entity Framework Core を入手する
 
-使用するデータベース プロバイダーに対して [NuGet パッケージ](https://docs.nuget.org/ndocs/quickstart/use-a-package)をインストールします。 たとえば、 クロスプラットフォーム開発で SQL Server プロバイダーをインストールするためにコマンド ラインで `dotnet` ツールを使用する場合、次のようになります。
+使用するデータベース プロバイダーに対して [NuGet パッケージ](https://docs.nuget.org/ndocs/quickstart/use-a-package)をインストールします。 たとえば、クロスプラットフォーム開発で SQL Server プロバイダーをインストールするためにコマンド ラインで `dotnet` ツールを使用する場合、次のようになります。
 
 ``` Console
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
