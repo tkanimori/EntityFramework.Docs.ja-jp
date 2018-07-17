@@ -9,12 +9,12 @@ ms.technology: entity-framework-6
 ms.topic: article
 ms.assetid: 65bb3db2-2226-44af-8864-caa575cf1b46
 caps.latest.revision: 3
-ms.openlocfilehash: f0319e97d8ca8cfc9c90dac51d2ecbe7a29c1929
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 92467e1a93f576eca627cf7b7d2351054a882c2c
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37911736"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067548"
 ---
 # <a name="querying-and-finding-entities"></a>エンティティのクエリおよび検索
 このトピックでは、Entity Framework を使用した、LINQ および Find メソッドを含むデータのさまざまなクエリ方法について説明します。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -41,7 +41,7 @@ using (var context = new BloggingContext())
 なお、DbSet および IDbSet は、常にデータベースに対してクエリが作成し、返されたエンティティがコンテキストに既に含まれる場合でも、常にデータベースに対してラウンドトリップを行います。 クエリは次のときにデータベースに対して実行されます。  
 
 - **foreach** (C#) または **For Each** (Visual Basic) ステートメントによって列挙された場合。  
-- [ToArray](https://msdn.microsoft.com/library/bb298736)、[ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary)、または ToList[リンクの説明をここに記述](https://msdn.microsoft.com/library/bb342261) などのコレクション操作によって列挙された場合。  
+- [ToArray](https://msdn.microsoft.com/library/bb298736)、[ToDictionary](https://msdn.microsoft.com/library/system.linq.enumerable.todictionary)、または [ToList](https://msdn.microsoft.com/library/bb342261) などのコレクション操作によって列挙された場合。  
 - [First](https://msdn.microsoft.com/library/bb291976) や [Any](https://msdn.microsoft.com/library/bb337697) などの LINQ 演算子がクエリの最も外側で指定された場合。  
 - DbSet の [Load](https://msdn.microsoft.com/library/system.data.entity.dbextensions.load) 拡張メソッド、[DbEntityEntry.Reload](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.reload.aspx)、および Database.ExecuteSqlCommand メソッドが呼び出された場合。  
 

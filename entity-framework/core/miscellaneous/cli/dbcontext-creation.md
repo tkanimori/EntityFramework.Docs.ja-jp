@@ -1,41 +1,41 @@
 ---
-title: デザイン時 DbContext 作成 - EF コア
+title: デザイン時 DbContext 作成 - EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/27/2017
 ms.technology: entity-framework-core
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: 8b38d300d31038bdf5cd877aa3c42b7f5f97eabc
-ms.sourcegitcommit: 7113e8675f26cbb546200824512078bf360225df
+ms.openlocfilehash: 7c16017d3b97d115841050fe6ac0fdbeb5e71d94
+ms.sourcegitcommit: 00cb52625b57c1ea339ded1454179fe89b6bcfea
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/28/2018
-ms.locfileid: "30202485"
+ms.lasthandoff: 07/16/2018
+ms.locfileid: "39067532"
 ---
 <a name="design-time-dbcontext-creation"></a>デザイン時 DbContext 作成
 ==============================
-EF コア ツールのコマンドの一部 (たとえば、[移行][ 1]コマンド) 派生を必要と`DbContext`アプリケーションの詳細を収集するためにデザイン時に作成されるインスタンスエンティティ型とデータベースのスキーマにどのようにマッピングされます。 ほとんどの場合では望ましくを`DbContext`これにより作成された方法だと同じ方法で構成された[実行時に構成されている][2]です。
+EF Core ツールのコマンドの一部 (たとえば、[移行][ 1]コマンド) 派生を必要と`DbContext`アプリケーションの詳細を収集するためにデザイン時に作成されるインスタンスエンティティ型とデータベース スキーマへの割り当て方法。 ほとんどの場合は望ましいを`DbContext`作成されたことがどのようになりますと同様の方法で構成されている[実行時に構成されている][2]。
 
-さまざまな方法で作成しようとする、ツール、 `DbContext`:
+さまざまな方法で作成しようとしているツール、 `DbContext`:
 
 <a name="from-application-services"></a>アプリケーション サービスから
 -------------------------
-スタートアップ プロジェクトが ASP.NET Core アプリケーションの場合は、ツールは、アプリケーションのサービス プロバイダーから DbContext オブジェクトを取得しようとします。
+ASP.NET Core アプリをスタートアップ プロジェクトには、ツールは、アプリケーションのサービス プロバイダーから DbContext オブジェクトを取得しようとします。
 
-このツールは、まずを呼び出すことによって、サービス プロバイダーを取得する`Program.BuildWebHost()`にアクセスして、`IWebHost.Services`プロパティです。
+このツールは、まずを呼び出すことによって、サービス プロバイダーを取得する`Program.BuildWebHost()`にアクセスして、`IWebHost.Services`プロパティ。
 
 > [!NOTE]
-> 新しい ASP.NET Core 2.0 アプリケーションを作成するときに、既定ではこのフックが含まれています。 ツールを EF Core および ASP.NET Core の以前のバージョンを実行してみます`Startup.ConfigureServices`不要になったアプリケーションのサービス プロバイダーが、このパターンを取得するために正常に動作コア 2.0 の ASP.NET アプリケーションで直接です。 2.0 の ASP.NET Core 1.x アプリケーションをアップグレードする場合は[変更、`Program`新しいパターンに従うクラス][3]です。
+> 新しい ASP.NET Core 2.0 アプリケーションを作成するときに、このフックは既定で含まれています。 EF Core と ASP.NET Core の以前のバージョンでツールが起動しよう`Startup.ConfigureServices`不要になったアプリケーションのサービスのプロバイダーがこのパターンを取得するために正常に ASP.NET Core 2.0 アプリケーションで直接します。 ASP.NET Core 1.x アプリケーションを 2.0 にアップグレードする場合は、[変更、`Program`新しいパターンに従うクラス][3]します。
 
-`DbContext`自体と、コンス トラクターであらゆる依存先が、アプリケーションのサービス プロバイダーでサービスとして登録する必要があります。 これを行う簡単に用意することによって[のコンス トラクター、`DbContext`のインスタンスを受け取る`DbContextOptions<TContext>`を引数として][ 4]を使用して、 [ `AddDbContext<TContext>` メソッド][5].
+`DbContext`自体、およびそのコンス トラクターで依存関係は、アプリケーションのサービス プロバイダーのサービスとして登録されている必要があります。 ことによって簡単に達成この[コンス トラクター、`DbContext`のインスタンスを受け取る`DbContextOptions<TContext>`を引数として][ 4]を使用して、 [ `AddDbContext<TContext>` メソッド][5].
 
 <a name="using-a-constructor-with-no-parameters"></a>パラメーターなしのコンス トラクターを使用します。
 --------------------------------------
-DbContext をアプリケーション サービス プロバイダーから取得できない場合、ツールを探して、派生`DbContext`プロジェクト内の型。 パラメーターなしのコンス トラクターを使用してインスタンスを作成してください。 既定のコンス トラクターになる可能性が、`DbContext`を使用して、構成、 [ `OnConfiguring` ] [ 6]メソッドです。
+DbContext をアプリケーションのサービス プロバイダーから取得できない場合、ツールを探して、派生`DbContext`プロジェクト内の型。 パラメーターなしのコンス トラクターを使用してインスタンスを作成、再試行してください。 場合、既定のコンス トラクターができます、`DbContext`を使用して、構成、 [ `OnConfiguring` ] [ 6]メソッド。
 
 <a name="from-a-design-time-factory"></a>デザイン時のファクトリから
 --------------------------
-見分けることができます、ツールを実装することによって、DbContext を作成する方法、`IDesignTimeDbContextFactory<TContext>`インターフェイス: このインターフェイスを実装するクラスを派生したのと同じプロジェクトのいずれかで見つかった場合は`DbContext`またはアプリケーションのスタートアップ プロジェクトでは、ツールのバイパスDbContext および使用して、デザイン時のファクトリを作成する代わりに他の方法です。
+見分けることができます、ツールを実装することで、DbContext を作成する方法、`IDesignTimeDbContextFactory<TContext>`インターフェイス: このインターフェイスを実装するクラスを派生と同じプロジェクトのいずれかで見つかった場合`DbContext`またはアプリケーションのスタートアップ プロジェクトで、ツールのバイパス他の方法の代わりに、DbContext と使用、デザイン時のファクトリを作成します。
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -60,8 +60,7 @@ namespace MyProject
 > [!NOTE]
 > `args`パラメーターは現在使用されていません。 ある[問題][ 7]追跡ツールからのデザイン時の引数を指定する機能。
 
-デザイン時のファクトリは、場合は、DbContext を異なる方法で、実行時ではなくデザイン時用に構成する必要がある場合に特に便利です、 `DbContext` DI をまったく使用しない場合に、追加のパラメーターは、DI に登録されていないコンス トラクターがかかるか、一部の場合理由をしないようにする、 `BuildWebHost` ASP.NET Core アプリケーションの内のメソッド  
-`Main` クラス。
+デザイン時のファクトリは、場合、実行時によりも、デザイン時の異なる方法で DbContext を構成する必要がある場合に特に役立ちます、 `DbContext` DI をまったく使用しない場合に、追加のパラメーターは、DI に登録されていないコンス トラクターがまたはのいくつかの場合理由を行わない、`BuildWebHost`メソッドで、ASP.NET Core アプリケーションの`Main`クラス。
 
   [1]: xref:core/managing-schemas/migrations/index
   [2]: xref:core/miscellaneous/configuring-dbcontext
