@@ -1,0 +1,58 @@
+---
+title: Entity Framework 5 ライセンス (ESN)
+ms.custom: ''
+ms.date: 2016-10-23
+ms.prod: entity-framework
+ms.author: divega
+ms.manager: avickers
+ms.technology: entity-framework-6
+ms.topic: article
+ms.assetid: 637cccbb-5418-4562-8187-02f644f4c091
+caps.latest.revision: 3
+ms.openlocfilehash: 80b2ab5b3fdf2078581381eae3bc874515d528e8
+ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "39121851"
+---
+# <a name="entity-framework-5-license-esn"></a><span data-ttu-id="dadb1-102">Entity Framework 5 ライセンス (ESN)</span><span class="sxs-lookup"><span data-stu-id="dadb1-102">Entity Framework 5 License (ESN)</span></span>
+<span data-ttu-id="dadb1-103">**TÉRMINOS SUPLEMENTARIOS LA LICENCIA DE (USO) DE ソフトウェア DE MICROSOFT**</span><span class="sxs-lookup"><span data-stu-id="dadb1-103">**TÉRMINOS SUPLEMENTARIOS A LA LICENCIA DE USO DE SOFTWARE DE MICROSOFT**</span></span>
+
+<span data-ttu-id="dadb1-104">**ENTITY FRAMEWORK 5.0 PARA MICROSOFT WINDOWS オペレーティング システム**</span><span class="sxs-lookup"><span data-stu-id="dadb1-104">**ENTITY FRAMEWORK 5.0 PARA MICROSOFT WINDOWS OPERATING SYSTEM**</span></span>
+
+<span data-ttu-id="dadb1-105">Microsoft Corporation (o, en función del lugar en el キュー usted resida, alguna de las afiliadas de su grupo) le 譲る usted la の licencia de este suplemento します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-105">Microsoft Corporation (o, en función del lugar en el que usted resida, alguna de las afiliadas de su grupo) le concede a usted la licencia de este suplemento.</span></span> <span data-ttu-id="dadb1-106">Si dispone licencia de (uso) para el ソフトウェア de-de Microsoft Windows オペレーティング システム (el「ソフトウェア」)、podrá utilizar este suplemento します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-106">Si dispone de licencia de uso para el software de Microsoft Windows Operating System (el "software"), podrá utilizar este suplemento.</span></span> <span data-ttu-id="dadb1-107">ない podrá utilizarlo si dispone de una licencia del ソフトウェアはありません。</span><span class="sxs-lookup"><span data-stu-id="dadb1-107">No podrá utilizarlo si no dispone de una licencia del software.</span></span> <span data-ttu-id="dadb1-108">Podrá utilizar este complemento con cada copia licenciada válida del ソフトウェア。</span><span class="sxs-lookup"><span data-stu-id="dadb1-108">Podrá utilizar este complemento con cada copia licenciada válida del software.</span></span>
+
+<span data-ttu-id="dadb1-109">Los siguientes términos de licencia describen términos de (uso) adicionales para este suplemento します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-109">Los siguientes términos de licencia describen términos de uso adicionales para este suplemento.</span></span> <span data-ttu-id="dadb1-110">Dichos términos y los términos de licencia para el ソフトウェア se aplicarán al (uso) キュー haga del suplemento します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-110">Dichos términos y los términos de licencia para el software se aplicarán al uso que haga del suplemento.</span></span> <span data-ttu-id="dadb1-111">En caso de conflicto、prevalecerán los が表示されます términos de la licencia suplementaria します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-111">En caso de conflicto, prevalecerán los presentes términos de la licencia suplementaria.</span></span>
+
+<span data-ttu-id="dadb1-112">**Al hacer (uso) del suplemento、se entiende キュー acepta estos términos します。Si usted ありません los acepta、ない使用 el suplemento します。**</span><span class="sxs-lookup"><span data-stu-id="dadb1-112">**Al hacer uso del suplemento, se entiende que acepta estos términos. Si usted no los acepta, no use el suplemento.**</span></span>
+
+<span data-ttu-id="dadb1-113">**Si cumple usted los が表示されます términos de esta licencia、dispondrá de los siguientes derechos します。**</span><span class="sxs-lookup"><span data-stu-id="dadb1-113">**Si cumple usted los presentes términos de esta licencia, dispondrá de los siguientes derechos.**</span></span>
+
+<span data-ttu-id="dadb1-114">**1.CÓDIGO DISTRIBUIBLE します。**</span><span class="sxs-lookup"><span data-stu-id="dadb1-114">**1. CÓDIGO DISTRIBUIBLE.**</span></span> <span data-ttu-id="dadb1-115">El suplemento se compone de Código Distribuible します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-115">El suplemento se compone de Código Distribuible.</span></span> <span data-ttu-id="dadb1-116">El"Código Distribuible"es código キュー usted está autorizado、distribuir en los としてキュー desarrolle、siempre y cuando cumpla los términos キュー se especifican、continuación、</span><span class="sxs-lookup"><span data-stu-id="dadb1-116">El "Código Distribuible" es código que usted está autorizado a distribuir en los programas que desarrolle, siempre y cuando cumpla los términos que se especifican a continuación,</span></span>
+
+<span data-ttu-id="dadb1-117">**します。Derecho de utilización y distribución します。**</span><span class="sxs-lookup"><span data-stu-id="dadb1-117">**a. Derecho de utilización y distribución.**</span></span>
+
+-   <span data-ttu-id="dadb1-118">Podrá copiar y distribuir el código objeto del complemento します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-118">Podrá copiar y distribuir el código objeto del complemento.</span></span>
+-   <span data-ttu-id="dadb1-119">*Distribución、terceros します。*</span><span class="sxs-lookup"><span data-stu-id="dadb1-119">*Distribución a terceros.*</span></span> <span data-ttu-id="dadb1-120">Podrá permitir los distribuidores de su として copiar y distribuir el Código Distribuible como parte de dichos として。</span><span class="sxs-lookup"><span data-stu-id="dadb1-120">Podrá permitir a los distribuidores de sus programas copiar y distribuir el Código Distribuible como parte de dichos programas.</span></span>
+
+<span data-ttu-id="dadb1-121">**b とします。Requisitos de distribución します。Para cualquier Código distribuible、deberá:**</span><span class="sxs-lookup"><span data-stu-id="dadb1-121">**b. Requisitos de distribución. Para cualquier Código distribuible, deberá:**</span></span>
+
+-   <span data-ttu-id="dadb1-122">añadir al mismo una funcionalidad プリンシパル significativa en su として。</span><span class="sxs-lookup"><span data-stu-id="dadb1-122">añadir al mismo una funcionalidad principal significativa en sus programas;</span></span>
+-   <span data-ttu-id="dadb1-123">Para cualquier Código Distribuible は con extensión de archivo .lib、distribuir únicamente los resultados de la ejecución e dicho Código Distribuible、través de 解除 vinculador con su programa です。</span><span class="sxs-lookup"><span data-stu-id="dadb1-123">Para cualquier Código Distribuible con extensión de archivo .lib, distribuir únicamente los resultados de la ejecución e dicho Código Distribuible a través de un vinculador con su programa.</span></span>
+-   <span data-ttu-id="dadb1-124">Distribuir el Código Distribuible キュー se incluya en 解除 programa de instalación exclusivamente como parte de dicho programa sin modificación alguna します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-124">Distribuir el Código Distribuible que se incluya en un programa de instalación exclusivamente como parte de dicho programa sin modificación alguna.</span></span>
+-   <span data-ttu-id="dadb1-125">exigir、los distribuidores y usuarios finales externos キュー acepten proteger el ソフトウェア como mínimo ですか y como lo especifica el presente contrato;</span><span class="sxs-lookup"><span data-stu-id="dadb1-125">exigir a los distribuidores y usuarios finales externos que acepten proteger el software como mínimo tal y como lo especifica el presente contrato;</span></span>
+-   <span data-ttu-id="dadb1-126">mostrar 解除 aviso válido de sus derechos de 作者 en los として、así como</span><span class="sxs-lookup"><span data-stu-id="dadb1-126">mostrar un aviso válido de sus derechos de autor en los programas, así como</span></span>
+-   <span data-ttu-id="dadb1-127">indemnizar、proteger y defender Microsoft frente toda reclamación、incluidos los honorarios de abogados、relacionados は con el (uso) o la distribución de su としてです。</span><span class="sxs-lookup"><span data-stu-id="dadb1-127">indemnizar, proteger y defender a Microsoft frente a toda reclamación, incluidos los honorarios de abogados, relacionados con el uso o la distribución de sus programas.</span></span>
+
+<span data-ttu-id="dadb1-128">**c。Restricciones de distribución します。Queda prohibido:**</span><span class="sxs-lookup"><span data-stu-id="dadb1-128">**c. Restricciones de distribución. Queda prohibido:**</span></span>
+
+-   <span data-ttu-id="dadb1-129">modificar cualquier aviso de derechos de リファクタリング、marca comercial o patente del Código Distribuible;</span><span class="sxs-lookup"><span data-stu-id="dadb1-129">modificar cualquier aviso de derechos de autor, marca comercial o patente del Código Distribuible;</span></span>
+-   <span data-ttu-id="dadb1-130">utilizar las marcas comerciales de Microsoft en los nombres de su として o sugerir de alguna manera キュー su として son de la familia de Microsoft o están promocionados por Microsoft;</span><span class="sxs-lookup"><span data-stu-id="dadb1-130">utilizar las marcas comerciales de Microsoft en los nombres de sus programas o sugerir de alguna manera que sus programas son de la familia de Microsoft o están promocionados por Microsoft;</span></span>
+-   <span data-ttu-id="dadb1-131">distribuir Código Distribuible para ejecutarlo en una plataforma distinta de Windows;</span><span class="sxs-lookup"><span data-stu-id="dadb1-131">distribuir Código Distribuible para ejecutarlo en una plataforma distinta de Windows;</span></span>
+-   <span data-ttu-id="dadb1-132">incluir Código distribuible en として maliciosos、engañosos o ilegales;o</span><span class="sxs-lookup"><span data-stu-id="dadb1-132">incluir Código distribuible en programas maliciosos, engañosos o ilegales; o</span></span>
+-   <span data-ttu-id="dadb1-133">modificar o distribuir el código fuente de cualquier Código Distribuible de modo キュー alguna parte del mismo pase estar sujeta una Licencia de Exclusión します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-133">modificar o distribuir el código fuente de cualquier Código Distribuible de modo que alguna parte del mismo pase a estar sujeta a una Licencia de Exclusión.</span></span> <span data-ttu-id="dadb1-134">Una Licencia de Exclusión es aquella キュー requiere、como condición de (uso)、modificación o distribución、キュー。</span><span class="sxs-lookup"><span data-stu-id="dadb1-134">Una Licencia de Exclusión es aquella que requiere, como condición de uso, modificación o distribución, que:</span></span>
+    -   <span data-ttu-id="dadb1-135">el código sea divulgado o distribuido en という形式 de código fuente、o のキュー</span><span class="sxs-lookup"><span data-stu-id="dadb1-135">el código sea divulgado o distribuido en forma de código fuente, o que</span></span>
+    -   <span data-ttu-id="dadb1-136">otros tengan derecho、modificarlo します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-136">otros tengan derecho a modificarlo.</span></span>
+
+<span data-ttu-id="dadb1-137">**2.SERVICIOS DE SOPORTE TÉCNICO PARA SUPLEMENTOS します。**</span><span class="sxs-lookup"><span data-stu-id="dadb1-137">**2. SERVICIOS DE SOPORTE TÉCNICO PARA SUPLEMENTOS.**</span></span> <span data-ttu-id="dadb1-138">Microsoft presta servicios de soporte técnico para este ソフトウェア、ですか y como se en www.support.microsoft.com/common/international.aspx について説明します。</span><span class="sxs-lookup"><span data-stu-id="dadb1-138">Microsoft presta servicios de soporte técnico para este software, tal y como se describe en www.support.microsoft.com/common/international.aspx.</span></span>
