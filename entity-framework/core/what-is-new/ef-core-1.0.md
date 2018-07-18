@@ -6,12 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
 ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-1.0
-ms.openlocfilehash: e5b9e57a01ff302b1d7bd0fc5419aa5b8213865e
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: af7cf490ef2b04afb02461279fbe67c1c7fa3d95
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26049685"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37949023"
 ---
 # <a name="features-included-in-ef-core-10"></a>EF Core 1.0 に含まれる機能
 
@@ -29,9 +29,9 @@ ms.locfileid: "26049685"
 ### <a name="built-in-conventions"></a>組み込みの規約
 組み込みの規約は、エンティティ クラスの構造に基づいて、初期モデルを作成します。
 ### <a name="fluent-api"></a>Fluent API
-使用するコンテキストの `OnModelCreating` メソッドを上書きして、規約によって検出されたモデルをさらに構成できます。
+使用するコンテキストの `OnModelCreating` メソッドをオーバーライドして、規約によって検出されたモデルをさらに構成できます。
 ### <a name="data-annotations"></a>データの注釈
-エンティティのクラスやプロパティに追加できる属性で、EF モデルに影響を与えます (たとえば [必須] を追加すると、プロパティが必須であることが EF に通知されます)。
+エンティティのクラスやプロパティに追加できる属性で、EF モデルに影響を与えます。 たとえば `[Required]` を追加すると、プロパティが必須であることが EF に通知されます。
 ### <a name="relational-table-mapping"></a>リレーショナル テーブルのマッピング
 エンティティをテーブルや列にマップできます。
 ### <a name="key-value-generation"></a>キー値の生成
@@ -79,7 +79,7 @@ LINQ を使用してデータベースからデータを取得する機能を提
 ### <a name="mixed-clientserver-evaluation"></a>混合クライアント/サーバーの評価
 データベース内で評価できないためにデータをメモリに取得してから評価する必要のあるロジックをクエリに組み込むことができます。
 ### <a name="notracking"></a>NoTracking
-コンテキストでエンティティ インスタンスへの変更を監視する必要がない場合には (結果が読み取りのみの場合など)、クエリをより速く実行できます。
+コンテキストでエンティティ インスタンスへの変更を監視する必要がない場合には、クエリをより速く実行できます (これは結果が読み取り専用である場合に便利です)。
 ### <a name="eager-loading"></a>一括読み込み
 クエリ実行時にフェッチも必要な関連データを識別する `Include` および `ThenInclude` メソッドを提供します。
 ### <a name="async-query"></a>非同期クエリ

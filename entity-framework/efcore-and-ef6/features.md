@@ -1,15 +1,16 @@
 ---
-title: "EF Core と EF6 の機能の比較"
+title: EF Core と EF6 の機能の比較
 author: rowanmiller
 ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: f22f29ef-efc0-475d-b0b2-12a054f80f95
 uid: efcore-and-ef6/features
-ms.openlocfilehash: 3f05fbe53439826a4e1e1b188a7c03951dc109ec
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: 84b40f03cdab27fd6fc68c5bb65c6e3d238f226a
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "37967139"
 ---
 # <a name="ef-core-and-ef6-feature-by-feature-comparison"></a>EF Core と EF6 の機能の比較
 
@@ -60,10 +61,10 @@ EF Core 列に記載されているのは、この機能が初めて登場した
 | 関連データの読み込み: 遅延                            | [はい]      | 2.1                                   |
 | 関連データの読み込み: 明示                        | [はい]      | 1.1                                   |
 | 生 SQL クエリ: エンティティ型                         | [はい]      | 1                                   |
-| 生 SQL クエリ: エンティティ型以外 (例: クエリ型)  | [はい]      | 2.1                                   |
+| 生 SQL クエリ: エンティティ型以外 (クエリ型)       | [はい]      | 2.1                                   |
 | 生 SQL クエリ: LINQ を使用して作成                  |          | 1                                   |
 | 明示的にコンパイルされたクエリ                           | 悪い     | 2.0                                   |
-| テキスト ベースのクエリ言語 (例: Entity SQL)           | 1      |                                       |
+| テキスト ベースのクエリ言語 (Entity SQL)                | [はい]      |                                       |
 |                                                       |          |                                       |
 | **データの保存**                                       | **EF6**  | **EF Core**                           |
 | 変更の追跡: スナップショット                             | [はい]      | 1                                   |
@@ -83,7 +84,7 @@ EF Core 列に記載されているのは、この機能が初めて登場した
 | シード データ                                             | [はい]      | 2.1                                   |
 | 接続の復元性                                 | [はい]      | 1.1                                   |
 | ライフサイクル フック (イベント、インターセプション)                | [はい]      |                                       |
-| 単純なログ記録 (例: Database.Log)                    | [はい]      |                                       |
+| 単純なログ記録 (Database.Log)                         | [はい]      |                                       |
 | DbContext プール                                     |          | 2.0                                   |
 |                                                       |          |                                       |
 | **データベース プロバイダー**                                | **EF6**  | **EF Core**                           |
