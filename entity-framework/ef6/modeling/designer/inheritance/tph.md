@@ -1,0 +1,137 @@
+---
+title: デザイナーの TPH 継承 - EF6
+author: divega
+ms.date: 2016-10-23
+ms.prod: entity-framework
+ms.author: divega
+ms.manager: avickers
+ms.technology: entity-framework-6
+ms.topic: article
+ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
+caps.latest.revision: 3
+ms.openlocfilehash: 0a017d3b97808cede3134119940b2e5839d0f282
+ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 07/08/2018
+ms.locfileid: "39122284"
+---
+# <a name="designer-tph-inheritance"></a>デザイナーの TPH 継承
+このステップ バイ ステップ チュートリアルでは、Entity Framework デザイナー (EF Designer) を使用した概念モデルでの table-per-hierarchy (TPH) 継承を実装する方法を示します。 TPH 継承は、継承階層内のエンティティ型のすべてのデータを維持するために、1 つのデータベース テーブルを使用します。
+
+このチュートリアルでは次の 3 つのエンティティ型を Person テーブルにマップします。 (基本型) のユーザー、学生 (個人から派生)、およびインストラクター (個人から派生)。 (Database First) のデータベースから概念モデルを作成し、その EF デザイナーを使用して TPH 継承を実装するモデルを変更します。
+
+Model First を使用して TPH 継承にマップすることは、複雑なは、独自のデータベース生成ワークフローを記述する必要があります。 このワークフローを割り当てると、**データベース生成ワークフロー** EF Designer でのプロパティ。 簡単に別の方法では、Code First を使用します。
+
+## <a name="other-inheritance-options"></a>その他の継承オプション
+
+テーブルあたり型 (TPT) が、別の種類の継承をデータベース内の別のテーブルは、継承に参加するエンティティにマップされます。  EF デザイナーを使用したテーブルの種類ごとの継承にマップする方法については、次を参照してください。 [EF デザイナー TPT 継承](~/ef6/modeling/designer/inheritance/tpt.md)します。
+
+テーブル-ごとの具象型の継承 (TPC) と混在継承モデルは、Entity Framework ランタイムによってサポートされますが、EF Designer ではサポートされていません。 2 つのオプションがある TPC または混在の継承を使用する場合は、: Code First を使用して、または EDMX ファイルを手動で編集します。 EDMX ファイルを使用する場合は、マッピングの詳細 ウィンドウは、「セーフ モード」に格納されます。 そして、デザイナーを使用して、マッピング変更することはできません。
+
+## <a name="prerequisites"></a>前提条件
+
+このチュートリアルを完了するための要件を次に示します。
+
+- Visual Studio の最新バージョン。
+- [School サンプル データベース](~/ef6/resources/school-database.md)します。
+
+## <a name="set-up-the-project"></a>プロジェクトを設定します。
+
+-   Visual Studio 2012 を開きます。
+-   選択**ファイル -&gt;新機能 -&gt;プロジェクト**
+-   左側のウィンドウで次のようにクリックします。 **Visual C\#** を選び、**コンソール**テンプレート。
+-   入力**TPHDBFirstSample**名として。
+-   **[OK]** を選択します。
+
+## <a name="create-a-model"></a>モデルを作成します。
+
+-   ソリューション エクスプ ローラーでプロジェクト名を右クリックして**追加 -&gt;新しい項目の**します。
+-   選択**データ**選択し、左側のメニューから**ADO.NET Entity Data Model**テンプレート ペインでします。
+-   入力**TPHModel.edmx**のファイル名、およびクリック**追加**します。
+-   モデルのコンテンツの選択 ダイアログ ボックスで、次のように選択します。**データベースから生成**、 をクリックし、**次**。
+-   クリックして**新しい接続**します。
+    接続のプロパティ ダイアログ ボックスで、サーバー名を入力します (たとえば、 **(localdb)\\mssqllocaldb**) を選択します、認証方式として、型**学校**データベース名、し、。クリックして**OK**します。
+    データ接続の選択 ダイアログ ボックスは、データベース接続の設定で更新されます。
+-   データベース オブジェクトの選択 ダイアログ ボックスの テーブル ノードを選択、 **Person**テーブル。
+-   **[完了]** をクリックします。
+
+モデルを編集するため、デザイン サーフェイスを提供するエンティティ デザイナーが表示されます。 [データベース オブジェクトの選択] ダイアログ ボックスで選択したすべてのオブジェクトは、モデルに追加されます。
+
+つまり方法、**人**にデータベース テーブルを検索します。
+
+![PersonTable](~/ef6/media/persontable.png) 
+
+## <a name="implement-table-per-hierarchy-inheritance"></a>Table-per-hierarchy 継承を実装します。
+
+**Person**テーブルには、**識別子**列は、2 つの値のいずれかの:"Student"および"Instructor"。 値に応じて、 **Person**テーブルにマップされる、**学生**エンティティまたは**インストラクター**エンティティ。 **Person**テーブルに 2 つの列もあります**HireDate**と**EnrollmentDate**、する必要があります**null 許容**人ができないため、学生およびインストラクターと同時に (少なくともでこのチュートリアルでは)。
+
+### <a name="add-new-entities"></a>新しいエンティティを追加します。
+
+-   新しいエンティティを追加します。
+    これを行うには、Entity Framework デザイナーのデザイン画面の空の領域を右クリックして**追加 -&gt;エンティティ**します。
+-   型**インストラクター**の**エンティティ名**選択と**人**のドロップダウン リストから、**基本型**します。
+-   **[OK]** をクリックします。
+-   もう 1 つの新しいエンティティを追加します。 型**学生**の**エンティティ名**選択**人**のドロップダウン リストから、**基本型**します。
+
+2 つの新しいエンティティ型は、デザイン画面に追加されました。 新しいエンティティ型を指す矢印、 **Person**エンティティ型。 これが示す**人**は新しいエンティティ型の基本型です。
+
+-   右クリックし、 **HireDate**のプロパティ、 **Person**エンティティ。 選択**切り取り**(または、CTRL + X キーを使用)。
+-   右クリックし、**インストラクター**エンティティと選択**貼り付け**(または ctrl + V キーを使用)。
+-   右クリックし、 **HireDate**プロパティと選択**プロパティ**します。
+-   **プロパティ**ウィンドウで、設定、 **Nullable**プロパティを**false**します。
+-   右クリックし、 **EnrollmentDate**のプロパティ、 **Person**エンティティ。 選択**切り取り**(または、CTRL + X キーを使用)。
+-   右クリックし、**学生**エンティティと選択**貼り付け (または ctrl + V を使用してキー)。**
+-   選択、 **EnrollmentDate**プロパティと設定、 **Nullable**プロパティを**false**します。
+-   選択、 **Person**エンティティ型。 **プロパティ**ウィンドウで、その**抽象**プロパティを**true**します。
+-   削除、**識別子**プロパティから**Person**します。 これを削除するかの理由は、次のセクションについて説明します。
+
+### <a name="map-the-entities"></a>エンティティにマップします
+
+-   右クリックし、**インストラクター**選択**テーブル マッピングです。**
+    Instructor エンティティは、マッピングの詳細ウィンドウで選択されます。
+-   クリックして**&lt;テーブルまたはビューの追加&gt;** で、**マッピングの詳細**ウィンドウ。
+    **&lt;テーブルまたはビューの追加&gt;** フィールドがテーブルのドロップダウン リストになります、またはビューを選択したエンティティをマップできます。
+-   選択**Person**ドロップダウン リストから。
+-   **マッピングの詳細**ウィンドウは、既定の列マッピングと条件を追加するためのオプションで更新されます。
+-   をクリックして**&lt;条件を追加&gt;** します。
+    **&lt;条件を追加&gt;** フィールドの条件を設定する列のドロップダウン リストになります。
+-   選択**識別子**ドロップダウン リストから。
+-   **演算子**の列、**マッピングの詳細**ウィンドウで、ドロップダウン リストから =。
+-   **値/プロパティ**列に「**インストラクター**します。 このよう、最終的な結果になります。
+
+    ![MappingDetails2](~/ef6/media/mappingdetails2.png)
+
+-   これらの手順を繰り返します、**学生**エンティティ型、それと等しい条件**学生**値。  
+    *削除する理由、**識別子**プロパティは、テーブルの列を複数回マップすることはできません。この列は、プロパティ マッピングにも使用できませんのでの条件付きマッピングでは、使用されます。唯一の方法が条件を使用している場合、両方に使用できます、 **Is Null**または**Is Not Null**比較します。*
+
+これで、Table-Per-Hierarchy 継承が実装されました。
+
+![FinalTPH](~/ef6/media/finaltph.png)
+
+## <a name="use-the-model"></a>モデルを使用します。
+
+開く、 **Program.cs**ファイルの場所、 **Main**メソッドを定義します。 次のコードを貼り付け、 **Main**関数。 コードでは、次の 3 つのクエリを実行します。 最初のクエリを取り戻すすべて**Person**オブジェクト。 2 番目のクエリを使用して、 **OfType**メソッドを返す**インストラクター**オブジェクト。 3 番目のクエリを使用して、 **OfType**メソッドを返す**学生**オブジェクト。
+
+``` csharp
+    using (var context = new SchoolEntities())
+    {
+        Console.WriteLine("All people:");
+        foreach (var person in context.People)
+        {
+            Console.WriteLine("    {0} {1}", person.FirstName, person.LastName);
+        }
+
+        Console.WriteLine("Instructors only: ");
+        foreach (var person in context.People.OfType<Instructor>())
+        {
+            Console.WriteLine("    {0} {1}", person.FirstName, person.LastName);
+        }
+
+        Console.WriteLine("Students only: ");
+        foreach (var person in context.People.OfType<Student>())
+        {
+            Console.WriteLine("    {0} {1}", person.FirstName, person.LastName);
+        }
+    }
+```

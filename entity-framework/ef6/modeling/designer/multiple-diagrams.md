@@ -1,0 +1,88 @@
+---
+title: 1 つのモデルの EF6 の複数のダイアグラム
+author: divega
+ms.date: 2016-10-23
+ms.prod: entity-framework
+ms.author: divega
+ms.manager: avickers
+ms.technology: entity-framework-6
+ms.topic: article
+ms.assetid: b95db5c8-de8d-43bd-9ccc-5df6a5e25e1b
+caps.latest.revision: 3
+ms.openlocfilehash: 3a022b3e44ecd4b6b62224cb6494c794397a9739
+ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.translationtype: MT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 07/09/2018
+ms.locfileid: "39122580"
+---
+# <a name="multiple-diagrams-per-model"></a>1 つのモデルの複数のダイアグラム
+> [!NOTE]
+> **EF5 以降のみ**-機能、Api、Entity Framework 5 で導入されたなどのこのページで説明します。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
+
+このビデオおよびページは、Entity Framework デザイナー (EF Designer) を使用して複数の図にモデルを分割する方法を示します。 この機能を表示または編集するには、モデルが大きすぎる場合に使用する場合があります。
+
+以前のバージョンの EF Designer で EDMX ファイルあたり 1 つの図をしかありませんでした。 Visual Studio 2012 以降では、EDMX ファイルを分割して複数のダイアグラムに EF Designer を使用できます。
+
+## <a name="watch-the-video"></a>ビデオを見る
+このビデオでは、Entity Framework デザイナー (EF Designer) を使用して複数の図にモデルを分割する方法を示します。 この機能を表示または編集するには、モデルが大きすぎる場合に使用する場合があります。
+
+**によって提示される**: Julia Kornich
+
+**ビデオ**: [WMV](http://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-winvideo-multiplediagrams.wmv) | [MP4](http://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-mp4video-multiplediagrams.m4v) | [WMV (ZIP)](http://download.microsoft.com/download/5/C/2/5C2B52AB-5532-426F-B078-1E253341B5FA/HDI-ITPro-MSDN-winvideo-multiplediagrams.zip)
+
+## <a name="ef-designer-overview"></a>EF デザイナーの概要
+
+EF デザイナーの Entity Data Model ウィザードを使用して、モデルを作成するときに .edmx ファイルは作成され、ソリューションに追加されます。 このファイルは、エンティティとデータベースへの割り当て方法の形状を定義します。
+
+EF デザイナーは、次のコンポーネントで構成されます。
+
+-   モデルを編集するためのビジュアル デ ザイン サーフェイス。 エンティティとアソシエーションの作成、変更、または削除を行うことができます。
+-   A**モデル ブラウザー**モデルのツリー ビューを提供するウィンドウ。  エンティティとその関連付けが下にある、 *\[ModelName\]* フォルダー。 データベースのテーブルと制約が下にある、  *\[ModelName\]* します。フォルダーを格納します。
+-   A**マッピングの詳細**ウィンドウの表示とのマッピングを編集します。 エンティティ型またはアソシエーションをデータベース テーブル、列、およびストアド プロシージャにマップできます。 
+
+Entity Data Model ウィザードが完了すると、ビジュアル デ ザイン サーフェイス ウィンドウが自動的に開きます。 モデル ブラウザーが表示されない場合、メインのデザイン サーフェスと選択を右クリックして**モデル ブラウザー**します。
+
+次のスクリーン ショットは、EF デザイナーで開いた .edmx ファイルを示しています。 スクリーン ショット (左側) に、ビジュアル デ ザイン サーフェイスと**モデル ブラウザー**ウィンドウ (右側) にします。
+
+![EFDesigner2](~/ef6/media/efdesigner2.png)
+
+EF Designer で実行する操作を元に戻すには、CTRL + Z をクリックします。
+
+## <a name="working-with-diagrams"></a>ダイアグラムの使用
+
+既定では、EF Designer は Diagram1 と呼ばれる 1 つの図を作成します。 エンティティとアソシエーションの数が多い図がある場合は、論理的に分割する最もなどされます。 Visual Studio 2012 以降では、複数のダイアグラムで、概念モデルを表示できます。   
+
+新しいダイアグラムを追加すると、モデル ブラウザー ウィンドウで、ダイアグラム フォルダーの下で表示されます。 ダイアグラムの名前を変更する: モデル ブラウザー ウィンドウで、ダイアグラムを選択、名をクリックして新しい名前を入力します。  ダイアグラム名を右クリックして選択できますも**の名前を変更**します。
+
+ダイアグラムの名前は、Visual Studio エディターで、.edmx ファイル名の横に表示されます。 たとえば Model1.edmx\[Diagram1\]します。
+
+![ダイアグラム名](~/ef6/media/diagramname.png)
+
+図のコンテンツ (図形およびエンティティとアソシエーションの色) に保存されて、。 edmx.diagram ファイル。 このファイルを表示するには、ソリューション エクスプ ローラーを選択し、.edmx ファイルを展開します。 
+
+![DiagramFiles](~/ef6/media/diagramfiles.png)
+
+編集しないでください、。 edmx.diagram ファイルを手動で EF Designer によって上書きされる可能性があります、このファイルの内容。
+ 
+## <a name="splitting-entities-and-associations-into-a-new-diagram"></a>エンティティとアソシエーションを新しいダイアグラムの分割
+
+既存のダイアグラム (複数のエンティティを選択するには、shift キーを押し) 上のエンティティを選択できます。 マウスの右ボタンをクリックし、選択**新しい図へ移動**します。 新しいダイアグラムが作成され、選択したエンティティとその関連付けがダイアグラムに移動されます。
+
+または、モデル ブラウザーで、[ダイアグラム] フォルダーを右クリックし、選択**新しいダイアグラムを追加します。** ドラッグし、デザイン サーフェイスにモデル ブラウザーでエンティティ型のフォルダーの下のエンティティを削除することができます。
+
+切り取り、(CTRL + X または Ctrl + C キーを使用して) エンティティを 1 つの図からコピーまたはし、他の (ctrl + V キーを使用) を貼り付けるなどもできます。 貼り付けるエンティティ既にダイアグラムには、同じ名前のエンティティが含まれて、新しいエンティティが作成され、モデルに追加されます。  例: Diagram2 に Department エンティティが含まれています。 次に、Diagram2 に別の部門を貼り付けます。 Department1 エンティティが作成され、概念モデルに追加します。   
+
+関連エンティティをダイアグラムに含めるにエンティティを右クリックしますし、選択**関連含める**します。 指定したダイアグラムで関連エンティティとアソシエーションは、のコピーをこのように。
+
+## <a name="changing-the-color-of-entities"></a>エンティティの色を変更します。
+
+だけでなく、モデルを複数のダイアグラムに分割する、エンティティの色を変更することもできます。
+
+色を変更するには、デザイン画面でエンティティ (または複数のエンティティ) を選択します。 次に、マウスの右ボタンをクリックし、選択**プロパティ**します。 [プロパティ] ウィンドウで、選択、**塗りつぶしの色**プロパティ。 有効な色の名前 (たとえば、赤) または、有効な RGB (255, 128, 128) を使用して色を指定します。 
+
+![色](~/ef6/media/color.png)
+
+## <a name="summary"></a>まとめ
+
+このトピックでは、Entity Framework デザイナーを使用してエンティティを別の色を指定する方法と、モデルを複数のダイアグラムに分割する方法をについて説明しました。 
