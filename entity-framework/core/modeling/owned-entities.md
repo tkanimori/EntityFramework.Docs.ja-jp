@@ -6,12 +6,12 @@ ms.date: 2/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 ms.technology: entity-framework-core
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 476a1dcaadcd99eba0cd4f5f0ac40c32a97af5c9
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 3eb7480625db4ebc3ce0b7a18d042139f888dab8
+ms.sourcegitcommit: 0935ff275ae739243297f5b97eb21414398125c6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949428"
+ms.lasthandoff: 07/23/2018
+ms.locfileid: "39201894"
 ---
 # <a name="owned-entity-types"></a>所有鉛てぃてぃ型
 
@@ -70,7 +70,7 @@ public class Order
 
 EF Core 2.0 および 2.1 では、参照ナビゲーション プロパティのみが所有型を指定できます。 所有型のコレクションがサポートされていません。 これらの参照は所有型が常に一対一のリレーションシップを持つ所有者と、そのため、独自のキー値が不要です。 前の例ではキー プロパティを定義する、StreetAddress 型は必要ありません。  
 
-EF Core がこれらのオブジェクトを追跡する方法を理解する順番として主キーが作成されたことを考えるとわかり、[プロパティをシャドウ](xref:core/modeling/shadow-properties)所有型にします。 所有型のインスタンスのキーの値は、所有者のインスタンスのキーの値と同じになります。      
+EF Core がこれらのオブジェクトを追跡する方法を理解するためにとして主キーが作成されたことを考えるとわかり、[プロパティをシャドウ](xref:core/modeling/shadow-properties)所有型のです。 所有型のインスタンスのキーの値は、所有者のインスタンスのキーの値と同じになります。      
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>マッピングは、テーブル分割を持つ型を所有しています。
 
