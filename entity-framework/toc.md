@@ -250,6 +250,7 @@
 ### [その他のリソース](ef6/resources/index.md)
 #### [ブログ](ef6/resources/blogs.md)
 #### [ケース スタディ](ef6/resources/case-studies.md)
+#### [寄稿](ef6/resources/contribute.md)
 #### [ヘルプ情報の入手](ef6/resources/get-help.md)
 #### [用語集](ef6/resources/glossary.md)
 #### [School サンプル データベース](ef6/resources/school-database.md)
