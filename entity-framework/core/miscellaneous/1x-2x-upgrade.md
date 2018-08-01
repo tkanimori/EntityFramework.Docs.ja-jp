@@ -6,12 +6,12 @@ ms.date: 8/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 ms.technology: entity-framework-core
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: dca9a3fb9e514b6eb22281a0f0140539681efb71
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 9be2368159fe7ab7b6951cc14a84ee63762ce90c
+ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949257"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "39388453"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 へのアプリケーションのアップグレード
 
@@ -154,7 +154,7 @@ optionsBuilder.UseInMemoryDatabase("MyDatabase");
 
 ### <a name="read-only-api-changes"></a>読み取り専用の API の変更
 
-`IsReadOnlyBeforeSave`、 `IsReadOnlyAferSave`、および`IsStoreGeneratedAlways`廃止され、置き換え[BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39)と[AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55)します。 これらの動作 (ストア生成プロパティだけでなく) プロパティには適用し、データベースの行に挿入するときのプロパティの値の使用方法を判断 (`BeforeSaveBehavior`) ときに、行をデータベース、既存の更新または (`AfterSaveBehavior`)。
+`IsReadOnlyBeforeSave`、 `IsReadOnlyAfterSave`、および`IsStoreGeneratedAlways`廃止され、置き換え[BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39)と[AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55)します。 これらの動作 (ストア生成プロパティだけでなく) プロパティには適用し、データベースの行に挿入するときのプロパティの値の使用方法を判断 (`BeforeSaveBehavior`) ときに、行をデータベース、既存の更新または (`AfterSaveBehavior`)。
 
 プロパティとしてマーク[ValueGenerated.OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (たとえば、計算列)、既定では無視されます、プロパティに設定されている任意の値。 これは、任意の値が設定や追跡対象エンティティで変更されているかどうかに関係なくストア生成値が常に得られることを意味します。 これは、さまざまな設定で変更できます`Before\AfterSaveBehavior`します。
 
