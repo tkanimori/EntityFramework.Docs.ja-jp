@@ -6,14 +6,14 @@ ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 ms.technology: entity-framework-core
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 34ca1908257ed5544f2e134fa7686c9802fcebea
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: dae646e39b4dbd96b34f47582f9b2aa531cf88a7
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949298"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614338"
 ---
-# <a name="connection-resiliency"></a>接続の回復
+# <a name="connection-resiliency"></a>接続の復元性
 
 接続の回復性は、失敗したデータベース コマンドを自動的に再試行します。 機能は、「実行戦略」、障害を検出し、コマンドを再試行するのに必要なロジックをカプセル化されているを指定することで、任意のデータベースで使用できます。 EF Core プロバイダーは、特定のデータベース エラー状態と最適な再試行ポリシーに合わせて調整するという実行ストラテジを指定できます。
 

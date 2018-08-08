@@ -1,5 +1,5 @@
 ---
-title: Entity Framework 6 の概要
+title: 概要 - EF6
 author: divega
 ms.date: 2016-10-23
 ms.prod: entity-framework
@@ -10,14 +10,14 @@ ms.topic: article
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 caps.latest.revision: 5
 uid: ef6/index
-ms.openlocfilehash: 7bb51ea82640ef29bb376c2320ea29a81eeb175e
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: c74626593c4109badd75f2a0a4f051c840f7bc7f
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "37914342"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614380"
 ---
-# <a name="entity-framework-6-quick-overview"></a>Entity Framework 6 の概要
+# <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) は、機能開発および安定化に何年もの時間が費やされてきた、十分に検証された .NET 用のオブジェクト リレーショナル マッパー (O/RM) です。
 
 EF6 は、O/RM として、リレーショナルおよびオブジェクト指向の世界のインピーダンス不整合を減らします。開発者はこれにより、アプリケーションのドメインを表す厳密に型指定された .NET オブジェクトを使用した、リレーショナル データベースに格納されたデータをやり取りするアプリケーションを記述でき、通常は記述する必要のあるデータ アクセス "プラミング" コードの大部分を記述する必要がなくなります。

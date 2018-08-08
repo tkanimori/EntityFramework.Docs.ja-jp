@@ -6,12 +6,12 @@ ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 ms.technology: entity-framework-core
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 5bfb6111ac450db91f3f1a7074a924a1c8400ce7
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: d5189cef6d44fdf3fd6116a2952ce07ff3a389d4
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949093"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614400"
 ---
 # <a name="value-conversions"></a>値の変換
 
@@ -28,7 +28,7 @@ ms.locfileid: "37949093"
 
 ## <a name="configuring-a-value-converter"></a>値コンバーターを構成します。
 
-値の変換は、DbContext の OnModelCreating 内のプロパティで定義されます。 たとえば、として定義された列挙型とエンティティ型があるとします。
+値の変換が内のプロパティで定義されている、`OnModelCreating`の`DbContext`します。 たとえば、として定義された列挙型とエンティティ型があるとします。
 ```Csharp
 public class Rider
 {
@@ -44,7 +44,7 @@ public enum EquineBeast
     Unicorn
 }
 ```
-データベース内の文字列 (たとえば、「ロバ」、「ラバ」、...) として列挙型の値を格納する OnModelCreating で変換を定義できます。
+変換を定義することができますし、`OnModelCreating`列挙値、データベース内の文字列 (たとえば、「ロバ」、「ラバ」、...) として保存します。
 ```Csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
@@ -115,7 +115,7 @@ modelBuilder
 
 ## <a name="pre-defined-conversions"></a>定義済みの変換
 
-組み込みのコンバーターが存在する共通の変換には、コンバーターを明示的に指定する必要はありません。 代わりに、どのプロバイダーの種類を使用する必要がありますを構成し、EF が自動的に適切なビルドでコンバーターを使用します。 列挙型文字列への変換からは、上記の例として使用されますが、EF 実際には、自動的にプロバイダーの種類が構成されている場合。
+組み込みのコンバーターが存在する共通の変換には、コンバーターを明示的に指定する必要はありません。 代わりに、どのプロバイダーの種類を使用する必要がありますを構成し、EF が自動的に適切な組み込みのコンバーターを使用します。 列挙型文字列への変換からは、上記の例として使用されますが、EF 実際には、自動的にプロバイダーの種類が構成されている場合。
 ```Csharp
 modelBuilder
     .Entity<Rider>()
@@ -132,7 +132,7 @@ public class Rider
     public EquineBeast Mount { get; set; }
 }
 ```
-列挙型の値は、OnModelCreating でさらに構成を行わなくても、データベース内の文字列として保存されます。
+列挙型の値はでさらに構成を行わなくても、データベース内の文字列として保存し、`OnModelCreating`します。
 
 ## <a name="limitations"></a>制限事項
 
