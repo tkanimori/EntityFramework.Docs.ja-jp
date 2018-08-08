@@ -1,30 +1,30 @@
 ---
-title: カスタムの移行操作 - EF コア
+title: カスタムの移行操作 - EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/7/2017
 ms.technology: entity-framework-core
-ms.openlocfilehash: 84d80175e719c950844b13688e1a4992614f25d8
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+ms.openlocfilehash: 510d585534b4809179c905ee5b77cab4209a2b8f
+ms.sourcegitcommit: 902257be9c63c427dc793750a2b827d6feb8e38c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2018
-ms.locfileid: "34163143"
+ms.lasthandoff: 08/07/2018
+ms.locfileid: "39614286"
 ---
-<a name="custom-migrations-operations"></a><span data-ttu-id="22613-102">カスタムの移行操作</span><span class="sxs-lookup"><span data-stu-id="22613-102">Custom Migrations Operations</span></span>
+<a name="custom-migrations-operations"></a><span data-ttu-id="9b315-102">カスタムの移行操作</span><span class="sxs-lookup"><span data-stu-id="9b315-102">Custom Migrations Operations</span></span>
 ============================
-<span data-ttu-id="22613-103">MigrationBuilder API では、移行中にさまざまな種類の操作を実行することができますが、排他的なかけ離れていること。</span><span class="sxs-lookup"><span data-stu-id="22613-103">The MigrationBuilder API allows you to perform many different kinds of operations during a migration, but it's far from exhaustive.</span></span> <span data-ttu-id="22613-104">ただし、また API は、拡張を独自の操作を定義できるようにします。</span><span class="sxs-lookup"><span data-stu-id="22613-104">However, the API is also extensible allowing you to define your own operations.</span></span> <span data-ttu-id="22613-105">API を拡張する 2 つの方法があります: を使用して、`Sql()`メソッド、またはカスタムを定義して`MigrationOperation`オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="22613-105">There are two ways to extend the API: Using the `Sql()` method, or by defining custom `MigrationOperation` objects.</span></span>
+<span data-ttu-id="9b315-103">MigrationBuilder API では、移行中、さまざまな種類の操作を実行できます。 が網羅したなります。</span><span class="sxs-lookup"><span data-stu-id="9b315-103">The MigrationBuilder API allows you to perform many different kinds of operations during a migration, but it's far from exhaustive.</span></span> <span data-ttu-id="9b315-104">ただし、API は、独自の操作を定義できる拡張可能なもです。</span><span class="sxs-lookup"><span data-stu-id="9b315-104">However, the API is also extensible allowing you to define your own operations.</span></span> <span data-ttu-id="9b315-105">API を拡張する 2 つの方法があります: を使用して、`Sql()`メソッド、またはカスタムを定義して`MigrationOperation`オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="9b315-105">There are two ways to extend the API: Using the `Sql()` method, or by defining custom `MigrationOperation` objects.</span></span>
 
-<span data-ttu-id="22613-106">理解するには、それぞれのアプローチを使用してデータベース ユーザーを作成する操作の実装を見てみましょう。</span><span class="sxs-lookup"><span data-stu-id="22613-106">To illustrate, let's look at implementing an operation that creates a database user using each approach.</span></span> <span data-ttu-id="22613-107">この移行で、次のコードを記述できるようにします。</span><span class="sxs-lookup"><span data-stu-id="22613-107">In our migrations, we want to enable writing the following code:</span></span>
+<span data-ttu-id="9b315-106">を示すためには、それぞれのアプローチを使用してデータベース ユーザーを作成する操作の実装を見てみましょう。</span><span class="sxs-lookup"><span data-stu-id="9b315-106">To illustrate, let's look at implementing an operation that creates a database user using each approach.</span></span> <span data-ttu-id="9b315-107">移行では、次のコードを記述を有効にします。</span><span class="sxs-lookup"><span data-stu-id="9b315-107">In our migrations, we want to enable writing the following code:</span></span>
 
 ``` csharp
 migrationBuilder.CreateUser("SQLUser1", "Password");
 ```
 
-<a name="using-migrationbuildersql"></a><span data-ttu-id="22613-108">MigrationBuilder.Sql() を使用します。</span><span class="sxs-lookup"><span data-stu-id="22613-108">Using MigrationBuilder.Sql()</span></span>
+<a name="using-migrationbuildersql"></a><span data-ttu-id="9b315-108">MigrationBuilder.Sql() を使用します。</span><span class="sxs-lookup"><span data-stu-id="9b315-108">Using MigrationBuilder.Sql()</span></span>
 ----------------------------
-<span data-ttu-id="22613-109">呼び出す拡張メソッドを定義するカスタム操作を実装する最も簡単な方法は、`MigrationBuilder.Sql()`です。</span><span class="sxs-lookup"><span data-stu-id="22613-109">The easiest way to implement a custom operation is to define an extension method that calls `MigrationBuilder.Sql()`.</span></span>
-<span data-ttu-id="22613-110">適切な Transact SQL を生成する例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="22613-110">Here is an example that generates the appropriate Transact-SQL.</span></span>
+<span data-ttu-id="9b315-109">呼び出す拡張メソッドを定義するカスタム操作を実装する最も簡単な方法は、`MigrationBuilder.Sql()`します。</span><span class="sxs-lookup"><span data-stu-id="9b315-109">The easiest way to implement a custom operation is to define an extension method that calls `MigrationBuilder.Sql()`.</span></span>
+<span data-ttu-id="9b315-110">適切な Transact SQL を生成する例を示します。</span><span class="sxs-lookup"><span data-stu-id="9b315-110">Here is an example that generates the appropriate Transact-SQL.</span></span>
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -34,7 +34,7 @@ static MigrationBuilder CreateUser(
     => migrationBuilder.Sql($"CREATE USER {name} WITH PASSWORD '{password}';");
 ```
 
-<span data-ttu-id="22613-111">複数のデータベース プロバイダーをサポートするために、移行する場合を使えば、`MigrationBuilder.ActiveProvider`プロパティです。</span><span class="sxs-lookup"><span data-stu-id="22613-111">If your migrations need to support multiple database providers, you can use the `MigrationBuilder.ActiveProvider` property.</span></span> <span data-ttu-id="22613-112">Microsoft SQL Server と PostgreSQL の両方をサポートする例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="22613-112">Here's an example supporting both Microsoft SQL Server and PostgreSQL.</span></span>
+<span data-ttu-id="9b315-111">複数のデータベース プロバイダーをサポートするために、移行する場合は、使用できます、`MigrationBuilder.ActiveProvider`プロパティ。</span><span class="sxs-lookup"><span data-stu-id="9b315-111">If your migrations need to support multiple database providers, you can use the `MigrationBuilder.ActiveProvider` property.</span></span> <span data-ttu-id="9b315-112">Microsoft SQL Server、PostgreSQL の両方をサポートしている例を示します。</span><span class="sxs-lookup"><span data-stu-id="9b315-112">Here's an example supporting both Microsoft SQL Server and PostgreSQL.</span></span>
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -52,14 +52,16 @@ static MigrationBuilder CreateUser(
             return migrationBuilder
                 .Sql($"CREATE USER {name} WITH PASSWORD = '{password}';");
     }
+
+    return migrationBuilder;
 }
 ```
 
-<span data-ttu-id="22613-113">このアプローチだけはすべてのプロバイダーがわかっている場合、カスタムの操作が適用されます。</span><span class="sxs-lookup"><span data-stu-id="22613-113">This approach only works if you know every provider where your custom operation will be applied.</span></span>
+<span data-ttu-id="9b315-113">このアプローチのみはすべてのプロバイダーがわかっている場合、カスタム操作が適用されます。</span><span class="sxs-lookup"><span data-stu-id="9b315-113">This approach only works if you know every provider where your custom operation will be applied.</span></span>
 
-<a name="using-a-migrationoperation"></a><span data-ttu-id="22613-114">使用して、MigrationOperation</span><span class="sxs-lookup"><span data-stu-id="22613-114">Using a MigrationOperation</span></span>
+<a name="using-a-migrationoperation"></a><span data-ttu-id="9b315-114">MigrationOperation を使用します。</span><span class="sxs-lookup"><span data-stu-id="9b315-114">Using a MigrationOperation</span></span>
 ---------------------------
-<span data-ttu-id="22613-115">SQL からカスタムの操作を切り離すことを定義できます。 自分`MigrationOperation`それを表します。</span><span class="sxs-lookup"><span data-stu-id="22613-115">To decouple the custom operation from the SQL, you can define your own `MigrationOperation` to represent it.</span></span> <span data-ttu-id="22613-116">操作は、ことを確認し、適切な SQL を生成するために、プロバイダーに渡されます。</span><span class="sxs-lookup"><span data-stu-id="22613-116">The operation is then passed to the provider so it can determine the appropriate SQL to generate.</span></span>
+<span data-ttu-id="9b315-115">SQL からカスタムの操作を分離するために定義できます独自`MigrationOperation`それを表します。</span><span class="sxs-lookup"><span data-stu-id="9b315-115">To decouple the custom operation from the SQL, you can define your own `MigrationOperation` to represent it.</span></span> <span data-ttu-id="9b315-116">生成する適切な SQL を判断できるように、操作がプロバイダーに渡されます。</span><span class="sxs-lookup"><span data-stu-id="9b315-116">The operation is then passed to the provider so it can determine the appropriate SQL to generate.</span></span>
 
 ``` csharp
 class CreateUserOperation : MigrationOperation
@@ -69,7 +71,7 @@ class CreateUserOperation : MigrationOperation
 }
 ```
 
-<span data-ttu-id="22613-117">この方法は、だけ、拡張メソッドはこれらの操作を 1 つ追加する必要があります。`MigrationBuilder.Operations`です。</span><span class="sxs-lookup"><span data-stu-id="22613-117">With this approach, the extension method just needs to add one of these operations to `MigrationBuilder.Operations`.</span></span>
+<span data-ttu-id="9b315-117">この方法は、だけ、拡張メソッドはいずれかのこれらの操作を追加する必要があります。`MigrationBuilder.Operations`します。</span><span class="sxs-lookup"><span data-stu-id="9b315-117">With this approach, the extension method just needs to add one of these operations to `MigrationBuilder.Operations`.</span></span>
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -88,7 +90,7 @@ static MigrationBuilder CreateUser(
 }
 ```
 
-<span data-ttu-id="22613-118">この方法には、SQL では、この操作を生成する方法を理解するには、各プロバイダーが必要があります、`IMigrationsSqlGenerator`サービス。</span><span class="sxs-lookup"><span data-stu-id="22613-118">This approach requires each provider to know how to generate SQL for this operation in their `IMigrationsSqlGenerator` service.</span></span> <span data-ttu-id="22613-119">新しい操作を処理する SQL Server のジェネレーターをオーバーライドする例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="22613-119">Here is an example overriding the SQL Server's generator to handle the new operation.</span></span>
+<span data-ttu-id="9b315-118">このアプローチには、この操作で SQL を生成する方法を理解するには、各プロバイダーが必要があります、`IMigrationsSqlGenerator`サービス。</span><span class="sxs-lookup"><span data-stu-id="9b315-118">This approach requires each provider to know how to generate SQL for this operation in their `IMigrationsSqlGenerator` service.</span></span> <span data-ttu-id="9b315-119">新しい操作を処理するために、SQL Server のジェネレーターをオーバーライドする例を示します。</span><span class="sxs-lookup"><span data-stu-id="9b315-119">Here is an example overriding the SQL Server's generator to handle the new operation.</span></span>
 
 ``` csharp
 class MyMigrationsSqlGenerator : SqlServerMigrationsSqlGenerator
@@ -133,7 +135,7 @@ class MyMigrationsSqlGenerator : SqlServerMigrationsSqlGenerator
 }
 ```
 
-<span data-ttu-id="22613-120">1 つずつ更新で、既定の移行 sql ジェネレーターのサービスを置き換えます。</span><span class="sxs-lookup"><span data-stu-id="22613-120">Replace the default migrations sql generator service with the updated one.</span></span>
+<span data-ttu-id="9b315-120">1 つずつ更新では、既定の移行 sql ジェネレーターのサービスを置き換えます。</span><span class="sxs-lookup"><span data-stu-id="9b315-120">Replace the default migrations sql generator service with the updated one.</span></span>
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)
