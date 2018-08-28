@@ -2,19 +2,13 @@
 title: エンティティの状態 - EF6 の使用
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: acb27f46-3f3a-4179-874a-d6bea5d7120c
-caps.latest.revision: 3
-ms.openlocfilehash: e27d70dd7a6a63c2b225e9cf4fe7ac8cc280d4ca
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 1a415e7c6090365a66d58fc9a2dd3256984d7a8e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39121867"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997948"
 ---
 # <a name="working-with-entity-states"></a>エンティティの状態の操作
 このトピックでは、追加し、コンテキストにエンティティを接続する方法、および Entity Framework が SaveChanges 中にこれらを処理する方法について説明します。

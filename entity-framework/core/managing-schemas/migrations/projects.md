@@ -1,19 +1,18 @@
 ---
-title: 複数のプロジェクトの EF コアでの移行
+title: 複数のプロジェクトの EF Core での移行
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: 3684e86cce0005056380d89604d038c734054d14
-ms.sourcegitcommit: ced2637bf8cc5964c6daa6c7fcfce501bf9ef6e8
+ms.openlocfilehash: 76e88dd486b1c53dc69a24e35710511bf9cb673b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/22/2017
-ms.locfileid: "27161228"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997988"
 ---
 <a name="using-a-separate-project"></a>別のプロジェクトを使用します。
 ========================
-1 つ含まれているよりも別のアセンブリで使用して移行を格納することがあります、`DbContext`です。 また、リリースごとにアップグレードとこの戦略などの移行には、複数のセットを維持するために、開発用の 1 つを使用することができます。
+1 つを含む別のアセンブリで、移行を格納することも、`DbContext`します。 リリースごとにアップグレードとこの戦略など、移行の複数のセットを維持するために、開発用に 1 つを使用することもできます。
 
 目的
 
@@ -21,8 +20,9 @@ ms.locfileid: "27161228"
 
 2. DbContext アセンブリへの参照を追加します。
 
-3. クラス ライブラリに移行およびモデルのスナップショット ファイルを移動します。
-   * いずれかを追加していない場合は、DbContext プロジェクトに追加しに移動します。
+3. クラス ライブラリに移行し、モデルのスナップショット ファイルを移動します。
+   > [!TIP]
+   > 既存の移行がない場合は、DbContext を含むプロジェクトを生成し、移動します。 移行アセンブリに既存の移行が含まれていない場合、Add-migration コマンドことはできません、DbContext を検索するため重要です。
 
 4. 移行アセンブリを構成します。
 
@@ -32,16 +32,16 @@ ms.locfileid: "27161228"
        x => x.MigrationsAssembly("MyApp.Migrations"));
    ```
 
-5. スタートアップ アセンブリから、移行アセンブリへの参照を追加します。
-   * これにより、循環する依存関係場合、は、クラス ライブラリの出力パスを更新します。
+5. スタートアップ アセンブリから、移行のアセンブリへの参照を追加します。
+   * これにより、循環依存関係場合は、クラス ライブラリの出力パスを更新します。
 
      ``` xml
      <PropertyGroup>
-       <OutputPath>..\MyStarupProject\bin\$(Configuration)\</OutputPath>
+       <OutputPath>..\MyStartupProject\bin\$(Configuration)\</OutputPath>
      </PropertyGroup>
      ```
 
-削除できた場合すべて正しくは、新しい移行プロジェクトに追加することができます。
+すべてのプロセスが正しく、プロジェクトに新しい移行を追加できる必要があります。
 
 ``` powershell
 Add-Migration NewMigration -Project MyApp.Migrations

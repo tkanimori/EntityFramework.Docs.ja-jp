@@ -1,29 +1,27 @@
 ---
-title: Microsoft SQL Server データベース プロバイダーのメモリ最適化テーブルの EF コア
+title: Microsoft SQL Server データベース プロバイダー - メモリ最適化テーブル - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 2e007c82-c6e4-45bb-8129-851b79ec1a0a
-ms.technology: entity-framework-core
 uid: core/providers/sql-server/memory-optimized-tables
-ms.openlocfilehash: 83a0decffc5946d036903b8b8add59f0ea31b21f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 63d2cbf8b69e4f1945ad60914e284fb42c48e8db
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052642"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995803"
 ---
-# <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a>メモリ最適化テーブルで SQL Server EF コア データベース プロバイダーのサポートします。
+# <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a>メモリ最適化テーブルでは、SQL Server EF Core データベース プロバイダーでサポートします。
 
 > [!NOTE]  
 >
-> この機能は、EF コア 1.1 で導入されました。
+> この機能は、EF Core 1.1 で導入されました。
 
-[メモリ最適化テーブル](https://docs.microsoft.com/sql/relational-databases/in-memory-oltp/memory-optimized-tables)テーブル全体がメモリに存在する SQL Server の機能です。 ディスク上にはテーブル データの 2 番目のコピーが保持されますが、持続性を実現するためのものにすぎません。 データベース復旧中は、メモリ最適化テーブルのデータはディスクからの読み取りのみ行われます。 たとえば、サーバー再起動後などの場合です。
+[メモリ最適化テーブル](https://docs.microsoft.com/sql/relational-databases/in-memory-oltp/memory-optimized-tables)はテーブル全体がメモリに存在する SQL Server の機能です。 ディスク上にあっての持続性の目的でのみ、テーブル データの 2 番目のコピーが維持されます。 メモリ最適化テーブル内のデータは、データベースの復旧中にのみディスクから読み取られます。 たとえば、サーバー後を再起動します。
 
 ## <a name="configuring-a-memory-optimized-table"></a>メモリ最適化テーブルの構成
 
-エンティティをマップするテーブルがメモリ最適化を指定することができます。 ときに、モデルに基づく EF コアを使用して作成し、データベースを保持 (移行のいずれかまたは`Database.EnsureCreated()`)、メモリ最適化テーブルはこれらのエンティティを作成します。
+エンティティがマップされるテーブルがメモリ最適化されていることを指定できます。 EF Core を使用して、モデルに基づいてデータベースを作成、メンテナンスする場合 (移行か `Database.EnsureCreated()` のいずれかを使用)、これらのエンティティ用のメモリ最適化テーブルが作成されます。
 
 ``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)

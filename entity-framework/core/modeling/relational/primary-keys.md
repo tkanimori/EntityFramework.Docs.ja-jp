@@ -1,36 +1,34 @@
 ---
-title: 主キーの EF コア
+title: プライマリ キー - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: c78f8f42-564a-45a4-aca7-3ede9f7ed2bc
-ms.technology: entity-framework-core
 uid: core/modeling/relational/primary-keys
-ms.openlocfilehash: fcb1871149c0f20a2576864028b4171904de1982
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 916f3adbcd08cb1037c7fbf68e99630feb321a61
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052722"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998069"
 ---
 # <a name="primary-keys"></a>主キー
 
 > [!NOTE]  
-> このセクションの構成は、一般にリレーショナル データベースに適用されます。 ここで示すように拡張メソッドが使用可能になるリレーショナル データベース プロバイダーをインストールするときに (共有のため*Microsoft.EntityFrameworkCore.Relational*パッケージ)。
+> このセクションの構成は、リレーショナル データベース全般に適用されます。 ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。
 
-主キー制約には、各エンティティの種類のキーが導入されました。
+主キー制約には、各エンティティ型のキーが導入されました。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-データベースの主キーの名前付け規則、により`PK_<type name>`です。
+データベースの主キーの名前付け規則、により`PK_<type name>`します。
 
 ## <a name="data-annotations"></a>データの注釈
 
-主キーの特定の側面をリレーショナル データベース構成できますありませんデータ注釈を使用します。
+データ注釈に構成する主キーの特定の側面をリレーショナル データベースがない場合。
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用すると、データベースに主キー制約の名前を構成します。
+Fluent API を使用して、データベースで主キー制約の名前を構成することができます。
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/KeyName.cs?highlight=9)] -->
 ``` csharp

@@ -2,19 +2,13 @@
 title: 空間型 - EF6 のプロバイダーのサポート
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 1097cb00-15f5-453d-90ed-bff9403d23e3
-caps.latest.revision: 3
-ms.openlocfilehash: 76020e2a3127b1026a5cb8f032686cc8ce9c0c5f
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 07eeecb5f5e3e3eab8548c4c7c0ed55c5ffb4f31
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39121892"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998288"
 ---
 # <a name="provider-support-for-spatial-types"></a>空間型のプロバイダー サポート
 Entity Framework では、DbGeography または DbGeometry クラスを使用して空間データの操作をサポートしています。 これらのクラスは、Entity Framework プロバイダーによって提供されるデータベースに固有の機能に依存します。 空間データをサポートしていないすべてのプロバイダーと、空間型のアセンブリのインストールなどの追加の前提条件はいる場合があります。 空間型のプロバイダー サポートの詳細については、次に示します。  

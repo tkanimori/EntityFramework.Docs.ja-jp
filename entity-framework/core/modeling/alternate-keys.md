@@ -1,28 +1,26 @@
 ---
-title: 代替キー - EF コア
+title: 代替キー - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 8a5931d4-b480-4298-af36-0e29d74a37c0
-ms.technology: entity-framework-core
 uid: core/modeling/alternate-keys
-ms.openlocfilehash: 09f86a8932b71ec8f30ee90a088091a00233c20f
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b26d8bc1630af9e811d9c4e7da850a618bc8042e
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052472"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996972"
 ---
 # <a name="alternate-keys"></a>代替キー
 
-代替キーは、主キーだけでなくエンティティ インスタンスごとに、代替の一意の識別子として機能します。 代替キーは、リレーションシップのターゲットとして使用できます。 リレーショナル データベースを使用するときに代替のキー列と 1 つまたは複数外部キー制約、列を参照する一意のインデックス/制約の概念にマッピングします。
+代替キーは、主キーだけでなくエンティティのインスタンスごとに、代替の一意の識別子として機能します。 代替キーは、リレーションシップのターゲットとして使用できます。 リレーショナル データベースを使用する場合に代替のキーの列と 1 つまたは複数外部キー制約、列を参照する一意のインデックス/制約の概念にマッピングします。
 
 > [!TIP]  
-> 代替キーではなく、一意のインデックスの場合、列の一意性を適用する場合は、「[インデックス](indexes.md)です。 EF には、代替キーは、外部キーの対象として使用されることがあるために、一意のインデックスよりも大きい機能を提供します。
+> 代替キーではなく、一意のインデックスが必要し、列の一意性を適用する場合は、「[インデックス](indexes.md)します。 Ef には、外部キーのターゲットとして使用されることがあるために、代替キーは一意のインデックスよりもより多くの機能を提供します。
 
-代替キーが通常導入されています必要なときに、これらを手動で構成する必要はありません。 参照してください[規則](#conventions)詳細についてはします。
+通常、この代替キーが必要なときに導入されています。 および、それらを手動で構成する必要はありません。 参照してください[規則](#conventions)の詳細。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
 慣例により、リレーションシップのターゲットとして、主キーではないプロパティを識別する場合の代替キーが導入されました。
 
@@ -64,11 +62,11 @@ public class Post
 
 ## <a name="data-annotations"></a>データの注釈
 
-データ注釈を使用する代替キーを構成できないことができます。
+代替キーは、データ注釈を使用していない構成できます。
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、代替キーとして使用する 1 つのプロパティを構成することができます。
+Fluent API を使用して、代替キーを 1 つのプロパティを構成することができます。
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeySingle.cs?highlight=7,8)] -->
 ``` csharp
@@ -92,7 +90,7 @@ class Car
 }
 ```
 
-代替キー (複合代替キーと呼ばれます) である複数のプロパティを構成するのに Fluent API を使用することもできます。
+(別の複合キーと呼ばれます) は代替キーの複数のプロパティを構成するのに Fluent API を使用することもできます。
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeyComposite.cs?highlight=7,8)] -->
 ``` csharp

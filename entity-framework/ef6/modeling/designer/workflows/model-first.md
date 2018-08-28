@@ -2,19 +2,13 @@
 title: 最初に EF6 をモデル化します。
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
-caps.latest.revision: 3
-ms.openlocfilehash: e7876776ed0dee764d5ced97b863a3580e02e20b
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: c21592b27fa752532f5ede5923d0bd751f0bf372
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39122268"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998116"
 ---
 # <a name="model-first"></a>まずモデルします。
 このビデオ、およびステップ バイ ステップ チュートリアルでは、Entity Framework を使用して Model First の開発の概要を提供します。 まず、モデルを使用すると、Entity Framework デザイナーを使用して、新しいモデルを作成し、モデルからデータベース スキーマを生成できます。 モデルは、EDMX ファイル (拡張子は .edmx) に格納され、表示および編集できます、Entity Framework デザイナーで。 アプリケーションと対話するクラスは、EDMX ファイルから自動的に生成されます。

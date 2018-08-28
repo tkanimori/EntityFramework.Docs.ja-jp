@@ -2,19 +2,13 @@
 title: 生 SQL クエリ - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
-caps.latest.revision: 3
-ms.openlocfilehash: 1d968604cfa500784c4699b0923512572a06d773
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 99893ca1c634ce6f2e4cf9dcb70b1a1e43532c60
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39122299"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995735"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 Entity Framework エンティティ クラスで LINQ を使用してクエリを実行することができます。 ただし、データベースに対して直接 SQL そのものを使用してクエリを実行する時間があります。 これは、Code First モデルの現在のストアド プロシージャへのマッピングをサポートしていないことができますが、ストアド プロシージャの呼び出しが含まれます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  

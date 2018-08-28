@@ -1,27 +1,26 @@
 ---
-title: 複数のプロバイダーの EF コアと移行
+title: 複数のプロバイダー - EF Core での移行
 author: bricelam
 ms.author: bricelam
 ms.date: 11/8/2017
-ms.technology: entity-framework-core
-ms.openlocfilehash: d950e74ed4cef7d4274aabcf3eda7b0b735574c6
-ms.sourcegitcommit: 2ef0a4a90b01edd22b9206f8729b8de459ef8cab
+ms.openlocfilehash: 7ae695037992323337a780cda29d8c8ed8a13458
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/20/2018
-ms.locfileid: "30002806"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997974"
 ---
-<a name="migrations-with-multiple-providers"></a>複数のプロバイダーと移行
+<a name="migrations-with-multiple-providers"></a>複数のプロバイダーを使用した移行
 ==================================
-[EF コア ツール][ 1]アクティブなプロバイダーへの移行をスキャフォールディングのみです。 場合によっては、ただし、場合がある、DbContext で (たとえば Microsoft SQL Server や SQLite) の複数のプロバイダーを使用します。 これに対処する移行で 2 つの方法ができます。 2 つのセットを保持する移行の両方で作業プロバイダー--またはセットを 1 つにマージごとに 1 つのことができます。
+[EF Core ツール][ 1]のみ active プロバイダーへの移行をスキャフォールディングします。 場合によっては、ただし、可能性がある、DbContext で 1 つ以上のプロバイダー (Microsoft SQL Server、SQLite など) を使用します。 移行でこれを処理するために 2 つの方法はあります。 2 つのセットを維持する移行の両方で機能プロバイダー--またはセットを 1 つにマージごとに 1 つのことができます。
 
 <a name="two-migration-sets"></a>2 つの移行セット
 ------------------
-最初の方法では、各モデルの変更の 2 つの移行を生成します。
+最初の方法では、各モデルの変更のための 2 つの移行を生成します。
 
-これは 1 つの方法として各移行のセットを格納する[別のアセンブリに][ 2] 2 つの移行を追加する間、アクティブなプロバイダーと移行アセンブリを手動で切り替えるとします。
+移行セットごとにはこれを行う方法の 1 つ[別のアセンブリに][ 2] 2 つの移行を追加する間、アクティブなプロバイダー (および移行アセンブリ) を手動で切り替えるとします。
 
-ツールを使用して作業が容易にもう 1 つの方法では、DbContext から派生し、アクティブなプロバイダーを上書きする新しい型を作成します。 この型はデザイン時使用の追加または移行を適用するときに時間します。
+別の方法をツールで作業が容易では、DbContext から派生し、アクティブなプロバイダーをオーバーライドする新しい型を作成します。 この種類はデザイン時に使用を追加または移行を適用したときにします。
 
 ``` csharp
 class MySqliteDbContext : MyDbContext
@@ -32,7 +31,7 @@ class MySqliteDbContext : MyDbContext
 ```
 
 > [!NOTE]
-> 各移行セットは、独自の DbContext 型を使用するため、このアプローチは独立した移行アセンブリを使用する必要はありません。
+> 各移行セットは、独自の DbContext 型を使用するための個別移行アセンブリを使用してこの方法は必要ありません。
 
 新しい移行を追加する場合は、コンテキストの種類を指定します。
 
@@ -48,11 +47,11 @@ dotnet ef migrations add InitialCreate --context MySqliteDbContext --output-dir 
 > [!TIP]
 > 最後の 1 つの兄弟として作成されているので、次の移行の出力ディレクトリを指定する必要はありません。
 
-<a name="one-migration-set"></a>1 つの移行のセット
+<a name="one-migration-set"></a>1 つの移行セット
 -----------------
-移行の 2 つのセットを持つしない場合に、手動で一緒に両方のプロバイダーに適用できる 1 つのセットにします。
+移行の 2 つのセットがない場合は、手動で両方のプロバイダーに適用できる単一セットに結合することができます。
 
-注釈は、プロバイダーが理解していないすべての注釈を無視するために共存できます。 たとえば、Microsoft SQL Server と SQLite の両方で動作する主キー列は、次のようになります。
+注釈は、プロバイダーを理解しない任意のコメントを無視するために共存できます。 たとえば、Microsoft SQL Server と SQLite の両方で動作する主キー列は、これのようになります。
 
 ``` csharp
 Id = table.Column<int>(nullable: false)
@@ -61,7 +60,7 @@ Id = table.Column<int>(nullable: false)
     .Annotation("Sqlite:Autoincrement", true),
 ```
 
-操作は、1 つのプロバイダーにのみ適用できます (またはプロバイダー間で異なる方法である) を使用して、`ActiveProvider`プロパティをプロバイダーがアクティブに指示します。
+操作は、1 つのプロバイダーにのみ適用できます (またはプロバイダーの間で異なるにいる) 場合は、使用、`ActiveProvider`プロパティをプロバイダーがアクティブかを確認します。
 
 ``` csharp
 if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")

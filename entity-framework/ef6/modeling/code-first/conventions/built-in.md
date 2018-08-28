@@ -2,19 +2,13 @@
 title: コード規則の最初の EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: bc644573-c2b2-4ed7-8745-3c37c41058ad
-caps.latest.revision: 4
-ms.openlocfilehash: b124a034ba900780cc4d7e1354408cd3995e874e
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: c5fa580879a4b53fed34d94b737988875f38c62c
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39121875"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995527"
 ---
 # <a name="code-first-conventions"></a>コードの最初の規則
 まず、コードを使用すると、c# または Visual Basic .NET のクラスを使用してモデルを記述できます。 規則を使用して、モデルの基本的な形状が検出されます。 規則は、Code First を使用する場合は、クラス定義に基づく概念モデルを自動的に構成するために使用するルールのセットです。 規則は、System.Data.Entity.ModelConfiguration.Conventions 名前空間で定義されます。  

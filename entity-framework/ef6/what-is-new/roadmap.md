@@ -2,19 +2,13 @@
 title: Entity Framework の EF6 の将来のバージョン
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: d8666b7a-deda-45e7-8b8e-d1d64a2724d3
-caps.latest.revision: 3
-ms.openlocfilehash: 99c037a6336765e522bacbd3143534a604f4d3d5
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 0aa1f37f6ca57e2d395af570bed92840a69f2fee
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39122252"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997021"
 ---
 # <a name="future-versions-of-entity-framework"></a>Entity Framework の将来のバージョン 
 ここで Entity Framework の今後のバージョンの情報を確認できます。

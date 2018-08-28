@@ -1,25 +1,23 @@
 ---
-title: 含む (&) のプロパティ - EF コアの除外
+title: 含める/除外するプロパティ - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: e9dff604-3469-4a05-8f9e-18ac281d82a9
-ms.technology: entity-framework-core
 uid: core/modeling/included-properties
-ms.openlocfilehash: a6eaea4319f6a4d30c223265bf75a88731a38443
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 07b70e4517b67490e04a9ec9fa22b9b5d5217681
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052492"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998256"
 ---
-# <a name="including--excluding-properties"></a>含む (&) プロパティを除外
+# <a name="including--excluding-properties"></a>含める/除外するプロパティ
 
-モデル内のプロパティを含む EF は、そのプロパティに関するメタデータであることを意味しますし、読み取りし、書き込み値をデータベースから/を試みます。
+読み取りし、書き込み値をデータベースから/にしようし、モデル内のプロパティを含む EF がそのプロパティに関するメタデータを持っていることを意味します。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-慣例により、モデルの getter と setter のパブリック プロパティが含まれます。
+慣例により、getter および setter を含むパブリック プロパティは、モデルに含まれます。
 
 ## <a name="data-annotations"></a>データの注釈
 
@@ -39,7 +37,7 @@ public class Blog
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用すると、モデルからプロパティを除外します。
+Fluent API を使用して、モデルからプロパティを除外することができます。
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IgnoreProperty.cs?highlight=7,8)] -->
 ``` csharp

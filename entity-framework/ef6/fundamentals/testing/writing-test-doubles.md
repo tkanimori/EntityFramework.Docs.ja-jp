@@ -2,19 +2,13 @@
 title: 独自のテスト代替の EF6 でのテスト
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-caps.latest.revision: 4
-ms.openlocfilehash: 4e2511f92f9bb034ab468dd030ef238e325ce7c0
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: fa63c483e0a55b6cbd43382f68ab9592f3c1768b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "39122571"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997218"
 ---
 # <a name="testing-with-your-own-test-doubles"></a>独自のテスト代替によるテスト
 > [!NOTE]

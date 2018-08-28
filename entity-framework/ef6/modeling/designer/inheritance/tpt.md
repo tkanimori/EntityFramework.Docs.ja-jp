@@ -2,19 +2,13 @@
 title: デザイナー TPT 継承 - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: efc78c31-b4ea-4ea3-a0cd-c69eb507020e
-caps.latest.revision: 3
-ms.openlocfilehash: c3ccb44f931b830a96a553d5af1e722a9ca4bbf0
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 68980fa89446940b8b7f5f73c519d38e727a9039
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39122379"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996349"
 ---
 # <a name="designer-tpt-inheritance"></a>デザイナー TPT 継承
 このステップ バイ ステップ チュートリアルでは、Entity Framework デザイナー (EF Designer) を使用して、モデル内のテーブル、単位の種類 (TPT) 継承を実装する方法を示します。 Table-Per-Type 継承は、データベース内の別個のテーブルを使用して、非継承プロパティと継承階層のそれぞれの型のキー プロパティのデータを維持します。
@@ -29,7 +23,7 @@ Table-per-hierarchy (TPH) では、継承、継承階層内のエンティティ
 
 具象ごとのテーブル型 (TPC) 継承と混在の継承モデルは、Entity Framework ランタイムによってサポートされますが、EF Designer でサポートされていないに注意してください。 2 つのオプションがある TPC または混在の継承を使用する場合は、: Code First を使用して、または EDMX ファイルを手動で編集します。 EDMX ファイルを使用する場合は、マッピングの詳細 ウィンドウは、「セーフ モード」に格納されます。 そして、デザイナーを使用して、マッピング変更することはできません。
 
-## <a name="prerequisites"></a>前提条件
+## <a name="prerequisites"></a>必須コンポーネント
 
 このチュートリアルを完了するための要件を次に示します。
 

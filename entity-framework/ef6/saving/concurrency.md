@@ -2,19 +2,13 @@
 title: 同時実行の競合の EF6 の処理
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 2318e4d3-f561-4720-bbc3-921556806476
-caps.latest.revision: 3
-ms.openlocfilehash: b8608dbb4cadd60ff4ff4984583f8a9d843b3949
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: f233af217287dd6bf35e5b7fea8e44974168b312
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39121835"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997811"
 ---
 # <a name="handling-concurrency-conflicts"></a>同時実行の競合の処理
 オプティミスティック同時実行は共有的では、エンティティをエンティティからデータが変更されていないことを期待してデータベースに保存しようとしてが読み込まれました。 わかった場合、例外がスローされ、再度保存する前に、競合を解決する必要がありますし、データが変更されました。 このトピックでは、Entity Framework では、このような例外を処理する方法について説明します。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  

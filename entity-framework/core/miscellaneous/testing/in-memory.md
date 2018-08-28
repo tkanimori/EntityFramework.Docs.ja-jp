@@ -1,17 +1,15 @@
 ---
 title: InMemory - EF Core でのテスト
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 0d0590f1-1ea3-4d5c-8f44-db17395cd3f3
-ms.technology: entity-framework-core
 uid: core/miscellaneous/testing/in-memory
-ms.openlocfilehash: f814c8955e155688bb5e8d34b9c9f6d24dcc6601
-ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
+ms.openlocfilehash: 2754d1deba98fcee0eb88669293b2197545c8874
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/07/2018
-ms.locfileid: "37900263"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997893"
 ---
 # <a name="testing-with-inmemory"></a>InMemory のテスト
 

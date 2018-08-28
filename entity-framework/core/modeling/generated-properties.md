@@ -1,77 +1,75 @@
 ---
-title: '生成された値: EF コア'
+title: 生成された値 - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: eb082011-11a1-41b4-a108-15daafa03e80
-ms.technology: entity-framework-core
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 88ccc2da3c2b6cbba8920d7113c82e769b459897
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: a3656eb1d2dc79ceead04e3a142a58e8afb3cbce
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812639"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996778"
 ---
-# <a name="generated-values"></a>生成される値
+# <a name="generated-values"></a>生成された値
 
 ## <a name="value-generation-patterns"></a>値の生成のパターン
 
-プロパティを使用できる 3 つの値生成パターンがあります。
+プロパティを使用できる 3 つの値の生成パターンがあります。
 
 ### <a name="no-value-generation"></a>値を生成しません。
 
-値を生成ないことを意味をデータベースに保存する有効な値を常に指定されます。 この有効な値は、コンテキストに追加される前に新しいエンティティに割り当てる必要があります。
+値の生成がありません、データベースに保存する有効な値を常に指定されます。 この有効な値は、コンテキストに追加される前に新しいエンティティに割り当てる必要があります。
 
 ### <a name="value-generated-on-add"></a>生成された値を追加します。
 
-生成された値の追加手段値は、新しいエンティティを生成します。
+生成された値が意味を追加する新しいエンティティの値が生成されます。
 
-使用されているデータベース プロバイダーによって、値があります EF またはデータベース内のクライアント側を生成します。 値は、データベースによって生成される場合、し、EF 可能性があります値を割り当てる一時コンテキストにエンティティを追加するとします。 この一時的な値は、中にデータベースで生成された値で置き換えられます`SaveChanges()`です。
+使用されているデータベース プロバイダーによって、値があります EF によって、またはデータベース内のクライアント側を生成します。 値は、データベースによって生成、し、EF 割り当てられる一時的な値をコンテキストにエンティティを追加するとします。 この一時的な値は中にデータベースで生成された値で置き換えられます`SaveChanges()`します。
 
-プロパティに割り当てられている値を持つコンテキストにエンティティを追加する場合、EF を新たに生成するのではなく、その値を挿入しようとします。 プロパティは、CLR の既定値が割り当てられていない場合に割り当てられた値を持つと見なされます (`null`の`string`、`0`の`int`、`Guid.Empty`の`Guid`, などです。)。 詳細については、次を参照してください。[生成されたプロパティの値を明示的](../saving/explicit-values-generated-properties.md)です。
+プロパティに割り当てられている値を持つコンテキストにエンティティを追加する場合、EF を新たに生成するのではなく、その値を挿入しようとします。 プロパティは、CLR の既定値が割り当てられていない場合に割り当てられている値を持つと見なされます (`null`の`string`、`0`の`int`、`Guid.Empty`の`Guid`など。)。 詳細については、次を参照してください。[生成されたプロパティの値を明示的](../saving/explicit-values-generated-properties.md)します。
 
 > [!WARNING]  
-> 追加されたエンティティの値を生成する方法は、使用中のデータベース プロバイダーによって異なります。 データベース プロバイダーのプロパティの種類によっての値を生成可能性があります自動セットアップしますが、他のユーザーがあります値を生成する方法を手動で設定します。
+> 追加されたエンティティの値を生成する方法は、使用中のデータベース プロバイダーによって異なります。 データベース プロバイダーがいくつかのプロパティの型の値を生成をセットアップして自動的には、値を生成する方法を手動で設定する他のユーザー必要があります。
 >
-> たとえば、SQL Server を使用する場合の値に自動的にに対して生成されます`GUID`プロパティ (アルゴリズムを使用して、SQL Server シーケンシャル GUID)。 ただし、設定した場合、`DateTime`プロパティは、生成に追加する値を生成するための手段をセットアップする必要があります。 既定値を構成するには、1 つの方法は、`GETDATE()`を参照してください[既定値](relational/default-values.md)です。
+> たとえば、SQL Server を使用する場合の値が自動的に生成されますの`GUID`プロパティ (SQL Server のシーケンシャルな GUID アルゴリズムを使用して)。 ただし、ことを指定する場合、`DateTime`プロパティが生成されるで追加の値を生成する方法をセットアップする必要があります。 既定値を構成するには、1 つの方法は、`GETDATE()`を参照してください[既定値](relational/default-values.md)します。
 
 ### <a name="value-generated-on-add-or-update"></a>生成された値で追加または更新
 
-生成された値に追加または更新プログラムが (insert または update) レコードを保存するたびに、新しい値が生成されることを意味します。
+生成された値で追加または更新は、レコードが (挿入または更新) を保存するたびに、新しい値が生成されることを意味します。
 
-同様に`value generated on add`新しく追加された値が生成される値ではなく挿入することは、エンティティのインスタンスのプロパティの値を指定する場合は、します。 更新するときに、明示的な値を設定することもできます。 詳細については、次を参照してください。[生成されたプロパティの値を明示的](../saving/explicit-values-generated-properties.md)です。
+ような`value generated on add`新しく追加された値が生成される値ではなく挿入することは、エンティティのインスタンスでプロパティの値を指定する場合、します。 更新するときに、明示的な値を設定することもできます。 詳細については、次を参照してください。[生成されたプロパティの値を明示的](../saving/explicit-values-generated-properties.md)します。
 
 > [!WARNING]
-> 追加と更新されたエンティティの値を生成する方法は、使用中のデータベース プロバイダーによって異なります。 データベース プロバイダー、他のユーザーが必要とする値を生成する方法を手動でセットアップするプロパティの種類によっての値を生成が自動的にセットアップ可能性があります。
+> 追加および更新されたエンティティの値を生成する方法は、使用中のデータベース プロバイダーによって異なります。 データベース プロバイダー、他のユーザーが必要とする値を生成する方法を手動で設定するプロパティの種類によっての値を生成が自動的にセットアップ可能性があります。
 > 
-> たとえば、SQL Server を使用して`byte[]`で生成されるように設定されているプロパティの追加または更新、および環境でのセットアップになります、同時実行トークンとしてマークされている、`rowversion`データ型の値はデータベースで生成するようにします。 ただし、設定した場合、`DateTime`プロパティが生成されるで追加または更新の値を生成する方法をセットアップする必要があります。 既定値を構成するには、1 つの方法は、 `GETDATE()` (を参照してください[既定値](relational/default-values.md)) を新しい行の値を生成します。 データベース トリガーを使用して、(次の例のトリガー) などの更新時に値を生成する可能性があります。
+> たとえば、SQL Server を使用して`byte[]`で生成されるように設定されているプロパティの追加または更新、および同時実行トークンとしてマークされているに設定されます。、`rowversion`データ型の値は、データベースで生成するようにします。 ただし、ことを指定する場合、`DateTime`プロパティが生成されるで追加または更新の値を生成する方法をセットアップする必要があります。 既定値を構成するには、1 つの方法は、 `GETDATE()` (を参照してください[既定値](relational/default-values.md)) を新しい行の値を生成します。 データベース トリガーを使用して、(次の例のトリガー) などの更新中に値を生成する可能性があります。
 > 
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.sql)]
 
 ## <a name="conventions"></a>規約
 
-慣例により、型 short、int 型の非複合主キーが long、または Guid が追加で生成された値が設定されます。 他のすべてのプロパティには、値を生成しないとセットアップはできます。
+慣例により、型 short、int 型の非複合主キーが長い、または Guid をセットアップして、追加で生成された値となります。 その他のすべてのプロパティ値を生成しないとセットアップになります。
 
 ## <a name="data-annotations"></a>データの注釈
 
-### <a name="no-value-generation-data-annotations"></a>値が (データ注釈) を生成しません。
+### <a name="no-value-generation-data-annotations"></a>値を生成しない (データ注釈)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/ValueGeneratedNever.cs#Sample)]
 
-### <a name="value-generated-on-add-data-annotations"></a>生成された値が (データ注釈) を追加します。
+### <a name="value-generated-on-add-data-annotations"></a>生成された値 (データ注釈) を追加します。
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> これにより、EF を追加したエンティティの値が生成される、EF が値を生成する実際のメカニズムを設定することは保証されませんを理解ことだけです。 参照してください[で生成された値を追加](#value-generated-on-add)詳細についてはします。
+> これにより、EF に追加されたエンティティの値が生成される、EF が実際の値を生成するメカニズムを設定することが保証されないことを通知ことだけです。 参照してください[で生成された値を追加](#value-generated-on-add)詳細セクション。
 
 ### <a name="value-generated-on-add-or-update-data-annotations"></a>生成された値を追加または更新 (データ注釈)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/ValueGeneratedOnAddOrUpdate.cs#Sample)]
 
 > [!WARNING]  
-> これにより、EF の追加または更新されたエンティティの値が生成されることは、EF が値を生成する実際のメカニズムを設定することは保証されませんを理解ことだけです。 参照してください[で生成された値を追加または更新](#value-generated-on-add-or-update)詳細についてはします。
+> これにより、EF に通知を追加または更新されたエンティティの値が生成される、EF が実際の値を生成するメカニズムを設定することは保証されないことだけです。 参照してください[で生成された値を追加または更新](#value-generated-on-add-or-update)詳細セクション。
 
 ## <a name="fluent-api"></a>Fluent API
 
@@ -86,11 +84,11 @@ Fluent API を使用して、特定のプロパティの値の生成のパター
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAdd.cs#Sample)]
 
 > [!WARNING]  
-> `ValueGeneratedOnAdd()` EF を追加したエンティティの値が生成される、EF が値を生成する実際のメカニズムを設定することは保証されませんを理解したことができます。  参照してください[で生成された値を追加](#value-generated-on-add)詳細についてはします。
+> `ValueGeneratedOnAdd()` だけが EF に追加されたエンティティの値が生成される、EF が実際の値を生成するメカニズムを設定することが保証されないことを通知することができます。  参照してください[で生成された値を追加](#value-generated-on-add)詳細セクション。
 
 ### <a name="value-generated-on-add-or-update-fluent-api"></a>生成された値を追加または更新 (Fluent API)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/ValueGeneratedOnAddOrUpdate.cs#Sample)]
 
 > [!WARNING]  
-> これにより、EF の追加または更新されたエンティティの値が生成されることは、EF が値を生成する実際のメカニズムを設定することは保証されませんを理解ことだけです。 参照してください[で生成された値を追加または更新](#value-generated-on-add-or-update)詳細についてはします。
+> これにより、EF に通知を追加または更新されたエンティティの値が生成される、EF が実際の値を生成するメカニズムを設定することは保証されないことだけです。 参照してください[で生成された値を追加または更新](#value-generated-on-add-or-update)詳細セクション。

@@ -1,33 +1,31 @@
 ---
-title: 含む & 種類 - EF コアを除外します。
+title: 含める/除外する型 - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: cbe6935e-2679-4b77-8914-a8d772240cf1
-ms.technology: entity-framework-core
 uid: core/modeling/included-types
-ms.openlocfilehash: a8d7293a144968d2506bdcc76e55a1a0b1e3fd4b
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: a5a14f62524754fed179e9a41fac5e29faf185ca
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052602"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996151"
 ---
-# <a name="including--excluding-types"></a>含むと種類を除外します。
+# <a name="including--excluding-types"></a>含める/除外する型
 
-入力し、インスタンスから/データベースの読み書きを試みます EF にはに関するメタデータが含まれているモデル手段で型を含みます。
+種類を含むにモデルを EF がに関するメタデータを持つ入力し、読み取りし、書き込みデータベースのインスタンスを試みます。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-規則で公開されている型`DbSet`コンテキストにプロパティが、モデルに追加します。 さらに記載されている型、`OnModelCreating`メソッドも含まれています。 最後に、再帰的に検出された型のナビゲーション プロパティを表示しているすべての型は、モデルにも含まれます。
+慣例により、型で公開されている`DbSet`プロパティのコンテキストで、モデルに含まれます。 さらに記載されている型、`OnModelCreating`メソッドも含まれています。 最後に、検出された型のナビゲーション プロパティの調査を再帰的にある任意の型は、モデルにも含まれます。
 
-**たとえば、次のコード リストで 3 種類すべてが検出されます。**
+**たとえば、次のコード リストですべての 3 種類が検出されます。**
 
-* `Blog`公開されているため、`DbSet`コンテキストのプロパティ
+* `Blog` 公開されているため、`DbSet`コンテキストのプロパティ
 
-* `Post`使用して検出されるため、`Blog.Posts`ナビゲーション プロパティ
+* `Post` 使用して検出されたため、`Blog.Posts`ナビゲーション プロパティ
 
-* `AuditEntry`指定されているため`OnModelCreating`
+* `AuditEntry` 指定されているため、 `OnModelCreating`
 
 <!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/IncludedTypes.cs?highlight=3,7,16)] -->
 ``` csharp

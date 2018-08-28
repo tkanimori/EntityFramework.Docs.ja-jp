@@ -1,17 +1,15 @@
 ---
-title: 接続文字列の EF コア
+title: 接続文字列 - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
-ms.technology: entity-framework-core
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: b4ed01f0452d74ac49d3fde780caa5f1b25a6e97
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 942865effba7b491dd950886ea30b69a86f1186c
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052532"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997672"
 ---
 # <a name="connection-strings"></a>接続文字列
 
@@ -19,7 +17,7 @@ ms.locfileid: "26052532"
 
 ## <a name="net-framework-applications"></a>.NET framework アプリケーション
 
-WinForms、WPF、コンソール、および ASP.NET 4 などの .NET framework アプリケーションでは、しようとして、テスト対象の接続文字列のパターンがあります。 接続文字列は、アプリケーションの App.config ファイル (Web.config ASP.NET を使用している場合) に追加する必要があります。 使用して、構成ファイルの内容を保護するには、接続文字列には、ユーザー名とパスワードなどの機密情報が含まれている場合[保護された構成](https://docs.microsoft.com/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration)です。
+WinForms、WPF、コンソール、および ASP.NET 4 などの .NET framework アプリケーションでは、実証済みの接続文字列のパターンがあります。 接続文字列は、アプリケーションの App.config ファイル (Web.config ASP.NET を使用している場合) に追加する必要があります。 接続文字列には、ユーザー名やパスワードなどの機密情報が含まれている場合は、使用して、構成ファイルの内容を保護することができます[保護された構成](https://docs.microsoft.com/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration)します。
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -33,9 +31,9 @@ WinForms、WPF、コンソール、および ASP.NET 4 などの .NET framework 
 ```
 
 > [!TIP]  
-> `providerName`コードを使用して、データベース プロバイダーが構成されているために App.config に保存された EF コア接続文字列では、設定は必要はありません。
+> `providerName`設定は、コードを使用して、データベース プロバイダーが構成されているために、App.config に格納されている EF Core 接続文字列では必要ありません。
 
-使用する接続文字列を読み取ることができますし、`ConfigurationManager`コンテキストの内の API`OnConfiguring`メソッドです。 参照を追加する必要があります、`System.Configuration`フレームワーク アセンブリをこの API を使用することです。
+使用して、接続文字列を読み取ることができますし、 `ConfigurationManager` API では、コンテキストの`OnConfiguring`メソッド。 参照を追加する必要があります、`System.Configuration`この API を使用できるフレームワーク アセンブリ。
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -52,7 +50,7 @@ public class BloggingContext : DbContext
 
 ## <a name="universal-windows-platform-uwp"></a>ユニバーサル Windows プラットフォーム (UWP)
 
-UWP アプリケーションで接続文字列は、通常、同じローカル ファイル名を指定する SQLite 接続です。 通常、機密情報が含まれていない、アプリケーションを展開するように変更する必要はありません。 そのため、これらの接続文字列は、次のように、コード内に残す通常は問題ありませんです。 コードの外に移動する場合、UWP をサポートしている設定の概念を参照してください、 [UWP アプリの設定で](https://docs.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data)詳細についてはします。
+UWP アプリケーションで接続文字列は、通常、ローカルのファイル名をだけを指定する SQLite 接続です。 通常は、機密情報が含まれていないと、アプリケーションを展開するように変更する必要はありません。 そのため、これらの接続文字列は、次に示すようにコードでは、通常は問題ありません。 コードの外に移動する場合、UWP がサポートの設定の概念を参照してください、 [UWP ドキュメントのアプリ設定セクション](https://docs.microsoft.com/windows/uwp/app-settings/store-and-retrieve-app-data)詳細についてはします。
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -69,7 +67,7 @@ public class BloggingContext : DbContext
 
 ## <a name="aspnet-core"></a>ASP.NET Core
 
-ASP.NET Core では、構成システムは非常に柔軟なと接続文字列に格納`appsettings.json`、環境変数、ユーザー、シークレット ストアまたは別の構成ソース。 参照してください、[構成セクションの ASP.NET Core](https://docs.asp.net/en/latest/fundamentals/configuration.html)詳細についてはします。 次の例は、接続文字列に格納されている`appsettings.json`です。
+ASP.NET Core 構成システムは非常に柔軟性と接続文字列に格納される`appsettings.json`、環境変数、user secret ストア、または別の構成ソース。 参照してください、 [ASP.NET Core のドキュメントの構成セクション](https://docs.asp.net/en/latest/fundamentals/configuration.html)の詳細。 次の例では、接続文字列に格納されている`appsettings.json`します。
 
 ``` json
 {
@@ -79,7 +77,7 @@ ASP.NET Core では、構成システムは非常に柔軟なと接続文字列�
 }
 ```
 
-コンテキストが通常で構成されている`Startup.cs`構成から読み取られている接続文字列を使用します。 注、`GetConnectionString()`メソッドはキーを持つは、構成値を検索`ConnectionStrings:<connection string name>`です。
+コンテキストが構成されている通常`Startup.cs`構成から読み取られる接続文字列に置き換えます。 注、`GetConnectionString()`メソッドはキーが構成値を検索`ConnectionStrings:<connection string name>`します。
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
