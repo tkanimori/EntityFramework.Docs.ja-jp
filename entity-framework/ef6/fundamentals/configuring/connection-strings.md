@@ -2,19 +2,13 @@
 title: 接続文字列やモデル - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 294bb138-978f-4fe2-8491-fdf3cd3c60c4
-caps.latest.revision: 3
-ms.openlocfilehash: ca597e68a5b3e2085612669ee81da10ba6969eeb
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: dce414ea84f13235691abf0dcadef5c743d90f9d
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "39122759"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994960"
 ---
 # <a name="connection-strings-and-models"></a>接続文字列とモデル
 このトピックでは、Entity Framework が使用するにはどのデータベース接続を検出する方法と、それを変更する方法について説明します。 このトピックでは、Code First と EF Designer で作成されたモデル両方が説明します。  

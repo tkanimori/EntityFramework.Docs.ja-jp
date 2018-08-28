@@ -2,19 +2,13 @@
 title: デザイナーのクエリのストアド プロシージャ - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
-caps.latest.revision: 3
-ms.openlocfilehash: a08c1afc02266b35372a49fca1e829963e4785b2
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 29b7745c2229ce4a38ad81e11406474424adfa24
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39122308"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994973"
 ---
 # <a name="designer-query-stored-procedures"></a>デザイナーのクエリのストアド プロシージャ
 このステップ バイ ステップ チュートリアルでは、モデルにストアド プロシージャをインポートする Entity Framework デザイナー (EF Designer) を使用し、結果を取得する場合は、インポートされたストアド プロシージャを呼び出す方法を説明します。 
@@ -24,7 +18,7 @@ Code First はサポートされていないことをストアド プロシー�
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 ```
 
-## <a name="prerequisites"></a>前提条件
+## <a name="prerequisites"></a>必須コンポーネント
 
 このチュートリアルを完了するための要件を次に示します。
 

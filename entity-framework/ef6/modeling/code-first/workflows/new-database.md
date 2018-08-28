@@ -2,19 +2,13 @@
 title: 新しいデータベース - EF6 code First
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-caps.latest.revision: 3
-ms.openlocfilehash: 75057fc73b082f4c745171ed77cddc358229a130
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: bb44a3300bc8ffc9d7050c4784e7b76b29c61796
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39121923"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994619"
 ---
 # <a name="code-first-to-a-new-database"></a>新しいデータベースの code First
 このビデオ、およびステップ バイ ステップ チュートリアルでは、新しいデータベースを対象とする Code First の開発の概要を提供します。 このシナリオには、存在しないデータベースを対象とするが含まれています。 Code First は作成や Code First を追加する新しい空のデータベースのテーブルも。 コードを最初に使用すると、C を使用して、モデル定義\#または VB.Net クラス。 必要に応じてクラスやプロパティ、または fluent API を使用して属性を使用して追加の構成を実行できます。

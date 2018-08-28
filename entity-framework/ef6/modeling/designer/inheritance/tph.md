@@ -2,19 +2,13 @@
 title: デザイナーの TPH 継承 - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
-caps.latest.revision: 3
-ms.openlocfilehash: 0a017d3b97808cede3134119940b2e5839d0f282
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 9a546f6450b5aa3b03c062d1ab2c6f9257ba8292
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39122284"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995005"
 ---
 # <a name="designer-tph-inheritance"></a>デザイナーの TPH 継承
 このステップ バイ ステップ チュートリアルでは、Entity Framework デザイナー (EF Designer) を使用した概念モデルでの table-per-hierarchy (TPH) 継承を実装する方法を示します。 TPH 継承は、継承階層内のエンティティ型のすべてのデータを維持するために、1 つのデータベース テーブルを使用します。
@@ -29,7 +23,7 @@ Model First を使用して TPH 継承にマップすることは、複雑なは
 
 テーブル-ごとの具象型の継承 (TPC) と混在継承モデルは、Entity Framework ランタイムによってサポートされますが、EF Designer ではサポートされていません。 2 つのオプションがある TPC または混在の継承を使用する場合は、: Code First を使用して、または EDMX ファイルを手動で編集します。 EDMX ファイルを使用する場合は、マッピングの詳細 ウィンドウは、「セーフ モード」に格納されます。 そして、デザイナーを使用して、マッピング変更することはできません。
 
-## <a name="prerequisites"></a>前提条件
+## <a name="prerequisites"></a>必須コンポーネント
 
 このチュートリアルを完了するための要件を次に示します。
 

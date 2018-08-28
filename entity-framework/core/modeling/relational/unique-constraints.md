@@ -1,28 +1,26 @@
 ---
-title: 代替キー (一意制約) - EF コア
+title: 代替キー (一意制約) - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 3d419dcf-2b5d-467c-b408-ea03d830721a
-ms.technology: entity-framework-core
 uid: core/modeling/relational/unique-constraints
-ms.openlocfilehash: 1b7e2bef6ede95f8c27211ba00dcc6b97cccde9b
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 7ec58ee31aac79e15329dc8542f37fd117772fbe
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052792"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994192"
 ---
 # <a name="alternate-keys-unique-constraints"></a>代替キー (一意制約)
 
 > [!NOTE]  
-> このセクションの構成は、一般にリレーショナル データベースに適用されます。 ここで示すように拡張メソッドが使用可能になるリレーショナル データベース プロバイダーをインストールするときに (共有のため*Microsoft.EntityFrameworkCore.Relational*パッケージ)。
+> このセクションの構成は、リレーショナル データベース全般に適用されます。 ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。
 
-Unique 制約は、モデル内の代替キーごとに導入されました。
+Unique 制約には、モデル内の各代替キーが導入されました。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-慣例により、インデックスと代替キーの導入された制約の名前は`AK_<type name>_<property name>`します。 複合の代替キーの`<property name>`プロパティ名のアンダー スコアの区切られたリストになります。
+慣例により、インデックスと代替キー用に導入された制約の名前は`AK_<type name>_<property name>`します。 複合の代替キーの`<property name>`はプロパティ名、アンダー スコア区切りリストになります。
 
 ## <a name="data-annotations"></a>データの注釈
 

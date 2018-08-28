@@ -1,36 +1,34 @@
 ---
-title: 計算列の EF コア
+title: 計算列 - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: e9d81f06-805d-45c9-97c2-3546df654829
-ms.technology: entity-framework-core
 uid: core/modeling/relational/computed-columns
-ms.openlocfilehash: 95312504286bd34cc666b5a21273835c4b35d379
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: b88efdf69e5100e4eff55f3a41925d2d8e7c3178
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052482"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993954"
 ---
 # <a name="computed-columns"></a>計算列
 
 > [!NOTE]  
-> このセクションの構成は、一般にリレーショナル データベースに適用されます。 ここで示すように拡張メソッドが使用可能になるリレーショナル データベース プロバイダーをインストールするときに (共有のため*Microsoft.EntityFrameworkCore.Relational*パッケージ)。
+> このセクションの構成は、リレーショナル データベース全般に適用されます。 ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。
 
-計算列は、その値は、データベース内計算列です。 計算列は、表内の他の列を使用して、その値を計算します。
+計算列では、値がデータベースで計算列です。 計算列は、その値を計算するのに、テーブル内の他の列を使用できます。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-慣例により、計算列は、モデルでは作成されません。
+慣例により、モデルの計算列は作成されません。
 
 ## <a name="data-annotations"></a>データの注釈
 
-データ注釈を使用した計算列を構成できません。
+計算列はデータ注釈で構成されていないことができます。
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、プロパティが計算列にマップすることを指定することができます。
+Fluent API を使用して、、プロパティは、計算列にマップする必要がありますを指定することができます。
 
 <!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/ComputedColumn.cs?highlight=9)] -->
 ``` csharp

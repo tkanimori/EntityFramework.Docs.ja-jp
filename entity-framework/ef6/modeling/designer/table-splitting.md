@@ -2,19 +2,13 @@
 title: デザイナーのテーブルは、次の分割の EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
-caps.latest.revision: 3
-ms.openlocfilehash: 6ecf9a77f7c6a743e3902de65bb75349c6ef799f
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 87b6e1bd0374f77dfffab342c659cf4e16c8a337
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39121884"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994504"
 ---
 # <a name="designer-table-splitting"></a>デザイナーのテーブルを分割
 このチュートリアルでは、Entity Framework デザイナー (EF Designer) を持つモデルを変更することで、複数のエンティティ型を 1 つのテーブルにマップする方法を示します。
@@ -25,7 +19,7 @@ ms.locfileid: "39121884"
 
 ![EFDesigner](~/ef6/media/efdesigner.png)
 
-## <a name="prerequisites"></a>前提条件
+## <a name="prerequisites"></a>必須コンポーネント
 
 このチュートリアルを完了するための要件を次に示します。
 

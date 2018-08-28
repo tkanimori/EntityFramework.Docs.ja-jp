@@ -1,32 +1,30 @@
 ---
-title: 外部キー制約の EF コア
+title: 外部キー制約 - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: dbaf4bac-1fd5-46c0-ac57-64d7153bc574
-ms.technology: entity-framework-core
 uid: core/modeling/relational/fk-constraints
-ms.openlocfilehash: 726f03e2ee4cd3ec851c9a861b75dd12f9203e9c
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: a83f72b5d832e349fb4a5fb3b2de0b82bd79ef2a
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052742"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993989"
 ---
 # <a name="foreign-key-constraints"></a>外部キー制約
 
 > [!NOTE]  
-> このセクションの構成は、一般にリレーショナル データベースに適用されます。 ここで示すように拡張メソッドが使用可能になるリレーショナル データベース プロバイダーをインストールするときに (共有のため*Microsoft.EntityFrameworkCore.Relational*パッケージ)。
+> このセクションの構成は、リレーショナル データベース全般に適用されます。 ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。
 
-モデル内の各リレーションシップの外部キー制約が導入されています。
+モデル内の各リレーションシップの外部キー制約が導入されました。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
-慣例により、外部キー制約が名前付き`FK_<dependent type name>_<principal type name>_<foreign key property name>`します。 複合外部キーの`<foreign key property name>`の外部キー プロパティ名、アンダー スコアの区切られたリストになります。
+慣例により、外部キー制約の名前は`FK_<dependent type name>_<principal type name>_<foreign key property name>`します。 複合外部キーの`<foreign key property name>`は外部キー プロパティ名、アンダー スコア区切りリストになります。
 
 ## <a name="data-annotations"></a>データの注釈
 
-外部キー制約名は、データ注釈を使用して構成することはできません。
+データ注釈を使用して外部キー制約名を構成することはできません。
 
 ## <a name="fluent-api"></a>Fluent API
 

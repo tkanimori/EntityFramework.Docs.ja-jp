@@ -3,14 +3,13 @@ title: デザイン時 DbContext 作成 - EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 10/27/2017
-ms.technology: entity-framework-core
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: 648ca990252fb32d8cf181a7ae672d07a81f56bb
-ms.sourcegitcommit: 0935ff275ae739243297f5b97eb21414398125c6
+ms.openlocfilehash: 66fec7605b6ac2da0af1e801f8a1dca0789aea35
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/23/2018
-ms.locfileid: "39201920"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993719"
 ---
 <a name="design-time-dbcontext-creation"></a>デザイン時 DbContext 作成
 ==============================
@@ -22,7 +21,7 @@ EF Core ツールのコマンドの一部 (たとえば、[移行][ 1]コマン�
 -------------------------
 ASP.NET Core アプリをスタートアップ プロジェクトには、ツールは、アプリケーションのサービス プロバイダーから DbContext オブジェクトを取得しようとします。
 
-このツールは、まずを呼び出すことによって、サービス プロバイダーを取得する`Program.BuildWebHost()`にアクセスして、`IWebHost.Services`プロパティ。
+呼び出すことによって、サービス プロバイダーを取得するツールがまず`Program.BuildWebHost()`にアクセスして、`IWebHost.Services`プロパティ。
 
 > [!NOTE]
 > 新しい ASP.NET Core 2.0 アプリケーションを作成するときに、このフックは既定で含まれています。 EF Core と ASP.NET Core の以前のバージョンでツールが起動しよう`Startup.ConfigureServices`不要になったアプリケーションのサービスのプロバイダーがこのパターンを取得するために正常に ASP.NET Core 2.0 アプリケーションで直接します。 ASP.NET Core 1.x アプリケーションを 2.0 にアップグレードする場合は、[変更、`Program`新しいパターンに従うクラス][3]します。
