@@ -1,17 +1,15 @@
 ---
 title: Microsoft SQL Server データベース プロバイダー - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 2e007c82-c6e4-45bb-8129-851b79ec1a0a
-ms.technology: entity-framework-core
 uid: core/providers/sql-server/index
-ms.openlocfilehash: 2ed7c0dd127db03d5e7340fde1ef83cf01b30135
-ms.sourcegitcommit: b2d94cebdc32edad4fecb07e53fece66437d1b04
+ms.openlocfilehash: a524794a61a9f5078998aea04b45c31c19357f2b
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/28/2018
-ms.locfileid: "29678651"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995670"
 ---
 # <a name="microsoft-sql-server-ef-core-database-provider"></a>Microsoft SQL Server EF Core データベース プロバイダー
 

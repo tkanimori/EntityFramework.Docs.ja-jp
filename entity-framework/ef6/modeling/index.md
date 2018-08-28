@@ -2,19 +2,13 @@
 title: モデルの作成 - EF6
 author: divega
 ms.date: 2018-07-05
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: 4890228E-CEA1-4595-B8AD-CA81253F8767
-caps.latest.revision: 3
-ms.openlocfilehash: e1eb4077a1fd77c66bb3e992e1d25a5de4fcc64c
-ms.sourcegitcommit: 45494121254ad4fdcec613d1dd22d850068d6f39
+ms.openlocfilehash: fda9caedfe1dd6c919bb1917bda007ad8ddd4539
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "37913513"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42995578"
 ---
 # <a name="creating-a-model"></a>モデルの作成
 
