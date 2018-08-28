@@ -1,29 +1,27 @@
 ---
-title: 含む (&) のプロパティ - EF コアの除外
+title: 含める/除外するプロパティ - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: e9dff604-3469-4a05-8f9e-18ac281d82a9
-ms.technology: entity-framework-core
 uid: core/modeling/included-properties
-ms.openlocfilehash: a6eaea4319f6a4d30c223265bf75a88731a38443
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: 07b70e4517b67490e04a9ec9fa22b9b5d5217681
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052492"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42998256"
 ---
-# <a name="including--excluding-properties"></a><span data-ttu-id="f7bde-102">含む (&) プロパティを除外</span><span class="sxs-lookup"><span data-stu-id="f7bde-102">Including & Excluding Properties</span></span>
+# <a name="including--excluding-properties"></a><span data-ttu-id="08a83-102">含める/除外するプロパティ</span><span class="sxs-lookup"><span data-stu-id="08a83-102">Including & Excluding Properties</span></span>
 
-<span data-ttu-id="f7bde-103">モデル内のプロパティを含む EF は、そのプロパティに関するメタデータであることを意味しますし、読み取りし、書き込み値をデータベースから/を試みます。</span><span class="sxs-lookup"><span data-stu-id="f7bde-103">Including a property in the model means that EF has metadata about that property and will attempt to read and write values from/to the database.</span></span>
+<span data-ttu-id="08a83-103">読み取りし、書き込み値をデータベースから/にしようし、モデル内のプロパティを含む EF がそのプロパティに関するメタデータを持っていることを意味します。</span><span class="sxs-lookup"><span data-stu-id="08a83-103">Including a property in the model means that EF has metadata about that property and will attempt to read and write values from/to the database.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="f7bde-104">規則</span><span class="sxs-lookup"><span data-stu-id="f7bde-104">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="08a83-104">規約</span><span class="sxs-lookup"><span data-stu-id="08a83-104">Conventions</span></span>
 
-<span data-ttu-id="f7bde-105">慣例により、モデルの getter と setter のパブリック プロパティが含まれます。</span><span class="sxs-lookup"><span data-stu-id="f7bde-105">By convention, public properties with a getter and a setter will be included in the model.</span></span>
+<span data-ttu-id="08a83-105">慣例により、getter および setter を含むパブリック プロパティは、モデルに含まれます。</span><span class="sxs-lookup"><span data-stu-id="08a83-105">By convention, public properties with a getter and a setter will be included in the model.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="f7bde-106">データの注釈</span><span class="sxs-lookup"><span data-stu-id="f7bde-106">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="08a83-106">データの注釈</span><span class="sxs-lookup"><span data-stu-id="08a83-106">Data Annotations</span></span>
 
-<span data-ttu-id="f7bde-107">データ注釈を使用して、モデルからプロパティを除外することができます。</span><span class="sxs-lookup"><span data-stu-id="f7bde-107">You can use Data Annotations to exclude a property from the model.</span></span>
+<span data-ttu-id="08a83-107">データ注釈を使用して、モデルからプロパティを除外することができます。</span><span class="sxs-lookup"><span data-stu-id="08a83-107">You can use Data Annotations to exclude a property from the model.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/IgnoreProperty.cs?highlight=6)] -->
 ``` csharp
@@ -37,9 +35,9 @@ public class Blog
 }
 ```
 
-## <a name="fluent-api"></a><span data-ttu-id="f7bde-108">Fluent API</span><span class="sxs-lookup"><span data-stu-id="f7bde-108">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="08a83-108">Fluent API</span><span class="sxs-lookup"><span data-stu-id="08a83-108">Fluent API</span></span>
 
-<span data-ttu-id="f7bde-109">Fluent API を使用すると、モデルからプロパティを除外します。</span><span class="sxs-lookup"><span data-stu-id="f7bde-109">You can use the Fluent API to exclude a property from the model.</span></span>
+<span data-ttu-id="08a83-109">Fluent API を使用して、モデルからプロパティを除外することができます。</span><span class="sxs-lookup"><span data-stu-id="08a83-109">You can use the Fluent API to exclude a property from the model.</span></span>
 
 <!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IgnoreProperty.cs?highlight=7,8)] -->
 ``` csharp
