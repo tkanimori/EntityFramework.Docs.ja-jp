@@ -6,16 +6,16 @@ ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 ms.technology: entity-framework-core
 uid: core/querying/raw-sql
-ms.openlocfilehash: 29b7e20e875bf791a88a92636c1df4bc4e31656b
-ms.sourcegitcommit: 038acd91ce2f5a28d76dcd2eab72eeba225e366d
+ms.openlocfilehash: a1d554795dcd8a3e5b44e89ac014f538598461cc
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/14/2018
-ms.locfileid: "34163214"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "42447690"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
-Entity Framework Core を使用すると、リレーショナル データベースを操作するときに生 SQL クエリにドロップ ダウンすることができます。 この方法は、実行するクエリが LINQ を使用して表現できない場合や、LINQ クエリを使用すると非効率的な SQL がデータベースに送信される場合に役立ちます。
+Entity Framework Core を使用すると、リレーショナル データベースを操作するときに生 SQL クエリにドロップ ダウンすることができます。 この方法は、実行するクエリが LINQ を使用して表現できない場合や、LINQ クエリを使用すると非効率的な SQL がデータベースに送信される場合に役立ちます。 生 SQL クエリは、エンティティ型か、モデルの一部である[クエリ型](xref:core/modeling/query-types) (EF Core 2.1 以降) を返すことができます。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
@@ -23,7 +23,6 @@ Entity Framework Core を使用すると、リレーショナル データベー
 ## <a name="limitations"></a>制限事項
 
 生 SQL クエリを使用する場合、注意が必要な制限事項がいくつかあります。
-* SQL クエリは、モデルの一部であるエンティティ型を返すためにのみ使用できます。 バックログで[生 SQL クエリからアドホック型を返すことができる](https://github.com/aspnet/EntityFramework/issues/1862)機能が強化されています。
 
 * SQL クエリは、エンティティ型またはクエリ型のすべてのプロパティのデータを返す必要があります。
 
@@ -36,7 +35,7 @@ Entity Framework Core を使用すると、リレーショナル データベー
   * SQL Server では、末尾のクエリ レベル ヒント (例: `OPTION (HASH JOIN)`)
   * SQL Server では、`SELECT` 句の `TOP 100 PERCENT` を伴わない `ORDER BY` 句
 
-* `SELECT` 以外の SQL ステートメントは、自動的に非コンポーザブルと認識されます。 その結果、ストアド プロシージャのすべての結果が常にクライアントに返され、`FromSql` の後に適用されたすべての LINQ 演算子はメモリ内で評価されます。 
+* `SELECT` 以外の SQL ステートメントは、自動的に非コンポーザブルと認識されます。 その結果、ストアド プロシージャのすべての結果が常にクライアントに返され、`FromSql` の後に適用されたすべての LINQ 演算子はメモリ内で評価されます。
 
 ## <a name="basic-raw-sql-queries"></a>基本的な生 SQL クエリ
 

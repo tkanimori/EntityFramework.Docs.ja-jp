@@ -1,20 +1,20 @@
 ---
 title: サポートされている .NET 実装 - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 08/30/2017
-ms.technology: entity-framework-core
 uid: core/platforms/index
-ms.openlocfilehash: 790628c407cc4374fee4ebde8201783955afdcc3
-ms.sourcegitcommit: fd50ac53b93a03825dcbb42ed2e7ca95ca858d5f
+ms.openlocfilehash: 347965818f0eab9a86411f66eaaf10cb3aa8d652
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/07/2018
-ms.locfileid: "37900331"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996439"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>EF Core でサポートされている .NET 実装
 
 Microsoft は .NET コードを記述できるあらゆる場所で EF Core を使えるようにすることを目指しており、その目標に向かって現在も取り組んでいます。 EF Core の .NET Core および .NET Framework でのサポートは、自動テストによってカバーされており、多くのアプリケーションがそれを正常に使用していることがわかっていますが、Mono、Xamarin、UWP にはいくつか問題があります。
+
+## <a name="overview"></a>概要
 
 .NET 実装のガイダンスを下の表にまとめました。
 
@@ -31,6 +31,18 @@ Microsoft は .NET コードを記述できるあらゆる場所で EF Core を�
 
 <sup>(3)</sup> Xamarin には問題と既知の制限があり、そのために、EF Core 2.0 で開発された一部のアプリケーションが正しく動作しない可能性があります。 回避策については、[アクティブな懸案事項](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-xamarin)の一覧を確認してください。
 
-<sup>(4)</sup> EF Core と .NET UWP の以前のバージョンには、多数の互換性の問題があり、特に .NET ネイティブ ツールチェーンでコンパイルされたアプリケーションの場合に問題があります。 新しい .NET UWP バージョンでは、.NET Standard 2.0 のサポートが追加され、.NET Native 2.0 が含まれています。これにより、以前に報告されているほとんどの互換性の問題が解決されています。 EF Core 2.0.1 は、UWP でより完全にテストされていますが、テストは自動化されていません。
+<sup>(4)</sup> この記事の「[ユニバーサル Windows プラットフォーム](#universal-windows-platform)」セクションをご覧ください。
+
+## <a name="universal-windows-platform"></a>ユニバーサル Windows プラットフォーム
+
+EF Core と .NET UWP の以前のバージョンには、多数の互換性の問題があり、特に .NET ネイティブ ツールチェーンでコンパイルされたアプリケーションの場合に顕著でした。 新しい .NET UWP バージョンでは、.NET Standard 2.0 のサポートが追加され、.NET Native 2.0 が含まれています。これにより、以前に報告されているほとんどの互換性の問題が解決されています。 EF Core 2.0.1 は、UWP でより完全にテストされていますが、テストは自動化されていません。
+
+UWP で EF Core を使用する場合:
+
+* クエリのパフォーマンスを最適化するには、LINQ クエリで匿名型を回避します。 UWP アプリケーションをアプリ ストアに配置するには、アプリケーションを .NET ネイティブでコンパイルする必要があります。 匿名型のクエリは、.NET ネイティブではパフォーマンスが低下します。
+
+* `SaveChanges()` のパフォーマンスを最適化するには、[ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) を使用し、エンティティ型で [INotifyPropertyChanged](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx)、[INotifyPropertyChanging](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx)、[INotifyCollectionChanged](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) を実装します。
+
+## <a name="report-issues"></a>問題のレポート
 
 予想どおりに機能しない組み合わせについては、[EF Core 問題追跡ツール](https://github.com/aspnet/entityframeworkcore/issues/new)で新しい問題を登録することが推奨されています。 Xamarin 関連の問題については、 [Xamarin.Android](https://github.com/xamarin/xamarin-android/issues/new) または [Xamarin.iOS](https://github.com/xamarin/xamarin-macios/issues/new) の問題追跡ツールをご利用ください。

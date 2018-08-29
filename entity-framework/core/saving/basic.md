@@ -6,12 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 ms.technology: entity-framework-core
 uid: core/saving/basic
-ms.openlocfilehash: deead323301dc4a0ee0748b4536ddff4596b99e6
-ms.sourcegitcommit: 4997314356118d0d97b04ad82e433e49bb9420a2
+ms.openlocfilehash: ecf8f344a5baae37a5e7255a4affb1085f1b3ff3
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2018
-ms.locfileid: "31006664"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "42447797"
 ---
 # <a name="basic-save"></a>基本の保存
 

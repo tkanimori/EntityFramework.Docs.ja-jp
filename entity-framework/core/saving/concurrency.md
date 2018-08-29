@@ -5,12 +5,12 @@ ms.author: divega
 ms.date: 03/03/2018
 ms.technology: entity-framework-core
 uid: core/saving/concurrency
-ms.openlocfilehash: 288d9c6fced5ebbaa2c366248c68547502c3698e
-ms.sourcegitcommit: 8f3be0a2a394253efb653388ec66bda964e5ee1b
+ms.openlocfilehash: 2d8909585201a45eb020537847800f125b3b0120
+ms.sourcegitcommit: 72e59e6af86b568653e1b29727529dfd7f65d312
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/05/2018
-ms.locfileid: "29745487"
+ms.lasthandoff: 06/04/2018
+ms.locfileid: "42447716"
 ---
 # <a name="handling-concurrency-conflicts"></a>同時実行の競合の処理
 
@@ -48,7 +48,7 @@ WHERE [PersonId] = @p0 AND [LastName] = @p2;
 
 ## <a name="resolving-concurrency-conflicts"></a>同時実行の競合の解決
 
-前の例に続けて、あるユーザーが `Person` に対するいくつかの変更を保存しようとしたところ、別のユーザーが既に `LastName` を変更していた場合、例外がスローされます。
+前の例に続けて、あるユーザーが `Person` に対する変更を保存しようとしたところ、別のユーザーが既に `LastName` を変更していた場合、例外がスローされます。
 
 この時点で、アプリケーションは単純に、変更の競合が原因で更新が成功しなかったことをユーザーに通知して、次の処理へ移ります。 しかし、このレコードが引き続き実際の同一人物を表しており、処理を再試行できることを確認するよう、ユーザーに求めることが望ましい場合があります。
 

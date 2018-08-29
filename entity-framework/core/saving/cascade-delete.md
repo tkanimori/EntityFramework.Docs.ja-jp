@@ -6,12 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 ms.technology: entity-framework-core
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 0fc8929c56d4c657b7fb1e3c8e4b1a71659220c9
-ms.sourcegitcommit: 507a40ed050fee957bcf8cf05f6e0ec8a3b1a363
+ms.openlocfilehash: 7e1c87ae3a955c22b267a108ea7c2bb504e9acc3
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/26/2018
-ms.locfileid: "31812678"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "42447633"
 ---
 # <a name="cascade-delete"></a>連鎖削除
 
@@ -32,7 +32,10 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 上記の 2 番目のアクションで、外部キーが Null 許容でない場合、外部キー値を null に設定する操作は無効になります  (Null 許容ではない外部キーは、必須のリレーションシップと同等です)。このような場合、EF Core は、SaveChanges が呼び出されるまで外部キーのプロパティが null とマークされていたことを追跡します。このとき、変更をデータベースに永続化できないため、例外がスローされます。 これは、データベースから制約違反を受け取る場合と似ています。
 
-次の表に示すように、削除動作は 4 つあります。 省略可能なリレーションシップ (Null 許容の外部キー) の場合、null の外部キー値を保存することが_できます_。その結果、次のような影響があります。
+次の表に示すように、削除動作は 4 つあります。
+
+### <a name="optional-relationships"></a>省略可能なリレーションシップ
+省略可能なリレーションシップ (Null 許容の外部キー) の場合、null の外部キー値を保存することが_できます_。その結果、次のような影響があります。
 
 | 動作名               | メモリ内の依存/子への影響    | データベース内の依存/子への影響  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
@@ -41,6 +44,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 | **SetNull**                 | 外部キー プロパティは null に設定されます | 外部キー プロパティは null に設定されます |
 | **Restrict**                | なし                                   | なし                                   |
 
+### <a name="required-relationships"></a>必須リレーションシップ
 必須のリレーションシップ (Null 許容ではない外部キー) の場合、null の外部キー値を保存することが_できません_。その結果、次のような影響があります。
 
 | 動作名         | メモリ内の依存/子への影響 | データベース内の依存/子への影響 |
