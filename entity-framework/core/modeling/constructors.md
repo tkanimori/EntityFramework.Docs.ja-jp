@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
-ms.openlocfilehash: 0536393d074d82583f47faae13cc22498193cb7e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1b36197465fb9a6571a306d36eb1e9d885a5399e
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994894"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152466"
 ---
 # <a name="entity-types-with-constructors"></a>コンス トラクターを使用したエンティティ型
 
@@ -25,7 +25,7 @@ EF Core 2.1 以降の場合は、パラメーターを持つコンス トラク�
 
 一般的なブログの投稿/モデルを検討してください。
 
-```Csharp
+``` csharp
 public class Blog
 {
     public int Id { get; set; }
@@ -50,7 +50,7 @@ public class Post
 
 EF Core では、これらの型のインスタンスを作成するときなど、クエリの結果を最初に既定のパラメーターなしコンス トラクターを呼び出すし、値に、データベースからの各プロパティを設定します。 ただし、EF Core でパラメーター化されたコンス トラクターが見つかった場合は、パラメーターの名前との一致する型のプロパティをマップし、それらのプロパティの値を持つパラメーター化されたコンス トラクターを呼び出す代わりには、各プロパティを明示的に設定しません。 例えば:
 
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog(int id, string name, string author)
@@ -99,7 +99,7 @@ public class Post
 * 自動的に生成されたキーの値を使用して、キー プロパティ、キーの値は、新しいエンティティを挿入するときにキー生成コンポーネントによって設定する必要があるため、読み取り/書き込みである必要があります。
 
 これらの操作を回避する簡単な方法では、プライベート セッターを使用します。 例えば:
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog(int id, string name, string author)
@@ -139,7 +139,7 @@ EF Core には、読み取り/書き込み、つまり、すべてのプロパ�
 
 プライベート セッターを使用する代わりに実際に読み取り専用プロパティを作成し、OnModelCreating でより明確なマッピングを追加することです。 同様に、いくつかのプロパティを完全に削除し、フィールドだけに置き換えられます。 たとえば、これらのエンティティ型があるとします。
 
-```Csharp
+``` csharp
 public class Blog
 {
     private int _id;
@@ -174,7 +174,7 @@ public class Post
 }
 ```
 OnModelCreating では、この構成:
-```Csharp
+``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Blog>(
@@ -215,7 +215,7 @@ EF Core は、エンティティ型のコンス トラクターに「サービ�
 
 たとえば、選択的にそれらすべてを読み込むことがなく、関連エンティティに関する情報を取得するデータベースにアクセスする挿入の DbContext を使用できます。 次の例では、これは、投稿を読み込むことがなく、ブログの投稿の数の取得に使用しています。
 
-```Csharp
+``` csharp
 public class Blog
 {
     public Blog()

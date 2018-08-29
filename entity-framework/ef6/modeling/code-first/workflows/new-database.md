@@ -3,18 +3,18 @@ title: 新しいデータベース - EF6 code First
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: bb44a3300bc8ffc9d7050c4784e7b76b29c61796
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 50c6a4710bc50879304f64e781a46c4836f86882
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994619"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152479"
 ---
 # <a name="code-first-to-a-new-database"></a>新しいデータベースの code First
-このビデオ、およびステップ バイ ステップ チュートリアルでは、新しいデータベースを対象とする Code First の開発の概要を提供します。 このシナリオには、存在しないデータベースを対象とするが含まれています。 Code First は作成や Code First を追加する新しい空のデータベースのテーブルも。 コードを最初に使用すると、C を使用して、モデル定義\#または VB.Net クラス。 必要に応じてクラスやプロパティ、または fluent API を使用して属性を使用して追加の構成を実行できます。
+このビデオ、およびステップ バイ ステップ チュートリアルでは、新しいデータベースを対象とする Code First の開発の概要を提供します。 このシナリオには、存在しないデータベースを対象とするが含まれていますと Code First が作成、または空のデータベースを Code First が新しいテーブルを追加します。 コードを最初に使用すると、C を使用して、モデル定義\#または VB.Net クラス。 必要に応じてクラスやプロパティ、または fluent API を使用して属性を使用して追加の構成を実行できます。
 
 ## <a name="watch-the-video"></a>ビデオを見る
-このビデオでは、新しいデータベースを対象とする Code First の開発の概要を提供します。 このシナリオには、存在しないデータベースを対象とするが含まれています。 Code First は作成や Code First を追加する新しい空のデータベースのテーブルも。 まず、コードを使用すると、c# または VB.Net のクラスを使用してモデルを定義できます。 必要に応じてクラスやプロパティ、または fluent API を使用して属性を使用して追加の構成を実行できます。
+このビデオでは、新しいデータベースを対象とする Code First の開発の概要を提供します。 このシナリオには、存在しないデータベースを対象とするが含まれていますと Code First が作成、または空のデータベースを Code First が新しいテーブルを追加します。 まず、コードを使用すると、c# または VB.Net のクラスを使用してモデルを定義できます。 必要に応じてクラスやプロパティ、または fluent API を使用して属性を使用して追加の構成を実行できます。
 
 **提供**: [Rowan Miller](http://romiller.com/)
 

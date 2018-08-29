@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/value-conversions
-ms.openlocfilehash: d6b51a0a70ee527844b6fe995f39bec534dbaba8
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a1956221ecc920feba796e4d95cc97259e89c53
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996289"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152511"
 ---
 # <a name="value-conversions"></a>値の変換
 
@@ -27,7 +27,7 @@ ms.locfileid: "42996289"
 ## <a name="configuring-a-value-converter"></a>値コンバーターを構成します。
 
 値の変換が内のプロパティで定義されている、`OnModelCreating`の`DbContext`します。 たとえば、として定義された列挙型とエンティティ型があるとします。
-```Csharp
+``` csharp
 public class Rider
 {
     public int Id { get; set; }
@@ -43,7 +43,7 @@ public enum EquineBeast
 }
 ```
 変換を定義することができますし、`OnModelCreating`列挙値、データベース内の文字列 (たとえば、「ロバ」、「ラバ」、...) として保存します。
-```Csharp
+``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder
@@ -60,7 +60,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 ## <a name="the-valueconverter-class"></a>ValueConverter クラス
 
 呼び出す`HasConversion`作成は上記を`ValueConverter`インスタンスし、プロパティに設定します。 `ValueConverter`代わりに明示的に作成することができます。 例えば:
-```Csharp
+``` csharp
 var converter = new ValueConverter<EquineBeast, string>(
     v => v.ToString(),
     v => (EquineBeast)Enum.Parse(typeof(EquineBeast), v));
@@ -82,7 +82,7 @@ modelBuilder
 * `BoolToStringConverter` -"Y"と"N"などの文字列をブール値
 * `BoolToTwoValuesConverter` -2 つの値をブール値
 * `BytesToStringConverter` Base64 でエンコードされた文字列をバイト配列
-* `CastingConverter` -Csharp のキャストのみが必要です変換
+* `CastingConverter` -型キャストのみが必要です変換
 * `CharToStringConverter` -1 つの文字の文字列を文字します。
 * `DateTimeOffsetToBinaryConverter` -64 ビットのバイナリ エンコードされた値を DateTimeOffset
 * `DateTimeOffsetToBytesConverter` 、バイト配列に DateTimeOffset
@@ -101,7 +101,7 @@ modelBuilder
 * `TimeSpanToTicksConverter` -タイマー刻みを TimeSpan
 
 注意`EnumToStringConverter`この一覧が含まれます。 これは変換を明示的に、上記のように指定する必要がないことを意味します。 代わりに、組み込みのコンバーターを使用します。
-```Csharp
+``` csharp
 var converter = new EnumToStringConverter<EquineBeast>();
 
 modelBuilder
@@ -114,14 +114,14 @@ modelBuilder
 ## <a name="pre-defined-conversions"></a>定義済みの変換
 
 組み込みのコンバーターが存在する共通の変換には、コンバーターを明示的に指定する必要はありません。 代わりに、どのプロバイダーの種類を使用する必要がありますを構成し、EF が自動的に適切な組み込みのコンバーターを使用します。 列挙型文字列への変換からは、上記の例として使用されますが、EF 実際には、自動的にプロバイダーの種類が構成されている場合。
-```Csharp
+``` csharp
 modelBuilder
     .Entity<Rider>()
     .Property(e => e.Mount)
     .HasConversion<string>();
 ```
 列の型を明示的に指定して同じことを実現できます。 たとえば、エンティティ型が定義されている場合のようなので。
-```Csharp
+``` csharp
 public class Rider
 {
     public int Id { get; set; }

@@ -2,19 +2,13 @@
 title: テーブル値関数 (Tvf) - EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: f019c97b-87b0-4e93-98f4-2c539f77b2dc
-caps.latest.revision: 3
-ms.openlocfilehash: 7d652725a2655b691b03aa3f43103753fe72ede7
-ms.sourcegitcommit: 390f3a37bc55105ed7cc5b0e0925b7f9c9e80ba6
+ms.openlocfilehash: f4b8c1bd442bac67a06584bd23c040381374f303
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/09/2018
-ms.locfileid: "39122620"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993248"
 ---
 # <a name="table-valued-functions-tvfs"></a>テーブル値関数 (Tvf)
 > [!NOTE]
