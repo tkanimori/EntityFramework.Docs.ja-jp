@@ -6,12 +6,12 @@ ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 ms.technology: entity-framework-core
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 0b145217d40027c4b8e4746e9c5651652a28c9eb
-ms.sourcegitcommit: d2434edbfa6fbcee7287e33b4915033b796e417e
+ms.openlocfilehash: a81b0a26fe98dcc1ddedc11aba2673338c8991e8
+ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/12/2018
-ms.locfileid: "29152417"
+ms.lasthandoff: 07/10/2018
+ms.locfileid: "42447736"
 ---
 # <a name="disconnected-entities"></a>接続解除エンティティ
 
@@ -35,7 +35,7 @@ DbContext インスタンスでは、データベースから返されるエン�
 
 ### <a name="with-auto-generated-keys"></a>自動生成キーを利用する
 
-自動生成されたキーの値は、エンティティを挿入する必要があるか、または更新する必要があるかを判断するために使用されることが、よくあります。 キーが設定済みでない (つまり、null、ゼロなどの CLR 既定値をまだ保持している) 場合、エンティティは常に新規となり、挿入する必要があります。 一方、キー値が設定済みの場合、エンティティは常に既に事前保存済みであり、更新する必要があります。 つまり、キーが値を保持している場合、エンティティは照会され、クライアントに送信されて、更新されるようになります。
+自動生成されたキーの値は、エンティティを挿入する必要があるか、または更新する必要があるかを判断するために使用されることが、よくあります。 キーが設定済みでない (つまり、null や 0 などの CLR 既定値をまだ保持している) 場合、エンティティは常に新規となり、挿入する必要があります。 一方、キー値が設定済みの場合、エンティティは常に既に事前保存済みであり、更新する必要があります。 つまり、キーが値を保持している場合、エンティティは照会され、クライアントに送信されて、更新されるようになります。
 
 エンティティ型がわかっている場合、設定されていないキーのチェックは簡単です。
 

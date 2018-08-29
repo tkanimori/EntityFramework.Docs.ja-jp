@@ -5,12 +5,12 @@ ms.author: anpete
 ms.date: 11/03/2017
 ms.technology: entity-framework-core
 uid: core/querying/filters
-ms.openlocfilehash: 4e3c3c99d155f69e00fed99c415f519808ea1a68
-ms.sourcegitcommit: 6e379265e4f087fb7cf180c824722c81750554dc
+ms.openlocfilehash: 6b7a4069917c93015a218c131ff0d0a3920fb69d
+ms.sourcegitcommit: 4467032fd6ca223e5965b59912d74cf88a1dd77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
-ms.locfileid: "26053902"
+ms.lasthandoff: 08/01/2018
+ms.locfileid: "42447719"
 ---
 # <a name="global-query-filters"></a>グローバル クエリ フィルター
 
@@ -24,28 +24,28 @@ ms.locfileid: "26053902"
 次の例では、グローバル クエリ フィルターを使用して論理削除とマルチテナントのクエリ動作を単純なブログ モデルに実装する方法を示しています。
 
 > [!TIP]
-> この記事の[サンプル](https://github.com/aspnet/EntityFrameworkCore/tree/dev/samples/QueryFilters)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/aspnet/EntityFrameworkCore/tree/master/samples/QueryFilters)は GitHub で確認できます。
 
 最初に、エンティティを次のように定義します。
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#Entities)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryFilters/Program.cs#Entities)]
 
 _Blog_ エンティティの __tenantId_ フィールドの宣言をメモします。 これは、固有のテナントと各 Blog インスタンスの関連付けに使用されます。 また、_Post_ エンティティ型の _IsDeleted_ プロパティが定義されています。 これは、_Post_ インスタンスが "論理削除" されたかどうかの追跡を継続するために使用されます。 つまり、基になるデータを物理的に削除せずに、インスタンスは削除済みとしてマークされます。
 
 次に、```HasQueryFilter``` API を使用して _OnModelCreating_ でクエリ フィルターを構成します。
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#Configuration)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryFilters/Program.cs#Configuration)]
 
 _HasQueryFilter_ 呼び出しに渡される述語式は、型に対応するいずれかの LINQ クエリに自動的に適用されます。
 
 > [!TIP]
-> DbContext インスタンス レベルのフィールドの使用に注意してください。```_tenantId``` は、現在のテナントを設定するために使用されます。 モデルレベル フィルターでは、適切なコンテキスト インスタンスからの値が使用されます。 つまり、クエリを実行しているインスタンスです。
+> DbContext インスタンス レベルのフィールドの使用に注意してください。```_tenantId``` は、現在のテナントを設定するために使用されます。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているインスタンス) の値を使用します。
 
 ## <a name="disabling-filters"></a>フィルターを無効にする
 
 フィルターは、```IgnoreQueryFilters()``` 演算子を使用して、個々の LINQ クエリに対して無効にできます。
 
-[!code-csharp[Main](../../../efcore-dev/samples/QueryFilters/Program.cs#IgnoreFilters)]
+[!code-csharp[Main](../../../efcore-repo/samples/QueryFilters/Program.cs#IgnoreFilters)]
 
 ## <a name="limitations"></a>制限事項
 
