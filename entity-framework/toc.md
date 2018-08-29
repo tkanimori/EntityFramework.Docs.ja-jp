@@ -106,6 +106,7 @@
 ##### [SQLite の制限](core/providers/sqlite/limitations.md)
 #### [InMemory (テスト用)](core/providers/in-memory/index.md)
 #### [データベース プロバイダーを記述する](core/providers/writing-a-provider.md)
+#### [プロバイダーに影響を与える変更](core/providers/provider-log.md)
 
 ### [ツールと拡張機能](core/extensions/index.md)
 
