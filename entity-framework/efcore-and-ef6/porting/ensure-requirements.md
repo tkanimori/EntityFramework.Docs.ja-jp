@@ -1,16 +1,15 @@
 ---
 title: EF6 から EF Core - への移植要件の検証
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: d3b66f3c-9d10-4974-a090-8ad093c9a53d
 uid: efcore-and-ef6/porting/ensure-requirements
-ms.openlocfilehash: 65bdc8bb9574d37db697aa47c8e8c480cefcb4f7
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: fd378c72a3c8de4a441861b3c52b94eba5f7e5b4
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949115"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993441"
 ---
 # <a name="before-porting-from-ef6-to-ef-core-validate-your-applications-requirements"></a>EF6 から EF Core へ移植する前に: アプリケーションの要件の検証
 
