@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 7/3/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: e9f9a6cbbceeb0379ddb5588b564b0d2a962795f
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e88bd01f79e05a9a3b0c0bbeecca89df178098a6
+ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995514"
+ms.lasthandoff: 08/29/2018
+ms.locfileid: "43152453"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -37,6 +37,12 @@ Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Teler
 Visual Studio 2017+ 拡張機能。 既存のデータベースまたは SQL Server データベース プロジェクトから DbContext と POCO クラスをリバース エンジニアリングして、さまざまな方法で DbContext を視覚化し、調査することができます。
 
 [GitHub の Wiki](https://github.com/ErikEJ/SqlCeToolbox/wiki/EF-Core-Power-Tools)
+
+### <a name="entity-framework-visual-editor"></a>Entity Framework のビジュアル エディター
+
+Entity Framework 6、Core 2.0 および Core 2.1 クラスのビジュアル デ ザインの ORM デザイナーに追加する Visual Studio 2017 拡張機能。 T4 テンプレートを使用して生成されたコードは、すべてのニーズに合わせて完全にカスタマイズできます。 継承、一方向および双方向の関連付けがすべてサポートされ、列挙体やクラスを色分けし、潜在的な設計の難解な部分を説明するテキストのブロックを追加する機能。
+
+[Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ## <a name="extensions"></a>拡張機能
 
