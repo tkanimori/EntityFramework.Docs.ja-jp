@@ -1,17 +1,15 @@
 ---
 title: トランザクション - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
-ms.technology: entity-framework-core
 uid: core/saving/transactions
-ms.openlocfilehash: 6e6ded74e15187b387e8e0b2ad00cb47a84ff7e8
-ms.sourcegitcommit: 6cf6493d81b6d81b0b0f37a00e0fc23ec7189158
+ms.openlocfilehash: 7083a1228420416a1b60d9744ca2dad2339be53f
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/12/2018
-ms.locfileid: "42447767"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993606"
 ---
 # <a name="using-transactions"></a>トランザクションの使用
 
@@ -106,4 +104,4 @@ public class BloggingContext : DbContext
    > [!IMPORTANT]  
    > この API に依存してトランザクションを管理する前に、お使いのプロバイダーで API が正常に動作することをテストすることをお勧めします。 そうでない場合は、データベース プロバイダーの保守管理者に連絡することが推奨されます。 
 
-2. バージョン 2.1 の時点では、.NET Core での System.Transactions の実装には、分散トランザクションのサポートは含まれていません。したがって、`TransactionScope` または `CommitableTransaction` を使用して複数のリソース マネージャー間でトランザクションを調整することはできません。 
+2. バージョン 2.1 の時点では、.NET Core での System.Transactions の実装には、分散トランザクションのサポートは含まれていません。したがって、`TransactionScope` または `CommittableTransaction` を使用して複数のリソース マネージャー間でトランザクションを調整することはできません。 

@@ -1,17 +1,15 @@
 ---
 title: 非同期クエリ - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 01/24/2017
 ms.assetid: b6429b14-cba0-4af4-878f-b829777c89cb
-ms.technology: entity-framework-core
 uid: core/querying/async
-ms.openlocfilehash: 6554f04d0edfe0ca2ee72ebed8b878a1997a9500
-ms.sourcegitcommit: 01a75cd483c1943ddd6f82af971f07abde20912e
+ms.openlocfilehash: de00e25279e29355a4eb3e55597a8578ceccecb6
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/27/2017
-ms.locfileid: "26052682"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42993566"
 ---
 # <a name="asynchronous-queries"></a>非同期クエリ
 

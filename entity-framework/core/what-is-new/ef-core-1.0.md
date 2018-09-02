@@ -1,17 +1,15 @@
 ---
 title: EF Core 1.0 の新機能 - EF Core
 author: divega
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
-ms.technology: entity-framework-core
 uid: core/what-is-new/ef-core-1.0
-ms.openlocfilehash: af7cf490ef2b04afb02461279fbe67c1c7fa3d95
-ms.sourcegitcommit: bdd06c9a591ba5e6d6a3ec046c80de98f598f3f3
+ms.openlocfilehash: 409e16d762bca3ecd083ea191ad7b42aa0a6a275
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2018
-ms.locfileid: "37949023"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996852"
 ---
 # <a name="features-included-in-ef-core-10"></a>EF Core 1.0 に含まれる機能
 

@@ -1,17 +1,15 @@
 ---
 title: 関連データの読み込み - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
-ms.technology: entity-framework-core
 uid: core/querying/related-data
-ms.openlocfilehash: 05833055f4744940364da4fdea7ded9a90d67508
-ms.sourcegitcommit: a3aec015e0ad7ee31e0f75f00bbf2d286a3ac5c1
+ms.openlocfilehash: 65cfea07a40939c1c3615c97ec785a4082b21de5
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2018
-ms.locfileid: "42447680"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994789"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 

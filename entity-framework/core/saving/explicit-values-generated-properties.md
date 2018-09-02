@@ -1,17 +1,15 @@
 ---
 title: 生成されるプロパティに明示的な値を設定する - EF Core
 author: rowanmiller
-ms.author: divega
 ms.date: 10/27/2016
 ms.assetid: 3f1993c2-cdf5-425b-bac2-a2665a20322b
-ms.technology: entity-framework-core
 uid: core/saving/explicit-values-generated-properties
-ms.openlocfilehash: f34e92d9a3b10b6ff904257ccd047a8acdaad231
-ms.sourcegitcommit: 5e2d97e731f975cf3405ff3deab2a3c75ad1b969
+ms.openlocfilehash: 00abef4d1208400ff68ced0a241b98b8dc9be5c0
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2017
-ms.locfileid: "26053702"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42997854"
 ---
 # <a name="setting-explicit-values-for-generated-properties"></a>生成されるプロパティに明示的な値を設定する
 
