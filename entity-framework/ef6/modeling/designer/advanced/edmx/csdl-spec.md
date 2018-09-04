@@ -2,19 +2,13 @@
 title: CSDL の仕様の EF6
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: c54255f4-253f-49eb-bec8-ad7927ac2fa3
-caps.latest.revision: 3
-ms.openlocfilehash: 0ece73a19fe7ea244905bccb728ab2a104c5179f
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 88669cf80f9a792fda7d191d9f6be2b1734691df
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39122396"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42994730"
 ---
 # <a name="csdl-specification"></a>CSDL 仕様
 概念スキーマ定義言語 (CSDL : Conceptual Schema Definition Language) は、XML ベースの言語であり、データ駆動型アプリケーションの概念モデルを構成するエンティティ、リレーションシップ、および関数を記述します。 Entity Framework や WCF Data Services では、この概念モデルを使用できます。 CSDL で記述されるメタデータは、エンティティおよびデータ ソースに概念モデルで定義されているリレーションシップにマップする Entity Framework によって使用されます。 詳細については、次を参照してください。 [SSDL 仕様](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md)と[MSL 仕様](~/ef6/modeling/designer/advanced/edmx/msl-spec.md)します。

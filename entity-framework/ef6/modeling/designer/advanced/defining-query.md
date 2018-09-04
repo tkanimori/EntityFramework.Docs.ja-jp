@@ -2,19 +2,13 @@
 title: クエリ - EF デザイナー - EF6 を定義します。
 author: divega
 ms.date: 2016-10-23
-ms.prod: entity-framework
-ms.author: divega
-ms.manager: avickers
-ms.technology: entity-framework-6
-ms.topic: article
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-caps.latest.revision: 3
-ms.openlocfilehash: 593fb9925a7a0b59a69b8c8dc4846640627756aa
-ms.sourcegitcommit: f05e7b62584cf228f17390bb086a61d505712e1b
+ms.openlocfilehash: 60d5310589bb9bc3fdb971673422e80537357e55
+ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/08/2018
-ms.locfileid: "39122283"
+ms.lasthandoff: 08/27/2018
+ms.locfileid: "42996308"
 ---
 # <a name="defining-query---ef-designer"></a>クエリ - EF Designer を定義します。
 このチュートリアルは、定義を追加する方法を示しますクエリと対応するエンティティを EF Designer を使用してモデルに入力します。 定義クエリは、データベース ビューによって提供されるのと同様の機能を提供するが、データベースではなく、モデルのビューが定義されます。 指定されている SQL ステートメントを実行することができます、定義クエリ、 **DefiningQuery** .edmx ファイルの要素。 詳細については、次を参照してください。 **DefiningQuery**で、 [SSDL 仕様](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md)します。
@@ -29,7 +23,7 @@ ms.locfileid: "39122283"
 -   エンティティ型をモデルに追加します。
 -   定義クエリをエンティティ型にマップします。
 
-## <a name="prerequisites"></a>前提条件
+## <a name="prerequisites"></a>必須コンポーネント
 
 このチュートリアルを完了するための要件を次に示します。
 
@@ -148,7 +142,7 @@ EF デザイナーでモデルを開きます。
 
 モデルを編集するため、デザイン サーフェイスを提供するエンティティ デザイナーが表示されます。
 
--   デザイナー サーフェスと選択を右クリックして**新規追加**-&gt;**エンティティ**.
+-   デザイナー サーフェスと選択を右クリックして**新規追加**-&gt;**エンティティ.**.
 -   指定**GradeReport**エンティティ名と**CourseID**の**キー プロパティ**します。
 -   右クリックし、 **GradeReport**エンティティと選択**新規追加**- &gt; **スカラー プロパティ**します。
 -   プロパティの既定の名前を変更する**FirstName**します。
