@@ -3,12 +3,12 @@ title: Entity Framework 6 のプロバイダー モデル - EF6
 author: divega
 ms.date: 2018-06-27
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: ebe9b426b164f619b716ac221d1d94354f8b1fe5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e8b0552ec083d8ab276aa9de109650f423160269
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997738"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821388"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Entity Framework 6 のプロバイダー モデル
 
@@ -34,7 +34,7 @@ EF プロバイダーは、実際に、これらのサービス (の基本クラ
 
 EF は、EF によって既に ADO.NET プロバイダーによって提供される機能の上に必要な追加機能を提供するため DbProviderServices から派生した型があることに依存します。 以前のバージョンの EF で DbProviderServices クラスは、.NET Framework の一部であったし、System.Data.Common 名前空間が見つかりました。 このクラスを EF6 以降、EntityFramework.dll の一部になったし、System.Data.Entity.Core.Common 名前空間にあります。
 
-DbProviderServices の実装の基本的な機能の詳細についてはのあります[MSDN](http://msdn.microsoft.com/en-us/library/ee789835.aspx)します。 ただし、この情報の書き込みの時点では更新されないこと EF6 の概念のほとんどは現在も有効です。 DbProviderServices の SQL Server と SQL Server Compact の実装にチェックインしても、[オープン ソース コードベース](https://gihtub.com/aspnet/EntityFramework6/)おり、その他の実装のための便利な参考として使用できます。
+DbProviderServices の実装の基本的な機能の詳細についてはのあります[MSDN](http://msdn.microsoft.com/en-us/library/ee789835.aspx)します。 ただし、この情報の書き込みの時点では更新されないこと EF6 の概念のほとんどは現在も有効です。 DbProviderServices の SQL Server と SQL Server Compact の実装にチェックインしても、[オープン ソース コードベース](https://github.com/aspnet/EntityFramework6/)おり、その他の実装のための便利な参考として使用できます。
 
 以前のバージョンの EF で DbProviderServices の実装を使用する ADO.NET プロバイダーから直接入手されました。 これは、IServiceProvider を DbProviderFactory をキャストして、GetService メソッドを呼び出すことで行われました。 これは、EF のプロバイダーを DbProviderFactory に密結合します。 この結合では、.NET Framework 外に移動される EF がブロックされているし、この密結合を EF6 のために削除されましたが、アプリケーションの構成ファイルで直接、またはコード ベースで DbProviderServices の実装が登録されましたさらに詳しく記載されている構成、_登録 DbProviderServices_以下のセクション。
 

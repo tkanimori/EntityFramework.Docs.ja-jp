@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: ee73940e3c0030b76e73438b1852cc29ebeadb45
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 44b200223153fca44cb2cfa3e78b3bedc7b4a552
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998361"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821336"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -46,3 +46,8 @@ ms.locfileid: "42998361"
   * 派生クラスでの単純化するため、RelationalTypeMapping 2.1 での変更を許可します。 私たちを信じて、プロバイダーの重大ながこれが、プロバイダーを利用してこの変更の派生型のマッピング クラス。
 * https://github.com/aspnet/EntityFrameworkCore/pull/12069 -タグが付けられたまたは名前付きクエリ
   * LINQ クエリをタグ付けし、それらのタグを SQL 内のコメントとして表示するためのインフラストラクチャを追加します。 SQL の生成に対応するためのプロバイダーが必要です。
+* https://github.com/aspnet/EntityFrameworkCore/pull/13115 -NTS を使用して空間データをサポートします。
+  * 型のマッピングとメンバー翻訳外部プロバイダーを登録するのには、します。
+    * プロバイダーは、基本で呼び出す必要があります。動作するためには、その ITypeMappingSource 実装 FindMapping()
+  * プロバイダー間で一貫性のあるプロバイダーに空間的なサポートを追加するには、このパターンに従います。
+

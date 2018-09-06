@@ -3,12 +3,12 @@ title: リレーションシップ、ナビゲーション プロパティ、お
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: c1d48f18a7dd25a6a48537f0de5379f861bf447a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a1653afd609280ab572ef88a9fcf8a6275b79fd6
+ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998002"
+ms.lasthandoff: 09/06/2018
+ms.locfileid: "43821401"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>リレーションシップ、ナビゲーション プロパティ、および外部キー
 このトピックでは、Entity Framework でのエンティティ間のリレーションシップの管理方法の概要を示します。 また、マップし、のリレーションシップを操作する方法のいくつかのガイダンスを提供します。
@@ -71,59 +71,60 @@ public class Department
 
 ## <a name="creating-and-modifying-relationships"></a>作成して、リレーションシップの変更
 
-*外部キー アソシエーション*リレーションシップ、EntityState.Unchanged EntityState.Modified に状態が変更に依存するオブジェクトの状態を変更するときに、します。 独立リレーションシップでは、リレーションシップの変更は、依存オブジェクトの状態は更新できません。
+*外部キー アソシエーション*、リレーションシップを使用して、依存オブジェクトの状態を変更するときに、`EntityState.Unchanged`状態に変わります`EntityState.Modified`。 独立リレーションシップでは、リレーションシップの変更は、依存オブジェクトの状態は更新できません。
 
 次の例では、外部キー プロパティとナビゲーション プロパティを使用して、関連するオブジェクトを関連付ける方法を示します。 外部キー アソシエーションでは、変更、作成、またはリレーションシップを変更するいずれかの方法を使用できます。 独立アソシエーションでは、外部キー プロパティは使用できません。
 
--   で、次の例のように、外部キーのプロパティに新しい値を代入します。  
-    ``` csharp
-    course.DepartmentID = newCourse.DepartmentID;
-    ```
+- で、次の例のように、外部キーのプロパティに新しい値を代入します。  
+  ``` csharp
+  course.DepartmentID = newCourse.DepartmentID;
+  ```
 
--   次のコードでは、リレーションシップを削除外部キーを設定して**null**します。 外部キー プロパティを null 許容型でなければならないことに注意してください。  
-    ``` csharp
-    course.DepartmentID = null;
-    ```  
-    >[!NOTE]
-    > 参照が (この例では、コース オブジェクト) で、追加済み状態にある場合は、参照ナビゲーション プロパティは同期されません新しいオブジェクトのキー値を持つ SaveChanges が呼び出されるまで。 同期が行われない理由は、追加されたオブジェクトが保存されるまでオブジェクト コンテキストに永久キーが含まれていないからです。 新しいオブジェクトのリレーションシップを設定するとすぐに完全に同期が必要な場合は次の methods.* のいずれかを使用します。
+- 次のコードでは、リレーションシップを削除外部キーを設定して**null**します。 外部キー プロパティを null 許容型でなければならないことに注意してください。  
+  ``` csharp
+  course.DepartmentID = null;
+  ```
 
--   新しいオブジェクトをナビゲーション プロパティに割り当てる。 次のコードは、コースの間のリレーションシップを作成し、`department`します。 オブジェクトがコンテキストにアタッチされている場合、`course`にも追加、`department.Courses`のコレクション、および、対応する外部キー プロパティ、`course`オブジェクトが、部門のキー プロパティの値に設定します。  
-    ``` csharp
-    course.Department = department;
-    ```
+  >[!NOTE]
+  > 参照が (この例では、コース オブジェクト) で、追加済み状態にある場合は、参照ナビゲーション プロパティは同期されません新しいオブジェクトのキー値を持つ SaveChanges が呼び出されるまで。 同期が行われない理由は、追加されたオブジェクトが保存されるまでオブジェクト コンテキストに永久キーが含まれていないからです。 新しいオブジェクトのリレーションシップを設定するとすぐに完全に同期が必要な場合は次の methods.* のいずれかを使用します。
 
- -   リレーションシップを削除するにナビゲーション プロパティを設定します。`null`します。 .NET 4.0 に基づいている Entity Framework を使用する場合は、関連 end を null に設定する前に読み込まれる必要があります。 例えば:  
-    ``` chsarp
-    context.Entry(course).Reference(c => c.Department).Load();  
-    course.Department = null;
-    ```  
-    以降、.NET 4.5 に基づく、Entity Framework 5.0 で設定できますリレーションシップを null に関連 end を読み込まずに。 次のメソッドを使用して null には、現在の値を設定することもできます。  
-    ``` csharp
-    context.Entry(course).Reference(c => c.Department).CurrentValue = null;
-    ```
+- 新しいオブジェクトをナビゲーション プロパティに割り当てる。 次のコードは、コースの間のリレーションシップを作成し、`department`します。 オブジェクトがコンテキストにアタッチされている場合、`course`にも追加、`department.Courses`のコレクション、および、対応する外部キー プロパティ、`course`オブジェクトが、部門のキー プロパティの値に設定します。  
+  ``` csharp
+  course.Department = department;
+  ```
 
--   エンティティ コレクションのオブジェクトを削除または追加する。 たとえば、型のオブジェクトを追加することができます`Course`を`department.Courses`コレクション。 この操作は、特定の関係を作成します。**コース**と特定`department`します。 オブジェクトがコンテキスト、部門の参照および外部キー プロパティにアタッチされている場合、**コース**を適切なオブジェクトが設定される`department`します。  
-    ``` csharp
-    department.Courses.Add(newCourse);
-    ```
+- リレーションシップを削除するにナビゲーション プロパティを設定します。`null`します。 .NET 4.0 に基づいている Entity Framework を使用する場合は、関連 end を null に設定する前に読み込まれる必要があります。 例えば:   
+  ``` csharp
+  context.Entry(course).Reference(c => c.Department).Load();
+  course.Department = null;
+  ```
+
+  以降、.NET 4.5 に基づく、Entity Framework 5.0 で設定できますリレーションシップを null に関連 end を読み込まずに。 次のメソッドを使用して null には、現在の値を設定することもできます。   
+  ``` csharp
+  context.Entry(course).Reference(c => c.Department).CurrentValue = null;
+  ```
+
+- エンティティ コレクションのオブジェクトを削除または追加する。 たとえば、型のオブジェクトを追加することができます`Course`を`department.Courses`コレクション。 この操作は、特定の関係を作成します。**コース**と特定`department`します。 オブジェクトがコンテキスト、部門の参照および外部キー プロパティにアタッチされている場合、**コース**を適切なオブジェクトが設定される`department`します。  
+  ``` csharp
+  department.Courses.Add(newCourse);
+  ```
 
 - 使用して、`ChangeRelationshipState`メソッドを 2 つのエンティティ オブジェクト間の指定されたリレーションシップの状態を変更します。 N 層アプリケーションを使用する場合、このメソッドは最もよく使用して、*独立アソシエーション*(外部キー アソシエーションで、使用できません)。 また、このメソッドを使用する必要がありますドロップダウンを`ObjectContext`次の例のようにします。  
 次の例では、インストラクターとコースの多対多リレーションシップです。 呼び出す、`ChangeRelationshipState`メソッドと受け渡し、`EntityState.Added`パラメーター、ことができます、 `SchoolContext` 2 つのオブジェクト間の関係が追加されたことを知る。
+  ``` csharp
 
-``` csharp
+  ((IObjectContextAdapter)context).ObjectContext.
+    ObjectStateManager.
+    ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
+  ```
 
-       ((IObjectContextAdapter)context).ObjectContext.
-                 ObjectStateManager.
-                  ChangeRelationshipState(course, instructor, c => c.Instructor, EntityState.Added);
-```
+  (追加するだけでなく) 更新する場合は注意してリレーションシップを新しく追加した後、古いリレーションシップを削除する必要があります。
 
-    Note that if you are updating (not just adding) a relationship, you must delete the old relationship after adding the new one:
-
-``` csharp
-       ((IObjectContextAdapter)context).ObjectContext.
-                  ObjectStateManager.
-                  ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
-```
+  ``` csharp
+  ((IObjectContextAdapter)context).ObjectContext.
+    ObjectStateManager.
+    ChangeRelationshipState(course, oldInstructor, c => c.Instructor, EntityState.Deleted);
+  ```
 
 ## <a name="synchronizing-the-changes-between-the-foreign-keys-and-navigation-properties"></a>外部キーとナビゲーション プロパティの変更の同期
 
