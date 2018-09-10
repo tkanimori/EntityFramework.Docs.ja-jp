@@ -3,12 +3,12 @@ title: EF4、EF5 と EF6 のパフォーマンスに関する考慮事項
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: f71a13ec06ad46259b3f33216367723b53314a5c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 3ec061559f6ad7cbdce59118c13543d9993ec5a5
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996749"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251311"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>EF 4、5、および 6 のパフォーマンスに関する考慮事項
 David Obando、Eric Dettinger およびその他のユーザー
@@ -181,7 +181,7 @@ Entity Framework では、キャッシュの組み込みの次の形式があり
 
 検索を使用する場合にパフォーマンスに関する考慮事項があります。 既定では、このメソッドを呼び出し、データベースにコミット保留中の変更を検出するために、オブジェクト キャッシュの検証がトリガーされます。 このプロセスは非常に多数のオブジェクト キャッシュ内、または、オブジェクト キャッシュに追加される大きなオブジェクト グラフ内のオブジェクトがある場合に非常に安価にできますも無効にできます。 場合によっては、することに気付くかもしれません自動を無効にすると、メソッドを検出する検索を呼び出すことの違いの桁に変更します。 まだいる際にオブジェクト実際には、キャッシュと、オブジェクトがあるデータベースから取得する際に、第 2 桁が認識します。 5000 エンティティの負荷がかかっている、ミリ秒単位で、当社 microbenchmarks の一部を使用して取得された測定値と、グラフの例を次に示します。
 
-![Net45LogScale](~/ef6/media/net45logscale.png ".NET 4.5 - 対数スケール")
+![.NET 4.5 の対数スケール](~/ef6/media/net45logscale.png ".NET 4.5 - 対数スケール")
 
 自動検出の変更を無効になっていると検索の例:
 
@@ -825,9 +825,9 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 | EF6 | DbContext の Linq クエリ                 | 3420      | 47652864 |
 | EF6 | ObjectContext の Linq には、追跡をクエリなし | 3593      | 45260800 |
 
-![EF5Micro5000Warm](~/ef6/media/ef5micro5000warm.png)
+![EF5 ミクロ ベンチマーク、5000 ウォーム イテレーション](~/ef6/media/ef5micro5000warm.png)
 
-![EF6Micro5000Warm](~/ef6/media/ef6micro5000warm.png)
+![EF6 ミクロ ベンチマーク、5000 ウォーム イテレーション](~/ef6/media/ef6micro5000warm.png)
 
 Microbenchmarks は非常に重視するコードに小さな変更です。 Entity Framework 5 のコストと Entity Framework 6 の違いが追加されるため、この場合、[インターセプション](~/ef6/fundamentals/logging-and-interception.md)と[トランザクションの機能強化](~/ef6/saving/transactions.md)します。 これらの microbenchmarks 番号では、増幅のビジョンの Entity Framework では非常に小さいフラグメントをただしは。 ウォーム クエリの実際のシナリオでは Entity Framework 6 Entity Framework 5 からアップグレードすると、パフォーマンスの低下は表示されません。
 
@@ -858,9 +858,9 @@ Microbenchmarks は非常に重視するコードに小さな変更です。 Ent
 | EF6 | DbContext の Linq クエリ                        | 1290      | 47529984 |
 
 
-![EF5WarmQuery1000](~/ef6/media/ef5warmquery1000.png)
+![EF5 ウォーム クエリ 1000 のイテレーション](~/ef6/media/ef5warmquery1000.png)
 
-![EF6WarmQuery1000](~/ef6/media/ef6warmquery1000.png)
+![EF6 ウォーム クエリ 1000 のイテレーション](~/ef6/media/ef6warmquery1000.png)
 
 > [!NOTE]
 > 完全を期すため、EntityCommand を Entity SQL クエリを実行バリエーションの 1 つが含まれます。 ただし、そのようなクエリは結果を具体化されません、ため、比較は必ずしも公正にします。 テストには、近似値してみること、比較を公平に具体化にはが含まれています。

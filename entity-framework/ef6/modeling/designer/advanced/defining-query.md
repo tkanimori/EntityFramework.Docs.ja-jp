@@ -3,12 +3,12 @@ title: クエリ - EF デザイナー - EF6 を定義します。
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
-ms.openlocfilehash: 60d5310589bb9bc3fdb971673422e80537357e55
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8415a265cdbe078422e0467ee97da955a81b873d
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996308"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250973"
 ---
 # <a name="defining-query---ef-designer"></a>クエリ - EF Designer を定義します。
 このチュートリアルは、定義を追加する方法を示しますクエリと対応するエンティティを EF Designer を使用してモデルに入力します。 定義クエリは、データベース ビューによって提供されるのと同様の機能を提供するが、データベースではなく、モデルのビューが定義されます。 指定されている SQL ステートメントを実行することができます、定義クエリ、 **DefiningQuery** .edmx ファイルの要素。 詳細については、次を参照してください。 **DefiningQuery**で、 [SSDL 仕様](~/ef6/modeling/designer/advanced/edmx/ssdl-spec.md)します。
@@ -54,11 +54,11 @@ ms.locfileid: "42996308"
 -   ソリューション エクスプ ローラーで右クリックし、 **DefiningQueryModel.edmx**ファイルおよび選択**プログラムから開く...**。
 -   選択**XML (テキスト) エディター**します。
 
-    ![XMLEditor](~/ef6/media/xmleditor.png)
+    ![XML エディター](~/ef6/media/xmleditor.png)
 
 -   クリックして**はい**次のメッセージが表示された場合。
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![2 の警告](~/ef6/media/warning2.png)
 
  
 
@@ -136,13 +136,13 @@ EF デザイナーでモデルを開きます。
 -   DefiningQueryModel.edmx をダブルクリックします。
 -   たとえば**はい**に、次のメッセージ。
 
-    ![Warning2](~/ef6/media/warning2.png)
+    ![2 の警告](~/ef6/media/warning2.png)
 
  
 
 モデルを編集するため、デザイン サーフェイスを提供するエンティティ デザイナーが表示されます。
 
--   デザイナー サーフェスと選択を右クリックして**新規追加**-&gt;**エンティティ.**.
+-   デザイナー サーフェスと選択を右クリックして**新規追加**-&gt;**エンティティ**.
 -   指定**GradeReport**エンティティ名と**CourseID**の**キー プロパティ**します。
 -   右クリックし、 **GradeReport**エンティティと選択**新規追加**- &gt; **スカラー プロパティ**します。
 -   プロパティの既定の名前を変更する**FirstName**します。
@@ -172,7 +172,7 @@ EF デザイナーでモデルを開きます。
     **マッピングの詳細**ウィンドウが表示されます。
 -   選択**GradeReport**から、 **&lt;テーブルまたはビューの追加&gt;** ドロップダウン リスト (下にある**テーブル**秒)。  
     既定の概念の間のマッピングと記憶域**GradeReport**エンティティ型が表示されます。  
-    ![MappingDetails3](~/ef6/media/mappingdetails.png)
+    ![マッピング Details3](~/ef6/media/mappingdetails.png)
 
 結果として、 **EntitySetMapping**要素は、.edmx ファイルのマッピング セクションに追加されます。 
 

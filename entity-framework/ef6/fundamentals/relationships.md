@@ -3,12 +3,12 @@ title: リレーションシップ、ナビゲーション プロパティ、お
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: a1653afd609280ab572ef88a9fcf8a6275b79fd6
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 53f428360be4ea2e11a42676d22e584633ceedbc
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821401"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251220"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>リレーションシップ、ナビゲーション プロパティ、および外部キー
 このトピックでは、Entity Framework でのエンティティ間のリレーションシップの管理方法の概要を示します。 また、マップし、のリレーションシップを操作する方法のいくつかのガイダンスを提供します。
@@ -19,7 +19,7 @@ ms.locfileid: "43821401"
 
 次の図では、一対多のリレーションシップに参加している 2 つのテーブルを示します。 **コース**を含んでいるために、テーブルが依存するテーブル、 **DepartmentID**列にリンクする、**部門**テーブル。
 
-![Database2](~/ef6/media/database2.png)
+![部門と Course テーブル](~/ef6/media/database2.png)
 
 Entity Framework では、エンティティはアソシエーションまたはリレーションシップを使用して他のエンティティに関連付けることができます。 各リレーションシップには、エンティティ型との関係では、2 つのエンティティの種類 (1 つ、0 または 1、または多く) の多重度を示す 2 つの end が含まれています。 リレーションシップが終了するはプリンシパルの役割について説明しますが、参照に関する制約は、リレーションシップを準拠場合があります依存ロールであるとします。
 
@@ -33,7 +33,7 @@ Entity Framework では、エンティティはアソシエーションまたは
 
 次の図は、Entity Framework デザイナーで作成された概念モデルを示しています。 モデルには、一対多のリレーションシップに参加している 2 つのエンティティが含まれています。 両方のエンティティには、ナビゲーション プロパティがあります。 **コース**は depend エンティティであり、 **DepartmentID**外部キー プロパティを定義します。
 
-![RelationshipEFDesigner](~/ef6/media/relationshipefdesigner.png)
+![ナビゲーション プロパティを持つテーブルを部門とコース](~/ef6/media/relationshipefdesigner.png)
 
 次のコード スニペットでは、Code First で作成された同じモデルを示します。
 

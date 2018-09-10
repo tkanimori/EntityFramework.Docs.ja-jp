@@ -3,12 +3,12 @@ title: ログ記録と EF6 のデータベース操作の受信
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: 2e16502abf54be3f3b2f63fe69d2605ef13dea27
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 9a8be81af45d9f27caa8c26f66d219dc568b6604
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994636"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251272"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>ログに記録して、データベース操作の受信
 > [!NOTE]
@@ -36,8 +36,6 @@ using (var context = new BlogContext())
 ```  
 
 そのコンテキストに注意してください。Console.Write Database.Log が設定されます。 これは、すべての SQL をコンソールにログインするために必要です。  
-
-### <a name="example-output"></a>サンプルの出力  
 
 何らかの出力を確認できるようにしましょうクエリ/挿入/更新する単純なコードを追加します。  
 
@@ -98,7 +96,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 (これは、データベースの初期化が既に過ぎていると仮定すると出力であることに注意してください。 データベースの初期化が既に行われていない場合がありますし、移行のすべての作業を表示、はるかに多くの出力が内部でのチェックまたは新しいデータベースを作成します。)  
 
-### <a name="what-gets-logged"></a>ログに記録内容を取得しますか。  
+## <a name="what-gets-logged"></a>ログに記録内容を取得しますか。  
 
 ときにログ プロパティの設定は、次のすべてのログに記録されます。  
 
@@ -124,7 +122,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
     - FK とタイトルのプロパティのパラメーターの詳細に注意してください。  
     - これらのコマンドを非同期的に実行されていることに注意してください。  
 
-### <a name="logging-to-different-places"></a>別の場所にログ記録  
+## <a name="logging-to-different-places"></a>別の場所にログ記録  
 
 上記のログ記録をコンソールはとても簡単です。 簡単にメモリやファイルなどさまざまな種類を使用してログインの[TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx)します。  
 
@@ -147,7 +145,7 @@ var logger = new MyLogger();
 context.Database.Log = s => logger.Log("EFApp", s);
 ```  
 
-### <a name="result-logging"></a>結果のログ記録  
+## <a name="result-logging"></a>結果のログ記録  
 
 既定のロガー ログ コマンド テキスト (SQL)、パラメーター、および「実行」の行のタイムスタンプを持つデータベースにコマンドが送信される前にします。 経過時間を含む「完了」の行では、コマンドのログに記録された次の実行です。  
 
@@ -155,11 +153,11 @@ context.Database.Log = s => logger.Log("EFApp", s);
 
 「完了」の行には、コマンドと実行が成功したかどうかの種類に応じて、異なる情報が含まれています。  
 
-#### <a name="successful-execution"></a>正常に実行  
+### <a name="successful-execution"></a>正常に実行  
 
 出力を正常に完了するためのコマンドは"結果を使用した ms x で完了しました:"後に、結果の内容の一部を示す値。 データ リーダーの結果を返すコマンドを示す値は、型[DbDataReader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx)が返されます。 更新プログラムなどの整数値を返すコマンドに示す結果上に示したコマンドは整数になります。  
 
-#### <a name="failed-execution"></a>失敗した実行  
+### <a name="failed-execution"></a>失敗した実行  
 
 例外をスローして失敗したコマンドの出力には、例外からのメッセージが含まれています。 たとえば、SqlQuery が存在するテーブルに対するクエリを使用してログで結果の出力はこのようなもの。  
 
@@ -169,7 +167,7 @@ SELECT * from ThisTableIsMissing
 -- Failed in 1 ms with error: Invalid object name 'ThisTableIsMissing'.
 ```  
 
-#### <a name="canceled-execution"></a>取り消された実行  
+### <a name="canceled-execution"></a>取り消された実行  
 
 非同期コマンドが、タスクはキャンセル結果でした失敗、例外のためにこれは、基になる ADO.NET プロバイダー多くの場合、キャンセルを試行したときに。 そうしない場合、出力は次のようになりますし、タスクは正常にキャンセルします。  
 
@@ -180,8 +178,6 @@ update Blogs set Title = 'No' where Id = -1
 ```  
 
 ## <a name="changing-log-content-and-formatting"></a>ログの内容を変更して、書式設定  
-
-### <a name="databaselogformatter"></a>DatabaseLogFormatter  
 
 実際には DatabaseLogFormatter オブジェクトのプロパティは、Database.Log を使用します。 このオブジェクトは、文字列と DbContext をデリゲートに IDbCommandInterceptor 実装 (下記参照) を効果的にバインドします。 これは、ある DatabaseLogFormatter メソッドによって呼び出されるコマンドの実行の前後に EF を意味します。 これらの DatabaseLogFormatter メソッドは、収集し、ログ出力を書式設定し、代理人に送信します。  
 

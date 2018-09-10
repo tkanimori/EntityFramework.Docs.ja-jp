@@ -3,12 +3,12 @@ title: Code First Migrations - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: 216f850fb906cfc4b68eae76ae11ff167ed835ea
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6c530545968a26d13051d1e682557092bde13bb0
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993385"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251038"
 ---
 # <a name="code-first-migrations"></a>Code First Migrations
 Code First Migrations は、Code First ワークフローを使用している場合に、アプリケーションのデータベース スキーマを進化させるために推奨される方法です。 移行では次を許可するツール セットを提供します。
@@ -84,7 +84,7 @@ Code First Migrations は、Code First ワークフローを使用している�
 
 -   アプリケーションを実行すると、**MigrationsCodeDemo.BlogContext** データベースが作成されたことが表示されます。
 
-    ![DatabaseLocalDB](~/ef6/media/databaselocaldb.png)
+    ![データベース LocalDB](~/ef6/media/databaselocaldb.png)
 
 ## <a name="enabling-migrations"></a>移行を有効にする
 

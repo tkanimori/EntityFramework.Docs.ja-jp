@@ -1,116 +1,135 @@
 ---
-title: EF Core のインストール
+title: Entiy Framework Core のインストール
 author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 30ca81a0ede65506a6684d2322d31332115b1ed3
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 7831e6a54e885cf0b89ef3eef2cd81a9292df606
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996929"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250323"
 ---
-# <a name="installing-ef-core"></a>EF Core のインストール
+# <a name="installing-entity-framework-core"></a>Entiy Framework Core のインストール
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-.NET Core 2.1 アプリケーション (.NET Core を対象とする ASP.NET Core 2.1 アプリケーションを含む) を開発するには、お使いのプラットフォームに適したバージョンの [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core) をダウンロードし、インストールする必要があります。 **Visual Studio 2017 バージョン 15.7 をインストールしている場合でも必要です。**
+* .NET Core 2.1 を対象とするアプリを開発するには、[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core) をインストールします。 SDK は、Visual Studio 2017 の最新バージョンがある場合でもインストールする必要があります。
 
-.NET Core 2.1 以外の .NET プラットフォーム (たとえば、.NET Framework 4.6.1 以降) で EF Core 2.1 やその他の .NET Standard 2.0 ライブラリを使用するには、.NET Standard 2.0 とその互換フレームワークを認識できる NuGet のバージョンが必要になります。 次の方法で入手できます。
+* .NET Core 2.1 を対象とするアプリの開発用 Visual Studio を使用するには、Visual Studio 2017 バージョン 15.7 以降をインストールします。
 
-* Visual Studio 2017 バージョン 15.7 をインストールする
-* Visual Studio 2015 を使用している場合、[NuGet クライアント バージョン 3.6.0 をダウンロードするか、このバージョンにアップグレードします](https://www.nuget.org/downloads)。
+* ASP.NET Core アプリケーションで Entity Framework 2.1 を使用するには、ASP.NET Core 2.1 を使用します。 以前のバージョンの ASP.NET Core を使用するアプリケーションは 2.1 に更新する必要があります。
 
-以前のバージョンの Visual Studio とその対象となる .NET Framework で作成されたプロジェクトの場合、.NET Standard 2.0 ライブラリ互換にするには追加の変更が必要になることがあります。
+* Visual Studio 2015 は、.NET Framework 4.6.1 以降を対象とするアプリで使用することができます。 ただし .NET Standard 2.0 とその互換フレームワークを認識するバージョンの NuGet が必要です。 これを Visual Studio 2015 で取得するには、[NuGet クライアントをバージョン 3.6.0 にアップグレード](https://www.nuget.org/downloads)します。
 
-* プロジェクト ファイルを編集し、初期プロパティ グループに次のエントリが表示されるようにします。
-  ``` xml
-  <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
-  ```
+## <a name="get-the-entity-framework-core-runtime"></a>Entity Framework Core のランタイムを入手する
 
-* テスト プロジェクトの場合、次のエントリも必要です。
-  ``` xml
-  <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
-  ```
+EF Core のランタイム ライブラリをアプリケーションに追加するには、使用するデータベース プロバイダーの NuGet パッケージをインストールします。 サポートされているプロバイダーとその NuGet パッケージ名の一覧は、「[データベース プロバイダー](../../providers/index.md)」を参照してください。
 
-## <a name="getting-the-bits"></a>ビットを取得する
-EF Core ランタイム ライブラリをアプリケーションに追加するための推奨方法は、NuGet から EF Core データベース プロバイダーをインストールすることです。
+NuGet パッケージをインストールまたは更新するには、.NET Core CLI、Visual Studio パッケージ マネージャー ダイアログ、または Visual Studio パッケージ マネージャー コンソールを使用します。
 
-ランタイム ライブラリに加え、デザイン時にプロジェクトでいくつかの EF Core 関連タスクの実行を簡単にするツールをインストールできます。関連タスクには、移行の作成と適用、既存データベースに基づくモデルの作成などがあります。
+ASP.NET Core 2.1 アプリケーションでは、メモリ内および SQL Server のプロバイダーが自動的に含まれるため、個別にインストールする必要はありません。
 
 > [!TIP]  
 > サードパーティ データベース プロバイダーを使用するアプリケーションを更新する場合、使用するバージョンの EF Core との間で互換性があるプロバイダーの更新がないか、常に確認してください。 たとえば、前のバージョンのデータベース プロバイダーは EF Core ランタイムのバージョン 2.1 との間で互換性がありません。  
 
-> [!TIP]  
-> ASP.NET Core 2.1 を対象とするアプリケーションは、サードパーティ データベース プロバイダー以外の依存関係を追加せずに EF Core 2.1 を使用できます。 前バージョンの ASP.NET Core を対象とするアプリケーションで EF Core 2.1 を使用するには、ASP.NET Core 2.1 にアップグレードする必要があります。
+### <a name="net-core-cli"></a>.NET Core CLI
 
-<a name="cli"></a>
-### <a name="cross-platform-development-using-the-net-core-command-line-interface-cli"></a>.NET Core コマンド ライン インターフェイス (CLI) を利用したクロスプラットフォーム開発
-
-[.NET Core](https://www.microsoft.com/net/download/core) を対象とするアプリケーションを開発するには、お気に入りのテキスト エディターや、Visual Studio、Visual Studio for Mac、Visual Studio Code などの統合開発環境 (IDE) と組み合わせて [`dotnet` CLI コマンド](https://docs.microsoft.com/dotnet/core/tools/)を使用できます。
-
-> [!IMPORTANT]  
-> .NET Core をターゲットとするアプリケーションでは、特定のバージョンの Visual Studio が必要です。 たとえば、.NET Core 1.x の開発には Visual Studio 2017 が必要です。一方、.NET Core 2.1 の開発には Visual Studio 2017 バージョン 15.7 が必要です。
-
-クロスプラットフォーム .NET Core アプリケーションで SQL Server プロバイダーをインストールまたはアップグレードするには、アプリケーションのディレクトリに切り替え、コマンド ラインで次を実行します。
+次の .NET Core CLI コマンドでは、SQL Server プロバイダーがインストールまたは更新されます。
 
 ``` Console
 dotnet add package Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-`-v` 修飾子を利用し、`dotnet add package` コマンドで特定のバージョンのインストールを指定できます。 たとえば、EF Core 2.1 パッケージをインストールするには、コマンドに `-v 2.1.0` を追加します。
+`-v` 修飾子を利用し、`dotnet add package` コマンドで特定のバージョンを指定できます。 たとえば、EF Core 2.1.0 パッケージをインストールするには、コマンドに `-v 2.1.0` を追加します。
 
-EF Core には、[`dotnet` CLI の追加コマンド](../../miscellaneous/cli/dotnet.md)のセットが含まれており、その最初が `dotnet ef` です。 EF Core 向け .NET Core CLI ツールには、`Microsoft.EntityFrameworkCore.Design` というパッケージが必要です。 これは次のようにしてプロジェクトに追加できます。
+### <a name="visual-studio-nuget-package-manager-dialog"></a>Visual Studio の NuGet パッケージ マネージャー ダイアログ
+
+* メニューから **[プロジェクト]、[NuGet パッケージの管理]** の順に選択します。
+
+* **[参照]** または **[更新]** タブをクリックします。
+
+* SQL Server プロバイダーをインストールまたは更新するには、`Microsoft.EntityFrameworkCore.SqlServer` パッケージを選択して確定します。
+
+詳細については、「[NuGet パッケージ マネージャー UI](https://docs.microsoft.com/nuget/tools/package-manager-ui)」を参照してください。
+
+### <a name="visual-studio-nuget-package-manager-console"></a>Visual Studio の NuGet パッケージ マネージャー コンソール
+
+* メニューから **[ツール]、[NuGet パッケージ マネージャー]、[パッケージ マネージャー コンソール]** の順に選択します
+
+* SQL Server プロバイダーをインストールするには、パッケージ マネージャー コンソールで、次のコマンドを実行します。
+
+  ``` PowerShell  
+  Install-Package Microsoft.EntityFrameworkCore.SqlServer
+  ```
+* プロバイダーを更新するには、`Update-Package` コマンドを使用します。
+
+* 特定のバージョンを指定するには、`-Version` 修飾子を使用します。 たとえば、EF Core 2.1.0 パッケージをインストールするには、コマンドに `-Version 2.1.0` を追加します
+
+詳細については、「[パッケージ マネージャー コンソール](https://docs.microsoft.com/nuget/tools/package-manager-console)」を参照してください。
+
+## <a name="get-entity-framework-core-tools"></a>Entity Framework Core ツールを入手する
+
+設計時には、ランタイム ライブラリだけでなく、プロジェクトでいくつかの EF Core 関連タスクを実行できるツールをインストールできます。 たとえば、移行の作成、移行の適用、既存のデータベースに基づくモデルの作成などができます。
+
+2 つのツールのセットを使用できます。
+* .NET Core の[コマンド ライン インターフェイス (CLI) ツール](../../miscellaneous/cli/dotnet.md)は、Windows、Linux、または macOS で使用できます。 これらのコマンドは `dotnet ef` で始まります。 
+* [パッケージ マネージャー コンソール ツール](../../miscellaneous/cli/powershell.md)は、Windows 上の Visual Studio 2017 で実行されます。 これらのコマンドは `Add-Migration`、`Update-Database` のように動詞で始まります。
+
+パッケージ マネージャー コンソールの `dotnet ef` コマンドを使用できますが、Visual Studio を使用しているときにはパッケージ マネージャー コンソールのツールを使用する方が便利です。
+* パッケージ マネージャー コンソールで現在選択されているプロジェクトと自動的に連動します。ディレクトリを手動で切り替える必要がありません。  
+* コマンドの完了後、Visual Studio で、コマンドによって生成されたファイルが自動的に開きます。
+
+<a name="cli"></a>
+
+### <a name="get-the-cli-tools"></a>CLI ツールを入手する
+
+.NET Core SDK には `dotnet ef` コマンドが含まれていますが、コマンドを有効にするには、`Microsoft.EntityFrameworkCore.Design` パッケージをインストールする必要があります。
 
  ``` Console    
 dotnet add package Microsoft.EntityFrameworkCore.Design 
 ``` 
 
+ASP.NET Core 2.1 アプリでは、このパッケージが自動的に含まれています。
+
+[必須コンポーネント](#prerequisites)で説明したように、.NET Core 2.1 SDK もインストールする必要があります。
+
 > [!IMPORTANT]      
 > ランタイム パッケージのメジャー バージョンと一致するバージョンのツール パッケージを常に使用してください。
 
-<a name="visual-studio"></a>
-### <a name="visual-studio-development"></a>Visual Studio 開発
+### <a name="get-the-package-manager-console-tools"></a>パッケージ マネージャー コンソール ツールを入手する
 
-.NET Core、.NET Framework、または EF Core でサポートされているその他のプラットフォームを対象とするさまざまなアプリケーションを Visual Studio で開発できます。
+EF Core のパッケージ マネージャー コンソール ツールを入手するには、`Microsoft.EntityFrameworkCore.Tools` パッケージをインストールします。
 
-Visual Studio からアプリケーションに EF Core データベース プロバイダーをインストールする方法が 2 つあります。
+ ``` Console    
+dotnet add package Microsoft.EntityFrameworkCore.Tools
+``` 
 
-#### <a name="using-nugets-package-manager-user-interfacehttpsdocsmicrosoftcomnugettoolspackage-manager-ui"></a>NuGet の[パッケージ マネージャー ユーザー インターフェイス](https://docs.microsoft.com/nuget/tools/package-manager-ui)を使用する
+ASP.NET Core 2.1 アプリでは、このパッケージが自動的に含まれています。
 
-* メニューで **[プロジェクト]、[NuGet パッケージの管理]** の順に選択します。
+## <a name="upgrading-to-ef-core-21"></a>EF Core 2.1 へのアップグレード
 
-* **[参照]** または **[更新]** タブをクリックします。
+既存のアプリケーションを EF Core 2.1 にアップグレードするとき、場合によっては、古い EF Core パッケージの一部の参照を手動で削除する必要があります。
 
-* `Microsoft.EntityFrameworkCore.SqlServer` パッケージと希望のバージョンを選択し、確定します。
+* データベース プロバイダーのデザイン時パッケージ (`Microsoft.EntityFrameworkCore.SqlServer.Design` など) は、EF Core 2.1 では不要になったか、またはサポートされなくなりましたが、他のパッケージをアップグレードする際に自動で削除されるわけではありません。
 
-#### <a name="using-nugets-package-manager-console-pmchttpsdocsmicrosoftcomnugettoolspackage-manager-console"></a>NuGet の[パッケージ マネージャー コンソール (PMC)](https://docs.microsoft.com/nuget/tools/package-manager-console) を使用する
+* .NET CLI ツールが .NET SDK に含まれるようになりました。このため、*.csproj* ファイルからパッケージへの参照を削除することができます。
 
-* メニューで **[ツール]、[NuGet パッケージ マネージャー]、[パッケージ マネージャー コンソール]** の順に選択します。
-
-* PMC で次のコマンドを入力し、実行します。
-
-  ``` PowerShell  
-  Install-Package Microsoft.EntityFrameworkCore.SqlServer
   ```
-* `Update-Package` コマンドを代わりに使用し、既にインストールされているパッケージを新しいバージョンに更新できます。
+  <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
+  ```
 
-* 特定のバージョンを指定するために、`-Version` 修飾子を使用できます。 たとえば、EF Core 2.1 パッケージをインストールするには、コマンドに `-Version 2.1.0` を追加します
+.NET Framework を対象とする、以前のバージョンの Visual Studio で作成されたアプリケーションの場合、.NET Standard 2.0 ライブラリと互換性があることを確認してください。
 
-#### <a name="tools"></a>ツール
+  * プロジェクト ファイルを編集し、初期プロパティ グループに次のエントリが表示されるようにします。
 
-Visual Studio で [PMC 内で実行される EF Core コマンド](../../miscellaneous/cli/powershell.md)の PowerShell バージョンもあります。機能は `dotnet ef` コマンドと似ています。 
+    ``` xml
+    <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+    ```
 
-> [!TIP]  
-> Visual Studio では PMC から `dotnet ef` コマンドを使用することができますが、PowerShell バージョンの使用がはるかに便利です。
-> * PMC で現在選択されているプロジェクトと自動的に連動します。ディレクトリを手動で切り替える必要がありません。  
-> * コマンドの完了後、Visual Studio で、コマンドによって生成されたファイルが自動的に開きます。
+  * テスト プロジェクトの場合、次のエントリも必要です。
 
-> [!IMPORTANT]  
-> **EF Core 2.1 の非推奨のパッケージ:** 既存のアプリケーションを EF Core 2.1 にアップグレードするとき、場合によっては、古い EF Core パッケージの一部の参照を手動で削除する必要があります。
-> * データベース プロバイダーのデザイン時パッケージ (`Microsoft.EntityFrameworkCore.SqlServer.Design` など) は、EF Core 2.1 では不要になり、サポートされなくなりましたが、他のパッケージをアップグレードする際に自動で削除されるわけではありません。
-> * .NET CLI ツールが .NET SDK に含まれるようになりました。このため、*.csproj* ファイルからパッケージへの参照を削除することができます。
->   ```
->   <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
->   ```
+    ``` xml
+    <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+    ```

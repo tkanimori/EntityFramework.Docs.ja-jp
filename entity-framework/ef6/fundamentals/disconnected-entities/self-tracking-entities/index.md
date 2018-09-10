@@ -3,12 +3,12 @@ title: 自己追跡エンティティ - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: 8b555d211facd737aedf120a1ecfdc88d3903107
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: bd22df9e14fe71ae065baf1d747b1642dd7bafce
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998017"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250867"
 ---
 # <a name="self-tracking-entities"></a>自己追跡エンティティ
 
@@ -28,7 +28,7 @@ STE エンティティは、オブジェクト グラフに対する変更が行
 
 最初に、「[Self-Tracking Entities Walkthrough](walkthrough.md)」(自己追跡エンティティ チュートリアル) ページを参照してください。  
 
-## <a name="considerations-when-working-with-self-tracking-entities"></a>自己追跡エンティティの使用に関する考慮事項  
+## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>自己追跡エンティティの使用に関する機能上の考慮事項  
 > [!IMPORTANT]
 > 自己追跡エンティティ テンプレートの使用は現在お勧めしていません。 既存のアプリケーションをサポートするためにのみ引き続き使用できます。 アプリケーションで、エンティティの切断されたグラフを操作する必要がある場合は、代替の方法を検討してください。たとえば、コミュニティによってより積極的に開発された自己追跡エンティティに似たテクノロジである[追跡可能なエンティティ](http://trackableentities.github.io/)を使用するか、または、低レベルの変更追跡 API を使用してカスタム コードを記述してください。
 
@@ -46,7 +46,7 @@ STE エンティティは、オブジェクト グラフに対する変更が行
 - 自己追跡エンティティは遅延読み込みを実行できません。  
 - バイナリ シリアル化および ASP.NET 状態管理オブジェクトへのシリアル化は自己追跡エンティティによってサポートされていません。 ただし、バイナリ シリアル化のサポートを追加するようにテンプレートをカスタマイズできます。 詳細については、「[自己追跡エンティティでのバイナリ シリアル化および ViewState の使用](http://go.microsoft.com/fwlink/?LinkId=199208)」を参照してください。  
 
-### <a name="security-considerations"></a>セキュリティの考慮事項  
+## <a name="security-considerations"></a>セキュリティの考慮事項  
 
 次のセキュリティに関する考慮事項は、自己追跡エンティティを使用する場合に考慮する必要があります。  
 

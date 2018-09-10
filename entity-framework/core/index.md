@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: d9fcafb35248b1af54e1ac707e2ff7d4e80e4aa2
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: ee3fac9e9103749195886a632fbeac3163a46689
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995652"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250544"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
@@ -18,31 +18,6 @@ Entity Framework (EF) Core は人気の Entity Framework データ アクセス 
 EF Core はオブジェクト リレーショナル マッパー (O/RM) として機能します。これにより、.NET 開発者は .NET オブジェクトを使用してデータベースを操作できます。通常は開発者が記述する必要があるほとんどのデータ アクセス コードが不要になります。
 
 EF Core は多くのデータベース エンジンに対応しています。詳細については、「[Database Providers](providers/index.md)」(データベース プロバイダー) を参照してください。
-
-コードを記述しながら学習したいのであれば、EF Core [入門](get-started/index.md)ガイドのご利用をお勧めします。
-
-## <a name="what-is-new-in-ef-core"></a>EF Core の新機能
-
-EF Core に精通しており、最新リリースの詳細をすぐに知りたい場合は、以下を参照してください。
-
-- **[EF Core 2.1 の新機能](xref:core/what-is-new/ef-core-2.1)**
-- **[既存アプリケーションを EF Core 2.x にアップグレードする](xref:core/miscellaneous/1x-2x-upgrade)**
-
-
-## <a name="get-entity-framework-core"></a>Entity Framework Core を入手する
-
-使用するデータベース プロバイダーに対して [NuGet パッケージ](https://docs.nuget.org/ndocs/quickstart/use-a-package)をインストールします。 たとえば、クロスプラットフォーム開発で SQL Server プロバイダーをインストールするためにコマンド ラインで `dotnet` ツールを使用する場合、次のようになります。
-
-``` Console
-dotnet add package Microsoft.EntityFrameworkCore.SqlServer
-```
-
-あるいは、Visual Studio でパッケージ マネージャー コンソールを使用する場合、次のようになります。
-
-``` PowerShell
-Install-Package Microsoft.EntityFrameworkCore.SqlServer
-```
-利用できるプロバイダーについては「[Database Providers](providers/index.md)」 (データベース プロバイダー) を、インストール手順の詳細については「[Installing EF Core](get-started/install/index.md)」 (EF Core のインストール) を参照してください。
 
 ## <a name="the-model"></a>モデル
 
@@ -113,3 +88,8 @@ using (var db = new BloggingContext())
     db.SaveChanges();
 }
 ```
+
+## <a name="next-steps"></a>次の手順
+
+入門チュートリアルについては、「[Entity Framework Core の概要](get-started/index.md)」を参照してください。
+
