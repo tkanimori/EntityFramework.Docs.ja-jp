@@ -3,12 +3,12 @@ title: トランザクション - EF6 の使用
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
-ms.openlocfilehash: 20b63c88c41c10b5a69660d5027097c647c7eedd
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 26473e1e52a6044babc717d5b158ad73aac5c738
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997552"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250610"
 ---
 # <a name="working-with-transactions"></a>トランザクションの使用
 > [!NOTE]
@@ -198,7 +198,7 @@ Null を渡す Database.UseTransaction() を現在のトランザクションの
 
 ### <a name="connection-resiliency"></a>接続の復元性  
 
-新しい接続の回復性機能には、ユーザーによって開始されたトランザクションでは使えません。 詳細については、次を参照してください。[再試行実行戦略の制限事項](~/ef6/fundamentals/connection-resiliency/retry-logic.md#limitations)します。  
+新しい接続の回復性機能には、ユーザーによって開始されたトランザクションでは使えません。 詳細については、次を参照してください。[再試行実行戦略](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported)します。  
 
 ### <a name="asynchronous-programming"></a>非同期プログラミング  
 

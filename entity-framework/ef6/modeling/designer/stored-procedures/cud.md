@@ -3,12 +3,12 @@ title: デザイナーの CUD ストアド プロシージャ - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 7a3176e1057816dd11ced5fc545aa3baa672bd03
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 36c9b97b77fec30136cba1d850a0259c689e69ae
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993890"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250921"
 ---
 # <a name="designer-cud-stored-procedures"></a>デザイナーの CUD ストアド プロシージャ
 このステップ バイ ステップ チュートリアルの作成をマップする方法を表示する\\挿入、更新、および Entity Framework デザイナー (EF Designer) を使用してストアド プロシージャにエンティティ型の (CUD) 操作を削除します。  既定では、Entity Framework は、CUD 操作で、SQL ステートメントを自動的に生成されますが、これらの操作をストアド プロシージャをマップすることもできます。  
@@ -54,7 +54,7 @@ CUD 操作をストアド プロシージャにマップする場合は、次の
 -   また、次のストアド プロシージャの選択、**ストアド プロシージャおよび関数**ノード: **DeletePerson**、 **InsertPerson**、および**UpdatePerson**. 
 -   Visual Studio 2012 で EF Designer を起動すると、ストアド プロシージャの一括インポートがサポートしています。 **エンティティ モデルに選択されたストアド プロシージャおよび関数のインポート**が既定でオンになっています。 この例では、挿入、更新、およびエンティティ型を削除するプロシージャを格納しますがため、私たちにインポートしたくないとは、このチェック ボックスをオフにします。 
 
-    ![ImportSProcs](~/ef6/media/importsprocs.jpg)
+    ![S Procs をインポートします。](~/ef6/media/importsprocs.jpg)
 
 -   **[完了]** をクリックします。
     モデルを編集するため、デザイン サーフェイスを提供する EF デザイナーが表示されます。
@@ -72,7 +72,7 @@ CUD 操作をストアド プロシージャにマップする場合は、次の
 -   **Enter** キーを押します。
 -   既定では、 **NewPersonID**エンティティ キーにマップされて**PersonID**します。 矢印はマッピングの方向を表します (結果列の値がプロパティに渡される)。
 
-    ![MappingDetails](~/ef6/media/mappingdetails.png)
+    ![マッピングの詳細](~/ef6/media/mappingdetails.png)
 
 -   をクリックして **&lt;Update 関数の選択&gt;** 選択**UpdatePerson**結果のドロップダウン リストから。
 -   ストアド プロシージャのパラメーターとエンティティのプロパティとの既定のマッピングが表示されます。

@@ -3,12 +3,12 @@ title: 複数の結果セットに EF6 を使用するストアド プロシー�
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 1b3797f9-cd3d-4752-a55e-47b84b399dc1
-ms.openlocfilehash: bb104ac5f584d26d279259a173de9afe3f018968
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 56c28f05bd7efe1b54d6cadd32afe0e9c6cf38b5
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996176"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251012"
 ---
 # <a name="stored-procedures-with-multiple-result-sets"></a>複数の結果セットを使用したストアド プロシージャ
 使用して格納されているときは 1 つ以上の結果を返す必要がありますプロシージャに設定します。 このシナリオはよくデータベースの数を減らす使用ラウンド トリップが 1 つの画面を作成するために必要です。 EF5 より前は、Entity Framework は、呼び出されるストアド プロシージャが、呼び出し元のコードに設定する最初の結果を返すだけです。
@@ -104,7 +104,7 @@ EF デザイナーを使用している場合で、返されるさまざまな�
 -   これを行うには、1 つの結果セット クエリの場合と同様に、モデルにストアド プロシージャを追加する必要があります。
 -   モデルを右クリックし、選択する必要があります**プログラムから開く.** **Xml**
 
-    ![OpenAs](~/ef6/media/openas.png)
+    ![として開く](~/ef6/media/openas.png)
 
 1 回、次の手順を行う必要があるし、XML として開かモデルがあります。
 

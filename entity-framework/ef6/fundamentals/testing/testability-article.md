@@ -3,12 +3,12 @@ title: テストの容易性と Entity Framework 4.0
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-ms.openlocfilehash: 17a9f09022531a81042979464de05fbbd2570759
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a2384c7868ae3cf6af4f915c06ae9fdb622634c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995230"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251324"
 ---
 # <a name="testability-and-entity-framework-40"></a>テストの容易性と Entity Framework 4.0
 Scott Allen
@@ -194,13 +194,13 @@ Fowler は、名前の遅延読み込みを使用して、「オブジェクト�
 
 インプレース Poco Visual Studio で Entity Data Model (EDM) を作成できます (図 1 参照)。 エンティティのコードを生成するのには、EDM を使用しません。 代わりに、手動で作成一目みてエンティティを使用します。 データベース スキーマを生成し、EF4 をデータベースにオブジェクトをマップする必要があるメタデータを提供する、EDM にのみ使用します。
 
-![eftest_01](~/ef6/media/eftest-01.jpg)
+![ef test_01](~/ef6/media/eftest-01.jpg)
 
 **図 1**
 
 注: まず EDM モデルを開発する場合は、クリーン、EDM から POCO コードを生成すること データ プログラマビリティ チームによって提供される Visual Studio 2010 拡張機能で、これを行うことができます。 拡張機能をダウンロードするには、Visual Studio の [ツール] メニューから拡張機能マネージャーを起動し、"POCO"(図を参照して 2) のテンプレートのオンライン ギャラリーを検索します。 POCO テンプレートがいくつかは EF 使用できます。 テンプレートの使用に関する詳細については、次を参照してください。"[チュートリアル: Entity Framework 用のテンプレート POCO](http://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)"。
 
-![eftest_02](~/ef6/media/eftest-02.png)
+![ef test_02](~/ef6/media/eftest-02.png)
 
 **図 2**
 
@@ -415,13 +415,13 @@ IObjectSet&lt;T&gt;オブジェクトのコレクションに似ているため�
 
 さまざまなテスト フィクスチャが (図 3 参照)、EmployeeControllerTestBase 基底クラスとして使用できます。 各テスト フィクスチャは特定のコント ローラー アクションをテストします。 たとえば、(従業員を作成するためのビューを表示) する HTTP GET 要求、中に使用する作成操作のテストに 1 つのテスト フィクスチャ、重点的し、さまざまなフィクスチャ、重点的に HTTP POST 要求で使用されている作成アクション (によって送信された情報を取得する、ユーザーの従業員を作成する)。 各派生クラスは、特定のコンテキストで、その特定のテストのコンテキストの結果を確認するために必要なアサーションを提供するために必要なセットアップを担当します。
 
-![eftest_03](~/ef6/media/eftest-03.png)
+![ef test_03](~/ef6/media/eftest-03.png)
 
 **図 3**
 
 ここでは名前付け規則とテストのスタイルがテストしやすいコードの必要はありません – アプローチの 1 つだけです。 図 4 は、Jet の頭脳の Resharper で実行されているテストでは、Visual Studio 2010 のランナーのプラグインをテストします。
 
-![eftest_04](~/ef6/media/eftest-04.png)
+![ef test_04](~/ef6/media/eftest-04.png)
 
 **図 4**
 

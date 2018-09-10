@@ -3,12 +3,12 @@ title: EF6 の検証
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: eec834888e2e3efaadc8acf9d4f64307f394ea4a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 65639b0f91f54ee2cd1336f6b6cd4caf45ede680
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994446"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251025"
 ---
 # <a name="data-validation"></a>データの検証
 > [!NOTE]
@@ -54,7 +54,7 @@ Entity Framework では、さまざまなクライアント側検証用のユー
 
 コードを追加またはアプリケーションのマークアップを変更なしに、既存の MVC アプリケーションは、プロパティと注釈の名前を使用してメッセージの構築も動的に、クライアント側の検証を実行します。
 
-![figure01](~/ef6/media/figure01.png)
+![図 1](~/ef6/media/figure01.png)
 
 投稿内 back のこのビューを作成するメソッド、Entity Framework を使用して、データベースに新しいブログを保存するが、アプリケーションがそのコードに到達する前に、MVC のクライアント側の検証がトリガーされます。
 
@@ -153,7 +153,7 @@ ValidationResult コンス トラクターでは、エラー メッセージと�
 
 Fluent API によって提供される検証とは異なり、ビューでこの検証の結果が認識され、ModelState にエラーを追加する前に使用した例外ハンドラーが必要ではありません。 ValidationResult で両方のプロパティ名を設定するため、これらのプロパティの両方のエラー メッセージが表示 MVC HtmlHelpers します。
 
-![figure02](~/ef6/media/figure02.png)
+![図 2](~/ef6/media/figure02.png)
 
 ## <a name="dbcontextvalidateentity"></a>DbContext.ValidateEntity
 

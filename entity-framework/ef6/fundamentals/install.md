@@ -3,12 +3,12 @@ title: Entity Framework の EF6 を取得します。
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
-ms.openlocfilehash: 91b78e56f60edf7ebc8769b1c385f8547f63cd3d
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 601f8d123d5494be6a658da1c4ad3743ed50385c
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152389"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250882"
 ---
 # <a name="get-entity-framework"></a>Entity Framework を入手します。
 Entity Framework は、Visual Studio と EF のランタイムの EF ツールの構成されます。
@@ -27,7 +27,7 @@ Entity Framework Tools for Visual Studio は EF Designer、EF モデル ウィ�
 
 右クリックし、EntityFramework パッケージをインストールすることができます、**参照**、プロジェクトのフォルダーを選択して**NuGet パッケージの管理.**
 
-![ManageNuGetPackages](~/ef6/media/managenugetpackages.png)
+![NuGet パッケージを管理します。](~/ef6/media/managenugetpackages.png)
 
 ### <a name="installing-from-package-manager-console"></a>パッケージ マネージャー コンソールからインストールします。
 
@@ -55,7 +55,7 @@ Install-Package EntityFramework -Version <number>
 
 選択 EntityFramework の最新のプレビューをインストールする**プレリリース版を含む**NuGet パッケージの管理 ウィンドウでします。 プレリリース バージョンが利用できない場合は、最新を自動的に取得が完全にサポートされているバージョンの Entity Framework。
 
-![IncludePreRelease](~/ef6/media/includeprerelease.png)
+![プレリリースを含める](~/ef6/media/includeprerelease.png)
 
 また、次のコマンドを実行することができます、[パッケージ マネージャー コンソール](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)します。
 

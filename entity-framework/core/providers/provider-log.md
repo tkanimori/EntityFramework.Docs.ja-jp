@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 44b200223153fca44cb2cfa3e78b3bedc7b4a552
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 5da1043310e2858638c81a0654a9cab23e39c220
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821336"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250817"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -19,9 +19,9 @@ ms.locfileid: "43821336"
 
 2.1 から 2.2 への変更でこのログを開始します。 使用して 2.1 より前、 [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware)と[ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi)問題とプル要求のラベル。
 
-### <a name="21-----22"></a>2.1 2.2---> します。
+## <a name="21-----22"></a>2.1 2.2---> します。
 
-#### <a name="test-only-changes"></a>テスト専用の変更
+### <a name="test-only-changes"></a>テスト専用の変更
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/12057 -テストでカスタマイズ可能な SQL の区切り文字を許可します。
   * 非厳格フローティングできるようにするテストの変更ではポイントイン BuiltInDataTypesTestBase の比較
@@ -40,7 +40,7 @@ ms.locfileid: "43821336"
   * この変更には、対応するためのプロバイダーを必要がありますテスト リファクタリングが含まれています。
 
 
-#### <a name="test-and-product-code-changes"></a>テストと製品コードの変更
+### <a name="test-and-product-code-changes"></a>テストと製品コードの変更
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/12109 -統合 RelationalTypeMapping.Clone メソッド
   * 派生クラスでの単純化するため、RelationalTypeMapping 2.1 での変更を許可します。 私たちを信じて、プロバイダーの重大ながこれが、プロバイダーを利用してこの変更の派生型のマッピング クラス。
@@ -50,4 +50,5 @@ ms.locfileid: "43821336"
   * 型のマッピングとメンバー翻訳外部プロバイダーを登録するのには、します。
     * プロバイダーは、基本で呼び出す必要があります。動作するためには、その ITypeMappingSource 実装 FindMapping()
   * プロバイダー間で一貫性のあるプロバイダーに空間的なサポートを追加するには、このパターンに従います。
-
+* https://github.com/aspnet/EntityFrameworkCore/pull/13199 -サービス プロバイダーの作成のデバッグ機能の強化を追加します。
+  * により、内部のサービス プロバイダーを再構築中理由を理解するのに役立つ新しいインターフェイスを実装する DbContextOptionsExtensions

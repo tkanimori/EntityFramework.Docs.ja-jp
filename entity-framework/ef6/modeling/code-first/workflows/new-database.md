@@ -3,12 +3,12 @@ title: 新しいデータベース - EF6 code First
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: 50c6a4710bc50879304f64e781a46c4836f86882
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 8ed1bfbc3536acc0d83b9c8ecdd180aeb44eff83
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152479"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251051"
 ---
 # <a name="code-first-to-a-new-database"></a>新しいデータベースの code First
 このビデオ、およびステップ バイ ステップ チュートリアルでは、新しいデータベースを対象とする Code First の開発の概要を提供します。 このシナリオには、存在しないデータベースを対象とするが含まれていますと Code First が作成、または空のデータベースを Code First が新しいテーブルを追加します。 コードを最初に使用すると、C を使用して、モデル定義\#または VB.Net クラス。 必要に応じてクラスやプロパティ、または fluent API を使用して属性を使用して追加の構成を実行できます。
@@ -199,13 +199,13 @@ Visual Studio でサーバー エクスプ ローラーを使用してこのデ�
 -   右クリックして**データ接続**選択**接続の追加.**
 -   場合、まだデータベースに接続して、サーバー エクスプ ローラーから前に、データ ソースとして Microsoft SQL Server を選択する必要があります。
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![データ ソースの選択](~/ef6/media/selectdatasource.png)
 
 -   LocalDB または SQL Express をインストールしたものによってのいずれかに接続します。
 
 Code First を作成したスキーマを検査できるようになりました。
 
-![SchemaInitial](~/ef6/media/schemainitial.png)
+![初期のスキーマ](~/ef6/media/schemainitial.png)
 
 DbContext を出して DbSet プロパティ定義を調べることで、モデルに含めるには、どのようなクラスです。 Code First の規則の既定のセットを使用して、テーブルと列名を決定する、データ型を決定する、主キーなどを検索します。 このチュートリアルの後半では、これらの規則を無効にする方法を紹介します。
 
@@ -266,7 +266,7 @@ namespace CodeFirstNewDatabaseSample.Migrations
 
 データベースのブログ テーブルには、新しい Url 列は追加がようになりました。
 
-![SchemaWithUrl](~/ef6/media/schemawithurl.png)
+![Url のスキーマ](~/ef6/media/schemawithurl.png)
 
 ## <a name="6-data-annotations"></a>6.データの注釈
 
@@ -316,7 +316,7 @@ public class User
 
 新しいテーブルがデータベースに追加ようになりました。
 
-![SchemaWithUsers](~/ef6/media/schemawithusers.png)
+![ユーザーとスキーマ](~/ef6/media/schemawithusers.png)
 
 EF によってサポートされている注釈の完全な一覧です。
 
@@ -365,7 +365,7 @@ public class BloggingContext : DbContext
 
 DisplayName 列の名前が表示にようになりました\_名。
 
-![SchemaWithDisplayNameRenamed](~/ef6/media/schemawithdisplaynamerenamed.png)
+![スキーマの名前を変更する表示名](~/ef6/media/schemawithdisplaynamerenamed.png)
 
 ## <a name="summary"></a>まとめ
 

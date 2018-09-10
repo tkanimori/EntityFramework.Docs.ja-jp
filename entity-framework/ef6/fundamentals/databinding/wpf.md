@@ -3,12 +3,12 @@ title: WPF の EF6 とのデータ バインド
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: 0b1f4d5ea204cd80acf42caa499732610daa0e31
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e6df90db17d39d3aa91275800a6414fed40fb5db
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994824"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251155"
 ---
 # <a name="databinding-with-wpf"></a>WPF とのデータ バインド
 このステップ バイ ステップ チュートリアルでは、POCO 型を「マスター/詳細」の形式での WPF コントロールにバインドする方法を示します。 アプリケーションでは、Entity Framework の Api を使用して、データベースからデータをオブジェクトに設定、変更の追跡、およびデータベースにデータを保持します。
@@ -142,17 +142,17 @@ Visual Studio と共にインストールされているデータベース サ�
 -   右クリックして**データ接続 -&gt;接続の追加.**
 -   場合、まだデータベースに接続して、サーバー エクスプ ローラーから前に、データ ソースとして Microsoft SQL Server を選択する必要があります。
 
-    ![ChangeDataSource](~/ef6/media/changedatasource.png)
+    ![データ ソースの変更](~/ef6/media/changedatasource.png)
 
 -   LocalDB または SQL Express をインストールしたものに応じてのいずれかに接続し、入力**製品**データベース名として
 
-    ![AddConnectionLocalDB](~/ef6/media/addconnectionlocaldb.png)
+    ![LocalDB の接続を追加します。](~/ef6/media/addconnectionlocaldb.png)
 
-    ![AddConnectionExpress](~/ef6/media/addconnectionexpress.png)
+    ![接続の高速を追加します。](~/ef6/media/addconnectionexpress.png)
 
 -   選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**
 
-    ![CreateDatabase](~/ef6/media/createdatabase.png)
+    ![データベースの作成](~/ef6/media/createdatabase.png)
 
 -   新しいデータベースがサーバー エクスプ ローラーに表示されますを右クリックして選択**新しいクエリ**
 -   新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**
@@ -186,15 +186,15 @@ Visual Studio の一部として含まれている Entity Framework デザイナ
 -   これにより、起動、 **Entity Data Model ウィザード**
 -   選択**データベースから生成**クリック **[次へ]**
 
-    ![ChooseModelContents](~/ef6/media/choosemodelcontents.png)
+    ![モデル コンテンツの選択](~/ef6/media/choosemodelcontents.png)
 
 -   最初のセクションで作成したデータベース接続を選択して、入力**ProductContext**をクリックして、接続文字列の名前として **[次へ]**
 
-    ![ChooseYourConnection](~/ef6/media/chooseyourconnection.png)
+    ![接続を選択します。](~/ef6/media/chooseyourconnection.png)
 
 -   すべてのテーブルをインポートし、[完了] をクリックします。 'テーブル' の横にあるチェック ボックスをクリックします。
 
-    ![ChooseYourObjects](~/ef6/media/chooseyourobjects.png)
+    ![オブジェクトを選択します。](~/ef6/media/chooseyourobjects.png)
 
 リバース エンジニア リング プロセスが完了すると、新しいモデルがプロジェクトに追加しを開いて、Entity Framework デザイナーで表示することです。 App.config ファイルが、データベースの接続詳細を含むプロジェクトにも追加されました。
 
@@ -213,7 +213,7 @@ EF では、T4 テンプレートを使用して、モデルからコードを�
 -   開く、**ソリューション エクスプ ローラー**を見つけて**ProductModel.edmx**ファイル
 -   検索、 **ProductModel.tt** ProductModel.edmx ファイルの下で入れ子にはファイル
 
-    ![WpfProductModelTemplate](~/ef6/media/wpfproductmodeltemplate.png)
+    ![WPF 製品モデルのテンプレート](~/ef6/media/wpfproductmodeltemplate.png)
 
 -   Visual Studio エディターで開く ProductModel.tt ファイルをダブルクリックします
 -   検索し、置換の 2 つの出現回数"**ICollection**"with"**ObservableCollection**"。 これらは、約 296 および 484 行にあります。
@@ -244,19 +244,19 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 -   選択、データ オブジェクト ダイアログ ボックスで、展開、 **WPFwithEFSample** 2 つの時刻と選択**カテゴリ**  
     *選択する必要はありません、**製品**を通じていたしますので、データ ソース、**製品**のプロパティを**カテゴリ**データ ソース*  
 
-    ![SelectDataObjects](~/ef6/media/selectdataobjects.png)
+    ![データ オブジェクトを選択します。](~/ef6/media/selectdataobjects.png)
 
 -   クリックして**完了します。**
 -   MainWindow.xaml のウィンドウの横にあるデータ ソース ウィンドウが開かれる*データ ソース ウィンドウが表示されていない場合は、選択**ビュー -&gt;その他の Windows-&gt;データ ソース***
 -   キーを押して、データ ソース ウィンドウが自動しないように、ピン アイコンを非表示にします。 ウィンドウが表示された場合は、更新ボタンをクリックする必要があります。
 
-    ![DataSources](~/ef6/media/datasources.png)
+    ![Data Sources](~/ef6/media/datasources.png)
 
 -   選択、* * カテゴリ * * データ ソースをフォームにドラッグします。
 
 このソースがドラッグされると、次のメッセージが発生しました。
 
--   **CategoryViewSource**リソースと * * * * categoryDataGrid コントロールが XAML に追加されました。 DataViewSources の詳細については、次を参照してください。http://bea.stollnitz.com/blog/?p=387します。
+-   **CategoryViewSource**リソースと * * * * categoryDataGrid コントロールが XAML に追加されました。 DataViewSources の詳細については、次を参照してください。 http://bea.stollnitz.com/blog/?p=387します。
 -   親グリッド要素の DataContext プロパティに設定されました"{StaticResource **categoryViewSource** }"。  **CategoryViewSource**リソースは、外側のバインディング ソースとして機能\\親グリッド要素。 内部のグリッド要素は、親 (categoryDataGrid の ItemsSource プロパティは"{binding}"に設定) をグリッドから DataContext 値を継承します。 
 
 ``` xml
@@ -299,7 +299,7 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 -   XAML ウィンドウで、クリックして、 **&lt;ウィンドウ**要素、これは、メイン ウィンドウを選択します。
 -   **プロパティ**ウィンドウ選択**イベント**右側の上部にあるテキスト ボックスの右側をダブルクリックし、 **Loaded**ラベル
 
-    ![MainWindowProperties](~/ef6/media/mainwindowproperties.png)
+    ![メイン ウィンドウのプロパティ](~/ef6/media/mainwindowproperties.png)
 
 -   追加も、  **をクリックして**イベントを**保存**デザイナーの [Save] ボタンをダブルクリックしてボタンをクリックします。 
 
@@ -385,10 +385,10 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 -   アプリケーションをコンパイルして実行します。 Code First を使用したかどうかは、ことがわかりますが、 **WPFwithEFSample.ProductContext**データベースが作成されます。
 -   下部のグリッドに上位のグリッドと製品の名前でカテゴリ名を入力*は何も入力しない ID の列に主キーがデータベースによって生成されるため、*
 
-    ![画面 1](~/ef6/media/screen1.png)
+    ![新しいカテゴリおよび製品とのメイン ウィンドウ](~/ef6/media/screen1.png)
 
 -   キーを押して、**保存**データベースにデータを保存するボタンをクリックします。
 
 DbContext の呼び出しの後**SaveChanges**()、Id はデータベースで生成された値が格納されます。 呼び出したため、**更新**後 () **SaveChanges**()、 **DataGrid**コントロールも、新しい値で更新します。
 
-![Screen2](~/ef6/media/screen2.png)
+![Id が設定されますが、メイン ウィンドウ](~/ef6/media/screen2.png)

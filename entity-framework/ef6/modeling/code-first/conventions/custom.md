@@ -3,12 +3,12 @@ title: カスタム コードの最初規則 - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
-ms.openlocfilehash: 79450790c6d3c8ce7fad209e3946e81d3fad4b75
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a0e8080037cf86640275f498ed159c847ff5c057
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995829"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251064"
 ---
 # <a name="custom-code-first-conventions"></a>カスタム コードの最初の規則
 > [!NOTE]
@@ -115,7 +115,7 @@ IsKey メソッドの面白い機能がある加法です。 つまり複数の�
 
 このコードは int 型のキー列と文字列の列で構成される複合キーにするには、このモデルの種類を構成します。 場合は、モデル デザイナーの表示次のようになります。
 
-![compositeKey](~/ef6/media/compositekey.png)
+![複合キー](~/ef6/media/compositekey.png)
 
 規則のプロパティの別の例では、datetime ではなく、SQL server datetime2 型にマップする、モデルのすべての DateTime プロパティを構成します。 次のようにこれを実現できます。
 
@@ -292,7 +292,7 @@ ToTable のもう 1 つの重要な側面されている場合に、特定のテ
 
 上記のコードは、次のようなテーブル構造へマップされます。
 
-![tptExample](~/ef6/media/tptexample.jpg)
+![tpt の例](~/ef6/media/tptexample.jpg)
 
 この問題を回避し、いくつかの方法で、既定の TPH マッピングを維持できます。
 

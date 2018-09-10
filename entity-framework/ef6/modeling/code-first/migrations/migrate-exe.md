@@ -3,12 +3,12 @@ title: Migrate.exe - EF6 を使用します。
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 989ea862-e936-4c85-926a-8cfbef5df5b8
-ms.openlocfilehash: 39740578e4a8c2d5400bcabbcb107baf0648fba5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8f0ff6d472c39eaf000c31783fe7a769c8746fec
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993500"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251116"
 ---
 # <a name="using-migrateexe"></a>Migrate.exe を使用します。
 Code First Migrations を使用してからデータベースを更新すること、visual studio 内でコマンド ライン ツールの migrate.exe 経由で実行することもできますが、します。 このページ migrate.exe を使用して、データベースに対して移行を実行する方法の概要を簡単になります。
@@ -26,16 +26,14 @@ Migrate.exe をした後は、移行を含むアセンブリの場所にコピ�
 
 | .NET 4.5                                   | .NET 4.0                                   |
 |:-------------------------------------------|:-------------------------------------------|
-| ![Net45Files](~/ef6/media/net45files.png)  | ![Net40Files](~/ef6/media/net40files.png)  |
+| ![.NET 4.5 ファイル](~/ef6/media/net45files.png)  | ![.NET 4.0 のファイル](~/ef6/media/net40files.png)  |
 
 > [!NOTE]
 > x64 をサポートしていない migrate.exe アセンブリ。
 
-## <a name="using-migrateexe"></a>Migrate.exe を使用します。
-
 移動すると migrate.exe 正しいフォルダーに、データベースに対して移行の実行に使用できる必要があります。 ユーティリティが実行するように設計は、移行を実行するだけです。 移行を生成または SQL スクリプトを作成できません。
 
-### <a name="see-options"></a>オプションを参照してください。
+## <a name="see-options"></a>オプションを参照してください。
 
 ``` console
 Migrate.exe /?
@@ -43,7 +41,7 @@ Migrate.exe /?
 
 上記はこのユーティリティでは、これが機能するために migrate.exe を実行しているのと同じ場所で、EntityFramework.dll する必要がありますに注意してくださいに関連付けられているヘルプ ページを表示します。
 
-### <a name="migrate-to-the-latest-migration"></a>最新の移行への移行します。
+## <a name="migrate-to-the-latest-migration"></a>最新の移行への移行します。
 
 ``` console
 Migrate.exe MyMvcApplication.dll /startupConfigurationFile=”..\\web.config”
@@ -51,7 +49,7 @@ Migrate.exe MyMvcApplication.dll /startupConfigurationFile=”..\\web.config”
 
 構成ファイルを指定しない場合と migrate.exe に唯一の必須のパラメーターを実行することは、これを実行しようとしている移行を含むアセンブリには、アセンブリが、すべての規則が使用されますベースの設定をします。
 
-### <a name="migrate-to-a-specific-migration"></a>特定の移行への移行します。
+## <a name="migrate-to-a-specific-migration"></a>特定の移行への移行します。
 
 ``` console
 Migrate.exe MyApp.exe /startupConfigurationFile=”MyApp.exe.config” /targetMigration=”AddTitle”
@@ -59,7 +57,7 @@ Migrate.exe MyApp.exe /startupConfigurationFile=”MyApp.exe.config” /targetMi
 
 特定の移行までの移行を実行する場合は、移行の名前を指定できます。 これには、必要に応じて以前のすべての移行は実行まで、指定された移行を取得します。
 
-### <a name="specify-working-directory"></a>作業ディレクトリを指定します。
+## <a name="specify-working-directory"></a>作業ディレクトリを指定します。
 
 ``` console
 Migrate.exe MyApp.exe /startupConfigurationFile=”MyApp.exe.config” /startupDirectory=”c:\\MyApp”
@@ -67,7 +65,7 @@ Migrate.exe MyApp.exe /startupConfigurationFile=”MyApp.exe.config” /startupD
 
 アセンブリが依存関係を持っているか、作業ディレクトリに対して相対的なファイルを読み取る場合は、startupDirectory を設定する必要があります。
 
-### <a name="specify-migration-configuration-to-use"></a>使用する移行の構成を指定します。
+## <a name="specify-migration-configuration-to-use"></a>使用する移行の構成を指定します。
 
 ``` console
 Migrate.exe MyAssembly CustomConfig /startupConfigurationFile=”..\\web.config”
@@ -75,7 +73,7 @@ Migrate.exe MyAssembly CustomConfig /startupConfigurationFile=”..\\web.config�
 
 移行構成の複数のクラスがあれば、DbMigrationConfiguration から継承するクラスを指定する必要はこの実行に使用します。 これは、省略可能な 2 番目のパラメーターとして上のスイッチを使用せずに提供することによって指定されます。
 
-### <a name="provide-connection-string"></a>接続文字列を指定します。
+## <a name="provide-connection-string"></a>接続文字列を指定します。
 
 ``` console
 Migrate.exe BlogDemo.dll /connectionString=”Data Source=localhost;Initial Catalog=BlogDemo;Integrated Security=SSPI” /connectionProviderName=”System.Data.SqlClient”

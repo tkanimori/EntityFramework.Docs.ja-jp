@@ -3,12 +3,12 @@ title: 自動の Code First Migrations の EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 0eb86787-2161-4cb4-9cb8-67c5d6e95650
-ms.openlocfilehash: f358a4df04b03399e9e54ffdf0389e43d715af1c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 256d1c774a2165dc12daf3d04550566c1a44b751
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996096"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250453"
 ---
 # <a name="automatic-code-first-migrations"></a>自動の Code First Migrations
 自動移行では、各変更のプロジェクト内のコード ファイルをしなくても Code First Migrations を使用できます。 すべての変更を自動的に適用できる - 列名の変更がコード ベースの移行の使用を要求するなど。
@@ -85,7 +85,7 @@ ms.locfileid: "42996096"
 
 -   アプリケーションを実行し、ことがわかりますが、 **MigrationsAutomaticCodeDemo.BlogContext**データベースが作成されます。
 
-    ![DatabaseLocalDB](~/ef6/media/databaselocaldb.png)
+    ![LocalDB のデータベース](~/ef6/media/databaselocaldb.png)
 
 ## <a name="enabling-migrations"></a>移行を有効にする
 

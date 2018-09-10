@@ -3,12 +3,12 @@ title: Entity Framework デザイナーのキーボード ショートカット 
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 3c76cdd5-17c5-4c54-a6a5-cf21b974636b
-ms.openlocfilehash: 70c9705956b58f4d00908dd9cca6ad0e0a078fc6
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e3a9d968c26841c143b1b7b0ba9a168ecd13f469
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997764"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251129"
 ---
 # <a name="entity-framework-designer-keyboard-shortcuts"></a>Entity Framework デザイナーのキーボード ショートカット
 このページは、Entity Framework Tools for Visual Studio のさまざまな画面で利用できるキーボード ショートカットのリンクの一覧を示します。
@@ -17,7 +17,7 @@ ms.locfileid: "42997764"
 
 ### <a name="step-one-choose-model-contents"></a>手順 1: モデル コンテンツを選択します。
 
-![WizardOne](~/ef6/media/wizardone.png)
+![ウィザードの 1 つ](~/ef6/media/wizardone.png)
 
 | ショートカット  | アクション                                                     | メモ                                               |
 |:----------|:-----------------------------------------------------------|:----------------------------------------------------|
@@ -27,7 +27,7 @@ ms.locfileid: "42997764"
 
 ### <a name="step-two-choose-your-connection"></a>手順 2: 接続を選択します。
 
-![WizardTwo](~/ef6/media/wizardtwo.png)
+![ウィザード 2](~/ef6/media/wizardtwo.png)
 
 | ショートカット  | アクション                                                     | メモ                                                   |
 |:----------|:-----------------------------------------------------------|:--------------------------------------------------------|
@@ -41,7 +41,7 @@ ms.locfileid: "42997764"
 
 ### <a name="step-three-choose-your-version"></a>手順 3: バージョンを選択します。
 
-![WizardThree](~/ef6/media/wizardthree.png)
+![ウィザードの 3 つ](~/ef6/media/wizardthree.png)
 
 | ショートカット  | アクション                                             | メモ                                                                                 |
 |:----------|:---------------------------------------------------|:--------------------------------------------------------------------------------------|
@@ -51,7 +51,7 @@ ms.locfileid: "42997764"
 
 ### <a name="step-four-choose-your-database-objects-and-settings"></a>手順 4: データベース オブジェクトと設定を選択します。
 
-![WizardFour](~/ef6/media/wizardfour.png)
+![ウィザードの 4](~/ef6/media/wizardfour.png)
 
 | ショートカット  | アクション                                                                                    | メモ                                                               |
 |:----------|:------------------------------------------------------------------------------------------|:--------------------------------------------------------------------|
@@ -70,7 +70,7 @@ ms.locfileid: "42997764"
 
 ## <a name="ef-designer-surface"></a>EF デザイナー画面
 
-![DesignerSurface](~/ef6/media/designersurface.png)
+![デザイナー画面](~/ef6/media/designersurface.png)
 
 | ショートカット                                                                                | アクション                      | メモ                                                                                                                                                                                                                               |
 |:----------------------------------------------------------------------------------------|:----------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -113,7 +113,7 @@ ms.locfileid: "42997764"
 
 ## <a name="mapping-details-window"></a>[マッピングの詳細] ウィンドウ
 
-![MappingDetailsShortcuts](~/ef6/media/mappingdetailsshortcuts.png)
+![マップのショートカットを詳細します。](~/ef6/media/mappingdetailsshortcuts.png)
 
 | ショートカット                  | アクション         | メモ                                                                                                                                 |
 |:--------------------------|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------|

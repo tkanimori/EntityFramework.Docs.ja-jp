@@ -3,12 +3,12 @@ title: 事前に生成されたマッピング ビュー - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
-ms.openlocfilehash: 397569ef374cb44d4938f9e201b588a26c408f6e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: c2ad7125122c04af238e8fdd07da2c6c308a2756
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996473"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250765"
 ---
 # <a name="pre-generated-mapping-views"></a>事前に生成されたマッピング ビュー
 Entity Framework では、クエリを実行したり、データ ソースに変更を保存することが、前に、一連のデータベースにアクセスするマッピング ビューが生成する必要があります。 これらのマッピング ビューを抽象的な方法でデータベースを表す Entity SQL ステートメントのセットし、アプリケーション ドメインごとにキャッシュされるメタデータの一部であります。 同じアプリケーション ドメインで同じコンテキストの複数のインスタンスを作成する場合は、再生成するのではなく、キャッシュされたメタデータからマッピング ビューは再利用します。 マップ ビューの生成は、最初のクエリの実行における全体的なコストのかなりの部分であるため、Entity Framework では、マッピング ビューを事前に生成およびコンパイル済みのプロジェクトに追加することができます。 詳細については、次を参照してください。[パフォーマンスに関する考慮事項 (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md)します。
@@ -20,11 +20,11 @@ Entity Framework では、クエリを実行したり、データ ソースに�
 -   **Code First** DbContext クラスを含むコード ファイルにモデルを右クリックします。
 -   **EF Designer**モデルは、EDMX ファイルを右クリックします。
 
-![generateViews](~/ef6/media/generateviews.png)
+![ビューを生成します。](~/ef6/media/generateviews.png)
 
 生成された次のようなクラスが、プロセスが完了すると
 
-![generatedViews](~/ef6/media/generatedviews.png)
+![生成されたビュー](~/ef6/media/generatedviews.png)
 
 これを実行すると、アプリケーションの EF は必要に応じてビューの読み込みにこのクラスを使用します。 モデルの変更と再生成しないこのクラスの場合、EF によって例外がスローされます。
 

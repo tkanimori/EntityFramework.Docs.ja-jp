@@ -3,12 +3,12 @@ title: デザイナーのテーブルは、次の分割の EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
-ms.openlocfilehash: 87b6e1bd0374f77dfffab342c659cf4e16c8a337
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f07aeb0aa679f6fa8131c667ac808f17c3f03f20
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994504"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250986"
 ---
 # <a name="designer-table-splitting"></a>デザイナーのテーブルを分割
 このチュートリアルでは、Entity Framework デザイナー (EF Designer) を持つモデルを変更することで、複数のエンティティ型を 1 つのテーブルにマップする方法を示します。
@@ -17,7 +17,7 @@ ms.locfileid: "42994504"
 
 次の図は、EF Designer を使用する場合に使用される主なウィンドウを示します。
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF デザイナー](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
@@ -130,8 +130,8 @@ ms.locfileid: "42994504"
 
 -   次**選択**コンテキストを実行した結果として実行されました。マップされている列だけ選択して People.FirstOrDefault()**人**
 
-    ![Select1](~/ef6/media/select1.png)
+    ![1 を選択します](~/ef6/media/select1.png)
 
 -   次**選択**ナビゲーション プロパティの existingPerson.Instructor へのアクセスの結果は実行しにマップされている列だけを選択します**HireInfo。**
 
-    ![Select2](~/ef6/media/select2.png)
+    ![2 を選択します。](~/ef6/media/select2.png)

@@ -3,29 +3,29 @@ title: コードの最初のデータ注釈 - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 0ab66afa3babafe657b3ddb32c02c3fba0ae310e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 57e2b988f81d9c82e10a07a5cd4f3a1decfd838a
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994587"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251207"
 ---
 # <a name="code-first-data-annotations"></a>Code First のデータ注釈
 > [!NOTE]
-> **EF4.1 以降のみ**-機能、Api、Entity Framework 4.1 で導入されたなどのこのページで説明します。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
+> **EF4.1 以降のみ**-機能、Api、Entity Framework 4.1 で導入されたなどのこのページで説明します。 以前のバージョンを使用している一部またはすべての情報は適用されません。
 
-このページのコンテンツの出典元し、Julie Lerman が最初に書き込まれた情報の記事 (\<http://thedatafarm.com>)します。
+このページの内容を Julie Lerman によって書き込まれた最初の記事からの抜粋です (\<http://thedatafarm.com>)します。
 
-Entity Framework Code First EF が、クエリを実行に依存するモデルを表す独自のドメイン クラスを使用できるように追跡と変更関数を更新しています。 コードは、最初の構成に規則と呼ばれるプログラミング パターンを活用します。 場合は、そのコードはまず、クラスが EF で使用される規則に従うこと。 その場合は、EF は、ジョブを実行する必要がある詳細を使用することになります。 ただし、クラスは、これらの規則に従っていない、構成に必要な情報に EF を提供するクラスを追加する機能があります。
+Entity Framework Code First EF が、クエリを実行するに依存するモデルを表す独自のドメイン クラスを使用することができます変更追跡、および関数を更新します。 コードが最初に '設定より規約です ' と呼ばれるプログラミング パターンを活用します。 コードはまず、クラスは Entity Framework の規則に従うし、その場合は、そのジョブを実行する方法を解明する自動的に。 ただし、クラスは、これらの規則に従っていない、構成を必要な情報に EF を提供するクラスに追加する機能があります。
 
-コードは 2 つの方法でこれらの構成をクラスに追加します。 まず、します。 DataAnnotations と呼ばれる単純な属性を使用して 1 つは、もう一方は Fluent API 構成を強制的に、コードで記述する方法を提供するには最初にコードを使用します。
+コードは 2 つの方法でこれらの構成をクラスに追加します。 まず、します。 1 つ DataAnnotations と呼ばれる単純な属性を使用して、2 つ目は Code First のコードで強制的に、構成を記述する方法を提供する Fluent API を使用しています。
 
 この記事では、System.ComponentModel.DataAnnotations 名前空間) の「DataAnnotations を使用して、最も一般的に必要な構成を強調表示、のクラスを構成する説明します。 DataAnnotations がこれらのアプリケーションのクライアント側の検証のための同じ注釈を活用できる ASP.NET MVC などの .NET アプリケーションの番号で考えることもできます。
 
 
 ## <a name="the-model"></a>モデル
 
-紹介しますコード クラスの単純なペアの最初の DataAnnotations: ブログや投稿します。
+クラスの単純なペアを使って最初 DataAnnotations のコードを紹介します。 ブログや投稿します。
 
 ``` csharp
     public class Blog
@@ -47,15 +47,15 @@ Entity Framework Code First EF が、クエリを実行に依存するモデル�
     }
 ```
 
-ブログや投稿クラスは簡単にコードの最初の規則に従うし、EF とその操作を調整する必要はありません。 ただし、EF に、クラスとがマップされるデータベースについての詳細を提供する、注釈を使用することもできます。
+ブログや投稿クラスは簡単にコードの最初の規則に従うし、EF の互換性を有効にする調整は必要ありません。 ただし、EF にクラスおよびマップ先のデータベースについての詳細を提供するのに、注釈を使用することもできます。
 
  
 
 ## <a name="key"></a>キー
 
-Entity Framework は、エンティティの追跡に使用するキー値を持つすべてのエンティティに依存します。 コードは、最初に依存している表記規則の 1 つは、どのプロパティは、コードの最初のクラスの各キーを意味する方法です。 その規則は、"Id"または"BlogId"など"Id", とクラスの名前とを組み合わせたものをという名前のプロパティを検索します。 プロパティは、データベースの主キー列にマップされます。
+Entity Framework は、エンティティの追跡に使用されるキーの値を持つすべてのエンティティに依存します。 Code First の 1 つの規則では、暗黙的なキー プロパティです。最初のコードは、"Id"、またはクラス名と"BlogId"など"Id", の組み合わせをという名前のプロパティを探します。 このプロパティは、データベースの主キー列にマップされます。
 
-ブログと Post の両方のクラスでは、この規則に従います。 しかししていない場合でしょうか。 ブログで名前を使用する場合*PrimaryTrackingKey*代わりに、またはでも*foo*でしょうか。 コードが最初にこの規則に一致するプロパティでは見つからない場合は、キー プロパティに必要な Entity Framework の要件のため例外がスローされます。 キーの注釈を使用すると、EntityKey として使用するのにプロパティを指定します。
+ブログと Post の両方のクラスでは、この規則に従います。 What-if でしたか。 ブログで名前を使用する場合*PrimaryTrackingKey*代わりに、あるいは*foo*でしょうか。 コードが最初にこの規則に一致するプロパティでは見つからない場合は、キー プロパティに必要な Entity Framework の要件のため例外がスローされます。 キーの注釈を使用すると、EntityKey として使用するのにプロパティを指定します。
 
 ``` csharp
     public class Blog
@@ -68,13 +68,13 @@ Entity Framework は、エンティティの追跡に使用するキー値を持
     }
 ```
 
-する場合はデータベースの生成機能は、最初にコードを使用して、ブログの表に、既定では、Id としても定義されている PrimaryTrackingKey という名前の主キー列になります。
+する場合はデータベースの生成機能は、最初にコードを使用して、ブログの表に、既定では、Id としても定義されている、PrimaryTrackingKey という名前の主キー列になります。
 
-![jj591583_figure01](~/ef6/media/jj591583-figure01.png)
+![主キー テーブルなブログ](~/ef6/media/jj591583-figure01.png)
 
 ### <a name="composite-keys"></a>複合キー
 
-Entity Framework には、複合キーは、1 つ以上のプロパティで構成される主キーがサポートしています。 たとえばのプライマリ キーを持つ PassportNumber と IssuingCountry の組み合わせは、Passport クラスがある可能性があります。
+Entity Framework には、複合キーは、1 つ以上のプロパティで構成される主キーがサポートしています。 たとえば、プライマリ キーを持つ PassportNumber と IssuingCountry の組み合わせは、Passport クラスがある可能性があります。
 
 ``` csharp
     public class Passport
@@ -88,11 +88,11 @@ Entity Framework には、複合キーは、1 つ以上のプロパティで構�
     }
 ```
 
-InvalidOperationExceptions という、; を取得するモデルに上記のクラスを使用した場合
+モデルに上記のクラスを使用しようとすることになります、 `InvalidOperationException`:
 
 *複合主キーの順序付けの種類 'Passport' を決定できません。複合主キーの順序を指定するのに、ColumnAttribute または HasKey メソッドを使用します。*
 
-複合キーがある場合は、Entity Framework では、キーのプロパティの順序を定義する必要があります。 順序を指定する列の注釈を使用してこれが実行できます。
+複合キーを使用するために Entity Framework はキー プロパティの順序を定義する必要があります。 これは、順序を指定する列の注釈を使用して行うことができます。
 
 >[!NOTE]
 > 順序の値は相対 (なくインデックス ベース) 任意の値を使用できるようにします。 たとえば、100 および 200 は 1 と 2 の代わりに許容になります。
@@ -111,7 +111,7 @@ InvalidOperationExceptions という、; を取得するモデルに上記のク
     }
 ```
 
-複合外部キーを持つエンティティがある場合は、同じ列の対応するプライマリ キーのプロパティに使用する順序を指定する必要があります。
+複合外部キーを持つエンティティがあれば、同じ列の対応するプライマリ キーのプロパティに使用する順序を指定する必要があります。
 
 同じである正確な値に割り当てられている必要があります、相対的な順序付けのみ外部キー プロパティ内で**順序**と一致する必要はありません。 たとえば、次のクラスで 3 と 4 される可能性があります 1 と 2 の代わりにします。
 
@@ -148,7 +148,7 @@ Title プロパティに必要な追加すると、プロパティは、これ�
 
 ない追加のないアプリケーションのコードやマークアップを変更、MVC アプリケーションのプロパティおよび注釈の名前を使用してメッセージの構築も動的に、クライアント側の検証は実行します。
 
-![jj591583_figure02](~/ef6/media/jj591583-figure02.png)
+![作成ページのタイトルが必要なエラー](~/ef6/media/jj591583-figure02.png)
 
 必須の属性には、マッピングされたプロパティを null 非許容のことで生成されたデータベースも影響します。 [タイトル] フィールドが"not null"に変更されていることに注意してください。
 
@@ -157,7 +157,7 @@ Title プロパティに必要な追加すると、プロパティは、これ�
 
  
 
-![jj591583_figure03](~/ef6/media/jj591583-figure03.png)
+![テーブルなブログ](~/ef6/media/jj591583-figure03.png)
 
  
 
@@ -174,7 +174,7 @@ MaxLength、MinLength 属性を必須にしたのと同様、追加のプロパ�
 
 MaxLength 注釈は、プロパティの長さを 10 に設定して、データベースに影響します。
 
-![jj591583_figure04](~/ef6/media/jj591583-figure04.png)
+![BloggerName 列の最大長を示すブログ表](~/ef6/media/jj591583-figure04.png)
 
 クライアント側の注釈を MVC と EF 4.1 サーバー側の注釈は両方に従ってこの検証でエラー メッセージを動的にもう一度ビルド:「BloggerName フィールドは、'10' の最大長の文字列または配列型をある必要があります」そのメッセージは、少し長くします。 多くの注釈を使用して、エラー メッセージの属性を持つエラー メッセージを指定できます。
 
@@ -185,7 +185,7 @@ MaxLength 注釈は、プロパティの長さを 10 に設定して、データ
 
 注釈が必要なエラー メッセージを指定することもできます。
 
-![jj591583_figure05](~/ef6/media/jj591583-figure05.png)
+![カスタム エラー メッセージの作成 ページ](~/ef6/media/jj591583-figure05.png)
 
  
 
@@ -243,7 +243,7 @@ BlogDetails にあらゆる種類のキー プロパティがないことに注�
 
 データベースには、ブログの表に、その BlogDetail プロパティに含まれるプロパティを含む、ブログのプロパティのすべて含まれます。 既定では、それぞれが付きます BlogDetail、複合型の名前。
 
-![jj591583_figure06](~/ef6/media/jj591583-figure06.png)
+![複合型を持つテーブルをブログ](~/ef6/media/jj591583-figure06.png)
 
 もう 1 つの興味深いことには、DateCreated プロパティ、クラス内の null 非許容の日時として定義されますが、関連するデータベース フィールドを null 値を許容します。 データベース スキーマに影響する場合は、必要な注釈を使用する必要があります。
 
@@ -284,7 +284,7 @@ BloggerName フィールドで ConcurrencyCheck 注釈により、SaveChanges �
 
 最初にデータベース テーブルで null 非許容の timestamp 列を作成するコードの結果。
 
-![jj591583_figure07](~/ef6/media/jj591583-figure07.png)
+![タイムスタンプ列を含むブログ テーブル](~/ef6/media/jj591583-figure07.png)
 
  
 
@@ -310,7 +310,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 再生成後に次の表に示します。 テーブル名が InternalBlogs に変更し、複合型から列を説明 BlogDescription になります。 注釈の名前が指定されたため、コード最初は使用しません複合型の名前で列名を開始する規約。
 
-![jj591583_figure08](~/ef6/media/jj591583-figure08.png)
+![ブログのテーブルと列の名前を変更](~/ef6/media/jj591583-figure08.png)
 
  
 
@@ -418,7 +418,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 データベース内の制約は、InternalBlogs.PrimaryTrackingKey と Posts.BlogId 間の関係を示しています。 
 
-![jj591583_figure09](~/ef6/media/jj591583-figure09.png)
+![InternalBlogs.PrimaryTrackingKey と Posts.BlogId 間のリレーションシップ](~/ef6/media/jj591583-figure09.png)
 
 クラス間の複数のリレーションシップがある場合、InverseProperty が使用されます。
 
@@ -443,7 +443,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 最初にコードは、独自の 2 つのクラスのプロパティと一致することではありません。 投稿のデータベース テーブルでは、CreatedBy 人の 1 つの外部キーが必要し、UpdatedBy 人がコードの最初として 4 つは外部キー プロパティを作成します: Person\_Id、Person\_Id1、CreatedBy\_Id とUpdatedBy\_id。
 
-![jj591583_figure10](~/ef6/media/jj591583-figure10.png)
+![余分な外部キーを含むテーブルを投稿します。](~/ef6/media/jj591583-figure10.png)
 
 これらの問題を解決するのにには、プロパティのアラインメントを指定するのに InverseProperty 注釈を使用できます。
 
@@ -457,7 +457,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 持参 PostsWritten プロパティは、これは、投稿の種類を指すことを知っている、ため Post.CreatedBy へのリレーションシップが構築されます。 同様に、PostsUpdated は Post.UpdatedBy に接続されます。 コードはまず、余分な外部キーが作成されます。
 
-![jj591583_figure11](~/ef6/media/jj591583-figure11.png)
+![投稿の余分な外部キーを持たないテーブル](~/ef6/media/jj591583-figure11.png)
 
  
 

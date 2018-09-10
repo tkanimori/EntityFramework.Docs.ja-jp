@@ -3,12 +3,12 @@ title: リレーションシップの EF デザイナー - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 402fe960-754b-470f-976b-e5de3e9986b5
-ms.openlocfilehash: 72efe76956c930a787449e6cce453ab0317adc7c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: e1912a5e00e51b4f07b1ac83848fdbe0aa4755aa
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994649"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250713"
 ---
 # <a name="relationships---ef-designer"></a>リレーションシップの EF デザイナー
 > [!NOTE]
@@ -16,7 +16,7 @@ ms.locfileid: "42994649"
 
 アソシエーションは、モデルのエンティティ型間のリレーションシップを定義します。 このトピックでは、Entity Framework デザイナー (EF Designer) とのアソシエーションをマップする方法を示します。 次の図は、EF Designer を使用する場合に使用される主なウィンドウを示します。
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF デザイナー](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
 > 概念モデルをビルドすると、エラー一覧にマップされていないエンティティとアソシエーションに関する警告があります。 エラーが解消されますモデルからデータベースを生成することを選択した後ために、これらの警告を無視できます。
@@ -44,7 +44,7 @@ CSDL 要素に関する情報 (**ReferentialConstraint**、**アソシエーシ�
 1.  デザイン サーフェイスの空の領域を右クリックし、 をポイント**新規追加**、選択と**関連しています...**。
 2.  関連付けの設定を入力、**の関連付けの追加**ダイアログ。
 
-    ![AddAssociation](~/ef6/media/addassociation.png)
+    ![関連付けを追加します。](~/ef6/media/addassociation.png)
 
     > [!NOTE]
     > いないアソシエーションの end にあるエンティティにオフにするとナビゲーション プロパティまたは外部キー プロパティを追加することができます、* * ナビゲーション プロパティ * * と * * を外部キー プロパティを追加、&lt;エンティティ型の名前&gt;エンティティ * *チェック ボックスをオンします。 ナビゲーション プロパティを 1 つだけ追加する場合、アソシエーションの検査は一方向のみ可能になります。 ナビゲーション プロパティを追加しない場合、アソシエーションの End にあるエンティティにアクセスするには、外部キー プロパティを追加する必要があります。
@@ -76,7 +76,7 @@ EF Designer を追加または変更を追加または編集、参照に関す�
 -   **依存**ドロップダウン リストで、参照に関する制約の依存エンティティを選択します。
 -   依存キーを持つ各プリンシパル キーで、ドロップダウン リストから対応する依存キーを選択します。、**依存キー**列。
 
-    ![RefConstraint](~/ef6/media/refconstraint.png)
+    ![Ref 制約](~/ef6/media/refconstraint.png)
 
 -   **[OK]** をクリックします。
 
@@ -97,7 +97,7 @@ EF Designer を追加または変更を追加または編集、参照に関す�
     **マッピングの詳細**ウィンドウが表示されます、アソシエーション、エンティティ型のキー プロパティの両方の end の各**エンド**します。
 -   各キーのプロパティをクリックして、**列**フィールドし、プロパティのマップ先の列を選択します。
 
-    ![MappingDetails4](~/ef6/media/mappingdetails4.png)
+    ![4 マッピングの詳細](~/ef6/media/mappingdetails4.png)
 
 ### <a name="edit-an-association-mapping"></a>アソシエーションのマッピングを編集します。
 

@@ -3,12 +3,12 @@ title: 最初に EF6 をモデル化します。
 author: divega
 ms.date: 2016-10-23
 ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
-ms.openlocfilehash: c21592b27fa752532f5ede5923d0bd751f0bf372
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 3dd0eba29619f09995d7009dd29462c14bde98c4
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998116"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251142"
 ---
 # <a name="model-first"></a>まずモデルします。
 このビデオ、およびステップ バイ ステップ チュートリアルでは、Entity Framework を使用して Model First の開発の概要を提供します。 まず、モデルを使用すると、Entity Framework デザイナーを使用して、新しいモデルを作成し、モデルからデータベース スキーマを生成できます。 モデルは、EDMX ファイル (拡張子は .edmx) に格納され、表示および編集できます、Entity Framework デザイナーで。 アプリケーションと対話するクラスは、EDMX ファイルから自動的に生成されます。
@@ -45,7 +45,7 @@ Visual Studio の一部として含まれている Entity Framework デザイナ
 -   入力**BloggingModel**名をクリックします**OK**、Entity Data Model ウィザードが起動
 -   選択**空のモデル**クリック**完了**
 
-    ![CreateEmptyModel](~/ef6/media/createemptymodel.png)
+    ![空のモデルを作成します。](~/ef6/media/createemptymodel.png)
 
 Entity Framework のデザイナーは、空のモデルで開かれます。 今すぐ、モデルにエンティティ、プロパティ、およびアソシエーションを追加するを開始できます。
 
@@ -55,7 +55,7 @@ Entity Framework のデザイナーは、空のモデルで開かれます。 �
 -   デザイン サーフェスと選択を右クリックして **- 新しい追加&gt;エンティティ.**
 -   入力**ブログ**エンティティ名としてと**BlogId**キー名をクリックします**OK**
 
-    ![AddBlogEntity](~/ef6/media/addblogentity.png)
+    ![ブログのエンティティを追加します。](~/ef6/media/addblogentity.png)
 
 -   デザイン サーフェスと選択の新しいエンティティを右クリックして **- 新しい追加&gt;スカラー プロパティ**、入力**名前**プロパティの名前として。
 -   追加するには、このプロセスを繰り返して、 **Url**プロパティ。
@@ -71,11 +71,11 @@ Entity Framework のデザイナーは、空のモデルで開かれます。 �
     *つまりブログは多くの投稿、および、1 つのブログに投稿が属しています。*
 -   確認、 **'Post' エンティティに外部キー プロパティを追加**ボックスがオンになってし、 **OK**
 
-    ![AddAssociationMF](~/ef6/media/addassociationmf.png)
+    ![MF の関連付けを追加します。](~/ef6/media/addassociationmf.png)
 
 データベースを生成してデータを読み書きするを使用して、単純なモデルがあるようになりました。
 
-![ModelInitial](~/ef6/media/modelinitial.png)
+![初期モデルします。](~/ef6/media/modelinitial.png)
 
 ### <a name="additional-steps-in-visual-studio-2010"></a>Visual Studio 2010 で追加の手順
 
@@ -95,7 +95,7 @@ Visual Studio 2010 で作業している場合は、いくつか追加の手順�
 -   選択**オンライン テンプレート**、左側のメニューと検索から**DbContext**
 -   EF の選択**5.x C 用 DbContext ジェネレーター\#**、入力**BloggingModel**名をクリックします**追加**
 
-    ![DbContextTemplate](~/ef6/media/dbcontexttemplate.png)
+    ![DbContext テンプレート](~/ef6/media/dbcontexttemplate.png)
 
 ## <a name="3-generating-the-database"></a>3.データベースの生成
 
@@ -111,9 +111,9 @@ Visual Studio と共にインストールされているデータベース サ�
 -   デザイン サーフェスと選択を右クリックして**モデルからデータベースを生成しています.**
 -   クリックして**新しい接続.** LocalDB または SQL Express は、Visual Studio のバージョンに応じて使用しているのいずれかを指定して入力**ModelFirst.Blogging**としてデータベース名。
 
-    ![LocalDBConnectionMF](~/ef6/media/localdbconnectionmf.png)
+    ![LocalDB 接続 MF](~/ef6/media/localdbconnectionmf.png)
 
-    ![SqlExpressConnectionMF](~/ef6/media/sqlexpressconnectionmf.png)
+    ![Sql Express 接続 MF](~/ef6/media/sqlexpressconnectionmf.png)
 
 -   選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**
 -   選択**次**と、Entity Framework デザイナーでは、データベース スキーマを作成するスクリプトを計算します。
@@ -126,7 +126,7 @@ Visual Studio と共にインストールされているデータベース サ�
 
 *このスクリーン ショットは Visual Studio 2012、Visual Studio 2010 を使用している場合、BloggingModel.tt、BloggingModel.Context.tt ファイル、プロジェクトの下に直接ではなく EDMX ファイルの下で入れ子になった。*
 
-![GeneratedClasses](~/ef6/media/generatedclasses.png)
+![生成されたクラス](~/ef6/media/generatedclasses.png)
 
 次に示すように、Program.cs の Main メソッドを実装します。 このコードは、コンテキストの新しいインスタンスを作成、し、それを使用して、新しいブログを挿入します。 タイトルでアルファベット順では、データベースからすべてのブログを取得するのに LINQ クエリを使用します。
 
@@ -180,7 +180,7 @@ Press any key to exit...
 
 -   新しい追加**ユーザー**でエンティティ名**Username** 、キー名としてと**文字列**キーのプロパティの型として
 
-    ![AddUserEntity](~/ef6/media/adduserentity.png)
+    ![ユーザー エンティティを追加します。](~/ef6/media/adduserentity.png)
 
 -   右クリックし、 **Username**プロパティをデザイン画面を選択します**プロパティ**のプロパティ ウィンドウの変更、 **MaxLength**設定**50** 
     *これは 50 文字にユーザー名で格納できるデータを制限*

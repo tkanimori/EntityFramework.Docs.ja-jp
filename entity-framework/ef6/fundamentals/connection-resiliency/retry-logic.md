@@ -3,12 +3,12 @@ title: 接続の回復性と再試行ロジック - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 47181292873009c7bce2047787503258ffa35d9d
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d7e58abfa17c5537cdc9b0068e7c2a3c2e390038
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997486"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250519"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>接続の回復性と再試行ロジック
 > [!NOTE]
@@ -68,11 +68,9 @@ public class MyConfiguration : DbConfiguration
 
 実行戦略は tansient では、通常、例外の数に制限を再試行してのみ、他のエラーと解決するのにはエラーが一時的でないか、時間がかかりすぎる場合 RetryLimitExceeded 例外をキャッチするを処理する必要があります。自体。  
 
-## <a name="limitations"></a>制限事項  
-
 再試行実行戦略を使用する場合は、いくつかの既知の制限事項があります。  
 
-### <a name="streaming-queries-are-not-supported"></a>ストリーミング クエリがサポートされていません  
+## <a name="streaming-queries-are-not-supported"></a>ストリーミング クエリがサポートされていません  
 
 既定では、EF6 とそれ以降のバージョンはそれらをストリーミングするのではなく、クエリの結果が可能ではバッファーです。 結果ストリームを用意する場合 AsStreaming メソッドを使用してストリーミングするエンティティのクエリに LINQ を変更することができます。  
 
@@ -88,11 +86,9 @@ using (var db = new BloggingContext())
 
 再試行実行戦略を登録すると、ストリーミングはサポートされていません。 返される結果を接続が途中削除でしたので、この制限が存在します。 この場合、EF がクエリ全体を再実行する必要がありますが既に返された結果を知ることの確実な方法がありません (データが変更されている最初のクエリが送信された、結果が異なる順序で返される可能性があります、結果は、一意識別子がないため、など。)。  
 
-### <a name="user-initiated-transactions-not-supported"></a>ユーザーがサポートされていないトランザクションを開始  
+## <a name="user-initiated-transactions-are-not-supported"></a>ユーザーが開始したトランザクションはサポートされていません  
 
 再試行回数になる実行戦略を構成しているときにトランザクションの使用に関するいくつかの制限があります。  
-
-#### <a name="whats-supported-efs-default-transaction-behavior"></a>サポートされている内容: EF の既定のトランザクションの動作  
 
 既定では、EF は、トランザクション内ですべてのデータベース更新を実行します。 これを有効にすることが何もする必要はありませんが、EF は、自動的にこれは常に。  
 
@@ -106,8 +102,6 @@ using (var db = new BloggingContext())
     db.SaveChanges();
 }
 ```  
-
-#### <a name="whats-not-supported-user-initiated-transactions"></a>どのような操作はサポートされていませんユーザー トランザクションを開始する。  
 
 再試行実行戦略を使用しない場合は、単一のトランザクションで複数の操作をラップできます。 たとえば、次のコードでは、単一のトランザクションで 2 つの SaveChanges 呼び出しをラップします。 いずれかの操作の一部が失敗した場合、どの変更が適用されます。  
 
@@ -130,9 +124,7 @@ using (var db = new BloggingContext())
 
 EF が認識し、それ以前の操作を再試行する方法がないために、再試行実行戦略を使用する場合、この操作はサポートされません。 たとえば、2 つ目の SaveChanges が失敗した場合、EF されなくが最初の SaveChanges 呼び出しを再試行する必要な情報」とあります。  
 
-#### <a name="possible-workarounds"></a>可能な回避策  
-
-##### <a name="suspend-execution-strategy"></a>実行戦略を中断します。  
+### <a name="workaround-suspend-execution-strategy"></a>回避策: 実行戦略を中断します。  
 
 1 つの考えられる回避策は、ユーザーを使用する必要があるコードの一部の再試行実行戦略を中断するトランザクションを開始します。 これを行う最も簡単な方法では、コードに SuspendExecutionStrategy フラグは、構成クラスをベースし、フラグが設定されている場合、既定の (非 retying) 実行戦略を返す実行戦略のラムダの変更を追加します。  
 
@@ -193,7 +185,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-##### <a name="manually-call-execution-strategy"></a>手動で実行戦略を呼び出す  
+### <a name="workaround-manually-call-execution-strategy"></a>回避策: 手動で実行戦略を呼び出す  
 
 手動で実行戦略を使用し、セット全体は、実行ロジックのいずれかの操作が失敗した場合に再試行すべてできるようにする別の方法です。 技法を使用して、実行戦略を中断する必要がありますの上に表示されるため、再試行可能なコード ブロック内で使用される任意のコンテキストは再試行しようとはしないでください。  
 

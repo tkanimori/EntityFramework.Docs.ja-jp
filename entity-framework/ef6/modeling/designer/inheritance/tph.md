@@ -3,12 +3,12 @@ title: デザイナーの TPH 継承 - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
-ms.openlocfilehash: 9a546f6450b5aa3b03c062d1ab2c6f9257ba8292
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1eb935414b20d6e93e9d470ccc845bc13626ed3a
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995005"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250844"
 ---
 # <a name="designer-tph-inheritance"></a>デザイナーの TPH 継承
 このステップ バイ ステップ チュートリアルでは、Entity Framework デザイナー (EF Designer) を使用した概念モデルでの table-per-hierarchy (TPH) 継承を実装する方法を示します。 TPH 継承は、継承階層内のエンティティ型のすべてのデータを維持するために、1 つのデータベース テーブルを使用します。
@@ -54,7 +54,7 @@ Model First を使用して TPH 継承にマップすることは、複雑なは
 
 つまり方法、**人**にデータベース テーブルを検索します。
 
-![PersonTable](~/ef6/media/persontable.png) 
+![Person テーブル](~/ef6/media/persontable.png) 
 
 ## <a name="implement-table-per-hierarchy-inheritance"></a>Table-per-hierarchy 継承を実装します。
 
@@ -94,14 +94,14 @@ Model First を使用して TPH 継承にマップすることは、複雑なは
 -   **演算子**の列、**マッピングの詳細**ウィンドウで、ドロップダウン リストから =。
 -   **値/プロパティ**列に「**インストラクター**します。 このよう、最終的な結果になります。
 
-    ![MappingDetails2](~/ef6/media/mappingdetails2.png)
+    ![マッピングの詳細](~/ef6/media/mappingdetails2.png)
 
 -   これらの手順を繰り返します、**学生**エンティティ型、それと等しい条件**学生**値。  
     *削除する理由、**識別子**プロパティは、テーブルの列を複数回マップすることはできません。この列は、プロパティ マッピングにも使用できませんのでの条件付きマッピングでは、使用されます。唯一の方法が条件を使用している場合、両方に使用できます、 **Is Null**または**Is Not Null**比較します。*
 
 これで、Table-Per-Hierarchy 継承が実装されました。
 
-![FinalTPH](~/ef6/media/finaltph.png)
+![最終的な TPH](~/ef6/media/finaltph.png)
 
 ## <a name="use-the-model"></a>モデルを使用します。
 

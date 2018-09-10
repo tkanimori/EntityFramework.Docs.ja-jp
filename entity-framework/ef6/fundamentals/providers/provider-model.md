@@ -3,12 +3,12 @@ title: Entity Framework 6 のプロバイダー モデル - EF6
 author: divega
 ms.date: 2018-06-27
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: e8b0552ec083d8ab276aa9de109650f423160269
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 7d9e2f49b9ef59fb63b024646911ec0d8dfcfc60
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821388"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251105"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Entity Framework 6 のプロバイダー モデル
 
@@ -24,13 +24,13 @@ EF6 では、.NET Framework の一部であった以前中核のコードが帯�
 
 EF プロバイダーは、実際に、これらのサービス (の基本クラス) から拡張または (インターフェイス) を実装する CLR 型で定義されているプロバイダーに固有のサービスのコレクションです。 これらのサービスの 2 つは、基本的なと EF で機能するために必要です。 他のユーザーは省略可能ですし、のみ、特定の機能が必要な場合やこれらのサービスの既定の実装は機能しません、特定のデータベース サーバーを対象となる場合は、実装する必要があります。
 
-### <a name="fundamental-provider-types"></a>基本的なプロバイダーの種類
+## <a name="fundamental-provider-types"></a>基本的なプロバイダーの種類
 
-#### <a name="dbproviderfactory"></a>DbProviderFactory
+### <a name="dbproviderfactory"></a>DbProviderFactory
 
 派生した型に依存して EF [System.Data.Common.DbProviderFactory](http://msdn.microsoft.com/en-us/library/system.data.common.dbproviderfactory.aspx)低レベルのデータベースのすべてのアクセスを実行するためです。 DbProviderFactory が EF の一部ではありませんが、ADO.NET プロバイダーのエントリ ポイントを提供する .NET Framework のクラスまたはアプリケーションによって直接 EF、他の O/RMs によって接続、コマンド、パラメーターのインスタンスを取得して使用する代わりには、他のプロバイダーで ADO.NET の抽象化に依存しない方法です。 DbProviderFactory の詳細についてに記載されて、 [ADO.NET に関する MSDN ドキュメント](http://msdn.microsoft.com/en-us/library/a6cd7c08.aspx)します。
 
-#### <a name="dbproviderservices"></a>DbProviderServices
+### <a name="dbproviderservices"></a>DbProviderServices
 
 EF は、EF によって既に ADO.NET プロバイダーによって提供される機能の上に必要な追加機能を提供するため DbProviderServices から派生した型があることに依存します。 以前のバージョンの EF で DbProviderServices クラスは、.NET Framework の一部であったし、System.Data.Common 名前空間が見つかりました。 このクラスを EF6 以降、EntityFramework.dll の一部になったし、System.Data.Entity.Core.Common 名前空間にあります。
 
@@ -38,33 +38,33 @@ DbProviderServices の実装の基本的な機能の詳細についてはのあ�
 
 以前のバージョンの EF で DbProviderServices の実装を使用する ADO.NET プロバイダーから直接入手されました。 これは、IServiceProvider を DbProviderFactory をキャストして、GetService メソッドを呼び出すことで行われました。 これは、EF のプロバイダーを DbProviderFactory に密結合します。 この結合では、.NET Framework 外に移動される EF がブロックされているし、この密結合を EF6 のために削除されましたが、アプリケーションの構成ファイルで直接、またはコード ベースで DbProviderServices の実装が登録されましたさらに詳しく記載されている構成、_登録 DbProviderServices_以下のセクション。
 
-### <a name="additional-services"></a>その他のサービス
+## <a name="additional-services"></a>その他のサービス
 
 上記で説明した基本的なサービスだけでなくも多くの他のサービスが EF によって使用される常に、または場合によってプロバイダーに固有であります。 DbProviderServices の実装が、これらのサービスの既定のプロバイダーに固有の実装を指定することができます。 アプリケーションはこれらのサービスの実装をオーバーライドしたり、DbProviderServices の一種で、既定値が提供されない場合に、実装を提供できます。 これはで詳しく説明されている、_追加サービスを解決する_以下のセクション。
 
 プロバイダーは、プロバイダーを対象にする必要があります追加サービスの種類は、以下に示します。 詳細については、各サービスの種類は、API のドキュメントに記載されています。
 
-#### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
+### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
 
 これは、オプションのサービスにより、クエリとコマンドは、データベースに対して実行されたときに再試行する場合やその他の動作を実装するプロバイダーです。 実装が指定されていない場合 EF は単にコマンドを実行し、スローされた例外を伝達します。 SQL Server のこのサービスは、SQL Azure などのクラウド ベースのデータベース サーバーに対して実行したときに特に便利ですが、再試行ポリシーを提供する使用されます。
 
-#### <a name="idbconnectionfactory"></a>IDbConnectionFactory
+### <a name="idbconnectionfactory"></a>IDbConnectionFactory
 
 これは、プロバイダーにデータベース名のみが指定されると、規約によって DbConnection オブジェクトを作成することができる省略可能なサービスです。 このサービス DbProviderServices の実装、EF 4.1 以降に存在していたことができますも明示的に設定する構成ファイルまたはコードによって解決できることに注意してください。 プロバイダーは、既定のプロバイダーとして登録されている場合は、このサービスを解決する機会のみを取得 (を参照してください_既定プロバイダー_以下)、既定の接続ファクトリが設定されていない別の場所。
 
-#### <a name="dbspatialservices"></a>DbSpatialServices
+### <a name="dbspatialservices"></a>DbSpatialServices
 
 これは、geography および geometry 空間型のサポートを追加するプロバイダーを許可するオプションのサービスです。 このサービスの実装は、空間型で EF を使用するアプリケーションの順序で指定する必要があります。 DbSptialServices には、2 つの方法での確認が表示されます。 DbProviderInfo オブジェクトを使用して最初に、プロバイダー固有の空間サービスが要求された (不変式が含まれていますとマニフェスト トークン) としてキー。 第 2 に、DbSpatialServices 要求できるキーを持たない。 これは、解決するには、"グローバル空間"に使用されるプロバイダー スタンドアロン DbGeography または DbGeometry の種類を作成するときに使用されます。
 
-#### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
+### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
 
 これは、Code First での作成とデータベース スキーマの変更に使用する SQL の生成に使用される、EF の移行を許可するオプションのサービスです。 移行をサポートするために実装が必要です。 実装が指定されている場合に、または使用データベース初期化子または Database.Create メソッドを使用してデータベースを作成するとき。
 
-#### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection、文字列、HistoryContextFactory >
+### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection、文字列、HistoryContextFactory >
 
 これは省略可能なサービスであり、プロバイダーに HistoryContext のマッピングを構成できるように、 `__MigrationHistory` EF の移行で使用されるテーブル。 HistoryContext コードの最初の DbContext であり、名前のテーブルと列マッピングの指定などを変更する通常の fluent API を使用して構成できます。 すべてのプロバイダー、EF によって返されるこのサービスの既定の実装は、そのプロバイダーによってすべて既定のテーブルと列のマッピングがサポートされている場合、特定のデータベース サーバーの動作可能性があります。 このような場合はこのサービスの実装を提供する、プロバイダーは必要ありません。
 
-#### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
+### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
 
 これは、指定した DbConnection オブジェクトから正しい DbProviderFactory を取得するためのオプションのサービスです。 すべてのプロバイダー、EF によって返されるこのサービスの既定の実装の目的は、すべてのプロバイダーを使用します。 ただし、.NET 4 で実行するときに、DbProviderFactory が公開されていない場合に 1 つからその DbConnections します。 そのため、EF はいくつかのヒューリスティックを使用して、検索、検索する登録済みのプロバイダー。 一部のプロバイダーは、これらのヒューリスティックの失敗をこのような状況で、プロバイダーが新しい実装を提供します。 ことができます。
 

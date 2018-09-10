@@ -3,19 +3,19 @@ title: EF6 の複合型-の EF デザイナー
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 9a8228ef-acfd-4575-860d-769d2c0e18a1
-ms.openlocfilehash: d35504cbe60823249d54385962568802b3e41308
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 2a516bd14131fd035a4d005e0fdf140f7ff4d65f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994854"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250830"
 ---
 # <a name="complex-types---ef-designer"></a>複合型の EF デザイナー
 このトピックでは、Entity Framework デザイナー (EF Designer) を含む複合型にマップする方法と複合型のプロパティを含むエンティティを照会する方法を示します。
 
 次の図は、EF Designer を使用する場合に使用される主なウィンドウを示します。
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF デザイナー](~/ef6/media/efdesigner.png)
 
 > [!NOTE]
 > 概念モデルをビルドすると、エラー一覧にマップされていないエンティティとアソシエーションに関する警告があります。 エラーが解消されますモデルからデータベースを生成することを選択した後ために、これらの警告を無視できます。
@@ -45,7 +45,7 @@ ms.locfileid: "42994854"
 
 新しく作成した型の複合プロパティが、選択したプロパティと置き換わります。 プロパティのマッピングはすべて保持されます。
 
-![Refactor2](~/ef6/media/refactor2.png)
+![2 をリファクタリングします。](~/ef6/media/refactor2.png)
 
 ## <a name="create-a-new-complex-type"></a>新しい複合型を作成します。
 
@@ -53,7 +53,7 @@ ms.locfileid: "42994854"
 
 右クリックし、**複合型**フォルダーをポイントする、モデル ブラウザーで**AddNew 複合型...**。 または、選択、**複合型**フォルダーとキーを押して、**挿入**キーボードのキー。
 
-![AddNewComplextype](~/ef6/media/addnewcomplextype.png)
+![新しい複合型を追加します。](~/ef6/media/addnewcomplextype.png)
 
 既定の名前を持つ新しい複合型がフォルダーに追加されます。 型にプロパティを追加できます。
 
@@ -65,7 +65,7 @@ ms.locfileid: "42994854"
 
 -   モデル ブラウザーで複合型を右クリックし、**追加**、順にポイント**スカラー プロパティ**または**複合プロパティ**、必要なプロパティの型を選択します。 または、複合型を選択し、キーを押します、**挿入**キーボードのキー。  
 
-    ![AddPropertiestoComplexType](~/ef6/media/addpropertiestocomplextype.png)
+    ![複合型にプロパティを追加します。](~/ef6/media/addpropertiestocomplextype.png)
 
     既定の名前を持つ新しいプロパティが複合型に追加されます。
 
@@ -108,7 +108,7 @@ ms.locfileid: "42994854"
     すべてのスカラー プロパティのドロップダウン リストが表示されます。
 7.  適切なプロパティを選択します。
 
-    ![MapComplexType](~/ef6/media/mapcomplextype.png)
+    ![複合型をマップします。](~/ef6/media/mapcomplextype.png)
 
 8.  各テーブル列ごとに、手順 6. と 7. を繰り返します。
 
@@ -121,14 +121,14 @@ ms.locfileid: "42994854"
 
 -   複合型にマップするインポートした関数をダブルクリックします。
 
-    ![FunctionImports](~/ef6/media/functionimports.png)
+    ![関数インポート](~/ef6/media/functionimports.png)
 
 -   新しい関数インポートの設定を、次のように入力します。
     -   関数インポートを作成するストアド プロシージャの指定、**ストアド プロシージャ名**フィールド。 このフィールドは、ストレージ モデル内のすべてのストアド プロシージャが表示されるドロップダウン リストです。
     -   関数インポートの名前を指定、**関数インポート名**フィールド。
     -   選択**複雑な**戻り値として入力し、ドロップダウン リストから適切な種類を選択して特定の複雑な戻り値の型を指定します。
 
-        ![EditFunctionImport](~/ef6/media/editfunctionimport.png)
+        ![関数インポートを編集します。](~/ef6/media/editfunctionimport.png)
 
 -   **[OK]** をクリックします。
     関数インポート エントリが概念モデルに作成されます。

@@ -3,12 +3,12 @@ title: 列挙型のサポート - EF デザイナー - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: c6ae6d8f-1ace-47db-ad47-b1718f1ba082
-ms.openlocfilehash: d4c5528c4dc13ab7189421feebf84c2cb2f4b2bb
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a94a497e8c5b3213dd7eb4215de90164d437507d
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995638"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250636"
 ---
 # <a name="enum-support---ef-designer"></a>列挙型のサポート - EF Designer
 > [!NOTE]
@@ -70,11 +70,11 @@ ms.locfileid: "42995638"
 
 1.  Entity Framework デザイナーでは、Name プロパティを右クリックして**列挙型に変換**
 
-    ![ConvertToEnum](~/ef6/media/converttoenum.png)
+    ![列挙型に変換します。](~/ef6/media/converttoenum.png)
 
 2.  **列挙の追加** ダイアログ ボックスに「 **DepartmentNames**列挙型の名前の変更を基になる型**Int32**、型には次メンバーを追加および: 英語、数値演算と経済性
 
-    ![AddEnumType](~/ef6/media/addenumtype.png)
+    ![列挙型を追加します。](~/ef6/media/addenumtype.png)
 
 3.  キーを押して**OK**
 4.  モデルを保存し、プロジェクトをビルド
@@ -85,7 +85,7 @@ ms.locfileid: "42995638"
 
 モデル ブラウザー ウィンドウに切り替えた場合、型が列挙型のノードにも追加されたことが表示されます。
 
-![ModelBrowser](~/ef6/media/modelbrowser.png)
+![モデル ブラウザー](~/ef6/media/modelbrowser.png)
 
 >[!NOTE]
 > マウスの右ボタンをクリックして、このウィンドウから新しい列挙型を追加することも**列挙型の追加**します。 型を作成した後の種類の一覧に表示され、プロパティに関連付けることができます。

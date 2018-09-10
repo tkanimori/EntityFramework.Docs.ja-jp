@@ -3,12 +3,12 @@ title: 既存のデータベース - EF6 code First
 author: divega
 ms.date: 2016-10-23
 ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
-ms.openlocfilehash: 29f959265e0fd0d5e14c156519e6931fd8da0677
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: fedfb921919582e2cdb5f3bc497f11889b972ad6
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995091"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251077"
 ---
 # <a name="code-first-to-an-existing-database"></a>既存のデータベースの code First
 このビデオ、およびステップ バイ ステップ チュートリアルでは、既存のデータベースを対象とする Code First の開発の概要を提供します。 コードを最初に使用すると、C を使用して、モデル定義\#または VB.Net クラス。 必要に応じて追加の構成は、クラスやプロパティ、または fluent API を使用して属性を使用して実行できます。
@@ -33,15 +33,15 @@ ms.locfileid: "42995091"
 -   右クリックして**データ接続 -&gt;接続の追加.**
 -   データベースに接続していない場合は**サーバー エクスプ ローラー**を選択する必要があります前に**Microsoft SQL Server**データ ソースとして
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![データ ソースの選択](~/ef6/media/selectdatasource.png)
 
 -   LocalDB インスタンスに接続し、入力**ブログ**データベース名として
 
-    ![LocalDBConnection](~/ef6/media/localdbconnection.png)
+    ![LocalDB の接続](~/ef6/media/localdbconnection.png)
 
 -   選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**
 
-    ![CreateDatabaseDialog](~/ef6/media/createdatabasedialog.png)
+    ![[データベース] ダイアログを作成します。](~/ef6/media/createdatabasedialog.png)
 
 -   新しいデータベースがサーバー エクスプ ローラーに表示されますを右クリックして選択**新しいクエリ**
 -   新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**
@@ -92,15 +92,15 @@ VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 -   これにより、起動、 **Entity Data Model ウィザード**
 -   選択**データベースから Code First**クリック **[次へ]**
 
-    ![WizardOneCFE](~/ef6/media/wizardonecfe.png)
+    ![1 つと、CFE ウィザード](~/ef6/media/wizardonecfe.png)
 
 -   最初のセクションで作成したデータベースへの接続を選択し、クリックして **[次へ]**
 
-    ![WizardTwoCFE](~/ef6/media/wizardtwocfe.png)
+    ![ウィザードの 2 つの CFE](~/ef6/media/wizardtwocfe.png)
 
 -   横のチェック ボックスをクリックして**テーブル**すべてのテーブルのインポート をクリックして**完了**
 
-    ![WizardThreeCFE](~/ef6/media/wizardthreecfe.png)
+    ![ウィザードの 3 つの CFE](~/ef6/media/wizardthreecfe.png)
 
 リバース エンジニア リング プロセスが完了項目の数が追加されて、プロジェクトにみましょう見て何が追加されています。
 

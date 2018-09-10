@@ -3,12 +3,12 @@ title: 自己追跡エンティティのチュートリアル - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
-ms.openlocfilehash: 64ca9ae42df1a1c740131e254b8f80f67b2f9f97
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 1c450bbb20c246d9b9d58707ac03eb48eadfa970
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995422"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251285"
 ---
 # <a name="self-tracking-entities-walkthrough"></a>自己追跡エンティティのチュートリアル
 > [!IMPORTANT]
@@ -142,7 +142,7 @@ Up、まず最初に、モデルを配置するプロジェクト。
 -   選択、 **STETemplate.tt**ファイル
 -   次に、ドロップダウン矢印をクリックして、**追加**ボタンをクリックし、選択**リンクとして追加**
 
-    ![AddLinkedTemplate](~/ef6/media/addlinkedtemplate.png)
+    ![リンクされたテンプレートを追加します。](~/ef6/media/addlinkedtemplate.png)
 
 今回は、コンテキストと同じ名前空間で生成されたエンティティ クラスになっていることを確認します。 これだけのステートメントは、アプリケーション全体で追加する必要がありますを使用して数を減らします。
 
@@ -552,4 +552,4 @@ WCF サービスにサービス参照を必要があります。
 -   右クリックし、 **STESample.WPFTest**プロジェクト**ソリューション エクスプ ローラー**選択**デバッグ -&gt;新しいインスタンスを開始**
 -   画面を使用してデータを操作してを介してサービスを使用して、保存、**保存**ボタン
 
-![WPF](~/ef6/media/wpf.png)
+![WPF のメイン ウィンドウ](~/ef6/media/wpf.png)

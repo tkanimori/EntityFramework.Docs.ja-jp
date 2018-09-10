@@ -3,12 +3,12 @@ title: WinForms - EF6 とのデータ バインド
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: 7ceb8e85fe3d8f5ab9a5e58ef9c84599585d8f77
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 071172810f7dac45f42aca0efa7f329bac31e9cd
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994530"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251194"
 ---
 # <a name="databinding-with-winforms"></a>WinForms とのデータ バインド
 このステップ バイ ステップ チュートリアルでは、POCO 型を「マスター/詳細」の形式で、ウィンドウ フォーム (WinForms) コントロールにバインドする方法を示します。 アプリケーションでは、Entity Framework を使用して、データベースからデータをオブジェクトに設定、変更の追跡、およびデータベースにデータを保持します。
@@ -179,17 +179,17 @@ Visual Studio と共にインストールされているデータベース サ�
 -   右クリックして**データ接続 -&gt;接続の追加.**
 -   場合、まだデータベースに接続して、サーバー エクスプ ローラーから前に、データ ソースとして Microsoft SQL Server を選択する必要があります。
 
-    ![ChangeDataSource](~/ef6/media/changedatasource.png)
+    ![データ ソースの変更](~/ef6/media/changedatasource.png)
 
 -   LocalDB または SQL Express をインストールしたものに応じてのいずれかに接続し、入力**製品**データベース名として
 
-    ![AddConnectionLocalDB](~/ef6/media/addconnectionlocaldb.png)
+    ![LocalDB の接続を追加します。](~/ef6/media/addconnectionlocaldb.png)
 
-    ![AddConnectionExpress](~/ef6/media/addconnectionexpress.png)
+    ![接続の高速を追加します。](~/ef6/media/addconnectionexpress.png)
 
 -   選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**
 
-    ![CreateDatabase](~/ef6/media/createdatabase.png)
+    ![データベースの作成](~/ef6/media/createdatabase.png)
 
 -   新しいデータベースがサーバー エクスプ ローラーに表示されますを右クリックして選択**新しいクエリ**
 -   新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**
@@ -227,11 +227,11 @@ Visual Studio の一部として含まれている Entity Framework デザイナ
 
 -   最初のセクションで作成したデータベース接続を選択して、入力**ProductContext**をクリックして、接続文字列の名前として **[次へ]**
 
-    ![ChooseYourConnection](~/ef6/media/chooseyourconnection.png)
+    ![接続を選択します。](~/ef6/media/chooseyourconnection.png)
 
 -   すべてのテーブルをインポートし、[完了] をクリックします。 'テーブル' の横にあるチェック ボックスをクリックします。
 
-    ![ChooseYourObjects](~/ef6/media/chooseyourobjects.png)
+    ![オブジェクトを選択します。](~/ef6/media/chooseyourobjects.png)
 
 リバース エンジニア リング プロセスが完了すると、新しいモデルがプロジェクトに追加しを開いて、Entity Framework デザイナーで表示することです。 App.config ファイルが、データベースの接続詳細を含むプロジェクトにも追加されました。
 
@@ -250,7 +250,7 @@ EF では、T4 テンプレートを使用して、モデルからコードを�
 -   開く、**ソリューション エクスプ ローラー**を見つけて**ProductModel.edmx**ファイル
 -   検索、 **ProductModel.tt** ProductModel.edmx ファイルの下で入れ子にはファイル
 
-    ![ProductModelTemplate](~/ef6/media/productmodeltemplate.png)
+    ![製品モデルのテンプレート](~/ef6/media/productmodeltemplate.png)
 
 -   Visual Studio エディターで開く ProductModel.tt ファイルをダブルクリックします
 -   検索し、置換の 2 つの出現回数"**ICollection**"with"**ObservableListSource**"。 これらは、296 と 484 を約行にあります。
@@ -278,13 +278,13 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 -   データ ソースの種類の選択、次のように選択します**オブジェクト**クリック**次へ。**
 -   選択、データ オブジェクト ダイアログ ボックスで、展開、 **WinFormswithEFSample** 2 つの時刻と選択**カテゴリ**製品の使用をいたしますので、製品のデータ ソースを選択する必要はありませんカテゴリのデータ ソースのプロパティです。
 
-    ![DataSource](~/ef6/media/datasource.png)
+    ![データ ソース](~/ef6/media/datasource.png)
 
 -   クリックして**完了します**。
     *データ ソース ウィンドウが表示されていない場合は、選択 * * * ビュー -&gt;その他の Windows-&gt;データ ソース**
 -   キーを押して、データ ソース ウィンドウが自動しないように、ピン アイコンを非表示にします。 ウィンドウが表示された場合は、更新ボタンをクリックする必要があります。
 
-    ![DataSource2](~/ef6/media/datasource2.png)
+    ![データ ソース 2](~/ef6/media/datasource2.png)
 
 -   ソリューション エクスプ ローラーで、 **Form1.cs**メイン フォームをデザイナーで開くファイル。
 -   選択、**カテゴリ**データ ソースをフォームにドラッグします。 既定で新しい DataGridView (**categoryDataGridView**) ナビゲーション ツール バー コントロールは、デザイナーに追加されます。 これらのコントロールは BindingSource にバインドされます (**categoryBindingSource**) とバインドのナビゲーター (**categoryBindingNavigator**) も作成されるコンポーネント。
@@ -302,7 +302,7 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
     これまでに DataGridView コントロールに関連付けられている BindingSource コンポーネントをデザイナー。 次のセクションのコードに追加のコードが categoryBindingSource.DataSource を現在 DbContext で追跡されるエンティティのコレクションに設定します。 ときに製品 categoryBindingSource と productsBindingSource.DataMember プロパティに productsBindingSource.DataSource プロパティを設定した製品、WinForms、カテゴリの下にドラッグ アンド ドロップして、処理します。 このバインドでは、ため、productDataGridView で現在選択されているカテゴリに属する製品だけが表示されます。
 -   有効にする、**保存**マウスの右ボタンをクリックして選択ナビゲーション ツールバーのボタン**有効**します。
 
-    ![Form1 デザイナー](~/ef6/media/form1-designer.png)
+    ![1 のフォーム デザイナー](~/ef6/media/form1-designer.png)
 
 -   保存のイベント ハンドラーを追加 ボタンをダブルクリックしてボタンをクリックします。 イベント ハンドラーに追加され、フォームの分離コードに移動されます。 コード、 **categoryBindingNavigatorSaveItem\_クリックして**イベント ハンドラーは、次のセクションで追加されます。
 
@@ -401,12 +401,12 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 
 -   コンパイルと実行して、アプリケーションが機能をテストできます。
 
-    ![Form1BeforeSave](~/ef6/media/form1beforesave.png)
+    ![1 を形成する前に保存](~/ef6/media/form1beforesave.png)
 
 -   保存した後にストア生成キーを画面に表示しています。
 
-    ![Form1AfterSave](~/ef6/media/form1aftersave.png)
+    ![フォームの 1 の後に保存](~/ef6/media/form1aftersave.png)
 
 -   Code First を使用した場合も表示されますが、 **WinFormswithEFSample.ProductContext**データベースが作成されます。
 
-    ![ServerObjExplorer](~/ef6/media/serverobjexplorer.png)
+    ![Server オブジェクト エクスプ ローラー](~/ef6/media/serverobjexplorer.png)

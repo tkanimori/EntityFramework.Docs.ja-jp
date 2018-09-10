@@ -3,19 +3,19 @@ title: エンティティ デザイナーの分割の EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: aa2dd48a-1f0e-49dd-863d-d6b4f5834832
-ms.openlocfilehash: 214561f0a0381bced3ceae0b6acfcd45f5dd65c5
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 06199be977276cd3656e2550df79bac24276ec51
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995620"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250599"
 ---
 # <a name="designer-entity-splitting"></a>デザイナーのエンティティを分割
 このチュートリアルでは、Entity Framework デザイナー (EF Designer) を持つモデルを変更することで、エンティティ型を 2 つのテーブルにマップする方法を示します。 エンティティを複数のテーブルにマップできるのは、それらのテーブルのキーが共通している場合です。 エンティティ型を 2 つのテーブルにマップする場合に適用される概念は、エンティティ型を 3 つ以上のテーブルにマップする場合にも簡単に応用できます。
 
 次の図は、EF Designer を使用する場合に使用される主なウィンドウを示します。
 
-![EFDesigner](~/ef6/media/efdesigner.png)
+![EF デザイナー](~/ef6/media/efdesigner.png)
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
@@ -93,7 +93,7 @@ CONSTRAINT [FK_Person_PersonInfo] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Per
 -   デザイン サーフェイスでは、選択、 **PersonInfo**エンティティ キーを押します**削除**キーボードのキー。
 -   クリックして**いいえ**を削除するように求められたら、 **PersonInfo**テーブルにマップしようとしていますが、モデルから、**人**エンティティ。
 
-    ![DeleteTables](~/ef6/media/deletetables.png)
+    ![テーブルを削除します。](~/ef6/media/deletetables.png)
 
 次の手順が必要です、**マッピングの詳細**ウィンドウ。 このウィンドウを表示されない場合は、サーフェスと選択のデザインを右クリックして**マッピングの詳細**します。
 
@@ -103,7 +103,7 @@ CONSTRAINT [FK_Person_PersonInfo] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Per
 
 **Person**エンティティ型が現在にマップされている、 **Person**と**PersonInfo**テーブル。
 
-![Mapping2](~/ef6/media/mapping2.png)
+![2 のマッピング](~/ef6/media/mapping2.png)
 
 ## <a name="use-the-model"></a>モデルを使用します。
 
@@ -136,9 +136,9 @@ CONSTRAINT [FK_Person_PersonInfo] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Per
 
 -   次の 2 つ**挿入**ステートメントのコンテキストを実行した結果として実行します。SaveChanges() します。 データを取得する、 **Person**エンティティの間で分割し、 **Person**と**PersonInfo**テーブル。
 
-    ![Insert1](~/ef6/media/insert1.png)
+    ![1 を挿入します。](~/ef6/media/insert1.png)
 
-    ![Insert2](~/ef6/media/insert2.png)
+    ![2 を挿入します。](~/ef6/media/insert2.png)
 -   次**選択**データベース内のユーザーの列挙の結果として実行されました。 データを組み合わせて、 **Person**と**PersonInfo**テーブル。
 
     ![選択](~/ef6/media/select.png)

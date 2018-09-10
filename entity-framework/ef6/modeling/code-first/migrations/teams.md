@@ -3,12 +3,12 @@ title: チーム環境 - EF6 code First Migrations
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
-ms.openlocfilehash: 42f52e63fd6cfc1f02d6a721594f4a161eea9a7b
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 31f8476c64d36d4d1cf3d18deb59ebc482dcc975
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997300"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251233"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>チーム環境での code First Migrations
 > [!NOTE]
@@ -54,7 +54,7 @@ ms.locfileid: "42997300"
 
 ようなものを実行する最初の移行をプロジェクトに追加するときに**Add-migration 最初**パッケージ マネージャー コンソールでします。 このコマンドを実行する手順の概要は次に示します。
 
-![FirstMigration](~/ef6/media/firstmigration.png)
+![最初の移行](~/ef6/media/firstmigration.png)
 
 現在のモデルは、コード (1) から計算されます。 モデルの違い (2) に必要なデータベース オブジェクトを計算し、– これは、モデルの最初の移行のため異なるだけでは、比較のための空のモデル。 必要な変更は、Visual Studio ソリューション (4) に追加し、必要な移行コード (3) をビルドするコード ジェネレーターに渡されます。
 
@@ -66,7 +66,7 @@ ms.locfileid: "42997300"
 
 この例では追加 – モデルに変更して戻って後で、 **Url**プロパティを**ブログ**します。 など、コマンドを発行すると、 **Add-migration AddUrl**適用、対応するデータベースへの移行をスキャフォールディングする変更します。 このコマンドを実行する手順の概要は次に示します。
 
-![SecondMigration](~/ef6/media/secondmigration.png)
+![2 番目の移行](~/ef6/media/secondmigration.png)
 
 最後の時刻と同じように、現在のモデルは、コード (1) から計算されます。 ただし、この時間がある既存の移行のため、以前のモデルは、最新の移行 (2) から取得されます。 これら 2 つのモデルが必要なデータベースの変更 (3) を見つける差分と、以前と同様、プロセスを完了します。
 
@@ -96,14 +96,14 @@ ms.locfileid: "42997300"
 
 EF モデルと、多数の変更からの移行を追跡します。 開始ポイントでは、両方の開発者が次の図に示すように、ソース管理リポジトリに同期します。
 
-![始点](~/ef6/media/startingpoint.png)
+![開始点](~/ef6/media/startingpoint.png)
 
 開発者\#1 と開発者\#2 がいくつかの変更はローカルのコード内での EF モデルに基本。 開発者\#1 を追加、**評価**プロパティを**ブログ**– し、生成、 **AddRating**移行データベースに変更を適用します。 開発者\#2 の追加、**リーダー**プロパティを**ブログ**– し、対応する生成**AddReaders**移行します。 両方の開発者が実行**Update-database**、し、そのローカルのデータベースに変更を適用し、アプリケーションの開発を続けます。
 
 > [!NOTE]
 > 移行というプレフィックスが付いた、タイムスタンプを持つため、グラフィックを表している開発者からの移行を AddReaders \#AddRating 移行の開発者から来る 2 \#1。 かどうか開発者\#1 または\#2 で生成される移行の先頭には、チーム、またはマージして、次のセクションで紹介するためのプロセスでの作業の問題に違いはありません。
 
-![LocalChanges](~/ef6/media/localchanges.png)
+![ローカルの変更](~/ef6/media/localchanges.png)
 
 どうやら開発者にとっては\#1 最初の変更を送信することが行われるとします。 誰もがチェックされているためはリポジトリを同期するため、すべてのマージを実行せず、変更内容だけ送信できます。
 
@@ -147,7 +147,7 @@ EF モデルと、多数の変更からの移行を追跡します。 開始ポ�
 
 開発者の状態を次に示します\#2 のローカル コード ベース後、このアプローチを使用します。
 
-![MergeMigration](~/ef6/media/mergemigration.png)
+![移行を差し込み印刷します。](~/ef6/media/mergemigration.png)
 
 ### <a name="option-2-update-the-model-snapshot-in-the-last-migration"></a>オプション 2: 最後の移行でモデルのスナップショットを更新します。
 
@@ -176,7 +176,7 @@ EF モデルと、多数の変更からの移行を追跡します。 開始ポ�
 
 開発者の状態を次に示します\#2 のローカル コード ベース後、このアプローチを使用します。
 
-![UpdatedMetadata](~/ef6/media/updatedmetadata.png)
+![更新されたメタデータ](~/ef6/media/updatedmetadata.png)
 
 ## <a name="summary"></a>まとめ
 

@@ -3,12 +3,12 @@ title: データベースの最初の EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: c60108c09fcbaaa1f86e77fa52cb13fe018975e1
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 93ae5729e487ed9be3972ac78d599dbea19ed458
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995911"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251090"
 ---
 # <a name="database-first"></a>最初のデータベースします。
 このビデオ、およびステップ バイ ステップ チュートリアルでは、Entity Framework を使用して Database First の開発の概要を提供します。 データベース最初にすることができますをリバース エンジニア リング、既存のデータベースからモデル。 モデルは、EDMX ファイル (拡張子は .edmx) に格納され、表示および編集できます、Entity Framework デザイナーで。 アプリケーションと対話するクラスは、EDMX ファイルから自動的に生成されます。
@@ -46,17 +46,17 @@ Visual Studio と共にインストールされているデータベース サ�
 -   右クリックして**データ接続 -&gt;接続の追加.**
 -   場合、まだデータベースに接続して、サーバー エクスプ ローラーから前に、データ ソースとして Microsoft SQL Server を選択する必要があります。
 
-    ![SelectDataSource](~/ef6/media/selectdatasource.png)
+    ![データ ソースの選択](~/ef6/media/selectdatasource.png)
 
 -   LocalDB または SQL Express をインストールしたものに応じてのいずれかに接続し、入力**DatabaseFirst.Blogging**データベース名として
 
-    ![SqlExpressConnectionDF](~/ef6/media/sqlexpressconnectiondf.png)
+    ![Sql Express 接続 DF](~/ef6/media/sqlexpressconnectiondf.png)
 
-    ![LocalDBConnectionDF](~/ef6/media/localdbconnectiondf.png)
+    ![LocalDB 接続 DF](~/ef6/media/localdbconnectiondf.png)
 
 -   選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**
 
-    ![CreateDatabaseDialog](~/ef6/media/createdatabasedialog.png)
+    ![[データベース] ダイアログを作成します。](~/ef6/media/createdatabasedialog.png)
 
 -   新しいデータベースがサーバー エクスプ ローラーに表示されますを右クリックして選択**新しいクエリ**
 -   新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**
@@ -101,21 +101,21 @@ Visual Studio の一部として含まれている Entity Framework デザイナ
 -   これにより、起動、 **Entity Data Model ウィザード**
 -   選択**データベースから生成**クリック **[次へ]**
 
-    ![WizardStep1](~/ef6/media/wizardstep1.png)
+    ![ウィザードの手順 1](~/ef6/media/wizardstep1.png)
 
 -   最初のセクションで作成したデータベース接続を選択して、入力**BloggingContext**をクリックして、接続文字列の名前として **[次へ]**
 
-    ![WizardStep2](~/ef6/media/wizardstep2.png)
+    ![ウィザードの手順 2](~/ef6/media/wizardstep2.png)
 
 -   すべてのテーブルをインポートし、[完了] をクリックします。 'テーブル' の横にあるチェック ボックスをクリックします。
 
-    ![WizardStep3](~/ef6/media/wizardstep3.png)
+    ![ウィザードの手順 3](~/ef6/media/wizardstep3.png)
 
  
 
 リバース エンジニア リング プロセスが完了すると、新しいモデルがプロジェクトに追加しを開いて、Entity Framework デザイナーで表示することです。 App.config ファイルが、データベースの接続詳細を含むプロジェクトにも追加されました。
 
-![ModelInitial](~/ef6/media/modelinitial.png)
+![初期モデルします。](~/ef6/media/modelinitial.png)
 
 ### <a name="additional-steps-in-visual-studio-2010"></a>Visual Studio 2010 で追加の手順
 
@@ -135,7 +135,7 @@ Visual Studio 2010 で作業している場合は、いくつか追加の手順�
 -   選択**オンライン テンプレート**、左側のメニューと検索から**DbContext**
 -   EF の選択**5.x C 用 DbContext ジェネレーター\#**、入力**BloggingModel**名をクリックします**追加**
 
-    ![DbContextTemplate](~/ef6/media/dbcontexttemplate.png)
+    ![DbContext テンプレート](~/ef6/media/dbcontexttemplate.png)
 
  
 
@@ -145,7 +145,7 @@ Visual Studio 2010 で作業している場合は、いくつか追加の手順�
 
 *このスクリーン ショットは Visual Studio 2012、Visual Studio 2010 を使用している場合、BloggingModel.tt、BloggingModel.Context.tt ファイル、プロジェクトの下に直接ではなく EDMX ファイルの下で入れ子になった。*
 
-![GeneratedClassesDF](~/ef6/media/generatedclassesdf.png)
+![生成されたクラス DF](~/ef6/media/generatedclassesdf.png)
 
  
 
@@ -217,7 +217,7 @@ CREATE TABLE [dbo].[Users]
 -   テーブルの横のボックスの更新ウィザードのチェックの追加 タブで、スキーマから新しいテーブルを追加することを示します。
     *[更新] タブでは、モデルの変更、更新中にチェックされる、既存のテーブルを示します。削除のタブは、スキーマから削除されているし、更新プログラムの一部として、モデルから削除もテーブルを表示します。これら 2 つのタブ上の情報は自動的に検出し、は情報提供だけを目的としており、設定を変更することはできません。*
 
-    ![RefreshWizard](~/ef6/media/refreshwizard.png)
+    ![ウィザードを更新します。](~/ef6/media/refreshwizard.png)
 
 -   更新ウィザードで [完了] をクリックします。
 
@@ -225,7 +225,7 @@ CREATE TABLE [dbo].[Users]
 
 モデルが更新され、データベースに追加するユーザー テーブルにマップする新しいユーザー エンティティを含めます。
 
-![ModelUpdated](~/ef6/media/modelupdated.png)
+![モデルが更新されました](~/ef6/media/modelupdated.png)
 
 ## <a name="summary"></a>まとめ
 
