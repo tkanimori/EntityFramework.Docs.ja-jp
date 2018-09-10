@@ -3,29 +3,29 @@ title: コードの最初のデータ注釈 - EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 0ab66afa3babafe657b3ddb32c02c3fba0ae310e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 57e2b988f81d9c82e10a07a5cd4f3a1decfd838a
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994587"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44251207"
 ---
-# <a name="code-first-data-annotations"></a><span data-ttu-id="4547f-102">Code First のデータ注釈</span><span class="sxs-lookup"><span data-stu-id="4547f-102">Code First Data Annotations</span></span>
+# <a name="code-first-data-annotations"></a><span data-ttu-id="dc531-102">Code First のデータ注釈</span><span class="sxs-lookup"><span data-stu-id="dc531-102">Code First Data Annotations</span></span>
 > [!NOTE]
-> <span data-ttu-id="4547f-103">**EF4.1 以降のみ**-機能、Api、Entity Framework 4.1 で導入されたなどのこのページで説明します。</span><span class="sxs-lookup"><span data-stu-id="4547f-103">**EF4.1 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 4.1.</span></span> <span data-ttu-id="4547f-104">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="4547f-104">If you are using an earlier version, some or all of the information does not apply.</span></span>
+> <span data-ttu-id="dc531-103">**EF4.1 以降のみ**-機能、Api、Entity Framework 4.1 で導入されたなどのこのページで説明します。</span><span class="sxs-lookup"><span data-stu-id="dc531-103">**EF4.1 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 4.1.</span></span> <span data-ttu-id="dc531-104">以前のバージョンを使用している一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="dc531-104">If you are using an earlier version, some or all of this information does not apply.</span></span>
 
-<span data-ttu-id="4547f-105">このページのコンテンツの出典元し、Julie Lerman が最初に書き込まれた情報の記事 (\<http://thedatafarm.com>)します。</span><span class="sxs-lookup"><span data-stu-id="4547f-105">The content on this page is adapted from and article originally written by Julie Lerman (\<http://thedatafarm.com>).</span></span>
+<span data-ttu-id="dc531-105">このページの内容を Julie Lerman によって書き込まれた最初の記事からの抜粋です (\<http://thedatafarm.com>)します。</span><span class="sxs-lookup"><span data-stu-id="dc531-105">The content on this page is adapted from an article originally written by Julie Lerman (\<http://thedatafarm.com>).</span></span>
 
-<span data-ttu-id="4547f-106">Entity Framework Code First EF が、クエリを実行に依存するモデルを表す独自のドメイン クラスを使用できるように追跡と変更関数を更新しています。</span><span class="sxs-lookup"><span data-stu-id="4547f-106">Entity Framework Code First allows you to use your own domain classes to represent the model which EF relies on to perform querying, change tracking and updating functions.</span></span> <span data-ttu-id="4547f-107">コードは、最初の構成に規則と呼ばれるプログラミング パターンを活用します。</span><span class="sxs-lookup"><span data-stu-id="4547f-107">Code first leverages a programming pattern referred to as convention over configuration.</span></span> <span data-ttu-id="4547f-108">場合は、そのコードはまず、クラスが EF で使用される規則に従うこと。</span><span class="sxs-lookup"><span data-stu-id="4547f-108">What this means is that code first will assume that your classes follow the conventions that EF uses.</span></span> <span data-ttu-id="4547f-109">その場合は、EF は、ジョブを実行する必要がある詳細を使用することになります。</span><span class="sxs-lookup"><span data-stu-id="4547f-109">In that case, EF will be able to work out the details it needs to do its job.</span></span> <span data-ttu-id="4547f-110">ただし、クラスは、これらの規則に従っていない、構成に必要な情報に EF を提供するクラスを追加する機能があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-110">However, if your classes do not follow those conventions, you have the ability to add configurations to your classes to provide EF with the information it needs.</span></span>
+<span data-ttu-id="dc531-106">Entity Framework Code First EF が、クエリを実行するに依存するモデルを表す独自のドメイン クラスを使用することができます変更追跡、および関数を更新します。</span><span class="sxs-lookup"><span data-stu-id="dc531-106">Entity Framework Code First allows you to use your own domain classes to represent the model that EF relies on to perform querying, change tracking, and updating functions.</span></span> <span data-ttu-id="dc531-107">コードが最初に '設定より規約です ' と呼ばれるプログラミング パターンを活用します。</span><span class="sxs-lookup"><span data-stu-id="dc531-107">Code First leverages a programming pattern referred to as 'convention over configuration.'</span></span> <span data-ttu-id="dc531-108">コードはまず、クラスは Entity Framework の規則に従うし、その場合は、そのジョブを実行する方法を解明する自動的に。</span><span class="sxs-lookup"><span data-stu-id="dc531-108">Code First will assume that your classes follow the conventions of Entity Framework, and in that case, will automatically work out how to perform it's job.</span></span> <span data-ttu-id="dc531-109">ただし、クラスは、これらの規則に従っていない、構成を必要な情報に EF を提供するクラスに追加する機能があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-109">However, if your classes do not follow those conventions, you have the ability to add configurations to your classes to provide EF with the requisite information.</span></span>
 
-<span data-ttu-id="4547f-111">コードは 2 つの方法でこれらの構成をクラスに追加します。 まず、します。</span><span class="sxs-lookup"><span data-stu-id="4547f-111">Code first gives you two ways to add these configurations to your classes.</span></span> <span data-ttu-id="4547f-112">DataAnnotations と呼ばれる単純な属性を使用して 1 つは、もう一方は Fluent API 構成を強制的に、コードで記述する方法を提供するには最初にコードを使用します。</span><span class="sxs-lookup"><span data-stu-id="4547f-112">One is using simple attributes called DataAnnotations and the other is using code first’s Fluent API, which provides you with a way to describe configurations imperatively, in code.</span></span>
+<span data-ttu-id="dc531-110">コードは 2 つの方法でこれらの構成をクラスに追加します。 まず、します。</span><span class="sxs-lookup"><span data-stu-id="dc531-110">Code First gives you two ways to add these configurations to your classes.</span></span> <span data-ttu-id="dc531-111">1 つ DataAnnotations と呼ばれる単純な属性を使用して、2 つ目は Code First のコードで強制的に、構成を記述する方法を提供する Fluent API を使用しています。</span><span class="sxs-lookup"><span data-stu-id="dc531-111">One is using simple attributes called DataAnnotations, and the second is using Code First’s Fluent API, which provides you with a way to describe configurations imperatively, in code.</span></span>
 
-<span data-ttu-id="4547f-113">この記事では、System.ComponentModel.DataAnnotations 名前空間) の「DataAnnotations を使用して、最も一般的に必要な構成を強調表示、のクラスを構成する説明します。</span><span class="sxs-lookup"><span data-stu-id="4547f-113">This article will focus on using DataAnnotations (in the System.ComponentModel.DataAnnotations namespace) to configure your classes – highlighting the most commonly needed configurations.</span></span> <span data-ttu-id="4547f-114">DataAnnotations がこれらのアプリケーションのクライアント側の検証のための同じ注釈を活用できる ASP.NET MVC などの .NET アプリケーションの番号で考えることもできます。</span><span class="sxs-lookup"><span data-stu-id="4547f-114">DataAnnotations are also understood by a number of .NET applications, such as ASP.NET MVC which allows these applications to leverage the same annotations for client-side validations.</span></span>
+<span data-ttu-id="dc531-112">この記事では、System.ComponentModel.DataAnnotations 名前空間) の「DataAnnotations を使用して、最も一般的に必要な構成を強調表示、のクラスを構成する説明します。</span><span class="sxs-lookup"><span data-stu-id="dc531-112">This article will focus on using DataAnnotations (in the System.ComponentModel.DataAnnotations namespace) to configure your classes – highlighting the most commonly needed configurations.</span></span> <span data-ttu-id="dc531-113">DataAnnotations がこれらのアプリケーションのクライアント側の検証のための同じ注釈を活用できる ASP.NET MVC などの .NET アプリケーションの番号で考えることもできます。</span><span class="sxs-lookup"><span data-stu-id="dc531-113">DataAnnotations are also understood by a number of .NET applications, such as ASP.NET MVC which allows these applications to leverage the same annotations for client-side validations.</span></span>
 
 
-## <a name="the-model"></a><span data-ttu-id="4547f-115">モデル</span><span class="sxs-lookup"><span data-stu-id="4547f-115">The model</span></span>
+## <a name="the-model"></a><span data-ttu-id="dc531-114">モデル</span><span class="sxs-lookup"><span data-stu-id="dc531-114">The model</span></span>
 
-<span data-ttu-id="4547f-116">紹介しますコード クラスの単純なペアの最初の DataAnnotations: ブログや投稿します。</span><span class="sxs-lookup"><span data-stu-id="4547f-116">I’ll demonstrate code first DataAnnotations with a simple pair of classes: Blog and Post.</span></span>
+<span data-ttu-id="dc531-115">クラスの単純なペアを使って最初 DataAnnotations のコードを紹介します。 ブログや投稿します。</span><span class="sxs-lookup"><span data-stu-id="dc531-115">I’ll demonstrate Code First DataAnnotations with a simple pair of classes: Blog and Post.</span></span>
 
 ``` csharp
     public class Blog
@@ -47,15 +47,15 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-117">ブログや投稿クラスは簡単にコードの最初の規則に従うし、EF とその操作を調整する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="4547f-117">As they are, the Blog and Post classes conveniently follow code first convention and required no tweaks to help EF work with them.</span></span> <span data-ttu-id="4547f-118">ただし、EF に、クラスとがマップされるデータベースについての詳細を提供する、注釈を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="4547f-118">But you can also use the annotations to provide more information to EF about the classes and the database that they map to.</span></span>
+<span data-ttu-id="dc531-116">ブログや投稿クラスは簡単にコードの最初の規則に従うし、EF の互換性を有効にする調整は必要ありません。</span><span class="sxs-lookup"><span data-stu-id="dc531-116">As they are, the Blog and Post classes conveniently follow code first convention and require no tweaks to enable EF compatability.</span></span> <span data-ttu-id="dc531-117">ただし、EF にクラスおよびマップ先のデータベースについての詳細を提供するのに、注釈を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="dc531-117">However, you can also use the annotations to provide more information to EF about the classes and the database to which they map.</span></span>
 
  
 
-## <a name="key"></a><span data-ttu-id="4547f-119">キー</span><span class="sxs-lookup"><span data-stu-id="4547f-119">Key</span></span>
+## <a name="key"></a><span data-ttu-id="dc531-118">キー</span><span class="sxs-lookup"><span data-stu-id="dc531-118">Key</span></span>
 
-<span data-ttu-id="4547f-120">Entity Framework は、エンティティの追跡に使用するキー値を持つすべてのエンティティに依存します。</span><span class="sxs-lookup"><span data-stu-id="4547f-120">Entity Framework relies on every entity having a key value that it uses for tracking entities.</span></span> <span data-ttu-id="4547f-121">コードは、最初に依存している表記規則の 1 つは、どのプロパティは、コードの最初のクラスの各キーを意味する方法です。</span><span class="sxs-lookup"><span data-stu-id="4547f-121">One of the conventions that code first depends on is how it implies which property is the key in each of the code first classes.</span></span> <span data-ttu-id="4547f-122">その規則は、"Id"または"BlogId"など"Id", とクラスの名前とを組み合わせたものをという名前のプロパティを検索します。</span><span class="sxs-lookup"><span data-stu-id="4547f-122">That convention is to look for a property named “Id” or one that combines the class name and “Id”, such as “BlogId”.</span></span> <span data-ttu-id="4547f-123">プロパティは、データベースの主キー列にマップされます。</span><span class="sxs-lookup"><span data-stu-id="4547f-123">The property will map to a primary key column in the database.</span></span>
+<span data-ttu-id="dc531-119">Entity Framework は、エンティティの追跡に使用されるキーの値を持つすべてのエンティティに依存します。</span><span class="sxs-lookup"><span data-stu-id="dc531-119">Entity Framework relies on every entity having a key value that is used for entity tracking.</span></span> <span data-ttu-id="dc531-120">Code First の 1 つの規則では、暗黙的なキー プロパティです。最初のコードは、"Id"、またはクラス名と"BlogId"など"Id", の組み合わせをという名前のプロパティを探します。</span><span class="sxs-lookup"><span data-stu-id="dc531-120">One convention of Code First is implicit key properties; Code First will look for a property named “Id”, or a combination of class name and “Id”, such as “BlogId”.</span></span> <span data-ttu-id="dc531-121">このプロパティは、データベースの主キー列にマップされます。</span><span class="sxs-lookup"><span data-stu-id="dc531-121">This property will map to a primary key column in the database.</span></span>
 
-<span data-ttu-id="4547f-124">ブログと Post の両方のクラスでは、この規則に従います。</span><span class="sxs-lookup"><span data-stu-id="4547f-124">The Blog and Post classes both follow this convention.</span></span> <span data-ttu-id="4547f-125">しかししていない場合でしょうか。</span><span class="sxs-lookup"><span data-stu-id="4547f-125">But what if they didn’t?</span></span> <span data-ttu-id="4547f-126">ブログで名前を使用する場合*PrimaryTrackingKey*代わりに、またはでも*foo*でしょうか。</span><span class="sxs-lookup"><span data-stu-id="4547f-126">What if Blog used the name *PrimaryTrackingKey* instead or even *foo*?</span></span> <span data-ttu-id="4547f-127">コードが最初にこの規則に一致するプロパティでは見つからない場合は、キー プロパティに必要な Entity Framework の要件のため例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="4547f-127">If code first does not find a property that matches this convention it will throw an exception because of Entity Framework’s requirement that you must have a key property.</span></span> <span data-ttu-id="4547f-128">キーの注釈を使用すると、EntityKey として使用するのにプロパティを指定します。</span><span class="sxs-lookup"><span data-stu-id="4547f-128">You can use the key annotation to specify which property is to be used as the EntityKey.</span></span>
+<span data-ttu-id="dc531-122">ブログと Post の両方のクラスでは、この規則に従います。</span><span class="sxs-lookup"><span data-stu-id="dc531-122">The Blog and Post classes both follow this convention.</span></span> <span data-ttu-id="dc531-123">What-if でしたか。</span><span class="sxs-lookup"><span data-stu-id="dc531-123">What if they didn’t?</span></span> <span data-ttu-id="dc531-124">ブログで名前を使用する場合*PrimaryTrackingKey*代わりに、あるいは*foo*でしょうか。</span><span class="sxs-lookup"><span data-stu-id="dc531-124">What if Blog used the name *PrimaryTrackingKey* instead, or even *foo*?</span></span> <span data-ttu-id="dc531-125">コードが最初にこの規則に一致するプロパティでは見つからない場合は、キー プロパティに必要な Entity Framework の要件のため例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="dc531-125">If code first does not find a property that matches this convention it will throw an exception because of Entity Framework’s requirement that you must have a key property.</span></span> <span data-ttu-id="dc531-126">キーの注釈を使用すると、EntityKey として使用するのにプロパティを指定します。</span><span class="sxs-lookup"><span data-stu-id="dc531-126">You can use the key annotation to specify which property is to be used as the EntityKey.</span></span>
 
 ``` csharp
     public class Blog
@@ -68,13 +68,13 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-129">する場合はデータベースの生成機能は、最初にコードを使用して、ブログの表に、既定では、Id としても定義されている PrimaryTrackingKey という名前の主キー列になります。</span><span class="sxs-lookup"><span data-stu-id="4547f-129">If you are using code first’s database generation feature, the Blog table will have a primary key column named PrimaryTrackingKey which is also defined as Identity by default.</span></span>
+<span data-ttu-id="dc531-127">する場合はデータベースの生成機能は、最初にコードを使用して、ブログの表に、既定では、Id としても定義されている、PrimaryTrackingKey という名前の主キー列になります。</span><span class="sxs-lookup"><span data-stu-id="dc531-127">If you are using code first’s database generation feature, the Blog table will have a primary key column named PrimaryTrackingKey, which is also defined as Identity by default.</span></span>
 
-![jj591583_figure01](~/ef6/media/jj591583-figure01.png)
+![主キー テーブルなブログ](~/ef6/media/jj591583-figure01.png)
 
-### <a name="composite-keys"></a><span data-ttu-id="4547f-131">複合キー</span><span class="sxs-lookup"><span data-stu-id="4547f-131">Composite keys</span></span>
+### <a name="composite-keys"></a><span data-ttu-id="dc531-129">複合キー</span><span class="sxs-lookup"><span data-stu-id="dc531-129">Composite keys</span></span>
 
-<span data-ttu-id="4547f-132">Entity Framework には、複合キーは、1 つ以上のプロパティで構成される主キーがサポートしています。</span><span class="sxs-lookup"><span data-stu-id="4547f-132">Entity Framework supports composite keys - primary keys that consist of more than one property.</span></span> <span data-ttu-id="4547f-133">たとえばのプライマリ キーを持つ PassportNumber と IssuingCountry の組み合わせは、Passport クラスがある可能性があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-133">For example, your could have a Passport class whose primary key is a combination of PassportNumber and IssuingCountry.</span></span>
+<span data-ttu-id="dc531-130">Entity Framework には、複合キーは、1 つ以上のプロパティで構成される主キーがサポートしています。</span><span class="sxs-lookup"><span data-stu-id="dc531-130">Entity Framework supports composite keys - primary keys that consist of more than one property.</span></span> <span data-ttu-id="dc531-131">たとえば、プライマリ キーを持つ PassportNumber と IssuingCountry の組み合わせは、Passport クラスがある可能性があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-131">For example, you could have a Passport class whose primary key is a combination of PassportNumber and IssuingCountry.</span></span>
 
 ``` csharp
     public class Passport
@@ -88,14 +88,14 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-134">InvalidOperationExceptions という、; を取得するモデルに上記のクラスを使用した場合</span><span class="sxs-lookup"><span data-stu-id="4547f-134">If you were to try and use the above class in your EF model you wuld get an InvalidOperationExceptions stating;</span></span>
+<span data-ttu-id="dc531-132">モデルに上記のクラスを使用しようとすることになります、 `InvalidOperationException`:</span><span class="sxs-lookup"><span data-stu-id="dc531-132">Attempting to use the above class in your EF model would result in an `InvalidOperationException`:</span></span>
 
-<span data-ttu-id="4547f-135">*複合主キーの順序付けの種類 'Passport' を決定できません。複合主キーの順序を指定するのに、ColumnAttribute または HasKey メソッドを使用します。*</span><span class="sxs-lookup"><span data-stu-id="4547f-135">*Unable to determine composite primary key ordering for type 'Passport'. Use the ColumnAttribute or the HasKey method to specify an order for composite primary keys.*</span></span>
+<span data-ttu-id="dc531-133">*複合主キーの順序付けの種類 'Passport' を決定できません。複合主キーの順序を指定するのに、ColumnAttribute または HasKey メソッドを使用します。*</span><span class="sxs-lookup"><span data-stu-id="dc531-133">*Unable to determine composite primary key ordering for type 'Passport'. Use the ColumnAttribute or the HasKey method to specify an order for composite primary keys.*</span></span>
 
-<span data-ttu-id="4547f-136">複合キーがある場合は、Entity Framework では、キーのプロパティの順序を定義する必要があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-136">When you have composite keys, Entity Framework requires you to define an order of the key properties.</span></span> <span data-ttu-id="4547f-137">順序を指定する列の注釈を使用してこれが実行できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-137">You can do this using the Column annotation to specify an order.</span></span>
+<span data-ttu-id="dc531-134">複合キーを使用するために Entity Framework はキー プロパティの順序を定義する必要があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-134">In order to use composite keys, Entity Framework requires you to define an order for the key properties.</span></span> <span data-ttu-id="dc531-135">これは、順序を指定する列の注釈を使用して行うことができます。</span><span class="sxs-lookup"><span data-stu-id="dc531-135">You can do this by using the Column annotation to specify an order.</span></span>
 
 >[!NOTE]
-> <span data-ttu-id="4547f-138">順序の値は相対 (なくインデックス ベース) 任意の値を使用できるようにします。</span><span class="sxs-lookup"><span data-stu-id="4547f-138">The order value is relative (rather than index based) so any values can be used.</span></span> <span data-ttu-id="4547f-139">たとえば、100 および 200 は 1 と 2 の代わりに許容になります。</span><span class="sxs-lookup"><span data-stu-id="4547f-139">For example, 100 and 200 would be acceptable in place of 1 and 2.</span></span>
+> <span data-ttu-id="dc531-136">順序の値は相対 (なくインデックス ベース) 任意の値を使用できるようにします。</span><span class="sxs-lookup"><span data-stu-id="dc531-136">The order value is relative (rather than index based) so any values can be used.</span></span> <span data-ttu-id="dc531-137">たとえば、100 および 200 は 1 と 2 の代わりに許容になります。</span><span class="sxs-lookup"><span data-stu-id="dc531-137">For example, 100 and 200 would be acceptable in place of 1 and 2.</span></span>
 
 ``` csharp
     public class Passport
@@ -111,9 +111,9 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-140">複合外部キーを持つエンティティがある場合は、同じ列の対応するプライマリ キーのプロパティに使用する順序を指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-140">If you have entities with composite foreign keys then you must specify the same column ordering that you used for the corresponding primary key properties.</span></span>
+<span data-ttu-id="dc531-138">複合外部キーを持つエンティティがあれば、同じ列の対応するプライマリ キーのプロパティに使用する順序を指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-138">If you have entities with composite foreign keys, then you must specify the same column ordering that you used for the corresponding primary key properties.</span></span>
 
-<span data-ttu-id="4547f-141">同じである正確な値に割り当てられている必要があります、相対的な順序付けのみ外部キー プロパティ内で**順序**と一致する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="4547f-141">Only the relative ordering within the foreign key properties needs to be the same, the exact values assigned to **Order** do not need to match.</span></span> <span data-ttu-id="4547f-142">たとえば、次のクラスで 3 と 4 される可能性があります 1 と 2 の代わりにします。</span><span class="sxs-lookup"><span data-stu-id="4547f-142">For example, in the following class, 3 and 4 could be used in place of 1 and 2.</span></span>
+<span data-ttu-id="dc531-139">同じである正確な値に割り当てられている必要があります、相対的な順序付けのみ外部キー プロパティ内で**順序**と一致する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="dc531-139">Only the relative ordering within the foreign key properties needs to be the same, the exact values assigned to **Order** do not need to match.</span></span> <span data-ttu-id="dc531-140">たとえば、次のクラスで 3 と 4 される可能性があります 1 と 2 の代わりにします。</span><span class="sxs-lookup"><span data-stu-id="dc531-140">For example, in the following class, 3 and 4 could be used in place of 1 and 2.</span></span>
 
 ``` csharp
     public class PassportStamp
@@ -135,63 +135,63 @@ ms.locfileid: "42994587"
     }
 ```
 
-## <a name="required"></a><span data-ttu-id="4547f-143">必須</span><span class="sxs-lookup"><span data-stu-id="4547f-143">Required</span></span>
+## <a name="required"></a><span data-ttu-id="dc531-141">必須</span><span class="sxs-lookup"><span data-stu-id="dc531-141">Required</span></span>
 
-<span data-ttu-id="4547f-144">必要な注釈は、特定のプロパティが必要である EF に指示します。</span><span class="sxs-lookup"><span data-stu-id="4547f-144">The Required annotation tells EF that a particular property is required.</span></span>
+<span data-ttu-id="dc531-142">必要な注釈は、特定のプロパティが必要である EF に指示します。</span><span class="sxs-lookup"><span data-stu-id="dc531-142">The Required annotation tells EF that a particular property is required.</span></span>
 
-<span data-ttu-id="4547f-145">Title プロパティに必要な追加すると、プロパティは、これでデータを持つようにするための EF (および MVC) が実行されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-145">Adding Required to the Title property will force EF (and MVC) to ensure that the property has data in it.</span></span>
+<span data-ttu-id="dc531-143">Title プロパティに必要な追加すると、プロパティは、これでデータを持つようにするための EF (および MVC) が実行されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-143">Adding Required to the Title property will force EF (and MVC) to ensure that the property has data in it.</span></span>
 
 ``` csharp
     [Required]
     public string Title { get; set; }
 ```
 
-<span data-ttu-id="4547f-146">ない追加のないアプリケーションのコードやマークアップを変更、MVC アプリケーションのプロパティおよび注釈の名前を使用してメッセージの構築も動的に、クライアント側の検証は実行します。</span><span class="sxs-lookup"><span data-stu-id="4547f-146">With no additional no code or markup changes in the application, an MVC application will perform client side validation, even dynamically building a message using the property and annotation names.</span></span>
+<span data-ttu-id="dc531-144">ない追加のないアプリケーションのコードやマークアップを変更、MVC アプリケーションのプロパティおよび注釈の名前を使用してメッセージの構築も動的に、クライアント側の検証は実行します。</span><span class="sxs-lookup"><span data-stu-id="dc531-144">With no additional no code or markup changes in the application, an MVC application will perform client side validation, even dynamically building a message using the property and annotation names.</span></span>
 
-![jj591583_figure02](~/ef6/media/jj591583-figure02.png)
+![作成ページのタイトルが必要なエラー](~/ef6/media/jj591583-figure02.png)
 
-<span data-ttu-id="4547f-148">必須の属性には、マッピングされたプロパティを null 非許容のことで生成されたデータベースも影響します。</span><span class="sxs-lookup"><span data-stu-id="4547f-148">The Required attribute will also affect the generated database by making the mapped property non-nullable.</span></span> <span data-ttu-id="4547f-149">[タイトル] フィールドが"not null"に変更されていることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="4547f-149">Notice that the Title field has changed to “not null”.</span></span>
+<span data-ttu-id="dc531-146">必須の属性には、マッピングされたプロパティを null 非許容のことで生成されたデータベースも影響します。</span><span class="sxs-lookup"><span data-stu-id="dc531-146">The Required attribute will also affect the generated database by making the mapped property non-nullable.</span></span> <span data-ttu-id="dc531-147">[タイトル] フィールドが"not null"に変更されていることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="dc531-147">Notice that the Title field has changed to “not null”.</span></span>
 
 >[!NOTE]
-> <span data-ttu-id="4547f-150">場合によっては、プロパティが必要な場合でも、null 非許容されるデータベース内の列の可能なないられます。</span><span class="sxs-lookup"><span data-stu-id="4547f-150">In some cases it may not be possible for the column in the database to be non-nullable even though the property is required.</span></span> <span data-ttu-id="4547f-151">たとえば、TPH 継承の戦略のデータを複数の種類を使用してが格納されている場合、1 つのテーブル。</span><span class="sxs-lookup"><span data-stu-id="4547f-151">For example, when using a TPH inheritance strategy data for multiple types is stored in a single table.</span></span> <span data-ttu-id="4547f-152">派生型に必要なプロパティが含まれている場合、列にできない null 非許容のこのプロパティは、階層内のすべての型であるためです。</span><span class="sxs-lookup"><span data-stu-id="4547f-152">If a derived type includes a required property the column cannot be made non-nullable since not all types in the hierarchy will have this property.</span></span>
+> <span data-ttu-id="dc531-148">場合によっては、プロパティが必要な場合でも、null 非許容されるデータベース内の列の可能なないられます。</span><span class="sxs-lookup"><span data-stu-id="dc531-148">In some cases it may not be possible for the column in the database to be non-nullable even though the property is required.</span></span> <span data-ttu-id="dc531-149">たとえば、TPH 継承の戦略のデータを複数の種類を使用してが格納されている場合、1 つのテーブル。</span><span class="sxs-lookup"><span data-stu-id="dc531-149">For example, when using a TPH inheritance strategy data for multiple types is stored in a single table.</span></span> <span data-ttu-id="dc531-150">派生型に必要なプロパティが含まれている場合、列にできない null 非許容のこのプロパティは、階層内のすべての型であるためです。</span><span class="sxs-lookup"><span data-stu-id="dc531-150">If a derived type includes a required property the column cannot be made non-nullable since not all types in the hierarchy will have this property.</span></span>
 
  
 
-![jj591583_figure03](~/ef6/media/jj591583-figure03.png)
+![テーブルなブログ](~/ef6/media/jj591583-figure03.png)
 
  
 
-## <a name="maxlength-and-minlength"></a><span data-ttu-id="4547f-154">MaxLength、MinLength</span><span class="sxs-lookup"><span data-stu-id="4547f-154">MaxLength and MinLength</span></span>
+## <a name="maxlength-and-minlength"></a><span data-ttu-id="dc531-152">MaxLength、MinLength</span><span class="sxs-lookup"><span data-stu-id="dc531-152">MaxLength and MinLength</span></span>
 
-<span data-ttu-id="4547f-155">MaxLength、MinLength 属性を必須にしたのと同様、追加のプロパティの検証を指定できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-155">The MaxLength and MinLength attributes allow you to specify additional property validations, just as you did with Required.</span></span>
+<span data-ttu-id="dc531-153">MaxLength、MinLength 属性を必須にしたのと同様、追加のプロパティの検証を指定できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-153">The MaxLength and MinLength attributes allow you to specify additional property validations, just as you did with Required.</span></span>
 
-<span data-ttu-id="4547f-156">長さの要件と BloggerName を次に示します。</span><span class="sxs-lookup"><span data-stu-id="4547f-156">Here is the BloggerName with length requirements.</span></span> <span data-ttu-id="4547f-157">この例では、属性を結合する方法も示します。</span><span class="sxs-lookup"><span data-stu-id="4547f-157">The example also demonstrates how to combine attributes.</span></span>
+<span data-ttu-id="dc531-154">長さの要件と BloggerName を次に示します。</span><span class="sxs-lookup"><span data-stu-id="dc531-154">Here is the BloggerName with length requirements.</span></span> <span data-ttu-id="dc531-155">この例では、属性を結合する方法も示します。</span><span class="sxs-lookup"><span data-stu-id="dc531-155">The example also demonstrates how to combine attributes.</span></span>
 
 ``` csharp
     [MaxLength(10),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-<span data-ttu-id="4547f-158">MaxLength 注釈は、プロパティの長さを 10 に設定して、データベースに影響します。</span><span class="sxs-lookup"><span data-stu-id="4547f-158">The MaxLength annotation will impact the database by setting the property’s length to 10.</span></span>
+<span data-ttu-id="dc531-156">MaxLength 注釈は、プロパティの長さを 10 に設定して、データベースに影響します。</span><span class="sxs-lookup"><span data-stu-id="dc531-156">The MaxLength annotation will impact the database by setting the property’s length to 10.</span></span>
 
-![jj591583_figure04](~/ef6/media/jj591583-figure04.png)
+![BloggerName 列の最大長を示すブログ表](~/ef6/media/jj591583-figure04.png)
 
-<span data-ttu-id="4547f-160">クライアント側の注釈を MVC と EF 4.1 サーバー側の注釈は両方に従ってこの検証でエラー メッセージを動的にもう一度ビルド:「BloggerName フィールドは、'10' の最大長の文字列または配列型をある必要があります」そのメッセージは、少し長くします。</span><span class="sxs-lookup"><span data-stu-id="4547f-160">MVC client-side annotation and EF 4.1 server-side annotation will both honor this validation, again dynamically building an error message: “The field BloggerName must be a string or array type with a maximum length of '10'.” That message is a little long.</span></span> <span data-ttu-id="4547f-161">多くの注釈を使用して、エラー メッセージの属性を持つエラー メッセージを指定できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-161">Many annotations let you specify an error message with the ErrorMessage attribute.</span></span>
+<span data-ttu-id="dc531-158">クライアント側の注釈を MVC と EF 4.1 サーバー側の注釈は両方に従ってこの検証でエラー メッセージを動的にもう一度ビルド:「BloggerName フィールドは、'10' の最大長の文字列または配列型をある必要があります」そのメッセージは、少し長くします。</span><span class="sxs-lookup"><span data-stu-id="dc531-158">MVC client-side annotation and EF 4.1 server-side annotation will both honor this validation, again dynamically building an error message: “The field BloggerName must be a string or array type with a maximum length of '10'.” That message is a little long.</span></span> <span data-ttu-id="dc531-159">多くの注釈を使用して、エラー メッセージの属性を持つエラー メッセージを指定できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-159">Many annotations let you specify an error message with the ErrorMessage attribute.</span></span>
 
 ``` csharp
     [MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-<span data-ttu-id="4547f-162">注釈が必要なエラー メッセージを指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="4547f-162">You can also specify ErrorMessage in the Required annotation.</span></span>
+<span data-ttu-id="dc531-160">注釈が必要なエラー メッセージを指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="dc531-160">You can also specify ErrorMessage in the Required annotation.</span></span>
 
-![jj591583_figure05](~/ef6/media/jj591583-figure05.png)
+![カスタム エラー メッセージの作成 ページ](~/ef6/media/jj591583-figure05.png)
 
  
 
-## <a name="notmapped"></a><span data-ttu-id="4547f-164">NotMapped</span><span class="sxs-lookup"><span data-stu-id="4547f-164">NotMapped</span></span>
+## <a name="notmapped"></a><span data-ttu-id="dc531-162">NotMapped</span><span class="sxs-lookup"><span data-stu-id="dc531-162">NotMapped</span></span>
 
-<span data-ttu-id="4547f-165">コードの最初の規則は、サポートされているデータ型のすべてのプロパティが、データベースで表されていることを決定します。</span><span class="sxs-lookup"><span data-stu-id="4547f-165">Code first convention dictates that every property that is of a supported data type is represented in the database.</span></span> <span data-ttu-id="4547f-166">これは、アプリケーション内のケースでは常にします。</span><span class="sxs-lookup"><span data-stu-id="4547f-166">But this isn’t always the case in your applications.</span></span> <span data-ttu-id="4547f-167">たとえば、タイトルと BloggerName フィールドに基づくコードを作成するブログ クラスでプロパティがある可能性があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-167">For example you might have a property in the Blog class that creates a code based on the Title and BloggerName fields.</span></span> <span data-ttu-id="4547f-168">このプロパティは、動的に作成できるし、格納する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="4547f-168">That property can be created dynamically and does not need to be stored.</span></span> <span data-ttu-id="4547f-169">この BlogCode プロパティなど NotMapped 注釈を使用してデータベースにマップされていない任意のプロパティをマークすることができます。</span><span class="sxs-lookup"><span data-stu-id="4547f-169">You can mark any properties that do not map to the database with the NotMapped annotation such as this BlogCode property.</span></span>
+<span data-ttu-id="dc531-163">コードの最初の規則は、サポートされているデータ型のすべてのプロパティが、データベースで表されていることを決定します。</span><span class="sxs-lookup"><span data-stu-id="dc531-163">Code first convention dictates that every property that is of a supported data type is represented in the database.</span></span> <span data-ttu-id="dc531-164">これは、アプリケーション内のケースでは常にします。</span><span class="sxs-lookup"><span data-stu-id="dc531-164">But this isn’t always the case in your applications.</span></span> <span data-ttu-id="dc531-165">たとえば、タイトルと BloggerName フィールドに基づくコードを作成するブログ クラスでプロパティがある可能性があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-165">For example you might have a property in the Blog class that creates a code based on the Title and BloggerName fields.</span></span> <span data-ttu-id="dc531-166">このプロパティは、動的に作成できるし、格納する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="dc531-166">That property can be created dynamically and does not need to be stored.</span></span> <span data-ttu-id="dc531-167">この BlogCode プロパティなど NotMapped 注釈を使用してデータベースにマップされていない任意のプロパティをマークすることができます。</span><span class="sxs-lookup"><span data-stu-id="dc531-167">You can mark any properties that do not map to the database with the NotMapped annotation such as this BlogCode property.</span></span>
 
 ``` csharp
     [NotMapped]
@@ -206,9 +206,9 @@ ms.locfileid: "42994587"
 
  
 
-## <a name="complextype"></a><span data-ttu-id="4547f-170">ComplexType</span><span class="sxs-lookup"><span data-stu-id="4547f-170">ComplexType</span></span>
+## <a name="complextype"></a><span data-ttu-id="dc531-168">ComplexType</span><span class="sxs-lookup"><span data-stu-id="dc531-168">ComplexType</span></span>
 
-<span data-ttu-id="4547f-171">一連のクラス間で、ドメイン エンティティを記述し、レイヤーの完全なエンティティを記述するそれらのクラスに珍しくありません。</span><span class="sxs-lookup"><span data-stu-id="4547f-171">It’s not uncommon to describe your domain entities across a set of classes and then layer those classes to describe a complete entity.</span></span> <span data-ttu-id="4547f-172">たとえば、モデルに BlogDetails と呼ばれるクラスを追加する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-172">For example, you may add a class called BlogDetails to your model.</span></span>
+<span data-ttu-id="dc531-169">一連のクラス間で、ドメイン エンティティを記述し、レイヤーの完全なエンティティを記述するそれらのクラスに珍しくありません。</span><span class="sxs-lookup"><span data-stu-id="dc531-169">It’s not uncommon to describe your domain entities across a set of classes and then layer those classes to describe a complete entity.</span></span> <span data-ttu-id="dc531-170">たとえば、モデルに BlogDetails と呼ばれるクラスを追加する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-170">For example, you may add a class called BlogDetails to your model.</span></span>
 
 ``` csharp
     public class BlogDetails
@@ -220,9 +220,9 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-173">BlogDetails にあらゆる種類のキー プロパティがないことに注意してください。</span><span class="sxs-lookup"><span data-stu-id="4547f-173">Notice that BlogDetails does not have any type of key property.</span></span> <span data-ttu-id="4547f-174">ドメイン駆動設計では、BlogDetails を値オブジェクトと呼びます。</span><span class="sxs-lookup"><span data-stu-id="4547f-174">In domain driven design, BlogDetails is referred to as a value object.</span></span> <span data-ttu-id="4547f-175">Entity Framework は、複合型として値オブジェクトを参照します。</span><span class="sxs-lookup"><span data-stu-id="4547f-175">Entity Framework refers to value objects as complex types.</span></span>  <span data-ttu-id="4547f-176">独自の複合型を追跡することはできません。</span><span class="sxs-lookup"><span data-stu-id="4547f-176">Complex types cannot be tracked on their own.</span></span>
+<span data-ttu-id="dc531-171">BlogDetails にあらゆる種類のキー プロパティがないことに注意してください。</span><span class="sxs-lookup"><span data-stu-id="dc531-171">Notice that BlogDetails does not have any type of key property.</span></span> <span data-ttu-id="dc531-172">ドメイン駆動設計では、BlogDetails を値オブジェクトと呼びます。</span><span class="sxs-lookup"><span data-stu-id="dc531-172">In domain driven design, BlogDetails is referred to as a value object.</span></span> <span data-ttu-id="dc531-173">Entity Framework は、複合型として値オブジェクトを参照します。</span><span class="sxs-lookup"><span data-stu-id="dc531-173">Entity Framework refers to value objects as complex types.</span></span>  <span data-ttu-id="dc531-174">独自の複合型を追跡することはできません。</span><span class="sxs-lookup"><span data-stu-id="dc531-174">Complex types cannot be tracked on their own.</span></span>
 
-<span data-ttu-id="4547f-177">ただしブログ クラス、BlogDetails がブログ オブジェクトの一部として追跡のプロパティとして。</span><span class="sxs-lookup"><span data-stu-id="4547f-177">However as a property in the Blog class, BlogDetails it will be tracked as part of a Blog object.</span></span> <span data-ttu-id="4547f-178">これを認識する最初のコードで、ComplexType として BlogDetails クラスをマークする必要があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-178">In order for code first to recognize this, you must mark the BlogDetails class as a ComplexType.</span></span>
+<span data-ttu-id="dc531-175">ただしブログ クラス、BlogDetails がブログ オブジェクトの一部として追跡のプロパティとして。</span><span class="sxs-lookup"><span data-stu-id="dc531-175">However as a property in the Blog class, BlogDetails it will be tracked as part of a Blog object.</span></span> <span data-ttu-id="dc531-176">これを認識する最初のコードで、ComplexType として BlogDetails クラスをマークする必要があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-176">In order for code first to recognize this, you must mark the BlogDetails class as a ComplexType.</span></span>
 
 ``` csharp
     [ComplexType]
@@ -235,108 +235,108 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-179">今すぐそのブログ BlogDetails を表すブログ クラスでプロパティを追加できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-179">Now you can add a property in the Blog class to represent the BlogDetails for that blog.</span></span>
+<span data-ttu-id="dc531-177">今すぐそのブログ BlogDetails を表すブログ クラスでプロパティを追加できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-177">Now you can add a property in the Blog class to represent the BlogDetails for that blog.</span></span>
 
 ``` csharp
         public BlogDetails BlogDetail { get; set; }
 ```
 
-<span data-ttu-id="4547f-180">データベースには、ブログの表に、その BlogDetail プロパティに含まれるプロパティを含む、ブログのプロパティのすべて含まれます。</span><span class="sxs-lookup"><span data-stu-id="4547f-180">In the database, the Blog table will contain all of the properties of the blog including the properties contained in its BlogDetail property.</span></span> <span data-ttu-id="4547f-181">既定では、それぞれが付きます BlogDetail、複合型の名前。</span><span class="sxs-lookup"><span data-stu-id="4547f-181">By default, each one is preceded with the name of the complex type, BlogDetail.</span></span>
+<span data-ttu-id="dc531-178">データベースには、ブログの表に、その BlogDetail プロパティに含まれるプロパティを含む、ブログのプロパティのすべて含まれます。</span><span class="sxs-lookup"><span data-stu-id="dc531-178">In the database, the Blog table will contain all of the properties of the blog including the properties contained in its BlogDetail property.</span></span> <span data-ttu-id="dc531-179">既定では、それぞれが付きます BlogDetail、複合型の名前。</span><span class="sxs-lookup"><span data-stu-id="dc531-179">By default, each one is preceded with the name of the complex type, BlogDetail.</span></span>
 
-![jj591583_figure06](~/ef6/media/jj591583-figure06.png)
+![複合型を持つテーブルをブログ](~/ef6/media/jj591583-figure06.png)
 
-<span data-ttu-id="4547f-183">もう 1 つの興味深いことには、DateCreated プロパティ、クラス内の null 非許容の日時として定義されますが、関連するデータベース フィールドを null 値を許容します。</span><span class="sxs-lookup"><span data-stu-id="4547f-183">Another interesting note is that although the DateCreated property was defined as a non-nullable DateTime in the class, the relevant database field is nullable.</span></span> <span data-ttu-id="4547f-184">データベース スキーマに影響する場合は、必要な注釈を使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-184">You must use the Required annotation if you wish to affect the database schema.</span></span>
+<span data-ttu-id="dc531-181">もう 1 つの興味深いことには、DateCreated プロパティ、クラス内の null 非許容の日時として定義されますが、関連するデータベース フィールドを null 値を許容します。</span><span class="sxs-lookup"><span data-stu-id="dc531-181">Another interesting note is that although the DateCreated property was defined as a non-nullable DateTime in the class, the relevant database field is nullable.</span></span> <span data-ttu-id="dc531-182">データベース スキーマに影響する場合は、必要な注釈を使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-182">You must use the Required annotation if you wish to affect the database schema.</span></span>
 
  
 
-## <a name="concurrencycheck"></a><span data-ttu-id="4547f-185">ConcurrencyCheck</span><span class="sxs-lookup"><span data-stu-id="4547f-185">ConcurrencyCheck</span></span>
+## <a name="concurrencycheck"></a><span data-ttu-id="dc531-183">ConcurrencyCheck</span><span class="sxs-lookup"><span data-stu-id="dc531-183">ConcurrencyCheck</span></span>
 
-<span data-ttu-id="4547f-186">ConcurrencyCheck 注釈の同時実行ユーザーが編集したり、エンティティを削除します。 データベースのチェックに使用する 1 つまたは複数のプロパティのフラグを設定することができます。</span><span class="sxs-lookup"><span data-stu-id="4547f-186">The ConcurrencyCheck annotation allows you to flag one or more properties to be used for concurrency checking in the database when a user edits or deletes an entity.</span></span> <span data-ttu-id="4547f-187">EF Designer を使用していた場合、プロパティの ConcurrencyMode を Fixed に設定します。 これは。</span><span class="sxs-lookup"><span data-stu-id="4547f-187">If you've been working with the EF Designer, this aligns with setting a property's ConcurrencyMode to Fixed.</span></span>
+<span data-ttu-id="dc531-184">ConcurrencyCheck 注釈の同時実行ユーザーが編集したり、エンティティを削除します。 データベースのチェックに使用する 1 つまたは複数のプロパティのフラグを設定することができます。</span><span class="sxs-lookup"><span data-stu-id="dc531-184">The ConcurrencyCheck annotation allows you to flag one or more properties to be used for concurrency checking in the database when a user edits or deletes an entity.</span></span> <span data-ttu-id="dc531-185">EF Designer を使用していた場合、プロパティの ConcurrencyMode を Fixed に設定します。 これは。</span><span class="sxs-lookup"><span data-stu-id="dc531-185">If you've been working with the EF Designer, this aligns with setting a property's ConcurrencyMode to Fixed.</span></span>
 
-<span data-ttu-id="4547f-188">BloggerName プロパティに追加することによって ConcurrencyCheck のしくみを見てみましょう。</span><span class="sxs-lookup"><span data-stu-id="4547f-188">Let’s see how ConcurrencyCheck works by adding it to the BloggerName property.</span></span>
+<span data-ttu-id="dc531-186">BloggerName プロパティに追加することによって ConcurrencyCheck のしくみを見てみましょう。</span><span class="sxs-lookup"><span data-stu-id="dc531-186">Let’s see how ConcurrencyCheck works by adding it to the BloggerName property.</span></span>
 
 ``` csharp
     [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-<span data-ttu-id="4547f-189">BloggerName フィールドで ConcurrencyCheck 注釈により、SaveChanges が呼び出されたときにそのプロパティの元の値が更新に使用されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-189">When SaveChanges is called, because of the ConcurrencyCheck annotation on the BloggerName field, the original value of that property will be used in the update.</span></span> <span data-ttu-id="4547f-190">コマンドが、キーの値だけでなく、BloggerName の元の値もフィルター処理して適切な行を検索しようとします。</span><span class="sxs-lookup"><span data-stu-id="4547f-190">The command will attempt to locate the correct row by filtering not only on the key value but also on the original value of BloggerName.</span></span>  <span data-ttu-id="4547f-191">ここでは、コマンドには、PrimaryTrackingKey を含む行は更新を表示、データベースに送信される UPDATE コマンドの重要な部分は 1、BloggerName"Julie"元の値をそのブログがデータベースから取得されたときにいたのです。</span><span class="sxs-lookup"><span data-stu-id="4547f-191">Here are the critical parts of the UPDATE command sent to the database, where you can see the command will update the row that has a PrimaryTrackingKey is 1 and a BloggerName of “Julie” which was the original value when that blog was retrieved from the database.</span></span>
+<span data-ttu-id="dc531-187">BloggerName フィールドで ConcurrencyCheck 注釈により、SaveChanges が呼び出されたときにそのプロパティの元の値が更新に使用されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-187">When SaveChanges is called, because of the ConcurrencyCheck annotation on the BloggerName field, the original value of that property will be used in the update.</span></span> <span data-ttu-id="dc531-188">コマンドが、キーの値だけでなく、BloggerName の元の値もフィルター処理して適切な行を検索しようとします。</span><span class="sxs-lookup"><span data-stu-id="dc531-188">The command will attempt to locate the correct row by filtering not only on the key value but also on the original value of BloggerName.</span></span>  <span data-ttu-id="dc531-189">ここでは、コマンドには、PrimaryTrackingKey を含む行は更新を表示、データベースに送信される UPDATE コマンドの重要な部分は 1、BloggerName"Julie"元の値をそのブログがデータベースから取得されたときにいたのです。</span><span class="sxs-lookup"><span data-stu-id="dc531-189">Here are the critical parts of the UPDATE command sent to the database, where you can see the command will update the row that has a PrimaryTrackingKey is 1 and a BloggerName of “Julie” which was the original value when that blog was retrieved from the database.</span></span>
 
 ``` SQL
     where (([PrimaryTrackingKey] = @4) and ([BloggerName] = @5))
     @4=1,@5=N'Julie'
 ```
 
-<span data-ttu-id="4547f-192">そのブログのブログ作成者名が、その間にだれかが変更した場合は、この更新プログラムは失敗し、処理する必要がありますを DbUpdateConcurrencyException が表示されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-192">If someone has changed the blogger name for that blog in the meantime, this update will fail and you’ll get a DbUpdateConcurrencyException that you'll need to handle.</span></span>
+<span data-ttu-id="dc531-190">そのブログのブログ作成者名が、その間にだれかが変更した場合は、この更新プログラムは失敗し、処理する必要がありますを DbUpdateConcurrencyException が表示されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-190">If someone has changed the blogger name for that blog in the meantime, this update will fail and you’ll get a DbUpdateConcurrencyException that you'll need to handle.</span></span>
 
  
 
-## <a name="timestamp"></a><span data-ttu-id="4547f-193">タイムスタンプ</span><span class="sxs-lookup"><span data-stu-id="4547f-193">TimeStamp</span></span>
+## <a name="timestamp"></a><span data-ttu-id="dc531-191">タイムスタンプ</span><span class="sxs-lookup"><span data-stu-id="dc531-191">TimeStamp</span></span>
 
-<span data-ttu-id="4547f-194">同時実行チェック用 rowversion またはタイムスタンプ フィールドを使用する方が一般的です。</span><span class="sxs-lookup"><span data-stu-id="4547f-194">It's more common to use rowversion or timestamp fields for concurrency checking.</span></span> <span data-ttu-id="4547f-195">ConcurrencyCheck 注釈を使用するのではなく、プロパティの型がバイト配列である限り、特定のタイムスタンプの注釈を使用できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-195">But rather than using the ConcurrencyCheck annotation, you can use the more specific TimeStamp annotation as long as the type of the property is byte array.</span></span> <span data-ttu-id="4547f-196">コード最初はタイムスタンプのプロパティと同様に処理、ConcurrencyCheck プロパティが、コードを生成するデータベース フィールドを null 非許容は確認も。</span><span class="sxs-lookup"><span data-stu-id="4547f-196">Code first will treat Timestamp properties the same as ConcurrencyCheck properties, but it will also ensure that the database field that code first generates is non-nullable.</span></span> <span data-ttu-id="4547f-197">タイムスタンプ プロパティを 1 つは、特定のクラスでのみができます。</span><span class="sxs-lookup"><span data-stu-id="4547f-197">You can only have one timestamp property in a given class.</span></span>
+<span data-ttu-id="dc531-192">同時実行チェック用 rowversion またはタイムスタンプ フィールドを使用する方が一般的です。</span><span class="sxs-lookup"><span data-stu-id="dc531-192">It's more common to use rowversion or timestamp fields for concurrency checking.</span></span> <span data-ttu-id="dc531-193">ConcurrencyCheck 注釈を使用するのではなく、プロパティの型がバイト配列である限り、特定のタイムスタンプの注釈を使用できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-193">But rather than using the ConcurrencyCheck annotation, you can use the more specific TimeStamp annotation as long as the type of the property is byte array.</span></span> <span data-ttu-id="dc531-194">コード最初はタイムスタンプのプロパティと同様に処理、ConcurrencyCheck プロパティが、コードを生成するデータベース フィールドを null 非許容は確認も。</span><span class="sxs-lookup"><span data-stu-id="dc531-194">Code first will treat Timestamp properties the same as ConcurrencyCheck properties, but it will also ensure that the database field that code first generates is non-nullable.</span></span> <span data-ttu-id="dc531-195">タイムスタンプ プロパティを 1 つは、特定のクラスでのみができます。</span><span class="sxs-lookup"><span data-stu-id="dc531-195">You can only have one timestamp property in a given class.</span></span>
 
-<span data-ttu-id="4547f-198">ブログ クラスに次のプロパティを追加します。</span><span class="sxs-lookup"><span data-stu-id="4547f-198">Adding the following property to the Blog class:</span></span>
+<span data-ttu-id="dc531-196">ブログ クラスに次のプロパティを追加します。</span><span class="sxs-lookup"><span data-stu-id="dc531-196">Adding the following property to the Blog class:</span></span>
 
 ``` csharp
     [Timestamp]
     public Byte[] TimeStamp { get; set; }
 ```
 
-<span data-ttu-id="4547f-199">最初にデータベース テーブルで null 非許容の timestamp 列を作成するコードの結果。</span><span class="sxs-lookup"><span data-stu-id="4547f-199">results in code first creating a non-nullable timestamp column in the database table.</span></span>
+<span data-ttu-id="dc531-197">最初にデータベース テーブルで null 非許容の timestamp 列を作成するコードの結果。</span><span class="sxs-lookup"><span data-stu-id="dc531-197">results in code first creating a non-nullable timestamp column in the database table.</span></span>
 
-![jj591583_figure07](~/ef6/media/jj591583-figure07.png)
+![タイムスタンプ列を含むブログ テーブル](~/ef6/media/jj591583-figure07.png)
 
  
 
-## <a name="table-and-column"></a><span data-ttu-id="4547f-201">テーブルと列</span><span class="sxs-lookup"><span data-stu-id="4547f-201">Table and Column</span></span>
+## <a name="table-and-column"></a><span data-ttu-id="dc531-199">テーブルと列</span><span class="sxs-lookup"><span data-stu-id="dc531-199">Table and Column</span></span>
 
-<span data-ttu-id="4547f-202">Code First のデータベースを作成することは、場合は、テーブルと列を作成しているの名前を変更することがあります。</span><span class="sxs-lookup"><span data-stu-id="4547f-202">If you are letting Code First create the database, you may want to change the name of the tables and columns it is creating.</span></span> <span data-ttu-id="4547f-203">使用することできますも Code First 既存のデータベースでします。</span><span class="sxs-lookup"><span data-stu-id="4547f-203">You can also use Code First with an existing database.</span></span> <span data-ttu-id="4547f-204">常にテーブルと、データベース内の列の名前をクラスと、ドメイン内のプロパティの名前が一致する場合。</span><span class="sxs-lookup"><span data-stu-id="4547f-204">But it's not always the case that the names of the classes and properties in your domain match the names of the tables and columns in your database.</span></span>
+<span data-ttu-id="dc531-200">Code First のデータベースを作成することは、場合は、テーブルと列を作成しているの名前を変更することがあります。</span><span class="sxs-lookup"><span data-stu-id="dc531-200">If you are letting Code First create the database, you may want to change the name of the tables and columns it is creating.</span></span> <span data-ttu-id="dc531-201">使用することできますも Code First 既存のデータベースでします。</span><span class="sxs-lookup"><span data-stu-id="dc531-201">You can also use Code First with an existing database.</span></span> <span data-ttu-id="dc531-202">常にテーブルと、データベース内の列の名前をクラスと、ドメイン内のプロパティの名前が一致する場合。</span><span class="sxs-lookup"><span data-stu-id="dc531-202">But it's not always the case that the names of the classes and properties in your domain match the names of the tables and columns in your database.</span></span>
 
-<span data-ttu-id="4547f-205">筆者のクラスがブログをという名前し、慣例により、コードまず前提としていますこれは、ブログをという名前のテーブルにマップされます。</span><span class="sxs-lookup"><span data-stu-id="4547f-205">My class is named Blog and by convention, code first presumes this will map to a table named Blogs.</span></span> <span data-ttu-id="4547f-206">そうでない場合は、テーブルの属性を持つテーブルの名前を指定できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-206">If that's not the case you can specify the name of the table with the Table attribute.</span></span> <span data-ttu-id="4547f-207">ここで、注釈はことを指定して、テーブル名 InternalBlogs。</span><span class="sxs-lookup"><span data-stu-id="4547f-207">Here for example, the annotation is specifying that the table name is InternalBlogs.</span></span>
+<span data-ttu-id="dc531-203">筆者のクラスがブログをという名前し、慣例により、コードまず前提としていますこれは、ブログをという名前のテーブルにマップされます。</span><span class="sxs-lookup"><span data-stu-id="dc531-203">My class is named Blog and by convention, code first presumes this will map to a table named Blogs.</span></span> <span data-ttu-id="dc531-204">そうでない場合は、テーブルの属性を持つテーブルの名前を指定できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-204">If that's not the case you can specify the name of the table with the Table attribute.</span></span> <span data-ttu-id="dc531-205">ここで、注釈はことを指定して、テーブル名 InternalBlogs。</span><span class="sxs-lookup"><span data-stu-id="dc531-205">Here for example, the annotation is specifying that the table name is InternalBlogs.</span></span>
 
 ``` csharp
     [Table("InternalBlogs")]
     public class Blog
 ```
 
-<span data-ttu-id="4547f-208">列の注釈は、マップされた列の属性を指定するときに複数のアデプトです。</span><span class="sxs-lookup"><span data-stu-id="4547f-208">The Column annotation is a more adept in specifying the attributes of a mapped column.</span></span> <span data-ttu-id="4547f-209">名前、データ型またはテーブルの列が表示される順序もを伸ばすことができます。</span><span class="sxs-lookup"><span data-stu-id="4547f-209">You can stipulate a name, data type or even the order in which a column appears in the table.</span></span> <span data-ttu-id="4547f-210">列の属性の例を示します。</span><span class="sxs-lookup"><span data-stu-id="4547f-210">Here is an example of the Column attribute.</span></span>
+<span data-ttu-id="dc531-206">列の注釈は、マップされた列の属性を指定するときに複数のアデプトです。</span><span class="sxs-lookup"><span data-stu-id="dc531-206">The Column annotation is a more adept in specifying the attributes of a mapped column.</span></span> <span data-ttu-id="dc531-207">名前、データ型またはテーブルの列が表示される順序もを伸ばすことができます。</span><span class="sxs-lookup"><span data-stu-id="dc531-207">You can stipulate a name, data type or even the order in which a column appears in the table.</span></span> <span data-ttu-id="dc531-208">列の属性の例を示します。</span><span class="sxs-lookup"><span data-stu-id="dc531-208">Here is an example of the Column attribute.</span></span>
 
 ``` csharp
     [Column(“BlogDescription", TypeName="ntext")]
     public String Description {get;set;}
 ```
 
-<span data-ttu-id="4547f-211">DataType DataAnnotation で列の TypeName 属性を混同しないでください。</span><span class="sxs-lookup"><span data-stu-id="4547f-211">Don’t confuse Column’s TypeName attribute with the DataType DataAnnotation.</span></span> <span data-ttu-id="4547f-212">データ型は、注釈、UI の使用は、Code First によって無視されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-212">DataType is an annotation used for the UI and is ignored by Code First.</span></span>
+<span data-ttu-id="dc531-209">DataType DataAnnotation で列の TypeName 属性を混同しないでください。</span><span class="sxs-lookup"><span data-stu-id="dc531-209">Don’t confuse Column’s TypeName attribute with the DataType DataAnnotation.</span></span> <span data-ttu-id="dc531-210">データ型は、注釈、UI の使用は、Code First によって無視されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-210">DataType is an annotation used for the UI and is ignored by Code First.</span></span>
 
-<span data-ttu-id="4547f-213">再生成後に次の表に示します。</span><span class="sxs-lookup"><span data-stu-id="4547f-213">Here is the table after it’s been regenerated.</span></span> <span data-ttu-id="4547f-214">テーブル名が InternalBlogs に変更し、複合型から列を説明 BlogDescription になります。</span><span class="sxs-lookup"><span data-stu-id="4547f-214">The table name has changed to InternalBlogs and Description column from the complex type is now BlogDescription.</span></span> <span data-ttu-id="4547f-215">注釈の名前が指定されたため、コード最初は使用しません複合型の名前で列名を開始する規約。</span><span class="sxs-lookup"><span data-stu-id="4547f-215">Because the name was specified in the annotation, code first will not use the convention of starting the column name with the name of the complex type.</span></span>
+<span data-ttu-id="dc531-211">再生成後に次の表に示します。</span><span class="sxs-lookup"><span data-stu-id="dc531-211">Here is the table after it’s been regenerated.</span></span> <span data-ttu-id="dc531-212">テーブル名が InternalBlogs に変更し、複合型から列を説明 BlogDescription になります。</span><span class="sxs-lookup"><span data-stu-id="dc531-212">The table name has changed to InternalBlogs and Description column from the complex type is now BlogDescription.</span></span> <span data-ttu-id="dc531-213">注釈の名前が指定されたため、コード最初は使用しません複合型の名前で列名を開始する規約。</span><span class="sxs-lookup"><span data-stu-id="dc531-213">Because the name was specified in the annotation, code first will not use the convention of starting the column name with the name of the complex type.</span></span>
 
-![jj591583_figure08](~/ef6/media/jj591583-figure08.png)
+![ブログのテーブルと列の名前を変更](~/ef6/media/jj591583-figure08.png)
 
  
 
-## <a name="databasegenerated"></a><span data-ttu-id="4547f-217">DatabaseGenerated</span><span class="sxs-lookup"><span data-stu-id="4547f-217">DatabaseGenerated</span></span>
+## <a name="databasegenerated"></a><span data-ttu-id="dc531-215">DatabaseGenerated</span><span class="sxs-lookup"><span data-stu-id="dc531-215">DatabaseGenerated</span></span>
 
-<span data-ttu-id="4547f-218">重要なデータベース機能は、プロパティが計算する機能があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-218">An important database features is the ability to have computed properties.</span></span> <span data-ttu-id="4547f-219">Code First クラスにマッピングする場合は、計算列のテーブルが含まれている、それらの列を更新しようとする Entity Framework をしたくないです。</span><span class="sxs-lookup"><span data-stu-id="4547f-219">If you're mapping your Code First classes to tables that contain computed columns, you don't want Entity Framework to try to update those columns.</span></span> <span data-ttu-id="4547f-220">ただし、EF を挿入または更新されたデータを使用した後、データベースからそれらの値を返すようにします。</span><span class="sxs-lookup"><span data-stu-id="4547f-220">But you do want EF to return those values from the database after you've inserted or updated data.</span></span> <span data-ttu-id="4547f-221">DatabaseGenerated 注釈を使用すると、計算済みの列挙型と共に、クラスでこれらのプロパティのフラグを設定します。</span><span class="sxs-lookup"><span data-stu-id="4547f-221">You can use the DatabaseGenerated annotation to flag those properties in your class along with the Computed enum.</span></span> <span data-ttu-id="4547f-222">他の列挙型は None と Id。</span><span class="sxs-lookup"><span data-stu-id="4547f-222">Other enums are None and Identity.</span></span>
+<span data-ttu-id="dc531-216">重要なデータベース機能は、プロパティが計算する機能があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-216">An important database features is the ability to have computed properties.</span></span> <span data-ttu-id="dc531-217">Code First クラスにマッピングする場合は、計算列のテーブルが含まれている、それらの列を更新しようとする Entity Framework をしたくないです。</span><span class="sxs-lookup"><span data-stu-id="dc531-217">If you're mapping your Code First classes to tables that contain computed columns, you don't want Entity Framework to try to update those columns.</span></span> <span data-ttu-id="dc531-218">ただし、EF を挿入または更新されたデータを使用した後、データベースからそれらの値を返すようにします。</span><span class="sxs-lookup"><span data-stu-id="dc531-218">But you do want EF to return those values from the database after you've inserted or updated data.</span></span> <span data-ttu-id="dc531-219">DatabaseGenerated 注釈を使用すると、計算済みの列挙型と共に、クラスでこれらのプロパティのフラグを設定します。</span><span class="sxs-lookup"><span data-stu-id="dc531-219">You can use the DatabaseGenerated annotation to flag those properties in your class along with the Computed enum.</span></span> <span data-ttu-id="dc531-220">他の列挙型は None と Id。</span><span class="sxs-lookup"><span data-stu-id="dc531-220">Other enums are None and Identity.</span></span>
 
 ``` csharp
     [DatabaseGenerated(DatabaseGenerationOption.Computed)]
     public DateTime DateCreated { get; set; }
 ```
 
-<span data-ttu-id="4547f-223">それ以外の場合にのみ使用これコード最初ことはできません、計算列の数式を判断するため、既存のデータベースをポイントして、コードはまず、データベースを生成するときに、バイトまたはタイムスタンプ列で生成されたデータベースを使用できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-223">You can use database generated on byte or timestamp columns when code first is generating the database, otherwise you should only use this when pointing to existing databases because code first won't be able to determine the formula for the computed column.</span></span>
+<span data-ttu-id="dc531-221">それ以外の場合にのみ使用これコード最初ことはできません、計算列の数式を判断するため、既存のデータベースをポイントして、コードはまず、データベースを生成するときに、バイトまたはタイムスタンプ列で生成されたデータベースを使用できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-221">You can use database generated on byte or timestamp columns when code first is generating the database, otherwise you should only use this when pointing to existing databases because code first won't be able to determine the formula for the computed column.</span></span>
 
-<span data-ttu-id="4547f-224">既定では、読むことを整数であるキー プロパティは、データベースの id キーなります。</span><span class="sxs-lookup"><span data-stu-id="4547f-224">You read above that by default, a key property that is an integer will become an identity key in the database.</span></span> <span data-ttu-id="4547f-225">DatabaseGenerated を DatabaseGenerationOption.Identity に設定すると同じメッセージが表示されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-225">That would be the same as setting DatabaseGenerated to DatabaseGenerationOption.Identity.</span></span> <span data-ttu-id="4547f-226">Id キーを使用することをしない場合は、DatabaseGenerationOption.None に値を設定できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-226">If you do not want it to be an identity key, you can set the value to DatabaseGenerationOption.None.</span></span>
+<span data-ttu-id="dc531-222">既定では、読むことを整数であるキー プロパティは、データベースの id キーなります。</span><span class="sxs-lookup"><span data-stu-id="dc531-222">You read above that by default, a key property that is an integer will become an identity key in the database.</span></span> <span data-ttu-id="dc531-223">DatabaseGenerated を DatabaseGenerationOption.Identity に設定すると同じメッセージが表示されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-223">That would be the same as setting DatabaseGenerated to DatabaseGenerationOption.Identity.</span></span> <span data-ttu-id="dc531-224">Id キーを使用することをしない場合は、DatabaseGenerationOption.None に値を設定できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-224">If you do not want it to be an identity key, you can set the value to DatabaseGenerationOption.None.</span></span>
 
  
 
-## <a name="index"></a><span data-ttu-id="4547f-227">インデックス</span><span class="sxs-lookup"><span data-stu-id="4547f-227">Index</span></span>
+## <a name="index"></a><span data-ttu-id="dc531-225">インデックス</span><span class="sxs-lookup"><span data-stu-id="dc531-225">Index</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="4547f-228">**EF6.1 以降のみ**-Entity Framework 6.1 で、インデックスの属性が導入されました。</span><span class="sxs-lookup"><span data-stu-id="4547f-228">**EF6.1 Onwards Only** - The Index attribute was introduced in Entity Framework 6.1.</span></span> <span data-ttu-id="4547f-229">以前のバージョンを使用している場合、このセクションの情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="4547f-229">If you are using an earlier version the information in this section does not apply.</span></span>
+> <span data-ttu-id="dc531-226">**EF6.1 以降のみ**-Entity Framework 6.1 で、インデックスの属性が導入されました。</span><span class="sxs-lookup"><span data-stu-id="dc531-226">**EF6.1 Onwards Only** - The Index attribute was introduced in Entity Framework 6.1.</span></span> <span data-ttu-id="dc531-227">以前のバージョンを使用している場合、このセクションの情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="dc531-227">If you are using an earlier version the information in this section does not apply.</span></span>
 
-<span data-ttu-id="4547f-230">使用して 1 つまたは複数の列にインデックスを作成することができます、 **IndexAttribute**します。</span><span class="sxs-lookup"><span data-stu-id="4547f-230">You can create an index on one or more columns using the **IndexAttribute**.</span></span> <span data-ttu-id="4547f-231">データベースの作成時に、データベースに対応するインデックスの作成に EF を原因またはスキャフォールディング、対応する属性を 1 つまたは複数のプロパティに追加**CreateIndex** Code First Migrations を使用している場合に呼び出します。</span><span class="sxs-lookup"><span data-stu-id="4547f-231">Adding the attribute to one or more properties will cause EF to create the corresponding index in the database when it creates the database, or scaffold the corresponding **CreateIndex** calls if you are using Code First Migrations.</span></span>
+<span data-ttu-id="dc531-228">使用して 1 つまたは複数の列にインデックスを作成することができます、 **IndexAttribute**します。</span><span class="sxs-lookup"><span data-stu-id="dc531-228">You can create an index on one or more columns using the **IndexAttribute**.</span></span> <span data-ttu-id="dc531-229">データベースの作成時に、データベースに対応するインデックスの作成に EF を原因またはスキャフォールディング、対応する属性を 1 つまたは複数のプロパティに追加**CreateIndex** Code First Migrations を使用している場合に呼び出します。</span><span class="sxs-lookup"><span data-stu-id="dc531-229">Adding the attribute to one or more properties will cause EF to create the corresponding index in the database when it creates the database, or scaffold the corresponding **CreateIndex** calls if you are using Code First Migrations.</span></span>
 
-<span data-ttu-id="4547f-232">たとえば、次のコードが作成されたインデックスになります。、**評価**の列、**投稿**データベース内のテーブル。</span><span class="sxs-lookup"><span data-stu-id="4547f-232">For example, the following code will result in an index being created on the **Rating** column of the **Posts** table in the database.</span></span>
+<span data-ttu-id="dc531-230">たとえば、次のコードが作成されたインデックスになります。、**評価**の列、**投稿**データベース内のテーブル。</span><span class="sxs-lookup"><span data-stu-id="dc531-230">For example, the following code will result in an index being created on the **Rating** column of the **Posts** table in the database.</span></span>
 
 ``` csharp
     public class Post
@@ -350,14 +350,14 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-233">既定では、インデックスの名前は**IX\_&lt;プロパティ名&gt;** (IX\_上の例では評価)。</span><span class="sxs-lookup"><span data-stu-id="4547f-233">By default, the index will be named **IX\_&lt;property name&gt;** (IX\_Rating in the above example).</span></span> <span data-ttu-id="4547f-234">ただし、インデックスの名前も指定できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-234">You can also specify a name for the index though.</span></span> <span data-ttu-id="4547f-235">次の例では、インデックスに名前を付けることを指定します**PostRatingIndex**します。</span><span class="sxs-lookup"><span data-stu-id="4547f-235">The following example specifies that the index should be named **PostRatingIndex**.</span></span>
+<span data-ttu-id="dc531-231">既定では、インデックスの名前は**IX\_&lt;プロパティ名&gt;** (IX\_上の例では評価)。</span><span class="sxs-lookup"><span data-stu-id="dc531-231">By default, the index will be named **IX\_&lt;property name&gt;** (IX\_Rating in the above example).</span></span> <span data-ttu-id="dc531-232">ただし、インデックスの名前も指定できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-232">You can also specify a name for the index though.</span></span> <span data-ttu-id="dc531-233">次の例では、インデックスに名前を付けることを指定します**PostRatingIndex**します。</span><span class="sxs-lookup"><span data-stu-id="dc531-233">The following example specifies that the index should be named **PostRatingIndex**.</span></span>
 
 ``` csharp
     [Index("PostRatingIndex")]
     public int Rating { get; set; }
 ```
 
-<span data-ttu-id="4547f-236">既定では、インデックスが一意でない、使用することが、 **IsUnique**という名前のインデックスが一意であることを指定するパラメーター。</span><span class="sxs-lookup"><span data-stu-id="4547f-236">By default, indexes are non-unique, but you can use the **IsUnique** named parameter to specify that an index should be unique.</span></span> <span data-ttu-id="4547f-237">次の例の一意のインデックスが導入されて、**ユーザー**のログイン名。</span><span class="sxs-lookup"><span data-stu-id="4547f-237">The following example introduces a unique index on a **User**'s login name.</span></span>
+<span data-ttu-id="dc531-234">既定では、インデックスが一意でない、使用することが、 **IsUnique**という名前のインデックスが一意であることを指定するパラメーター。</span><span class="sxs-lookup"><span data-stu-id="dc531-234">By default, indexes are non-unique, but you can use the **IsUnique** named parameter to specify that an index should be unique.</span></span> <span data-ttu-id="dc531-235">次の例の一意のインデックスが導入されて、**ユーザー**のログイン名。</span><span class="sxs-lookup"><span data-stu-id="dc531-235">The following example introduces a unique index on a **User**'s login name.</span></span>
 
 ``` csharp
     public class User
@@ -372,9 +372,9 @@ ms.locfileid: "42994587"
     }
 ```
 
-### <a name="multiple-column-indexes"></a><span data-ttu-id="4547f-238">複数列のインデックス</span><span class="sxs-lookup"><span data-stu-id="4547f-238">Multiple-Column Indexes</span></span>
+### <a name="multiple-column-indexes"></a><span data-ttu-id="dc531-236">複数列のインデックス</span><span class="sxs-lookup"><span data-stu-id="dc531-236">Multiple-Column Indexes</span></span>
 
-<span data-ttu-id="4547f-239">複数の列にまたがるインデックスは、指定されたテーブルの複数のインデックス注釈内で同じ名前を使用して指定されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-239">Indexes that span multiple columns are specified by using the same name in multiple Index annotations for a given table.</span></span> <span data-ttu-id="4547f-240">複数列のインデックスを作成するときに、インデックスの列の順序を指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-240">When you create multi-column indexes, you need to specify an order for the columns in the index.</span></span> <span data-ttu-id="4547f-241">次のコードが複数列インデックスを作成するなど、**評価**と**BlogId**と呼ばれる**IX\_BlogAndRating**します。</span><span class="sxs-lookup"><span data-stu-id="4547f-241">For example, the following code creates a multi-column index on **Rating** and **BlogId** called **IX\_BlogAndRating**.</span></span> <span data-ttu-id="4547f-242">**BlogId**は、インデックスの最初の列と**評価**2 つ目は、します。</span><span class="sxs-lookup"><span data-stu-id="4547f-242">**BlogId** is the first column in the index and **Rating** is the second.</span></span>
+<span data-ttu-id="dc531-237">複数の列にまたがるインデックスは、指定されたテーブルの複数のインデックス注釈内で同じ名前を使用して指定されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-237">Indexes that span multiple columns are specified by using the same name in multiple Index annotations for a given table.</span></span> <span data-ttu-id="dc531-238">複数列のインデックスを作成するときに、インデックスの列の順序を指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-238">When you create multi-column indexes, you need to specify an order for the columns in the index.</span></span> <span data-ttu-id="dc531-239">次のコードが複数列インデックスを作成するなど、**評価**と**BlogId**と呼ばれる**IX\_BlogAndRating**します。</span><span class="sxs-lookup"><span data-stu-id="dc531-239">For example, the following code creates a multi-column index on **Rating** and **BlogId** called **IX\_BlogAndRating**.</span></span> <span data-ttu-id="dc531-240">**BlogId**は、インデックスの最初の列と**評価**2 つ目は、します。</span><span class="sxs-lookup"><span data-stu-id="dc531-240">**BlogId** is the first column in the index and **Rating** is the second.</span></span>
 
 ``` csharp
     public class Post
@@ -391,16 +391,16 @@ ms.locfileid: "42994587"
 
  
 
-## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a><span data-ttu-id="4547f-243">リレーションシップは、次の属性: InverseProperty と不変</span><span class="sxs-lookup"><span data-stu-id="4547f-243">Relationship Attributes: InverseProperty and ForeignKey</span></span>
+## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a><span data-ttu-id="dc531-241">リレーションシップは、次の属性: InverseProperty と不変</span><span class="sxs-lookup"><span data-stu-id="dc531-241">Relationship Attributes: InverseProperty and ForeignKey</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="4547f-244">このページは、データ注釈を使用して Code First モデルでリレーションシップを設定する方法についての情報を提供します。</span><span class="sxs-lookup"><span data-stu-id="4547f-244">This page provides information about setting up relationships in your Code First model using Data Annotations.</span></span> <span data-ttu-id="4547f-245">EF とアクセスし、リレーションシップを使用してデータを操作する方法に関係の詳細については、次を参照してください[リレーションシップとナビゲーション プロパティ](~/ef6/fundamentals/relationships.md)。 \*。</span><span class="sxs-lookup"><span data-stu-id="4547f-245">For general information about relationships in EF and how to access and manipulate data using relationships, see [Relationships & Navigation Properties](~/ef6/fundamentals/relationships.md).\*</span></span>
+> <span data-ttu-id="dc531-242">このページは、データ注釈を使用して Code First モデルでリレーションシップを設定する方法についての情報を提供します。</span><span class="sxs-lookup"><span data-stu-id="dc531-242">This page provides information about setting up relationships in your Code First model using Data Annotations.</span></span> <span data-ttu-id="dc531-243">EF とアクセスし、リレーションシップを使用してデータを操作する方法に関係の詳細については、次を参照してください[リレーションシップとナビゲーション プロパティ](~/ef6/fundamentals/relationships.md)。 \*。</span><span class="sxs-lookup"><span data-stu-id="dc531-243">For general information about relationships in EF and how to access and manipulate data using relationships, see [Relationships & Navigation Properties](~/ef6/fundamentals/relationships.md).\*</span></span>
 
-<span data-ttu-id="4547f-246">コードの最初の規則が、モデル内の最も一般的なリレーションシップの処理が、場合によってはヘルプが必要な場所があります。</span><span class="sxs-lookup"><span data-stu-id="4547f-246">Code first convention will take care of the most common relationships in your model, but there are some cases where it needs help.</span></span>
+<span data-ttu-id="dc531-244">コードの最初の規則が、モデル内の最も一般的なリレーションシップの処理が、場合によってはヘルプが必要な場所があります。</span><span class="sxs-lookup"><span data-stu-id="dc531-244">Code first convention will take care of the most common relationships in your model, but there are some cases where it needs help.</span></span>
 
-<span data-ttu-id="4547f-247">投稿との関係に問題を作成したブログ クラスのキー プロパティの名前を変更します。</span><span class="sxs-lookup"><span data-stu-id="4547f-247">Changing the name of the key property in the Blog class created a problem with its relationship to Post.</span></span> 
+<span data-ttu-id="dc531-245">投稿との関係に問題を作成したブログ クラスのキー プロパティの名前を変更します。</span><span class="sxs-lookup"><span data-stu-id="dc531-245">Changing the name of the key property in the Blog class created a problem with its relationship to Post.</span></span> 
 
-<span data-ttu-id="4547f-248">データベースを生成するときに、コードはまず Post クラスで BlogId プロパティを表示しと一致する、クラス名と"Id"ブログ クラスへの外部キーとして規則によりを認識します。</span><span class="sxs-lookup"><span data-stu-id="4547f-248">When generating the database, code first sees the BlogId property in the Post class and recognizes it, by the convention that it matches a class name plus “Id”, as a foreign key to the Blog class.</span></span> <span data-ttu-id="4547f-249">ブログのクラスで BlogId プロパティはありません。</span><span class="sxs-lookup"><span data-stu-id="4547f-249">But there is no BlogId property in the blog class.</span></span> <span data-ttu-id="4547f-250">このソリューションは、投稿にナビゲーション プロパティを作成し、コードの最初の 2 つのクラス間のリレーションシップを構築する方法を理解する外部 DataAnnotation を使用して、Post.BlogId プロパティを使用して、内の制約を指定する方法についても、データベース。</span><span class="sxs-lookup"><span data-stu-id="4547f-250">The solution for this is to create a navigation property in the Post and use the Foreign DataAnnotation to help code first understand how to build the relationship between the two classes —using the Post.BlogId property — as well as how to specify constraints in the database.</span></span>
+<span data-ttu-id="dc531-246">データベースを生成するときに、コードはまず Post クラスで BlogId プロパティを表示しと一致する、クラス名と"Id"ブログ クラスへの外部キーとして規則によりを認識します。</span><span class="sxs-lookup"><span data-stu-id="dc531-246">When generating the database, code first sees the BlogId property in the Post class and recognizes it, by the convention that it matches a class name plus “Id”, as a foreign key to the Blog class.</span></span> <span data-ttu-id="dc531-247">ブログのクラスで BlogId プロパティはありません。</span><span class="sxs-lookup"><span data-stu-id="dc531-247">But there is no BlogId property in the blog class.</span></span> <span data-ttu-id="dc531-248">このソリューションは、投稿にナビゲーション プロパティを作成し、コードの最初の 2 つのクラス間のリレーションシップを構築する方法を理解する外部 DataAnnotation を使用して、Post.BlogId プロパティを使用して、内の制約を指定する方法についても、データベース。</span><span class="sxs-lookup"><span data-stu-id="dc531-248">The solution for this is to create a navigation property in the Post and use the Foreign DataAnnotation to help code first understand how to build the relationship between the two classes —using the Post.BlogId property — as well as how to specify constraints in the database.</span></span>
 
 ``` csharp
     public class Post
@@ -416,20 +416,20 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-251">データベース内の制約は、InternalBlogs.PrimaryTrackingKey と Posts.BlogId 間の関係を示しています。</span><span class="sxs-lookup"><span data-stu-id="4547f-251">The constraint in the database shows a relationship between InternalBlogs.PrimaryTrackingKey and Posts.BlogId.</span></span> 
+<span data-ttu-id="dc531-249">データベース内の制約は、InternalBlogs.PrimaryTrackingKey と Posts.BlogId 間の関係を示しています。</span><span class="sxs-lookup"><span data-stu-id="dc531-249">The constraint in the database shows a relationship between InternalBlogs.PrimaryTrackingKey and Posts.BlogId.</span></span> 
 
-![jj591583_figure09](~/ef6/media/jj591583-figure09.png)
+![InternalBlogs.PrimaryTrackingKey と Posts.BlogId 間のリレーションシップ](~/ef6/media/jj591583-figure09.png)
 
-<span data-ttu-id="4547f-253">クラス間の複数のリレーションシップがある場合、InverseProperty が使用されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-253">The InverseProperty is used when you have multiple relationships between classes.</span></span>
+<span data-ttu-id="dc531-251">クラス間の複数のリレーションシップがある場合、InverseProperty が使用されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-251">The InverseProperty is used when you have multiple relationships between classes.</span></span>
 
-<span data-ttu-id="4547f-254">ブログの投稿の作成者を追跡するのにすることがあります Post クラスで編集したユーザーとします。</span><span class="sxs-lookup"><span data-stu-id="4547f-254">In the Post class, you may want to keep track of who wrote a blog post as well as who edited it.</span></span> <span data-ttu-id="4547f-255">ここでは、Post クラスの新しい 2 つのナビゲーション プロパティです。</span><span class="sxs-lookup"><span data-stu-id="4547f-255">Here are two new navigation properties for the Post class.</span></span>
+<span data-ttu-id="dc531-252">ブログの投稿の作成者を追跡するのにすることがあります Post クラスで編集したユーザーとします。</span><span class="sxs-lookup"><span data-stu-id="dc531-252">In the Post class, you may want to keep track of who wrote a blog post as well as who edited it.</span></span> <span data-ttu-id="dc531-253">ここでは、Post クラスの新しい 2 つのナビゲーション プロパティです。</span><span class="sxs-lookup"><span data-stu-id="dc531-253">Here are two new navigation properties for the Post class.</span></span>
 
 ``` csharp
     public Person CreatedBy { get; set; }
     public Person UpdatedBy { get; set; }
 ```
 
-<span data-ttu-id="4547f-256">また、これらのプロパティによって参照されている Person クラスに追加する必要もあります。</span><span class="sxs-lookup"><span data-stu-id="4547f-256">You’ll also need to add in the Person class referenced by these properties.</span></span> <span data-ttu-id="4547f-257">Person クラスには、すべてのユーザーとすべての人が更新投稿の 1 つによって書き込まれた投稿の 1 つ、Post にナビゲーション プロパティがあります。</span><span class="sxs-lookup"><span data-stu-id="4547f-257">The Person class has navigation properties back to the Post, one for all of the posts written by the person and one for all of the posts updated by that person.</span></span>
+<span data-ttu-id="dc531-254">また、これらのプロパティによって参照されている Person クラスに追加する必要もあります。</span><span class="sxs-lookup"><span data-stu-id="dc531-254">You’ll also need to add in the Person class referenced by these properties.</span></span> <span data-ttu-id="dc531-255">Person クラスには、すべてのユーザーとすべての人が更新投稿の 1 つによって書き込まれた投稿の 1 つ、Post にナビゲーション プロパティがあります。</span><span class="sxs-lookup"><span data-stu-id="dc531-255">The Person class has navigation properties back to the Post, one for all of the posts written by the person and one for all of the posts updated by that person.</span></span>
 
 ``` csharp
     public class Person
@@ -441,11 +441,11 @@ ms.locfileid: "42994587"
     }
 ```
 
-<span data-ttu-id="4547f-258">最初にコードは、独自の 2 つのクラスのプロパティと一致することではありません。</span><span class="sxs-lookup"><span data-stu-id="4547f-258">Code first is not able to match up the properties in the two classes on its own.</span></span> <span data-ttu-id="4547f-259">投稿のデータベース テーブルでは、CreatedBy 人の 1 つの外部キーが必要し、UpdatedBy 人がコードの最初として 4 つは外部キー プロパティを作成します: Person\_Id、Person\_Id1、CreatedBy\_Id とUpdatedBy\_id。</span><span class="sxs-lookup"><span data-stu-id="4547f-259">The database table for Posts should have one foreign key for the CreatedBy person and one for the UpdatedBy person but code first will create four will foreign key properties: Person\_Id, Person\_Id1, CreatedBy\_Id and UpdatedBy\_Id.</span></span>
+<span data-ttu-id="dc531-256">最初にコードは、独自の 2 つのクラスのプロパティと一致することではありません。</span><span class="sxs-lookup"><span data-stu-id="dc531-256">Code first is not able to match up the properties in the two classes on its own.</span></span> <span data-ttu-id="dc531-257">投稿のデータベース テーブルでは、CreatedBy 人の 1 つの外部キーが必要し、UpdatedBy 人がコードの最初として 4 つは外部キー プロパティを作成します: Person\_Id、Person\_Id1、CreatedBy\_Id とUpdatedBy\_id。</span><span class="sxs-lookup"><span data-stu-id="dc531-257">The database table for Posts should have one foreign key for the CreatedBy person and one for the UpdatedBy person but code first will create four will foreign key properties: Person\_Id, Person\_Id1, CreatedBy\_Id and UpdatedBy\_Id.</span></span>
 
-![jj591583_figure10](~/ef6/media/jj591583-figure10.png)
+![余分な外部キーを含むテーブルを投稿します。](~/ef6/media/jj591583-figure10.png)
 
-<span data-ttu-id="4547f-261">これらの問題を解決するのにには、プロパティのアラインメントを指定するのに InverseProperty 注釈を使用できます。</span><span class="sxs-lookup"><span data-stu-id="4547f-261">To fix these problems, you can use the InverseProperty annotation to specify the alignment of the properties.</span></span>
+<span data-ttu-id="dc531-259">これらの問題を解決するのにには、プロパティのアラインメントを指定するのに InverseProperty 注釈を使用できます。</span><span class="sxs-lookup"><span data-stu-id="dc531-259">To fix these problems, you can use the InverseProperty annotation to specify the alignment of the properties.</span></span>
 
 ``` csharp
     [InverseProperty("CreatedBy")]
@@ -455,14 +455,14 @@ ms.locfileid: "42994587"
     public List<Post> PostsUpdated { get; set; }
 ```
 
-<span data-ttu-id="4547f-262">持参 PostsWritten プロパティは、これは、投稿の種類を指すことを知っている、ため Post.CreatedBy へのリレーションシップが構築されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-262">Because the PostsWritten property in Person knows that this refers to the Post type, it will build the relationship to Post.CreatedBy.</span></span> <span data-ttu-id="4547f-263">同様に、PostsUpdated は Post.UpdatedBy に接続されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-263">Similarly, PostsUpdated will be connected to Post.UpdatedBy.</span></span> <span data-ttu-id="4547f-264">コードはまず、余分な外部キーが作成されます。</span><span class="sxs-lookup"><span data-stu-id="4547f-264">And code first will not create the extra foreign keys.</span></span>
+<span data-ttu-id="dc531-260">持参 PostsWritten プロパティは、これは、投稿の種類を指すことを知っている、ため Post.CreatedBy へのリレーションシップが構築されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-260">Because the PostsWritten property in Person knows that this refers to the Post type, it will build the relationship to Post.CreatedBy.</span></span> <span data-ttu-id="dc531-261">同様に、PostsUpdated は Post.UpdatedBy に接続されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-261">Similarly, PostsUpdated will be connected to Post.UpdatedBy.</span></span> <span data-ttu-id="dc531-262">コードはまず、余分な外部キーが作成されます。</span><span class="sxs-lookup"><span data-stu-id="dc531-262">And code first will not create the extra foreign keys.</span></span>
 
-![jj591583_figure11](~/ef6/media/jj591583-figure11.png)
+![投稿の余分な外部キーを持たないテーブル](~/ef6/media/jj591583-figure11.png)
 
  
 
-## <a name="summary"></a><span data-ttu-id="4547f-266">まとめ</span><span class="sxs-lookup"><span data-stu-id="4547f-266">Summary</span></span>
+## <a name="summary"></a><span data-ttu-id="dc531-264">まとめ</span><span class="sxs-lookup"><span data-stu-id="dc531-264">Summary</span></span>
 
-<span data-ttu-id="4547f-267">DataAnnotations だけでなく、コードの最初クラスでクライアントとサーバー側の検証の説明を入力しますを強化し、まずコードがその規則に基づいて、クラスに関することは想定をでも修正がもできます。</span><span class="sxs-lookup"><span data-stu-id="4547f-267">DataAnnotations not only let you describe client and server side validation in your code first classes, but they also allow you to enhance and even correct the assumptions that code first will make about your classes based on its conventions.</span></span> <span data-ttu-id="4547f-268">DataAnnotations にないのみを改善するデータベース スキーマの生成が既存のデータベースに、コードの最初のクラスをマップすることもできます。</span><span class="sxs-lookup"><span data-stu-id="4547f-268">With DataAnnotations you can not only drive database schema generation, but you can also map your code first classes to a pre-existing database.</span></span>
+<span data-ttu-id="dc531-265">DataAnnotations だけでなく、コードの最初クラスでクライアントとサーバー側の検証の説明を入力しますを強化し、まずコードがその規則に基づいて、クラスに関することは想定をでも修正がもできます。</span><span class="sxs-lookup"><span data-stu-id="dc531-265">DataAnnotations not only let you describe client and server side validation in your code first classes, but they also allow you to enhance and even correct the assumptions that code first will make about your classes based on its conventions.</span></span> <span data-ttu-id="dc531-266">DataAnnotations にないのみを改善するデータベース スキーマの生成が既存のデータベースに、コードの最初のクラスをマップすることもできます。</span><span class="sxs-lookup"><span data-stu-id="dc531-266">With DataAnnotations you can not only drive database schema generation, but you can also map your code first classes to a pre-existing database.</span></span>
 
-<span data-ttu-id="4547f-269">非常に柔軟なは、中には、DataAnnotations は、最も一般的に必要な構成の変更が、コードの最初のクラスで行うことができますを提供することに留意してください。</span><span class="sxs-lookup"><span data-stu-id="4547f-269">While they are very flexible, keep in mind that DataAnnotations provide only the most commonly needed configuration changes you can make on your code first classes.</span></span> <span data-ttu-id="4547f-270">エッジ ケースの一部で、クラスを構成するには、Code First の Fluent API である代替の構成メカニズムになります。</span><span class="sxs-lookup"><span data-stu-id="4547f-270">To configure your classes for some of the edge cases, you should look to the alternate configuration mechanism, Code First’s Fluent API .</span></span>
+<span data-ttu-id="dc531-267">非常に柔軟なは、中には、DataAnnotations は、最も一般的に必要な構成の変更が、コードの最初のクラスで行うことができますを提供することに留意してください。</span><span class="sxs-lookup"><span data-stu-id="dc531-267">While they are very flexible, keep in mind that DataAnnotations provide only the most commonly needed configuration changes you can make on your code first classes.</span></span> <span data-ttu-id="dc531-268">エッジ ケースの一部で、クラスを構成するには、Code First の Fluent API である代替の構成メカニズムになります。</span><span class="sxs-lookup"><span data-stu-id="dc531-268">To configure your classes for some of the edge cases, you should look to the alternate configuration mechanism, Code First’s Fluent API .</span></span>

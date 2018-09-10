@@ -3,46 +3,46 @@ title: 非同期クエリを実行し、保存、EF6
 author: divega
 ms.date: 2016-10-23
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 64051dea740b2183cb904d7fb4293d7048c218ca
-ms.sourcegitcommit: 0cef7d448e1e47bdb333002e2254ed42d57b45b6
+ms.openlocfilehash: 35604fc16ea37415d39801831aa162d0d42c2a2f
+ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/29/2018
-ms.locfileid: "43152438"
+ms.lasthandoff: 09/09/2018
+ms.locfileid: "44250752"
 ---
-# <a name="async-query-and-save"></a><span data-ttu-id="0e11b-102">非同期クエリを実行し、保存</span><span class="sxs-lookup"><span data-stu-id="0e11b-102">Async query and save</span></span>
+# <a name="async-query-and-save"></a><span data-ttu-id="fc411-102">非同期クエリを実行し、保存</span><span class="sxs-lookup"><span data-stu-id="fc411-102">Async query and save</span></span>
 > [!NOTE]
-> <span data-ttu-id="0e11b-103">**EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="0e11b-103">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="0e11b-104">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="0e11b-104">If you are using an earlier version, some or all of the information does not apply.</span></span>
+> <span data-ttu-id="fc411-103">**EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="fc411-103">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="fc411-104">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="fc411-104">If you are using an earlier version, some or all of the information does not apply.</span></span>
 
-<span data-ttu-id="0e11b-105">EF6 に非同期クエリを使用して保存のサポートが導入された、 [async と await キーワード](https://msdn.microsoft.com/library/vstudio/hh191443.aspx).NET 4.5 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="0e11b-105">EF6 introduced support for asynchronous query and save using the [async and await keywords](https://msdn.microsoft.com/library/vstudio/hh191443.aspx) that were introduced in .NET 4.5.</span></span> <span data-ttu-id="0e11b-106">すべてのアプリケーションの非同期処理にとって有益な場合がありますは、実行時間の長い、ネットワークまたは O バインドのタスクを処理するときに、クライアントの応答性とサーバーのスケーラビリティを向上させるために使用できます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-106">While not all applications may benefit from asynchrony, it can be used to improve client responsiveness and server scalability when handling long-running, network or I/O-bound tasks.</span></span>
+<span data-ttu-id="fc411-105">EF6 に非同期クエリを使用して保存のサポートが導入された、 [async と await キーワード](https://msdn.microsoft.com/library/vstudio/hh191443.aspx).NET 4.5 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="fc411-105">EF6 introduced support for asynchronous query and save using the [async and await keywords](https://msdn.microsoft.com/library/vstudio/hh191443.aspx) that were introduced in .NET 4.5.</span></span> <span data-ttu-id="fc411-106">すべてのアプリケーションの非同期処理にとって有益な場合がありますは、実行時間の長い、ネットワークまたは O バインドのタスクを処理するときに、クライアントの応答性とサーバーのスケーラビリティを向上させるために使用できます。</span><span class="sxs-lookup"><span data-stu-id="fc411-106">While not all applications may benefit from asynchrony, it can be used to improve client responsiveness and server scalability when handling long-running, network or I/O-bound tasks.</span></span>
 
-## <a name="when-to-really-use-async"></a><span data-ttu-id="0e11b-107">本当に async を使用する場合</span><span class="sxs-lookup"><span data-stu-id="0e11b-107">When to really use async</span></span>
+## <a name="when-to-really-use-async"></a><span data-ttu-id="fc411-107">本当に async を使用する場合</span><span class="sxs-lookup"><span data-stu-id="fc411-107">When to really use async</span></span>
 
-<span data-ttu-id="0e11b-108">このチュートリアルの目的は、非同期および同期プログラムの実行の違いを観察する簡単な方法で非同期の概念を導入します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-108">The purpose of this walkthrough is to introduce the async concepts in a way that makes it easy to observe the difference between asynchronous and synchronous program execution.</span></span> <span data-ttu-id="0e11b-109">このチュートリアルものではありません、主なシナリオのいずれかを示すために非同期プログラミングがメリットを提供します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-109">This walkthrough is not intended to illustrate any of the key scenarios where async programming provides benefits.</span></span>
+<span data-ttu-id="fc411-108">このチュートリアルの目的は、非同期および同期プログラムの実行の違いを観察する簡単な方法で非同期の概念を導入します。</span><span class="sxs-lookup"><span data-stu-id="fc411-108">The purpose of this walkthrough is to introduce the async concepts in a way that makes it easy to observe the difference between asynchronous and synchronous program execution.</span></span> <span data-ttu-id="fc411-109">このチュートリアルものではありません、主なシナリオのいずれかを示すために非同期プログラミングがメリットを提供します。</span><span class="sxs-lookup"><span data-stu-id="fc411-109">This walkthrough is not intended to illustrate any of the key scenarios where async programming provides benefits.</span></span>
 
-<span data-ttu-id="0e11b-110">非同期プログラミングは、マネージ スレッドから任意のコンピューティング時間を必要としない操作を待っている間に他の作業の現在のマネージ スレッド (スレッド実行 .NET コード) を解放する方法に主がいます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-110">Async programming is primarily focused on freeing up the current managed thread (thread running .NET code) to do other work while it waits for an operation that does not require any compute time from a managed thread.</span></span> <span data-ttu-id="0e11b-111">たとえば、データベース エンジン クエリの処理は、何もない .NET コードによって実行します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-111">For example, whilst the database engine is processing a query there is nothing to be done by .NET code.</span></span>
+<span data-ttu-id="fc411-110">非同期プログラミングは、マネージ スレッドから任意のコンピューティング時間を必要としない操作を待っている間に他の作業の現在のマネージ スレッド (スレッド実行 .NET コード) を解放する方法に主がいます。</span><span class="sxs-lookup"><span data-stu-id="fc411-110">Async programming is primarily focused on freeing up the current managed thread (thread running .NET code) to do other work while it waits for an operation that does not require any compute time from a managed thread.</span></span> <span data-ttu-id="fc411-111">たとえば、データベース エンジン クエリの処理は、何もない .NET コードによって実行します。</span><span class="sxs-lookup"><span data-stu-id="fc411-111">For example, whilst the database engine is processing a query there is nothing to be done by .NET code.</span></span>
 
-<span data-ttu-id="0e11b-112">クライアント アプリケーション (WinForms、WPF など) では、非同期操作の実行中に、UI の応答性を維持する、現在のスレッドを使用できます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-112">In client applications (WinForms, WPF, etc.) the current thread can be used to keep the UI responsive while the async operation is performed.</span></span> <span data-ttu-id="0e11b-113">-他の受信要求を処理するスレッドを使用できるサーバー アプリケーション (ASP.NET など) では、メモリ使用量を削減したり、サーバーのスループットを向上したりこのことができます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-113">In server applications (ASP.NET etc.) the thread can be used to process other incoming requests - this can reduce memory usage and/or increase throughput of the server.</span></span>
+<span data-ttu-id="fc411-112">クライアント アプリケーション (WinForms、WPF など) では、非同期操作の実行中に、UI の応答性を維持する、現在のスレッドを使用できます。</span><span class="sxs-lookup"><span data-stu-id="fc411-112">In client applications (WinForms, WPF, etc.) the current thread can be used to keep the UI responsive while the async operation is performed.</span></span> <span data-ttu-id="fc411-113">-他の受信要求を処理するスレッドを使用できるサーバー アプリケーション (ASP.NET など) では、メモリ使用量を削減したり、サーバーのスループットを向上したりこのことができます。</span><span class="sxs-lookup"><span data-stu-id="fc411-113">In server applications (ASP.NET etc.) the thread can be used to process other incoming requests - this can reduce memory usage and/or increase throughput of the server.</span></span>
 
-<span data-ttu-id="0e11b-114">Async を使用するほとんどのアプリケーションではありません顕著なメリットと悪影響もする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="0e11b-114">In most applications using async will have no noticeable benefits and even could be detrimental.</span></span> <span data-ttu-id="0e11b-115">コミットするのに前に特定のシナリオにおける非同期の影響を測定するのにには、テスト、プロファイリング、および常識を使用します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-115">Use tests, profiling and common sense to measure the impact of async in your particular scenario before committing to it.</span></span>
+<span data-ttu-id="fc411-114">Async を使用するほとんどのアプリケーションではありません顕著なメリットと悪影響もする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="fc411-114">In most applications using async will have no noticeable benefits and even could be detrimental.</span></span> <span data-ttu-id="fc411-115">コミットするのに前に特定のシナリオにおける非同期の影響を測定するのにには、テスト、プロファイリング、および常識を使用します。</span><span class="sxs-lookup"><span data-stu-id="fc411-115">Use tests, profiling and common sense to measure the impact of async in your particular scenario before committing to it.</span></span>
 
-<span data-ttu-id="0e11b-116">非同期の詳細についていくつかその他のリソースを次に示します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-116">Here are some more resources to learn about async:</span></span>
+<span data-ttu-id="fc411-116">非同期の詳細についていくつかその他のリソースを次に示します。</span><span class="sxs-lookup"><span data-stu-id="fc411-116">Here are some more resources to learn about async:</span></span>
 
--   [<span data-ttu-id="0e11b-117">.NET 4.5 で非同期/待機の Brandon Bray の概要</span><span class="sxs-lookup"><span data-stu-id="0e11b-117">Brandon Bray’s overview of async/await in .NET 4.5</span></span>](http://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
--   <span data-ttu-id="0e11b-118">[非同期プログラミング](https://msdn.microsoft.com/library/hh191443.aspx)MSDN ライブラリ内のページ</span><span class="sxs-lookup"><span data-stu-id="0e11b-118">[Asynchronous Programming](https://msdn.microsoft.com/library/hh191443.aspx) pages in the MSDN Library</span></span>
--   <span data-ttu-id="0e11b-119">[ビルド ASP.NET Web アプリケーションを使用して非同期の追加方法](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337)(増加のサーバーのスループットのデモが含まれています)</span><span class="sxs-lookup"><span data-stu-id="0e11b-119">[How to Build ASP.NET Web Applications Using Async](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (includes a demo of increased server throughput)</span></span>
+-   [<span data-ttu-id="fc411-117">.NET 4.5 で非同期/待機の Brandon Bray の概要</span><span class="sxs-lookup"><span data-stu-id="fc411-117">Brandon Bray’s overview of async/await in .NET 4.5</span></span>](http://blogs.msdn.com/b/dotnet/archive/2012/04/03/async-in-4-5-worth-the-await.aspx)
+-   <span data-ttu-id="fc411-118">[非同期プログラミング](https://msdn.microsoft.com/library/hh191443.aspx)MSDN ライブラリ内のページ</span><span class="sxs-lookup"><span data-stu-id="fc411-118">[Asynchronous Programming](https://msdn.microsoft.com/library/hh191443.aspx) pages in the MSDN Library</span></span>
+-   <span data-ttu-id="fc411-119">[ビルド ASP.NET Web アプリケーションを使用して非同期の追加方法](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337)(増加のサーバーのスループットのデモが含まれています)</span><span class="sxs-lookup"><span data-stu-id="fc411-119">[How to Build ASP.NET Web Applications Using Async](http://channel9.msdn.com/events/teched/northamerica/2013/dev-b337) (includes a demo of increased server throughput)</span></span>
 
-## <a name="create-the-model"></a><span data-ttu-id="0e11b-120">モデルを作成する</span><span class="sxs-lookup"><span data-stu-id="0e11b-120">Create the model</span></span>
+## <a name="create-the-model"></a><span data-ttu-id="fc411-120">モデルを作成する</span><span class="sxs-lookup"><span data-stu-id="fc411-120">Create the model</span></span>
 
-<span data-ttu-id="0e11b-121">使用する、 [Code First ワークフロー](~/ef6/modeling/code-first/workflows/new-database.md)モデルを作成し、非同期の機能は EF Designer で作成されたものを含むすべての EF モデルの動作が、データベースを生成します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-121">We’ll be using the [Code First workflow](~/ef6/modeling/code-first/workflows/new-database.md) to create our model and generate the database, however the asynchronous functionality will work with all EF models including those created with the EF Designer.</span></span>
+<span data-ttu-id="fc411-121">使用する、 [Code First ワークフロー](~/ef6/modeling/code-first/workflows/new-database.md)モデルを作成し、非同期の機能は EF Designer で作成されたものを含むすべての EF モデルの動作が、データベースを生成します。</span><span class="sxs-lookup"><span data-stu-id="fc411-121">We’ll be using the [Code First workflow](~/ef6/modeling/code-first/workflows/new-database.md) to create our model and generate the database, however the asynchronous functionality will work with all EF models including those created with the EF Designer.</span></span>
 
--   <span data-ttu-id="0e11b-122">コンソール アプリケーションを作成し、それを呼び出す**AsyncDemo**</span><span class="sxs-lookup"><span data-stu-id="0e11b-122">Create a Console Application and call it **AsyncDemo**</span></span>
--   <span data-ttu-id="0e11b-123">EntityFramework NuGet パッケージを追加します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-123">Add the EntityFramework NuGet package</span></span>
-    -   <span data-ttu-id="0e11b-124">ソリューション エクスプ ローラーを右クリックし、 **AsyncDemo**プロジェクト</span><span class="sxs-lookup"><span data-stu-id="0e11b-124">In Solution Explorer, right-click on the **AsyncDemo** project</span></span>
-    -   <span data-ttu-id="0e11b-125">選択**NuGet パッケージを管理しています.**</span><span class="sxs-lookup"><span data-stu-id="0e11b-125">Select **Manage NuGet Packages…**</span></span>
-    -   <span data-ttu-id="0e11b-126">NuGet パッケージの管理 ダイアログ ボックスで、、**オンライン** タブで選択し、 **EntityFramework**パッケージ</span><span class="sxs-lookup"><span data-stu-id="0e11b-126">In the Manage NuGet Packages dialog, Select the **Online** tab and choose the **EntityFramework** package</span></span>
-    -   <span data-ttu-id="0e11b-127">クリックして**インストール**</span><span class="sxs-lookup"><span data-stu-id="0e11b-127">Click **Install**</span></span>
--   <span data-ttu-id="0e11b-128">追加、 **Model.cs**次の実装クラス</span><span class="sxs-lookup"><span data-stu-id="0e11b-128">Add a **Model.cs** class with the following implementation</span></span>
+-   <span data-ttu-id="fc411-122">コンソール アプリケーションを作成し、それを呼び出す**AsyncDemo**</span><span class="sxs-lookup"><span data-stu-id="fc411-122">Create a Console Application and call it **AsyncDemo**</span></span>
+-   <span data-ttu-id="fc411-123">EntityFramework NuGet パッケージを追加します。</span><span class="sxs-lookup"><span data-stu-id="fc411-123">Add the EntityFramework NuGet package</span></span>
+    -   <span data-ttu-id="fc411-124">ソリューション エクスプ ローラーを右クリックし、 **AsyncDemo**プロジェクト</span><span class="sxs-lookup"><span data-stu-id="fc411-124">In Solution Explorer, right-click on the **AsyncDemo** project</span></span>
+    -   <span data-ttu-id="fc411-125">選択**NuGet パッケージを管理しています.**</span><span class="sxs-lookup"><span data-stu-id="fc411-125">Select **Manage NuGet Packages…**</span></span>
+    -   <span data-ttu-id="fc411-126">NuGet パッケージの管理 ダイアログ ボックスで、、**オンライン** タブで選択し、 **EntityFramework**パッケージ</span><span class="sxs-lookup"><span data-stu-id="fc411-126">In the Manage NuGet Packages dialog, Select the **Online** tab and choose the **EntityFramework** package</span></span>
+    -   <span data-ttu-id="fc411-127">クリックして**インストール**</span><span class="sxs-lookup"><span data-stu-id="fc411-127">Click **Install**</span></span>
+-   <span data-ttu-id="fc411-128">追加、 **Model.cs**次の実装クラス</span><span class="sxs-lookup"><span data-stu-id="fc411-128">Add a **Model.cs** class with the following implementation</span></span>
 
 ``` csharp
     using System.Collections.Generic;
@@ -78,11 +78,11 @@ ms.locfileid: "43152438"
 
  
 
-## <a name="create-a-synchronous-program"></a><span data-ttu-id="0e11b-129">同期プログラムを作成します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-129">Create a synchronous program</span></span>
+## <a name="create-a-synchronous-program"></a><span data-ttu-id="fc411-129">同期プログラムを作成します。</span><span class="sxs-lookup"><span data-stu-id="fc411-129">Create a synchronous program</span></span>
 
-<span data-ttu-id="0e11b-130">EF モデルをしたら、それを使用していくつかのデータ アクセスを実行するいくつかのコードを記述してみましょう。</span><span class="sxs-lookup"><span data-stu-id="0e11b-130">Now that we have an EF model, let's write some code that uses it to perform some data access.</span></span>
+<span data-ttu-id="fc411-130">EF モデルをしたら、それを使用していくつかのデータ アクセスを実行するいくつかのコードを記述してみましょう。</span><span class="sxs-lookup"><span data-stu-id="fc411-130">Now that we have an EF model, let's write some code that uses it to perform some data access.</span></span>
 
--   <span data-ttu-id="0e11b-131">内容を置き換える**Program.cs**を次のコード</span><span class="sxs-lookup"><span data-stu-id="0e11b-131">Replace the contents of **Program.cs** with the following code</span></span>
+-   <span data-ttu-id="fc411-131">内容を置き換える**Program.cs**を次のコード</span><span class="sxs-lookup"><span data-stu-id="fc411-131">Replace the contents of **Program.cs** with the following code</span></span>
 
 ``` csharp
     using System;
@@ -135,32 +135,32 @@ ms.locfileid: "43152438"
     }
 ```
 
-<span data-ttu-id="0e11b-132">このコードは、 **PerformDatabaseOperations**新しい保存メソッド**ブログ**データベースを取得してすべてを**ブログ**データベースからに出力します、**コンソール**します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-132">This code calls the **PerformDatabaseOperations** method which saves a new **Blog** to the database and then retrieves all **Blogs** from the database and prints them to the **Console**.</span></span> <span data-ttu-id="0e11b-133">その後、プログラムが 1 日の見積もりを書き込みます、**コンソール**します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-133">After this, the program writes a quote of the day to the **Console**.</span></span>
+<span data-ttu-id="fc411-132">このコードは、 **PerformDatabaseOperations**新しい保存メソッド**ブログ**データベースを取得してすべてを**ブログ**データベースからに出力します、**コンソール**します。</span><span class="sxs-lookup"><span data-stu-id="fc411-132">This code calls the **PerformDatabaseOperations** method which saves a new **Blog** to the database and then retrieves all **Blogs** from the database and prints them to the **Console**.</span></span> <span data-ttu-id="fc411-133">その後、プログラムが 1 日の見積もりを書き込みます、**コンソール**します。</span><span class="sxs-lookup"><span data-stu-id="fc411-133">After this, the program writes a quote of the day to the **Console**.</span></span>
 
-<span data-ttu-id="0e11b-134">コードは、同期であるため、プログラムを実行すると、次の実行フローを確認しましたできます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-134">Since the code is synchronous, we can observe the following execution flow when we run the program:</span></span>
+<span data-ttu-id="fc411-134">コードは、同期であるため、プログラムを実行すると、次の実行フローを確認しましたできます。</span><span class="sxs-lookup"><span data-stu-id="fc411-134">Since the code is synchronous, we can observe the following execution flow when we run the program:</span></span>
 
-1.  <span data-ttu-id="0e11b-135">**SaveChanges**新しいプッシュを開始**ブログ**データベース</span><span class="sxs-lookup"><span data-stu-id="0e11b-135">**SaveChanges** begins to push the new **Blog** to the database</span></span>
-2.  <span data-ttu-id="0e11b-136">**SaveChanges**が完了します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-136">**SaveChanges** completes</span></span>
-3.  <span data-ttu-id="0e11b-137">すべてのクエリ**ブログ**データベースに送信されます</span><span class="sxs-lookup"><span data-stu-id="0e11b-137">Query for all **Blogs** is sent to the database</span></span>
-4.  <span data-ttu-id="0e11b-138">クエリを返しする結果が書き込まれる**コンソール**</span><span class="sxs-lookup"><span data-stu-id="0e11b-138">Query returns and results are written to **Console**</span></span>
-5.  <span data-ttu-id="0e11b-139">1 日の見積もりが書き込む**コンソール**</span><span class="sxs-lookup"><span data-stu-id="0e11b-139">Quote of the day is written to **Console**</span></span>
+1.  <span data-ttu-id="fc411-135">**SaveChanges**新しいプッシュを開始**ブログ**データベース</span><span class="sxs-lookup"><span data-stu-id="fc411-135">**SaveChanges** begins to push the new **Blog** to the database</span></span>
+2.  <span data-ttu-id="fc411-136">**SaveChanges**が完了します。</span><span class="sxs-lookup"><span data-stu-id="fc411-136">**SaveChanges** completes</span></span>
+3.  <span data-ttu-id="fc411-137">すべてのクエリ**ブログ**データベースに送信されます</span><span class="sxs-lookup"><span data-stu-id="fc411-137">Query for all **Blogs** is sent to the database</span></span>
+4.  <span data-ttu-id="fc411-138">クエリを返しする結果が書き込まれる**コンソール**</span><span class="sxs-lookup"><span data-stu-id="fc411-138">Query returns and results are written to **Console**</span></span>
+5.  <span data-ttu-id="fc411-139">1 日の見積もりが書き込む**コンソール**</span><span class="sxs-lookup"><span data-stu-id="fc411-139">Quote of the day is written to **Console**</span></span>
 
-![SyncOutput](~/ef6/media/syncoutput.png) 
+![同期出力](~/ef6/media/syncoutput.png) 
 
  
 
-## <a name="making-it-asynchronous"></a><span data-ttu-id="0e11b-141">非同期になります</span><span class="sxs-lookup"><span data-stu-id="0e11b-141">Making it asynchronous</span></span>
+## <a name="making-it-asynchronous"></a><span data-ttu-id="fc411-141">非同期になります</span><span class="sxs-lookup"><span data-stu-id="fc411-141">Making it asynchronous</span></span>
 
-<span data-ttu-id="0e11b-142">このプログラムを起動して実行したら、新しい非同期の使用と、await キーワードを開始できます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-142">Now that we have our program up and running, we can begin making use of the new async and await keywords.</span></span> <span data-ttu-id="0e11b-143">Program.cs に、次の変更を行いました</span><span class="sxs-lookup"><span data-stu-id="0e11b-143">We've made the following changes to Program.cs</span></span>
+<span data-ttu-id="fc411-142">このプログラムを起動して実行したら、新しい非同期の使用と、await キーワードを開始できます。</span><span class="sxs-lookup"><span data-stu-id="fc411-142">Now that we have our program up and running, we can begin making use of the new async and await keywords.</span></span> <span data-ttu-id="fc411-143">Program.cs に、次の変更を行いました</span><span class="sxs-lookup"><span data-stu-id="fc411-143">We've made the following changes to Program.cs</span></span>
 
-1.  <span data-ttu-id="0e11b-144">2 行目: を使用して、ステートメント、 **System.Data.Entity**名前空間に対するアクセスを提供、EF の非同期拡張メソッド。</span><span class="sxs-lookup"><span data-stu-id="0e11b-144">Line 2: The using statement for the **System.Data.Entity** namespace gives us access to the EF async extension methods.</span></span>
-2.  <span data-ttu-id="0e11b-145">行 4: を使用して、ステートメント、 **System.Threading.Tasks**名前空間では、使用できる、**タスク**型。</span><span class="sxs-lookup"><span data-stu-id="0e11b-145">Line 4: The using statement for the **System.Threading.Tasks** namespace allows us to use the **Task** type.</span></span>
-3.  <span data-ttu-id="0e11b-146">12 & 18: に関しての進行状況を監視するタスクとしてキャプチャされる**PerformSomeDatabaseOperations** (12 行目) し、このプログラムの実行をブロックし、タスク完了 1 回にすべての作業、プログラムが (行 18) に行われます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-146">Line 12 & 18: We are capturing as task that monitors the progress of **PerformSomeDatabaseOperations** (line 12) and then blocking program execution for this task to complete once all the work for the program is done (line 18).</span></span>
-4.  <span data-ttu-id="0e11b-147">25 行目: 更新プログラムをしました**PerformSomeDatabaseOperations**としてマーク済みである**async**戻って、**タスク**します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-147">Line 25: We've update **PerformSomeDatabaseOperations** to be marked as **async** and return a **Task**.</span></span>
-5.  <span data-ttu-id="0e11b-148">行 35: 今すぐ SaveChanges の非同期バージョンの呼び出ししていますの完了を待機しています。</span><span class="sxs-lookup"><span data-stu-id="0e11b-148">Line 35: We're now calling the Async version of SaveChanges and awaiting it's completion.</span></span>
-6.  <span data-ttu-id="0e11b-149">行 42: 今すぐ ToList の非同期バージョンを呼び出すしています、結果を待機しています。</span><span class="sxs-lookup"><span data-stu-id="0e11b-149">Line 42: We're now calling hte Async version of ToList and awaiting on the result.</span></span>
+1.  <span data-ttu-id="fc411-144">2 行目: を使用して、ステートメント、 **System.Data.Entity**名前空間に対するアクセスを提供、EF の非同期拡張メソッド。</span><span class="sxs-lookup"><span data-stu-id="fc411-144">Line 2: The using statement for the **System.Data.Entity** namespace gives us access to the EF async extension methods.</span></span>
+2.  <span data-ttu-id="fc411-145">行 4: を使用して、ステートメント、 **System.Threading.Tasks**名前空間では、使用できる、**タスク**型。</span><span class="sxs-lookup"><span data-stu-id="fc411-145">Line 4: The using statement for the **System.Threading.Tasks** namespace allows us to use the **Task** type.</span></span>
+3.  <span data-ttu-id="fc411-146">12 & 18: に関しての進行状況を監視するタスクとしてキャプチャされる**PerformSomeDatabaseOperations** (12 行目) し、このプログラムの実行をブロックし、タスク完了 1 回にすべての作業、プログラムが (行 18) に行われます。</span><span class="sxs-lookup"><span data-stu-id="fc411-146">Line 12 & 18: We are capturing as task that monitors the progress of **PerformSomeDatabaseOperations** (line 12) and then blocking program execution for this task to complete once all the work for the program is done (line 18).</span></span>
+4.  <span data-ttu-id="fc411-147">25 行目: 更新プログラムをしました**PerformSomeDatabaseOperations**としてマーク済みである**async**戻って、**タスク**します。</span><span class="sxs-lookup"><span data-stu-id="fc411-147">Line 25: We've update **PerformSomeDatabaseOperations** to be marked as **async** and return a **Task**.</span></span>
+5.  <span data-ttu-id="fc411-148">行 35: 今すぐ SaveChanges の非同期バージョンの呼び出ししていますの完了を待機しています。</span><span class="sxs-lookup"><span data-stu-id="fc411-148">Line 35: We're now calling the Async version of SaveChanges and awaiting it's completion.</span></span>
+6.  <span data-ttu-id="fc411-149">行 42: 今すぐ ToList の非同期バージョンを呼び出すしています、結果を待機しています。</span><span class="sxs-lookup"><span data-stu-id="fc411-149">Line 42: We're now calling hte Async version of ToList and awaiting on the result.</span></span>
 
-<span data-ttu-id="0e11b-150">System.Data.Entity 名前空間の使用可能な拡張メソッドの包括的な一覧、QueryableExtensions クラスを参照してください。</span><span class="sxs-lookup"><span data-stu-id="0e11b-150">For a comprehensive list of available extension methods in the System.Data.Entity namespace, refer to the QueryableExtensions class.</span></span> <span data-ttu-id="0e11b-151">*またを使用する「System.Data.Entity を使用して」を追加する必要がありますステートメント。*</span><span class="sxs-lookup"><span data-stu-id="0e11b-151">*You’ll also need to add “using System.Data.Entity” to your using statements.*</span></span>
+<span data-ttu-id="fc411-150">System.Data.Entity 名前空間の使用可能な拡張メソッドの包括的な一覧、QueryableExtensions クラスを参照してください。</span><span class="sxs-lookup"><span data-stu-id="fc411-150">For a comprehensive list of available extension methods in the System.Data.Entity namespace, refer to the QueryableExtensions class.</span></span> <span data-ttu-id="fc411-151">*またを使用する「System.Data.Entity を使用して」を追加する必要がありますステートメント。*</span><span class="sxs-lookup"><span data-stu-id="fc411-151">*You’ll also need to add “using System.Data.Entity” to your using statements.*</span></span>
 
 ``` csharp
     using System;
@@ -218,20 +218,20 @@ ms.locfileid: "43152438"
     }
 ```
 
-<span data-ttu-id="0e11b-152">これで、コードが、非同期、プログラムを実行するとさまざまな実行フローを観察したことができます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-152">Now that the code is asyncronous, we can observe a different execution flow when we run the program:</span></span>
+<span data-ttu-id="fc411-152">これで、コードが、非同期、プログラムを実行するとさまざまな実行フローを観察したことができます。</span><span class="sxs-lookup"><span data-stu-id="fc411-152">Now that the code is asyncronous, we can observe a different execution flow when we run the program:</span></span>
 
-1.  <span data-ttu-id="0e11b-153">**SaveChanges**新しいプッシュを開始**ブログ**データベースに*より高いの計算に時間が現在のマネージ スレッドで必要ありません、データベースにコマンドが送信されるとします。**PerformDatabaseOperations**メソッドを返します (これは実行が完了していない) 場合でも、Main メソッドで、プログラム フローが続行されます。*</span><span class="sxs-lookup"><span data-stu-id="0e11b-153">**SaveChanges** begins to push the new **Blog** to the database *Once the command is sent to the database no more compute time is needed on the current managed thread. The **PerformDatabaseOperations** method returns (even though it hasn't finished executing) and program flow in the Main method continues.*</span></span>
-2.  <span data-ttu-id="0e11b-154">**1 日の見積もりがコンソールに書き込まれる**
-    *待機にマネージ スレッドがブロックされている他の作業は、Main メソッドであるため、データベース操作が完了するまでを呼び出します。これが完了するの残りの部分、 **PerformDatabaseOperations** *が実行されます。</span><span class="sxs-lookup"><span data-stu-id="0e11b-154">**Quote of the day is written to Console**
+1.  <span data-ttu-id="fc411-153">**SaveChanges**新しいプッシュを開始**ブログ**データベースに*より高いの計算に時間が現在のマネージ スレッドで必要ありません、データベースにコマンドが送信されるとします。**PerformDatabaseOperations**メソッドを返します (これは実行が完了していない) 場合でも、Main メソッドで、プログラム フローが続行されます。*</span><span class="sxs-lookup"><span data-stu-id="fc411-153">**SaveChanges** begins to push the new **Blog** to the database *Once the command is sent to the database no more compute time is needed on the current managed thread. The **PerformDatabaseOperations** method returns (even though it hasn't finished executing) and program flow in the Main method continues.*</span></span>
+2.  <span data-ttu-id="fc411-154">**1 日の見積もりがコンソールに書き込まれる**
+    \*待機にマネージ スレッドがブロックされている他の作業は、Main メソッドであるため、データベース操作が完了するまでを呼び出します。これが完了するの残りの部分、 **PerformDatabaseOperations** \*が実行されます。</span><span class="sxs-lookup"><span data-stu-id="fc411-154">**Quote of the day is written to Console**
 *Since there is no more work to do in the Main method, the managed thread is blocked on the Wait call until the database operation completes. Once it completes, the remainder of our **PerformDatabaseOperations*** will be executed.</span></span>
-3.  <span data-ttu-id="0e11b-155">**SaveChanges**が完了します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-155">**SaveChanges** completes</span></span>
-4.  <span data-ttu-id="0e11b-156">すべてのクエリ**ブログ**データベースに送信される*ここでも、マネージ スレッドは無料で、クエリは、データベースの処理中に他の作業を行います。他のすべての実行が完了するため、スレッドはだけ停止待機の呼び出しでただしします。*</span><span class="sxs-lookup"><span data-stu-id="0e11b-156">Query for all **Blogs** is sent to the database *Again, the managed thread is free to do other work while the query is processed in the database. Since all other execution has completed, the thread will just halt on the Wait call though.*</span></span>
-5.  <span data-ttu-id="0e11b-157">クエリを返しする結果が書き込まれる**コンソール**</span><span class="sxs-lookup"><span data-stu-id="0e11b-157">Query returns and results are written to **Console**</span></span>
+3.  <span data-ttu-id="fc411-155">**SaveChanges**が完了します。</span><span class="sxs-lookup"><span data-stu-id="fc411-155">**SaveChanges** completes</span></span>
+4.  <span data-ttu-id="fc411-156">すべてのクエリ**ブログ**データベースに送信される*ここでも、マネージ スレッドは無料で、クエリは、データベースの処理中に他の作業を行います。他のすべての実行が完了するため、スレッドはだけ停止待機の呼び出しでただしします。*</span><span class="sxs-lookup"><span data-stu-id="fc411-156">Query for all **Blogs** is sent to the database *Again, the managed thread is free to do other work while the query is processed in the database. Since all other execution has completed, the thread will just halt on the Wait call though.*</span></span>
+5.  <span data-ttu-id="fc411-157">クエリを返しする結果が書き込まれる**コンソール**</span><span class="sxs-lookup"><span data-stu-id="fc411-157">Query returns and results are written to **Console**</span></span>
 
-![AsyncOutput](~/ef6/media/asyncoutput.png) 
+![非同期出力](~/ef6/media/asyncoutput.png) 
 
  
 
-## <a name="the-takeaway"></a><span data-ttu-id="0e11b-159">したがって、</span><span class="sxs-lookup"><span data-stu-id="0e11b-159">The takeaway</span></span>
+## <a name="the-takeaway"></a><span data-ttu-id="fc411-159">したがって、</span><span class="sxs-lookup"><span data-stu-id="fc411-159">The takeaway</span></span>
 
-<span data-ttu-id="0e11b-160">ここではさせる簡単な方法を説明しましたの EF の非同期メソッドを使用します。</span><span class="sxs-lookup"><span data-stu-id="0e11b-160">We now saw how easy it is to make use of EF’s asynchronous methods.</span></span> <span data-ttu-id="0e11b-161">状況アクティビティの実行時間の長いまたはネットワークにバインドされる可能性がありますそれ以外の場合、アプリケーションをブロックするスレッドの数が多い原因でこれらと同じ戦略を適用できますが非同期の利点は簡単なコンソール アプリで非常に明らかにできない、メモリ使用量を増やします。</span><span class="sxs-lookup"><span data-stu-id="0e11b-161">Although the advantages of async may not be very apparent with a simple console app, these same strategies can be applied in situations where long-running or network-bound activities might otherwise block the application, or cause a large number of threads to increase the memory footprint.</span></span>
+<span data-ttu-id="fc411-160">ここではさせる簡単な方法を説明しましたの EF の非同期メソッドを使用します。</span><span class="sxs-lookup"><span data-stu-id="fc411-160">We now saw how easy it is to make use of EF’s asynchronous methods.</span></span> <span data-ttu-id="fc411-161">状況アクティビティの実行時間の長いまたはネットワークにバインドされる可能性がありますそれ以外の場合、アプリケーションをブロックするスレッドの数が多い原因でこれらと同じ戦略を適用できますが非同期の利点は簡単なコンソール アプリで非常に明らかにできない、メモリ使用量を増やします。</span><span class="sxs-lookup"><span data-stu-id="fc411-161">Although the advantages of async may not be very apparent with a simple console app, these same strategies can be applied in situations where long-running or network-bound activities might otherwise block the application, or cause a large number of threads to increase the memory footprint.</span></span>
