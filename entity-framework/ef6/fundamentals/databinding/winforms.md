@@ -1,14 +1,14 @@
 ---
 title: WinForms - EF6 とのデータ バインド
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: 48e6d997875a25a5954484f854953df69a267d05
-ms.sourcegitcommit: 8d04a2ad98036f32ca70c77ce3040c5edb1cdf82
+ms.openlocfilehash: 8da5bf653221b7919abb89d6d33bc8ed172828a4
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44384853"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490156"
 ---
 # <a name="databinding-with-winforms"></a>WinForms とのデータ バインド
 このステップ バイ ステップ チュートリアルでは、POCO 型を「マスター/詳細」の形式で、ウィンドウ フォーム (WinForms) コントロールにバインドする方法を示します。 アプリケーションでは、Entity Framework を使用して、データベースからデータをオブジェクトに設定、変更の追跡、およびデータベースにデータを保持します。

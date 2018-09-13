@@ -1,14 +1,14 @@
 ---
 title: デザイナーの CUD ストアド プロシージャ - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
-ms.openlocfilehash: 36c9b97b77fec30136cba1d850a0259c689e69ae
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 35a00aa817c8643352c517c233977efd49e3baac
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250921"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489558"
 ---
 # <a name="designer-cud-stored-procedures"></a>デザイナーの CUD ストアド プロシージャ
 このステップ バイ ステップ チュートリアルの作成をマップする方法を表示する\\挿入、更新、および Entity Framework デザイナー (EF Designer) を使用してストアド プロシージャにエンティティ型の (CUD) 操作を削除します。  既定では、Entity Framework は、CUD 操作で、SQL ステートメントを自動的に生成されますが、これらの操作をストアド プロシージャをマップすることもできます。  

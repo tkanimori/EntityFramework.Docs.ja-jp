@@ -1,15 +1,15 @@
 ---
 title: 以前のバージョンから EF Core 2 - EF Core へのアップグレード
 author: divega
-ms.date: 8/13/2017
+ms.date: 08/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 18c7fc841affc2776d054e447aa231a5f4bcd585
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: f0d85b3ba22c09d2bd48e8b34ed628a7474322d3
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44251181"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490494"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 へのアプリケーションのアップグレード
 

@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 5da1043310e2858638c81a0654a9cab23e39c220
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: a637e5e2f75e16bc7b11b1a51abcbe16274a1c75
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250817"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490773"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -52,3 +52,7 @@ ms.locfileid: "44250817"
   * プロバイダー間で一貫性のあるプロバイダーに空間的なサポートを追加するには、このパターンに従います。
 * https://github.com/aspnet/EntityFrameworkCore/pull/13199 -サービス プロバイダーの作成のデバッグ機能の強化を追加します。
   * により、内部のサービス プロバイダーを再構築中理由を理解するのに役立つ新しいインターフェイスを実装する DbContextOptionsExtensions
+* https://github.com/aspnet/EntityFrameworkCore/pull/13289 -により CanConnect API 使用するための正常性チェック
+  * このプル要求の追加の概念`CanConnect`正常性の ASP.NET Core で使用されるデータベースが使用可能なかどうかを判断するを確認します。 リレーショナルの実装では、既定では、呼び出すだけ`Exist`がプロバイダーに応じて実装別のものにできます。 非リレーショナルのプロバイダーは、使用するのには、正常性チェックのために、新しい API を実装する必要があります。
+* https://github.com/aspnet/EntityFrameworkCore/pull/13306 -DbParameter のサイズを設定しないように基本 RelationalTypeMapping を更新します。
+  * 切り捨てが発生する可能性があるため既定サイズの設定を停止します。 プロバイダーは、サイズを設定する必要がある場合に、独自のロジックを追加する必要があります。

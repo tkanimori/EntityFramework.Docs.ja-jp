@@ -2,13 +2,13 @@
 title: 複数のプロバイダー - EF Core での移行
 author: bricelam
 ms.author: bricelam
-ms.date: 11/8/2017
-ms.openlocfilehash: 7ae695037992323337a780cda29d8c8ed8a13458
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.date: 11/08/2017
+ms.openlocfilehash: 75c055221609679db3f00016b9cb44c6c8c6e473
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997974"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45488778"
 ---
 <a name="migrations-with-multiple-providers"></a>複数のプロバイダーを使用した移行
 ==================================

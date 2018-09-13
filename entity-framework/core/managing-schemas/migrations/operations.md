@@ -2,13 +2,13 @@
 title: カスタムの移行操作 - EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/7/2017
-ms.openlocfilehash: 33f4fb6dca7c0d2e29abd196194a453f2b390b14
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.date: 11/07/2017
+ms.openlocfilehash: dcf11c44dcc9f6008b8290a89dd8c042e5ec5771
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997095"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489142"
 ---
 <a name="custom-migrations-operations"></a>カスタムの移行操作
 ============================

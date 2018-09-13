@@ -1,14 +1,14 @@
 ---
 title: デザイナーの TPH 継承 - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 72d26a8e-20ab-4500-bd13-394a08e73394
-ms.openlocfilehash: 1eb935414b20d6e93e9d470ccc845bc13626ed3a
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 43ba34a98c3960a7a3052a00e2ed2751c2f2b121
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250844"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490125"
 ---
 # <a name="designer-tph-inheritance"></a>デザイナーの TPH 継承
 このステップ バイ ステップ チュートリアルでは、Entity Framework デザイナー (EF Designer) を使用した概念モデルでの table-per-hierarchy (TPH) 継承を実装する方法を示します。 TPH 継承は、継承階層内のエンティティ型のすべてのデータを維持するために、1 つのデータベース テーブルを使用します。

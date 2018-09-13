@@ -1,14 +1,14 @@
 ---
 title: Fluent API - リレーションシップ - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: fd73b4f8-16d5-40f1-9640-885ceafe67a1
-ms.openlocfilehash: e13a1370f46362e0f2ca3743ec5b063ce6f87cbe
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 05f282c02699f8bf3c71197ac5e01000f1855917
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994763"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490468"
 ---
 # <a name="fluent-api---relationships"></a>Fluent API - リレーションシップ
 > [!NOTE]

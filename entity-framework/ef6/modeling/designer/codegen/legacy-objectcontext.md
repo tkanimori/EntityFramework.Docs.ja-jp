@@ -1,14 +1,14 @@
 ---
 title: Entity Framework デザイナー - EF6 で ObjectContext に戻しています
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 36550569-a1de-47cb-ba6d-544794ffd500
-ms.openlocfilehash: e90af3e973c71e2ce872e3edc24aafc1b2ccce0f
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 3e436f0d9cf94720be9c424b327816438d571ae8
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250336"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45488948"
 ---
 # <a name="reverting-to-objectcontext-in-entity-framework-designer"></a>Entity Framework デザイナーで ObjectContext に戻しています
 以前のバージョンの Entity Framework EF Designer で作成したモデルの ObjectContext から派生したコンテキストと EntityObject から派生したエンティティ クラスは生成します。

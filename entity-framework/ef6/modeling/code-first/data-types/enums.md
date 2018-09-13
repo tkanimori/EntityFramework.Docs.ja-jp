@@ -1,14 +1,14 @@
 ---
 title: 列挙型のサポートには、EF6 で Code First
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 77a42501-27c9-4f4b-96df-26c128021467
-ms.openlocfilehash: 529370ef7aba3975a36cbfdf5c439ee87b563c7c
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 986991c2dd9470867aaf5424ecb176d7db172426
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997235"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489506"
 ---
 # <a name="enum-support---code-first"></a>列挙型のサポート - Code First
 > [!NOTE]

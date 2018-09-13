@@ -1,14 +1,14 @@
 ---
 title: トランザクション - EF6 の使用
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
-ms.openlocfilehash: 26473e1e52a6044babc717d5b158ad73aac5c738
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 7197733ab25c8475746e7863963384730919e3ff
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250610"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489779"
 ---
 # <a name="working-with-transactions"></a>トランザクションの使用
 > [!NOTE]
