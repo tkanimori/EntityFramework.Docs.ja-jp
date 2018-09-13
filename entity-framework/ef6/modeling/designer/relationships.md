@@ -1,14 +1,14 @@
 ---
 title: リレーションシップの EF デザイナー - EF6
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 402fe960-754b-470f-976b-e5de3e9986b5
-ms.openlocfilehash: e1912a5e00e51b4f07b1ac83848fdbe0aa4755aa
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: d429c39dafbf183caabdc85748c188deb8dd6f66
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250713"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490681"
 ---
 # <a name="relationships---ef-designer"></a>リレーションシップの EF デザイナー
 > [!NOTE]

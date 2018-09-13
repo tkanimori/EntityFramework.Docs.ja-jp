@@ -1,14 +1,14 @@
 ---
 title: EF デザイナー モデル - EF6 の Entity Framework ランタイムのバージョンを選択します。
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: 7ace90a6-46f8-4f55-a88c-7cad9620085c
-ms.openlocfilehash: 8864bb8166a7c16455d5c3bebe91e2ce8d142685
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 40ad05c1f015e6a51150d04eee8d9aa581d72c33
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42998243"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45488492"
 ---
 # <a name="selecting-entity-framework-runtime-version-for-ef-designer-models"></a>Entity Framework ランタイムのバージョンの EF デザイナー モデルの選択
 > [!NOTE]

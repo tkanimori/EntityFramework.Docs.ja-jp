@@ -1,14 +1,14 @@
 ---
 title: 1 つのモデルの EF6 の複数のダイアグラム
 author: divega
-ms.date: 2016-10-23
+ms.date: 10/23/2016
 ms.assetid: b95db5c8-de8d-43bd-9ccc-5df6a5e25e1b
-ms.openlocfilehash: e23bf92ce3199b2162ca9a42bd0f797375179d77
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 3d0128d77d140ab6f6309db64efcb7364f626ec3
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250960"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490663"
 ---
 # <a name="multiple-diagrams-per-model"></a>1 つのモデルの複数のダイアグラム
 > [!NOTE]
