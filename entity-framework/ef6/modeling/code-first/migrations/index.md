@@ -3,12 +3,12 @@ title: Code First Migrations - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: 0e2f33d3402929c93a339ea26dcade875da52a61
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 389da6c54e063a5dc598f98f8ac92cfc0e686019
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490288"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283850"
 ---
 # <a name="code-first-migrations"></a>Code First Migrations
 Code First Migrations は、Code First ワークフローを使用している場合に、アプリケーションのデータベース スキーマを進化させるために推奨される方法です。 移行では次を許可するツール セットを提供します。
@@ -96,7 +96,7 @@ Code First Migrations は、Code First ワークフローを使用している�
     public string Url { get; set; }
 ```
 
-もう一度アプリケーションを実行すると、次を示す InvalidOperationException を取得します: *データベースの作成後、'BlogContext' コンテキストの背後にあるモデルが変更されました。Code First Migrations を使用したデータベースの更新を検討してください (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](http://go.microsoft.com/fwlink/?LinkId=238269)*)。*
+もう一度アプリケーションを実行すると、次を示す InvalidOperationException を取得します: *データベースの作成後、'BlogContext' コンテキストの背後にあるモデルが変更されました。Code First Migrations を使用したデータベースの更新を検討してください (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](https://go.microsoft.com/fwlink/?LinkId=238269)*)。*
 
 例外で示されているように、Code First Migrations の使用を開始します。 最初の手順では、コンテキストの移行を有効にします。
 
