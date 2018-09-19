@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: d6e31cf2b9b783ea503703536d159b34bf2e18c0
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d5101d0622ddc2c90ddded16b9ec6cc4eb814c36
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997191"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283837"
 ---
 # <a name="connection-resiliency"></a>接続の復元性
 
@@ -49,7 +49,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>トランザクション コミットの失敗、冪等性の問題
 
-一般に、接続障害が発生したときに、現在のトランザクションがロールバックされます。 ただし、トランザクション中に、接続が切断される場合がコミットされた、その結果、トランザクションの状態は不明です。 これを参照してください[ブログの投稿](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx)の詳細。
+一般に、接続障害が発生したときに、現在のトランザクションがロールバックされます。 ただし、トランザクション中に、接続が切断される場合がコミットされた、その結果、トランザクションの状態は不明です。 これを参照してください[ブログの投稿](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx)の詳細。
 
 既定では、実行戦略は、操作を再試行、トランザクションがロールバックがそうでない場合この例外が発生する場合は、新しいデータベースの状態は互換性がないかになる可能性が**データの破損**場合、操作は、自動生成されたキー値を持つ新しい行を挿入するときなど、特定の状態に依存しません。
 

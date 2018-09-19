@@ -3,12 +3,12 @@ title: デザイナーのクエリのストアド プロシージャ - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
-ms.openlocfilehash: 6284b10261e6f3b9bf69d1c15e121988e4976d48
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 04478ea1c8cd43a7ba4ee788e464992af3de7f64
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489948"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283902"
 ---
 # <a name="designer-query-stored-procedures"></a>デザイナーのクエリのストアド プロシージャ
 このステップ バイ ステップ チュートリアルでは、モデルにストアド プロシージャをインポートする Entity Framework デザイナー (EF Designer) を使用し、結果を取得する場合は、インポートされたストアド プロシージャを呼び出す方法を説明します。 
@@ -100,4 +100,4 @@ The department name is Engineering
 <a name="output-parameters"></a>出力パラメーター
 -----------------
 
-出力パラメーターを使用している場合は、結果が完全に読み取られるまでに、その値は使用できません。 これは、DbDataReader の基になる動作によるものを参照してください[DataReader によるデータの取得](http://go.microsoft.com/fwlink/?LinkID=398589)の詳細。
+出力パラメーターを使用している場合は、結果が完全に読み取られるまでに、その値は使用できません。 これは、DbDataReader の基になる動作によるものを参照してください[DataReader によるデータの取得](https://go.microsoft.com/fwlink/?LinkID=398589)の詳細。

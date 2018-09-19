@@ -3,12 +3,12 @@ title: Entity Framework の EF6 の過去のリリース
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-ms.openlocfilehash: 4c711bb48938e5c0432881c61766b0bff66498f2
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 4fa27f8259ecc011d9d30080aee3c44353ef533d
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490144"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283993"
 ---
 # <a name="past-releases-of-entity-framework"></a>Entity Framework の過去のリリース
 
@@ -127,7 +127,7 @@ Visual Studio 2012 での Entity Framework デザイナーは、1 つのモデ�
 
 具体的には、EF 5 のリリースをまとめてコンテンツの一覧を示します。
 
--   [EF 5 のリリースの投稿](http://blogs.msdn.com/b/adonet/archive/2012/08/15/ef5-released.aspx)
+-   [EF 5 のリリースの投稿](https://blogs.msdn.com/b/adonet/archive/2012/08/15/ef5-released.aspx)
 -   EF5 の新機能
     -   [コードで最初に列挙型のサポート](~/ef6/modeling/code-first/data-types/enums.md)
     -   [EF Designer で列挙型のサポート](~/ef6/modeling/designer/data-types/enums.md)
@@ -194,16 +194,16 @@ Visual Studio 2012 での Entity Framework デザイナーは、1 つのモデ�
 
 当社で EF 4.3.1 リリース用に具体的にはコンテンツの一覧を次に示します、EF 4.1 に指定されたコンテンツのほとんどはまだ適用 EF 4.3 にも。
 
--   [EF 4.3.1 リリース ブログ投稿](http://blogs.msdn.com/b/adonet/archive/2012/02/29/ef4-3-1-and-ef5-beta-1-available-on-nuget.aspx)
+-   [EF 4.3.1 リリース ブログ投稿](https://blogs.msdn.com/b/adonet/archive/2012/02/29/ef4-3-1-and-ef5-beta-1-available-on-nuget.aspx)
 
 ## <a name="ef-43"></a>EF 4.3
 4.3.0 EF ランタイムが NuGet では、2012 年 2 月のリリースします。
 このリリースには、Code First モデルの進化に伴って変更増分する Code First によって作成されたデータベースを許可する新しい Code First Migrations の機能が含まれています。
 
 具体的には、EF 4.3 リリースをまとめてコンテンツの一覧を次に示します、EF 4.1 に指定されたコンテンツのほとんどはまだに適用 EF 4.3 も。
--   [EF 4.3 リリースの投稿](http://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-released.aspx)
--   [EF 4.3 コード ベースの移行チュートリアル](http://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-code-based-migrations-walkthrough.aspx)
--   [EF 4.3 の自動移行のチュートリアル](http://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-automatic-migrations-walkthrough.aspx)
+-   [EF 4.3 リリースの投稿](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-released.aspx)
+-   [EF 4.3 コード ベースの移行チュートリアル](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-code-based-migrations-walkthrough.aspx)
+-   [EF 4.3 の自動移行のチュートリアル](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-automatic-migrations-walkthrough.aspx)
 
 ## <a name="ef-42"></a>EF 4.2
 EF 4.2.0 ランタイムは、NuGet を 2011 年 11 月にリリースされました。
@@ -212,9 +212,9 @@ EF 4.2.0 ランタイムは、NuGet を 2011 年 11 月にリリースされま�
 
 具体的には、EF 4.2 リリースをまとめてコンテンツの一覧を次に示します、EF 4.1 の指定されたコンテンツにも該当 EF 4.2 もします。
 
--   [EF 4.2 のリリースの投稿](http://blogs.msdn.com/b/adonet/archive/2011/11/01/ef-4-2-released.aspx)
--   [コードの最初のチュートリアル](http://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-code-first-walkthrough.aspx)
--   [モデルとデータベースの最初のチュートリアル](http://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-model-amp-database-first-walkthrough.aspx)
+-   [EF 4.2 のリリースの投稿](https://blogs.msdn.com/b/adonet/archive/2011/11/01/ef-4-2-released.aspx)
+-   [コードの最初のチュートリアル](https://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-code-first-walkthrough.aspx)
+-   [モデルとデータベースの最初のチュートリアル](https://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-model-amp-database-first-walkthrough.aspx)
 
 ## <a name="ef-411"></a>EF 4.1.1
 EF 4.1.10715 ランタイムは、NuGet を 2011 年 7 月にリリースされました。
@@ -227,7 +227,7 @@ EF 4.1 更新プログラム 1 (または EF 4.1.1) として、このバージ�
 
 4.1.1 をまとめてコンテンツの一覧を次に示しますリリース。
 
--   [EF 4.1.1 リリースの投稿](http://blogs.msdn.com/b/adonet/archive/2011/07/25/ef-4-1-update-1-released.aspx)
+-   [EF 4.1.1 リリースの投稿](https://blogs.msdn.com/b/adonet/archive/2011/07/25/ef-4-1-update-1-released.aspx)
 
 ## <a name="ef-41"></a>EF 4.1
 4.1.10331 EF ランタイムが最初の NuGet で 2011 年 4 月に発行されます。
@@ -238,10 +238,10 @@ EF 4.1 更新プログラム 1 (または EF 4.1.1) として、このバージ�
 
 4.1 のリリースをまとめてコンテンツの一覧を示します。 その大部分は、Entity Framework の以降のリリースにも適用されます。
 
--   [EF 4.1 のリリースの投稿](http://blogs.msdn.com/b/adonet/archive/2011/04/11/ef-4-1-released.aspx)
--   [コードの最初のチュートリアル](http://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-code-first-walkthrough.aspx)
--   [モデルとデータベースの最初のチュートリアル](http://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-model-amp-database-first-walkthrough.aspx)
--   [SQL Azure フェデレーションと Entity Framework](http://blogs.msdn.com/b/adonet/archive/2012/01/10/sql-azure-federations-and-the-entity-framework.aspx)
+-   [EF 4.1 のリリースの投稿](https://blogs.msdn.com/b/adonet/archive/2011/04/11/ef-4-1-released.aspx)
+-   [コードの最初のチュートリアル](https://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-code-first-walkthrough.aspx)
+-   [モデルとデータベースの最初のチュートリアル](https://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-model-amp-database-first-walkthrough.aspx)
+-   [SQL Azure フェデレーションと Entity Framework](https://blogs.msdn.com/b/adonet/archive/2012/01/10/sql-azure-federations-and-the-entity-framework.aspx)
 
 ## <a name="ef-40"></a>EF 4.0
 このリリースは、2010 年 4 月の .NET Framework 4 および Visual Studio 2010 に含まれています。

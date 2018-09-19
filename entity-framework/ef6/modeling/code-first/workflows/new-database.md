@@ -3,12 +3,12 @@ title: 新しいデータベース - EF6 code First
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
-ms.openlocfilehash: 6572574ad36094ac0960c429cfa8606b6aebb492
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: a19db575b685cde98509fff4a0efaf26106b26bc
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490750"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284123"
 ---
 # <a name="code-first-to-a-new-database"></a>新しいデータベースの code First
 このビデオ、およびステップ バイ ステップ チュートリアルでは、新しいデータベースを対象とする Code First の開発の概要を提供します。 このシナリオには、存在しないデータベースを対象とするが含まれていますと Code First が作成、または空のデータベースを Code First が新しいテーブルを追加します。 コードを最初に使用すると、C を使用して、モデル定義\#または VB.Net クラス。 必要に応じてクラスやプロパティ、または fluent API を使用して属性を使用して追加の構成を実行できます。
@@ -18,13 +18,13 @@ ms.locfileid: "45490750"
 
 **提供**: [Rowan Miller](http://romiller.com/)
 
-**ビデオ**: [WMV](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](http://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
+**ビデオ**: [WMV](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
 少なくとも Visual Studio 2010 が必要がありますか、このチュートリアルを実行する Visual Studio 2012 がインストールされています。
 
-Visual Studio 2010 を使用している場合も必要になりますが[NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールします。
+Visual Studio 2010 を使用している場合も必要になりますが[NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールします。
 
 ## <a name="1-create-the-application"></a>1.アプリケーションを作成する
 
@@ -71,7 +71,7 @@ public class Post
 今すぐ EntityFramework NuGet パッケージを追加する必要があります、Entity Framework の型を使用を開始しています。
 
 -   **プロジェクト:&gt; NuGet パッケージを管理しています.**
-    注: していない場合、 **NuGet パッケージの管理.** オプションをインストールする必要があります、 [NuGet の最新バージョン](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
+    注: していない場合、 **NuGet パッケージの管理.** オプションをインストールする必要があります、 [NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
 -   選択、**オンライン** タブ
 -   選択、 **EntityFramework**パッケージ
 -   クリックして**インストール**

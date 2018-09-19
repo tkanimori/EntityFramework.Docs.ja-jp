@@ -3,12 +3,12 @@ title: 最初に EF6 をモデル化します。
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
-ms.openlocfilehash: 8e010f95db40261073b4af80a3c0e3225a2cd1cf
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: d429d5ea590b22c77f3f7f0bcfbd5dfc0a3e0049
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490481"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283876"
 ---
 # <a name="model-first"></a>まずモデルします。
 このビデオ、およびステップ バイ ステップ チュートリアルでは、Entity Framework を使用して Model First の開発の概要を提供します。 まず、モデルを使用すると、Entity Framework デザイナーを使用して、新しいモデルを作成し、モデルからデータベース スキーマを生成できます。 モデルは、EDMX ファイル (拡張子は .edmx) に格納され、表示および編集できます、Entity Framework デザイナーで。 アプリケーションと対話するクラスは、EDMX ファイルから自動的に生成されます。
@@ -18,13 +18,13 @@ ms.locfileid: "45490481"
 
 **提供**: [Rowan Miller](http://romiller.com/)
 
-**ビデオ**: [WMV](http://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](http://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](http://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
+**ビデオ**: [WMV](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.wmv) | [MP4](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-mp4video-modelfirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/5/B/1/5B1C338C-AFA7-4F68-B304-48BB008146EF/HDI-ITPro-MSDN-winvideo-modelfirst.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
 Visual Studio 2010 を使用する必要がありますか、このチュートリアルを実行する Visual Studio 2012 がインストールされています。
 
-Visual Studio 2010 を使用している場合も必要になりますが[NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールします。
+Visual Studio 2010 を使用している場合も必要になりますが[NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールします。
 
 ## <a name="1-create-the-application"></a>1.アプリケーションを作成する
 
@@ -84,7 +84,7 @@ Visual Studio 2010 で作業している場合は、いくつか追加の手順�
 まず、NuGet から最新バージョンの Entity Framework を取得する必要があります。
 
 -   **プロジェクト:&gt; NuGet パッケージを管理しています.** 
-    *していない場合、 **NuGet パッケージの管理.** オプションをインストールする必要があります、 [NuGet の最新バージョン](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
+    *していない場合、 **NuGet パッケージの管理.** オプションをインストールする必要があります、 [NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*
 -   選択、**オンライン** タブ
 -   選択、 **EntityFramework**パッケージ
 -   クリックして**インストール**

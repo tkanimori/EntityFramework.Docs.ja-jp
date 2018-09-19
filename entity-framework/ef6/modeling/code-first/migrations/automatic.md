@@ -3,12 +3,12 @@ title: 自動の Code First Migrations の EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0eb86787-2161-4cb4-9cb8-67c5d6e95650
-ms.openlocfilehash: 21f77ef49db2485047292b3928b4f63d49dbb180
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 2713afaf09707b7696e90464aac9945c2d82d274
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489987"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283915"
 ---
 # <a name="automatic-code-first-migrations"></a>自動の Code First Migrations
 自動移行では、各変更のプロジェクト内のコード ファイルをしなくても Code First Migrations を使用できます。 すべての変更を自動的に適用できる - 列名の変更がコード ベースの移行の使用を要求するなど。
@@ -97,7 +97,7 @@ ms.locfileid: "45489987"
     public string Url { get; set; }
 ```
 
-もう一度アプリケーションを実行すると、次を示す InvalidOperationException を取得します: *データベースの作成後、'BlogContext' コンテキストの背後にあるモデルが変更されました。Code First Migrations を使用したデータベースの更新を検討してください (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](http://go.microsoft.com/fwlink/?LinkId=238269)*)。*
+もう一度アプリケーションを実行すると、次を示す InvalidOperationException を取得します: *データベースの作成後、'BlogContext' コンテキストの背後にあるモデルが変更されました。Code First Migrations を使用したデータベースの更新を検討してください (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](https://go.microsoft.com/fwlink/?LinkId=238269)*)。*
 
 例外で示されているように、Code First Migrations の使用を開始します。 自動移行を使用するため、ここを指定する、 **– EnableAutomaticMigrations**スイッチします。
 

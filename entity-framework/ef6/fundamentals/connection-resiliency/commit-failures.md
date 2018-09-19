@@ -3,18 +3,18 @@ title: トランザクション コミットの失敗 - EF6 の処理
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5b1f7a7d-1b24-4645-95ec-5608a31ef577
-ms.openlocfilehash: 71d5649dd993bb95e24165a55d812c71a37f03f3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 27e75e6a1919ee2300fe76cfcdf67cceaad887b3
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489389"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283655"
 ---
 # <a name="handling-transaction-commit-failures"></a>トランザクションのコミット エラーの処理
 > [!NOTE]
 > **EF6.1 以降のみ**-機能、Api、Entity Framework 6.1 で導入されたなどのこのページで説明します。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。  
 
-6.1 の一部として、EF の新しい接続の回復性機能を導入されています: 検出し、一時的な接続エラーがトランザクションのコミットの確認にどのように影響する場合に自動的に回復する機能。 シナリオの詳細については、ブログの投稿で説明[SQL データベースの接続と、冪等性問題](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx)します。  要約すると、シナリオは、トランザクションのコミット中に例外が発生したときに 2 つの原因が考えられます。  
+6.1 の一部として、EF の新しい接続の回復性機能を導入されています: 検出し、一時的な接続エラーがトランザクションのコミットの確認にどのように影響する場合に自動的に回復する機能。 シナリオの詳細については、ブログの投稿で説明[SQL データベースの接続と、冪等性問題](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx)します。  要約すると、シナリオは、トランザクションのコミット中に例外が発生したときに 2 つの原因が考えられます。  
 
 1. サーバーでトランザクションのコミットに失敗しました
 2. サーバーでトランザクションのコミットが成功しましたが、接続の問題がクライアントに到達から成功通知できませんでした。  
@@ -69,4 +69,4 @@ EF 6.1 する前に、EF の製品でのコミット エラーを処理するた
      - 行が存在しない場合は、実行戦略を使用して、現在の操作を再試行してください。  
   4. コミットが成功した場合は、テーブルの増加を回避するために、対応する行を削除します。  
 
-[このブログの投稿](http://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx)SQL Azure でこれを実現するためのサンプル コードが含まれています。  
+[このブログの投稿](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx)SQL Azure でこれを実現するためのサンプル コードが含まれています。  

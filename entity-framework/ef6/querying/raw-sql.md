@@ -3,12 +3,12 @@ title: 生 SQL クエリ - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
-ms.openlocfilehash: 6b00648939ccedffeed09b4e1d6e8d70fa262a36
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 168aee67186535bf2a50705e86bfc5a88147e369
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490585"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283785"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 Entity Framework エンティティ クラスで LINQ を使用してクエリを実行することができます。 ただし、データベースに対して直接 SQL そのものを使用してクエリを実行する時間があります。 これは、Code First モデルの現在のストアド プロシージャへのマッピングをサポートしていないことができますが、ストアド プロシージャの呼び出しが含まれます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -82,4 +82,4 @@ using (var context = new BloggingContext())
 
 ### <a name="output-parameters"></a>出力パラメーター  
 
-出力パラメーターを使用している場合は、結果が完全に読み取られるまでに、その値は使用できません。 これは、DbDataReader の基になる動作によるものを参照してください[DataReader によるデータの取得](http://go.microsoft.com/fwlink/?LinkID=398589)の詳細。  
+出力パラメーターを使用している場合は、結果が完全に読み取られるまでに、その値は使用できません。 これは、DbDataReader の基になる動作によるものを参照してください[DataReader によるデータの取得](https://go.microsoft.com/fwlink/?LinkID=398589)の詳細。  

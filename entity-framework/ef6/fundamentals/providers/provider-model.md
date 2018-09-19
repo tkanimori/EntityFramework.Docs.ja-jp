@@ -3,12 +3,12 @@ title: Entity Framework 6 のプロバイダー モデル - EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: 13276feb0b22ea8068d7e1f645d48a3d41d77cdf
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: de2e0a24f1b5f67d28cb831491b50d32f45af60a
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490183"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283928"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Entity Framework 6 のプロバイダー モデル
 
@@ -28,13 +28,13 @@ EF プロバイダーは、実際に、これらのサービス (の基本クラ
 
 ### <a name="dbproviderfactory"></a>DbProviderFactory
 
-派生した型に依存して EF [System.Data.Common.DbProviderFactory](http://msdn.microsoft.com/en-us/library/system.data.common.dbproviderfactory.aspx)低レベルのデータベースのすべてのアクセスを実行するためです。 DbProviderFactory が EF の一部ではありませんが、ADO.NET プロバイダーのエントリ ポイントを提供する .NET Framework のクラスまたはアプリケーションによって直接 EF、他の O/RMs によって接続、コマンド、パラメーターのインスタンスを取得して使用する代わりには、他のプロバイダーで ADO.NET の抽象化に依存しない方法です。 DbProviderFactory の詳細についてに記載されて、 [ADO.NET に関する MSDN ドキュメント](http://msdn.microsoft.com/en-us/library/a6cd7c08.aspx)します。
+派生した型に依存して EF [System.Data.Common.DbProviderFactory](https://msdn.microsoft.com/en-us/library/system.data.common.dbproviderfactory.aspx)低レベルのデータベースのすべてのアクセスを実行するためです。 DbProviderFactory が EF の一部ではありませんが、ADO.NET プロバイダーのエントリ ポイントを提供する .NET Framework のクラスまたはアプリケーションによって直接 EF、他の O/RMs によって接続、コマンド、パラメーターのインスタンスを取得して使用する代わりには、他のプロバイダーで ADO.NET の抽象化に依存しない方法です。 DbProviderFactory の詳細についてに記載されて、 [ADO.NET に関する MSDN ドキュメント](https://msdn.microsoft.com/en-us/library/a6cd7c08.aspx)します。
 
 ### <a name="dbproviderservices"></a>DbProviderServices
 
 EF は、EF によって既に ADO.NET プロバイダーによって提供される機能の上に必要な追加機能を提供するため DbProviderServices から派生した型があることに依存します。 以前のバージョンの EF で DbProviderServices クラスは、.NET Framework の一部であったし、System.Data.Common 名前空間が見つかりました。 このクラスを EF6 以降、EntityFramework.dll の一部になったし、System.Data.Entity.Core.Common 名前空間にあります。
 
-DbProviderServices の実装の基本的な機能の詳細についてはのあります[MSDN](http://msdn.microsoft.com/en-us/library/ee789835.aspx)します。 ただし、この情報の書き込みの時点では更新されないこと EF6 の概念のほとんどは現在も有効です。 DbProviderServices の SQL Server と SQL Server Compact の実装にチェックインしても、[オープン ソース コードベース](https://github.com/aspnet/EntityFramework6/)おり、その他の実装のための便利な参考として使用できます。
+DbProviderServices の実装の基本的な機能の詳細についてはのあります[MSDN](https://msdn.microsoft.com/en-us/library/ee789835.aspx)します。 ただし、この情報の書き込みの時点では更新されないこと EF6 の概念のほとんどは現在も有効です。 DbProviderServices の SQL Server と SQL Server Compact の実装にチェックインしても、[オープン ソース コードベース](https://github.com/aspnet/EntityFramework6/)おり、その他の実装のための便利な参考として使用できます。
 
 以前のバージョンの EF で DbProviderServices の実装を使用する ADO.NET プロバイダーから直接入手されました。 これは、IServiceProvider を DbProviderFactory をキャストして、GetService メソッドを呼び出すことで行われました。 これは、EF のプロバイダーを DbProviderFactory に密結合します。 この結合では、.NET Framework 外に移動される EF がブロックされているし、この密結合を EF6 のために削除されましたが、アプリケーションの構成ファイルで直接、またはコード ベースで DbProviderServices の実装が登録されましたさらに詳しく記載されている構成、_登録 DbProviderServices_以下のセクション。
 
@@ -88,7 +88,7 @@ _型_文字列を使用する DbProviderServices の実装のアセンブリ修�
 
 ### <a name="code-based-registration"></a>コード ベースの登録
 
-以降では、EF6 プロバイダー登録することもコードを使用します。 これにより、アプリケーションの構成ファイルに変更を加えずに使用される、EF のプロバイダー。 コード ベースの構成を使用するアプリケーション クラスを作成する DbConfiguration」の説明に従って、[コード ベースの構成ドキュメント](http://msdn.com/data/jj680699)します。 DbConfiguration クラスのコンス トラクターでは、EF のプロバイダーを登録する SetProviderServices を呼び出す必要がありますから。 例えば:
+以降では、EF6 プロバイダー登録することもコードを使用します。 これにより、アプリケーションの構成ファイルに変更を加えずに使用される、EF のプロバイダー。 コード ベースの構成を使用するアプリケーション クラスを作成する DbConfiguration」の説明に従って、[コード ベースの構成ドキュメント](https://msdn.com/data/jj680699)します。 DbConfiguration クラスのコンス トラクターでは、EF のプロバイダーを登録する SetProviderServices を呼び出す必要がありますから。 例えば:
 
 ``` csharp
 public class MyConfiguration : DbConfiguration

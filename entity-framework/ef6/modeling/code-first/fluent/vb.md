@@ -3,12 +3,12 @@ title: VB.NET の EF6 で Fluent API
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
-ms.openlocfilehash: cbdd32696fb88d3de6cf1966040e5dda49fe19cd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 6aa74fa72296f66f0b069b9b5ee7e2e016570525
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489473"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283746"
 ---
 # <a name="fluent-api-with-vbnet"></a>VB.NET で Fluent API
 コードを最初に使用すると、C を使用して、モデル定義\#または VB.NET クラス。 必要に応じてクラスやプロパティ、または fluent API を使用して属性を使用して追加の構成を実行できます。 このチュートリアルでは、VB.NET を使用して、fluent API 構成を実行する方法を示します。
@@ -22,7 +22,7 @@ ms.locfileid: "45489473"
 
 少なくとも Visual Studio 2010 が必要がありますか、このチュートリアルを実行する Visual Studio 2012 がインストールされています。
 
-Visual Studio 2010 を使用している場合も必要になりますが[NuGet](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)インストール
+Visual Studio 2010 を使用している場合も必要になりますが[NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)インストール
 
 ## <a name="create-the-application"></a>アプリケーションを作成する
 
@@ -139,7 +139,7 @@ Visual Studio 2010 を使用している場合も必要になりますが[NuGet]
 
 -   * * プロジェクト –&gt; **NuGet パッケージを管理しています.**
 > [!NOTE]
-> いない場合、 **NuGet パッケージの管理.** オプションをインストールする必要があります、 [NuGet の最新バージョン](http://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
+> いない場合、 **NuGet パッケージの管理.** オプションをインストールする必要があります、 [NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)
 -   選択、**オンライン** タブ
 -   選択、 **EntityFramework**パッケージ
 -   クリックして**インストール**

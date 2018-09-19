@@ -3,12 +3,12 @@ title: テストの容易性と Entity Framework 4.0
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9430e2ab-261c-4e8e-8545-2ebc52d7a247
-ms.openlocfilehash: 0ddf72ab46e2d67dc8a9cf75cbd40430352c5210
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: aec177438004fd255bef85a5e5047cf6b5a6f782
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490533"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46284045"
 ---
 # <a name="testability-and-entity-framework-40"></a>テストの容易性と Entity Framework 4.0
 Scott Allen
@@ -198,7 +198,7 @@ Fowler は、名前の遅延読み込みを使用して、「オブジェクト�
 
 **図 1**
 
-注: まず EDM モデルを開発する場合は、クリーン、EDM から POCO コードを生成すること データ プログラマビリティ チームによって提供される Visual Studio 2010 拡張機能で、これを行うことができます。 拡張機能をダウンロードするには、Visual Studio の [ツール] メニューから拡張機能マネージャーを起動し、"POCO"(図を参照して 2) のテンプレートのオンライン ギャラリーを検索します。 POCO テンプレートがいくつかは EF 使用できます。 テンプレートの使用に関する詳細については、次を参照してください。"[チュートリアル: Entity Framework 用のテンプレート POCO](http://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)"。
+注: まず EDM モデルを開発する場合は、クリーン、EDM から POCO コードを生成すること データ プログラマビリティ チームによって提供される Visual Studio 2010 拡張機能で、これを行うことができます。 拡張機能をダウンロードするには、Visual Studio の [ツール] メニューから拡張機能マネージャーを起動し、"POCO"(図を参照して 2) のテンプレートのオンライン ギャラリーを検索します。 POCO テンプレートがいくつかは EF 使用できます。 テンプレートの使用に関する詳細については、次を参照してください。"[チュートリアル: Entity Framework 用のテンプレート POCO](https://blogs.msdn.com/adonet/pages/walkthrough-poco-template-for-the-entity-framework.aspx)"。
 
 ![ef test_02](~/ef6/media/eftest-02.png)
 
@@ -964,11 +964,11 @@ Moq 要求、IRepository&lt;従業員&gt;実装および、ビルドのいずれ
 -   Robert C. Martin、"[単一責任の原則](http://www.objectmentor.com/resources/articles/srp.pdf)"
 -   Martin Fowler、[パターンのカタログ](http://www.martinfowler.com/eaaCatalog/index.html)から*エンタープライズ アプリケーション アーキテクチャのパターン*
 -   Griffin の Caprio"[依存関係の注入](https://msdn.microsoft.com/magazine/cc163739.aspx)"
--   データ プログラマビリティ ブログでは、"[チュートリアル: Entity Framework 4.0 によるテスト駆動開発](http://blogs.msdn.com/adonet/pages/walkthrough-test-driven-development-with-the-entity-framework-4-0.aspx)"。
--   データ プログラマビリティ ブログでは、" [with Entity Framework 4.0 を使用してリポジトリと Unit of Work パターン](http://blogs.msdn.com/adonet/archive/2009/06/16/using-repository-and-unit-of-work-patterns-with-entity-framework-4-0.aspx)"
+-   データ プログラマビリティ ブログでは、"[チュートリアル: Entity Framework 4.0 によるテスト駆動開発](https://blogs.msdn.com/adonet/pages/walkthrough-test-driven-development-with-the-entity-framework-4-0.aspx)"。
+-   データ プログラマビリティ ブログでは、" [with Entity Framework 4.0 を使用してリポジトリと Unit of Work パターン](https://blogs.msdn.com/adonet/archive/2009/06/16/using-repository-and-unit-of-work-patterns-with-entity-framework-4-0.aspx)"
 -   Dave Astels、" [BDD 入門](http://blog.daveastels.com/files/BDD_Intro.pdf)"
 -   Aaron Jensen、"[マシンの仕様を導入](http://codebetter.com/blogs/aaron.jensen/archive/2008/05/08/introducing-machine-specifications-or-mspec-for-short.aspx)"
--   Eric Lee、" [MSTest を使用した BDD](http://blogs.msdn.com/elee/archive/2009/01/20/bdd-with-mstest.aspx)"
+-   Eric Lee、" [MSTest を使用した BDD](https://blogs.msdn.com/elee/archive/2009/01/20/bdd-with-mstest.aspx)"
 -   Eric evans 著、" [Domain Driven Design](http://books.google.com/books?id=7dlaMs0SECsC&printsec=frontcover&dq=evans%20domain%20driven%20design&hl=en&ei=cHztS6C8KIaglAfA_dS1CA&sa=X&oi=book_result&ct=result&resnum=1&ved=0CCoQ6AEwAA)"
 -   Martin fowler 氏は、"[モックとスタブ](http://martinfowler.com/articles/mocksArentStubs.html)"
 -   Martin fowler 氏は、"[テスト ダブル](http://martinfowler.com/bliki/TestDouble.html)"

@@ -3,12 +3,12 @@ title: モデルに基づく規則 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
-ms.openlocfilehash: fb79164f71cb3afff705a83f5078a13d043abca8
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 80b722730b4ca6c9d00a8611b6c9027e8bc9fe61
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490936"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283708"
 ---
 # <a name="model-based-conventions"></a>モデルに基づく規則
 > [!NOTE]
@@ -146,7 +146,7 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 
 ## <a name="extending-existing-conventions"></a>既存の規則を拡張します。   
 
-Entity Framework は、既にモデルに適用される規則のいずれかのような規則を記述する必要がある場合は、最初から修正することを回避するには、その規則を常に拡張できます。  この例では、カスタムの規則に一致する既存の Id を置き換えます。   キーの規則をオーバーライドする追加のメリットは、既に検出または明示的に構成されているキーが存在しない場合にのみ、オーバーライドされたメソッドが呼び出さことです。 規則の一覧は、ここで用意されている Entity Framework によって使用: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)します。  
+Entity Framework は、既にモデルに適用される規則のいずれかのような規則を記述する必要がある場合は、最初から修正することを回避するには、その規則を常に拡張できます。  この例では、カスタムの規則に一致する既存の Id を置き換えます。   キーの規則をオーバーライドする追加のメリットは、既に検出または明示的に構成されているキーが存在しない場合にのみ、オーバーライドされたメソッドが呼び出さことです。 規則の一覧は、ここで用意されている Entity Framework によって使用: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)します。  
 
 ``` csharp
 using System.Data.Entity;
@@ -209,4 +209,4 @@ public class BlogContext : DbContext
 
 ## <a name="notes"></a>メモ  
 
-Entity Framework によって現在適用されている規則の一覧については、MSDN のドキュメント: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)します。  この一覧は、ソース コードから直接取得されます。  Entity Framework 6 のソース コードは 使用可能な[GitHub](https://github.com/aspnet/entityframework6/)と Entity Framework によって使用される規則の多くは、適切な規則に基づくカスタム モデルの開始点。  
+Entity Framework によって現在適用されている規則の一覧については、MSDN のドキュメント: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)します。  この一覧は、ソース コードから直接取得されます。  Entity Framework 6 のソース コードは 使用可能な[GitHub](https://github.com/aspnet/entityframework6/)と Entity Framework によって使用される規則の多くは、適切な規則に基づくカスタム モデルの開始点。  

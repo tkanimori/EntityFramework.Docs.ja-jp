@@ -4,45 +4,38 @@ author: divega
 ms.date: 08/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: f0d85b3ba22c09d2bd48e8b34ed628a7474322d3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 5371c8f3b7c6102c621296bbae145d13779e0c6e
+ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490494"
+ms.lasthandoff: 09/18/2018
+ms.locfileid: "46283772"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 へのアプリケーションのアップグレード
 
 既存の Api と 2.0 の動作を大幅に絞り込むことを思い出させています。 既存のアプリケーション コードを変更することが必要になるいくつかの機能強化への影響が再コンパイルおよび廃止された Api を置換する最小限のガイド付きの変更だけを必要とするほとんどの場合は低くなりますが、大半のアプリケーションと考えています。
 
-## <a name="procedures-common-to-all-applications"></a>すべてのアプリケーションに共通の手順
-
 既存のアプリケーションを EF Core 2.0 を更新する必要があります。
 
-1. .NET Standard 2.0 をサポートしているアプリケーションのターゲットの .NET プラットフォームをアップグレードします。 参照してください[サポートされているプラットフォーム](../platforms/index.md)の詳細。
+1. .NET Standard 2.0 をサポートしているアプリケーションのターゲットの .NET 実装をアップグレードします。 参照してください[サポートされている .NET 実装](../platforms/index.md)の詳細。
 
 2. EF Core 2.0 と互換性がターゲット データベースのプロバイダーを識別します。 参照してください[EF Core 2.0 には、2.0 データベース プロバイダーが必要があります](#ef-core-20-requires-a-20-database-provider)以下。
 
 3. すべての EF Core パッケージ (ランタイムおよびツール) を 2.0 にアップグレードします。 参照してください[EF Core のインストール](../get-started/install/index.md)の詳細。
 
-4. 重大な変更を補正するために必要なコード変更を加えます。 参照してください、[重大な変更](#breaking-changes)詳細については後述します。
+4. このドキュメントの残りの部分で説明されている重大な変更を補正するために必要なコード変更を加えます。
 
-## <a name="aspnet-core-applications"></a>ASP.NET Core アプリケーション
+## <a name="aspnet-core-now-includes-ef-core"></a>ASP.NET Core が EF Core が含まれています
 
-1. 具体的にを参照してください、[アプリケーションのサービス プロバイダーを初期化するための新しいパターン](#new-way-of-getting-application-services)以下で説明します。
+ASP.NET Core 2.0 を対象とするアプリケーションは、サードパーティ データベース プロバイダー以外の依存関係を追加せずに EF Core 2.0 を使用できます。 ただし、以前のバージョンの ASP.NET Core を対象とするアプリケーションは、EF Core 2.0 を使用するには、ASP.NET Core 2.0 にアップグレードする必要があります。 ASP.NET Core アプリケーションを 2.0 にアップグレードする方法の詳細を参照してください[サブジェクトで ASP.NET Core ドキュメント](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/)します。
 
-> [!TIP]  
-> 2.0 アプリケーションの更新は強く推奨され、動作する Entity Framework Core Migrations のような製品機能のために必要がときにこの新しいパターンの導入します。 その他の一般的な方法が[実装*IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory)します。
-
-2. ASP.NET Core 2.0 を対象とするアプリケーションは、サードパーティ データベース プロバイダー以外の依存関係を追加せずに EF Core 2.0 を使用できます。 ただし、以前のバージョンの ASP.NET Core を対象とするアプリケーションは、EF Core 2.0 を使用するには、ASP.NET Core 2.0 にアップグレードする必要があります。 ASP.NET Core アプリケーションを 2.0 にアップグレードする方法の詳細を参照してください[サブジェクトで ASP.NET Core ドキュメント](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/)します。
-
-## <a name="new-way-of-getting-application-services"></a>アプリケーション サービスを取得する新しい方法
+## <a name="new-way-of-getting-application-services-in-aspnet-core"></a>ASP.NET Core でのアプリケーション サービスを取得する新しい方法
 
 EF Core が 1.x で使用されるデザイン時ロジックを無効にした方法で 2.0 の ASP.NET Core web アプリケーションの推奨されるパターンが更新されました。 以前のデザイン時に、EF Core は呼び出しを試みる`Startup.ConfigureServices`アプリケーションのサービス プロバイダーにアクセスするために直接します。 外部で ASP.NET Core 2.0 では、構成が初期化されて、`Startup`クラス。 通常、EF Core を使用してアプリケーションへのアクセス、接続文字列構成からため`Startup`自体では十分なできなくします。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、EF Core ツールを使用する場合、次のエラーを受信可能性があります。
 
 > 'ApplicationContext' で、パラメーターなしのコンス トラクターが見つかりませんでした。 パラメーターなしのコンス トラクターを 'ApplicationContext' に追加するか、追加の実装 'IDesignTimeDbContextFactory&lt;ApplicationContext&gt;' 'ApplicationContext' と同じアセンブリ内
 
-ASP.NET Core 2.0 の既定のテンプレートで、新しいデザイン時フックが追加されました。 静的な`Program.BuildWebHost`メソッドは、デザイン時に、アプリケーションのサービス プロバイダーへのアクセスに EF Core を使用できます。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、更新する必要があります。`Program`クラスを、次のようになります。
+ASP.NET Core 2.0 の既定のテンプレートで、新しいデザイン時フックが追加されました。 静的な`Program.BuildWebHost`メソッドは、デザイン時に、アプリケーションのサービス プロバイダーへのアクセスに EF Core を使用できます。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、更新する必要があります。、`Program`クラスを、次のようになります。
 
 ``` csharp
 using Microsoft.AspNetCore;
@@ -64,6 +57,8 @@ namespace AspNetCoreDotNetCore2._0App
     }
 }
 ```
+
+2.0 アプリケーションの更新は強く推奨され、動作する Entity Framework Core Migrations のような製品機能のために必要がときにこの新しいパターンの導入します。 その他の一般的な方法が[実装*IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory)します。
 
 ## <a name="idbcontextfactory-renamed"></a>IDbContextFactory 名前変更
 
