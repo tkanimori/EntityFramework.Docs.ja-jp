@@ -1255,7 +1255,7 @@ Code First と EDMX を使用するかは、Code First によって導入され�
 
 ### <a name="101-using-the-visual-studio-profiler"></a>10.1 Visual Studio Profiler を使用します。
 
-Entity Framework のパフォーマンスの問題が発生した場合は、アプリケーションは、時間を費やしている場所を表示する Visual Studio に組み込まれているようにプロファイラーを使用できます。 これは、ツールの「ADO.NET Entity Framework - パート 1 のパフォーマンスを探索」ブログの投稿で円グラフを生成するために使用します ( \< http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) Entity Framework がコールドとウォームのクエリ中に、時間を費やすを表示します。
+Entity Framework のパフォーマンスの問題が発生した場合は、アプリケーションは、時間を費やしている場所を表示する Visual Studio に組み込まれているようにプロファイラーを使用できます。 これは、ツールの「ADO.NET Entity Framework - パート 1 のパフォーマンスを探索」ブログの投稿で円グラフを生成するために使用します ( \<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) Entity Framework がコールドとウォームのクエリ中に、時間を費やすを表示します。
 
 データとモデリングの Customer Advisory Team によって書き込まれた"プロファイルの Entity Framework が Visual Studio 2010 Profiler を使用して"ブログの投稿では、パフォーマンスの問題を調査するプロファイラーを使用する方法の実際の例を示します。  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. この投稿は、windows アプリケーション用に記述されています。 Web アプリケーションをプロファイリングする必要がある場合、Windows Performance Recorder (WPR) と Windows パフォーマンス アナライザー (WPA) ツールが Visual Studio からの作業よりも優れた動作する可能性があります。 Windows アセスメントおよびデプロイメント キットに含まれており、Windows パフォーマンス ツールキットの一部である WPR および WPA ( [ http://www.microsoft.com/en-US/download/details.aspx?id=39982 ](https://www.microsoft.com/en-US/download/details.aspx?id=39982))。
 

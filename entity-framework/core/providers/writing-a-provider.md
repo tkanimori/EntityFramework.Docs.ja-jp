@@ -18,7 +18,7 @@ Entity Framework Core データベース プロバイダーの作成方法の詳
 > [!NOTE]
 > ブログの投稿が EF Core 1.1 以降に更新されていないと、その後大幅な変更も加えられて[問題 681](https://github.com/aspnet/EntityFramework.Docs/issues/681)がこのドキュメントに対する更新プログラムを追跡します。
 
-EF Core のコードベースはオープン ソースであるため、参照として使用できるいくつかのデータベース プロバイダーを含んでいます。 ソース コードを検索することができますhttps://github.com/aspnet/EntityFrameworkCoreします。 サード パーティ プロバイダーの一般的に使用される場合など、コードを検索する便利な場合もあります[Npgsql](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL)、 [Pomelo MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)、および[SQL Server Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact)します。 具体的には、これらのプロジェクトは、セットアップから拡張して、NuGet で公開される機能テストを実行します。 この種のセットアップは強くお勧めします。
+EF Core のコードベースはオープン ソースであるため、参照として使用できるいくつかのデータベース プロバイダーを含んでいます。 ソース コードを検索することができます https://github.com/aspnet/EntityFrameworkCore します。 サード パーティ プロバイダーの一般的に使用される場合など、コードを検索する便利な場合もあります[Npgsql](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL)、 [Pomelo MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)、および[SQL Server Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact)します。 具体的には、これらのプロジェクトは、セットアップから拡張して、NuGet で公開される機能テストを実行します。 この種のセットアップは強くお勧めします。
 
 ## <a name="keeping-up-to-date-with-provider-changes"></a>プロバイダーの変更で最新に保つ
 
