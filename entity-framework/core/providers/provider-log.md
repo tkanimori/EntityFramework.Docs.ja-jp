@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: a637e5e2f75e16bc7b11b1a51abcbe16274a1c75
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: fa1362c84cb1954360d337670fb5fef21e5cf165
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490773"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415745"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -56,3 +56,6 @@ ms.locfileid: "45490773"
   * このプル要求の追加の概念`CanConnect`正常性の ASP.NET Core で使用されるデータベースが使用可能なかどうかを判断するを確認します。 リレーショナルの実装では、既定では、呼び出すだけ`Exist`がプロバイダーに応じて実装別のものにできます。 非リレーショナルのプロバイダーは、使用するのには、正常性チェックのために、新しい API を実装する必要があります。
 * https://github.com/aspnet/EntityFrameworkCore/pull/13306 -DbParameter のサイズを設定しないように基本 RelationalTypeMapping を更新します。
   * 切り捨てが発生する可能性があるため既定サイズの設定を停止します。 プロバイダーは、サイズを設定する必要がある場合に、独自のロジックを追加する必要があります。
+* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng: 常に 10 進数の列の列の種類を指定します。
+  * 常に規則を構成するのではなく、スキャフォールディングされたコードの 10 進数の列の列の種類を構成します。
+  * プロバイダーは、エンドユーザー側で変更する必要はありません。

@@ -3,12 +3,12 @@ title: コードの最初のデータ注釈 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 38ae52543ed99e5a1c1da7d19a2e15d168e3a1bd
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 54e27f1b866da14d68db66ca5eca5a6dde819e26
+ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490116"
+ms.lasthandoff: 09/27/2018
+ms.locfileid: "47415810"
 ---
 # <a name="code-first-data-annotations"></a>Code First のデータ注釈
 > [!NOTE]
@@ -319,13 +319,13 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 重要なデータベース機能は、プロパティが計算する機能があります。 Code First クラスにマッピングする場合は、計算列のテーブルが含まれている、それらの列を更新しようとする Entity Framework をしたくないです。 ただし、EF を挿入または更新されたデータを使用した後、データベースからそれらの値を返すようにします。 DatabaseGenerated 注釈を使用すると、計算済みの列挙型と共に、クラスでこれらのプロパティのフラグを設定します。 他の列挙型は None と Id。
 
 ``` csharp
-    [DatabaseGenerated(DatabaseGenerationOption.Computed)]
+    [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
     public DateTime DateCreated { get; set; }
 ```
 
 それ以外の場合にのみ使用これコード最初ことはできません、計算列の数式を判断するため、既存のデータベースをポイントして、コードはまず、データベースを生成するときに、バイトまたはタイムスタンプ列で生成されたデータベースを使用できます。
 
-既定では、読むことを整数であるキー プロパティは、データベースの id キーなります。 DatabaseGenerated を DatabaseGenerationOption.Identity に設定すると同じメッセージが表示されます。 Id キーを使用することをしない場合は、DatabaseGenerationOption.None に値を設定できます。
+既定では、読むことを整数であるキー プロパティは、データベースの id キーなります。 DatabaseGenerated を DatabaseGeneratedOption.Identity に設定すると同じメッセージが表示されます。 Id キーを使用することをしない場合は、DatabaseGeneratedOption.None に値を設定できます。
 
  
 
