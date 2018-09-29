@@ -1,202 +1,284 @@
 ---
-title: .NET core CLI - EF Core
+title: EF Core ツール リファレンス (.NET CLI) - EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/06/2017
+ms.date: 09/20/2018
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 3534336f1caeed96079b35c739d694a536919020
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: a280aad0344a89c41c30be27a249df3c28c44c70
+ms.sourcegitcommit: ad1bdea58ed35d0f19791044efe9f72f94189c18
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489610"
+ms.lasthandoff: 09/28/2018
+ms.locfileid: "47447171"
 ---
-<a name="ef-core-net-command-line-tools"></a><span data-ttu-id="f662c-102">EF Core .NET コマンド ライン ツール</span><span class="sxs-lookup"><span data-stu-id="f662c-102">EF Core .NET Command-line Tools</span></span>
-===============================
-<span data-ttu-id="f662c-103">Entity Framework Core .NET コマンド ライン ツール、クロス プラットフォーム拡張機能**dotnet**コマンドで、一部の[.NET Core SDK][2]します。</span><span class="sxs-lookup"><span data-stu-id="f662c-103">The Entity Framework Core .NET Command-line Tools are an extension to the cross-platform **dotnet** command, which is part of the [.NET Core SDK][2].</span></span>
+# <a name="entity-framework-core-tools-reference---net-cli"></a><span data-ttu-id="29bce-102">Entity Framework Core ツールのリファレンス - .NET CLI</span><span class="sxs-lookup"><span data-stu-id="29bce-102">Entity Framework Core tools reference - .NET CLI</span></span>
 
-> [!TIP]
-> <span data-ttu-id="f662c-104">Visual Studio を使用しているかどうか、お勧めします[に優れた PMC ツール][ 1]代わりに、統合性を提供するためです。</span><span class="sxs-lookup"><span data-stu-id="f662c-104">If you're using Visual Studio, we recommend [the PMC Tools][1] instead since they provide a more integrated experience.</span></span>
+<span data-ttu-id="29bce-103">Entity Framework Core のコマンド ライン インターフェイス (CLI) ツールでは、デザイン時開発タスクを実行します。</span><span class="sxs-lookup"><span data-stu-id="29bce-103">The command-line interface (CLI) tools for Entity Framework Core perform design-time development tasks.</span></span> <span data-ttu-id="29bce-104">たとえば、作成[移行](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations)移行を適用し、既存のデータベースに基づくモデルのコードを生成します。</span><span class="sxs-lookup"><span data-stu-id="29bce-104">For example, they create [migrations](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations), apply migrations, and generate code for a model based on an existing database.</span></span> <span data-ttu-id="29bce-105">クロス プラットフォーム拡張機能のコマンドは、 [dotnet](/dotnet/core/tools)コマンドで、一部の[.NET Core SDK](https://www.microsoft.com/net/core)します。</span><span class="sxs-lookup"><span data-stu-id="29bce-105">The commands are an extension to the cross-platform [dotnet](/dotnet/core/tools) command, which is part of the [.NET Core SDK](https://www.microsoft.com/net/core).</span></span> <span data-ttu-id="29bce-106">これらのツールは、.NET Core プロジェクトで動作します。</span><span class="sxs-lookup"><span data-stu-id="29bce-106">These tools work with .NET Core projects.</span></span>
 
-<a name="installing-the-tools"></a><span data-ttu-id="f662c-105">ツールのインストール</span><span class="sxs-lookup"><span data-stu-id="f662c-105">Installing the tools</span></span>
---------------------
-> [!NOTE]
-> <span data-ttu-id="f662c-106">.NET Core SDK バージョン 2.1.300 新しいが含まれています**dotnet ef** EF Core 2.0 以降のバージョンと互換性のあるコマンド。</span><span class="sxs-lookup"><span data-stu-id="f662c-106">The .NET Core SDK version 2.1.300 and newer includes **dotnet ef** commands that are compatible with EF Core 2.0 and later versions.</span></span> <span data-ttu-id="f662c-107">したがって最近のバージョンの .NET Core SDK と EF Core ランタイムを使用している場合、インストールは必要なく、このセクションの残りの部分を無視することができます。</span><span class="sxs-lookup"><span data-stu-id="f662c-107">Therefore if you are using recent versions of the .NET Core SDK and the EF Core runtime, no installation is required and you can ignore the rest of this section.</span></span>
->
-> <span data-ttu-id="f662c-108">一方で、 **dotnet ef**以降と .NET Core SDK バージョン 2.1.300 に格納されているツールは、EF Core のバージョン 1.0 および 1.1 と互換性がありません。</span><span class="sxs-lookup"><span data-stu-id="f662c-108">On the other hand, the **dotnet ef** tool contained in .NET Core SDK version 2.1.300 and newer is not compatible with EF Core version 1.0 and 1.1.</span></span> <span data-ttu-id="f662c-109">2.1.200 のバージョンをインストールする前に、.NET Core SDK 2.1.300 をあるコンピューター上で以前のバージョンの EF Core を使用するプロジェクトを使用する、または新しいインストールもする必要がありますまたは SDK の古い変更してその以前のバージョンを使用するアプリケーションを構成して、 [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json)ファイル。</span><span class="sxs-lookup"><span data-stu-id="f662c-109">Before you can work with a project that uses these earlier versions of EF Core on a computer that has .NET Core SDK 2.1.300 or newer installed, you must also install version 2.1.200 or older of the SDK and configure the application to use that older version by modifying its [global.json](https://docs.microsoft.com/en-us/dotnet/core/tools/global-json) file.</span></span> <span data-ttu-id="f662c-110">このファイルは通常、(プロジェクトの上に 1 つ) のソリューション ディレクトリにインクルードします。</span><span class="sxs-lookup"><span data-stu-id="f662c-110">This file is normally included in the solution directory (one above the project).</span></span> <span data-ttu-id="f662c-111">以下の installlation 命令を続行できます。</span><span class="sxs-lookup"><span data-stu-id="f662c-111">Then you can proceed with the installlation instruction below.</span></span>
+<span data-ttu-id="29bce-107">Visual Studio を使用しているかどうか、お勧め、[パッケージ マネージャー コンソール ツール](powershell.md)代わりにします。</span><span class="sxs-lookup"><span data-stu-id="29bce-107">If you're using Visual Studio, we recommend the [Package Manager Console tools](powershell.md) instead:</span></span>
+* <span data-ttu-id="29bce-108">選択されている現在のプロジェクトに自動的に連動、**パッケージ マネージャー コンソール**せず、ディレクトリを手動で切り替えることです。</span><span class="sxs-lookup"><span data-stu-id="29bce-108">They automatically work with the current project selected in the **Package Manager Console** without requiring that you manually switch directories.</span></span>
+* <span data-ttu-id="29bce-109">コマンドが完了した後、コマンドによって生成されたファイルが自動的に開きます。</span><span class="sxs-lookup"><span data-stu-id="29bce-109">They automatically open files generated by a command after the command is completed.</span></span>
 
-<span data-ttu-id="f662c-112">.NET Core SDK の以前のバージョンには、次の手順を使用して EF Core .NET コマンド ライン ツールをインストールできます。</span><span class="sxs-lookup"><span data-stu-id="f662c-112">For previous versions of the .NET Core SDK, you can install the EF Core .NET Command-line Tools using these steps:</span></span>
+## <a name="installing-the-tools"></a><span data-ttu-id="29bce-110">ツールのインストール</span><span class="sxs-lookup"><span data-stu-id="29bce-110">Installing the tools</span></span>
 
-1. <span data-ttu-id="f662c-113">プロジェクト ファイルを編集し、Microsoft.EntityFrameworkCore.Tools.DotNet を DotNetCliToolReference 項目 (下記参照) として追加</span><span class="sxs-lookup"><span data-stu-id="f662c-113">Edit the project file and add Microsoft.EntityFrameworkCore.Tools.DotNet as a DotNetCliToolReference item (See below)</span></span>
-2. <span data-ttu-id="f662c-114">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="f662c-114">Run the following commands:</span></span>
+<span data-ttu-id="29bce-111">インストール手順は、プロジェクトの種類とバージョンによって異なります。</span><span class="sxs-lookup"><span data-stu-id="29bce-111">The installation procedure depends on project type and version:</span></span>
 
-       dotnet add package Microsoft.EntityFrameworkCore.Design
-       dotnet restore
+* <span data-ttu-id="29bce-112">ASP.NET Core 2.1 以降のバージョン</span><span class="sxs-lookup"><span data-stu-id="29bce-112">ASP.NET Core version 2.1 and later</span></span>
+* <span data-ttu-id="29bce-113">EF Core 2.x</span><span class="sxs-lookup"><span data-stu-id="29bce-113">EF Core 2.x</span></span>
+* <span data-ttu-id="29bce-114">EF Core 1.x へ</span><span class="sxs-lookup"><span data-stu-id="29bce-114">EF Core 1.x</span></span>
 
-<span data-ttu-id="f662c-115">作成されたプロジェクトは、次のようになります。</span><span class="sxs-lookup"><span data-stu-id="f662c-115">The resulting project should look something like this:</span></span>
+### <a name="aspnet-core-21"></a><span data-ttu-id="29bce-115">ASP.NET Core 2.1 以降</span><span class="sxs-lookup"><span data-stu-id="29bce-115">ASP.NET Core 2.1+</span></span>
 
-``` xml
-<Project Sdk="Microsoft.NET.Sdk">
-  <PropertyGroup>
-    <OutputType>Exe</OutputType>
-    <TargetFramework>netcoreapp2.0</TargetFramework>
-  </PropertyGroup>
-  <ItemGroup>
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
-                      Version="2.0.0"
-                      PrivateAssets="All" />
-  </ItemGroup>
-  <ItemGroup>
-    <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet"
-                            Version="2.0.0" />
-  </ItemGroup>
-</Project>
+* <span data-ttu-id="29bce-116">現在のインストール[.NET Core SDK](https://www.microsoft.com/net/download/core)します。</span><span class="sxs-lookup"><span data-stu-id="29bce-116">Install the current [.NET Core SDK](https://www.microsoft.com/net/download/core).</span></span> <span data-ttu-id="29bce-117">SDK は、Visual Studio 2017 の最新バージョンがある場合でもインストールする必要があります。</span><span class="sxs-lookup"><span data-stu-id="29bce-117">The SDK has to be installed even if you have the latest version of Visual Studio 2017.</span></span>
+
+  <span data-ttu-id="29bce-118">これは、ASP.NET Core 2.1 + ために必要なすべての`Microsoft.EntityFrameworkCore.Design`にパッケージが含まれる、 [Microsoft.AspNetCore.App メタパッケージ](/aspnet/core/fundamentals/metapackage-app)します。</span><span class="sxs-lookup"><span data-stu-id="29bce-118">This is all that is needed for ASP.NET Core 2.1+ because the `Microsoft.EntityFrameworkCore.Design` package is included in the [Microsoft.AspNetCore.App metapackage](/aspnet/core/fundamentals/metapackage-app).</span></span>
+
+### <a name="ef-core-2x-not-aspnet-core"></a><span data-ttu-id="29bce-119">EF Core 2.x (ASP.NET Core ではなく)</span><span class="sxs-lookup"><span data-stu-id="29bce-119">EF Core 2.x (not ASP.NET Core)</span></span>
+
+<span data-ttu-id="29bce-120">`dotnet ef`コマンドは、.NET Core SDK に含まれていますが、コマンドを有効にするには、インストールする必要が、`Microsoft.EntityFrameworkCore.Design`パッケージ。</span><span class="sxs-lookup"><span data-stu-id="29bce-120">The `dotnet ef` commands are included in the .NET Core SDK, but to enable the commands you have to install the `Microsoft.EntityFrameworkCore.Design` package.</span></span>
+
+* <span data-ttu-id="29bce-121">現在のインストール[.NET Core SDK](https://www.microsoft.com/net/download/core)します。</span><span class="sxs-lookup"><span data-stu-id="29bce-121">Install the current [.NET Core SDK](https://www.microsoft.com/net/download/core).</span></span> <span data-ttu-id="29bce-122">SDK は、Visual Studio 2017 の最新バージョンがある場合でもインストールする必要があります。</span><span class="sxs-lookup"><span data-stu-id="29bce-122">The SDK has to be installed even if you have the latest version of Visual Studio 2017.</span></span>
+
+* <span data-ttu-id="29bce-123">最新の安定したインストール`Microsoft.EntityFrameworkCore.Design`パッケージ。</span><span class="sxs-lookup"><span data-stu-id="29bce-123">Install the latest stable `Microsoft.EntityFrameworkCore.Design` package.</span></span> 
+
+  ``` Console   
+  dotnet add package Microsoft.EntityFrameworkCore.Design   
+  ```
+
+### <a name="ef-core-1x"></a><span data-ttu-id="29bce-124">EF Core 1.x へ</span><span class="sxs-lookup"><span data-stu-id="29bce-124">EF Core 1.x</span></span>
+
+* <span data-ttu-id="29bce-125">.NET Core SDK バージョン 2.1.200 をインストールします。</span><span class="sxs-lookup"><span data-stu-id="29bce-125">Install the .NET Core SDK version 2.1.200.</span></span> <span data-ttu-id="29bce-126">以降のバージョンは、EF Core 1.0 および 1.1 の CLI ツールで互換性がありません。</span><span class="sxs-lookup"><span data-stu-id="29bce-126">Later versions are not compatible with CLI tools for EF Core 1.0 and 1.1.</span></span>
+
+* <span data-ttu-id="29bce-127">変更することで、SDK のバージョンを使用して、2.1.200 にアプリケーションを構成、 [global.json](/dotnet/core/tools/global-json)ファイル。</span><span class="sxs-lookup"><span data-stu-id="29bce-127">Configure the application to use the 2.1.200 SDK version by modifying its [global.json](/dotnet/core/tools/global-json) file.</span></span> <span data-ttu-id="29bce-128">このファイルは通常、(プロジェクトの上に 1 つ) のソリューション ディレクトリにインクルードします。</span><span class="sxs-lookup"><span data-stu-id="29bce-128">This file is normally included in the solution directory (one above the project).</span></span> 
+
+* <span data-ttu-id="29bce-129">プロジェクト ファイルを編集および追加`Microsoft.EntityFrameworkCore.Tools.DotNet`として、`DotNetCliToolReference`項目。</span><span class="sxs-lookup"><span data-stu-id="29bce-129">Edit the project file and add `Microsoft.EntityFrameworkCore.Tools.DotNet` as a `DotNetCliToolReference` item.</span></span> <span data-ttu-id="29bce-130">最新の 1.x バージョンを指定する例: 1.1.6 します。</span><span class="sxs-lookup"><span data-stu-id="29bce-130">Specify the latest 1.x version, for example: 1.1.6.</span></span> <span data-ttu-id="29bce-131">このセクションの最後に、プロジェクト ファイルの例を参照してください。</span><span class="sxs-lookup"><span data-stu-id="29bce-131">See the project file example at the end of this section.</span></span>
+
+* <span data-ttu-id="29bce-132">最新の 1.x バージョンのインストール、`Microsoft.EntityFrameworkCore.Design`などをパッケージ化します。</span><span class="sxs-lookup"><span data-stu-id="29bce-132">Install the latest 1.x version of the `Microsoft.EntityFrameworkCore.Design` package, for example:</span></span>
+
+  ```console
+  dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
+  ```
+
+  <span data-ttu-id="29bce-133">追加された両方のパッケージ参照では、プロジェクト ファイルがこのようになります。</span><span class="sxs-lookup"><span data-stu-id="29bce-133">With both package references added, the project file looks something like this:</span></span>
+
+  ``` xml
+  <Project Sdk="Microsoft.NET.Sdk">
+    <PropertyGroup>
+      <OutputType>Exe</OutputType>
+      <TargetFramework>netcoreapp1.1</TargetFramework>
+    </PropertyGroup>
+    <ItemGroup>
+      <PackageReference Include="Microsoft.EntityFrameworkCore.Design"
+                        Version="1.1.6"
+                         PrivateAssets="All" />
+    </ItemGroup>
+    <ItemGroup>
+       <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet"
+                              Version="1.1.6" />
+    </ItemGroup>
+  </Project>
+  ```
+
+  <span data-ttu-id="29bce-134">パッケージ参照を`PrivateAssets="All"`このプロジェクトを参照するプロジェクトに公開されません。</span><span class="sxs-lookup"><span data-stu-id="29bce-134">A package reference with `PrivateAssets="All"` isn't exposed to projects that reference this project.</span></span> <span data-ttu-id="29bce-135">この制限は、開発中にのみ使用される一般的なパッケージに特に便利です。</span><span class="sxs-lookup"><span data-stu-id="29bce-135">This restriction is especially useful for packages that are typically only used during development.</span></span>
+
+### <a name="verify-installation"></a><span data-ttu-id="29bce-136">インストールを確認します。</span><span class="sxs-lookup"><span data-stu-id="29bce-136">Verify installation</span></span>
+
+<span data-ttu-id="29bce-137">EF Core CLI ツールが正しくインストールされていることを確認するには、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="29bce-137">Run the following commands to verify that EF Core CLI tools are correctly installed:</span></span>
+
+  ``` Console
+  dotnet restore
+  dotnet ef
+  ```
+
+<span data-ttu-id="29bce-138">コマンドの出力は、使用中のツールのバージョンを識別します。</span><span class="sxs-lookup"><span data-stu-id="29bce-138">The output from the command identifies the version of the tools in use:</span></span>
+
+```console
+
+                     _/\__
+               ---==/    \\
+         ___  ___   |.    \|\
+        | __|| __|  |  )   \\\
+        | _| | _|   \_/ |  //|\\
+        |___||_|       /   \\\/\\
+
+Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
+
+<Usage documentation follows, not shown.>
 ```
 
-> [!NOTE]
-> <span data-ttu-id="f662c-116">パッケージ参照を`PrivateAssets="All"`開発時にのみ使用される一般的なパッケージに特に便利ですが、このプロジェクトを参照するプロジェクトに公開されていないことを意味します。</span><span class="sxs-lookup"><span data-stu-id="f662c-116">A package reference with `PrivateAssets="All"` means it isn't exposed to projects that reference this project, which is especially useful for packages that are typically only used during development.</span></span>
+## <a name="using-the-tools"></a><span data-ttu-id="29bce-139">ツールを使用します。</span><span class="sxs-lookup"><span data-stu-id="29bce-139">Using the tools</span></span>
 
-<span data-ttu-id="f662c-117">右のすべてのプロセスが、コマンド プロンプトで次のコマンドを正常に実行できる必要があります。</span><span class="sxs-lookup"><span data-stu-id="f662c-117">If you did everything right, you should be able to successfully run the following command in a command prompt.</span></span>
+<span data-ttu-id="29bce-140">ツールを使用するのには、スタートアップ プロジェクトを作成するか、環境を設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="29bce-140">Before using the tools, you might have to create a startup project or set the environment.</span></span>
 
-``` Console
-dotnet ef
+### <a name="target-project-and-startup-project"></a><span data-ttu-id="29bce-141">ターゲット プロジェクトとスタートアップ プロジェクト</span><span class="sxs-lookup"><span data-stu-id="29bce-141">Target project and startup project</span></span>
+
+<span data-ttu-id="29bce-142">コマンドを参照してください、*プロジェクト*と*スタートアップ プロジェクト*します。</span><span class="sxs-lookup"><span data-stu-id="29bce-142">The commands refer to a *project* and a *startup project*.</span></span>
+
+* <span data-ttu-id="29bce-143">*プロジェクト*とも呼ばれますが、*ターゲット プロジェクト*コマンドが追加または、ファイルを削除であるためです。</span><span class="sxs-lookup"><span data-stu-id="29bce-143">The *project* is also known as the *target project* because it's where the commands add or remove files.</span></span> <span data-ttu-id="29bce-144">既定では、現在のディレクトリ内のプロジェクトは、ターゲット プロジェクトです。</span><span class="sxs-lookup"><span data-stu-id="29bce-144">By default, the project in the current directory is the target project.</span></span> <span data-ttu-id="29bce-145">ターゲット プロジェクトとして使用して、別のプロジェクトを指定することができます、 <nobr> `--project` </nobr>オプション。</span><span class="sxs-lookup"><span data-stu-id="29bce-145">You can specify a different project as target project by using the <nobr>`--project`</nobr> option.</span></span>
+
+* <span data-ttu-id="29bce-146">*スタートアップ プロジェクト*ツールをビルドして実行されます。</span><span class="sxs-lookup"><span data-stu-id="29bce-146">The *startup project* is the one that the tools build and run.</span></span> <span data-ttu-id="29bce-147">ツールは、データベース接続文字列と、モデルの構成など、プロジェクトに関する情報を取得するデザイン時にアプリケーション コードを実行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="29bce-147">The tools have to execute application code at design time to get information about the project, such as the database connection string and the configuration of the model.</span></span> <span data-ttu-id="29bce-148">既定では、現在のディレクトリ内のプロジェクトは、スタートアップ プロジェクトです。</span><span class="sxs-lookup"><span data-stu-id="29bce-148">By default, the project in the current directory is the startup project.</span></span> <span data-ttu-id="29bce-149">使用して、別のプロジェクトをスタートアップ プロジェクトとして指定できます、 <nobr> `--startup-project` </nobr>オプション。</span><span class="sxs-lookup"><span data-stu-id="29bce-149">You can specify a different project as startup project by using the <nobr>`--startup-project`</nobr> option.</span></span>
+
+<span data-ttu-id="29bce-150">スタートアップ プロジェクトとターゲット プロジェクトは、同じプロジェクトでは多くの場合です。</span><span class="sxs-lookup"><span data-stu-id="29bce-150">The startup project and target project are often the same project.</span></span> <span data-ttu-id="29bce-151">個別のプロジェクトが、一般的なシナリオは。</span><span class="sxs-lookup"><span data-stu-id="29bce-151">A typical scenario where they are separate projects is when:</span></span>
+
+* <span data-ttu-id="29bce-152">EF Core コンテキストとエンティティ クラスは、.NET Core クラス ライブラリでは。</span><span class="sxs-lookup"><span data-stu-id="29bce-152">The EF Core context and entity classes are in a .NET Core class library.</span></span>
+* <span data-ttu-id="29bce-153">.NET Core コンソール アプリまたは web アプリは、クラス ライブラリを参照します。</span><span class="sxs-lookup"><span data-stu-id="29bce-153">A .NET Core console app or web app references the class library.</span></span>
+
+<span data-ttu-id="29bce-154">することも[EF Core コンテキストから別のクラス ライブラリにコードを移行配置](xref:core/managing-schemas/migrations/projects)します。</span><span class="sxs-lookup"><span data-stu-id="29bce-154">It's also possible to [put migrations code in a class library separate from the EF Core context](xref:core/managing-schemas/migrations/projects).</span></span>
+
+### <a name="other-target-frameworks"></a><span data-ttu-id="29bce-155">その他のターゲット フレームワーク</span><span class="sxs-lookup"><span data-stu-id="29bce-155">Other target frameworks</span></span>
+
+<span data-ttu-id="29bce-156">CLI ツールは、.NET Core プロジェクトと .NET Framework プロジェクトで動作します。</span><span class="sxs-lookup"><span data-stu-id="29bce-156">The CLI tools work with .NET Core projects and .NET Framework projects.</span></span> <span data-ttu-id="29bce-157">.NET Standard クラス ライブラリで、EF Core モデルを必要とするアプリケーションは、.NET Core または .NET Framework プロジェクトがあります。</span><span class="sxs-lookup"><span data-stu-id="29bce-157">Apps that have the EF Core model in a .NET Standard class library might not have a .NET Core or .NET Framework project.</span></span> <span data-ttu-id="29bce-158">たとえば、これは、Xamarin とユニバーサル Windows プラットフォーム アプリの場合は true。</span><span class="sxs-lookup"><span data-stu-id="29bce-158">For example, this is true of Xamarin and Universal Windows Platform apps.</span></span> <span data-ttu-id="29bce-159">このような場合、ツールのスタートアップ プロジェクトとして機能するが唯一の目的は、.NET Core コンソール アプリ プロジェクトを作成できます。</span><span class="sxs-lookup"><span data-stu-id="29bce-159">In such cases, you can create a .NET Core console app project whose only purpose is to act as startup project for the tools.</span></span> <span data-ttu-id="29bce-160">プロジェクトは、実際のコードなしでダミー プロジェクト&mdash;ターゲット ツールを提供する必要があるだけです。</span><span class="sxs-lookup"><span data-stu-id="29bce-160">The project can be a dummy project with no real code &mdash; it is only needed to provide a target for the tooling.</span></span>
+
+<span data-ttu-id="29bce-161">必要なダミー プロジェクトはなぜですか。</span><span class="sxs-lookup"><span data-stu-id="29bce-161">Why is a dummy project required?</span></span> <span data-ttu-id="29bce-162">前述のように、ツールは、デザイン時にアプリケーション コードを実行する必要があります。</span><span class="sxs-lookup"><span data-stu-id="29bce-162">As mentioned earlier, the tools have to execute application code at design time.</span></span> <span data-ttu-id="29bce-163">は、.NET Core ランタイムを使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="29bce-163">To do that, they need to use the .NET Core runtime.</span></span> <span data-ttu-id="29bce-164">EF Core モデルは、.NET Core または .NET Framework を対象とするプロジェクトでは、EF Core ツールは、プロジェクトからランタイムを借用します。</span><span class="sxs-lookup"><span data-stu-id="29bce-164">When the EF Core model is in a project that targets .NET Core or .NET Framework, the EF Core tools borrow the runtime from the project.</span></span> <span data-ttu-id="29bce-165">EF Core モデルが .NET Standard クラス ライブラリの場合、インストールできません。</span><span class="sxs-lookup"><span data-stu-id="29bce-165">They can't do that if the EF Core model is in a .NET Standard class library.</span></span> <span data-ttu-id="29bce-166">.NET Standard は、実際の .NET 実装ではありません。一連の .NET 実装をサポートする必要がある Api の仕様です。</span><span class="sxs-lookup"><span data-stu-id="29bce-166">The .NET Standard is not an actual .NET implementation; it's a specification of a set of APIs that .NET implementations must support.</span></span> <span data-ttu-id="29bce-167">したがって .NET Standard はアプリケーション コードを実行する EF Core ツールのための十分です。</span><span class="sxs-lookup"><span data-stu-id="29bce-167">Therefore .NET Standard is not sufficient for the EF Core tools to execute application code.</span></span> <span data-ttu-id="29bce-168">スタートアップ プロジェクトとして使用するように作成するダミーのプロジェクトでは、ツールが、.NET Standard クラス ライブラリを読み込むことができます、具体的なターゲット プラットフォームを提供します。</span><span class="sxs-lookup"><span data-stu-id="29bce-168">The dummy project you create to use as startup project provides a concrete target platform into which the tools can load the .NET Standard class library.</span></span> 
+
+### <a name="aspnet-core-environment"></a><span data-ttu-id="29bce-169">ASP.NET Core 環境</span><span class="sxs-lookup"><span data-stu-id="29bce-169">ASP.NET Core environment</span></span>
+
+<span data-ttu-id="29bce-170">ASP.NET Core プロジェクト用の環境を指定するには、設定、 **ASPNETCORE_ENVIRONMENT**コマンドを実行する前に環境変数。</span><span class="sxs-lookup"><span data-stu-id="29bce-170">To specify the environment for ASP.NET Core projects, set the **ASPNETCORE_ENVIRONMENT** environment variable before running commands.</span></span>
+
+## <a name="common-options"></a><span data-ttu-id="29bce-171">一般的なオプション</span><span class="sxs-lookup"><span data-stu-id="29bce-171">Common options</span></span>
+
+|                   | <span data-ttu-id="29bce-172">オプション</span><span class="sxs-lookup"><span data-stu-id="29bce-172">Option</span></span>                             | <span data-ttu-id="29bce-173">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-173">Description</span></span>                                                                                                                                                                                                                                                   |
+|-------------------|------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+|                   | `--json`                           | <span data-ttu-id="29bce-174">JSON 出力を表示します。</span><span class="sxs-lookup"><span data-stu-id="29bce-174">Show JSON output.</span></span>                                                                                                                                                                                                                                             |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`            | <span data-ttu-id="29bce-175">`DbContext`クラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="29bce-175">The `DbContext` class to use.</span></span> <span data-ttu-id="29bce-176">クラス名のみ、または名前空間を持つ完全修飾します。</span><span class="sxs-lookup"><span data-stu-id="29bce-176">Class name only or fully qualified with namespaces.</span></span>  <span data-ttu-id="29bce-177">このオプションを省略すると、EF Core は、コンテキスト クラスを紹介します。</span><span class="sxs-lookup"><span data-stu-id="29bce-177">If this option is omitted, EF Core will find the context class.</span></span> <span data-ttu-id="29bce-178">複数のコンテキスト クラスがある場合は、このオプションが必要です。</span><span class="sxs-lookup"><span data-stu-id="29bce-178">If there are multiple context classes, this option is required.</span></span>                                            |
+| `-p`              | `--project <PROJECT>`              | <span data-ttu-id="29bce-179">ターゲット プロジェクトのプロジェクト フォルダーへの相対パス。</span><span class="sxs-lookup"><span data-stu-id="29bce-179">Relative path to the project folder of the target project.</span></span>  <span data-ttu-id="29bce-180">既定値は、現在のフォルダーです。</span><span class="sxs-lookup"><span data-stu-id="29bce-180">Default value is the current folder.</span></span>                                                                                                                                                              |
+| `-s`              | `--startup-project <PROJECT>`      | <span data-ttu-id="29bce-181">スタートアップ プロジェクトのプロジェクト フォルダーへの相対パス。</span><span class="sxs-lookup"><span data-stu-id="29bce-181">Relative path to the project folder of the startup project.</span></span> <span data-ttu-id="29bce-182">既定値は、現在のフォルダーです。</span><span class="sxs-lookup"><span data-stu-id="29bce-182">Default value is the current folder.</span></span>                                                                                                                                                              |
+|                   | `--framework <FRAMEWORK>`          | <span data-ttu-id="29bce-183">[ターゲット フレームワーク モニカー](/dotnet/standard/frameworks#supported-target-framework-versions)の[ターゲット フレームワーク](/dotnet/standard/frameworks)します。</span><span class="sxs-lookup"><span data-stu-id="29bce-183">The [Target Framework Moniker](/dotnet/standard/frameworks#supported-target-framework-versions) for the [target framework](/dotnet/standard/frameworks).</span></span>  <span data-ttu-id="29bce-184">プロジェクト ファイルは、複数のターゲット フレームワークを指定し、うち 1 つを選択するときに使用します。</span><span class="sxs-lookup"><span data-stu-id="29bce-184">Use when the project file specifies multiple target frameworks, and you want to select one of them.</span></span> |
+|                   | `--configuration <CONFIGURATION>`  | <span data-ttu-id="29bce-185">たとえば、ビルド構成:`Debug`または`Release`します。</span><span class="sxs-lookup"><span data-stu-id="29bce-185">The build configuration, for example: `Debug` or `Release`.</span></span>                                                                                                                                                                                                   |
+|                   | `--runtime <IDENTIFIER>`           | <span data-ttu-id="29bce-186">パッケージを復元するターゲット ランタイムの識別子。</span><span class="sxs-lookup"><span data-stu-id="29bce-186">The identifier of the target runtime to restore packages for.</span></span> <span data-ttu-id="29bce-187">ランタイム ID (RID) の一覧については、[RID カタログ](/dotnet/core/rid-catalog)に関するページをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="29bce-187">For a list of Runtime Identifiers (RIDs), see the [RID catalog](/dotnet/core/rid-catalog).</span></span>                                                                                                      |
+| `-h`              | `--help`                           | <span data-ttu-id="29bce-188">ヘルプ情報が表示されます。</span><span class="sxs-lookup"><span data-stu-id="29bce-188">Show help information.</span></span>                                                                                                                                                                                                                                        |
+| `-v`              | `--verbose`                        | <span data-ttu-id="29bce-189">詳細な出力を表示します。</span><span class="sxs-lookup"><span data-stu-id="29bce-189">Show verbose output.</span></span>                                                                                                                                                                                                                                          |
+|                   | `--no-color`                       | <span data-ttu-id="29bce-190">しないと、出力が色分けして表示します。</span><span class="sxs-lookup"><span data-stu-id="29bce-190">Don't colorize output.</span></span>                                                                                                                                                                                                                                        |
+|                   | `--prefix-output`                  | <span data-ttu-id="29bce-191">プレフィックスのレベルで出力します。</span><span class="sxs-lookup"><span data-stu-id="29bce-191">Prefix output with level.</span></span>                                                                                                                                                                                                                                     |
+
+## <a name="dotnet-ef-database-drop"></a><span data-ttu-id="29bce-192">dotnet ef データベースの削除</span><span class="sxs-lookup"><span data-stu-id="29bce-192">dotnet ef database drop</span></span>
+
+<span data-ttu-id="29bce-193">データベースを削除します。</span><span class="sxs-lookup"><span data-stu-id="29bce-193">Drops the database.</span></span>
+
+<span data-ttu-id="29bce-194">オプション:</span><span class="sxs-lookup"><span data-stu-id="29bce-194">Options:</span></span>
+
+|                   | <span data-ttu-id="29bce-195">オプション</span><span class="sxs-lookup"><span data-stu-id="29bce-195">Option</span></span>                   | <span data-ttu-id="29bce-196">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-196">Description</span></span>                                                |
+|-------------------|--------------------------|------------------------------------------------------------|
+| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | <span data-ttu-id="29bce-197">しないことを確認します。</span><span class="sxs-lookup"><span data-stu-id="29bce-197">Don't confirm.</span></span>                                             |
+|                   | <nobr>`--dry-run`</nobr> | <span data-ttu-id="29bce-198">表示するデータベースが削除されます。 は削除しないでください。</span><span class="sxs-lookup"><span data-stu-id="29bce-198">Show which database would be dropped, but don't drop it.</span></span>   |
+
+## <a name="dotnet-ef-database-update"></a><span data-ttu-id="29bce-199">dotnet ef データベースの更新</span><span class="sxs-lookup"><span data-stu-id="29bce-199">dotnet ef database update</span></span>
+
+<span data-ttu-id="29bce-200">最後に移行したり、指定された移行は、データベースを更新します。</span><span class="sxs-lookup"><span data-stu-id="29bce-200">Updates the database to the last migration or to a specified migration.</span></span>
+
+<span data-ttu-id="29bce-201">引数:</span><span class="sxs-lookup"><span data-stu-id="29bce-201">Arguments:</span></span>
+
+| <span data-ttu-id="29bce-202">引数</span><span class="sxs-lookup"><span data-stu-id="29bce-202">Argument</span></span>       | <span data-ttu-id="29bce-203">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-203">Description</span></span>                                                                                                                                                                                                                                                     |
+|----------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<MIGRATION>`  | <span data-ttu-id="29bce-204">Target の移行。</span><span class="sxs-lookup"><span data-stu-id="29bce-204">The target migration.</span></span> <span data-ttu-id="29bce-205">移行は名前または ID で識別される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="29bce-205">Migrations may be identified by name or by ID.</span></span> <span data-ttu-id="29bce-206">数値 0 は特殊なケースでは意味*最初の移行の前に*と、すべての移行を元に戻されます。</span><span class="sxs-lookup"><span data-stu-id="29bce-206">The number 0 is a special case that means *before the first migration* and causes all migrations to be reverted.</span></span> <span data-ttu-id="29bce-207">移行が指定されていない場合のコマンドは、既定最後の移行になります。</span><span class="sxs-lookup"><span data-stu-id="29bce-207">If no migration is specified, the command defaults to the last migration.</span></span> |
+
+<span data-ttu-id="29bce-208">次の例では、指定された移行するデータベースを更新します。</span><span class="sxs-lookup"><span data-stu-id="29bce-208">The following examples update the database to a specified migration.</span></span> <span data-ttu-id="29bce-209">最初の移行の名前を使用し、2 つ目は移行 ID を使用します。</span><span class="sxs-lookup"><span data-stu-id="29bce-209">The first uses the migration name and the second uses the migration ID:</span></span>
+
+```console
+dotnet ef database update InitialCreate
+dotnet ef database update 20180904195021_InitialCreate
 ```
 
-<a name="using-the-tools"></a><span data-ttu-id="f662c-118">ツールを使用します。</span><span class="sxs-lookup"><span data-stu-id="f662c-118">Using the tools</span></span>
----------------
-<span data-ttu-id="f662c-119">コマンドを呼び出すたびにある 2 つのプロジェクト関係します。</span><span class="sxs-lookup"><span data-stu-id="f662c-119">Whenever you invoke a command, there are two projects involved:</span></span>
+## <a name="dotnet-ef-dbcontext-info"></a><span data-ttu-id="29bce-210">dotnet ef dbcontext の情報</span><span class="sxs-lookup"><span data-stu-id="29bce-210">dotnet ef dbcontext info</span></span>
 
-<span data-ttu-id="f662c-120">ターゲット プロジェクトでは、ファイルが追加されます (削除される場合もあります)。</span><span class="sxs-lookup"><span data-stu-id="f662c-120">The target project is where any files are added (or in some cases removed).</span></span> <span data-ttu-id="f662c-121">ターゲット プロジェクトが現在のディレクトリでプロジェクトの既定値を使用して変更することが、 <nobr> **`--project`** </nobr>オプション。</span><span class="sxs-lookup"><span data-stu-id="f662c-121">The target project defaults to the project in the current directory, but can be changed using the <nobr>**`--project`**</nobr> option.</span></span>
+<span data-ttu-id="29bce-211">に関する情報を取得します、`DbContext`型。</span><span class="sxs-lookup"><span data-stu-id="29bce-211">Gets information about a `DbContext` type.</span></span>
 
-<span data-ttu-id="f662c-122">スタートアップ プロジェクトは、プロジェクトのコードを実行したとき、ツールによってエミュレートされるプロジェクトです。</span><span class="sxs-lookup"><span data-stu-id="f662c-122">The startup project is the one emulated by the tools when executing your project's code.</span></span> <span data-ttu-id="f662c-123">またに既定値は、現在のディレクトリでプロジェクトを使用して変更できる、 **`--startup-project`** オプション。</span><span class="sxs-lookup"><span data-stu-id="f662c-123">It also defaults to the project in the current directory, but can be changed using the **`--startup-project`** option.</span></span>
+## <a name="dotnet-ef-dbcontext-list"></a><span data-ttu-id="29bce-212">dotnet ef dbcontext の一覧</span><span class="sxs-lookup"><span data-stu-id="29bce-212">dotnet ef dbcontext list</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="f662c-124">たとえば、次のようなりますを持つ別のプロジェクトにインストールされている EF Core web アプリケーションのデータベースの更新: `dotnet ef database update --project {project-path}` (から、web アプリのディレクトリ)</span><span class="sxs-lookup"><span data-stu-id="f662c-124">For instance, updating the database of your web application that has EF Core installed in a different project would look like this: `dotnet ef database update --project {project-path}` (from your web app directory)</span></span>
+<span data-ttu-id="29bce-213">使用可能な`DbContext`型。</span><span class="sxs-lookup"><span data-stu-id="29bce-213">Lists available `DbContext` types.</span></span>
 
-<span data-ttu-id="f662c-125">一般的なオプション:</span><span class="sxs-lookup"><span data-stu-id="f662c-125">Common options:</span></span>
+## <a name="dotnet-ef-dbcontext-scaffold"></a><span data-ttu-id="29bce-214">dotnet ef dbcontext スキャフォールディング</span><span class="sxs-lookup"><span data-stu-id="29bce-214">dotnet ef dbcontext scaffold</span></span>
 
-|    |                                  |                             |
-|:---|:---------------------------------|:----------------------------|
-|    | `--json`                           | <span data-ttu-id="f662c-126">JSON 出力を表示します。</span><span class="sxs-lookup"><span data-stu-id="f662c-126">Show JSON output.</span></span>           |
-| <span data-ttu-id="f662c-127">-c</span><span class="sxs-lookup"><span data-stu-id="f662c-127">-c</span></span> | `--context <DBCONTEXT>`           | <span data-ttu-id="f662c-128">使用する DbContext します。</span><span class="sxs-lookup"><span data-stu-id="f662c-128">The DbContext to use.</span></span>       |
-| <span data-ttu-id="f662c-129">-p</span><span class="sxs-lookup"><span data-stu-id="f662c-129">-p</span></span> | `--project <PROJECT>`             | <span data-ttu-id="f662c-130">使用するプロジェクトです。</span><span class="sxs-lookup"><span data-stu-id="f662c-130">The project to use.</span></span>         |
-| <span data-ttu-id="f662c-131">-s</span><span class="sxs-lookup"><span data-stu-id="f662c-131">-s</span></span> | `--startup-project <PROJECT>`     | <span data-ttu-id="f662c-132">使用するスタートアップ プロジェクトです。</span><span class="sxs-lookup"><span data-stu-id="f662c-132">The startup project to use.</span></span> |
-|    | `--framework <FRAMEWORK>`         | <span data-ttu-id="f662c-133">ターゲット フレームワーク。</span><span class="sxs-lookup"><span data-stu-id="f662c-133">The target framework.</span></span>       |
-|    | `--configuration <CONFIGURATION>` | <span data-ttu-id="f662c-134">使用する構成。</span><span class="sxs-lookup"><span data-stu-id="f662c-134">The configuration to use.</span></span>   |
-|    | `--runtime <IDENTIFIER>`          | <span data-ttu-id="f662c-135">使用するランタイム。</span><span class="sxs-lookup"><span data-stu-id="f662c-135">The runtime to use.</span></span>         |
-| <span data-ttu-id="f662c-136">-h</span><span class="sxs-lookup"><span data-stu-id="f662c-136">-h</span></span> | `--help`                           | <span data-ttu-id="f662c-137">ヘルプ情報が表示されます。</span><span class="sxs-lookup"><span data-stu-id="f662c-137">Show help information.</span></span>      |
-| <span data-ttu-id="f662c-138">-v</span><span class="sxs-lookup"><span data-stu-id="f662c-138">-v</span></span> | `--verbose`                        | <span data-ttu-id="f662c-139">詳細な出力を表示します。</span><span class="sxs-lookup"><span data-stu-id="f662c-139">Show verbose output.</span></span>        |
-|    | `--no-color`                       | <span data-ttu-id="f662c-140">しないと、出力が色分けして表示します。</span><span class="sxs-lookup"><span data-stu-id="f662c-140">Don't colorize output.</span></span>      |
-|    | `--prefix-output`                  | <span data-ttu-id="f662c-141">プレフィックスのレベルで出力します。</span><span class="sxs-lookup"><span data-stu-id="f662c-141">Prefix output with level.</span></span>   |
+<span data-ttu-id="29bce-215">コードを生成、`DbContext`とデータベースのエンティティ型。</span><span class="sxs-lookup"><span data-stu-id="29bce-215">Generates code for a `DbContext` and entity types for a database.</span></span>
 
+<span data-ttu-id="29bce-216">引数:</span><span class="sxs-lookup"><span data-stu-id="29bce-216">Arguments:</span></span>
 
-> [!TIP]
-> <span data-ttu-id="f662c-142">ASP.NET Core 環境を指定するには、設定、 **ASPNETCORE_ENVIRONMENT**実行する前に環境変数。</span><span class="sxs-lookup"><span data-stu-id="f662c-142">To specify the ASP.NET Core environment, set the **ASPNETCORE_ENVIRONMENT** environment variable before running.</span></span>
+| <span data-ttu-id="29bce-217">引数</span><span class="sxs-lookup"><span data-stu-id="29bce-217">Argument</span></span>        | <span data-ttu-id="29bce-218">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-218">Description</span></span>                                                                                                                                                                                                             |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<CONNECTION>`  | <span data-ttu-id="29bce-219">データベースへの接続文字列。</span><span class="sxs-lookup"><span data-stu-id="29bce-219">The connection string to the database.</span></span> <span data-ttu-id="29bce-220">ASP.NET Core 2.x プロジェクトの値を指定できます*名 =\<接続文字列の名前 >* します。</span><span class="sxs-lookup"><span data-stu-id="29bce-220">For ASP.NET Core 2.x projects, the value can be *name=\<name of connection string>*.</span></span> <span data-ttu-id="29bce-221">その場合は、名前は、プロジェクトに設定されている構成ソースから取得されます。</span><span class="sxs-lookup"><span data-stu-id="29bce-221">In that case the name comes from the configuration sources that are set up for the project.</span></span> |
+| `<PROVIDER>`    | <span data-ttu-id="29bce-222">使用するプロバイダー。</span><span class="sxs-lookup"><span data-stu-id="29bce-222">The provider to use.</span></span> <span data-ttu-id="29bce-223">たとえば、NuGet パッケージの名前は、この通常:`Microsoft.EntityFrameworkCore.SqlServer`します。</span><span class="sxs-lookup"><span data-stu-id="29bce-223">Typically this is the name of the NuGet package, for example: `Microsoft.EntityFrameworkCore.SqlServer`.</span></span>                                                                                           |
 
-<a name="commands"></a><span data-ttu-id="f662c-143">コマンド</span><span class="sxs-lookup"><span data-stu-id="f662c-143">Commands</span></span>
---------
+<span data-ttu-id="29bce-224">オプション:</span><span class="sxs-lookup"><span data-stu-id="29bce-224">Options:</span></span>
 
-### <a name="dotnet-ef-database-drop"></a><span data-ttu-id="f662c-144">dotnet ef データベースの削除</span><span class="sxs-lookup"><span data-stu-id="f662c-144">dotnet ef database drop</span></span>
+|                   | <span data-ttu-id="29bce-225">オプション</span><span class="sxs-lookup"><span data-stu-id="29bce-225">Option</span></span>                                    | <span data-ttu-id="29bce-226">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-226">Description</span></span>                                                                                                                                                                    |
+|-------------------|-------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| <span data-ttu-id="29bce-227"><nobr>-d</nobr></span><span class="sxs-lookup"><span data-stu-id="29bce-227"><nobr>-d</nobr></span></span>   | `--data-annotations`                      | <span data-ttu-id="29bce-228">属性を使用すると、可能な限り、モデルを構成できます。</span><span class="sxs-lookup"><span data-stu-id="29bce-228">Use attributes to configure the model (where possible).</span></span> <span data-ttu-id="29bce-229">このオプションを省略した場合は、fluent API のみが使用されます。</span><span class="sxs-lookup"><span data-stu-id="29bce-229">If this option is omitted, only the fluent API is used.</span></span>                                                                |
+| `-c`              | `--context <NAME>`                        | <span data-ttu-id="29bce-230">名前、`DbContext`クラスを生成します。</span><span class="sxs-lookup"><span data-stu-id="29bce-230">The name of the `DbContext` class to generate.</span></span>                                                                                                                                 |
+|                   | `--context-dir <PATH>`                    | <span data-ttu-id="29bce-231">格納するディレクトリ、`DbContext`でクラス ファイル。</span><span class="sxs-lookup"><span data-stu-id="29bce-231">The directory to put the `DbContext` class file in.</span></span> <span data-ttu-id="29bce-232">パスでは、プロジェクト ディレクトリに対して相対的です。</span><span class="sxs-lookup"><span data-stu-id="29bce-232">Paths are relative to the project directory.</span></span> <span data-ttu-id="29bce-233">名前空間は、フォルダー名から派生します。</span><span class="sxs-lookup"><span data-stu-id="29bce-233">Namespaces are derived from the folder names.</span></span>                                 |
+| `-f`              | `--force`                                 | <span data-ttu-id="29bce-234">既存のファイルを上書きします。</span><span class="sxs-lookup"><span data-stu-id="29bce-234">Overwrite existing files.</span></span>                                                                                                                                                      |
+| `-o`              | `--output-dir <PATH>`                     | <span data-ttu-id="29bce-235">エンティティ クラス ファイルを配置するディレクトリ。</span><span class="sxs-lookup"><span data-stu-id="29bce-235">The directory to put entity class files in.</span></span> <span data-ttu-id="29bce-236">パスでは、プロジェクト ディレクトリに対して相対的です。</span><span class="sxs-lookup"><span data-stu-id="29bce-236">Paths are relative to the project directory.</span></span>                                                                                       |
+|                   | <nobr>`--schema <SCHEMA_NAME>...`</nobr>  | <span data-ttu-id="29bce-237">エンティティ型を生成するテーブルのスキーマです。</span><span class="sxs-lookup"><span data-stu-id="29bce-237">The schemas of tables to generate entity types for.</span></span> <span data-ttu-id="29bce-238">複数のスキーマを指定するには、繰り返し`--schema`ごと。</span><span class="sxs-lookup"><span data-stu-id="29bce-238">To specify multiple schemas, repeat `--schema` for each one.</span></span> <span data-ttu-id="29bce-239">このオプションを省略すると、すべてのスキーマが含まれます。</span><span class="sxs-lookup"><span data-stu-id="29bce-239">If this option is omitted, all schemas are included.</span></span>          |
+| `-t`              | <span data-ttu-id="29bce-240">`--table <TABLE_NAME>`...</span><span class="sxs-lookup"><span data-stu-id="29bce-240">`--table <TABLE_NAME>`...</span></span>                 | <span data-ttu-id="29bce-241">エンティティ型を生成するテーブル。</span><span class="sxs-lookup"><span data-stu-id="29bce-241">The tables to generate entity types for.</span></span> <span data-ttu-id="29bce-242">複数のテーブルを指定するには、繰り返し`-t`または`--table`ごと。</span><span class="sxs-lookup"><span data-stu-id="29bce-242">To specify multiple tables, repeat `-t` or `--table` for each one.</span></span> <span data-ttu-id="29bce-243">このオプションを省略すると、すべてのテーブルが含まれます。</span><span class="sxs-lookup"><span data-stu-id="29bce-243">If this option is omitted, all tables are included.</span></span>                |
+|                   | `--use-database-names`                    | <span data-ttu-id="29bce-244">データベースに表示されているとおりに、テーブルおよび列名を使用します。</span><span class="sxs-lookup"><span data-stu-id="29bce-244">Use table and column names exactly as they appear in the database.</span></span> <span data-ttu-id="29bce-245">このオプションを省略すると、データベース名は、c# 名前表記規則をより厳密に準拠するように変更されます。</span><span class="sxs-lookup"><span data-stu-id="29bce-245">If this option is omitted, database names are changed to more closely conform to C# name style conventions.</span></span> |
 
-<span data-ttu-id="f662c-145">データベースを削除します。</span><span class="sxs-lookup"><span data-stu-id="f662c-145">Drops the database.</span></span>
+<span data-ttu-id="29bce-246">次の例は、すべてのスキーマとテーブルをスキャフォールディングし、新しいファイルを配置、*モデル*フォルダー。</span><span class="sxs-lookup"><span data-stu-id="29bce-246">The following example scaffolds all schemas and tables and puts the new files in the *Models* folder.</span></span>
 
-<span data-ttu-id="f662c-146">オプション:</span><span class="sxs-lookup"><span data-stu-id="f662c-146">Options:</span></span>
+```console
+dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
+```
 
-|    |           |                                                          |
-|:---|:----------|:---------------------------------------------------------|
-| <span data-ttu-id="f662c-147">-f</span><span class="sxs-lookup"><span data-stu-id="f662c-147">-f</span></span> | `--force`   | <span data-ttu-id="f662c-148">しないことを確認します。</span><span class="sxs-lookup"><span data-stu-id="f662c-148">Don't confirm.</span></span>                                           |
-|    | `--dry-run` | <span data-ttu-id="f662c-149">表示するデータベースが削除されます。 は削除しないでください。</span><span class="sxs-lookup"><span data-stu-id="f662c-149">Show which database would be dropped, but don't drop it.</span></span> |
+<span data-ttu-id="29bce-247">次の例では、選択したテーブルのみをスキャフォールディングし、指定の名前を持つ別のフォルダーにコンテキストを作成します。</span><span class="sxs-lookup"><span data-stu-id="29bce-247">The following example scaffolds only selected tables and creates the context in a separate folder with a specified name:</span></span>
 
-### <a name="dotnet-ef-database-update"></a><span data-ttu-id="f662c-150">dotnet ef データベースの更新</span><span class="sxs-lookup"><span data-stu-id="f662c-150">dotnet ef database update</span></span>
+```console
+dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
+```
 
-<span data-ttu-id="f662c-151">指定された移行するには、データベースを更新します。</span><span class="sxs-lookup"><span data-stu-id="f662c-151">Updates the database to a specified migration.</span></span>
+## <a name="dotnet-ef-migrations-add"></a><span data-ttu-id="29bce-248">dotnet ef migrations を追加します。</span><span class="sxs-lookup"><span data-stu-id="29bce-248">dotnet ef migrations add</span></span>
 
-<span data-ttu-id="f662c-152">引数:</span><span class="sxs-lookup"><span data-stu-id="f662c-152">Arguments:</span></span>
+<span data-ttu-id="29bce-249">新しい移行を追加します。</span><span class="sxs-lookup"><span data-stu-id="29bce-249">Adds a new migration.</span></span>
 
-|              |                                                                                              |
-|:-------------|:---------------------------------------------------------------------------------------------|
-| `<MIGRATION>` | <span data-ttu-id="f662c-153">Target の移行。</span><span class="sxs-lookup"><span data-stu-id="f662c-153">The target migration.</span></span> <span data-ttu-id="f662c-154">0 の場合、すべての移行は戻されます。</span><span class="sxs-lookup"><span data-stu-id="f662c-154">If 0, all migrations will be reverted.</span></span> <span data-ttu-id="f662c-155">移行の最後の既定値します。</span><span class="sxs-lookup"><span data-stu-id="f662c-155">Defaults to the last migration.</span></span> |
+<span data-ttu-id="29bce-250">引数:</span><span class="sxs-lookup"><span data-stu-id="29bce-250">Arguments:</span></span>
 
-### <a name="dotnet-ef-dbcontext-info"></a><span data-ttu-id="f662c-156">dotnet ef dbcontext の情報</span><span class="sxs-lookup"><span data-stu-id="f662c-156">dotnet ef dbcontext info</span></span>
+| <span data-ttu-id="29bce-251">引数</span><span class="sxs-lookup"><span data-stu-id="29bce-251">Argument</span></span>  | <span data-ttu-id="29bce-252">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-252">Description</span></span>                  |
+|-----------|------------------------------|
+| `<NAME>`  | <span data-ttu-id="29bce-253">移行の名前。</span><span class="sxs-lookup"><span data-stu-id="29bce-253">The name of the migration.</span></span>   |
 
-<span data-ttu-id="f662c-157">DbContext 型に関する情報を取得します。</span><span class="sxs-lookup"><span data-stu-id="f662c-157">Gets information about a DbContext type.</span></span>
+<span data-ttu-id="29bce-254">オプション:</span><span class="sxs-lookup"><span data-stu-id="29bce-254">Options:</span></span>
 
-### <a name="dotnet-ef-dbcontext-list"></a><span data-ttu-id="f662c-158">dotnet ef dbcontext の一覧</span><span class="sxs-lookup"><span data-stu-id="f662c-158">dotnet ef dbcontext list</span></span>
+|                   | <span data-ttu-id="29bce-255">オプション</span><span class="sxs-lookup"><span data-stu-id="29bce-255">Option</span></span>                              | <span data-ttu-id="29bce-256">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-256">Description</span></span>                                                                                                        |
+|-------------------|-------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr>  | <span data-ttu-id="29bce-257">使用するディレクトリ (およびサブ名前空間)。</span><span class="sxs-lookup"><span data-stu-id="29bce-257">The directory (and sub-namespace) to use.</span></span> <span data-ttu-id="29bce-258">パスでは、プロジェクト ディレクトリに対して相対的です。</span><span class="sxs-lookup"><span data-stu-id="29bce-258">Paths are relative to the project directory.</span></span> <span data-ttu-id="29bce-259">既定値は「移行」です。</span><span class="sxs-lookup"><span data-stu-id="29bce-259">Defaults to "Migrations".</span></span>   |
 
-<span data-ttu-id="f662c-159">使用可能な DbContext 型を一覧表示します。</span><span class="sxs-lookup"><span data-stu-id="f662c-159">Lists available DbContext types.</span></span>
+## <a name="dotnet-ef-migrations-list"></a><span data-ttu-id="29bce-260">dotnet ef migrations 一覧</span><span class="sxs-lookup"><span data-stu-id="29bce-260">dotnet ef migrations list</span></span>
 
-### <a name="dotnet-ef-dbcontext-scaffold"></a><span data-ttu-id="f662c-160">dotnet ef dbcontext スキャフォールディング</span><span class="sxs-lookup"><span data-stu-id="f662c-160">dotnet ef dbcontext scaffold</span></span>
+<span data-ttu-id="29bce-261">使用可能な移行を一覧表示します。</span><span class="sxs-lookup"><span data-stu-id="29bce-261">Lists available migrations.</span></span>
 
-<span data-ttu-id="f662c-161">データベースの DbContext とエンティティ型をスキャフォールディングします。</span><span class="sxs-lookup"><span data-stu-id="f662c-161">Scaffolds a DbContext and entity types for a database.</span></span>
+## <a name="dotnet-ef-migrations-remove"></a><span data-ttu-id="29bce-262">dotnet ef migrations を削除します。</span><span class="sxs-lookup"><span data-stu-id="29bce-262">dotnet ef migrations remove</span></span>
 
-<span data-ttu-id="f662c-162">引数:</span><span class="sxs-lookup"><span data-stu-id="f662c-162">Arguments:</span></span>
+<span data-ttu-id="29bce-263">最後の移行 (ロールバックの移行の実行されたコードの変更) を削除します。</span><span class="sxs-lookup"><span data-stu-id="29bce-263">Removes the last migration (rolls back the code changes that were done for the migration).</span></span> 
 
-|               |                                                                             |
-|:--------------|:----------------------------------------------------------------------------|
-| `<CONNECTION>` | <span data-ttu-id="f662c-163">データベースへの接続文字列。</span><span class="sxs-lookup"><span data-stu-id="f662c-163">The connection string to the database.</span></span>                                      |
-| `<PROVIDER>`   | <span data-ttu-id="f662c-164">使用するプロバイダー。</span><span class="sxs-lookup"><span data-stu-id="f662c-164">The provider to use.</span></span> <span data-ttu-id="f662c-165">(たとえば、Microsoft.EntityFrameworkCore.SqlServer)</span><span class="sxs-lookup"><span data-stu-id="f662c-165">(for example, Microsoft.EntityFrameworkCore.SqlServer)</span></span> |
+<span data-ttu-id="29bce-264">オプション:</span><span class="sxs-lookup"><span data-stu-id="29bce-264">Options:</span></span>
 
-<span data-ttu-id="f662c-166">オプション:</span><span class="sxs-lookup"><span data-stu-id="f662c-166">Options:</span></span>
+|                   | <span data-ttu-id="29bce-265">オプション</span><span class="sxs-lookup"><span data-stu-id="29bce-265">Option</span></span>    | <span data-ttu-id="29bce-266">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-266">Description</span></span>                                                                        |
+|-------------------|-----------|------------------------------------------------------------------------------------|
+| <nobr>`-f`</nobr> | `--force` | <span data-ttu-id="29bce-267">移行を元に戻す (ロールバックをデータベースに適用された変更)。</span><span class="sxs-lookup"><span data-stu-id="29bce-267">Revert the migration (roll back the changes that were applied to the database).</span></span>    |
 
-|                 |                                         |                                                                                                  |
-|:----------------|:----------------------------------------|:-------------------------------------------------------------------------------------------------|
-| <span data-ttu-id="f662c-167"><nobr>-d</nobr></span><span class="sxs-lookup"><span data-stu-id="f662c-167"><nobr>-d</nobr></span></span> | `--data-annotations`                      | <span data-ttu-id="f662c-168">属性を使用すると、可能な限り、モデルを構成できます。</span><span class="sxs-lookup"><span data-stu-id="f662c-168">Use attributes to configure the model (where possible).</span></span> <span data-ttu-id="f662c-169">省略した場合、fluent API のみが使用されます。</span><span class="sxs-lookup"><span data-stu-id="f662c-169">If omitted, only the fluent API is used.</span></span> |
-| <span data-ttu-id="f662c-170">-c</span><span class="sxs-lookup"><span data-stu-id="f662c-170">-c</span></span>              | `--context <NAME>`                       | <span data-ttu-id="f662c-171">DbContext の名前。</span><span class="sxs-lookup"><span data-stu-id="f662c-171">The name of the DbContext.</span></span>                                                                       |
-|                 | `--context-dir <PATH>`                   | <span data-ttu-id="f662c-172">DbContext のファイルを配置するディレクトリ。</span><span class="sxs-lookup"><span data-stu-id="f662c-172">The directory to put DbContext file in.</span></span> <span data-ttu-id="f662c-173">パスでは、プロジェクト ディレクトリに対して相対的です。</span><span class="sxs-lookup"><span data-stu-id="f662c-173">Paths are relative to the project directory.</span></span>             |
-| <span data-ttu-id="f662c-174">-f</span><span class="sxs-lookup"><span data-stu-id="f662c-174">-f</span></span>              | `--force`                                 | <span data-ttu-id="f662c-175">既存のファイルを上書きします。</span><span class="sxs-lookup"><span data-stu-id="f662c-175">Overwrite existing files.</span></span>                                                                        |
-| <span data-ttu-id="f662c-176">-o</span><span class="sxs-lookup"><span data-stu-id="f662c-176">-o</span></span>              | `--output-dir <PATH>`                    | <span data-ttu-id="f662c-177">ファイルを配置するディレクトリ。</span><span class="sxs-lookup"><span data-stu-id="f662c-177">The directory to put files in.</span></span> <span data-ttu-id="f662c-178">パスでは、プロジェクト ディレクトリに対して相対的です。</span><span class="sxs-lookup"><span data-stu-id="f662c-178">Paths are relative to the project directory.</span></span>                      |
-|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | <span data-ttu-id="f662c-179">エンティティ型を生成するテーブルのスキーマです。</span><span class="sxs-lookup"><span data-stu-id="f662c-179">The schemas of tables to generate entity types for.</span></span>                                              |
-| <span data-ttu-id="f662c-180">-t</span><span class="sxs-lookup"><span data-stu-id="f662c-180">-t</span></span>              | <span data-ttu-id="f662c-181">`--table <TABLE_NAME>`...</span><span class="sxs-lookup"><span data-stu-id="f662c-181">`--table <TABLE_NAME>`...</span></span>                | <span data-ttu-id="f662c-182">エンティティ型を生成するテーブル。</span><span class="sxs-lookup"><span data-stu-id="f662c-182">The tables to generate entity types for.</span></span>                                                         |
-|                 | `--use-database-names`                    | <span data-ttu-id="f662c-183">データベースから直接テーブルおよび列名を使用します。</span><span class="sxs-lookup"><span data-stu-id="f662c-183">Use table and column names directly from the database.</span></span>                                           |
+## <a name="dotnet-ef-migrations-script"></a><span data-ttu-id="29bce-268">dotnet ef migrations スクリプト</span><span class="sxs-lookup"><span data-stu-id="29bce-268">dotnet ef migrations script</span></span>
 
-### <a name="dotnet-ef-migrations-add"></a><span data-ttu-id="f662c-184">dotnet ef migrations を追加します。</span><span class="sxs-lookup"><span data-stu-id="f662c-184">dotnet ef migrations add</span></span>
+<span data-ttu-id="29bce-269">移行には、SQL スクリプトを生成します。</span><span class="sxs-lookup"><span data-stu-id="29bce-269">Generates a SQL script from migrations.</span></span>
 
-<span data-ttu-id="f662c-185">新しい移行を追加します。</span><span class="sxs-lookup"><span data-stu-id="f662c-185">Adds a new migration.</span></span>
+<span data-ttu-id="29bce-270">引数:</span><span class="sxs-lookup"><span data-stu-id="29bce-270">Arguments:</span></span>
 
-<span data-ttu-id="f662c-186">引数:</span><span class="sxs-lookup"><span data-stu-id="f662c-186">Arguments:</span></span>
+| <span data-ttu-id="29bce-271">引数</span><span class="sxs-lookup"><span data-stu-id="29bce-271">Argument</span></span>  | <span data-ttu-id="29bce-272">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-272">Description</span></span>                                                                                                                                                   |
+|-----------|---------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| `<FROM>`  | <span data-ttu-id="29bce-273">開始の移行。</span><span class="sxs-lookup"><span data-stu-id="29bce-273">The starting migration.</span></span> <span data-ttu-id="29bce-274">移行は名前または ID で識別される可能性があります。</span><span class="sxs-lookup"><span data-stu-id="29bce-274">Migrations may be identified by name or by ID.</span></span> <span data-ttu-id="29bce-275">数値 0 は特殊なケースでは意味*最初の移行の前に*します。</span><span class="sxs-lookup"><span data-stu-id="29bce-275">The number 0 is a special case that means *before the first migration*.</span></span> <span data-ttu-id="29bce-276">既定値は 0 です。</span><span class="sxs-lookup"><span data-stu-id="29bce-276">Defaults to 0.</span></span> |
+| `<TO>`    | <span data-ttu-id="29bce-277">終了の移行。</span><span class="sxs-lookup"><span data-stu-id="29bce-277">The ending migration.</span></span> <span data-ttu-id="29bce-278">移行の最後の既定値します。</span><span class="sxs-lookup"><span data-stu-id="29bce-278">Defaults to the last migration.</span></span>                                                                                                         |
 
-|         |                            |
-|:--------|:---------------------------|
-| `<NAME>` | <span data-ttu-id="f662c-187">移行の名前。</span><span class="sxs-lookup"><span data-stu-id="f662c-187">The name of the migration.</span></span> |
+<span data-ttu-id="29bce-279">オプション:</span><span class="sxs-lookup"><span data-stu-id="29bce-279">Options:</span></span>
 
-<span data-ttu-id="f662c-188">オプション:</span><span class="sxs-lookup"><span data-stu-id="f662c-188">Options:</span></span>
+|                   | <span data-ttu-id="29bce-280">オプション</span><span class="sxs-lookup"><span data-stu-id="29bce-280">Option</span></span>             | <span data-ttu-id="29bce-281">説明</span><span class="sxs-lookup"><span data-stu-id="29bce-281">Description</span></span>                                                          |
+|-------------------|--------------------|----------------------------------------------------------------------|
+| <nobr>`-o`</nobr> | `--output <FILE>`  | <span data-ttu-id="29bce-282">スクリプトを記述するファイルです。</span><span class="sxs-lookup"><span data-stu-id="29bce-282">The file to write the script to.</span></span>                                     |
+| `-i`              | `--idempotent`     | <span data-ttu-id="29bce-283">すべての移行でのデータベースで使用できるスクリプトを生成します。</span><span class="sxs-lookup"><span data-stu-id="29bce-283">Generate a script that can be used on a database at any migration.</span></span>   |
 
-|                 |                                   |                                                                                                                  |
-|:----------------|:----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| <span data-ttu-id="f662c-189"><nobr>-o</nobr></span><span class="sxs-lookup"><span data-stu-id="f662c-189"><nobr>-o</nobr></span></span> | <span data-ttu-id="f662c-190"><nobr> `--output-dir <PATH>` </nobr></span><span class="sxs-lookup"><span data-stu-id="f662c-190"><nobr> `--output-dir <PATH>` </nobr></span></span> | <span data-ttu-id="f662c-191">使用するディレクトリ (およびサブ名前空間)。</span><span class="sxs-lookup"><span data-stu-id="f662c-191">The directory (and sub-namespace) to use.</span></span> <span data-ttu-id="f662c-192">パスでは、プロジェクト ディレクトリに対して相対的です。</span><span class="sxs-lookup"><span data-stu-id="f662c-192">Paths are relative to the project directory.</span></span> <span data-ttu-id="f662c-193">既定値は「移行」です。</span><span class="sxs-lookup"><span data-stu-id="f662c-193">Defaults to "Migrations".</span></span> |
+<span data-ttu-id="29bce-284">次の例では、InitialCreate 移行用のスクリプトを作成します。</span><span class="sxs-lookup"><span data-stu-id="29bce-284">The following example creates a script for the InitialCreate migration:</span></span>
 
-### <a name="dotnet-ef-migrations-list"></a><span data-ttu-id="f662c-194">dotnet ef migrations 一覧</span><span class="sxs-lookup"><span data-stu-id="f662c-194">dotnet ef migrations list</span></span>
+```console
+dotnet ef migrations script 0 InitialCreate
+```
 
-<span data-ttu-id="f662c-195">使用可能な移行を一覧表示します。</span><span class="sxs-lookup"><span data-stu-id="f662c-195">Lists available migrations.</span></span>
+<span data-ttu-id="29bce-285">次の例では、InitialCreate 移行後のすべての移行のスクリプトを作成します。</span><span class="sxs-lookup"><span data-stu-id="29bce-285">The following example creates a script for all migrations after the InitialCreate migration.</span></span>
 
-### <a name="dotnet-ef-migrations-remove"></a><span data-ttu-id="f662c-196">dotnet ef migrations を削除します。</span><span class="sxs-lookup"><span data-stu-id="f662c-196">dotnet ef migrations remove</span></span>
-
-<span data-ttu-id="f662c-197">最後の移行を削除します。</span><span class="sxs-lookup"><span data-stu-id="f662c-197">Removes the last migration.</span></span>
-
-<span data-ttu-id="f662c-198">オプション:</span><span class="sxs-lookup"><span data-stu-id="f662c-198">Options:</span></span>
-
-|    |         |                                                                       |
-|:---|:--------|:----------------------------------------------------------------------|
-| <span data-ttu-id="f662c-199">-f</span><span class="sxs-lookup"><span data-stu-id="f662c-199">-f</span></span> | `--force` | <span data-ttu-id="f662c-200">データベースに適用されている場合は、移行を戻します。</span><span class="sxs-lookup"><span data-stu-id="f662c-200">Revert the migration if it has been applied to the database.</span></span> |
-
-### <a name="dotnet-ef-migrations-script"></a><span data-ttu-id="f662c-201">dotnet ef migrations スクリプト</span><span class="sxs-lookup"><span data-stu-id="f662c-201">dotnet ef migrations script</span></span>
-
-<span data-ttu-id="f662c-202">移行には、SQL スクリプトを生成します。</span><span class="sxs-lookup"><span data-stu-id="f662c-202">Generates a SQL script from migrations.</span></span>
-
-<span data-ttu-id="f662c-203">引数:</span><span class="sxs-lookup"><span data-stu-id="f662c-203">Arguments:</span></span>
-
-|         |                                                               |
-|:--------|:--------------------------------------------------------------|
-| `<FROM>` | <span data-ttu-id="f662c-204">開始の移行。</span><span class="sxs-lookup"><span data-stu-id="f662c-204">The starting migration.</span></span> <span data-ttu-id="f662c-205">既定値は 0 (最初のデータベース) です。</span><span class="sxs-lookup"><span data-stu-id="f662c-205">Defaults to 0 (the initial database).</span></span> |
-| `<TO>`   | <span data-ttu-id="f662c-206">終了の移行。</span><span class="sxs-lookup"><span data-stu-id="f662c-206">The ending migration.</span></span> <span data-ttu-id="f662c-207">移行の最後の既定値します。</span><span class="sxs-lookup"><span data-stu-id="f662c-207">Defaults to the last migration.</span></span>         |
-
-<span data-ttu-id="f662c-208">オプション:</span><span class="sxs-lookup"><span data-stu-id="f662c-208">Options:</span></span>
-
-|    |                  |                                                                    |
-|:---|:-----------------|:-------------------------------------------------------------------|
-| <span data-ttu-id="f662c-209">-o</span><span class="sxs-lookup"><span data-stu-id="f662c-209">-o</span></span> | `--output <FILE>` | <span data-ttu-id="f662c-210">結果を書き込むファイル。</span><span class="sxs-lookup"><span data-stu-id="f662c-210">The file to write the result to.</span></span>                                   |
-| <span data-ttu-id="f662c-211">-i</span><span class="sxs-lookup"><span data-stu-id="f662c-211">-i</span></span> | `--idempotent`     | <span data-ttu-id="f662c-212">すべての移行でのデータベースで使用できるスクリプトを生成します。</span><span class="sxs-lookup"><span data-stu-id="f662c-212">Generate a script that can be used on a database at any migration.</span></span> |
-
-
-  [1]: powershell.md
-  [2]: https://www.microsoft.com/net/core
+```console
+dotnet ef migrations script 20180904195021_InitialCreate
+```
