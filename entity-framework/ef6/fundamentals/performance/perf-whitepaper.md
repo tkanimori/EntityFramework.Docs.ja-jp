@@ -3,12 +3,12 @@ title: EF4、EF5 と EF6 のパフォーマンスに関する考慮事項
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: a58461a6d18d9d53c002b5d45cecbff7b0cdf81e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: fb184fe8720b552a2050607bb17648f0413c31d1
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490260"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459592"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>EF 4、5、および 6 のパフォーマンスに関する考慮事項
 David Obando、Eric Dettinger およびその他のユーザー
@@ -88,19 +88,17 @@ Entity Framework を使用してクエリを実行するときに時間を要し
 
 ### <a name="23-using-pre-generated-views-to-decrease-model-load-time"></a>2.3 モデルを小さく Pre-Generated ビューを使用して読み込み時間
 
-#### <a name="231-pre-generated-views-using-the-entity-framework-power-tools"></a>2.3.1 Entity Framework Power Tools を使用して事前生成されたビュー
+Entity Framework 6 で事前生成済みのビューを使用する方法の詳細情報を参照してください[Pre-Generated マッピング ビュー。](~/ef6/fundamentals/performance/pre-generated-views.md)
 
-Entity Framework Power Tools を使用して、モデルのクラス ファイルを右クリックし、「ビューの生成」を選択する Entity Framework メニューを使用して EDMX と Code First モデルのビューを生成することも検討できます。 Entity Framework Power Tools が DbContext 派生コンテキストでのみ動作しをご覧ください\<http://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d>します。
+#### <a name="231-pre-generated-views-using-the-entity-framework-power-tools-community-edition"></a>2.3.1 Entity Framework Power Tools Community Edition を使用して事前生成されたビュー
 
-Entity Framework 6 で事前生成済みのビューを使用する方法の詳細についてを参照してください。 [Pre-Generated マッピング ビュー](~/ef6/fundamentals/performance/pre-generated-views.md)します。
+使用することができます、 [Entity Framework 6 Power Tools Community Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition)をモデルのクラス ファイルを右クリックし、Entity Framework メニューを使用して、「ビューの生成」を選択する EDMX と Code First モデルのビューを生成します。 Entity Framework Power Tools Community Edition は、DbContext 派生コンテキストでのみ動作します。
 
 #### <a name="232-how-to-use-pre-generated-views-with-a-model-created-by-edmgen"></a>2.3.2 EDMGen によって作成されたモデルで事前に生成したビューを使用する方法
 
 EDMGen は、.NET に付属し、機能が Entity Framework 4 および 5、Entity Framework 6 ではなくユーティリティです。 EDMGen を使用して、コマンドラインから、モデル ファイルをオブジェクト レイヤー、およびビューを生成できます。 VB または C の任意の言語でビュー ファイルである出力の 1 つは\#します。 これは、各エンティティ セットの Entity SQL スニペットを含むコード ファイルです。 事前生成済みのビューを有効にするのには、プロジェクトでファイルをインクルードだけです。
 
 モデルのスキーマ ファイルに手動で編集を作成する場合は、ビュー ファイルを再生成する必要があります。 EDMGen を使用してこれを行う、 **/mode:ViewGeneration**フラグ。
-
-さらに参照は、次を参照してください。[方法: クエリ パフォーマンスを向上させる Pre-Generate ビュー](https://msdn.microsoft.com/library/bb896240.aspx)します。
 
 #### <a name="233-how-to-use-pre-generated-views-with-an-edmx-file"></a>2.3.3 EDMX ファイルを Pre-Generated ビューを使用する方法
 
@@ -113,13 +111,9 @@ ADO.NET チームのブログが投稿をビューの生成に T4 テンプレ�
 
 Entity Framework 6 を使用している場合は、ビューを取得できます、生成 T4 テンプレートで Visual Studio ギャラリーから\<http://visualstudiogallery.msdn.microsoft.com/18a7db90-6705-4d19-9dd1-0a6c23d0751f>します。
 
-#### <a name="234-how-to-use-pre-generated-views-with-a-code-first-model"></a>2.3.4 Code First モデルを Pre-Generated ビューを使用する方法
-
-コードの最初のプロジェクトで事前に生成したビューを使用することもできます。 Entity Framework Power Tools では、コードの最初のプロジェクト ビュー ファイルを生成する機能があります。 Visual Studio ギャラリーで、Entity Framework Power Tools が見つかります\<http://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d/>します。
-
 ### <a name="24-reducing-the-cost-of-view-generation"></a>2.4 ビューの生成のコストを削減します。
 
-事前生成済みのビューを使用したコンパイル時にモデルの読み込み (実行時) からビューの生成のコストを移動します。 これにより、実行時に起動時のパフォーマンスが向上、中に開発する際にビューの生成の問題点を引き続き発生するされます。 ビューの生成、コンパイル時と実行時の両方のコストを削減するのに役立ついくつかの追加テクニックがあります。
+事前生成済みのビューを使用すると、デザイン時に (実行時) モデルを読み込んでからビューの生成のコストが移動します。 これにより、実行時に起動時のパフォーマンスが向上、中に開発する際にビューの生成の問題点を引き続き発生するされます。 ビューの生成、コンパイル時と実行時の両方のコストを削減するのに役立ついくつかの追加テクニックがあります。
 
 #### <a name="241-using-foreign-key-associations-to-reduce-view-generation-cost"></a>2.4.1 を外部キー アソシエーションを使用してビューの生成のコストを削減するには
 
@@ -144,7 +138,7 @@ EDMGen またはエンティティ デザイナーを使用して、Visual Studi
 | 使用する場合      | 方法                                                                                                                                                                                                                                                                                                                              |
 |:----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | エンティティ デザイナー | 2 つのエンティティ間の関連付けを追加すると、参照に関する制約があることを確認します。 参照に関する制約は、独立アソシエーションではなく、外部キーを使用する Entity Framework を伝えます。 追加の詳細をご覧ください\<http://blogs.msdn.com/b/efdesign/archive/2009/03/16/foreign-keys-in-the-entity-framework.aspx>します。 |
-| EDMGen          | EDMGen を使用して、データベースから、ファイルを生成する、外部キーが適用されるため、そのため、モデルに追加します。 EDMGen によって公開されるさまざまなオプションの詳細については、次を参照してください。 [ http://msdn.microsoft.com/library/bb387165.aspx](https://msdn.microsoft.com/library/bb387165.aspx)します。                           |
+| EDMGen          | EDMGen を使用して、データベースから、ファイルを生成する、外部キーが適用されるため、そのため、モデルに追加します。 EDMGen によって公開されるさまざまなオプションの詳細については、次を参照してください。 [http://msdn.microsoft.com/library/bb387165.aspx](https://msdn.microsoft.com/library/bb387165.aspx)します。                           |
 | Code First      | 「リレーションシップの規則」セクションを参照してください、[コードの最初の規則](~/ef6/modeling/code-first/conventions/built-in.md)Code First を使用する場合は、依存オブジェクトで外部キー プロパティを組み込む方法については、トピック。                                                                                              |
 
 #### <a name="242-moving-your-model-to-a-separate-assembly"></a>2.4.2、モデルを別のアセンブリに移動します。
@@ -1263,7 +1257,7 @@ Entity Framework のパフォーマンスの問題が発生した場合は、ア
 
 Visual Studio に組み込まれているプロファイラーなどのツールは、アプリケーションが時間を費やす場所を伝えます。  プロファイラーの別の型が使用可能な実稼働またはニーズに応じて、実稼働前に、実行中のアプリケーションの動的分析を実行し、よくある落とし穴とデータベースへのアクセスのアンチ パターンの検索をします。
 
-2 つの市販プロファイラーは、Entity Framework Profiler ( \< http://efprof.com>)と ORMProfiler ( \<http://ormprofiler.com>)します。
+2 つの市販プロファイラーは、Entity Framework Profiler ( \<http://efprof.com>)と ORMProfiler ( \<http://ormprofiler.com>)します。
 
 アプリケーションでは、Code First を使用して MVC アプリケーションは、StackExchange の MiniProfiler を使用することができます。 Scott Hanselman は、彼のブログでこのツールをについて説明します。 \<http://www.hanselman.com/blog/NuGetPackageOfTheWeek9ASPNETMiniProfilerFromStackExchangeRocksYourWorld.aspx>します。
 

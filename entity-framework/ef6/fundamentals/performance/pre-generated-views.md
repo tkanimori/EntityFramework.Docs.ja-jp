@@ -3,19 +3,19 @@ title: 事前に生成されたマッピング ビュー - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
-ms.openlocfilehash: da5d59ba5a899a0ee3a1eec3db0da1b4ece871d8
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 1fda9fe9638adce9b24a6b81aa081effeb0def81
+ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46284110"
+ms.lasthandoff: 09/30/2018
+ms.locfileid: "47459527"
 ---
 # <a name="pre-generated-mapping-views"></a>事前に生成されたマッピング ビュー
 Entity Framework では、クエリを実行したり、データ ソースに変更を保存することが、前に、一連のデータベースにアクセスするマッピング ビューが生成する必要があります。 これらのマッピング ビューを抽象的な方法でデータベースを表す Entity SQL ステートメントのセットし、アプリケーション ドメインごとにキャッシュされるメタデータの一部であります。 同じアプリケーション ドメインで同じコンテキストの複数のインスタンスを作成する場合は、再生成するのではなく、キャッシュされたメタデータからマッピング ビューは再利用します。 マップ ビューの生成は、最初のクエリの実行における全体的なコストのかなりの部分であるため、Entity Framework では、マッピング ビューを事前に生成およびコンパイル済みのプロジェクトに追加することができます。 詳細については、次を参照してください。[パフォーマンスに関する考慮事項 (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md)します。
 
-## <a name="generating-mapping-views-with-the-ef-power-tools"></a>EF Power Tools でのビューのマッピングを生成します。
+## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>EF Power Tools の Community Edition ではビューのマッピングを生成します。
 
-ビューを事前に生成する最も簡単な方法は使用する、 [EF Power Tools](https://visualstudiogallery.msdn.microsoft.com/72a60b14-1581-4b9b-89f2-846072eff19d)します。 Power ツールをインストールしたら次に示すようにビューの生成のメニュー オプションを必要があります。
+ビューを事前に生成する最も簡単な方法は使用する、 [EF Power Tools の Community Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition)します。 Power ツールをインストールしたら次に示すようにビューの生成のメニュー オプションを必要があります。
 
 -   **Code First** DbContext クラスを含むコード ファイルにモデルを右クリックします。
 -   **EF Designer**モデルは、EDMX ファイルを右クリックします。
