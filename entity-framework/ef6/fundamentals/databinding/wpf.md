@@ -3,12 +3,12 @@ title: WPF の EF6 とのデータ バインド
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e90d48e6-bea5-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: 5bd4a9b98a12de41e4ec37c2cc7dbdc537210893
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 1933988277d3be8fecc02fced3293f2b7f80c901
+ms.sourcegitcommit: ae399f9f3d1bae2c446b552247bd3af3ca5a2cf9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490234"
+ms.lasthandoff: 10/04/2018
+ms.locfileid: "48575666"
 ---
 # <a name="databinding-with-wpf"></a>WPF とのデータ バインド
 このステップ バイ ステップ チュートリアルでは、POCO 型を「マスター/詳細」の形式での WPF コントロールにバインドする方法を示します。 アプリケーションでは、Entity Framework の Api を使用して、データベースからデータをオブジェクトに設定、変更の追跡、およびデータベースにデータを保持します。
@@ -31,7 +31,7 @@ Visual Studio 2012 および Visual Studio 2013 用の EF デザイナーでは�
 
 Visual Studio 2013 を持っている必要があります、このチュートリアルを完了する、Visual Studio 2012 または Visual Studio 2010 がインストールされています。
 
-Visual Studio 2010 を使用している場合は、NuGet をインストールする必要があります。 詳細については、次を参照してください。[をインストールする NuGet](http://docs.nuget.org/docs/start-here/installing-nuget)します。  
+Visual Studio 2010 を使用している場合は、NuGet をインストールする必要があります。 詳細については、次を参照してください。[をインストールする NuGet](https://docs.microsoft.com/nuget/install-nuget-client-tools)します。  
 
 ## <a name="create-the-application"></a>アプリケーションを作成する
 
@@ -252,12 +252,12 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 
     ![Data Sources](~/ef6/media/datasources.png)
 
--   選択、* * カテゴリ * * データ ソースをフォームにドラッグします。
+-   選択、**カテゴリ**データ ソースをフォームにドラッグします。
 
 このソースがドラッグされると、次のメッセージが発生しました。
 
--   **CategoryViewSource**リソースと * * * * categoryDataGrid コントロールが XAML に追加されました。 DataViewSources の詳細については、次を参照してください。 http://bea.stollnitz.com/blog/?p=387します。
--   親グリッド要素の DataContext プロパティに設定されました"{StaticResource **categoryViewSource** }"。  **CategoryViewSource**リソースは、外側のバインディング ソースとして機能\\親グリッド要素。 内部のグリッド要素は、親 (categoryDataGrid の ItemsSource プロパティは"{binding}"に設定) をグリッドから DataContext 値を継承します。 
+-   **CategoryViewSource**リソースと**categoryDataGrid**コントロールが XAML に追加されました。 
+-   親グリッド要素の DataContext プロパティに設定されました"{StaticResource **categoryViewSource** }"。 **CategoryViewSource**リソースは、外側のバインディング ソースとして機能\\親グリッド要素。 内部のグリッド要素は、親 (categoryDataGrid の ItemsSource プロパティは"{binding}"に設定) をグリッドから DataContext 値を継承する、
 
 ``` xml
     <Window.Resources>
@@ -282,7 +282,7 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 
 あるので、みましょうカテゴリを表示するグリッドは、関連付けられている製品を表示する詳細グリッドを追加します。
 
--   選択、* * 製品 * * の下にあるプロパティ、* * カテゴリ * * データ ソースをフォームにドラッグします。
+-   選択、**製品**プロパティの下にある、**カテゴリ**データ ソースをフォームにドラッグします。
     -   **CategoryProductsViewSource**リソースと**productDataGrid**グリッドが XAML に追加されます
     -   製品には、このリソースのバインド パスを設定してください。
     -   WPF データ バインディング フレームワークでは、製品だけが選択したカテゴリに関連する表示ことにより、 **productDataGrid**
@@ -305,7 +305,7 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 
 分離コードをフォームの表示、ProductContext を使用して、データ アクセスを実行するコードを編集しますようになりました。 次に示すように、MainWindow のコードを更新します。
 
-コードの実行時間の長いインスタンス**ProductContext**します。 **ProductContext**オブジェクトを照会し、データベースにデータを保存に使用されます。 **Dispose**() を**ProductContext**インスタンスが呼び出され、オーバーライドされたから**OnClosing**メソッド。 コード コメントでは、コードの動作について詳しく説明します。
+コードの実行時間の長いインスタンス**ProductContext**します。 **ProductContext**オブジェクトを照会し、データベースにデータを保存に使用されます。 **Dispose()** 上、 **ProductContext**インスタンスが呼び出され、オーバーライドされたから**OnClosing**メソッド。 コード コメントでは、コードの動作について詳しく説明します。
 
 ``` csharp
     using System.Data.Entity;
@@ -389,6 +389,10 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
 
 -   キーを押して、**保存**データベースにデータを保存するボタンをクリックします。
 
-DbContext の呼び出しの後**SaveChanges**()、Id はデータベースで生成された値が格納されます。 呼び出したため、**更新**後 () **SaveChanges**()、 **DataGrid**コントロールも、新しい値で更新します。
+DbContext の呼び出しの後**SaveChanges()** データベースで生成された値は、Id が格納されます。 呼び出したため**Refresh()** 後**SaveChanges()** 、 **DataGrid**コントロールも、新しい値で更新します。
 
 ![Id が設定されますが、メイン ウィンドウ](~/ef6/media/screen2.png)
+
+## <a name="additional-resources"></a>その他のリソース
+
+WPF を使用してコレクションへのデータ バインディングの詳細については、次を参照してください。[このトピックの「](https://docs.microsoft.com/dotnet/framework/wpf/data/data-binding-overview#binding-to-collections) WPF のドキュメント。  
