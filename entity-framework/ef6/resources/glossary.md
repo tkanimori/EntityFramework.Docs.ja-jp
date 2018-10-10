@@ -3,12 +3,12 @@ title: Entity Framework の用語集 EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 298913891fb372bf57d7504c5a54f1dc83ea1a80
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9ed7a2d841c625de35de57edb4e57e69b89a3db9
+ms.sourcegitcommit: 5d74ac575f813110db6d870720f50dd7606446bc
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490696"
+ms.lasthandoff: 10/09/2018
+ms.locfileid: "48881268"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework の用語集
 ## <a name="code-first"></a>Code First
@@ -60,7 +60,7 @@ EF デザイナーを使用して、Entity Framework モデルを作成しに使
 別のエンティティを参照するエンティティのプロパティ。 たとえば、製品にはカテゴリのナビゲーション プロパティが含まれていて、カテゴリには、製品のナビゲーション プロパティが含まれています。
 
 ## <a name="poco"></a>POCO
-Plain-old CLR オブジェクトの頭字語です。 任意のフレームワークでの依存関係がないシンプルなユーザー クラスです。 EF のコンテキストで、エンティティ クラスを EntityObject から派生していない任意のインターフェイスを実装または EF で定義されているすべての属性を実行します。 「永続化に依存しない」に、永続化フレームワークから分離するこのようなエンティティ クラスともいいます。  
+Plain-old CLR オブジェクトの頭字語です。 任意のフレームワークでの依存関係がないシンプルなユーザー クラスです。 で、EF EntityObject から派生していない、任意のインターフェイスを実装または EF で定義されているすべての属性を格納するエンティティ クラスのコンテキスト。 「永続化に依存しない」に、永続化フレームワークから分離するこのようなエンティティ クラスともいいます。  
 
 ## <a name="relationship-inverse"></a>リレーションシップの逆関数
 たとえば、製品、リレーションシップの反対側の端。カテゴリとカテゴリ。製品です。
