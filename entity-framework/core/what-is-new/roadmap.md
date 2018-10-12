@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: fd9086c9911cdb0890117d44c2787780aad9a7cb
-ms.sourcegitcommit: a81aed575372637997b18a0f9466d8fefb33350a
+ms.openlocfilehash: 36d5fa8009de0aadba3b636630e1d5bddf41723c
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/06/2018
-ms.locfileid: "43821362"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45490832"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core のロードマップ
 
@@ -28,7 +28,7 @@ ms.locfileid: "43821362"
 
 ### <a name="ef-core-30"></a>EF Core 3.0
 
-2.2 の後の次のリリースに向けた[リリース計画プロセス](#release-planning-process)は完了していませんが、現在 .NET Core 3.0 および ASP.NET 3.0 と整合するメジャー リリースを計画しています。 
+2.2 の後の次のリリースに向けた[リリース計画プロセス](#release-planning-process)は完了していませんが、現在、.NET Core 3.0 および ASP.NET 3.0 と整合するメジャー リリースを計画しています。 
 
 この将来のリリースに暫定的に割り当てられている作業項目は、[この問題追跡ツールのクエリ](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc)を使用して確認することができます。
 

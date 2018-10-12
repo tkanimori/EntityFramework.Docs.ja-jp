@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
 uid: core/modeling/index
-ms.openlocfilehash: e4eed480178ce43cbc5ece8db8e584032da7b2b9
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: 67012d0f52cc77ce872fc428fccc20526f3fefad
+ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250349"
+ms.lasthandoff: 09/13/2018
+ms.locfileid: "45489272"
 ---
 # <a name="creating-and-configuring-a-model"></a>モデルの作成と構成
 
@@ -42,7 +42,7 @@ Entity Framework では、一連の規則を利用し、エンティティ ク�
 
 ## <a name="use-data-annotations-to-configure-a-model"></a>データ注釈を使用してモデルを構成する
 
-クラスやプロパティに属性 (データ注釈と呼ばれています) を適用することもできます。 データ注釈は規則をオーバーライドしますが、Fluent API 構成に上書きされます。
+クラスやプロパティに属性 (データ注釈と呼ばれています) を適用することもできます。 データ注釈は規則をオーバーライドしますが、Fluent API 構成で上書きされます。
 
 <!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/Required.cs?range=11-16&highlight=4)] -->
 ``` csharp
