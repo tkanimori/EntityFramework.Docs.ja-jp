@@ -3,12 +3,12 @@ title: リレーションシップ、ナビゲーション プロパティ、お
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: a98c1bf798a8a6d2c748408d7363d5f884e7e6e9
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 46c2d11b5704ec7ae82a423ae042b87f5efe436f
+ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490546"
+ms.lasthandoff: 10/14/2018
+ms.locfileid: "49315660"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>リレーションシップ、ナビゲーション プロパティ、および外部キー
 このトピックでは、Entity Framework でのエンティティ間のリレーションシップの管理方法の概要を示します。 また、マップし、のリレーションシップを操作する方法のいくつかのガイダンスを提供します。
@@ -153,7 +153,7 @@ public class Department
 > 外部キー アソシエーションで依存オブジェクトの関連 End を読み込むと、現在メモリ内にある依存の外部キー値に基づいて関連オブジェクトが読み込まれます。
 
 ``` csharp
-    // Get the course where currently DepartmentID = 1.
+    // Get the course where currently DepartmentID = 2.
     Course course2 = context.Courses.First(c=>c.DepartmentID == 2);
 
     // Use DepartmentID foreign key property
@@ -166,7 +166,7 @@ public class Department
 
 独立アソシエーションの場合、依存オブジェクトの関連 End は現在データベース内にある外部キー値に基づいてクエリが行われます。 ただし、リレーションシップが変更されると、Entity Framework、オブジェクト コンテキストに読み込まれる別のプリンシパル オブジェクトに依存するオブジェクトのポイント参照プロパティはしようとするととしてのリレーションシップを作成、クライアントで定義されます。
 
-## <a name="managing-concurrency"></a>同時実行の管理
+## <a name="managing-concurrency"></a>コンカレンシーの管理
 
 外部キーと独立アソシエーションの両方では、同時実行制御チェックは、エンティティ キーと、モデルで定義されている他のエンティティ プロパティに基づいています。 EF デザイナーを使用して、モデルを作成、設定、`ConcurrencyMode`属性を**固定**同時実行のプロパティをチェックすることを指定します。 Code First を使用してモデルを定義する場合は、使用、`ConcurrencyCheck`同時実行チェックにするプロパティの注釈。 Code First の使用時に使用することも、`TimeStamp`同時実行のプロパティをチェックすることを指定する注釈。 特定のクラスでタイムスタンプ プロパティを 1 つだけことができます。 コードは、まず、データベースの null 非許容のフィールドにこのプロパティをマップします。
 
