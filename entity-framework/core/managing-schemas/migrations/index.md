@@ -2,23 +2,41 @@
 title: 移行 - EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 10/30/2017
+ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 4a5d6f3798c7af7597f95cebea1aeb9e5e58d277
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 5ae06a4342a556936dc44c5bf6622814eaad4733
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996523"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834748"
 ---
 <a name="migrations"></a>移行
 ==========
-移行とはデータベースに対するスキーマ変更の適用を増分的に増やす方法であり、データベースの既存データを維持しながら、EF Core モデルと同期します。
 
-<a name="creating-the-database"></a>データベースを作成する
----------------------
-[最初のモデルを定義][1]したら、次にデータベースを作成します。 これを行うには、初期移行を追加します。
-[EF Core ツール][2]をインストールし、適切なコマンドを実行します。
+データ モデルは開発中に変更され、データベースと同期しなくなります。 データベースを削除して、モデルと一致する新しいものを EF に作成させることもできますが、この手順ではデータが失われてしまいます。 EF Core の移行機能では、データベースの既存のデータを維持しながら、アプリケーションのデータ モデルとデータベース スキーマを同期した状態で、データベース スキーマを増分的に更新することができます。
+
+移行には、次のタスクの助けとなるコマンドライン ツールと API が含まれています。
+
+* [移行を作成します](#create-a-migration)。 データベースを更新できるモデルの変更のセットと同期できるコードを生成します。
+* [データベースを更新します](#update-the-database)。 データベース スキーマを更新し、保留中となって移行を適用します。
+* [移行コードをカスタマイズします](#customize-migration-code)。 生成されたコードをときどき変更したり補完したりする必要があります。
+* [移行を削除します](#remove-a-migration)。 生成されたコードを削除します。
+* [移行を元に戻します](#revert-a-migration)。 データベースの変更をやり直します。
+* [SQL スクリプトを生成します](#generate-sql-scripts)。 実稼働データベースを更新したり、移行コードをトラブルシューティングしたりするためにスクリプトが必要な場合があります。
+* [実行時に移行を適用します](#apply-migrations-at-runtime)。 デザイン時の更新やスクリプトの実行が最適なオプションでない場合、`Migrate()` メソッドを呼び出します。
+
+<a name="install-the-tools"></a>ツールのインストール
+-----------------
+
+[コマンドライン ツール](xref:core/miscellaneous/cli/index)をインストールします。
+* Visual Studio では、[パッケージ マネージャー コンソール ツール](xref:core/miscellaneous/cli/powershell)をお勧めします。
+* その他の開発環境では、[.NET Core CLI ツール](xref:core/miscellaneous/cli/dotnet)を選択します。
+
+<a name="create-a-migration"></a>移行を作成する
+------------------
+
+[最初のモデルを定義](xref:core/modeling/index)したら、次にデータベースを作成します。 最初の移行を追加するには、次のコマンドを実行します。
 
 ``` powershell
 Add-Migration InitialCreate
@@ -38,6 +56,9 @@ dotnet ef migrations add InitialCreate
 > [!TIP]
 > 移行ファイルは自由に移動したり、その名前空間を変更したりできます。 新しい移行は前回の移行の兄弟として作成されます。
 
+<a name="update-the-database"></a>データベースを更新する
+-------------------
+
 次に、移行をデータベースに適用し、スキーマを作成します。
 
 ``` powershell
@@ -47,9 +68,10 @@ Update-Database
 dotnet ef database update
 ```
 
-<a name="adding-another-migration"></a>別の移行を追加する
+<a name="customize-migration-code"></a>移行コードをカスタマイズする
 ------------------------
-EF Core モデルの変更後、データベース スキーマは同期していない状態になります。それを最新の状態にするには、別の移行を追加します。 移行名は、バージョン管理システムのコミット メッセージのように使用できます。 たとえば、製品の顧客レビューを変更して保存した場合、*AddProductReviews* のようなものを選択できます。
+
+EF Core モデルの変更後、データベース スキーマは同期していない状態になります。それを最新の状態にするには、別の移行を追加します。 移行名は、バージョン管理システムのコミット メッセージのように使用できます。 たとえば、変更するのがレビュー用の新しいエンティティ クラスである場合、*AddProductReviews* などの名前を選択します。
 
 ``` powershell
 Add-Migration AddProductReviews
@@ -58,7 +80,9 @@ Add-Migration AddProductReviews
 dotnet ef migrations add AddProductReviews
 ```
 
-移行のスキャフォールディング後、それが正確であるか確認し、追加の操作が必要であればそれを追加し、正しく適用します。 たとえば、移行には次の操作が含まれることがあります。
+移行が (それのためにコードが生成され) スキャフォールディングされたら、コードが正しいか確認し、それを正しく適用するために必要な任意の操作を追加、削除または変更します。
+
+たとえば、移行には次の操作が含まれることがあります。
 
 ``` csharp
 migrationBuilder.DropColumn(
@@ -99,7 +123,7 @@ migrationBuilder.DropColumn(
 ```
 
 > [!TIP]
-> データ損失 (列の脱落など) を引き起こす可能性のある操作がスキャフォールディングされるときは、新しい移行を追加すると警告が出ます。 このような移行の場合は特に正しいかどうかを確認してください。
+> 移行のスキャフォールディング手順では、(列の削除など) データが失われる場合に、警告が出ます。 その警告が表示されたら、移行コードが正しいことを特に確認してください。
 
 適切なコマンドを利用し、データベースに移行を適用します。
 
@@ -110,10 +134,19 @@ Update-Database
 dotnet ef database update
 ```
 
-<a name="removing-a-migration"></a>移行を削除する
---------------------
-移行の追加後、適用する前に EF Core モデルの追加変更が必要なことに気付く場合があります。
-最後の移行を削除するには、このコマンドを使用します。
+### <a name="empty-migrations"></a>空の移行
+
+モデル変更を行わずに移行を追加すると便利な場合があります。 この場合、新しい移行を追加すると、空のクラスのコード ファイルが作成されます。 EF Core モデルに直接関連しない操作を実行するようにこの移行をカスタマイズできます。 この方法で管理すると便利なものは次のとおりです。
+
+* フルテキスト検索
+* 関数
+* ストアド プロシージャ
+* トリガー
+* Views
+
+<a name="remove-a-migration"></a>移行を削除する
+------------------
+移行の追加後、適用する前に EF Core モデルの追加変更が必要なことに気付く場合があります。 最後の移行を削除するには、このコマンドを使用します。
 
 ``` powershell
 Remove-Migration
@@ -122,10 +155,10 @@ Remove-Migration
 dotnet ef migrations remove
 ```
 
-削除後、追加のモデル変更を行い、もう一度追加できます。
+移行の削除後、追加のモデル変更を行い、もう一度追加できます。
 
-<a name="reverting-a-migration"></a>移行を元に戻す
----------------------
+<a name="revert-a-migration"></a>移行を元に戻す
+------------------
 移行をデータベースに既に適用しているが、元に戻す必要がある場合、同じコマンドを使用して移行を適用できますが、ロールバックする移行の名前を指定します。
 
 ``` powershell
@@ -135,20 +168,8 @@ Update-Database LastGoodMigration
 dotnet ef database update LastGoodMigration
 ```
 
-<a name="empty-migrations"></a>空の移行
-----------------
-モデル変更を行わずに移行を追加すると便利な場合があります。 その場合、新しい移行を追加すると空の移行が作成されます。 EF Core モデルに直接関連しない操作を実行するようにこの移行をカスタマイズできます。
-この方法で管理すると便利なものは次のとおりです。
-
-* フルテキスト検索
-* 関数
-* ストアド プロシージャ
-* トリガー
-* Views
-* その他
-
-<a name="generating-a-sql-script"></a>SQL スクリプトを生成する
------------------------
+<a name="generate-sql-scripts"></a>SQL スクリプトを生成する
+--------------------
 移行をデバッグするか、それを実稼働データベースに展開するとき、SQL スクリプトを生成すると便利です。 このスクリプトはさらに見直して正しいかどうかを確認し、実稼働データベースのニーズに合わせて調整できます。 このスクリプトは、展開テクノロジとの連動でも利用できます。 基本コマンドは次のとおりです。
 
 ``` powershell
@@ -166,22 +187,21 @@ dotnet ef migrations script
 
 **idempotent** スクリプトをオプションで生成できます。 このスクリプトは、データベースにまだ適用されていない移行のみを適用します。 これは、データベースに適用された最後の移行が正確にわからない場合、あるいは複数のデータベースに展開するとき、いずれも移行が異なる可能性がある場合に便利です。
 
-<a name="applying-migrations-at-runtime"></a>実行時に移行を適用する
-------------------------------
+<a name="apply-migrations-at-runtime"></a>実行時に移行を適用する
+---------------------------
 起動中または最初の実行中、実行時に移行を適用するアプリがあります。 `Migrate()` メソッドを使用してこれを行います。
 
-この方法は万人向けではないため、注意が必要です。 ローカル データベースを利用するアプリには最適ですが、ほとんどのアプリケーションでは、SQL スクリプトの生成など、より堅牢な展開戦略が必要になります。
+このメソッドは、より高度なシナリオで利用される `IMigrator` サービスの上でビルドされます。 アクセスするには `DbContext.GetService<IMigrator>()` を利用します。
 
 ``` csharp
 myDbContext.Database.Migrate();
 ```
 
 > [!WARNING]
-> `Migrate()` の前に `EnsureCreated()` を呼び出さないでください。 `EnsureCreated()` は移行をバイパスしてスキーマを作成し、`Migrate()` が失敗します。
+> * この方法は万人向けではありません。 ローカル データベースを利用するアプリには最適ですが、ほとんどのアプリケーションでは、SQL スクリプトの生成など、より堅牢な展開戦略が必要になります。
+> * `Migrate()` の前に `EnsureCreated()` を呼び出さないでください。 `EnsureCreated()` は移行をバイパスしてスキーマを作成し、`Migrate()` が失敗します。
 
-> [!NOTE]
-> このメソッドは、より高度なシナリオで利用される `IMigrator` サービスの上でビルドされます。 アクセスするには `DbContext.GetService<IMigrator>()` を利用します。
+<a name="next-steps"></a>次の手順
+----------
 
-
-  [1]: ../../modeling/index.md
-  [2]: ../../miscellaneous/cli/index.md
+詳細については、「<xref:core/miscellaneous/cli/index>」を参照してください。

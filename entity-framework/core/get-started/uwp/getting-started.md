@@ -1,15 +1,15 @@
 ---
 title: UWP - 新しいデータベース - EF Core の概要
 author: rowanmiller
-ms.date: 08/08/2018
+ms.date: 10/13/2018
 ms.assetid: a0ae2f21-1eef-43c6-83ad-92275f9c0727
 uid: core/get-started/uwp/getting-started
-ms.openlocfilehash: c243ef2a1940af9bf4f4b32f17acfcce7f972862
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 48d26adbe17e4734753a7ada547b9c13317bef0d
+ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996911"
+ms.lasthandoff: 10/14/2018
+ms.locfileid: "49315621"
 ---
 # <a name="getting-started-with-ef-core-on-universal-windows-platform-uwp-with-a-new-database"></a>データベースを新たに作成して使用するユニバーサル Windows プラットフォーム (UWP) 上の EF Core の概要
 
@@ -25,10 +25,12 @@ ms.locfileid: "42996911"
 
 * [.NET Core 2.1 SDK 以降](https://www.microsoft.com/net/core)。
 
-## <a name="create-a-model-project"></a>モデル プロジェクトを作成する
-
 > [!IMPORTANT]
-> .NET Core ツールが UWP プロジェクトとやりとりする方法に制限があるため、モデルを UWP 以外のプロジェクトに配置し、**パッケージ マネージャー コンソール** (PMC) で移行コマンドを実行できるようにする必要があります。
+> このチュートリアルでは Entity Framework Core[ 移行](xref:core/managing-schemas/migrations/index)コマンドを使用して、データベースのスキーマを作成および更新します。
+> これらのコマンドによって、UWP プロジェクトは直接操作されません。
+> このため、アプリケーションのデータ モデルは共有ライブラリ プロジェクト内に配置され、コマンドは別の .NET Core コンソール アプリケーションを使用して実行されます。
+
+## <a name="create-a-library-project-to-hold-the-data-model"></a>データ モデルを保持するためのライブラリ プロジェクトを作成する
 
 * Visual Studio を開く
 
@@ -44,21 +46,19 @@ ms.locfileid: "42996911"
 
 * **[OK]** をクリックします。
 
-## <a name="install-entity-framework-core"></a>Entity Framework Core をインストールする
+## <a name="install-entity-framework-core-runtime-in-the-data-model-project"></a>データ モデル プロジェクトに Entity Framework Core ランタイムをインストールする
 
 EF Core を使用するには、対象となるデータベース プロバイダーのパッケージをインストールします。 このチュートリアルでは、SQLite を使用します。 使用可能なプロバイダーの一覧については、「[Database Providers (データベース プロバイダー)](../../providers/index.md)」をご覧ください。
 
 * **[ツール] > [NuGet パッケージ マネージャー] > [パッケージ マネージャー コンソール]**。
 
+* パッケージ マネージャー コンソール内でライブラリ プロジェクト *Blogging.Model* が **[既定のプロジェクト]** として選択されていることを確認します。
+
 * `Install-Package Microsoft.EntityFrameworkCore.Sqlite` を実行します。
 
-このチュートリアルの後半では、複数の Entity Framework Core ツールを使用してデータベースのメンテナンスを行います。 そのため、そのツールのパッケージもインストールしてください。
+## <a name="create-the-data-model"></a>データ モデルを作成する
 
-* `Install-Package Microsoft.EntityFrameworkCore.Tools` を実行します。
-
-## <a name="create-the-model"></a>モデルを作成する
-
-ここで、モデルを編成するコンテキストとエンティティ クラスを定義します。
+ここで、モデルを編成する*DbContext* とエンティティ クラスを定義します。
 
 * *Class1.cs* を削除します。
 
@@ -66,23 +66,7 @@ EF Core を使用するには、対象となるデータベース プロバイ�
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/UWP/Blogging.Model/Model.cs)]
 
-## <a name="create-a-new-uwp-project"></a>新しい UWP プロジェクトを作成する
-
-* **ソリューション エクスプローラー**で、ソリューションを右クリックし、次に **[追加]、[新しいプロジェクト]** の順に選択します。
-
-* 左側のメニューから **[インストール済み] > [Visual C#] > [Windows ユニバーサル]** の順に選択します。
-
-* **[空のアプリ (ユニバーサル Windows)]** プロジェクト テンプレートを選択します。
-
-* プロジェクト *Blogging.UWP* に名前を付け、**[OK]** をクリックします。
-
-* ターゲットおよび最小バージョンを、**Windows 10 Fall Creators Update (10.0; build 16299.0)** 以上に設定します。
-
-## <a name="create-the-initial-migration"></a>初期移行を作成する
-
-これでモデルの用意ができましたので、初めて実行されたときにデータベースが作成されるように、アプリを設定します。 このセクションでは、初期移行を作成します。 次のセクションでは、アプリの起動時にこの移行を適用するコードを追加します。
-
-移行ツールでは UWP 以外のスタートアップ プロジェクトが必要であるため、まずそれを作成します。
+## <a name="create-a-new-console-project-to-run-migrations-commands"></a>移行コマンドを実行するための新しいコンソール プロジェクトを作成する
 
 * **ソリューション エクスプローラー**で、ソリューションを右クリックし、次に **[追加]、[新しいプロジェクト]** の順に選択します。
 
@@ -94,19 +78,37 @@ EF Core を使用するには、対象となるデータベース プロバイ�
 
 * *Blogging.Migrations.Startup* プロジェクトから *Blogging.Model* プロジェクトへのプロジェクト参照を追加します。
 
-これで、ご自分の初期移行を作成できるようになりました。
+## <a name="install-entity-framework-core-tools-in-the-migrations-startup-project"></a>移行のスタートアップ プロジェクトに Entity Framework Core ツールをインストールする
+
+パッケージ マネージャー コンソール内で EF Core 移行コマンドを有効にするには、EF Core ツールのパッケージをコンソール アプリケーションにインストールします。
 
 * **[ツール] > [NuGet パッケージ マネージャー] > [パッケージ マネージャー コンソール]**
 
-* **[既定のプロジェクト]** として *Blogging.Model* プロジェクトを選択します。
+* `Install-Package Microsoft.EntityFrameworkCore.Tools -ProjectName Blogging.Migrations.Startup` を実行します。
 
-* **ソリューション エクスプローラー**で、*Blogging.Migrations.Startup* プロジェクトをスタートアップ プロジェクトに設定します。
+## <a name="create-the-initial-migration"></a>初期移行を作成する
 
-* `Add-Migration InitialCreate` を実行します。
+ 最初の移行を作成し、コンソール アプリケーションをスタートアップ プロジェクトとして指定します。
 
-  このコマンドでは、ご利用のモデルの最初のテーブル セットを作成する移行がスキャフォールディングされます。
+* `Add-Migration InitialCreate -StartupProject Blogging.Migrations.Startup` を実行します。
 
-## <a name="create-the-database-on-app-startup"></a>アプリの起動時にデータベースを作成する
+このコマンドでは、ご利用のデータ モデル用に最初のデータベース テーブル セットを作成する移行がスキャフォールディングされます。
+
+## <a name="create-the-uwp-project"></a>UWP プロジェクトを作成する
+
+* **ソリューション エクスプローラー**で、ソリューションを右クリックし、次に **[追加]、[新しいプロジェクト]** の順に選択します。
+
+* 左側のメニューから **[インストール済み] > [Visual C#] > [Windows ユニバーサル]** の順に選択します。
+
+* **[空のアプリ (ユニバーサル Windows)]** プロジェクト テンプレートを選択します。
+
+* プロジェクト *Blogging.UWP* に名前を付け、**[OK]** をクリックします。
+
+> [!IMPORTANT]
+> ターゲットおよび最小バージョンを、**Windows 10 Fall Creators Update (10.0; build 16299.0)** 以上に設定します。
+> Windows 10 の以前のバージョンでは、Entity Framework Core によって必要とされる .NET Standard 2.0 がサポートされていません。
+
+## <a name="add-code-to-create-the-database-on-application-startup"></a>アプリケーションの起動時にデータベースを作成するためのコードを追加する
 
 アプリが実行されているデバイス上にデータベースが作成されるようにしたいので、アプリケーションの起動時に保留中の移行をローカル データベースに適用するコードを追加します。 これにより、アプリの初回実行時にローカル データベースの作成が行われます。
 
@@ -121,11 +123,11 @@ EF Core を使用するには、対象となるデータベース プロバイ�
 > [!TIP]  
 > ご利用のモデルを変更する場合は、`Add-Migration` コマンドを使用して新しい移行をスキャフォールディングして、対応する変更をデータベースに適用できます。 保留中の移行は、アプリケーションの起動時に各デバイス上のローカル データベースに適用されます。
 >
->EF はデータベース内の `__EFMigrationsHistory` テーブルを使用して、どの移行がデータベースに既に適用されているかを追跡します。
+>EF Core はデータベース内の `__EFMigrationsHistory` テーブルを使用して、どの移行がデータベースに既に適用されているかを追跡します。
 
-## <a name="use-the-model"></a>モデルを使用する
+## <a name="use-the-data-model"></a>データ モデルを使用する
 
-モデルを使用してデータ アクセスを実行できるようになりました。
+EF Core 使用してデータ アクセスを使用できるようになりました。
 
 * *MainPage.xaml* を開きます。
 

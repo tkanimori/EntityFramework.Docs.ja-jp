@@ -6,12 +6,12 @@ description: Entity Framework Core を使用した .NET Core の概要
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 51f5752eebce5603c663072f7b36dfecd4ddf227
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: ec20040917a2bca8177924b6905b1cd79e5cd9da
+ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993693"
+ms.lasthandoff: 10/06/2018
+ms.locfileid: "48834736"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>新しいデータベースを使用した .NET Core コンソール アプリでの EF Core の概要
 
@@ -29,9 +29,16 @@ ms.locfileid: "42993693"
 
   ``` Console
   dotnet new console -o ConsoleApp.SQLite
+  ```
+## <a name="change-the-current-directory"></a>現在のディレクトリを変更する
+
+以降の手順では、アプリケーションに対して `dotnet` コマンドを発行する必要があります。
+
+* 現在のディレクトリを、次のようにアプリケーションのディレクトリに変更します。
+
+  ``` Console
   cd ConsoleApp.SQLite/
   ```
-
 ## <a name="install-entity-framework-core"></a>Entity Framework Core をインストールする
 
 EF Core を使用するには、対象となるデータベース プロバイダーのパッケージをインストールします。 このチュートリアルでは SQLite を使用します。 使用可能なプロバイダーの一覧については、「[Database Providers (データベース プロバイダー)](../../providers/index.md)」をご覧ください。
@@ -57,7 +64,7 @@ EF Core を使用するには、対象となるデータベース プロバイ�
 
 ## <a name="create-the-database"></a>データベースの作成
 
-モデルを作成したら、[移行](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations)を利用してデータベースを作成します。
+モデルを作成したら、[移行](xref:core/managing-schemas/migrations/index)を利用してデータベースを作成します。
 
 * `dotnet ef migrations add InitialCreate` を実行して移行をスキャフォールディングし、モデルの最初のテーブル セットを作成します。
 * `dotnet ef database update` を実行して、新しい移行をデータベースに適用します。 このコマンドは、移行を適用する前に、データベースを作成します。
@@ -70,7 +77,7 @@ EF Core を使用するには、対象となるデータベース プロバイ�
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Program.cs)]
 
-* アプリをテストします。
+* コンソールからアプリをテストします。 Visual Studio からアプリを実行するには、[Visual Studio のメモ](#vs)に関するページを参照してください。
 
   `dotnet run`
 
@@ -86,12 +93,24 @@ EF Core を使用するには、対象となるデータベース プロバイ�
 
 ### <a name="changing-the-model"></a>モデルを変更する
 
-- モデルに変更を加える場合は、`dotnet ef migrations add` コマンドを使用して、新しい[移行](https://docs.microsoft.com/aspnet/core/data/ef-mvc/migrations#introduction-to-migrations)をスキャフォールディングすることができます。 スキャフォールディング コードの確認 (および必要な変更) を行ったら、`dotnet ef database update` コマンドを使用してデータベースにスキーマの変更を適用できます。
+- モデルに変更を加える場合は、`dotnet ef migrations add` コマンドを使用して、新しい[移行](xref:core/managing-schemas/migrations/index)をスキャフォールディングすることができます。 スキャフォールディング コードの確認 (および必要な変更) を行ったら、`dotnet ef database update` コマンドを使用してデータベースにスキーマの変更を適用できます。
 - EF Core はデータベース内の `__EFMigrationsHistory` テーブルを使用して、どの移行がデータベースに既に適用されているかを追跡します。
 - SQLite データベース エンジンでは、他のほとんどのリレーショナル データベースでサポートされているスキーマ変更のうち特定のものがサポートされていません。 たとえば、`DropColumn` 操作はサポートされていません。 EF Core の移行では、そのような操作のためのコードが作成されます。 しかし、それらをデータベースに適用しようとしたりスクリプトの作成を試みたりすると、EF Core によって例外がスローされます。 [SQLite の制限](../../providers/sqlite/limitations.md)に関する記事をご覧ください。 新しい開発の場合は、モデルを変更するときの移行を使用するのではなく、データベースを削除して新たに作成することを検討してください。
 
+<a name="vs"></a>
+### <a name="run-from-visual-studio"></a>Visual Studio から実行する
+
+Visual Studio からこのサンプルを実行するには、作業ディレクトリをプロジェクトのルートに設定する必要があります。 作業ディレクトリを設定しない場合、`SQLite Error 1: 'no such table: Blogs'` の `Microsoft.Data.Sqlite.SqliteException` がスローされます。
+
+作業ディレクトリを設定するには:
+
+* **ソリューション エクスプローラー**でプロジェクトを右クリックし、**[プロパティ]** を選択します。
+* 左ウィンドウの **[デバッグ]** タブを選択します。
+* **作業ディレクトリ**をプロジェクトのディレクトリに設定します。
+* 変更を保存します。
+
 ## <a name="additional-resources"></a>その他のリソース
 
-* [Mac または Linux での ASP.NET Core MVC の概要](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app-xplat/index)
-* [Visual Studio を使用した ASP.NET Core MVC の概要](https://docs.microsoft.com/aspnet/core/tutorials/first-mvc-app/index)
-* [Visual Studio を使用した ASP.NET Core と Entity Framework Core の概要](https://docs.microsoft.com/aspnet/core/data/ef-mvc/index)
+* [チュートリアル: SQLite を使用した新しいデータベースでの ASP.NET Core での EF Core の概要](xref:core/get-started/aspnetcore/new-db)
+* [チュートリアル: ASP.NET Core の Razor Pages の概要](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
+* [チュートリアル: ASP.NET Core での Entity Framework Core を使用した Razor Pages](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)

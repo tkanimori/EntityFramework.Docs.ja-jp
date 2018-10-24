@@ -2,8 +2,6 @@
 
 ## [EF Core と EF6 を比較する](efcore-and-ef6/index.md)
 
-### [適しているのはどちらか](efcore-and-ef6/choosing.md)
-### [機能の比較](efcore-and-ef6/features.md)
 ### [同じアプリケーションでの EF6 と EF Core](efcore-and-ef6/side-by-side.md)
 ### [EF6 から EF Core へ移植](efcore-and-ef6/porting/index.md)
 #### [要件の検証](efcore-and-ef6/porting/ensure-requirements.md)
@@ -29,7 +27,7 @@
 #### [ASP.NET Core](core/get-started/aspnetcore/index.md)
 ##### [ASP.NET Core - 新しいデータベース](core/get-started/aspnetcore/new-db.md)
 ##### [ASP.NET Core - 既存のデータベース](core/get-started/aspnetcore/existing-db.md)
-##### [EF Core と Razor ページ](/aspnet/core/data/ef-rp/intro)
+##### [⤤ EF Core と Razor Pages](/aspnet/core/data/ef-rp/intro)
 #### [ユニバーサル Windows プラットフォーム (UWP)](core/get-started/uwp/index.md)
 ##### [UWP - 新しいデータベース](core/get-started/uwp/getting-started.md)
 
@@ -40,7 +38,7 @@
 #### [生成された値](core/modeling/generated-properties.md)
 #### [必須/任意のプロパティ](core/modeling/required-optional.md)
 #### [最大の長さ](core/modeling/max-length.md)
-#### [同時実行トークン](core/modeling/concurrency.md)
+#### [コンカレンシー トークン](core/modeling/concurrency.md)
 #### [シャドウ プロパティ](core/modeling/shadow-properties.md)
 #### [リレーションシップ](core/modeling/relationships.md)
 #### [インデックス](core/modeling/indexes.md)
@@ -91,7 +89,7 @@
 #### [基本的保存](core/saving/basic.md)
 #### [関連データ](core/saving/related-data.md)
 #### [連鎖削除](core/saving/cascade-delete.md)
-#### [同時実行の競合](core/saving/concurrency.md)
+#### [コンカレンシーの競合](core/saving/concurrency.md)
 #### [トランザクション](core/saving/transactions.md)
 #### [非同期保存](core/saving/async.md)
 #### [接続解除エンティティ](core/saving/disconnected-entities.md)
@@ -244,7 +242,7 @@
 ##### [自動検出の変更](ef6/saving/change-tracking/auto-detect-changes.md)
 ##### [エンティティ状態](ef6/saving/change-tracking/entity-state.md)
 ##### [プロパティの値](ef6/saving/change-tracking/property-values.md)
-#### [同時実行の競合の処理](ef6/saving/concurrency.md)
+#### [コンカレンシーの競合の処理](ef6/saving/concurrency.md)
 #### [トランザクションの使用](ef6/saving/transactions.md)
 #### [データの検証](ef6/saving/validation.md)
 
