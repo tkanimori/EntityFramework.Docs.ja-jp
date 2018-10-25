@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: f5a16e13de7f3b892cfb9b7ecb76e4973c175812
-ms.sourcegitcommit: ae399f9f3d1bae2c446b552247bd3af3ca5a2cf9
+ms.openlocfilehash: a87eca72aa58487415eea11e4f83de1a19e73506
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/04/2018
-ms.locfileid: "48575627"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022338"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -60,3 +60,4 @@ ms.locfileid: "48575627"
   * 常に規則を構成するのではなく、スキャフォールディングされたコードの 10 進数の列の列の種類を構成します。
   * プロバイダーは、エンドユーザー側で変更する必要はありません。
 * https://github.com/aspnet/EntityFrameworkCore/pull/13469 -SQL の CASE 式を生成するため CaseExpression を追加します。
+* https://github.com/aspnet/EntityFrameworkCore/pull/13648 -引数の結果ストア型の推定を向上させるために SqlFunctionExpression で型のマッピングを指定する機能を追加します。

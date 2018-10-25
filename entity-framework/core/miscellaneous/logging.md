@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: efc78fbada3c59bf9cf2c4cb694835bb5ad60e76
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 65501b5ac03ae544c51b7fc1a07fa9eea849f1e3
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997006"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022146"
 ---
 # <a name="logging"></a>ログの記録
 
@@ -18,7 +18,7 @@ ms.locfileid: "42997006"
 
 ## <a name="aspnet-core-applications"></a>ASP.NET Core アプリケーション
 
-ASP.NET Core のログ記録メカニズムと EF Core を自動的に統合されるたびに`AddDbContext`または`AddDbContextPool`使用されます。 したがって、ASP.NET Core を使用して、ログ記録する必要があります構成」の説明に従って、 [ASP.NET Core ドキュメント](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)します。
+ASP.NET Core のログ記録メカニズムと EF Core を自動的に統合されるたびに`AddDbContext`または`AddDbContextPool`使用されます。 したがって、ASP.NET Core を使用して、ログ記録する必要があります構成」の説明に従って、 [ASP.NET Core ドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)します。
 
 ## <a name="other-applications"></a>他のアプリケーション
 
@@ -54,4 +54,4 @@ EF Core のこのシングルトン/グローバル インスタンスが登録�
 
 EF Core 用ロガー カテゴリが定義されている、`DbLoggerCategory`単純な文字列を解決するには、カテゴリが、これらを見つけやすいようにするクラス。
 
-詳細については、基になるログ記録インフラストラクチャが記載されて、 [ASP.NET Core のログ記録に関するドキュメント](https://docs.microsoft.com/en-us/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)します。
+詳細については、基になるログ記録インフラストラクチャが記載されて、 [ASP.NET Core のログ記録に関するドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)します。

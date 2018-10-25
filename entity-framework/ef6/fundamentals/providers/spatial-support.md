@@ -3,12 +3,12 @@ title: 空間型 - EF6 のプロバイダーのサポート
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 1097cb00-15f5-453d-90ed-bff9403d23e3
-ms.openlocfilehash: ffd22222f59a541d8135d3738d37a7e8f5dc5d7c
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9c00e82c663daec219fe649a8d889afcc81564f7
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489753"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022276"
 ---
 # <a name="provider-support-for-spatial-types"></a>空間型のプロバイダー サポート
 Entity Framework では、DbGeography または DbGeometry クラスを使用して空間データの操作をサポートしています。 これらのクラスは、Entity Framework プロバイダーによって提供されるデータベースに固有の機能に依存します。 空間データをサポートしていないすべてのプロバイダーと、空間型のアセンブリのインストールなどの追加の前提条件はいる場合があります。 空間型のプロバイダー サポートの詳細については、次に示します。  
@@ -56,4 +56,4 @@ SQL Server 空間のサポートは、低レベルの SQL Server に固有の型
 
 Visual Studio がインストールされている場合、SQL Server のバージョンも多くの場合、インストールされ、これは、Microsoft.SqlServer.Types.dll のインストールが含まれます。  
 
-空間型を使用するコンピューターの SQL Server がインストールされていない場合、または空間型は、SQL Server のインストールから除外された場合は、それらを手動でインストールする必要があります。 使用して、種類をインストールすることができます`SQLSysClrTypes.msi`、Microsoft SQL Server Feature Pack の一部です。 空間型は、バージョン固有の SQL Server をお勧め["SQL Server Feature Pack"を検索](https://www.microsoft.com/en-us/search/result.aspx?q=sql+server+feature+pack)Microsoft ダウンロード センターを選択し、使用する SQL Server のバージョンに対応するオプションをダウンロードします。
+空間型を使用するコンピューターの SQL Server がインストールされていない場合、または空間型は、SQL Server のインストールから除外された場合は、それらを手動でインストールする必要があります。 使用して、種類をインストールすることができます`SQLSysClrTypes.msi`、Microsoft SQL Server Feature Pack の一部です。 空間型は、バージョン固有の SQL Server をお勧め["SQL Server Feature Pack"を検索](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack)Microsoft ダウンロード センターを選択し、使用する SQL Server のバージョンに対応するオプションをダウンロードします。

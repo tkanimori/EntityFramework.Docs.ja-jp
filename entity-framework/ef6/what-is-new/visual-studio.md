@@ -3,12 +3,12 @@ title: Visual Studio のリリース - EF6
 author: divega
 ms.date: 07/05/2018
 ms.assetid: 028FF890-4EDB-4F03-AE53-72F9C33EC92F
-ms.openlocfilehash: d104236ac5c8877da421ba10de9827f17937a9ec
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 16bcdc6d0e7c5632d4f4c06ba285a7a666f24204
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489922"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022252"
 ---
 # <a name="visual-studio-releases"></a>Visual Studio のリリース
 
@@ -41,7 +41,7 @@ ms.locfileid: "45489922"
 
 ## <a name="visual-studio-2013"></a>Visual Studio 2013
 - このバージョン Visual Studio にはが含まれていて、古いバージョンの Entity Framework のツールとランタイム。
-Entity Framework Tools 6.1.3 にアップグレードすることをお勧めを使用して[インストーラー](https://www.microsoft.com/en-us/download/details.aspx?id=40762) Microsoft ダウンロード センターで使用できます。
+Entity Framework Tools 6.1.3 にアップグレードすることをお勧めを使用して[インストーラー](https://www.microsoft.com/download/details.aspx?id=40762) Microsoft ダウンロード センターで使用できます。
 参照してください[過去解放](~/ef6/what-is-new/past-releases.md#ef-613)これらのリリースの詳細についてはします。
 - Entity Framework をアップグレード後の EF ツールを使用して新しいプロジェクトに追加すると、EF 6.1.3 が自動的に追加 NuGet パッケージ。
 手動でインストールまたは使用可能な任意の EF の NuGet パッケージをオンラインでアップグレードすることができます。
@@ -52,7 +52,7 @@ Entity Framework Tools 6.1.3 にアップグレードすることをお勧めを
 ## <a name="visual-studio-2012"></a>Visual Studio 2012
 
 - このバージョン Visual Studio にはが含まれていて、古いバージョンの Entity Framework のツールとランタイム。
-Entity Framework Tools 6.1.3 にアップグレードすることをお勧めを使用して[インストーラー](https://www.microsoft.com/en-us/download/details.aspx?id=40762) Microsoft ダウンロード センターで使用できます。
+Entity Framework Tools 6.1.3 にアップグレードすることをお勧めを使用して[インストーラー](https://www.microsoft.com/download/details.aspx?id=40762) Microsoft ダウンロード センターで使用できます。
 参照してください[過去解放](~/ef6/what-is-new/past-releases.md#ef-613)これらのリリースの詳細についてはします。
 - Entity Framework をアップグレード後の EF ツールを使用して新しいプロジェクトに追加すると、EF 6.1.3 が自動的に追加 NuGet パッケージ。
 手動でインストールまたは使用可能な任意の EF の NuGet パッケージをオンラインでアップグレードすることができます。

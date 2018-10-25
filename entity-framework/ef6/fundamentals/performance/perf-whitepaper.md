@@ -3,12 +3,12 @@ title: EF4、EF5 と EF6 のパフォーマンスに関する考慮事項
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: fb184fe8720b552a2050607bb17648f0413c31d1
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.openlocfilehash: c87c1412cb23abf232663d7e4f44eef5f7818ea2
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459592"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022390"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>EF 4、5、および 6 のパフォーマンスに関する考慮事項
 David Obando、Eric Dettinger およびその他のユーザー
@@ -33,7 +33,7 @@ Entity Framework 6 は、帯域外リリース、.NET に付属する Entity Fra
 
 ## <a name="2-cold-vs-warm-query-execution"></a>2.コールド vs します。ウォーム クエリの実行
 
-任意のクエリが特定のモデルに対して行われた最初の時間はバック グラウンドで読み込むし、モデルを検証する作業の多くを Entity Framework。 頻繁にこの最初のクエリと呼ば「コールド」クエリ。  既に読み込まれたモデルに対するクエリをさらには「ウォーム」のクエリと呼ばれ、はるかに速くなります。
+任意のクエリが特定のモデルに対して行われた最初の時間はバック グラウンドで読み込むし、モデルを検証する作業の多くを Entity Framework。 頻繁にこの最初のクエリと呼ば「コールド」クエリ。  既に読み込まれたモデルに対するクエリをさらには「ウォーム」のクエリと呼ばれ、はるかに速くなります。
 
 Entity Framework を使用してクエリを実行するときに時間を要した箇所の概要と Entity Framework 6 のものを改善する場所を参照してください。
 
@@ -145,7 +145,7 @@ EDMGen またはエンティティ デザイナーを使用して、Visual Studi
 
 アプリケーションのプロジェクトに直接、モデルが含まれているし、ビルド前イベントまたは、T4 テンプレートを使ってビューを生成する、ビューの生成と検証は行わ、プロジェクトをリビルドするたびに、モデルが変更されていない場合でも。 モデルを別のアセンブリに移動して、アプリケーションのプロジェクトから参照するの変更を行うアプリケーションにモデルを含むプロジェクトをリビルドする必要はありません。
 
-*注:* クライアント プロジェクトのアプリケーション構成ファイルに、モデルの接続文字列をコピーするを区切るためにモデルを移動するときにアセンブリに注意してください。
+*注:*  クライアント プロジェクトのアプリケーション構成ファイルに、モデルの接続文字列をコピーするを区切るためにモデルを移動するときにアセンブリに注意してください。
 
 #### <a name="243-disable-validation-of-an-edmx-based-model"></a>2.4.3 edmx ベース モデルの検証を無効にします。
 
@@ -180,10 +180,10 @@ Entity Framework では、キャッシュの組み込みの次の形式があり
 自動検出の変更を無効になっていると検索の例:
 
 ``` csharp
-    context.Configuration.AutoDetectChangesEnabled = false;
-    var product = context.Products.Find(productId);
-    context.Configuration.AutoDetectChangesEnabled = true;
-    ...
+    context.Configuration.AutoDetectChangesEnabled = false;
+    var product = context.Products.Find(productId);
+    context.Configuration.AutoDetectChangesEnabled = true;
+    ...
 ```
 
 Find メソッドを使用するときに考慮する必要があることです。
@@ -201,7 +201,7 @@ Entity Framework 6 を使用して、開発者はコレクションの反復処�
 
 ### <a name="32-query-plan-caching"></a>3.2 はクエリ プランのキャッシュ
 
-初めてクエリを実行すると、それはストア コマンド (たとえば、T-SQL が SQL Server に対して実行するときに実行されます) に概念のクエリを変換するプランを内部コンパイラ説明します。  ストアが実行されるクエリ プランのキャッシュが有効になっている場合、クエリは、[次へ] にコマンドは、プランのコンパイラをバイパスして、実行するためのクエリ プラン キャッシュから直接取得されます。
+初めてクエリを実行すると、それはストア コマンド (たとえば、T-SQL が SQL Server に対して実行するときに実行されます) に概念のクエリを変換するプランを内部コンパイラ説明します。  ストアが実行されるクエリ プランのキャッシュが有効になっている場合、クエリは、[次へ] にコマンドは、プランのコンパイラをバイパスして、実行するためのクエリ プラン キャッシュから直接取得されます。
 
 クエリ プランのキャッシュは、同じ AppDomain 内で ObjectContext インスタンス間で共有されます。 クエリ プランのキャッシュのメリットを ObjectContext インスタンスを保持する必要はありません。
 
@@ -211,22 +211,22 @@ Entity Framework 6 を使用して、開発者はコレクションの反復処�
 -   既定では、クエリ プランのキャッシュが有効になっている Entity SQL クエリでは、ObjectQuery EntityCommand を使用またはを実行するかどうか。 これも既定で有効に linq to Entities クエリでは、.NET 4.5 では、Entity Framework と Entity Framework 6
     -   (EntityCommand ObjectQuery 上) EnablePlanCaching プロパティを false に設定して、クエリ プランのキャッシュを無効にすることができます。 例えば:
 ``` csharp
-                    var query = from customer in context.Customer
-                                where customer.CustomerId == id
-                                select new
-                                {
-                                    customer.CustomerId,
-                                    customer.Name
-                                };
-                    ObjectQuery oQuery = query as ObjectQuery;
-                    oQuery.EnablePlanCaching = false;
+                    var query = from customer in context.Customer
+                                where customer.CustomerId == id
+                                select new
+                                {
+                                    customer.CustomerId,
+                                    customer.Name
+                                };
+                    ObjectQuery oQuery = query as ObjectQuery;
+                    oQuery.EnablePlanCaching = false;
 ```
 -   パラメーター化されたクエリでは、パラメーターの値を変更する、まだヒット、キャッシュされたクエリ。 パラメーターのファセット (たとえば、サイズ、有効桁数、またはスケール) を変更すると、キャッシュ内の異なるエントリがヒットします。
 -   Entity SQL を使用する場合、クエリ文字列は、キーの一部です。 クエリが機能的に同等場合でも、クエリのすべての変更が、別のキャッシュ エントリで発生します。 これには、大文字小文字の区別、または空白文字への変更が含まれます。
 -   LINQ を使用する場合は、キーの一部を生成するクエリが処理されます。 LINQ 式を変更すると、そのため、別のキーが生成されます。
 -   他の技術的な制限が適用可能性があります。詳細については、Autocompiled クエリを参照してください。
 
-#### <a name="322------cache-eviction-algorithm"></a>3.2.2 キャッシュ削除アルゴリズム
+#### <a name="322-cache-eviction-algorithm"></a>3.2.2 キャッシュ削除アルゴリズム
 
 内部アルゴリズムの動作がヘルプを有効または無効にするクエリ プランのキャッシュを解明する方法について理解します。 クリーンアップ アルゴリズムは次のとおりです。
 
@@ -238,11 +238,11 @@ Entity Framework 6 を使用して、開発者はコレクションの反復処�
 
 キャッシュに 800 エンティティがあるが、このタイマーが開始した後、60 秒間はキャッシュのスイープを行うとき、キャッシュの削除タイマーが開始に注意してください。 つまり、最大で 60 秒間、キャッシュは非常に大きくなるになることがあります。
 
-#### <a name="323-------test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 メトリックが示すクエリ プランのキャッシュのパフォーマンスをテストします。
+#### <a name="323-test-metrics-demonstrating-query-plan-caching-performance"></a>3.2.3 メトリックが示すクエリ プランのキャッシュのパフォーマンスをテストします。
 
 クエリ プランが、アプリケーションのパフォーマンス上のキャッシュの効果を示すためにテストを実行数 Navision モデルに対する Entity SQL クエリを実行します。 Navision モデルと実行されたクエリの種類の説明については、付録を参照してください。 このテストで最初のクエリのリストを反復処理し、(キャッシュが有効になっている) 場合は、キャッシュに追加する 1 つずつを 1 回実行します。 この手順は一定ではありません。 スイープを実行します。 キャッシュを許可するのには 60 秒以上のメイン スレッドをスリープ状態次に、最後に、キャッシュされたクエリを実行するリストの 2 つ目を時間の経過に反復処理します。 さらに、時間を正確に取得したクエリ プランのキャッシュで指定された特典を反映するように、クエリの各セットが実行される前に、SQL Server プラン キャッシュがフラッシュされます。
 
-##### <a name="3231-------test-results"></a>3.2.3.1 テスト結果
+##### <a name="3231-test-results"></a>3.2.3.1 テスト結果
 
 | テスト                                                                   | EF5 キャッシュなし | EF5 キャッシュ | EF6 キャッシュなし | EF6 のキャッシュ |
 |:-----------------------------------------------------------------------|:-------------|:-----------|:-------------|:-----------|
@@ -266,7 +266,7 @@ CompiledQuery が本当にそのプランがキャッシュでの LINQ クエリ
 
 2 つの考慮事項が CompiledQuery、つまり、使用するという要件静的インスタンスと、問題と構成可能性があるを使用する場合に実行する必要があります。 詳細については、これら 2 つの考慮事項を次に示します。
 
-#### <a name="331-------use-static-compiledquery-instances"></a>3.3.1 CompiledQuery の静的インスタンスを使用します。
+#### <a name="331-use-static-compiledquery-instances"></a>3.3.1 CompiledQuery の静的インスタンスを使用します。
 
 これを行うたびに、データベースからデータをフェッチする必要があるように時間のかかるプロセスは、LINQ クエリをコンパイル、ので。 CompiledQuery インスタンスでは、1 回コンパイルして、複数回実行することができますが、注意が必要し調達を何度もコンパイルではなく、毎回同じ CompiledQuery インスタンスを再利用します。 CompiledQuery インスタンスを格納する静的メンバーの使用が必要になります。それ以外の場合、上の利点は表示されません。
 
@@ -292,7 +292,7 @@ CompiledQuery が本当にそのプランがキャッシュでの LINQ クエリ
 
 ここでは、メソッドが呼び出されるたびに、実行時に新しい CompiledQuery インスタンスを作成するは。 クエリのプラン キャッシュからのストア コマンドを取得することによってパフォーマンス上の利点を確認するのではなくは新しいインスタンスが作成されるたびに、CompiledQuery はプラン コンパイラを移動します。 実際には、するが汚染 CompiledQuery の新しいエントリで、クエリ プランのキャッシュ、メソッドが呼び出されるたびにします。
 
-代わりに、メソッドが呼び出されるたびに、同じコンパイル済みクエリを呼び出すために、コンパイル済みのクエリの静的インスタンスを作成します。 1 つの方法にこれは、オブジェクト コンテキストのメンバーとして追加すると、CompiledQuery インスタンス。  行うことができますし、モ ノほとんど明確になり、CompiledQuery にアクセスするヘルパー メソッドを使用しています。
+代わりに、メソッドが呼び出されるたびに、同じコンパイル済みクエリを呼び出すために、コンパイル済みのクエリの静的インスタンスを作成します。 1 つの方法にこれは、オブジェクト コンテキストのメンバーとして追加すると、CompiledQuery インスタンス。  行うことができますし、モ ノほとんど明確になり、CompiledQuery にアクセスするヘルパー メソッドを使用しています。
 
 ``` csharp
     public partial class NorthwindEntities : ObjectContext
@@ -311,10 +311,10 @@ CompiledQuery が本当にそのプランがキャッシュでの LINQ クエリ
 このヘルパー メソッドには、次のように呼び出されます。
 
 ``` csharp
-    this.productsGrid.DataSource = context.GetProductsForCategory(selectedCategory);
+    this.productsGrid.DataSource = context.GetProductsForCategory(selectedCategory);
 ```
 
-#### <a name="332-------composing-over-a-compiledquery"></a>3.3.2 を CompiledQuery 経由で作成します。
+#### <a name="332-composing-over-a-compiledquery"></a>3.3.2 を CompiledQuery 経由で作成します。
 
 任意の LINQ クエリを作成する機能は非常に便利です。これを行うには、単にメソッドを呼び出す対象の IQueryable 後など*Skip()* または*Count()* します。 ただし、これは基本的には、新しい IQueryable オブジェクトを返します。 CompiledQuery 経由での作成から技術的には停止するにはありませんが、新しい IQueryable オブジェクトの生成は原因はプラン コンパイラを通るをもう一度必要です。
 
@@ -345,7 +345,7 @@ Customer Advisory Team はこれで、「潜在的なパフォーマンスの問
     }
 ```
 
- この再コンパイルを避けるためには、可能なフィルターを考慮に入れてに CompiledQuery を書き直すことができます。
+ この再コンパイルを避けるためには、可能なフィルターを考慮に入れてに CompiledQuery を書き直すことができます。
 
 ``` csharp
     private static readonly Func<NorthwindEntities, int, int?, string, IQueryable<Customer>> customersForEmployeeWithFiltersCQ = CompiledQuery.Compile(
@@ -377,7 +377,7 @@ Customer Advisory Team はこれで、「潜在的なパフォーマンスの問
     }
 ```
 
- ここでのトレードオフがある、生成されるストア コマンドは、null チェックでフィルターを常にこれらを最適化するには、データベース サーバーの非常に単純にする必要があります。
+ ここでのトレードオフがある、生成されるストア コマンドは、null チェックでフィルターを常にこれらを最適化するには、データベース サーバーの非常に単純にする必要があります。
 
 ``` SQL
 ...
@@ -572,7 +572,7 @@ using (var context = new MyContext())
 
 ### <a name="51-disabling-change-tracking-to-reduce-state-management-overhead"></a>5.1 には、状態管理のオーバーヘッドを削減する変更追跡が無効にします。
 
-読み取り専用のシナリオには、し、ObjectStateManager にオブジェクトの読み込みのオーバーヘッドを回避する場合は、「No 追跡」クエリを発行できます。  クエリ レベルでは、変更の追跡を無効にすることができます。
+読み取り専用のシナリオには、し、ObjectStateManager にオブジェクトの読み込みのオーバーヘッドを回避する場合は、「No 追跡」クエリを発行できます。  クエリ レベルでは、変更の追跡を無効にすることができます。
 
 ただし、変更の追跡を無効にすると、効果的に変えることオブジェクトのキャッシュをオフにしてください。 エンティティのクエリを実行するときは、ObjectStateManager から既に具体化されたクエリの結果を取得することによって結果の具体化をスキップすることはできません。 繰り返し同じコンテキストで同じエンティティのクエリを実行する場合は、変更の追跡を有効化のメリットのパフォーマンスを実際に見ることがあります。
 
@@ -610,7 +610,7 @@ ObjectContext を使用してクエリを実行するときに、ObjectQuery お
                                 select p;
 ```
 
-### <a name="52-test-metrics-demonstrating-the-performance-benefit-of-notracking-queries"></a>5.2 NoTracking クエリのパフォーマンスの利点を示すメトリックをテストします。
+### <a name="52test-metrics-demonstrating-the-performance-benefit-of-notracking-queries"></a>5.2 NoTracking クエリのパフォーマンスの利点を示すメトリックをテストします。
 
 このテストで Navision モデルに対するクエリを NoTracking する追跡を比較することによって、ObjectStateManager の入力が注目します。 Navision モデルと実行されたクエリの種類の説明については、付録を参照してください。 このテストでは、クエリのリストを反復処理し、それぞれを 1 回実行します。 "AppendOnly"の既定のマージ オプションを使用し、テスト、NoTracking クエリが 1 回に 1 回の 2 つのバリエーションをしました。 各バリエーションを 3 回実行し、実行の平均値を取得します。 テスト間は SQL Server でクエリ キャッシュをクリアし、次のコマンドを実行して、tempdb の圧縮します。
 
@@ -643,7 +643,7 @@ Entity Framework では、クエリをいくつかの方法を提供します。
 -   SqlQuery します。
 -   CompiledQuery します。
 
-### <a name="61-------linq-to-entities-queries"></a>6.1 LINQ to Entities クエリ
+### <a name="61-linq-to-entities-queries"></a>6.1 LINQ to Entities クエリ
 
 ``` csharp
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
@@ -662,7 +662,7 @@ var q = context.Products.Where(p => p.Category.CategoryName == "Beverages");
     -   OUTER JOIN クエリ DefaultIfEmpty の使用パターンは、Entity SQL での単純な OUTER JOIN ステートメントよりも複雑なクエリで発生します。
     -   使用できない場合が一般的なパターンに一致するような。
 
-### <a name="62-------no-tracking-linq-to-entities-queries"></a>6.2 なしの追跡 LINQ to Entities クエリ
+### <a name="62-no-tracking-linq-to-entities-queries"></a>6.2 なしの追跡 LINQ to Entities クエリ
 
 ときに、コンテキストは、ObjectContext を派生します。
 
@@ -699,7 +699,7 @@ var q = context.Products.Where(p => p.Category.CategoryName == "Beverages").Sele
 
 この特定のクエリの NoTracking、されているが明示的に指定しますが、いない具体化することがあるため、型が知られているオブジェクトの状態マネージャーから具体化された結果は追跡されません。
 
-### <a name="63-------entity-sql-over-an-objectquery"></a>6.3 entity SQL で ObjectQuery
+### <a name="63-entity-sql-over-an-objectquery"></a>6.3 entity SQL で ObjectQuery
 
 ``` csharp
 ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName = 'Beverages'");
@@ -715,7 +715,7 @@ ObjectQuery<Product> products = context.Products.Where("it.Category.CategoryName
 
 -   ユーザー エラーよりやすい言語に組み込まれているクエリの構造はテキスト形式のクエリ文字列が含まれます。
 
-### <a name="64-------entity-sql-over-an-entity-command"></a>6.4 エンティティ、エンティティ コマンド経由で SQL
+### <a name="64-entity-sql-over-an-entity-command"></a>6.4 エンティティ、エンティティ コマンド経由で SQL
 
 ``` csharp
 EntityCommand cmd = eConn.CreateCommand();
@@ -740,7 +740,7 @@ using (EntityDataReader reader = cmd.ExecuteReader(CommandBehavior.SequentialAcc
 -   CUD 操作には適していません。
 -   結果は自動的に具体化されていないと、データ リーダーから読み取る必要があります。
 
-### <a name="65-------sqlquery-and-executestorequery"></a>6.5 SqlQuery と ExecuteStoreQuery
+### <a name="65-sqlquery-and-executestorequery"></a>6.5 SqlQuery と ExecuteStoreQuery
 
 データベースで SqlQuery:
 
@@ -778,7 +778,7 @@ var beverages = context.ExecuteStoreQuery<Product>(
 -   クエリは、概念のセマンティクスではなく、ストア セマンティクスを使用して、特定のバックエンドに関連付けられます。
 -   継承が存在する場合は、手動作成したクエリは、要求された型のマッピングの条件を考慮する必要があります。
 
-### <a name="66-------compiledquery"></a>6.6 CompiledQuery
+### <a name="66-compiledquery"></a>6.6 CompiledQuery
 
 ``` csharp
 private static readonly Func<NorthwindEntities, string, IQueryable<Product>> productsForCategoryCQ = CompiledQuery.Compile(
@@ -801,7 +801,7 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 -   パフォーマンスの向上は、コンパイル済みクエリ上に作成するときに失われます。
 -   CompiledQuery - 匿名型のプロジェクションなどとしては、いくつかの LINQ クエリを記述することはできません。
 
-### <a name="67-------performance-comparison-of-different-query-options"></a>6.7 別のクエリ オプションのパフォーマンス比較
+### <a name="67-performance-comparison-of-different-query-options"></a>6.7 別のクエリ オプションのパフォーマンス比較
 
 テストにコンテキストの作成がタイムアウトしたいない単純な microbenchmarks に配置されています。 一連の管理された環境でのエンティティの非キャッシュの 5000 回のクエリを測定しました。 これらの数値が警告を実行するには: アプリケーションによって生成された実際の数値は反映されませんが、どれだけが異なるクエリのオプションを比較するとパフォーマンスの違いの非常に正確な測定では代わりに-公正、新しいコンテキストを作成するコストを除外します。
 
@@ -863,7 +863,7 @@ Microbenchmarks は非常に重視するコードに小さな変更です。 Ent
 
 ## <a name="7-design-time-performance-considerations"></a>7 の設計時のパフォーマンスの考慮事項
 
-### <a name="71-------inheritance-strategies"></a>7.1 の継承方法
+### <a name="71-inheritance-strategies"></a>7.1 の継承方法
 
 別のパフォーマンスの考慮事項 Entity Framework を使用する場合は、使用する継承戦略です。 Entity Framework には、3 の基本的な種類の継承とそれらの組み合わせがサポートされています。
 
@@ -871,11 +871,11 @@ Microbenchmarks は非常に重視するコードに小さな変更です。 Ent
 -   テーブルごとの種類 (TPT) – それぞれの種類がデータベースでは、独自のテーブルを持ちます子テーブルは、親テーブルが含まれていない列を定義するだけです。
 -   テーブルあたりクラス (TPC) – それぞれの種類がデータベースでは、独自の完全なテーブルを持ちます子テーブルでは、親の型で定義されているものも含め、すべてのフィールドを定義します。
 
-モデルは、TPT 継承を使用している場合、生成されたクエリは、他の継承方法、ストアの実行時間が長いになる可能性がありますで生成されるよりも複雑になります。  一般的に時間がかかります、TPT モデルに対するクエリを生成して、結果のオブジェクトを具体化します。
+モデルは、TPT 継承を使用している場合、生成されたクエリは、他の継承方法、ストアの実行時間が長いになる可能性がありますで生成されるよりも複雑になります。  一般的に時間がかかります、TPT モデルに対するクエリを生成して、結果のオブジェクトを具体化します。
 
 「パフォーマンスの考慮事項 (テーブルの種類ごと) TPT 継承を Entity Framework を使用する場合"を参照してください。 MSDN ブログの投稿: \<http://blogs.msdn.com/b/adonet/archive/2010/08/17/performance-considerations-when-using-tpt-table-per-type-inheritance-in-the-entity-framework.aspx>します。
 
-#### <a name="711-------avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 Model First または Code First アプリケーションで TPT の回避
+#### <a name="711-avoiding-tpt-in-model-first-or-code-first-applications"></a>7.1.1 Model First または Code First アプリケーションで TPT の回避
 
 TPT スキーマを持つ既存のデータベース上にモデルを作成するときに、多くのオプションがありません。 Model First または Code First を使用してアプリケーションを作成する場合は、TPT 継承のパフォーマンスの問題を避ける必要があります。
 
@@ -883,7 +883,7 @@ TPT スキーマを持つ既存のデータベース上にモデルを作成す�
 
 Code First を使用して継承でモデルのマッピングを構成する場合は、EF は、TPH を使用して既定では、ため、継承階層内のすべてのエンティティに同じテーブルにマップされます。 MSDN マガジンで「コード最初エンティティ Framework4.1 をでいます」記事の"マッピングに Fluent API"を参照してください ( [ http://msdn.microsoft.com/magazine/hh126815.aspx ](https://msdn.microsoft.com/magazine/hh126815.aspx)) の詳細。
 
-### <a name="72-------upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 は、モデルの生成を向上させるために EF4 からアップグレードする時間
+### <a name="72-upgrading-from-ef4-to-improve-model-generation-time"></a>7.2 は、モデルの生成を向上させるために EF4 からアップグレードする時間
 
 モデルのストア層 (SSDL) を生成するアルゴリズムに SQL Server に固有の向上は、Visual Studio 2010 SP1 がインストールされているときに Entity Framework 4 への更新および Entity Framework 5 および 6 で利用できます。 次のテスト結果は場合 Navision モデルはこれで、非常に大きなモデルを生成するときに、向上を示します。 詳細については、付録 C を参照してください。
 
@@ -899,13 +899,13 @@ Code First を使用して継承でモデルのマッピングを構成する場
 
 SSDL を生成するときに、負荷がほぼ完全で消費 SQL Server では、クライアントの開発用コンピューターが待機している間に注目すべきアイドル状態が、サーバーから返される結果。 Dba は、この機能強化を特に感謝する必要があります。 行われるビューの生成でを今すぐコストは、モデルの生成の本質的には全体の注目すべきです。
 
-### <a name="73-------splitting-large-models-with-database-first-and-model-first"></a>7.3 データベースでの大規模なモデルを最初に分割して、最初のモデル
+### <a name="73-splitting-large-models-with-database-first-and-model-first"></a>7.3 データベースでの大規模なモデルを最初に分割して、最初のモデル
 
 モデルのサイズの増大に合わせて、デザイナー画面が乱雑および使用するが困難になります。 ここには、300 を超えるエンティティを効果的にデザイナーを使用するには大きすぎると、モデル通常検討してください。 次のブログの投稿が大規模なモデルを分割するためのいくつかのオプションについて説明します。 \<http://blogs.msdn.com/b/adonet/archive/2008/11/25/working-with-large-models-in-entity-framework-part-2.aspx>します。
 
 投稿は、Entity Framework の最初のバージョンとして記述されましたが、手順が引き続き適用されます。
 
-### <a name="74-------performance-considerations-with-the-entity-data-source-control"></a>7.4 エンティティのデータ ソース コントロールにのパフォーマンスに関する考慮事項
+### <a name="74-performance-considerations-with-the-entity-data-source-control"></a>7.4 エンティティのデータ ソース コントロールにのパフォーマンスに関する考慮事項
 
 EntityDataSource コントロールを使用して web アプリケーションのパフォーマンスが大幅に低下マルチ スレッドのパフォーマンスとストレス テスト内のケースを説明しました。 基になる原因は、EntityDataSource は、エンティティとして使用する種類を検出する Web アプリケーションによって参照されるアセンブリの MetadataWorkspace.LoadFromAssembly を繰り返し呼び出します。
 
@@ -913,7 +913,7 @@ EntityDataSource コントロールを使用して web アプリケーション�
 
 今回は ContextTypeName フィールドを設定すると、リフレクションを使用してアセンブリから型を読み込めない場合に、.NET 4.0 で EntityDataSource が ReflectionTypeLoadException をスローする場所、機能の問題も回避されます。 この問題は .NET 4.5 で修正されました。
 
-### <a name="75-------poco-entities-and-change-tracking-proxies"></a>POCO エンティティと変更追跡プロキシを 7.5
+### <a name="75-poco-entities-and-change-tracking-proxies"></a>POCO エンティティと変更追跡プロキシを 7.5
 
 Entity Framework では、データ クラス自体に変更を加えずに、データ モデルと共にカスタム データ クラスを使用することができます。 つまり、既存のドメイン オブジェクトなどの POCO ("plain-old" CLR object) をデータ モデルで使用できます。 同じクエリのほとんどをサポートして挿入、更新、および Entity Data Model ツールによって生成されるエンティティ型としての動作を削除にデータ モデルで定義されているエンティティにマップされます、こうした POCO データ クラス (永続化非依存オブジェクトとも呼ばれます)。
 
@@ -1089,7 +1089,7 @@ WHERE [Extent1].[CustomerID] = @EntityKeyValue1',N'@EntityKeyValue1 nchar(5)',@E
 | データベースから遠く離れた、コードを実行しますか。 (強化されたネットワークの待機時間)  | **いいえ**ネットワーク待機時間は、問題がない場合 - 遅延読み込みを使用すると、コードが簡略化されます。 アプリケーションのトポロジが変わったり、当たり前のデータベースの近接性を使用しないように注意してください。 <br/> <br/> **[はい]** - ネットワークには、問題があるシナリオより適切に合ったものを決定できます専用です。 通常より少ないラウンド トリップを必要とするため、一括読み込みは改善されます。                                                                                                                                                                                                      |
 
 
-#### <a name="822-------performance-concerns-with-multiple-includes"></a>8.2.2 複数含むパフォーマンスの問題
+#### <a name="822-performance-concerns-with-multiple-includes"></a>8.2.2 複数含むパフォーマンスの問題
 
 サーバー応答時間に関する問題に関連するパフォーマンスに関する質問を聞くことと、問題の原因が頻繁に複数の Include ステートメントを使用したクエリにします。 関連エンティティを含むクエリでは、強力なは、内部で何が起こっているかを理解する必要があります。
 
@@ -1147,7 +1147,7 @@ using (NorthwindEntities context = new NorthwindEntities())
 
 ## <a name="9-other-considerations"></a>9 他の考慮事項
 
-### <a name="91------server-garbage-collection"></a>9.1 サーバーのガベージ コレクション
+### <a name="91-server-garbage-collection"></a>9.1 サーバーのガベージ コレクション
 
 一部のユーザー、ガベージ コレクターが正しく構成されていない場合に予想されるは、並列処理を制限するリソースの競合が発生する可能性があります。 EF がマルチ スレッドのシナリオで使用されるか、サーバー側のシステムのような任意のアプリケーションで、必ずサーバーのガベージ コレクションを有効にします。 これは、アプリケーション構成ファイルの簡単な設定を使用して行います。
 
@@ -1162,7 +1162,7 @@ using (NorthwindEntities context = new NorthwindEntities())
 
 スレッドの競合を減らすし、CPU が飽和状態のシナリオで最大 30% してスループットを増やすこのする必要があります。 一般的な用語では、常に、アプリケーションの動作 (これはより適切な UI とクライアント側のシナリオ) クラシックのガベージ コレクションを使用してサーバーのガベージ コレクションとをテストする必要があります。
 
-### <a name="92------autodetectchanges"></a>9.2 AutoDetectChanges
+### <a name="92-autodetectchanges"></a>9.2 AutoDetectChanges
 
 前述のように、Entity Framework はオブジェクト キャッシュに多数のエンティティがある場合にパフォーマンスの問題を表示可能性があります。 追加、削除、検索、エントリおよび SaveChanges などの特定の操作では、大量のオブジェクト キャッシュにどのくらいなったに基づいて CPU を消費する可能性があります DetectChanges への呼び出しをトリガーします。 この理由は、オブジェクト キャッシュとオブジェクトの状態マネージャーとして常にお試しがコンテキストに実行されるので、生成されたデータのさまざまなシナリオで正しいことが保証されて操作のたびにできるだけ同期されたことです。
 
@@ -1183,11 +1183,11 @@ finally
 
 AutoDetectChanges を切る前に、Entity Framework エンティティで実行されている変更に関する特定の情報を追跡するには、その機能が失われる可能性を理解することをお勧めします。 正しく処理されない場合、アプリケーションでデータの不整合が発生する可能性があります。 AutoDetectChanges をオフにする詳細については、読み取る\<http://blog.oneunicorn.com/2012/03/12/secrets-of-detectchanges-part-3-switching-off-automatic-detectchanges/>します。
 
-### <a name="93------context-per-request"></a>9.3 要求ごとのコンテキスト
+### <a name="93-context-per-request"></a>9.3 要求ごとのコンテキスト
 
 Entity Framework のコンテキストは、発生する最適なパフォーマンスを提供するために有効期間が短いインスタンスとして使用するものです。 コンテキストが短くなると予想される有効期間し、破棄されるので、そのため、reutilize 可能であれば、メタデータと非常に軽量な実装されているとします。 Web シナリオでは、この点に注意しないコンテキストを持っている 1 つの要求の期間より多くの重要なは。 同様に、web 以外のシナリオでコンテキストを破棄する Entity Framework でのキャッシュのさまざまなレベルの理解に基づいて。 一般に、アプリケーションだけでなく、1 つのスレッドのコンテキストと静的コンテキストの有効期間にわたってコンテキスト インスタンスを持つ 1 つは避ける必要があります。
 
-### <a name="94------database-null-semantics"></a>9.4 データベースの null セマンティクス
+### <a name="94-database-null-semantics"></a>9.4 データベースの null セマンティクス
 
 既定では、entity Framework では、C が SQL コードを生成します。\#比較セマンティクスは null です。 次のクエリ例を検討してください。
 
@@ -1224,18 +1224,18 @@ Entity Framework のコンテキストは、発生する最適なパフォーマ
 
 上記の例のクエリでは、パフォーマンスの違いは、制御された環境内で実行されている microbenchmark で 2% より小さいをでした。
 
-### <a name="95------async"></a>9.5 非同期
+### <a name="95-async"></a>9.5 非同期
 
 Entity Framework 6 が導入された .NET 4.5 以降を実行しているときに、非同期操作をサポートします。 IO を持つアプリケーションが競合に関連するほとんどの場合、保存操作と非同期クエリを使用して、最もメリットが。 場合の IO の競合は、アプリケーションの低下がない、非同期は、最適な場合、同期的に実行しまたは最悪の場合の同期呼び出しと同じ量では、結果を返す、単にする非同期タスクの実行を遅らせるおよび使用余分な tim を追加自分のシナリオを完了する電子メール。
 
 非同期のプログラミング作業に役立つかどうかも、非同期には、アプリケーションのパフォーマンスは向上を決定するアクセスについて[ http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx)します。 Entity Framework での非同期操作の使用に関する詳細については、次を参照してください。[非同期クエリと保存](~/ef6/fundamentals/async.md
 )します。
 
-### <a name="96------ngen"></a>9.6 NGEN
+### <a name="96-ngen"></a>9.6 NGEN
 
 Entity Framework 6 には、.NET framework の既定のインストールにはなりません。 そのため、Entity Framework のアセンブリは NGEN が既定ですべての Entity Framework コードが他の任意の MSIL アセンブリとして同じ JIT'ing コストの対象であることを意味するの。 これにより、開発と運用環境でアプリケーションのコールド起動も中に、f5 キーを押してエクスペリエンスが低下する可能性があります。 JIT'ing の CPU とメモリのコストを削減するために、適切なイメージを Entity Framework ngen ことをお勧めします。 アセンブリを NGEN で Entity Framework 6 の起動時のパフォーマンスを向上させる方法の詳細については、次を参照してください。[アセンブリを NGen で起動時のパフォーマンスを向上させる](~/ef6/fundamentals/performance/ngen.md)します。
 
-### <a name="97------code-first-versus-edmx"></a>9.7 は code First と EDMX
+### <a name="97-code-first-versus-edmx"></a>9.7 は code First と EDMX
 
 オブジェクト指向プログラミングと概念モデル (オブジェクト)、ストレージ スキーマ (データベース) との間のマッピングのメモリ内表現することでリレーショナル データベースの間のインピー ダンス ミスマッチ喰いについてエンティティ フレームワークの理由から、2 つです。 このメタデータには、エンティティ データ モデル、または EDM を短いと呼ばれます。 この EDM では、Entity Framework はラウンドト リップのデータをデータベースにメモリ内のオブジェクトから派生して、ビューと、バックアップを作成します。
 
@@ -1251,11 +1251,11 @@ Code First と EDMX を使用するかは、Code First によって導入され�
 
 Entity Framework のパフォーマンスの問題が発生した場合は、アプリケーションは、時間を費やしている場所を表示する Visual Studio に組み込まれているようにプロファイラーを使用できます。 これは、ツールの「ADO.NET Entity Framework - パート 1 のパフォーマンスを探索」ブログの投稿で円グラフを生成するために使用します ( \<http://blogs.msdn.com/b/adonet/archive/2008/02/04/exploring-the-performance-of-the-ado-net-entity-framework-part-1.aspx>) Entity Framework がコールドとウォームのクエリ中に、時間を費やすを表示します。
 
-データとモデリングの Customer Advisory Team によって書き込まれた"プロファイルの Entity Framework が Visual Studio 2010 Profiler を使用して"ブログの投稿では、パフォーマンスの問題を調査するプロファイラーを使用する方法の実際の例を示します。  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>. この投稿は、windows アプリケーション用に記述されています。 Web アプリケーションをプロファイリングする必要がある場合、Windows Performance Recorder (WPR) と Windows パフォーマンス アナライザー (WPA) ツールが Visual Studio からの作業よりも優れた動作する可能性があります。 Windows アセスメントおよびデプロイメント キットに含まれており、Windows パフォーマンス ツールキットの一部である WPR および WPA ( [ http://www.microsoft.com/en-US/download/details.aspx?id=39982 ](https://www.microsoft.com/en-US/download/details.aspx?id=39982))。
+データとモデリングの Customer Advisory Team によって書き込まれた"プロファイルの Entity Framework が Visual Studio 2010 Profiler を使用して"ブログの投稿では、パフォーマンスの問題を調査するプロファイラーを使用する方法の実際の例を示します。  \<http://blogs.msdn.com/b/dmcat/archive/2010/04/30/profiling-entity-framework-using-the-visual-studio-2010-profiler.aspx>。 この投稿は、windows アプリケーション用に記述されています。 Web アプリケーションをプロファイリングする必要がある場合、Windows Performance Recorder (WPR) と Windows パフォーマンス アナライザー (WPA) ツールが Visual Studio からの作業よりも優れた動作する可能性があります。 Windows アセスメントおよびデプロイメント キットに含まれており、Windows パフォーマンス ツールキットの一部である WPR および WPA ( [ http://www.microsoft.com/download/details.aspx?id=39982 ](https://www.microsoft.com/download/details.aspx?id=39982))。
 
 ### <a name="102-applicationdatabase-profiling"></a>10.2 データベース/アプリケーションのプロファイリング
 
-Visual Studio に組み込まれているプロファイラーなどのツールは、アプリケーションが時間を費やす場所を伝えます。  プロファイラーの別の型が使用可能な実稼働またはニーズに応じて、実稼働前に、実行中のアプリケーションの動的分析を実行し、よくある落とし穴とデータベースへのアクセスのアンチ パターンの検索をします。
+Visual Studio に組み込まれているプロファイラーなどのツールは、アプリケーションが時間を費やす場所を伝えます。  プロファイラーの別の型が使用可能な実稼働またはニーズに応じて、実稼働前に、実行中のアプリケーションの動的分析を実行し、よくある落とし穴とデータベースへのアクセスのアンチ パターンの検索をします。
 
 2 つの市販プロファイラーは、Entity Framework Profiler ( \<http://efprof.com>)と ORMProfiler ( \<http://ormprofiler.com>)します。
 
@@ -1298,9 +1298,9 @@ Entity Framework 6 を使用している場合も、組み込みのログ記録�
 
 この環境では、クライアント アプリケーションから別のコンピューター上のデータベースと 2 台のコンピューターのセットアップを使用します。 マシンは、ネットワーク待機時間が比較的低いが、1 台のコンピューター環境よりもより現実的なので、同じラックです。
 
-#### <a name="1111-------app-server"></a>11.1.1 アプリ サーバー
+#### <a name="1111-app-server"></a>11.1.1 アプリ サーバー
 
-##### <a name="11111------software-environment"></a>11.1.1.1 ソフトウェア環境
+##### <a name="11111-software-environment"></a>11.1.1.1 ソフトウェア環境
 
 -   Entity Framework 4 のソフトウェアの環境
     -   OS 名: Windows Server 2008 R2 Enterprise SP1。
@@ -1310,26 +1310,26 @@ Entity Framework 6 を使用している場合も、組み込みのログ記録�
     -   Windows 8.1 Enterprise の OS 名:
     -   Visual Studio 2013 – Ultimate。
 
-##### <a name="11112------hardware-environment"></a>11.1.1.2 ハードウェア環境
+##### <a name="11112-hardware-environment"></a>11.1.1.2 ハードウェア環境
 
 -   デュアル プロセッサ: @ 2.27 GHz intel (r) Xeon(R) CPU L5520 W3530、2261 Mhz8 GHz、4 個のコア、84 の論理プロセッサ。
 -   2412 GB RamRAM します。
 -   136 GB SCSI250GB SATA 7200 rpm 3 GB/秒、ドライブが 4 つのパーティションに分割します。
 
-#### <a name="1112-------db-server"></a>11.1.2 DB サーバー
+#### <a name="1112-db-server"></a>11.1.2 DB サーバー
 
-##### <a name="11121------software-environment"></a>11.1.2.1 ソフトウェア環境
+##### <a name="11121-software-environment"></a>11.1.2.1 ソフトウェア環境
 
 -   OS 名: Windows Server 2008 の R28.1 Enterprise SP1。
 -   SQL Server 2008 R22012 します。
 
-##### <a name="11122------hardware-environment"></a>11.1.2.2 ハードウェア環境
+##### <a name="11122-hardware-environment"></a>11.1.2.2 ハードウェア環境
 
 -   1 つのプロセッサ: intel (r) Xeon(R) CPU L5520 2.27 GHz、2261 MhzES-1620 0 @ 3.60 GHz、4 個のコア、8 の論理プロセッサ。
 -   824 GB RamRAM します。
 -   465 GB ATA500GB SATA 7200 rpm 6gb/s ドライブが 4 つのパーティションに分割します。
 
-### <a name="112------b-query-performance-comparison-tests"></a>11.2 B. クエリのパフォーマンス比較テスト
+### <a name="112-b-query-performance-comparison-tests"></a>11.2 B. クエリのパフォーマンス比較テスト
 
 Northwind モデルは、これらのテストの実行に使用されました。 これは、Entity Framework デザイナーを使用してデータベースから生成されました。 次に、次のコードは、クエリの実行オプションのパフォーマンスを比較に使用しました。
 
@@ -1519,7 +1519,7 @@ Navision モデルで使用するクエリの一覧には、Entity SQL クエリ
   </Query>
 ```
 
-##### <a name="11312-singleaggregating"></a>11.3.1.2 SingleAggregating
+##### <a name="11312singleaggregating"></a>11.3.1.2 SingleAggregating
 
 通常の BI クエリで複数の集計がない小計 (1 つのクエリ)
 
@@ -1540,7 +1540,7 @@ Navision モデルで使用するクエリの一覧には、Entity SQL クエリ
   </Function>
 ```
 
-##### <a name="11313-aggregatingsubtotals"></a>11.3.1.3 AggregatingSubtotals
+##### <a name="11313aggregatingsubtotals"></a>11.3.1.3 AggregatingSubtotals
 
 集計と集計 (すべての和集合) を使用して BI クエリ
 
