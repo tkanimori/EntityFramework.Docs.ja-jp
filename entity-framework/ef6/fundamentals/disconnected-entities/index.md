@@ -3,21 +3,21 @@ title: 接続解除エンティティの使用 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
-ms.openlocfilehash: beb3847ce507a2112ac0d396a2023c7c4e2fca7d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 11ca2a9a4161e02d32d98bf03dd4cf28545334b7
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489935"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022172"
 ---
 # <a name="working-with-disconnected-entities"></a>接続解除エンティティの使用
 Entity Framework ベースのアプリケーションでは、追跡しているエンティティに適用された変更はコンテキスト クラスが検出します。 SaveChanges メソッドを呼び出すと、コンテキストによって追跡された変更がデータベースに永続化されます。 n 層アプリケーションを使用する場合、エンティティ オブジェクトはコンテキストから切り離されるときに通常変更され、変更を追跡する方法およびそれらの変更をコンテキストにレポートする方法を決定する必要があります。 このトピックでは、Entity Framework で接続解除エンティティを使用するときに使用できるさまざまなオプションについて説明します。   
 
 ## <a name="web-service-frameworks"></a>Web サービス フレームワーク
 
-Web サービス テクノロジでは、個々の接続解除オブジェクトの変更の永続化に使用できるパターンを通常サポートしています。 たとえば、ASP.NET Web API では、データベース上のオブジェクトへの変更を永続化できる EF に対する呼び出しを含めることができるコントローラー アクションをコーディングできます。 実際、Visual Studio の Web API ツールでは、Entity Framework 6 モデルから Web API コントローラーを容易にスキャフォールディングできます。 詳細については、「[Using Web API with Entity Framework 6](https://docs.microsoft.com/en-us/aspnet/web-api/overview/data/using-web-api-with-entity-framework/)」 (Entity Framework 6 での Web API の使用) を参照してください。   
+Web サービス テクノロジでは、個々の接続解除オブジェクトの変更の永続化に使用できるパターンを通常サポートしています。 たとえば、ASP.NET Web API では、データベース上のオブジェクトへの変更を永続化できる EF に対する呼び出しを含めることができるコントローラー アクションをコーディングできます。 実際、Visual Studio の Web API ツールでは、Entity Framework 6 モデルから Web API コントローラーを容易にスキャフォールディングできます。 詳細については、「[Using Web API with Entity Framework 6](https://docs.microsoft.com/aspnet/web-api/overview/data/using-web-api-with-entity-framework/)」 (Entity Framework 6 での Web API の使用) を参照してください。   
 
-今までには、[WCF Data Services](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) や [RIA Services](https://docs.microsoft.com/en-us/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)) など、Entity Framework に統合できる Web サービス テクノロジが他にもいくつかありました。
+今までには、[WCF Data Services](https://docs.microsoft.com/dotnet/framework/data/wcf/create-a-data-service-using-an-adonet-ef-data-wcf) や [RIA Services](https://docs.microsoft.com/previous-versions/dotnet/wcf-ria/ee707344(v=vs.91)) など、Entity Framework に統合できる Web サービス テクノロジが他にもいくつかありました。
 
 ## <a name="low-level-ef-apis"></a>下位レベルの EF の API
 

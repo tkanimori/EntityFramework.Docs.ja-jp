@@ -3,12 +3,12 @@ title: Entity Framework プロバイダー - EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
-ms.openlocfilehash: c9afb32caeeef5111b32251c62019460b62f48b3
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 0cfe6c30d6533b0207f78a031d342847a7f68632
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489441"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022224"
 ---
 # <a name="entity-framework-6-providers"></a>Entity Framework 6 プロバイダー
 > [!NOTE]
@@ -68,7 +68,7 @@ app.config または web.config での EF プロバイダーの登録には、�
 
 ### <a name="code-based-registration"></a>コード ベースの登録
 
-Entity Framework 6 以降では、EF のアプリケーション全体の構成をコードで指定できます。 詳細については、「_[Entity Framework - コード ベースの構成](https://msdn.microsoft.com/en-us/data/jj680699)_」を参照してください。 コード ベースの構成を使用して、EF プロバイダーを登録する通常の方法では、System.Data.Entity.DbConfiguration から派生する新しいクラスを作成し、DbContext クラスと同じアセンブリ内にそれを配置します。 その後で、DbConfiguration クラスが、そのコンストラクターでプロバイダーを登録する必要があります。 たとえば、SQL Compact プロバイダーを登録するための DbConfiguration クラスは次のようになります。
+Entity Framework 6 以降では、EF のアプリケーション全体の構成をコードで指定できます。 詳細については、「_[Entity Framework - コード ベースの構成](https://msdn.microsoft.com/data/jj680699)_」を参照してください。 コード ベースの構成を使用して、EF プロバイダーを登録する通常の方法では、System.Data.Entity.DbConfiguration から派生する新しいクラスを作成し、DbContext クラスと同じアセンブリ内にそれを配置します。 その後で、DbConfiguration クラスが、そのコンストラクターでプロバイダーを登録する必要があります。 たとえば、SQL Compact プロバイダーを登録するための DbConfiguration クラスは次のようになります。
 
 ``` csharp
     public class MyConfiguration : DbConfiguration

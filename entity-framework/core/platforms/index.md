@@ -3,12 +3,12 @@ title: サポートされている .NET 実装 - EF Core
 author: rowanmiller
 ms.date: 08/30/2017
 uid: core/platforms/index
-ms.openlocfilehash: 347965818f0eab9a86411f66eaaf10cb3aa8d652
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 8fc25f4a35794162c92fd292990c24e977d1bf1b
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996439"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022263"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>EF Core でサポートされている .NET 実装
 
@@ -41,7 +41,7 @@ UWP で EF Core を使用する場合:
 
 * クエリのパフォーマンスを最適化するには、LINQ クエリで匿名型を回避します。 UWP アプリケーションをアプリ ストアに配置するには、アプリケーションを .NET ネイティブでコンパイルする必要があります。 匿名型のクエリは、.NET ネイティブではパフォーマンスが低下します。
 
-* `SaveChanges()` のパフォーマンスを最適化するには、[ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) を使用し、エンティティ型で [INotifyPropertyChanged](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanged.aspx)、[INotifyPropertyChanging](https://msdn.microsoft.com/en-us/library/system.componentmodel.inotifypropertychanging.aspx)、[INotifyCollectionChanged](https://msdn.microsoft.com/en-us/library/system.collections.specialized.inotifycollectionchanged.aspx) を実装します。
+* `SaveChanges()` のパフォーマンスを最適化するには、[ChangeTrackingStrategy.ChangingAndChangedNotifications](/dotnet/api/microsoft.entityframeworkcore.changetrackingstrategy) を使用し、エンティティ型で [INotifyPropertyChanged](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanged.aspx)、[INotifyPropertyChanging](https://msdn.microsoft.com/library/system.componentmodel.inotifypropertychanging.aspx)、[INotifyCollectionChanged](https://msdn.microsoft.com/library/system.collections.specialized.inotifycollectionchanged.aspx) を実装します。
 
 ## <a name="report-issues"></a>問題のレポート
 

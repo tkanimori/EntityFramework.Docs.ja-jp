@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 8568f0a3c6c4585c4fe05508fd610614107c8f66
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 0f9f0d4708fa283855eddf2cfc231b37356e413e
+ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315647"
+ms.lasthandoff: 10/25/2018
+ms.locfileid: "50022351"
 ---
 # <a name="compare-ef-core--ef6"></a>EF Core と EF6 を比較する
 
@@ -73,7 +73,7 @@ EF Core 列には、この機能が初めて登場した製品のバージョン
 
 ### <a name="querying-data"></a>データのクエリ
 
-| **機能                                             | **EF6**  | **EF Core**                           |
+| **機能**                                           | **EF6**  | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | LINQ クエリ                                          | [はい]      | 1.0 (複雑なクエリで進行中) |
 | 読み取り可能な SQL の生成                                | 悪い     | 1                                   |
@@ -147,7 +147,7 @@ EF Core 列には、この機能が初めて登場した製品のバージョン
 ## <a name="guidance-for-new-applications"></a>新しいアプリケーションのガイダンス
 
 次の条件の両方に該当する場合、新しいアプリケーションには EF Core の使用を検討してください。
-* アプリでは .NET Core の機能が必要とされています。 詳細については、「[サーバー アプリ用 .NET Core と .NET Framework の選択](https://docs.microsoft.com/en-us/dotnet/standard/choosing-core-framework-server)」を参照してください。
+* アプリでは .NET Core の機能が必要とされています。 詳細については、「[サーバー アプリ用 .NET Core と .NET Framework の選択](https://docs.microsoft.com/dotnet/standard/choosing-core-framework-server)」を参照してください。
 * EF Core では、そのアプリに必要な機能がすべてサポートされています。 必要な機能が不足している場合は、[EF Core ロードマップ](xref:core/what-is-new/roadmap)を調べて、今後その機能がサポートされる予定があるかどうかを確認します。 
 
 次の条件の両方に該当する場合、EF 6 の使用を検討してください。
