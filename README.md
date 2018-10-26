@@ -1,14 +1,11 @@
+## <a name="microsoft-open-source-code-of-conduct"></a>Microsoft オープン ソース倫理規定
 
-# Contributing
+このプロジェクトでは、[Microsoft オープン ソース倫理規定](https://opensource.microsoft.com/codeofconduct/)が採用されています。
+詳細については「[Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/)」(倫理規定 FAQ) を参照し、さらに疑問や意見がある場合は [opencode@microsoft.com](mailto:opencode@microsoft.com) にご連絡ください。
 
-This project welcomes contributions and suggestions.  Most contributions require you to agree to a
-Contributor License Agreement (CLA) declaring that you have the right to, and actually do, grant us
-the rights to use your contribution. For details, visit https://cla.microsoft.com.
+<a name="entity-framework-docs"></a>Entity Framework ドキュメント
+=====================
 
-When you submit a pull request, a CLA-bot will automatically determine whether you need to provide
-a CLA and decorate the PR appropriately (e.g., label, comment). Simply follow the instructions
-provided by the bot. You will only need to do this once across all repos using our CLA.
+このプロジェクトでは、[docs.microsoft.com/ef](https://docs.microsoft.com/ef/) のソースが提供されます。
 
-This project has adopted the [Microsoft Open Source Code of Conduct](https://opensource.microsoft.com/codeofconduct/).
-For more information see the [Code of Conduct FAQ](https://opensource.microsoft.com/codeofconduct/faq/) or
-contact [opencode@microsoft.com](mailto:opencode@microsoft.com) with any additional questions or comments.
+**プル要求を受け付けています。** ただし、プル要求を送信する前に[コントリビューションのガイドラインをお読みください](CONTRIBUTING.md)。ガイドラインには、ドキュメントのローカルでの構築方法に関する情報や、スタイルや構成に関するガイダンスが記載されています。
