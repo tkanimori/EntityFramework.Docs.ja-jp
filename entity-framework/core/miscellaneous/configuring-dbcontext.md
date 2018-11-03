@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 393349c05ffaf42c6d2520e73abce23def6becc0
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f5a9ae17471391442170d8c40264e4db6922cb08
+ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995939"
+ms.lasthandoff: 11/03/2018
+ms.locfileid: "50980003"
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext の構成
 
@@ -25,7 +25,7 @@ EF Core のデザイン時ツール[移行](xref:core/managing-schemas/migration
 
 `DbContext` インスタンスが必要`DbContextOptions`作業を実行するためにします。 `DbContextOptions`インスタンスなどの構成情報を実行します。
 
-- データベース プロバイダーを使用するには、通常などのメソッドを呼び出すことによって選択`UseSqlServer`または `UseSqlite`
+- データベース プロバイダーを使用するには、通常などのメソッドを呼び出すことによって選択`UseSqlServer`または`UseSqlite`します。 これらの拡張メソッドは、対応するプロバイダーのパッケージをなど必要`Microsoft.EntityFrameworkCore.SqlServer`または`Microsoft.EntityFrameworkCore.Sqlite`します。 メソッドが定義されている、`Microsoft.EntityFrameworkCore`名前空間。
 - 任意の必要な接続文字列またはデータベースのインスタンスの識別子通常に渡される引数として上記のように、プロバイダーの選択メソッド
 - 通常、プロバイダーの選択メソッドの呼び出しの内部でチェーンも、任意のプロバイダ レベルの省略可能な動作セレクター
 - 通常チェーン プロバイダー セレクター メソッドは前に、または後に、EF Core の一般的な動作セレクターで、

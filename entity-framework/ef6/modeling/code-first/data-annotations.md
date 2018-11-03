@@ -3,12 +3,12 @@ title: コードの最初のデータ注釈 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 54e27f1b866da14d68db66ca5eca5a6dde819e26
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: 8d85ef85f56a23d9b3b526554417dc9dd360e139
+ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415810"
+ms.lasthandoff: 11/03/2018
+ms.locfileid: "50980042"
 ---
 # <a name="code-first-data-annotations"></a>Code First のデータ注釈
 > [!NOTE]
@@ -30,26 +30,26 @@ Entity Framework Code First EF が、クエリを実行するに依存するモ�
 ``` csharp
     public class Blog
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public string BloggerName { get; set;}
-        public virtual ICollection<Post> Posts { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public string BloggerName { get; set;}
+        public virtual ICollection<Post> Posts { get; set; }
     }
 
     public class Post
     {
-        public int Id { get; set; }
-        public string Title { get; set; }
-        public DateTime DateCreated { get; set; }
-        public string Content { get; set; }
-        public int BlogId { get; set; }
-        public ICollection<Comment> Comments { get; set; }
+        public int Id { get; set; }
+        public string Title { get; set; }
+        public DateTime DateCreated { get; set; }
+        public string Content { get; set; }
+        public int BlogId { get; set; }
+        public ICollection<Comment> Comments { get; set; }
     }
 ```
 
 ブログや投稿クラスは簡単にコードの最初の規則に従うし、EF の互換性を有効にする調整は必要ありません。 ただし、EF にクラスおよびマップ先のデータベースについての詳細を提供するのに、注釈を使用することもできます。
 
- 
+ 
 
 ## <a name="key"></a>キー
 
@@ -60,11 +60,11 @@ Entity Framework は、エンティティの追跡に使用されるキーの値
 ``` csharp
     public class Blog
     {
-        [Key]
-        public int PrimaryTrackingKey { get; set; }
-        public string Title { get; set; }
-        public string BloggerName { get; set;}
-        public virtual ICollection<Post> Posts { get; set; }
+        [Key]
+        public int PrimaryTrackingKey { get; set; }
+        public string Title { get; set; }
+        public string BloggerName { get; set;}
+        public virtual ICollection<Post> Posts { get; set; }
     }
 ```
 
@@ -155,11 +155,11 @@ Title プロパティに必要な追加すると、プロパティは、これ�
 >[!NOTE]
 > 場合によっては、プロパティが必要な場合でも、null 非許容されるデータベース内の列の可能なないられます。 たとえば、TPH 継承の戦略のデータを複数の種類を使用してが格納されている場合、1 つのテーブル。 派生型に必要なプロパティが含まれている場合、列にできない null 非許容のこのプロパティは、階層内のすべての型であるためです。
 
- 
+ 
 
 ![テーブルなブログ](~/ef6/media/jj591583-figure03.png)
 
- 
+ 
 
 ## <a name="maxlength-and-minlength"></a>MaxLength、MinLength
 
@@ -187,7 +187,7 @@ MaxLength 注釈は、プロパティの長さを 10 に設定して、データ
 
 ![カスタム エラー メッセージの作成 ページ](~/ef6/media/jj591583-figure05.png)
 
- 
+ 
 
 ## <a name="notmapped"></a>NotMapped
 
@@ -204,7 +204,7 @@ MaxLength 注釈は、プロパティの長さを 10 に設定して、データ
     }
 ```
 
- 
+ 
 
 ## <a name="complextype"></a>ComplexType
 
@@ -215,12 +215,12 @@ MaxLength 注釈は、プロパティの長さを 10 に設定して、データ
     {
         public DateTime? DateCreated { get; set; }
 
-        [MaxLength(250)]
-        public string Description { get; set; }
+        [MaxLength(250)]
+        public string Description { get; set; }
     }
 ```
 
-BlogDetails にあらゆる種類のキー プロパティがないことに注意してください。 ドメイン駆動設計では、BlogDetails を値オブジェクトと呼びます。 Entity Framework は、複合型として値オブジェクトを参照します。  独自の複合型を追跡することはできません。
+BlogDetails にあらゆる種類のキー プロパティがないことに注意してください。 ドメイン駆動設計では、BlogDetails を値オブジェクトと呼びます。 Entity Framework は、複合型として値オブジェクトを参照します。  独自の複合型を追跡することはできません。
 
 ただしブログ クラス、BlogDetails がブログ オブジェクトの一部として追跡のプロパティとして。 これを認識する最初のコードで、ComplexType として BlogDetails クラスをマークする必要があります。
 
@@ -230,15 +230,15 @@ BlogDetails にあらゆる種類のキー プロパティがないことに注�
     {
         public DateTime? DateCreated { get; set; }
 
-        [MaxLength(250)]
-        public string Description { get; set; }
+        [MaxLength(250)]
+        public string Description { get; set; }
     }
 ```
 
 今すぐそのブログ BlogDetails を表すブログ クラスでプロパティを追加できます。
 
 ``` csharp
-        public BlogDetails BlogDetail { get; set; }
+        public BlogDetails BlogDetail { get; set; }
 ```
 
 データベースには、ブログの表に、その BlogDetail プロパティに含まれるプロパティを含む、ブログのプロパティのすべて含まれます。 既定では、それぞれが付きます BlogDetail、複合型の名前。
@@ -247,7 +247,7 @@ BlogDetails にあらゆる種類のキー プロパティがないことに注�
 
 もう 1 つの興味深いことには、DateCreated プロパティ、クラス内の null 非許容の日時として定義されますが、関連するデータベース フィールドを null 値を許容します。 データベース スキーマに影響する場合は、必要な注釈を使用する必要があります。
 
- 
+ 
 
 ## <a name="concurrencycheck"></a>ConcurrencyCheck
 
@@ -256,11 +256,11 @@ ConcurrencyCheck 注釈の同時実行ユーザーが編集したり、エンテ
 BloggerName プロパティに追加することによって ConcurrencyCheck のしくみを見てみましょう。
 
 ``` csharp
-    [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
+    [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-BloggerName フィールドで ConcurrencyCheck 注釈により、SaveChanges が呼び出されたときにそのプロパティの元の値が更新に使用されます。 コマンドが、キーの値だけでなく、BloggerName の元の値もフィルター処理して適切な行を検索しようとします。  ここでは、コマンドには、PrimaryTrackingKey を含む行は更新を表示、データベースに送信される UPDATE コマンドの重要な部分は 1、BloggerName"Julie"元の値をそのブログがデータベースから取得されたときにいたのです。
+BloggerName フィールドで ConcurrencyCheck 注釈により、SaveChanges が呼び出されたときにそのプロパティの元の値が更新に使用されます。 コマンドが、キーの値だけでなく、BloggerName の元の値もフィルター処理して適切な行を検索しようとします。  ここでは、コマンドには、PrimaryTrackingKey を含む行は更新を表示、データベースに送信される UPDATE コマンドの重要な部分は 1、BloggerName"Julie"元の値をそのブログがデータベースから取得されたときにいたのです。
 
 ``` SQL
     where (([PrimaryTrackingKey] = @4) and ([BloggerName] = @5))
@@ -269,7 +269,7 @@ BloggerName フィールドで ConcurrencyCheck 注釈により、SaveChanges �
 
 そのブログのブログ作成者名が、その間にだれかが変更した場合は、この更新プログラムは失敗し、処理する必要がありますを DbUpdateConcurrencyException が表示されます。
 
- 
+ 
 
 ## <a name="timestamp"></a>タイムスタンプ
 
@@ -286,7 +286,7 @@ BloggerName フィールドで ConcurrencyCheck 注釈により、SaveChanges �
 
 ![タイムスタンプ列を含むブログ テーブル](~/ef6/media/jj591583-figure07.png)
 
- 
+ 
 
 ## <a name="table-and-column"></a>テーブルと列
 
@@ -302,7 +302,7 @@ Code First のデータベースを作成することは、場合は、テーブ
 列の注釈は、マップされた列の属性を指定するときに複数のアデプトです。 名前、データ型またはテーブルの列が表示される順序もを伸ばすことができます。 列の属性の例を示します。
 
 ``` csharp
-    [Column(“BlogDescription", TypeName="ntext")]
+    [Column("BlogDescription", TypeName="ntext")]
     public String Description {get;set;}
 ```
 
@@ -312,7 +312,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 ![ブログのテーブルと列の名前を変更](~/ef6/media/jj591583-figure08.png)
 
- 
+ 
 
 ## <a name="databasegenerated"></a>DatabaseGenerated
 
@@ -327,7 +327,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 既定では、読むことを整数であるキー プロパティは、データベースの id キーなります。 DatabaseGenerated を DatabaseGeneratedOption.Identity に設定すると同じメッセージが表示されます。 Id キーを使用することをしない場合は、DatabaseGeneratedOption.None に値を設定できます。
 
- 
+ 
 
 ## <a name="index"></a>インデックス
 
@@ -389,7 +389,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
     }
 ```
 
- 
+ 
 
 ## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>リレーションシップは、次の属性: InverseProperty と不変
 
@@ -398,25 +398,25 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 コードの最初の規則が、モデル内の最も一般的なリレーションシップの処理が、場合によってはヘルプが必要な場所があります。
 
-投稿との関係に問題を作成したブログ クラスのキー プロパティの名前を変更します。 
+投稿との関係に問題を作成したブログ クラスのキー プロパティの名前を変更します。 
 
 データベースを生成するときに、コードはまず Post クラスで BlogId プロパティを表示しと一致する、クラス名と"Id"ブログ クラスへの外部キーとして規則によりを認識します。 ブログのクラスで BlogId プロパティはありません。 このソリューションは、投稿にナビゲーション プロパティを作成し、コードの最初の 2 つのクラス間のリレーションシップを構築する方法を理解する外部 DataAnnotation を使用して、Post.BlogId プロパティを使用して、内の制約を指定する方法についても、データベース。
 
 ``` csharp
     public class Post
     {
-            public int Id { get; set; }
-            public string Title { get; set; }
-            public DateTime DateCreated { get; set; }
-            public string Content { get; set; }
-            public int BlogId { get; set; }
-            [ForeignKey("BlogId")]
-            public Blog Blog { get; set; }
-            public ICollection<Comment> Comments { get; set; }
+            public int Id { get; set; }
+            public string Title { get; set; }
+            public DateTime DateCreated { get; set; }
+            public string Content { get; set; }
+            public int BlogId { get; set; }
+            [ForeignKey("BlogId")]
+            public Blog Blog { get; set; }
+            public ICollection<Comment> Comments { get; set; }
     }
 ```
 
-データベース内の制約は、InternalBlogs.PrimaryTrackingKey と Posts.BlogId 間の関係を示しています。 
+データベース内の制約は、InternalBlogs.PrimaryTrackingKey と Posts.BlogId 間の関係を示しています。 
 
 ![InternalBlogs.PrimaryTrackingKey と Posts.BlogId 間のリレーションシップ](~/ef6/media/jj591583-figure09.png)
 
@@ -434,10 +434,10 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 ``` csharp
     public class Person
     {
-            public int Id { get; set; }
-            public string Name { get; set; }
-            public List<Post> PostsWritten { get; set; }
-            public List<Post> PostsUpdated { get; set; }
+            public int Id { get; set; }
+            public string Name { get; set; }
+            public List<Post> PostsWritten { get; set; }
+            public List<Post> PostsUpdated { get; set; }
     }
 ```
 
@@ -459,7 +459,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 ![投稿の余分な外部キーを持たないテーブル](~/ef6/media/jj591583-figure11.png)
 
- 
+ 
 
 ## <a name="summary"></a>まとめ
 
