@@ -72,7 +72,7 @@
 ##### [別個のプロジェクトを使用する](core/managing-schemas/migrations/projects.md)
 ##### [複数のプロバイダー](core/managing-schemas/migrations/providers.md)
 ##### [カスタム履歴テーブル](core/managing-schemas/migrations/history-table.md)
-#### [🔧 Create API と Drop API](core/managing-schemas/ensure-created.md)
+#### [Create API と Drop API](core/managing-schemas/ensure-created.md)
 #### [🔧 リバース エンジニアリング](core/managing-schemas/scaffolding.md)
 
 ### [データのクエリ](core/querying/index.md)
