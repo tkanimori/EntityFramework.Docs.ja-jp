@@ -2,24 +2,24 @@
 title: 作成し、Drop Api - EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 11/10/2017
-ms.openlocfilehash: 336f6fd655603a2474a58dfef377e121d9b04c3a
-ms.sourcegitcommit: a088421ecac4f5dc5213208170490181ae2f5f0f
+ms.date: 11/7/2018
+ms.openlocfilehash: 40d9e3aa0aba1bf2bc341f01dd815ed7cb7b48fa
+ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/08/2018
-ms.locfileid: "51285640"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51688630"
 ---
 # <a name="create-and-drop-apis"></a>作成し、Drop Api
 
-EnsureCreated と EnsureDeleted メソッドに軽量な代替手段を提供[移行](migrations/index.md)データベース スキーマを管理するためです。 これは、機能は、データが一時的であり、スキーマが変更されたときに削除することができる場合のシナリオで便利です。 プロトタイプ作成、テストでは、またはのローカル キャッシュたとえば中です。
+EnsureCreated と EnsureDeleted メソッドに軽量な代替手段を提供[移行](migrations/index.md)データベース スキーマを管理するためです。 これらのメソッドは、データが一時的であり、スキーマが変更されたときに削除することができる場合のシナリオで便利です。 プロトタイプ作成、テストでは、またはのローカル キャッシュたとえば中です。
 
-一部のプロバイダー (特に非リレーショナル) は、移行でサポートされていません。 これらの場合は、EnsureCreated と、データベース スキーマを初期化するために最も簡単な方法では多くの場合です。
+一部のプロバイダー (特に非リレーショナル) は、移行でサポートされていません。 これらのプロバイダーで EnsureCreated は多くの場合、値が、データベース スキーマを初期化するために最も簡単な方法です。
 
 > [!WARNING]
 > EnsureCreated と移行は、うまく連携機能しません。 移行を使用している場合は、スキーマを初期化するために EnsureCreated を使用しないでください。
 
-EnsureCreated からの移行への移行は、シームレスなエクスペリエンスではありません。 これを実現する simpelest 方法、データベースを削除し、Migrations を使用して再作成です。 Migrations を使用して、将来を予測する場合は、EnsureCreated を使用する代わりに移行から始めることをお勧めします。
+EnsureCreated からの移行への移行は、シームレスなエクスペリエンスではありません。 これを行う最も簡単な方法では、データベースを削除し、Migrations を使用して再作成します。 Migrations を使用して、将来を予測する場合は、EnsureCreated を使用する代わりに移行から始めることをお勧めします。
 
 ## <a name="ensuredeleted"></a>EnsureDeleted
 
