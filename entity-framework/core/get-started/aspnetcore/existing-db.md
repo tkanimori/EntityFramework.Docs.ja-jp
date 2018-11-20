@@ -4,91 +4,91 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: bba2742c3f3b6da93dd4b4f170a3878fc0473bc8
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 23cd53b0e162afc5db0243b7032bb9c5f18bfb35
+ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022198"
+ms.lasthandoff: 11/15/2018
+ms.locfileid: "51688694"
 ---
-# <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a><span data-ttu-id="fb994-102">既存のデータベースを使用した ASP.NET Core での EF Core の概要</span><span class="sxs-lookup"><span data-stu-id="fb994-102">Getting Started with EF Core on ASP.NET Core with an Existing Database</span></span>
+# <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a><span data-ttu-id="0e545-102">既存のデータベースを使用した ASP.NET Core での EF Core の概要</span><span class="sxs-lookup"><span data-stu-id="0e545-102">Getting Started with EF Core on ASP.NET Core with an Existing Database</span></span>
 
-<span data-ttu-id="fb994-103">このチュートリアルでは、Entity Framework Core を使用して、基本的なデータ アクセスを実行する ASP.NET Core MVC アプリケーションを作成します。</span><span class="sxs-lookup"><span data-stu-id="fb994-103">In this tutorial, you build an ASP.NET Core MVC application that performs basic data access using Entity Framework Core.</span></span> <span data-ttu-id="fb994-104">既存のデータベースのリバース エンジニアリングによって Entity Framework モデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="fb994-104">You reverse engineer an existing database to create an Entity Framework model.</span></span>
+<span data-ttu-id="0e545-103">このチュートリアルでは、Entity Framework Core を使用して、基本的なデータ アクセスを実行する ASP.NET Core MVC アプリケーションを作成します。</span><span class="sxs-lookup"><span data-stu-id="0e545-103">In this tutorial, you build an ASP.NET Core MVC application that performs basic data access using Entity Framework Core.</span></span> <span data-ttu-id="0e545-104">既存のデータベースのリバース エンジニアリングによって Entity Framework モデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="0e545-104">You reverse engineer an existing database to create an Entity Framework model.</span></span>
 
-<span data-ttu-id="fb994-105">[この記事のサンプルは GitHub で確認してください](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb)。</span><span class="sxs-lookup"><span data-stu-id="fb994-105">[View this article's sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb).</span></span>
+<span data-ttu-id="0e545-105">[この記事のサンプルは GitHub で確認してください](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb)。</span><span class="sxs-lookup"><span data-stu-id="0e545-105">[View this article's sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb).</span></span>
 
-## <a name="prerequisites"></a><span data-ttu-id="fb994-106">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="fb994-106">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="0e545-106">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="0e545-106">Prerequisites</span></span>
 
-<span data-ttu-id="fb994-107">以下のソフトウェアをインストールします。</span><span class="sxs-lookup"><span data-stu-id="fb994-107">Install the following software:</span></span>
+<span data-ttu-id="0e545-107">以下のソフトウェアをインストールします。</span><span class="sxs-lookup"><span data-stu-id="0e545-107">Install the following software:</span></span>
 
-* <span data-ttu-id="fb994-108">[Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) および以下のワークロード。</span><span class="sxs-lookup"><span data-stu-id="fb994-108">[Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) with these workloads:</span></span>
-  * <span data-ttu-id="fb994-109">**ASP.NET と Web 開発** (**[Web & Cloud]\(Web とクラウド\)** の下)</span><span class="sxs-lookup"><span data-stu-id="fb994-109">**ASP.NET and web development** (under **Web & Cloud**)</span></span>
-  * <span data-ttu-id="fb994-110">**.NET Core クロスプラットフォームの開発** (**[他のツールセット]** の下)</span><span class="sxs-lookup"><span data-stu-id="fb994-110">**.NET Core cross-platform development** (under **Other Toolsets**)</span></span>
-* <span data-ttu-id="fb994-111">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core)。</span><span class="sxs-lookup"><span data-stu-id="fb994-111">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core).</span></span>
+* <span data-ttu-id="0e545-108">[Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) および以下のワークロード。</span><span class="sxs-lookup"><span data-stu-id="0e545-108">[Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) with these workloads:</span></span>
+  * <span data-ttu-id="0e545-109">**ASP.NET と Web 開発** (**[Web & Cloud]\(Web とクラウド\)** の下)</span><span class="sxs-lookup"><span data-stu-id="0e545-109">**ASP.NET and web development** (under **Web & Cloud**)</span></span>
+  * <span data-ttu-id="0e545-110">**.NET Core クロスプラットフォームの開発** (**[他のツールセット]** の下)</span><span class="sxs-lookup"><span data-stu-id="0e545-110">**.NET Core cross-platform development** (under **Other Toolsets**)</span></span>
+* <span data-ttu-id="0e545-111">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core)。</span><span class="sxs-lookup"><span data-stu-id="0e545-111">[.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core).</span></span>
 
-## <a name="create-blogging-database"></a><span data-ttu-id="fb994-112">Blogging データベースを作成する</span><span class="sxs-lookup"><span data-stu-id="fb994-112">Create Blogging database</span></span>
+## <a name="create-blogging-database"></a><span data-ttu-id="0e545-112">Blogging データベースを作成する</span><span class="sxs-lookup"><span data-stu-id="0e545-112">Create Blogging database</span></span>
 
-<span data-ttu-id="fb994-113">このチュートリアルでは、お使いの LocalDb インスタンス上の **Blogging** データベースを、既存のデータベースとして使用します。</span><span class="sxs-lookup"><span data-stu-id="fb994-113">This tutorial uses a **Blogging** database on your LocalDb instance as the existing database.</span></span> <span data-ttu-id="fb994-114">**Blogging** データベースを、別のチュートリアルの一部として既に作成している場合は、次の手順を省略してください。</span><span class="sxs-lookup"><span data-stu-id="fb994-114">If you have already created the **Blogging** database as part of another tutorial, skip these steps.</span></span>
+<span data-ttu-id="0e545-113">このチュートリアルでは、お使いの LocalDb インスタンス上の **Blogging** データベースを、既存のデータベースとして使用します。</span><span class="sxs-lookup"><span data-stu-id="0e545-113">This tutorial uses a **Blogging** database on your LocalDb instance as the existing database.</span></span> <span data-ttu-id="0e545-114">**Blogging** データベースを、別のチュートリアルの一部として既に作成している場合は、次の手順を省略してください。</span><span class="sxs-lookup"><span data-stu-id="0e545-114">If you have already created the **Blogging** database as part of another tutorial, skip these steps.</span></span>
 
-* <span data-ttu-id="fb994-115">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="fb994-115">Open Visual Studio</span></span>
-* <span data-ttu-id="fb994-116">**[ツール] -> [データベースへの接続]**</span><span class="sxs-lookup"><span data-stu-id="fb994-116">**Tools -> Connect to Database...**</span></span>
-* <span data-ttu-id="fb994-117">**[Microsoft SQL Server]** を選択して **[続行]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="fb994-117">Select **Microsoft SQL Server** and click **Continue**</span></span>
-* <span data-ttu-id="fb994-118">**[サーバー名]** に「**(localdb) \mssqllocaldb**」を入力します。</span><span class="sxs-lookup"><span data-stu-id="fb994-118">Enter **(localdb)\mssqllocaldb** as the **Server Name**</span></span>
-* <span data-ttu-id="fb994-119">**[データベース名]** に「**master**」を入力して **[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="fb994-119">Enter **master** as the **Database Name** and click **OK**</span></span>
-* <span data-ttu-id="fb994-120">**[サーバー エクスプローラー]** 内の **[データ接続]** の下に、master データベースが表示されるようになりました。</span><span class="sxs-lookup"><span data-stu-id="fb994-120">The master database is now displayed under **Data Connections** in **Server Explorer**</span></span>
-* <span data-ttu-id="fb994-121">**[サーバー エクスプローラー]** でこのデータベースを右クリックし、**[新しいクエリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="fb994-121">Right-click on the database in **Server Explorer** and select **New Query**</span></span>
-* <span data-ttu-id="fb994-122">以下に表示されているスクリプトを、クエリ エディターにコピーします。</span><span class="sxs-lookup"><span data-stu-id="fb994-122">Copy the script listed below into the query editor</span></span>
-* <span data-ttu-id="fb994-123">クエリ エディターを右クリックし、**[実行]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="fb994-123">Right-click on the query editor and select **Execute**</span></span>
+* <span data-ttu-id="0e545-115">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="0e545-115">Open Visual Studio</span></span>
+* <span data-ttu-id="0e545-116">**[ツール] -> [データベースへの接続]**</span><span class="sxs-lookup"><span data-stu-id="0e545-116">**Tools -> Connect to Database...**</span></span>
+* <span data-ttu-id="0e545-117">**[Microsoft SQL Server]** を選択して **[続行]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="0e545-117">Select **Microsoft SQL Server** and click **Continue**</span></span>
+* <span data-ttu-id="0e545-118">**[サーバー名]** に「**(localdb) \mssqllocaldb**」を入力します。</span><span class="sxs-lookup"><span data-stu-id="0e545-118">Enter **(localdb)\mssqllocaldb** as the **Server Name**</span></span>
+* <span data-ttu-id="0e545-119">**[データベース名]** に「**master**」を入力して **[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="0e545-119">Enter **master** as the **Database Name** and click **OK**</span></span>
+* <span data-ttu-id="0e545-120">**[サーバー エクスプローラー]** 内の **[データ接続]** の下に、master データベースが表示されるようになりました。</span><span class="sxs-lookup"><span data-stu-id="0e545-120">The master database is now displayed under **Data Connections** in **Server Explorer**</span></span>
+* <span data-ttu-id="0e545-121">**[サーバー エクスプローラー]** でこのデータベースを右クリックし、**[新しいクエリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="0e545-121">Right-click on the database in **Server Explorer** and select **New Query**</span></span>
+* <span data-ttu-id="0e545-122">以下に表示されているスクリプトを、クエリ エディターにコピーします。</span><span class="sxs-lookup"><span data-stu-id="0e545-122">Copy the script listed below into the query editor</span></span>
+* <span data-ttu-id="0e545-123">クエリ エディターを右クリックし、**[実行]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="0e545-123">Right-click on the query editor and select **Execute**</span></span>
 
 [!code-sql[Main](../_shared/create-blogging-database-script.sql)]
 
-## <a name="create-a-new-project"></a><span data-ttu-id="fb994-124">新しいプロジェクトを作成する</span><span class="sxs-lookup"><span data-stu-id="fb994-124">Create a new project</span></span>
+## <a name="create-a-new-project"></a><span data-ttu-id="0e545-124">新しいプロジェクトを作成する</span><span class="sxs-lookup"><span data-stu-id="0e545-124">Create a new project</span></span>
 
-* <span data-ttu-id="fb994-125">Visual Studio 2017 を開きます</span><span class="sxs-lookup"><span data-stu-id="fb994-125">Open Visual Studio 2017</span></span>
-* <span data-ttu-id="fb994-126">**[ファイル] > [新規] > [プロジェクト]**</span><span class="sxs-lookup"><span data-stu-id="fb994-126">**File > New > Project...**</span></span>
-* <span data-ttu-id="fb994-127">左側のメニューから **[インストール済み] > [Visual C#] > [Web]** の順に選択します</span><span class="sxs-lookup"><span data-stu-id="fb994-127">From the left menu select **Installed > Visual C# > Web**</span></span>
-* <span data-ttu-id="fb994-128">**[ASP.NET Core Web アプリケーション]** プロジェクト テンプレートを選択します</span><span class="sxs-lookup"><span data-stu-id="fb994-128">Select the **ASP.NET Core Web Application** project template</span></span>
-* <span data-ttu-id="fb994-129">名前に「**EFGetStarted.AspNetCore.ExistingDb**」を入力して **[OK]** をクリックします</span><span class="sxs-lookup"><span data-stu-id="fb994-129">Enter **EFGetStarted.AspNetCore.ExistingDb** as the name and click **OK**</span></span>
-* <span data-ttu-id="fb994-130">**[新しい ASP.NET Core Web アプリケーション]** ダイアログが表示されるのを待ちます</span><span class="sxs-lookup"><span data-stu-id="fb994-130">Wait for the **New ASP.NET Core Web Application** dialog to appear</span></span>
-* <span data-ttu-id="fb994-131">ターゲット フレームワークのドロップダウンが **[.NET Core]** に設定されており、バージョンのドロップダウンが **[ASP.NET Core 2.1]** に設定されていることを確認します</span><span class="sxs-lookup"><span data-stu-id="fb994-131">Make sure that the target framework dropdown is set to **.NET Core**, and the version dropdown is set to **ASP.NET Core 2.1**</span></span>
-* <span data-ttu-id="fb994-132">**[Web アプリケーション (モデル ビュー コントローラー)]** テンプレートを選択します</span><span class="sxs-lookup"><span data-stu-id="fb994-132">Select the **Web Application (Model-View-Controller)** template</span></span>
-* <span data-ttu-id="fb994-133">**[認証]** に **[認証なし]** が設定されていることを確認します。</span><span class="sxs-lookup"><span data-stu-id="fb994-133">Ensure that **Authentication** is set to **No Authentication**</span></span>
-* <span data-ttu-id="fb994-134">**[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="fb994-134">Click **OK**</span></span>
+* <span data-ttu-id="0e545-125">Visual Studio 2017 を開きます</span><span class="sxs-lookup"><span data-stu-id="0e545-125">Open Visual Studio 2017</span></span>
+* <span data-ttu-id="0e545-126">**[ファイル] > [新規] > [プロジェクト]**</span><span class="sxs-lookup"><span data-stu-id="0e545-126">**File > New > Project...**</span></span>
+* <span data-ttu-id="0e545-127">左側のメニューから **[インストール済み] > [Visual C#] > [Web]** の順に選択します</span><span class="sxs-lookup"><span data-stu-id="0e545-127">From the left menu select **Installed > Visual C# > Web**</span></span>
+* <span data-ttu-id="0e545-128">**[ASP.NET Core Web アプリケーション]** プロジェクト テンプレートを選択します</span><span class="sxs-lookup"><span data-stu-id="0e545-128">Select the **ASP.NET Core Web Application** project template</span></span>
+* <span data-ttu-id="0e545-129">名前に「**EFGetStarted.AspNetCore.ExistingDb**」を入力して **[OK]** をクリックします</span><span class="sxs-lookup"><span data-stu-id="0e545-129">Enter **EFGetStarted.AspNetCore.ExistingDb** as the name and click **OK**</span></span>
+* <span data-ttu-id="0e545-130">**[新しい ASP.NET Core Web アプリケーション]** ダイアログが表示されるのを待ちます</span><span class="sxs-lookup"><span data-stu-id="0e545-130">Wait for the **New ASP.NET Core Web Application** dialog to appear</span></span>
+* <span data-ttu-id="0e545-131">ターゲット フレームワークのドロップダウンが **[.NET Core]** に設定されており、バージョンのドロップダウンが **[ASP.NET Core 2.1]** に設定されていることを確認します</span><span class="sxs-lookup"><span data-stu-id="0e545-131">Make sure that the target framework dropdown is set to **.NET Core**, and the version dropdown is set to **ASP.NET Core 2.1**</span></span>
+* <span data-ttu-id="0e545-132">**[Web アプリケーション (モデル ビュー コントローラー)]** テンプレートを選択します</span><span class="sxs-lookup"><span data-stu-id="0e545-132">Select the **Web Application (Model-View-Controller)** template</span></span>
+* <span data-ttu-id="0e545-133">**[認証]** に **[認証なし]** が設定されていることを確認します。</span><span class="sxs-lookup"><span data-stu-id="0e545-133">Ensure that **Authentication** is set to **No Authentication**</span></span>
+* <span data-ttu-id="0e545-134">**[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="0e545-134">Click **OK**</span></span>
 
-## <a name="install-entity-framework-core"></a><span data-ttu-id="fb994-135">Entity Framework Core をインストールする</span><span class="sxs-lookup"><span data-stu-id="fb994-135">Install Entity Framework Core</span></span>
+## <a name="install-entity-framework-core"></a><span data-ttu-id="0e545-135">Entity Framework Core をインストールする</span><span class="sxs-lookup"><span data-stu-id="0e545-135">Install Entity Framework Core</span></span>
 
-<span data-ttu-id="fb994-136">EF Core をインストールするには、対象となる EF Core データベース プロバイダーのパッケージをインストールします。</span><span class="sxs-lookup"><span data-stu-id="fb994-136">To install EF Core, you install the package for the EF Core database provider(s) you want to target.</span></span> <span data-ttu-id="fb994-137">使用可能なプロバイダーの一覧については、「[Database Providers (データベース プロバイダー)](../../providers/index.md)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="fb994-137">For a list of available providers see [Database Providers](../../providers/index.md).</span></span> 
+<span data-ttu-id="0e545-136">EF Core をインストールするには、対象となる EF Core データベース プロバイダーのパッケージをインストールします。</span><span class="sxs-lookup"><span data-stu-id="0e545-136">To install EF Core, you install the package for the EF Core database provider(s) you want to target.</span></span> <span data-ttu-id="0e545-137">使用可能なプロバイダーの一覧については、「[Database Providers (データベース プロバイダー)](../../providers/index.md)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="0e545-137">For a list of available providers see [Database Providers](../../providers/index.md).</span></span> 
 
-<span data-ttu-id="fb994-138">このチュートリアルでは、SQL Server を使用するため、プロバイダー パッケージをインストールする必要はありません。</span><span class="sxs-lookup"><span data-stu-id="fb994-138">For this tutorial, you don't have to install a provider package because the tutorial uses SQL Server.</span></span> <span data-ttu-id="fb994-139">この SQL Server のプロバイダー パッケージは、[Microsoft.AspnetCore.App メタパッケージ](https://docs.microsoft.com/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1)に含まれます。</span><span class="sxs-lookup"><span data-stu-id="fb994-139">The SQL Server provider package is included in the [Microsoft.AspnetCore.App metapackage](https://docs.microsoft.com/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).</span></span>
+<span data-ttu-id="0e545-138">このチュートリアルでは、SQL Server を使用するため、プロバイダー パッケージをインストールする必要はありません。</span><span class="sxs-lookup"><span data-stu-id="0e545-138">For this tutorial, you don't have to install a provider package because the tutorial uses SQL Server.</span></span> <span data-ttu-id="0e545-139">この SQL Server のプロバイダー パッケージは、[Microsoft.AspnetCore.App メタパッケージ](https://docs.microsoft.com/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1)に含まれます。</span><span class="sxs-lookup"><span data-stu-id="0e545-139">The SQL Server provider package is included in the [Microsoft.AspnetCore.App metapackage](https://docs.microsoft.com/aspnet/core/fundamentals/metapackage-app?view=aspnetcore-2.1).</span></span>
 
-## <a name="reverse-engineer-your-model"></a><span data-ttu-id="fb994-140">モデルのリバース エンジニアリングを行う</span><span class="sxs-lookup"><span data-stu-id="fb994-140">Reverse engineer your model</span></span>
+## <a name="reverse-engineer-your-model"></a><span data-ttu-id="0e545-140">モデルのリバース エンジニアリングを行う</span><span class="sxs-lookup"><span data-stu-id="0e545-140">Reverse engineer your model</span></span>
 
-<span data-ttu-id="fb994-141">ここで、お使いの既存のデータベースに基づいて、EF モデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="fb994-141">Now it's time to create the EF model based on your existing database.</span></span>
+<span data-ttu-id="0e545-141">ここで、お使いの既存のデータベースに基づいて、EF モデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="0e545-141">Now it's time to create the EF model based on your existing database.</span></span>
 
-* <span data-ttu-id="fb994-142">**[ツール] –> [NuGet パッケージ マネージャー] –> [パッケージ マネージャー コンソール]**</span><span class="sxs-lookup"><span data-stu-id="fb994-142">**Tools –> NuGet Package Manager –> Package Manager Console**</span></span>
-* <span data-ttu-id="fb994-143">次のコマンドを実行して、既存のデータベースからモデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="fb994-143">Run the following command to create a model from the existing database:</span></span>
+* <span data-ttu-id="0e545-142">**[ツール] –> [NuGet パッケージ マネージャー] –> [パッケージ マネージャー コンソール]**</span><span class="sxs-lookup"><span data-stu-id="0e545-142">**Tools –> NuGet Package Manager –> Package Manager Console**</span></span>
+* <span data-ttu-id="0e545-143">次のコマンドを実行して、既存のデータベースからモデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="0e545-143">Run the following command to create a model from the existing database:</span></span>
 
 ``` powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 ```
 
-<span data-ttu-id="fb994-144">`The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet` という内容のエラーが表示された場合は、Visual Studio を閉じて再度開きます。</span><span class="sxs-lookup"><span data-stu-id="fb994-144">If you receive an error stating `The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet`, then close and reopen Visual Studio.</span></span>
+<span data-ttu-id="0e545-144">`The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet` という内容のエラーが表示された場合は、Visual Studio を閉じて再度開きます。</span><span class="sxs-lookup"><span data-stu-id="0e545-144">If you receive an error stating `The term 'Scaffold-DbContext' is not recognized as the name of a cmdlet`, then close and reopen Visual Studio.</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="fb994-145">上記のコマンドに引数 `-Tables` を追加すると、エンティティを生成するテーブルを指定できます。</span><span class="sxs-lookup"><span data-stu-id="fb994-145">You can specify which tables you want to generate entities for by adding the `-Tables` argument to the command above.</span></span> <span data-ttu-id="fb994-146">たとえば、`-Tables Blog,Post` のようにします。</span><span class="sxs-lookup"><span data-stu-id="fb994-146">For example, `-Tables Blog,Post`.</span></span>
+> <span data-ttu-id="0e545-145">上記のコマンドに引数 `-Tables` を追加すると、エンティティを生成するテーブルを指定できます。</span><span class="sxs-lookup"><span data-stu-id="0e545-145">You can specify which tables you want to generate entities for by adding the `-Tables` argument to the command above.</span></span> <span data-ttu-id="0e545-146">たとえば、`-Tables Blog,Post` のようにします。</span><span class="sxs-lookup"><span data-stu-id="0e545-146">For example, `-Tables Blog,Post`.</span></span>
 
-<span data-ttu-id="fb994-147">リバース エンジニアリングのプロセスにより、既存のデータベースのスキーマに基づいてエンティティ クラス (`Blog.cs` & `Post.cs`) と派生コンテキスト (`BloggingContext.cs`) が作成されます。</span><span class="sxs-lookup"><span data-stu-id="fb994-147">The reverse engineer process created entity classes (`Blog.cs` & `Post.cs`) and a derived context (`BloggingContext.cs`) based on the schema of the existing database.</span></span>
+<span data-ttu-id="0e545-147">リバース エンジニアリングのプロセスにより、既存のデータベースのスキーマに基づいてエンティティ クラス (`Blog.cs` & `Post.cs`) と派生コンテキスト (`BloggingContext.cs`) が作成されます。</span><span class="sxs-lookup"><span data-stu-id="0e545-147">The reverse engineer process created entity classes (`Blog.cs` & `Post.cs`) and a derived context (`BloggingContext.cs`) based on the schema of the existing database.</span></span>
 
- <span data-ttu-id="fb994-148">エンティティ クラスはクエリを実行し保存するデータを表す、単純な C# オブジェクトです。</span><span class="sxs-lookup"><span data-stu-id="fb994-148">The entity classes are simple C# objects that represent the data you will be querying and saving.</span></span> <span data-ttu-id="fb994-149">こちらが、`Blog` と `Post` のエンティティ クラスです。</span><span class="sxs-lookup"><span data-stu-id="fb994-149">Here are the `Blog` and `Post` entity classes:</span></span>
+ <span data-ttu-id="0e545-148">エンティティ クラスはクエリを実行し保存するデータを表す、単純な C# オブジェクトです。</span><span class="sxs-lookup"><span data-stu-id="0e545-148">The entity classes are simple C# objects that represent the data you will be querying and saving.</span></span> <span data-ttu-id="0e545-149">こちらが、`Blog` と `Post` のエンティティ クラスです。</span><span class="sxs-lookup"><span data-stu-id="0e545-149">Here are the `Blog` and `Post` entity classes:</span></span>
 
  [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb/Models/Blog.cs)]
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb/Models/Post.cs)]
 
 > [!TIP]  
-> <span data-ttu-id="fb994-150">遅延読み込みを有効にするため、ナビゲーション プロパティ `virtual` を作成することができます (Blog.Post および Post.Blog)。</span><span class="sxs-lookup"><span data-stu-id="fb994-150">To enable lazy loading, you can make navigation properties `virtual` (Blog.Post and Post.Blog).</span></span>
+> <span data-ttu-id="0e545-150">遅延読み込みを有効にするため、ナビゲーション プロパティ `virtual` を作成することができます (Blog.Post および Post.Blog)。</span><span class="sxs-lookup"><span data-stu-id="0e545-150">To enable lazy loading, you can make navigation properties `virtual` (Blog.Post and Post.Blog).</span></span>
 
- <span data-ttu-id="fb994-151">コンテキストはデータベースのセッションを表しており、これによってエンティティ クラスのインスタンスにクエリを実行し保存できます。</span><span class="sxs-lookup"><span data-stu-id="fb994-151">The context represents a session with the database and allows you to query and save instances of the entity classes.</span></span>
+ <span data-ttu-id="0e545-151">コンテキストはデータベースのセッションを表しており、これによってエンティティ クラスのインスタンスにクエリを実行し保存できます。</span><span class="sxs-lookup"><span data-stu-id="0e545-151">The context represents a session with the database and allows you to query and save instances of the entity classes.</span></span>
 
 <!-- Static code listing, rather than a linked file, because the tutorial modifies the context file heavily -->
  ``` csharp
@@ -132,51 +132,52 @@ public partial class BloggingContext : DbContext
 }
 ```
 
-## <a name="register-your-context-with-dependency-injection"></a><span data-ttu-id="fb994-152">依存関係の挿入にコンテキストを登録します。</span><span class="sxs-lookup"><span data-stu-id="fb994-152">Register your context with dependency injection</span></span>
+## <a name="register-your-context-with-dependency-injection"></a><span data-ttu-id="0e545-152">依存関係の挿入にコンテキストを登録します。</span><span class="sxs-lookup"><span data-stu-id="0e545-152">Register your context with dependency injection</span></span>
 
-<span data-ttu-id="fb994-153">依存関係の挿入の概念は、ASP.NET Core の中心となるものです。</span><span class="sxs-lookup"><span data-stu-id="fb994-153">The concept of dependency injection is central to ASP.NET Core.</span></span> <span data-ttu-id="fb994-154">サービス (`BloggingContext` など) は、アプリケーションの起動時に依存関係の挿入に登録されます。</span><span class="sxs-lookup"><span data-stu-id="fb994-154">Services (such as `BloggingContext`) are registered with dependency injection during application startup.</span></span> <span data-ttu-id="fb994-155">これらのサービス (MVC コント ローラーなど) を必要とするコンポーネントには、コンス トラクターのパラメーターまたはプロパティを介してこれらのサービスが指定されます。</span><span class="sxs-lookup"><span data-stu-id="fb994-155">Components that require these services (such as your MVC controllers) are then provided these services via constructor parameters or properties.</span></span> <span data-ttu-id="fb994-156">依存関係の挿入の詳細については、ASP.NET サイトの[依存関係の挿入](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html)に関する記事をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="fb994-156">For more information on dependency injection see the [Dependency Injection](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) article on the ASP.NET site.</span></span>
+<span data-ttu-id="0e545-153">依存関係の挿入の概念は、ASP.NET Core の中心となるものです。</span><span class="sxs-lookup"><span data-stu-id="0e545-153">The concept of dependency injection is central to ASP.NET Core.</span></span> <span data-ttu-id="0e545-154">サービス (`BloggingContext` など) は、アプリケーションの起動時に依存関係の挿入に登録されます。</span><span class="sxs-lookup"><span data-stu-id="0e545-154">Services (such as `BloggingContext`) are registered with dependency injection during application startup.</span></span> <span data-ttu-id="0e545-155">これらのサービス (MVC コント ローラーなど) を必要とするコンポーネントには、コンス トラクターのパラメーターまたはプロパティを介してこれらのサービスが指定されます。</span><span class="sxs-lookup"><span data-stu-id="0e545-155">Components that require these services (such as your MVC controllers) are then provided these services via constructor parameters or properties.</span></span> <span data-ttu-id="0e545-156">依存関係の挿入の詳細については、ASP.NET サイトの[依存関係の挿入](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html)に関する記事をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="0e545-156">For more information on dependency injection see the [Dependency Injection](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html) article on the ASP.NET site.</span></span>
 
-### <a name="register-and-configure-your-context-in-startupcs"></a><span data-ttu-id="fb994-157">Startup.cs にコンテキストを登録して構成する</span><span class="sxs-lookup"><span data-stu-id="fb994-157">Register and configure your context in Startup.cs</span></span>
+### <a name="register-and-configure-your-context-in-startupcs"></a><span data-ttu-id="0e545-157">Startup.cs にコンテキストを登録して構成する</span><span class="sxs-lookup"><span data-stu-id="0e545-157">Register and configure your context in Startup.cs</span></span>
 
-<span data-ttu-id="fb994-158">`BloggingContext` を MVC コント ローラーで使用できるようにするには、サービスとして登録します。</span><span class="sxs-lookup"><span data-stu-id="fb994-158">To make `BloggingContext` available to MVC controllers, register it as a service.</span></span>
+<span data-ttu-id="0e545-158">`BloggingContext` を MVC コント ローラーで使用できるようにするには、サービスとして登録します。</span><span class="sxs-lookup"><span data-stu-id="0e545-158">To make `BloggingContext` available to MVC controllers, register it as a service.</span></span>
 
-* <span data-ttu-id="fb994-159">**Startup.cs** を開きます。</span><span class="sxs-lookup"><span data-stu-id="fb994-159">Open **Startup.cs**</span></span>
-* <span data-ttu-id="fb994-160">ファイルの先頭に次の `using` ステートメントを追加します</span><span class="sxs-lookup"><span data-stu-id="fb994-160">Add the following `using` statements at the start of the file</span></span>
+* <span data-ttu-id="0e545-159">**Startup.cs** を開きます。</span><span class="sxs-lookup"><span data-stu-id="0e545-159">Open **Startup.cs**</span></span>
+* <span data-ttu-id="0e545-160">ファイルの先頭に次の `using` ステートメントを追加します</span><span class="sxs-lookup"><span data-stu-id="0e545-160">Add the following `using` statements at the start of the file</span></span>
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb/Startup.cs#AddedUsings)]
 
-<span data-ttu-id="fb994-161">`AddDbContext(...)` メソッドを使用して、サービスとして登録できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="fb994-161">Now you can use the `AddDbContext(...)` method to register it as a service.</span></span>
-* <span data-ttu-id="fb994-162">`ConfigureServices(...)` メソッドを見つけます</span><span class="sxs-lookup"><span data-stu-id="fb994-162">Locate the `ConfigureServices(...)` method</span></span>
-* <span data-ttu-id="fb994-163">強調表示されている次のコードを追加して、コンテキストをサービスとして登録します</span><span class="sxs-lookup"><span data-stu-id="fb994-163">Add the following highlighted code to register the context as a service</span></span>
+<span data-ttu-id="0e545-161">`AddDbContext(...)` メソッドを使用して、サービスとして登録できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="0e545-161">Now you can use the `AddDbContext(...)` method to register it as a service.</span></span>
+* <span data-ttu-id="0e545-162">`ConfigureServices(...)` メソッドを見つけます</span><span class="sxs-lookup"><span data-stu-id="0e545-162">Locate the `ConfigureServices(...)` method</span></span>
+* <span data-ttu-id="0e545-163">強調表示されている次のコードを追加して、コンテキストをサービスとして登録します</span><span class="sxs-lookup"><span data-stu-id="0e545-163">Add the following highlighted code to register the context as a service</span></span>
 
 [!code-csharp[Main](../../../../samples/core/GetStarted/AspNetCore/EFGetStarted.AspNetCore.ExistingDb/Startup.cs?name=ConfigureServices&highlight=14-15)]
 
 > [!TIP]  
-> <span data-ttu-id="fb994-164">実際のアプリケーションでは、接続文字列は構成ファイルまたは環境変数に記述するのが一般的です。</span><span class="sxs-lookup"><span data-stu-id="fb994-164">In a real application you would typically put the connection string in a configuration file or environment variable.</span></span> <span data-ttu-id="fb994-165">わかりやすくするために、このチュートリアルではコード内に定義します。</span><span class="sxs-lookup"><span data-stu-id="fb994-165">For the sake of simplicity, this tutorial has you define it in code.</span></span> <span data-ttu-id="fb994-166">詳細については、「[Connection Strings (接続文字列)](../../miscellaneous/connection-strings.md)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="fb994-166">For more information, see [Connection Strings](../../miscellaneous/connection-strings.md).</span></span>
+> <span data-ttu-id="0e545-164">実際のアプリケーションでは、接続文字列は構成ファイルまたは環境変数に記述するのが一般的です。</span><span class="sxs-lookup"><span data-stu-id="0e545-164">In a real application you would typically put the connection string in a configuration file or environment variable.</span></span> <span data-ttu-id="0e545-165">わかりやすくするために、このチュートリアルではコード内に定義します。</span><span class="sxs-lookup"><span data-stu-id="0e545-165">For the sake of simplicity, this tutorial has you define it in code.</span></span> <span data-ttu-id="0e545-166">詳細については、「[Connection Strings (接続文字列)](../../miscellaneous/connection-strings.md)」をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="0e545-166">For more information, see [Connection Strings](../../miscellaneous/connection-strings.md).</span></span>
 
-## <a name="create-a-controller-and-views"></a><span data-ttu-id="fb994-167">コントローラーとビューの作成</span><span class="sxs-lookup"><span data-stu-id="fb994-167">Create a controller and views</span></span>
+## <a name="create-a-controller-and-views"></a><span data-ttu-id="0e545-167">コントローラーとビューの作成</span><span class="sxs-lookup"><span data-stu-id="0e545-167">Create a controller and views</span></span>
 
-* <span data-ttu-id="fb994-168">**ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、**[追加] -> [コントローラー]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="fb994-168">Right-click on the **Controllers** folder in **Solution Explorer** and select **Add -> Controller...**</span></span>
-* <span data-ttu-id="fb994-169">**[Entity Framework を使用したビューがある MVC コントローラー]** を選択し、**[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="fb994-169">Select **MVC Controller with views, using Entity Framework** and click **Ok**</span></span>
-* <span data-ttu-id="fb994-170">**[モデル クラス]** に **Blog** を、**[データ コンテキスト クラス]** に **[BloggingContext]** を設定します。</span><span class="sxs-lookup"><span data-stu-id="fb994-170">Set **Model class** to **Blog** and **Data context class** to **BloggingContext**</span></span>
-* <span data-ttu-id="fb994-171">**[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="fb994-171">Click **Add**</span></span>
+* <span data-ttu-id="0e545-168">**ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、**[追加] -> [コントローラー]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="0e545-168">Right-click on the **Controllers** folder in **Solution Explorer** and select **Add -> Controller...**</span></span>
+* <span data-ttu-id="0e545-169">**[Entity Framework を使用したビューがある MVC コントローラー]** を選択し、**[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="0e545-169">Select **MVC Controller with views, using Entity Framework** and click **Ok**</span></span>
+* <span data-ttu-id="0e545-170">**[モデル クラス]** に **Blog** を、**[データ コンテキスト クラス]** に **[BloggingContext]** を設定します。</span><span class="sxs-lookup"><span data-stu-id="0e545-170">Set **Model class** to **Blog** and **Data context class** to **BloggingContext**</span></span>
+* <span data-ttu-id="0e545-171">**[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="0e545-171">Click **Add**</span></span>
 
-## <a name="run-the-application"></a><span data-ttu-id="fb994-172">アプリケーションの実行</span><span class="sxs-lookup"><span data-stu-id="fb994-172">Run the application</span></span>
+## <a name="run-the-application"></a><span data-ttu-id="0e545-172">アプリケーションの実行</span><span class="sxs-lookup"><span data-stu-id="0e545-172">Run the application</span></span>
 
-<span data-ttu-id="fb994-173">アプリケーションを実行して動作を確認できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="fb994-173">You can now run the application to see it in action.</span></span>
+<span data-ttu-id="0e545-173">アプリケーションを実行して動作を確認できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="0e545-173">You can now run the application to see it in action.</span></span>
 
-* <span data-ttu-id="fb994-174">**[デバッグ] -> [デバッグなしで開始]**</span><span class="sxs-lookup"><span data-stu-id="fb994-174">**Debug -> Start Without Debugging**</span></span>
-* <span data-ttu-id="fb994-175">アプリケーションが作成され、Web ブラウザー内で開きます</span><span class="sxs-lookup"><span data-stu-id="fb994-175">The application builds and opens in a web browser</span></span>
-* <span data-ttu-id="fb994-176">`/Blogs` に移動します。</span><span class="sxs-lookup"><span data-stu-id="fb994-176">Navigate to `/Blogs`</span></span>
-* <span data-ttu-id="fb994-177">**[新規作成]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="fb994-177">Click **Create New**</span></span>
-* <span data-ttu-id="fb994-178">新しいブログの **URL** を入力して、**[作成]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="fb994-178">Enter a **Url** for the new blog and click **Create**</span></span>
+* <span data-ttu-id="0e545-174">**[デバッグ] -> [デバッグなしで開始]**</span><span class="sxs-lookup"><span data-stu-id="0e545-174">**Debug -> Start Without Debugging**</span></span>
+* <span data-ttu-id="0e545-175">アプリケーションが作成され、Web ブラウザー内で開きます</span><span class="sxs-lookup"><span data-stu-id="0e545-175">The application builds and opens in a web browser</span></span>
+* <span data-ttu-id="0e545-176">`/Blogs` に移動します。</span><span class="sxs-lookup"><span data-stu-id="0e545-176">Navigate to `/Blogs`</span></span>
+* <span data-ttu-id="0e545-177">**[新規作成]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="0e545-177">Click **Create New**</span></span>
+* <span data-ttu-id="0e545-178">新しいブログの **URL** を入力して、**[作成]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="0e545-178">Enter a **Url** for the new blog and click **Create**</span></span>
 
   ![[作成] ページ](_static/create.png)
 
   ![インデックス ページ](_static/index-existing-db.png)
 
-## <a name="next-steps"></a><span data-ttu-id="fb994-181">次の手順</span><span class="sxs-lookup"><span data-stu-id="fb994-181">Next steps</span></span>
+## <a name="next-steps"></a><span data-ttu-id="0e545-181">次の手順</span><span class="sxs-lookup"><span data-stu-id="0e545-181">Next steps</span></span>
 
-<span data-ttu-id="fb994-182">コンテキスト クラスとエンティティ クラスをスキャフォールディングする方法の詳細については、次の記事を参照してください。</span><span class="sxs-lookup"><span data-stu-id="fb994-182">For more information about how to scaffold a context and entity classes, see the following articles:</span></span>
-* [<span data-ttu-id="fb994-183">Entity Framework Core ツールのリファレンス - .NET CLI</span><span class="sxs-lookup"><span data-stu-id="fb994-183">Entity Framework Core tools reference - .NET CLI</span></span>](xref:core/miscellaneous/cli/dotnet#dotnet-ef-dbcontext-scaffold)
-* [<span data-ttu-id="fb994-184">Entity Framework Core ツールのリファレンス - パッケージ マネージャー コンソール</span><span class="sxs-lookup"><span data-stu-id="fb994-184">Entity Framework Core tools reference - Package Manager Console</span></span>](xref:core/miscellaneous/cli/powershell#scaffold-dbcontext)
+<span data-ttu-id="0e545-182">コンテキスト クラスとエンティティ クラスをスキャフォールディングする方法の詳細については、次の記事を参照してください。</span><span class="sxs-lookup"><span data-stu-id="0e545-182">For more information about how to scaffold a context and entity classes, see the following articles:</span></span>
+* [<span data-ttu-id="0e545-183">リバース エンジニアリング</span><span class="sxs-lookup"><span data-stu-id="0e545-183">Reverse Engineering</span></span>](xref:core/managing-schemas/scaffolding)
+* [<span data-ttu-id="0e545-184">Entity Framework Core ツールのリファレンス - .NET CLI</span><span class="sxs-lookup"><span data-stu-id="0e545-184">Entity Framework Core tools reference - .NET CLI</span></span>](xref:core/miscellaneous/cli/dotnet#dotnet-ef-dbcontext-scaffold)
+* [<span data-ttu-id="0e545-185">Entity Framework Core ツールのリファレンス - パッケージ マネージャー コンソール</span><span class="sxs-lookup"><span data-stu-id="0e545-185">Entity Framework Core tools reference - Package Manager Console</span></span>](xref:core/miscellaneous/cli/powershell#scaffold-dbcontext)
