@@ -3,12 +3,12 @@ title: Fluent API 構成およびプロパティと型のマッピングで EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
-ms.openlocfilehash: 031376d2fc4778e6f0fa2434ab7ccfd45d436c4a
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
+ms.sourcegitcommit: 75f8a179ac9a70ad390fc7ab2a6c5e714e701b8b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490199"
+ms.lasthandoff: 11/27/2018
+ms.locfileid: "52339804"
 ---
 # <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Fluent API を構成して、プロパティと型のマッピング
 Entity Framework Code First を使用する場合、既定の動作は、POCO クラスを EF に組み込まれた規則のセットを使用してテーブルにマップするのには。 場合によっては、ただし、することはできません、またはこれらの規則に従うし、規則ではどのような以外にエンティティをマップする必要がありますしたくないです。  
@@ -24,7 +24,7 @@ Code first fluent API がオーバーライドすることによってアクセ�
 EF6 で始まることができます HasDefaultSchema メソッドを使用 DbModelBuilder のすべてのテーブル、ストアド プロシージャなどを使用するのにデータベース スキーマを指定します。この既定の設定は、別のスキーマを明示的に構成するすべてのオブジェクトのオーバーライドされます。  
 
 ``` csharp
-modelBuilder.HasDefaultSchema(“sales”);
+modelBuilder.HasDefaultSchema("sales");
 ```  
 
 ### <a name="custom-conventions-ef6-onwards"></a>カスタムの規則 (EF6 以降)  
