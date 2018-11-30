@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: 744ea587207775f3a5b9f7b14ba5959c55539c13
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: b846d63f2c285a43d60eecfb2be3d460a5d31924
+ms.sourcegitcommit: 064b09431f05848830e145a6cd65cad58881557c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980016"
+ms.lasthandoff: 11/28/2018
+ms.locfileid: "52552595"
 ---
 # <a name="getting-started-with-entity-framework-core"></a>Entity Framework Core の概要
 
@@ -23,17 +23,17 @@ ms.locfileid: "50980016"
 
 Entity Framework Core では、既存のデータベースに基づいてモデルを作成したり、自分のモデルに基づいてデータベースを自動作成させたりできます。 両方の手法を紹介するチュートリアルを用意しています。
 
-* .NET framework (コンソール アプリ、WinForms、WPF)
-  * [新しいデータベース](full-dotnet/new-db.md)
-  * [既存のデータベース](full-dotnet/existing-db.md)
-* .NET core (Windows、macOS、Linux)
+* .NET Core コンソール アプリ
   * [新しいデータベース](netcore/new-db-sqlite.md)
-* ASP.NET Core
+* ASP.NET Core アプリ
   * [新しいデータベース](aspnetcore/new-db.md)
   * [既存のデータベース](aspnetcore/existing-db.md)
   * [EF Core と Razor ページ](/aspnet/core/data/ef-rp/intro)
-* ユニバーサル Windows プラットフォーム (UWP)
+* ユニバーサル Windows プラットフォーム (UWP) アプリ
   * [新しいデータベース](uwp/getting-started.md)
+* .NET Framework アプリ
+  * [新しいデータベース](full-dotnet/new-db.md)
+  * [既存のデータベース](full-dotnet/existing-db.md)
 
 > [!NOTE]  
 > これらのチュートリアルと付属のサンプルは、EF Core 2.1 を使用するために更新されました。 ただし、ほとんどの場合、命令を最小限変更するだけで、以前のリリースを使用するアプリケーションを作成できるはずです。 
