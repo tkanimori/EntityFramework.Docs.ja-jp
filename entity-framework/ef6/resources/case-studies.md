@@ -33,7 +33,7 @@ Entity Framework 4.0 を使用することができましたをこれらの目�
 ツールが改善され、概念モデル、ストレージ モデル、およびそれらのモデル間のマッピングを定義する .edmx ファイルを操作しやすくしています.Entity framework では、そのデータ アクセス層の 1 日での作業を表示、および移動してビルドのアウトします。
 Entity Framework は、業界標準のデータ アクセス層です。わからない理由、だれでも使用しません。" – Joe McBride、上級開発者
 
-## <a name="nec-display-solutions-of-america"></a>アメリカの NEC 表示ソリューション
+## <a name="nec-display-solutions-of-america"></a>アメリカ合衆国の NEC 表示ソリューション
 NEC 広告とネットワークの所有者を利用し、独自の収益の増加するためのソリューションを場所ベースのデジタル広告の市場に参入したいです。
 そのためには、従来の広告キャンペーンで必要な手動プロセスを自動化する web アプリケーションのペアを起動します。
 ASP.NET、Silverlight 3、AJAX および WCF では、SQL Server 2008 との対話には、データ アクセス層で Entity Framework と共に使用して、サイトを構築しました。
