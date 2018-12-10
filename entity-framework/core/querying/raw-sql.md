@@ -4,16 +4,16 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 21cb688d6775039def3b0be12768da71b5d96531
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 0ad9731840c5f72064f2f66932b9867a0144f437
+ms.sourcegitcommit: 2da6f9b05e1ce3a46491e5cc68f17758bdeb6b02
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997145"
+ms.lasthandoff: 12/06/2018
+ms.locfileid: "53006870"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
-Entity Framework Core を使用すると、リレーショナル データベースを操作するときに生 SQL クエリにドロップ ダウンすることができます。 この方法は、実行するクエリが LINQ を使用して表現できない場合や、LINQ クエリを使用すると非効率的な SQL がデータベースに送信される場合に役立ちます。 生 SQL クエリは、エンティティ型か、モデルの一部である[クエリ型](xref:core/modeling/query-types) (EF Core 2.1 以降) を返すことができます。
+Entity Framework Core を使用すると、リレーショナル データベースを操作するときに生 SQL クエリにドロップ ダウンすることができます。 この方法は、実行するクエリが LINQ を使用して表現できない場合や、LINQ クエリを使用すると非効率的な SQL が生成される場合に役立ちます。 生 SQL クエリは、エンティティ型か、モデルの一部である[クエリ型](xref:core/modeling/query-types) (EF Core 2.1 以降) を返すことができます。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
@@ -88,13 +88,13 @@ var blogs = context.Blogs
 var user = new SqlParameter("user", "johndoe");
 
 var blogs = context.Blogs
-    .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
+    .FromSql("EXECUTE dbo.GetMostPopularBlogsForUser @user", user)
     .ToList();
 ```
 
 ## <a name="composing-with-linq"></a>LINQ による作成
 
-データベース内で SQL クエリを作成できる場合は、LINQ 演算子を使用して初期の生 SQL クエリ上に作成することができます。 SQL クエリは、`SELECT` キーワードを使用して作成できます。
+データベース内で SQL クエリを作成できる場合は、LINQ 演算子を使用して初期の生 SQL クエリ上に作成することができます。 `SELECT` キーワードで始まる SQL クエリを作成できます。
 
 次の例では、テーブル値関数 (TVF) から選択し、LINQ を使用してフィルター処理と並べ替えを実行する生 SQL クエリを使用します。
 
@@ -118,8 +118,8 @@ LINQ 演算子による作成を使用して、関連データをクエリに含
 var searchTerm = ".NET";
 
 var blogs = context.Blogs
-    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
-    .Include(b => b.Posts)
+    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .Include(b => b.Posts)
     .ToList();
 ```
 
