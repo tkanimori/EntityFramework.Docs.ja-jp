@@ -67,7 +67,7 @@ Visual Studio 2010 を使用している場合は、Visual Studio ギャラリ�
 
 DbContext ジェネレーターは、新しいアプリケーションの推奨されるテンプレートになりました。 DbContext ジェネレーターは、より単純な DbContext API を利用します。 既存のアプリケーションをサポートするために EntityObject ジェネレーターを引き続き使用できます。
 
-**Visual Studio 2010、2012、&amp; 2013**
+**Visual Studio 2010、2012 &amp; 2013**
 
 Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、**[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。
 

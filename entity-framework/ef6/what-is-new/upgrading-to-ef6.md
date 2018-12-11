@@ -3,12 +3,12 @@ title: Entity Framework 6 へのアップグレード
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
-ms.openlocfilehash: 2e2dacfe67238bdb7fd1f31f784319049f0f2cb0
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 711f1940080de27bd23cb8f641a5c7f2711dd65b
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490949"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53182008"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Entity Framework 6 へのアップグレード
 
@@ -64,22 +64,22 @@ DbContext とコードの最初の型の名前空間は変更されていませ�
 
 System.data.entity.dll 内に含まれていた ObjectContext などの型は、新しい名前空間に移動されました。 つまり、更新する必要があります、*を使用して*または*インポート*EF6 に対してビルドするためのディレクティブ。
 
-名前空間の変更の一般的な規則は、System.Data.* で任意の型が System.Data.Entity.Core.* に移動されます。 つまり、挿入**Entity.Core します。** System.Data 後。 例えば:
+名前空間の変更の一般的な規則は、System.Data.* で任意の型が System.Data.Entity.Core.* に移動されます。 つまり、挿入**Entity.Core します。** System.Data 後。 例:
 
-- System.Data.EntityException = > System.Data します。**Entity.Core します。** EntityException  
-- System.Data.Objects.ObjectContext = > System.Data します。**Entity.Core します。** Objects.ObjectContext  
-- System.Data.Objects.DataClasses.RelationshipManager = > System.Data します。**Entity.Core します。** Objects.DataClasses.RelationshipManager  
+- System.Data.EntityException = > System.Data します。**Entity.Core**します。EntityException  
+- System.Data.Objects.ObjectContext = > System.Data します。**Entity.Core**します。Objects.ObjectContext  
+- System.Data.Objects.DataClasses.RelationshipManager = > System.Data します。**Entity.Core**します。Objects.DataClasses.RelationshipManager  
 
 これらの種類が、 *Core*名前空間 DbContext ベースのほとんどのアプリケーションを直接使用されていないためです。 System.data.entity.dll 内の一部であった一部の種類は引き続き使用一般的と直接 DbContext ベースのアプリケーションとためありませんに移動されました、 *Core*名前空間。 これらの数値は、次のとおりです。
 
-- System.Data.EntityState = > System.Data します。**エンティティ。** EntityState  
+- System.Data.EntityState = > System.Data します。**エンティティ**します。EntityState  
 - System.Data.Objects.DataClasses.EdmFunctionAttribute = > System.Data します。**Entity.DbFunctionAttribute**  
   > [!NOTE]
   > このクラスの名前が変更されました古い名前のクラスは引き続き存在して、動作しますが、ここで不使用とマークします。  
 - System.Data.Objects.EntityFunctions = > System.Data します。**Entity.DbFunctions**  
   > [!NOTE]
   > このクラスの名前が変更されました古い名前のクラスは引き続き存在して、動作しますが、現在不使用とマークされ)。  
-- System.Data.Spatial から移動空間のクラス (たとえば、DbGeography、DbGeometry) = > System.Data します。**エンティティ。** 空間
+- System.Data.Spatial から移動空間のクラス (たとえば、DbGeography、DbGeometry) = > System.Data します。**エンティティ**します。空間
 
 > [!NOTE]
 > System.Data 名前空間の一部の型は System.Data.dll EF アセンブリではないです。 これらの型に移動していないと、そのため、名前空間は変更されません。
