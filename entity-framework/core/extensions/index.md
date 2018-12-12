@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 07/03/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 1edc7a20f54b2d26f899c93e98dfaf6d62c29f86
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 67eae6cb943b974cc9cd581b8054836d2e37b1e9
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490728"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53181995"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -43,6 +43,19 @@ Visual Studio 2017+ 拡張機能。 既存のデータベースまたは SQL Ser
 Entity Framework 6、Core 2.0 および Core 2.1 クラスのビジュアル デ ザインの ORM デザイナーに追加する Visual Studio 2017 拡張機能。 T4 テンプレートを使用して生成されたコードは、すべてのニーズに合わせて完全にカスタマイズできます。 継承、一方向および双方向の関連付けがすべてサポートされ、列挙体やクラスを色分けし、潜在的な設計の難解な部分を説明するテキストのブロックを追加する機能。
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
+
+### <a name="catfactory"></a>CatFactory
+
+CatFactory は、.NET Core と Entity Framework Core のためのスキャフォールディング エンジンです。 CatFactory の背後にある概念は、SQL Server インスタンスからの既存のデータベースのエクスポートであり、モデル内でのそのデータベースの表現を使用してエンティティ、構成、リポジトリなどのスキャフォールディングを行います。
+
+[GitHub リポジトリ](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
+
+### <a name="loresofts-entity-framework-core-generator"></a>LoreSoft の Entity Framework Core Generator
+
+Entity Framework Core Generator (efg) は .NET Core CLI ツールの 1 つです。EF Core のモデルを既存のデータベースから生成でき、`dotnet ef dbcontext scaffold` によく似ています。 ただし、セーフ コード[再生成](https://efg.loresoft.com/en/latest/regeneration/)もサポートしている点が異なります。 再生成は、リージョン置換によって、またはマッピング ファイルを解析することによって達成されます。 このツールは、ビュー モデル、検証、およびオブジェクト マッパー コードの生成もサポートしています。 詳細については、このチュートリアルと製品ドキュメントのリンクをご覧ください。
+
+[チュートリアル](http://www.loresoft.com/Generate-ASP-NET-Web-API)
+[ドキュメント](https://efg.loresoft.com/en/latest/)
 
 ## <a name="extensions"></a>拡張機能
 
