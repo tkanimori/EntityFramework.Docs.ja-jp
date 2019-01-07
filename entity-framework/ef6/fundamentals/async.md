@@ -3,12 +3,12 @@ title: 非同期クエリを実行し、保存、EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 4ed4f5c13341f33ccff8325a5ddacd8f7b195a76
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: de702365251fd05c423c8590ccaefa7d8542ad02
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283824"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058761"
 ---
 # <a name="async-query-and-save"></a>非同期クエリを実行し、保存
 > [!NOTE]
@@ -76,7 +76,7 @@ Async を使用するほとんどのアプリケーションではありませ�
     }
 ```
 
- 
+ 
 
 ## <a name="create-a-synchronous-program"></a>同期プログラムを作成します。
 
@@ -96,7 +96,6 @@ EF モデルをしたら、それを使用していくつかのデータ アク�
             {
                 PerformDatabaseOperations();
 
-                Console.WriteLine();
                 Console.WriteLine("Quote of the day");
                 Console.WriteLine(" Don't worry about the world coming to an end today... ");
                 Console.WriteLine(" It's already tomorrow in Australia.");
@@ -115,16 +114,18 @@ EF モデルをしたら、それを使用していくつかのデータ アク�
                     {
                         Name = "Test Blog #" + (db.Blogs.Count() + 1)
                     });
+                    Console.WriteLine("Calling SaveChanges.");
                     db.SaveChanges();
+                    Console.WriteLine("SaveChanges completed.");
 
                     // Query for all blogs ordered by name
+                    Console.WriteLine("Executing query.");
                     var blogs = (from b in db.Blogs
                                 orderby b.Name
                                 select b).ToList();
 
                     // Write all blogs out to Console
-                    Console.WriteLine();
-                    Console.WriteLine("All blogs:");
+                    Console.WriteLine("Query completed with following results:");
                     foreach (var blog in blogs)
                     {
                         Console.WriteLine(" " + blog.Name);
@@ -145,20 +146,20 @@ EF モデルをしたら、それを使用していくつかのデータ アク�
 4.  クエリを返しする結果が書き込まれる**コンソール**
 5.  1 日の見積もりが書き込む**コンソール**
 
-![同期出力](~/ef6/media/syncoutput.png) 
+![同期出力](~/ef6/media/syncoutput.png) 
 
- 
+ 
 
 ## <a name="making-it-asynchronous"></a>非同期になります
 
 このプログラムを起動して実行したら、新しい非同期の使用と、await キーワードを開始できます。 Program.cs に、次の変更を行いました
 
-1.  2 行目: を使用して、ステートメント、 **System.Data.Entity**名前空間に対するアクセスを提供、EF の非同期拡張メソッド。
-2.  行 4: を使用して、ステートメント、 **System.Threading.Tasks**名前空間では、使用できる、**タスク**型。
-3.  12 & 18: に関しての進行状況を監視するタスクとしてキャプチャされる**PerformSomeDatabaseOperations** (12 行目) し、このプログラムの実行をブロックし、タスク完了 1 回にすべての作業、プログラムが (行 18) に行われます。
-4.  25 行目: 更新プログラムをしました**PerformSomeDatabaseOperations**としてマーク済みである**async**戻って、**タスク**します。
-5.  行 35: 今すぐ SaveChanges の非同期バージョンの呼び出ししていますの完了を待機しています。
-6.  行 42: 今すぐ ToList の非同期バージョンを呼び出すしています、結果を待機しています。
+1.  2 行目。ステートメントを使用して、 **System.Data.Entity**名前空間に対するアクセスを提供、EF の非同期拡張メソッド。
+2.  4 行目。ステートメントを使用して、 **System.Threading.Tasks**名前空間では、使用できる、**タスク**型。
+3.  行 18 (&)、12:私たちの進行状況を監視するタスクとしてキャプチャしている**PerformSomeDatabaseOperations** (12 行目) し、このプログラムの実行をブロックし、タスク完了 1 回にすべての作業、プログラムが (行 18) に行われます。
+4.  25 行目。更新プログラムを用意しています**PerformSomeDatabaseOperations**としてマーク済みである**async**戻って、**タスク**します。
+5.  35 行目。SaveChanges の非同期バージョンを呼び出すようになりましたしての完了を待機しています。
+6.  行 42:ToList と結果を待機中の非同期バージョンを呼んでいるようになりました。
 
 System.Data.Entity 名前空間の使用可能な拡張メソッドの包括的な一覧、QueryableExtensions クラスを参照してください。 *またを使用する「System.Data.Entity を使用して」を追加する必要がありますステートメント。*
 
@@ -227,9 +228,9 @@ System.Data.Entity 名前空間の使用可能な拡張メソッドの包括的�
 4.  すべてのクエリ**ブログ**データベースに送信される*ここでも、マネージ スレッドは無料で、クエリは、データベースの処理中に他の作業を行います。他のすべての実行が完了するため、スレッドはだけ停止待機の呼び出しでただしします。*
 5.  クエリを返しする結果が書き込まれる**コンソール**
 
-![非同期出力](~/ef6/media/asyncoutput.png) 
+![非同期出力](~/ef6/media/asyncoutput.png) 
 
- 
+ 
 
 ## <a name="the-takeaway"></a>したがって、
 

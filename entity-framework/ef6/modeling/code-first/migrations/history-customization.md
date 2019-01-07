@@ -3,12 +3,12 @@ title: EF6 移行履歴テーブルのカスタマイズ
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ed5518f0-a9a6-454e-9e98-a4fa7748c8d0
-ms.openlocfilehash: e3faefc4b812ec4bc440ed2bb48747053d8cb1b3
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: eb19f367611a86f685557a6741a5f2f0bad6b718
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283694"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058748"
 ---
 # <a name="customizing-the-migrations-history-table"></a>移行履歴テーブルのカスタマイズ
 > [!NOTE]
@@ -19,7 +19,7 @@ ms.locfileid: "46283694"
 
 ## <a name="what-is-migrations-history-table"></a>移行履歴テーブルとは何ですか。
 
-移行履歴テーブルは、データベースに適用される移行の詳細を格納する Code First Migrations で使用するテーブルです。 既定で、データベース内のテーブルの名前は\_ \_MigrationHistory とそれが最初の移行は、データベースに適用するときに作成します。 Entity Framework 5 では、次の表は、アプリケーションは、Microsoft Sql Server データベースを使用する場合に、システム テーブルをでした。 ただし Entity Framework 6 でこれが変更され、移行履歴テーブルがシステム テーブルをマークされていません。
+移行履歴テーブルは、データベースに適用される移行の詳細を格納する Code First Migrations で使用するテーブルです。 既定で、データベース内のテーブルの名前は\_ \_MigrationHistory とそれを作成、データベースに最初の移行を適用する場合。 Entity Framework 5 では、次の表は、アプリケーションは、Microsoft Sql Server データベースを使用する場合に、システム テーブルをでした。 ただし Entity Framework 6 でこれが変更され、移行履歴テーブルがシステム テーブルをマークされていません。
 
 ## <a name="why-customize-migrations-history-table"></a>移行履歴テーブルをカスタマイズする理由ですか。
 
@@ -43,7 +43,7 @@ Code First Migrations を単独で使用する移行履歴テーブルは、手�
 >[!NOTE]
 > 通常、EF モデルを構成するときに、呼び出しに必要はありません。以降、DbContext.OnModelCreating() オーバーライド OnModelCreating メソッドから OnModelCreating() が空の本文です。 移行履歴テーブルを構成するときにない場合になります。 この場合、最初に実際に呼び出す基本 OnModelCreating() オーバーライドではすべきです。OnModelCreating() します。 これは、オーバーライド元のメソッドで調整しする既定の方法での移行履歴テーブルを構成します。
 
-たとえば、移行履歴テーブルの名前を変更し、"admin"と呼ばれるカスタム スキーマを配置したいとします。 さらに、DBA ほしいへの移行から MigrationId 列の名前を変更する\_id。  次に HistoryContext から派生したクラスを作成してこれを実現する可能性があります。
+たとえば、移行履歴テーブルの名前を変更し、"admin"と呼ばれるカスタム スキーマを配置したいとします。 さらに、DBA ほしいへの移行から MigrationId 列の名前を変更する\_id。  次に HistoryContext から派生したクラスを作成してこれを実現する可能性があります。
 
 ``` csharp
     using System.Data.Common;

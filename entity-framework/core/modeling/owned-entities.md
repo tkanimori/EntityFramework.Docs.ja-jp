@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 58da3b6b951b3fa4aa04ec75f5759555c1f0cde5
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: fe7e07b8bd483fb3f9b672ee78ef7541f06a21a4
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980029"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058774"
 ---
 # <a name="owned-entity-types"></a>所有エンティティ型
 
@@ -50,7 +50,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するた
 ## <a name="collections-of-owned-types"></a>所有型のコレクション
 
 >[!NOTE]
-> この機能は、EF Core 2.2 の新機能です。
+> これは EF Core 2.2 の新機能です。
 
 所有型のコレクションを構成する`OwnsMany`で使用する必要があります`OnModelCreating`します。 ただし、主キーは構成されません規則により、ため、これを明示的に指定する必要があります。 このタイプのエンティティの所有者とシャドウ状態にすることもある追加の固有プロパティへの外部キーを組み込むことの複雑なキーを使用して、一般的には。
 
@@ -126,4 +126,4 @@ EF Core がこれらのオブジェクトの追跡対象のインスタンスを
 
 ### <a name="shortcomings-in-previous-versions"></a>以前のバージョンの欠点
 - EF Core 2.0 では、ナビゲーションには、所有エンティティが別のテーブルに所有者の階層から明示的にマップされていない限り、派生エンティティ型のエンティティ型を宣言できませんを所有します。 EF Core 2.1 でこの制限が削除されました
-- En EF Core 2.0 および 2.1 のみ参照ナビゲーション所有型には、サポートされていました。 EF Core 2.2 でこの制限が削除されました
+- EF Core 2.0 および 2.1 の唯一の参照では、所有型にナビゲーションがサポートされていました。 EF Core 2.2 でこの制限が削除されました
