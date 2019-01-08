@@ -4,27 +4,53 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: a12d628a28515f0c6710bfa59bc6dcdf41fcb58b
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: f18de8e8cb4fbe81bb2f983a00c9dd2f46be6073
+ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688590"
+ms.lasthandoff: 12/10/2018
+ms.locfileid: "53182021"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core のロードマップ
 
 > [!IMPORTANT]
 > 機能セットと今後のリリースのスケジュールは、常に変更される可能性があることに注意してください。また、このページを最新の状態に保持するようにしていますが、最新のプランが反映されていない場合もあります。
 
-### <a name="ef-core-22"></a>EF Core 2.2
-
-このリリースには、多くのバグの修正と比較的少数の新機能が含まれます。 このリリースは 2018 年の年末に予定されています。 このリリースについて詳しくは、[EF Core 2.2 の新機能](xref:core/what-is-new/ef-core-2.2)に関する記事をご覧ください。 
-
 ### <a name="ef-core-30"></a>EF Core 3.0
 
-EF Core のメジャー リリースは .NET Core 3.0 と ASP.NET 3.0 に合わせる予定ですが、そのための[リリースの計画プロセス](#release-planning-process)がまだ完成していません。
+EF Core 2.2 が完成したので、現在は EF Core 3.0 に重点が置かれています。これは .NET Core 3.0 と ASP.NET 3.0 に合わせてリリースされます。
 
-3.0 に暫定的に割り当てられている作業項目を確認するには、[この問題の追跡ツールのクエリ](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc)を使用します。
+新機能はまだ 1 つも完成していないため、2018 年 12 月に  [NuGet ギャラリーに公開された EF Core 3.0 Preview 1 パッケージ](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.0-preview.18572.1)に含まれているのは、[バグの修正、細かな改善、3.0 の作業に備えた変更](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aissue+milestone%3A3.0.0+is%3Aclosed+label%3Aclosed-fixed)のみです。
+
+実のところ、割り当てられた時間内に完成できる適切な機能セットを確実に含めるには、3.0 の[リリースの計画](#release-planning-process)をさらに改良する必要があります。
+詳細情報については明らかになり次第共有していきますが、ここではいくつかの大まかなテーマと、作業予定の機能についてご紹介します。
+
+- **LINQ の機能強化 ([#12795](https://github.com/aspnet/EntityFrameworkCore/issues/12795))**:LINQ を使うと、好みの言語を使ってデータベース クエリを記述でき、豊富な型情報を利用して IntelliSense とコンパイル時の型チェックを活用できます。
+  ただし、LINQ では複雑なクエリを無制限に記述することもできます。これは、LINQ プロバイダーにとって常に重要な課題となります。
+  EF Core の最初のいくつかのバージョンでは、クエリのうち SQL に変換可能な部分を特定してから、クエリの残りの部分をクライアント側のメモリ内で実行させることにより、これを部分的に解決しました。
+  状況によってはこのクライアント側の実行が望ましいものとなる場合がありますが、その他の多くの場合では、アプリケーションが運用環境に展開されるまで特定できない非効率なクエリが発生する可能性があります。
+  EF Core 3.0 では、LINQ の実装のしくみとそのテスト方法に関して、大きな変更を加える予定です。
+  その目的は、これをより堅牢にすること (たとえば、修正プログラムのリリースで破壊的なクエリを回避すること)、より多くの式を適切に SQL に変換できるようにすること、効率的なクエリをより多くの場合に生成すること、および非効率なクエリの見逃しを防ぐことです。
+
+- **Cosmos DB のサポート ([#8443](https://github.com/aspnet/EntityFrameworkCore/issues/8443))**:EF のプログラミング モデルに慣れている開発者が、Azure Cosmos DB をアプリケーション データベースとして簡単にターゲット設定できるようにするために、EF Core 用の Cosmos DB プロバイダーに取り組んでいます。
+  その目的は、グローバル配布、"常にオン" 機能、高いスケーラビリティ、低待機時間など、Cosmos DB の利点のいくつかを .NET 開発者がさらに使いやすくすることです。
+  プロバイダーでは、Cosmos DB の SQL API に対して、変更の自動追跡、LINQ、値変換など、ほとんどの EF Core 機能が有効になります。 この作業は EF Core 2.2 以前に開始されたため、[いくつかのプロバイダーのプレビュー バージョンを利用できます](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/)。
+  新しいプランでは、EF Core 3.0 と共にプロバイダーの開発を継続していきます。   
+
+- **C# 8.0 のサポート ([#12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047))**:非同期ストリーム (await for each など) や Null 許容参照型など、[C# 8.0 で導入される新機能](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/)の一部を EF Core を使う際にも利用していただきたいと考えています。
+
+- **データベース ビューのクエリ型へのリバース エンジニアリング ([#1679](https://github.com/aspnet/EntityFrameworkCore/issues/1679))**:EF Core 2.1 ではクエリ型のサポートが追加されました。これは、データベースから読み取ることができるデータを表すことが可能ですが、更新はできません。
+  クエリ型はデータベース ビューをマッピングするのに最適です。そのため、EF Core 3.0 では、データベース ビューのクエリ型の作成を自動化する予定です。
+
+- **プロパティ バッグのエンティティ ([#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) と [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914))**:この機能は、通常のプロパティではなくインデックス付きプロパティにデータを格納するエンティティを有効にすること、および、同じ EF Core モデル内で異なるエンティティ型を表すために、同じ .NET クラスのインスタンス (`Dictionary<string, object>` のように単純なものである可能性があります) を使用できるようにすることと関係しています。
+  この機能は、結合エンティティなしの多対多リレーションシップをサポートするための足がかりとなります。これは EF Core に対して特に要望が多かった機能強化の 1 つです。
+
+- **.NET Core での EF 6.3 ([EF6 #271](https://github.com/aspnet/EntityFramework6/issues/271))**:多くの既存のアプリケーションでは以前のバージョンの EF が使われていて、.NET Core を利用するためだけにそれらを EF Core に移植すると多大な労力が必要となる場合があります。
+  そのため、次のバージョンの EF 6 は .NET Core 3.0 上で実行するように調整されます。
+  最小限の変更で既存のアプリケーションを移植できるようにするために、この作業を行っています。
+  いくつかの制限 (例: 新しいプロバイダーが必要、SQL Server での空間サポートを使えない) が存在します。また、EF 6 に向けた新機能は予定されていません。
+
+それまでの間、[問題の追跡ツール内でこのクエリ](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc)を使って、3.0 に暫定的に割り当てられている作業項目を確認することができます。
 
 ## <a name="schedule"></a>スケジュール
 
