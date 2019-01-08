@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
-ms.openlocfilehash: fe7e07b8bd483fb3f9b672ee78ef7541f06a21a4
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: b2d72b08de79939904bf4e726c695440c906a8aa
+ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058774"
+ms.lasthandoff: 01/07/2019
+ms.locfileid: "54069205"
 ---
 # <a name="owned-entity-types"></a>所有エンティティ型
 
@@ -52,7 +52,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するた
 >[!NOTE]
 > これは EF Core 2.2 の新機能です。
 
-所有型のコレクションを構成する`OwnsMany`で使用する必要があります`OnModelCreating`します。 ただし、主キーは構成されません規則により、ため、これを明示的に指定する必要があります。 このタイプのエンティティの所有者とシャドウ状態にすることもある追加の固有プロパティへの外部キーを組み込むことの複雑なキーを使用して、一般的には。
+所有型のコレクションを構成する`OwnsMany`で使用する必要があります`OnModelCreating`します。 ただし、プライマリ キーは構成されません規則により、明示的に指定する必要があるためです。 このタイプのエンティティの所有者とシャドウ状態にすることもある追加の固有プロパティへの外部キーを組み込むことの複雑なキーを使用して、一般的には。
 
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
