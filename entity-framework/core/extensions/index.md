@@ -1,19 +1,19 @@
 ---
 title: ツールと拡張機能 - EF Core
 author: ErikEJ
-ms.date: 07/03/2018
+ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 67eae6cb943b974cc9cd581b8054836d2e37b1e9
-ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
+ms.openlocfilehash: 414773284df7c208b9a2acf0536fda459bdf775b
+ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/10/2018
-ms.locfileid: "53181995"
+ms.lasthandoff: 01/07/2019
+ms.locfileid: "54069231"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
-ツールと拡張機能は、Entity Framework Core の追加機能を提供します。
+以下のツールと拡張機能は、Entity Framework Core 2.0 およびそれ以降の追加機能を提供します。
 
 > [!IMPORTANT]  
 > 拡張機能はさまざまなソースから構築されており、Entity Framework Core プロジェクトの一部として保守管理されていません。 サードパーティ拡張機能の利用を検討するとき、要件に合うよう、品質、使用許諾、互換性、サポートなどを必ず評価してください。
@@ -28,31 +28,31 @@ LLBLGen Pro は、Entity Framework と Entity Framework Core のサポートを�
 
 ### <a name="devart-entity-developer"></a>Devart Entity Developer
 
-Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な ORM デザイナーです。 Model-First および Database-First アプローチを使って ORM モデルを設計し、C# または Visual Basic .NET のコードを生成することができます。 ORM モデルをデザインするための新しいアプローチが導入されているため、生産性が向上し、データベース アプリケーションの開発が容易になります。
+Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な ORM デザイナーです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。 
 
 [Web サイト](https://www.devart.com/entitydeveloper/)
 
 ### <a name="ef-core-power-tools"></a>EF Core のパワー ツール
 
-Visual Studio 2017+ 拡張機能。 既存のデータベースまたは SQL Server データベース プロジェクトから DbContext と POCO クラスをリバース エンジニアリングして、さまざまな方法で DbContext を視覚化し、調査することができます。
+EF Core のパワー ツールは、シンプルなユーザー インターフェイスで EF Core デザイン時のさまざまなタスクを公開する Visual Studio 2017 の拡張機能です。 既存のデータベースと [SQL Server DACPAC](https://docs.microsoft.com/sql/relational-databases/data-tier-applications/data-tier-applications) からの DbContext とエンティティ クラスのリバース エンジニアリング、データベース移行の管理、モデルの視覚化が含まれます。
 
-[GitHub の Wiki](https://github.com/ErikEJ/SqlCeToolbox/wiki/EF-Core-Power-Tools)
+[GitHub の Wiki](https://github.com/ErikEJ/EFCorePowerTools/wiki)
 
 ### <a name="entity-framework-visual-editor"></a>Entity Framework のビジュアル エディター
 
-Entity Framework 6、Core 2.0 および Core 2.1 クラスのビジュアル デ ザインの ORM デザイナーに追加する Visual Studio 2017 拡張機能。 T4 テンプレートを使用して生成されたコードは、すべてのニーズに合わせて完全にカスタマイズできます。 継承、一方向および双方向の関連付けがすべてサポートされ、列挙体やクラスを色分けし、潜在的な設計の難解な部分を説明するテキストのブロックを追加する機能。
+Entity Framework のビジュアル エディターは、EF 6 のビジュアル デザインの ORM デザイナーと EF Core のクラスを追加する、Visual Studio 2017 の拡張機能です。 コードは T4 テンプレートを使用して生成されるため、あらゆるニーズに合わせてカスタマイズできます。 継承、一方向および双方向の関連付け、列挙体がサポートされ、クラスの色分けが可能になり、潜在的な設計の難解な部分を説明するテキストのブロックを追加できるようになります。
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
 ### <a name="catfactory"></a>CatFactory
 
-CatFactory は、.NET Core と Entity Framework Core のためのスキャフォールディング エンジンです。 CatFactory の背後にある概念は、SQL Server インスタンスからの既存のデータベースのエクスポートであり、モデル内でのそのデータベースの表現を使用してエンティティ、構成、リポジトリなどのスキャフォールディングを行います。
+CatFactory は SQL Server データベースからの DbContext のクラス、エンティティ、マッピング構成、リポジトリ クラスの生成を自動化できる .NET Core のスキャフォールディング エンジンです。
 
 [GitHub リポジトリ](https://github.com/hherzl/CatFactory.EntityFrameworkCore)
 
 ### <a name="loresofts-entity-framework-core-generator"></a>LoreSoft の Entity Framework Core Generator
 
-Entity Framework Core Generator (efg) は .NET Core CLI ツールの 1 つです。EF Core のモデルを既存のデータベースから生成でき、`dotnet ef dbcontext scaffold` によく似ています。 ただし、セーフ コード[再生成](https://efg.loresoft.com/en/latest/regeneration/)もサポートしている点が異なります。 再生成は、リージョン置換によって、またはマッピング ファイルを解析することによって達成されます。 このツールは、ビュー モデル、検証、およびオブジェクト マッパー コードの生成もサポートしています。 詳細については、このチュートリアルと製品ドキュメントのリンクをご覧ください。
+Entity Framework Core Generator (efg) は既存のデータベースから EF Core モデルを生成できる .NET Core の CLI ツールで、`dotnet ef dbcontext scaffold` と非常に似ていますが、リージョンの置換やマッピング ファイルの解析による安全なコードの[再生成](https://efg.loresoft.com/en/latest/regeneration/)もサポートしています。 このツールは、ビュー モデル、検証、およびオブジェクト マッパー コードの生成をサポートしています。 
 
 [チュートリアル](http://www.loresoft.com/Generate-ASP-NET-Web-API)
 [ドキュメント](https://efg.loresoft.com/en/latest/)
@@ -61,73 +61,50 @@ Entity Framework Core Generator (efg) は .NET Core CLI ツールの 1 つです
 
 ### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft.EntityFrameworkCore.AutoHistory
 
-データの変更履歴の自動記録をサポートする、Microsoft.EntityFrameworkCore 用のプラグイン。
+EF Core によって実行されたデータ変更を履歴テーブルに自動的に記録できるプラグイン ライブラリ。
 
 [GitHub リポジトリ](https://github.com/Arch/AutoHistory/)
 
 ### <a name="microsoftentityframeworkcoredynamiclinq"></a>Microsoft.EntityFrameworkCore.DynamicLinq
 
-非同期サポートを追加する Microsoft.EntityFrameworkCore 用の動的 LINQ 拡張機能
+EF Core との非同期サポートが含まれる System.Linq.Dynamic の .NET Core/.NET Standard ポート。
+コードではなく文字列式から動的に LINQ クエリを構築する方法を示す、Microsoft のサンプルから生成された System.Linq.Dynamic。
 
- [GitHub リポジトリ](https://github.com/StefH/System.Linq.Dynamic.Core/)
-
-### <a name="efcorepractices"></a>EFCore.Practices
-
-N+1 クエリをスキャンする小規模なフレームワークなど、API のテストをサポートする優れたプラクティスの一部が取得されます。
-
-[GitHub リポジトリ](https://github.com/riezebosch/efcore-practices/tree/master/src/EFCore.Practices/)
+[GitHub リポジトリ](https://github.com/StefH/System.Linq.Dynamic.Core/)
 
 ### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache.Core
 
-第 2 レベルのキャッシュ ライブラリ。 第 2 レベルのキャッシュは、クエリ キャッシュです。 EF コマンドの結果はキャッシュに保存されます。これにより同じ EF コマンドが実行されたときにデータベースからではなくキャッシュからデータが取得されるようになります。
+同じクエリの後続の実行によってデータベースにアクセスされたり、キャッシュからデータが直接取得されたりしないように、2 番目のレベルのキャッシュに EF Core クエリの結果が格納されるようにする拡張機能。
 
 [GitHub リポジトリ](https://github.com/VahidN/EFSecondLevelCache.Core/)
 
-### <a name="detachedentityframework"></a>Detached.EntityFramework
-
-デタッチされたエンティティのグラフ (子エンティティとリストを含むエンティティ) 全体を読み込んで、保存します。 [GraphDiff](https://github.com/refactorthis/GraphDiff/) からインスパイアされています。 監査や改ページといった一部の反復的なタスクを簡略化するプラグインもいくつか追加されます。
-
-[GitHub リポジトリ](https://github.com/leonardoporro/Detached/)
-
 ### <a name="entityframeworkcoreprimarykey"></a>EntityFrameworkCore.PrimaryKey
 
-すべてのエンティティから (複合キーを含む) 主キーをディクショナリとして取得します。
+このライブラリにより、すべてのエンティティから主キー (複合キーを含む) の値をディクショナリとして取得できるようになります。
 
 [GitHub リポジトリ](https://github.com/NickStrupat/EntityFramework.PrimaryKey/)
 
-### <a name="entityframeworkcorerx"></a>EntityFrameworkCore.Rx
-
-Entity Framework エンティティの Hot Observable の事後対応型拡張機能ラッパー。
-
-[GitHub リポジトリ](https://github.com/NickStrupat/EntityFramework.Rx/)
-
-### <a name="entityframeworkcoretriggers"></a>EntityFrameworkCore.Triggers
-
-挿入、更新、削除イベントを含むエンティティにトリガーを追加します。 それぞれに対して、前、後、障害発生時の 3 つのイベントがあります。
-
-[GitHub リポジトリ](https://github.com/NickStrupat/EntityFramework.Triggers/)
-
 ### <a name="entityframeworkcoretypedoriginalvalues"></a>EntityFrameworkCore.TypedOriginalValues
 
-エンティティのプロパティの OriginalValue に型指定されたアクセスができるようになります。 単純または複合プロパティがサポートされますが、ナビゲーション/コレクションはサポートされません。
+このライブラリにより、エンティティ プロパティの元の値に対し、厳密に型指定されたアクセスができるようになります。 
 
 [GitHub リポジトリ](https://github.com/NickStrupat/EntityFramework.TypedOriginalValues/)
 
 ### <a name="geco"></a>Geco
 
-Geco は複数形化/単数形化のサポートと、C# 6.0 の挿入文字列に基づき .Net Core で実行される編集可能なテンプレートを含むリバース モデル ジェネレーターを提供します。 また、SQL マージ スクリプトとスクリプト ランナーを含むシード スクリプト ジェネレーターも提供します。
+Geco (ジェネレーター コンソール) は .NET Core 上で実行され、C# 補間の文字列を使用してコードを生成する、コンソール プロジェクトに基づいた単純なコード ジェネレーターです。 Geco には、複数形化、単数形化、編集可能なテンプレートのサポートが含まれる、EF Core のリバース モデル ジェネレーターが含まれています。 シード データ スクリプト ジェネレーター、スクリプト ランナー、データベース クリーナーも提供されます。
 
 [GitHub リポジトリ](https://github.com/iQuarc/Geco)
 
 ### <a name="linqkitmicrosoftentityframeworkcore"></a>LinqKit.Microsoft.EntityFrameworkCore
 
-LinqKit.Microsoft.EntityFrameworkCore は、LINQ to SQL と EntityFrameworkCore のパワー ユーザー向けの無料の拡張機能セットです。 Include(...) と IDbAsync をサポートします。
+LinqKit.Microsoft.EntityFrameworkCore は、LINQKit ライブラリの EF Core 互換バージョンです。 LINQKit は、LINQ to SQL および Entity Framework のパワー ユーザー向けの無料の拡張機能セットです。 述語式の動的な構築やサブクエリでの式の変数の使用などの拡張機能が有効になります。  
 
 [GitHub リポジトリ](https://github.com/scottksmith95/LINQKit/)
 
 ### <a name="neinlinqentityframeworkcore"></a>NeinLinq.EntityFrameworkCore
 
-NeinLinq.EntityFrameworkCore は、.NET 関数の一部のサブセットのみをサポートするエンティティ フレームワークなどの LINQ プロバイダーの使用、関数の再利用、クエリの再記述と null セーフ設定、翻訳可能な述語とセレクターを使った動的クエリの構築に便利な拡張機能を提供します。
+NeinLinq は、Entity Framework などの LINQ プロバイダーを拡張し、関数の再利用、クエリの書き直し、変換可能な述語とセレクターを使用した動的クエリの構築などを可能にします。
 
 [GitHub リポジトリ](https://github.com/axelheer/nein-linq/)
 
@@ -137,15 +114,9 @@ NeinLinq.EntityFrameworkCore は、.NET 関数の一部のサブセットのみ�
 
 [GitHub リポジトリ](https://github.com/Arch/UnitOfWork/)
 
-### <a name="entityframeworklazyloading"></a>EntityFramework.LazyLoading
-
-EF Core 1.1 の遅延読み込み
-
-[GitHub リポジトリ](https://github.com/darxis/EntityFramework.LazyLoading)
-
 ### <a name="efcorebulkextensions"></a>EFCore.BulkExtensions
 
-一括操作 (挿入、更新、削除) の EntityFrameworkCore 拡張機能。
+一括操作 (挿入、更新、削除) の EF Core 拡張機能。
 
 [GitHub リポジトリ](https://github.com/borisdj/EFCore.BulkExtensions)
 
@@ -154,3 +125,33 @@ EF Core 1.1 の遅延読み込み
 EF Core へのデザイン時の複数形化の追加。
 
 [GitHub リポジトリ](https://github.com/bricelam/EFCore.Pluralizer)
+
+### <a name="pomelofoundationpomeloentityframeworkcoreextensionstosql"></a>PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql
+
+EF Core が単純なシナリオの指定の LINQ クエリに対して生成する SQL ステートメントを取得する単純な拡張メソッド。 EF Core は 1 つの LINQ クエリに対して複数の SQL ステートメントを生成したり、パラメータ値に応じて異なる SQL ステートメントを生成したりできるため、ToSql メソッドは単純なシナリオに限定されます。
+
+[GitHub リポジトリ](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.Extensions.ToSql)
+
+### <a name="toolbeltentityframeworkcoreindexattribute"></a>Toolbelt.EntityFrameworkCore.IndexAttribute
+
+EF Core の [Index] 属性のリバイバルです (モデル構築のための拡張機能)。
+
+[GitHub リポジトリ](https://github.com/jsakamoto/EntityFrameworkCore.IndexAttribute)
+
+### <a name="efcoreinmemoryhelpers"></a>EfCore.InMemoryHelpers
+
+EF Core のメモリ内データベース プロバイダーに関するラッパーを提供します。 リレーショナル プロバイダーのような動作になります。
+
+[GitHub リポジトリ](https://github.com/SimonCropp/EfCore.InMemoryHelpers)
+
+### <a name="efcoretemporalsupport"></a>EFCore.TemporalSupport
+
+EF Core のテンポラル サポートの実装。
+
+[GitHub リポジトリ](https://github.com/cpoDesign/EFCore.TemporalSupport)
+
+### <a name="entityframeworkcorecacheable"></a>EntityFrameworkCore.Cacheable
+
+EF Core の高パフォーマンスな 2 番目のレベルのクエリ キャッシュ。
+
+[GitHub リポジトリ](https://github.com/SteffenMangold/EntityFrameworkCore.Cacheable)
