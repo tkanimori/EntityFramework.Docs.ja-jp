@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 0ad9731840c5f72064f2f66932b9867a0144f437
-ms.sourcegitcommit: 2da6f9b05e1ce3a46491e5cc68f17758bdeb6b02
+ms.openlocfilehash: 5bddddfbc2fe8d0ba99914f03b28bde4076fae42
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/06/2018
-ms.locfileid: "53006870"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058715"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
@@ -81,7 +81,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-また、DbParameter を構築し、それをパラメーター値として指定することもできます。 こうすることで、SQL クエリ文字列に名前付きパラメーターを使用できます
+また、DbParameter を構築し、それをパラメーター値として指定することもできます。 こうすることで、SQL クエリ文字列に名前付きパラメーターを使用できます。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp

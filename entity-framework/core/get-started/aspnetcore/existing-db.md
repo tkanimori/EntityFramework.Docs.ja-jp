@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: 23cd53b0e162afc5db0243b7032bb9c5f18bfb35
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: c8acb95395968f710e6b896de6c3598cb7b23676
+ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688694"
+ms.lasthandoff: 01/06/2019
+ms.locfileid: "54058787"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>既存のデータベースを使用した ASP.NET Core での EF Core の概要
 
@@ -48,7 +48,7 @@ ms.locfileid: "51688694"
 * **[ファイル] > [新規] > [プロジェクト]**
 * 左側のメニューから **[インストール済み] > [Visual C#] > [Web]** の順に選択します
 * **[ASP.NET Core Web アプリケーション]** プロジェクト テンプレートを選択します
-* 名前に「**EFGetStarted.AspNetCore.ExistingDb**」を入力して **[OK]** をクリックします
+* 名前には「**EFGetStarted.AspNetCore.ExistingDb**」と入力し (コードで後で使用される名前空間と正確に一致する必要があります)、**[OK]** をクリックします 
 * **[新しい ASP.NET Core Web アプリケーション]** ダイアログが表示されるのを待ちます
 * ターゲット フレームワークのドロップダウンが **[.NET Core]** に設定されており、バージョンのドロップダウンが **[ASP.NET Core 2.1]** に設定されていることを確認します
 * **[Web アプリケーション (モデル ビュー コントローラー)]** テンプレートを選択します

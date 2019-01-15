@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 2248c60045a914c902f1c958a86c69b283abd722
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 4734586adc89e9c1d866a1b4accd8b5e51fe2bb0
+ms.sourcegitcommit: ebf661025d2ad2b62466fa7bf0e0772a7811cbe7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022237"
+ms.lasthandoff: 01/11/2019
+ms.locfileid: "54211167"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>新しいデータベースを使用した ASP.NET Core での EF Core の概要
 
@@ -54,7 +54,7 @@ ms.locfileid: "50022237"
   * **[認証]** に **[認証なし]** が設定されていることを確認します。
   * **[OK]** をクリックします。
 
-注意: **[認証]** で **[なし]** ではなく **[個別のユーザー アカウント]** を使用すると、プロジェクトの `Models\IdentityModel.cs` に Entity Framework Core モデルが追加されます。 このチュートリアルで学習する手法を使用すると、エンティティ クラスを格納するのに、この既存のモデルに 2 つ目のモデルを追加するか、またはこの既存のクラスを拡張するかを選択できます。
+警告:**[認証]** で **[なし]** ではなく **[個別のユーザー アカウント]** を使用すると、プロジェクトの `Models\IdentityModel.cs` に Entity Framework Core モデルが追加されます。 このチュートリアルで学習する手法を使用すると、エンティティ クラスを格納するのに、この既存のモデルに 2 つ目のモデルを追加するか、またはこの既存のクラスを拡張するかを選択できます。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -201,7 +201,7 @@ EF Core をインストールするには、対象となる EF Core データベ
 スキャフォールディング エンジンによって次のファイルが作成されます。
 
 * コントローラー (*Controllers/BlogsController.cs*)
-* 作成、削除、詳細、編集、およびインデックス ページ用の Razor ビュー ファイル (_Views/Movies/*.cshtml_)
+* 作成、削除、詳細、編集、およびインデックス ページ用の Razor ビュー (_Views/Blogs/*.cshtml_)
 
 ## <a name="run-the-application"></a>アプリケーションの実行
 
@@ -229,5 +229,5 @@ dotnet run
 ## <a name="additional-resources"></a>その他のリソース
 
 * [チュートリアル: SQLite を使用した新しいデータベースでの .NET Core での EF Core の概要](xref:core/get-started/netcore/new-db-sqlite)
-* [チュートリアル: ASP.NET Core の Razor Pages の概要](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
-* [チュートリアル: ASP.NET Core での Entity Framework Core を使用した Razor Pages](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
+* [チュートリアル: ASP.NET Core の Razor ページの概要](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
+* [チュートリアル: ASP.NET Core での Entity Framework Core を使用した Razor ページ](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
