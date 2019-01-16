@@ -3,46 +3,47 @@ title: EF6 の検証
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: 3aeb33763819544618c4a3068bb278c9b23409b6
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 98d7bd08d841ee400afb62e1079f1a965f65e139
+ms.sourcegitcommit: b4a5ed177b86bf7f81602106dab6b4acc18dfc18
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490644"
+ms.lasthandoff: 01/15/2019
+ms.locfileid: "54316648"
 ---
 # <a name="data-validation"></a>データの検証
 > [!NOTE]
 > **EF4.1 以降のみ**-機能、Api、Entity Framework 4.1 で導入されたなどのこのページで説明します。 一部またはすべての情報は適用されませんが、以前のバージョンを使用している場合
 
-このページのコンテンツの出典元し、Julie Lerman が最初に書き込まれた情報の記事 ([http://thedatafarm.com](http://thedatafarm.com))。
+このページの内容を Julie Lerman によって書き込まれた最初の記事からの抜粋です ([http://thedatafarm.com](http://thedatafarm.com))。
 
 Entity Framework では、さまざまなクライアント側検証用のユーザー インターフェイスをフィードできますまたはサーバー側の検証に使用される検証機能を提供します。 最初にコードを使用している場合は、注釈または fluent API 構成を使用して検証を指定できます。 追加の検証、およびより複雑なコードで指定することができ、、最初に、メイン コードからモデルかどうかを最初にモデルまたはデータベースの最初。
 
 ## <a name="the-model"></a>モデル
 
-クラスの単純なペアに検証を紹介します。 ブログや投稿します。
+クラスの単純なペアに検証を紹介します。ブログの投稿.
 
 ``` csharp
     public class Blog
       {
-          public int Id { get; set; }
-          public string Title { get; set; }
-          public string BloggerName { get; set; }
-          public DateTime DateCreated { get; set; }
-          public virtual ICollection<Post> Posts { get; set; }
-          }
-      }
+          public int Id { get; set; }
+          public string Title { get; set; }
+          public string BloggerName { get; set; }
+          public DateTime DateCreated { get; set; }
+          public virtual ICollection<Post> Posts { get; set; }
+          }
+      }
 
-      public class Post
-      {
-          public int Id { get; set; }
-          public string Title { get; set; }
-          public DateTime DateCreated { get; set; }
-          public string Content { get; set; }
-          public int BlogId { get; set; }
-          public ICollection<Comment> Comments { get; set; }
-      }
+      public class Post
+      {
+          public int Id { get; set; }
+          public string Title { get; set; }
+          public DateTime DateCreated { get; set; }
+          public string Content { get; set; }
+          public int BlogId { get; set; }
+          public ICollection<Comment> Comments { get; set; }
+      }
 ```
+
 ## <a name="data-annotations"></a>データの注釈
 
 まず、コードは、コードの最初のクラスの設定の 1 つの手段として System.ComponentModel.DataAnnotations アセンブリからの注釈を使用します。 これらの注釈の間で必要な場合は、MaxLength、MinLength などのルールが提供されるは。 多数の .NET クライアント アプリケーションでは、これらの注釈では、たとえば、ASP.NET MVC も認識します。 両方クライアント側とサーバー側の検証では、これらの注釈を実現できます。 たとえば、ブログのタイトル プロパティに必要なプロパティを強制できます。
@@ -64,7 +65,7 @@ Entity Framework では、さまざまなクライアント側検証用のユー
 
 ``` xml
     <appSettings>
-        <add key="ClientValidationEnabled"value="false"/>
+        <add key="ClientValidationEnabled"value="false"/>
         ...
     </appSettings>
 ```
@@ -79,16 +80,16 @@ Entity Framework では、さまざまなクライアント側検証用のユー
 
 ``` csharp
     public class BlogContext : DbContext
-      {
-          public DbSet<Blog> Blogs { get; set; }
-          public DbSet<Post> Posts { get; set; }
-          public DbSet<Comment> Comments { get; set; }
+      {
+          public DbSet<Blog> Blogs { get; set; }
+          public DbSet<Post> Posts { get; set; }
+          public DbSet<Comment> Comments { get; set; }
 
-          protected override void OnModelCreating(DbModelBuilder modelBuilder)
-          {
-              modelBuilder.Entity<Blog>().Property(p => p.BloggerName).HasMaxLength(10);
-          }
-        }
+          protected override void OnModelCreating(DbModelBuilder modelBuilder)
+          {
+              modelBuilder.Entity<Blog>().Property(p => p.BloggerName).HasMaxLength(10);
+          }
+        }
 ```
 
 検証エラーがスローされた Fluent API 構成に基づいたは自動的に reach UI ことができますキャプチャしません、コードと次の応答でそれに応じて。
@@ -99,18 +100,18 @@ Entity Framework では、さまざまなクライアント側検証用のユー
     [HttpPost]
     public ActionResult Edit(int id, Blog blog)
     {
-        try
-        {
-            db.Entry(blog).State = EntityState.Modified;
-            db.SaveChanges();
-            return RedirectToAction("Index");
-        }
-        catch(DbEntityValidationException ex)
-        {
-            var error = ex.EntityValidationErrors.First().ValidationErrors.First();
-            this.ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
-            return View();
-        }
+        try
+        {
+            db.Entry(blog).State = EntityState.Modified;
+            db.SaveChanges();
+            return RedirectToAction("Index");
+        }
+        catch(DbEntityValidationException ex)
+        {
+            var error = ex.EntityValidationErrors.First().ValidationErrors.First();
+            this.ModelState.AddModelError(error.PropertyName, error.ErrorMessage);
+            return View();
+        }
     }
 ```
 
@@ -130,23 +131,23 @@ IValidatableObject は、System.ComponentModel.DataAnnotations に存在する�
 
 ``` csharp
     public class Blog : IValidatableObject
-     {
-         public int Id { get; set; }
-         [Required]
-         public string Title { get; set; }
-         public string BloggerName { get; set; }
-         public DateTime DateCreated { get; set; }
-         public virtual ICollection<Post> Posts { get; set; }
+     {
+         public int Id { get; set; }
+         [Required]
+         public string Title { get; set; }
+         public string BloggerName { get; set; }
+         public DateTime DateCreated { get; set; }
+         public virtual ICollection<Post> Posts { get; set; }
 
-         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
-         {
-             if (Title == BloggerName)
-             {
-                 yield return new ValidationResult
-                  ("Blog Title cannot match Blogger Name", new[] { "Title", “BloggerName” });
-             }
-         }
-     }
+         public IEnumerable<ValidationResult> Validate(ValidationContext validationContext)
+         {
+             if (Title == BloggerName)
+             {
+                 yield return new ValidationResult
+                  ("Blog Title cannot match Blogger Name", new[] { "Title", “BloggerName” });
+             }
+         }
+     }
 ```
 
 ValidationResult コンス トラクターでは、エラー メッセージと、検証に関連付けられているメンバー名を表す文字列の配列を表す文字列を受け取ります。 この検証では、タイトルと、BloggerName の両方をチェック、ため両方のプロパティ名が返されます。
@@ -168,27 +169,27 @@ DbEntityValidationResult には、対象の DbEntityEntry と単一のエンテ�
         System.Data.Entity.Infrastructure.DbEntityEntry entityEntry,
         IDictionary\<object, object> items)
     {
-        var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
-        if (entityEntry.Entity is Post && entityEntry.State == EntityState.Added)
-        {
-            Post post = entityEntry.Entity as Post;
-            //check for uniqueness of post title
-            if (Posts.Where(p => p.Title == post.Title).Count() > 0)
+        var result = new DbEntityValidationResult(entityEntry, new List<DbValidationError>());
+        if (entityEntry.Entity is Post && entityEntry.State == EntityState.Added)
+        {
+            Post post = entityEntry.Entity as Post;
+            //check for uniqueness of post title
+            if (Posts.Where(p => p.Title == post.Title).Count() > 0)
             {
-                result.ValidationErrors.Add(
-                        new System.Data.Entity.Validation.DbValidationError("Title",
-                        "Post title must be unique."));
+                result.ValidationErrors.Add(
+                        new System.Data.Entity.Validation.DbValidationError("Title",
+                        "Post title must be unique."));
             }
-        }
+        }
 
-        if (result.ValidationErrors.Count > 0)
+        if (result.ValidationErrors.Count > 0)
         {
-            return result;
-        }
-        else
+            return result;
+        }
+        else
         {
-         return base.ValidateEntity(entityEntry, items);
-        }
+         return base.ValidateEntity(entityEntry, items);
+        }
     }
 ```
 
@@ -198,19 +199,19 @@ SaveChanges への呼び出しは、この記事で説明する検証のすべ�
 
 DbContext.GetValidationErrors はすべての検証、注釈または Fluent API で定義されている、IValidatableObject (たとえば、Blog.Validate) で作成された、検証、DbContext.ValidateEntity で実行される検証をトリガーします。メソッド。
 
-次のコードでは、DbContext の現在のインスタンスで GetValidationErrors を呼び出します。 ValidationErrors は DbValidationRestuls にエンティティの種類でグループ化されます。 メソッドによって返される DbValidationResults とし、内の各 ValidationError を介して、コードが最初に反復処理します。
+次のコードでは、DbContext の現在のインスタンスで GetValidationErrors を呼び出します。 ValidationErrors は DbValidationResults にエンティティの種類でグループ化されます。 メソッドによって返される DbValidationResults とし、内の各 ValidationError を介して、コードが最初に反復処理します。
 
 ``` csharp
     foreach (var validationResults in db.GetValidationErrors())
-        {
-            foreach (var error in validationResults.ValidationErrors)
-            {
-                Debug.WriteLine(
+        {
+            foreach (var error in validationResults.ValidationErrors)
+            {
+                Debug.WriteLine(
                                   "Entity Property: {0}, Error {1}",
-                                  error.PropertyName,
+                                  error.PropertyName,
                                   error.ErrorMessage);
-            }
-        }
+            }
+        }
 ```
 
 ## <a name="other-considerations-when-using-validation"></a>検証を使用する場合に、その他の考慮事項

@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 8f28dfea12461572ade8fbf3910ebd216dafb389
-ms.sourcegitcommit: fa863883f1193d2118c2f9cee90808baa5e3e73e
+ms.openlocfilehash: 1c450b142573368d043430f55a3144b6696a8691
+ms.sourcegitcommit: b4a5ed177b86bf7f81602106dab6b4acc18dfc18
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2018
-ms.locfileid: "52857430"
+ms.lasthandoff: 01/15/2019
+ms.locfileid: "54316635"
 ---
 # <a name="data-seeding"></a>データのシード処理
 
@@ -55,6 +55,8 @@ ms.locfileid: "52857430"
 > 自動化された展開の一部として移行を適用する必要がある場合は、 [SQL スクリプトを作成する](xref:core/managing-schemas/migrations/index#generate-sql-scripts)を実行する前にプレビューを表示できます。
 
 使用する代わりに、`context.Database.EnsureCreated()`テスト データベースの例を使用するか、メモリ内プロバイダーまたは関係以外の任意のデータベースを使用して、シード データを含む新しいデータベースを作成します。 されている場合、データベースが既に存在する`EnsureCreated()`どちらも、データベース内のスキーマとシード データが更新されます。 リレーショナル データベースに対して呼び出すべきではない`EnsureCreated()`Migrations を使用する場合。
+
+### <a name="limitations-of-model-seed-data"></a>モデルのシード データの制限事項
 
 この種類のシード データは移行によって管理され、データベースに既にあるデータを更新するスクリプトは、データベースに接続しなくても生成する必要があります。 これで、いくつかの制限が課せられます。
 * 主キーの値は、通常、データベースによって生成される場合でも指定する必要があります。 これは、移行の間のデータの変更を検出するために使用されます。
