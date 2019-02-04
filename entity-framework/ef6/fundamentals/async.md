@@ -3,12 +3,12 @@ title: 非同期クエリを実行し、保存、EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: de702365251fd05c423c8590ccaefa7d8542ad02
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 89c7b9d533d37b4c9e123f37d8ab27c67ba26cc8
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058761"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668714"
 ---
 # <a name="async-query-and-save"></a>非同期クエリを実行し、保存
 > [!NOTE]
@@ -223,7 +223,7 @@ System.Data.Entity 名前空間の使用可能な拡張メソッドの包括的�
 
 1.  **SaveChanges**新しいプッシュを開始**ブログ**データベースに*より高いの計算に時間が現在のマネージ スレッドで必要ありません、データベースにコマンドが送信されるとします。**PerformDatabaseOperations**メソッドを返します (これは実行が完了していない) 場合でも、Main メソッドで、プログラム フローが続行されます。*
 2.  **1 日の見積もりがコンソールに書き込まれる**
-    *待機にマネージ スレッドがブロックされている他の作業は、Main メソッドであるため、データベース操作が完了するまでを呼び出します。これが完了するの残りの部分、 **PerformDatabaseOperations** *が実行されます。
+    *待機にマネージ スレッドがブロックされている他の作業は、Main メソッドであるため、データベース操作が完了するまでを呼び出します。これが完了するの残りの部分、 **PerformDatabaseOperations**が実行されます。*
 3.  **SaveChanges**が完了します。
 4.  すべてのクエリ**ブログ**データベースに送信される*ここでも、マネージ スレッドは無料で、クエリは、データベースの処理中に他の作業を行います。他のすべての実行が完了するため、スレッドはだけ停止待機の呼び出しでただしします。*
 5.  クエリを返しする結果が書き込まれる**コンソール**

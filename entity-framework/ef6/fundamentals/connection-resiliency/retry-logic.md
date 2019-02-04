@@ -3,12 +3,12 @@ title: 接続の回復性と再試行ロジック - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 09ebed18b43f864af36b6931f45638f3a3056229
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 7d6aa870cc32a2b344457fbb04525a7c2c8d1c61
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490806"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668766"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>接続の回復性と再試行ロジック
 > [!NOTE]
@@ -124,7 +124,7 @@ using (var db = new BloggingContext())
 
 EF が認識し、それ以前の操作を再試行する方法がないために、再試行実行戦略を使用する場合、この操作はサポートされません。 たとえば、2 つ目の SaveChanges が失敗した場合、EF されなくが最初の SaveChanges 呼び出しを再試行する必要な情報」とあります。  
 
-### <a name="workaround-suspend-execution-strategy"></a>回避策: 実行戦略を中断します。  
+### <a name="workaround-suspend-execution-strategy"></a>回避策:実行戦略を中断します。  
 
 1 つの考えられる回避策は、ユーザーを使用する必要があるコードの一部の再試行実行戦略を中断するトランザクションを開始します。 これを行う最も簡単な方法では、コードに SuspendExecutionStrategy フラグは、構成クラスをベースし、フラグが設定されている場合、既定の (非 retying) 実行戦略を返す実行戦略のラムダの変更を追加します。  
 
@@ -149,7 +149,7 @@ namespace Demo
         {
             get
             {
-                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy")  false;
+                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy") ?? false;
             }
             set
             {
@@ -185,7 +185,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-### <a name="workaround-manually-call-execution-strategy"></a>回避策: 手動で実行戦略を呼び出す  
+### <a name="workaround-manually-call-execution-strategy"></a>回避策:手動で実行戦略を呼び出す  
 
 手動で実行戦略を使用し、セット全体は、実行ロジックのいずれかの操作が失敗した場合に再試行すべてできるようにする別の方法です。 技法を使用して、実行戦略を中断する必要がありますの上に表示されるため、再試行可能なコード ブロック内で使用される任意のコンテキストは再試行しようとはしないでください。  
 
