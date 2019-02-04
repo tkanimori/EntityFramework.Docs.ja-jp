@@ -3,12 +3,12 @@ title: Entity Framework プロバイダー - EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
-ms.openlocfilehash: 0cfe6c30d6533b0207f78a031d342847a7f68632
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: f6e34d1273bd1004ce9d1610ce3613068088eb5e
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022224"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668740"
 ---
 # <a name="entity-framework-6-providers"></a>Entity Framework 6 プロバイダー
 > [!NOTE]
@@ -31,13 +31,13 @@ Entity Framework は現在、オープンソース ライセンスで開発さ�
 *   [**CData Software プロバイダー**](http://www.cdata.com/ado/)
     *   Salesforce、Azure Table Storage、MySql、その他多くのさまざまなデータ ストア用のサードパーティ プロバイダーが [CData Software](http://www.cdata.com/ado/) から提供されています。
 *   **Firebird プロバイダー**
-    *   [NuGet パッケージ](http://www.nuget.org/packages/FirebirdSql.Data.FirebirdClient/)として入手できます。
+    *   [NuGet パッケージ](https://www.nuget.org/packages/EntityFramework.Firebird/)として入手できます。
 *   **Visual Fox Pro プロバイダー**
     *   [NuGet パッケージ](https://www.nuget.org/packages/VFPEntityFrameworkProvider2/)として入手できます。
 *   **MySQL**
-    *   [MySQL Connector/Net](http://dev.mysql.com/downloads/connector/net/)
+    *   [Entity Framework の MySQL コネクタ/NET](https://dev.mysql.com/doc/connector-net/en/connector-net-entityframework60.html)
 *   **PostgreSQL**
-    *   Npgsql は [NuGet パッケージ](http://www.nuget.org/packages/Npgsql.EF6/)として入手できます。
+    *   Npgsql は [NuGet パッケージ](https://www.nuget.org/packages/EntityFramework6.Npgsql/)として入手できます。
 *   **Oracle**
     *   ODP.NET は [NuGet パッケージ](https://www.nuget.org/packages/Oracle.ManagedDataAccess.EntityFramework/)として入手できます。
 

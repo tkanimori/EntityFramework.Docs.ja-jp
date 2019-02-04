@@ -3,12 +3,12 @@ title: Code First Migrations - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: f408ef861a2992783142fa1483d1433ca710399a
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: e5a91af73bab9d45b0f1f4242ce503c6b6f407f6
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415797"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668701"
 ---
 # <a name="code-first-migrations"></a>Code First Migrations
 Code First Migrations は、Code First ワークフローを使用している場合に、アプリケーションのデータベース スキーマを進化させるために推奨される方法です。 移行では次を許可するツール セットを提供します。
@@ -288,7 +288,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
 
 **AddBlogUrl** 移行を実行した後、データベースを以前の状態に移行する必要があるとします。 **–TargetMigration** スイッチを使用して、この移行にダウングレードすることができます。
 
--   パッケージ マネージャー コンソールで **Update-Database –TargetMigration: AddBlogUrl** コマンドを実行します。
+-   パッケージ マネージャー コンソールで **Update-Database –TargetMigration:AddBlogUrl** コマンドを実行します。
 
 このコマンドでは、**AddBlogAbstract** 移行と **AddPostClass** 移行に対して Down スクリプトが実行されます。
 
@@ -300,7 +300,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
 
 -   **Update-Database** コマンドを実行しますが、今回は **–Script** フラグを指定するため、変更は適用されずにスクリプトに書き込まれます。 スクリプトを生成するソース移行とターゲット移行も指定します。 空のデータベース (**$InitialDatabase**) から最新バージョン (移行 **AddPostAbstract**) に移動するスクリプトが必要です。
     *ターゲット移行を指定しない場合、Migrations ではターゲットとして最新の移行を使用します。ソース移行を指定しない場合は、Migrations ではデータベースの現在の状態を使用します。*
--   パッケージ マネージャー コンソールで **Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract** コマンドを実行します
+-   パッケージ マネージャー コンソールで **Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration:AddPostAbstract** コマンドを実行します
 
 Code First Migrations では、実際に変更を適用するのではなく、移行パイプラインを実行しますが、これにより変更が .sql ファイルに書き込まれます。 スクリプトが生成されると、表示または保存できるように、Visual Studio で開かれます。
 
@@ -330,7 +330,7 @@ EF6 以降、**–SourceMigration $InitialDatabase** を指定した場合、生
         {
             static void Main(string[] args)
             {
-                Database.SetInitializer(new MigrateDatabaseToLatestVersion\<BlogContext, Configuration>());
+                Database.SetInitializer(new MigrateDatabaseToLatestVersion<BlogContext, Configuration>());
 
                 using (var db = new BlogContext())
                 {
