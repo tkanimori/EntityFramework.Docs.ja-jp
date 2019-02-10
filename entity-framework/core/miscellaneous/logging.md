@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 65501b5ac03ae544c51b7fc1a07fa9eea849f1e3
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 0a996403afdbe076b1690c98eeb305b40c4d1f4a
+ms.sourcegitcommit: 109a16478de498b65717a6e09be243647e217fb3
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022146"
+ms.lasthandoff: 02/10/2019
+ms.locfileid: "55985575"
 ---
 # <a name="logging"></a>ログの記録
 
@@ -24,18 +24,21 @@ ASP.NET Core のログ記録メカニズムと EF Core を自動的に統合さ�
 
 EF Core の現在ログ記録では、1 つまたは複数の ILoggerProvider で構成されている自体が ILoggerFactory が必要です。 一般的なプロバイダーは、次のパッケージで出荷されます。
 
-* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): 単純なコンソール ロガー。
-* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): サポートする Azure App Service '診断ログ' と 'ログ ストリーム' 機能します。
-* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): System.Diagnostics.Debug.WriteLine() を使用してデバッガー モニターのログ。
-* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Windows イベント ログに記録します。
-* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): EventSource/EventListener をサポートしています。
-* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): System.Diagnostics.TraceSource.TraceEvent() を使用してトレース リスナーにログ。
+* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/):単純なコンソール ロガー。
+* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/):Azure App Service '診断ログ' と 'ログ ストリーム' 機能をサポートしています。
+* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/):デバッガーにログを System.Diagnostics.Debug.WriteLine() を使用して監視します。
+* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/):Windows イベント ログに記録します。
+* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/):EventSource/EventListener をサポートしています。
+* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/):System.Diagnostics.TraceSource.TraceEvent() を使用してトレース リスナーにログ。
+
+> [!NOTE]
+> 次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンス トラクター。 古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。 それまでは、無視し、警告を抑制しても安全です。
 
 適切なパッケージをインストールした後、アプリケーションは、LoggerFactory のシングルトン/グローバル インスタンスを作成する必要があります。 たとえば、コンソール ロガーを使用します。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#DefineLoggerFactory)]
 
-EF Core のこのシングルトン/グローバル インスタンスが登録し、必要がある、`DbContextOptionsBuilder`します。 例えば:
+EF Core のこのシングルトン/グローバル インスタンスが登録し、必要がある、`DbContextOptionsBuilder`します。 例:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#RegisterLoggerFactory)]
 
@@ -44,7 +47,10 @@ EF Core のこのシングルトン/グローバル インスタンスが登録�
 
 ## <a name="filtering-what-is-logged"></a>記録内容がフィルター処理
 
-記録内容がフィルター処理する最も簡単な方法では、ILoggerProvider を登録するときに、これを構成します。 例えば:
+> [!NOTE]
+> 次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンス トラクター。 古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。 それまでは、無視し、警告を抑制しても安全です。
+
+記録内容がフィルター処理する最も簡単な方法では、ILoggerProvider を登録するときに、これを構成します。 例:
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContextWithFiltering.cs#DefineLoggerFactory)]
 
