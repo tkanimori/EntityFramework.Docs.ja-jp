@@ -1,4 +1,4 @@
----
+﻿---
 title: EF Core ツール リファレンス (パッケージ マネージャー コンソール) - EF Core
 author: bricelam
 ms.author: bricelam
@@ -140,7 +140,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、次のよう�
 > [!TIP]
 > コンテキスト、プロジェクト、およびスタートアップ プロジェクトのパラメーターでは、タブ拡張をサポートします。
 
-## <a name="add-migration"></a>追加の移行
+## <a name="add-migration"></a>Add-Migration
 
 新しい移行を追加します。
 
@@ -151,7 +151,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、次のよう�
 | <nobr>-Name\<String><nobr>       | 移行の名前。 位置指定パラメーターは、これが必要です。                                              |
 | <nobr>-OutputDir\<String></nobr> | 使用するディレクトリ (およびサブ名前空間)。 パスでは、ターゲット プロジェクトのディレクトリに対して相対的です。 既定値は「移行」です。 |
 
-## <a name="drop-database"></a>データベースの削除
+## <a name="drop-database"></a>Drop-Database
 
 データベースを削除します。
 
@@ -206,7 +206,7 @@ Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Conn
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Blog","Post" -ContextDir Context -Context BlogContext
 ```
 
-## <a name="script-migration"></a>スクリプトの移行
+## <a name="script-migration"></a>Script-Migration
 
 すべての変更を 1 つの選択された移行から別の選択された移行に適用される SQL スクリプトを生成します。
 
@@ -234,7 +234,7 @@ Script-Migration -To InitialCreate
 Script-Migration -From 20180904195021_InitialCreate
 ```
 
-## <a name="update-database"></a>データベースの更新
+## <a name="update-database"></a>Update-Database
 
 最後に移行したり、指定された移行は、データベースを更新します。
 
