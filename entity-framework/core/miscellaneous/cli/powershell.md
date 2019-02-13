@@ -1,4 +1,4 @@
-﻿---
+---
 title: EF Core ツール リファレンス (パッケージ マネージャー コンソール) - EF Core
 author: bricelam
 ms.author: bricelam
