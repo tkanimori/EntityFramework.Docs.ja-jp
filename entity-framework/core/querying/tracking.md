@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 985adc795f379199a3bacc985843f32f3168cf64
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 6c5d516fcb3950ae168860029660e1b1061546b8
+ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993356"
+ms.lasthandoff: 02/03/2019
+ms.locfileid: "55668779"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 

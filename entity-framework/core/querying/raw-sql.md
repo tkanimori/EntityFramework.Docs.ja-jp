@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 5bddddfbc2fe8d0ba99914f03b28bde4076fae42
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 343162596780e6146b57f73a38221701009cd855
+ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058715"
+ms.lasthandoff: 02/06/2019
+ms.locfileid: "55760510"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
@@ -17,23 +17,6 @@ Entity Framework Core を使用すると、リレーショナル データベー
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
-
-## <a name="limitations"></a>制限事項
-
-生 SQL クエリを使用する場合、注意が必要な制限事項がいくつかあります。
-
-* SQL クエリは、エンティティ型またはクエリ型のすべてのプロパティのデータを返す必要があります。
-
-* 結果セットの列名は、プロパティがマップされている列名と一致する必要があります。 これは EF6 と異なる点です。EF6 では、生 SQL クエリのプロパティ/列のマッピングは無視され、結果セットの列名はプロパティ名と一致する必要がありました。
-
-* SQL クエリに関連データを含めることはできません。 ただし、多くの場合、`Include` 演算子を使用して関連データを返すクエリを作成することができます (「[関連データを含める](#including-related-data)」を参照してください)。
-
-* このメソッドに渡された `SELECT` ステートメントは、一般的にコンポーザブルである必要があります。EF Core がサーバー上で追加のクエリ演算子を評価する必要がある場合 (たとえば、`FromSql` の後に適用される LINQ 演算子を変換する場合)、指定された SQL はサブクエリとして扱われます。 これは、渡される SQL に、次のようなサブクエリでは無効な文字またはオプションを含めてはならないことを意味します。
-  * 末尾のセミコロン
-  * SQL Server では、末尾のクエリ レベル ヒント (例: `OPTION (HASH JOIN)`)
-  * SQL Server では、`SELECT` 句の `TOP 100 PERCENT` を伴わない `ORDER BY` 句
-
-* `SELECT` 以外の SQL ステートメントは、自動的に非コンポーザブルと認識されます。 その結果、ストアド プロシージャのすべての結果が常にクライアントに返され、`FromSql` の後に適用されたすべての LINQ 演算子はメモリ内で評価されます。
 
 ## <a name="basic-raw-sql-queries"></a>基本的な生 SQL クエリ
 
@@ -109,9 +92,25 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-### <a name="including-related-data"></a>関連データを含める
+## <a name="change-tracking"></a>変更追跡
 
-LINQ 演算子による作成を使用して、関連データをクエリに含めることができます。
+`FromSql()` を使用するクエリは、EF Core 内の他の LINQ クエリとまったく同じ変更追跡ルールに従います。 たとえば、クエリでエンティティ型を予測する場合、既定で結果は追跡されます。  
+
+次の例では、テーブル値関数 (TVF) から選択し、.AsNoTracking() の呼び出しを使用して変更追跡を無効にする生の SQL クエリを使用しています。
+
+<!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
+``` csharp
+var searchTerm = ".NET";
+
+var blogs = context.Query<SearchBlogsDto>()
+    .FromSql($"SELECT * FROM dbo.SearchBlogs({searchTerm})")
+    .AsNoTracking()
+    .ToList();
+```
+
+## <a name="including-related-data"></a>関連データを含める
+
+`Include()` メソッドを使用して、他の LINQ クエリと同様に、関連データを含めることができます。
 
 <!-- [!code-csharp[Main](samples/core/Querying/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -122,6 +121,23 @@ var blogs = context.Blogs
     .Include(b => b.Posts)
     .ToList();
 ```
+
+## <a name="limitations"></a>制限事項
+
+生 SQL クエリを使用する場合、注意が必要な制限事項がいくつかあります。
+
+* SQL クエリは、エンティティ型またはクエリ型のすべてのプロパティのデータを返す必要があります。
+
+* 結果セットの列名は、プロパティがマップされている列名と一致する必要があります。 これは EF6 と異なる点です。EF6 では、生 SQL クエリのプロパティ/列のマッピングは無視され、結果セットの列名はプロパティ名と一致する必要がありました。
+
+* SQL クエリに関連データを含めることはできません。 ただし、多くの場合、`Include` 演算子を使用して関連データを返すクエリを作成することができます (「[関連データを含める](#including-related-data)」を参照してください)。
+
+* このメソッドに渡された `SELECT` ステートメントは、一般的にコンポーザブルである必要があります。EF Core がサーバー上で追加のクエリ演算子を評価する必要がある場合 (たとえば、`FromSql` の後に適用される LINQ 演算子を変換する場合)、指定された SQL はサブクエリとして扱われます。 これは、渡される SQL に、次のようなサブクエリでは無効な文字またはオプションを含めてはならないことを意味します。
+  * 末尾のセミコロン
+  * SQL Server では、末尾のクエリ レベル ヒント (例: `OPTION (HASH JOIN)`)
+  * SQL Server では、`SELECT` 句の `TOP 100 PERCENT` を伴わない `ORDER BY` 句
+
+* `SELECT` 以外の SQL ステートメントは、自動的に非コンポーザブルと認識されます。 その結果、ストアド プロシージャのすべての結果が常にクライアントに返され、`FromSql` の後に適用されたすべての LINQ 演算子はメモリ内で評価されます。
 
 > [!WARNING]  
 > **生 SQL クエリには常にパラメーター化を使用する:** `FromSql` や `ExecuteSqlCommand` のような生 SQL 文字列を受け取る API では、値をパラメーターとして簡単に渡すことができます。 ユーザーの入力を検証するだけでなく、生 SQL クエリ/コマンドで使用される値には常にパラメーター化を使用してください。 文字列の連結を使用してクエリ文字列の一部を動的に構築する場合は、SQL インジェクション攻撃から保護するために入力を検証する必要があります。
