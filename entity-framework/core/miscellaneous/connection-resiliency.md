@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 729cf9b8c038ea2adba8c79c68d9f6fb1676fefa
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 6d8cf117dfd94524a53e10bb4a23c2a44c4c8e7b
+ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022185"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56459173"
 ---
 # <a name="connection-resiliency"></a>接続の復元性
 
@@ -17,9 +17,21 @@ ms.locfileid: "50022185"
 
 たとえば、SQL Server プロバイダーには、SQL Server (SQL Azure を含む) に合わせた具体的には、実行戦略が含まれています。 再試行できる例外の種類を認識し、最大再試行回数、再試行などの間の遅延の実用的な既定値を持ちます。
 
-実行戦略は、コンテキストのオプションを構成するときに指定します。 通常、これは、`OnConfiguring`メソッド、または、派生コンテキストの`Startup.cs`ASP.NET Core アプリケーション。
+実行戦略は、コンテキストのオプションを構成するときに指定します。 通常、これは、`OnConfiguring`派生コンテキストのメソッド。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
+
+または`Startup.cs`ASP.NET Core アプリケーション。
+
+``` csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<PicnicContext>(
+        options => options.UseSqlServer(
+            "<connection string>",
+            providerOptions => providerOptions.EnableRetryOnFailure()));
+}
+```
 
 ## <a name="custom-execution-strategy"></a>カスタムの実行方法
 
@@ -41,7 +53,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ただし、コードを使用してトランザクションを開始する場合、`BeginTransaction()`の単位として扱う必要のある操作のグループを定義して、トランザクション内ですべてを再生できるものと、エラーが発生する必要があります。 実行戦略を使用するときに実行しようとすると、次のような例外が表示されます。
 
-> InvalidOperationException: 構成された実行戦略 'SqlServerRetryingExecutionStrategy' はユーザーが開始したトランザクションをサポートしていません。 'DbContext.Database.CreateExecutionStrategy()' から返された実行戦略を使用して、再試行可能なユニットとしてトランザクション内のすべての操作を実行します。
+> InvalidOperationException:構成された実行戦略 'SqlServerRetryingExecutionStrategy' は、ユーザーが開始したトランザクションをサポートしていません。 'DbContext.Database.CreateExecutionStrategy()' から返された実行戦略を使用して、再試行可能なユニットとしてトランザクション内のすべての操作を実行します。
 
 ソリューションでは、手動で実行する必要があるすべてを表すデリゲートの実行戦略を呼び出します。 一時的なエラーが発生した場合、実行戦略によってデリゲートが再び呼び出されます。
 

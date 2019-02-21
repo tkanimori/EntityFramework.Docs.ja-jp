@@ -3,19 +3,19 @@ title: EF4、EF5 と EF6 のパフォーマンスに関する考慮事項
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d6d5a465-6434-45fa-855d-5eb48c61a2ea
-ms.openlocfilehash: c87c1412cb23abf232663d7e4f44eef5f7818ea2
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: 4c1f03533cf6df49555c3ef8d09d5949b9a3335c
+ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022390"
+ms.lasthandoff: 02/21/2019
+ms.locfileid: "56459212"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>EF 4、5、および 6 のパフォーマンスに関する考慮事項
 David Obando、Eric Dettinger およびその他のユーザー
 
-公開日: 2012 年 4 月
+公開日。2012 年 4 月
 
-最終更新日: 2014 年 5 月
+最終更新日。2014 年 5 月
 
 ------------------------------------------------------------------------
 
@@ -43,7 +43,7 @@ Entity Framework を使用してクエリを実行するときに時間を要し
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `using(var db = new MyContext())` <br/> `{`                                                          | コンテキストの作成          | Medium                                                                                                                                                                                                                                                                                                                                                                                                                        | Medium                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | クエリ式の作成 | Low                                                                                                                                                                                                                                                                                                                                                                                                                           | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
-| `  var c1 = q1.First();`                                                                             | LINQ クエリの実行      | メタデータの読み込み: キャッシュですが高 <br/> -生成の表示: 可能性のある非常に高いが、キャッシュされました。 <br/> パラメーターの評価: Medium <br/> -クエリの変換: Medium <br/> 実体化の生成: キャッシュされたが、中規模 <br/> -データベース クエリの実行: 可能性のある高 <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化: Medium <br/> Id 参照: Medium | メタデータの読み込み: キャッシュですが高 <br/> -生成の表示: 可能性のある非常に高いが、キャッシュされました。 <br/> パラメーターを評価します低。 <br/> -変換のクエリ: キャッシュされたが、中規模 <br/> 実体化の生成: キャッシュされたが、中規模 <br/> -データベース クエリの実行: 度の高い (いくつかの状況でのクエリの向上) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化: Medium <br/> Id 参照: Medium | メタデータの読み込み: キャッシュですが高 <br/> -生成の表示: キャッシュされたが、中規模 <br/> パラメーターを評価します低。 <br/> -変換のクエリ: キャッシュされたが、中規模 <br/> 実体化の生成: キャッシュされたが、中規模 <br/> -データベース クエリの実行: 度の高い (いくつかの状況でのクエリの向上) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化: 中規模 (EF5 よりも高速) <br/> Id 参照: Medium |
+| `  var c1 = q1.First();`                                                                             | LINQ クエリの実行      | メタデータの読み込み:キャッシュが高 <br/> ビューの生成:キャッシュされたが、可能性のある非常に高 <br/> パラメーターの評価版:Medium <br/> -クエリの変換:Medium <br/> 実体化の生成:キャッシュが medium <br/> データベース クエリの実行:高い可能性があります。 <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化します。Medium <br/> Id 参照:Medium | メタデータの読み込み:キャッシュが高 <br/> ビューの生成:キャッシュされたが、可能性のある非常に高 <br/> パラメーターの評価版:Low <br/> -クエリの変換:キャッシュが medium <br/> 実体化の生成:キャッシュが medium <br/> データベース クエリの実行:度の高い (いくつかの状況でのクエリの向上) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化します。Medium <br/> Id 参照:Medium | メタデータの読み込み:キャッシュが高 <br/> ビューの生成:キャッシュが medium <br/> パラメーターの評価版:Low <br/> -クエリの変換:キャッシュが medium <br/> 実体化の生成:キャッシュが medium <br/> データベース クエリの実行:度の高い (いくつかの状況でのクエリの向上) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化します。Medium (EF5 よりも高速) <br/> Id 参照:Medium |
 | `}`                                                                                                  | Connection.Close          | Low                                                                                                                                                                                                                                                                                                                                                                                                                           | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                          |
 
 
@@ -53,7 +53,7 @@ Entity Framework を使用してクエリを実行するときに時間を要し
 |:-----------------------------------------------------------------------------------------------------|:--------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `using(var db = new MyContext())` <br/> `{`                                                          | コンテキストの作成          | Medium                                                                                                                                                                                                                                                                                                                                                                                                                                                                                            | Medium                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 | `  var q1 = ` <br/> `    from c in db.Customers` <br/> `    where c.Id == id1` <br/> `    select c;` | クエリ式の作成 | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
-| `  var c1 = q1.First();`                                                                             | LINQ クエリの実行      | メタデータ~~読み込み~~参照:~~キャッシュですが高~~低 <br/> -表示~~生成~~参照:~~可能性のある非常に高いが、キャッシュされた~~低 <br/> パラメーターの評価: Medium <br/> -クエリ~~翻訳~~参照: Medium <br/> 実体化~~生成~~参照:~~キャッシュですが中程度~~低 <br/> -データベース クエリの実行: 可能性のある高 <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化: Medium <br/> Id 参照: Medium | メタデータ~~読み込み~~参照:~~キャッシュですが高~~低 <br/> -表示~~生成~~参照:~~可能性のある非常に高いが、キャッシュされた~~低 <br/> パラメーターを評価します低。 <br/> -クエリ~~翻訳~~参照:~~キャッシュですが中程度~~低 <br/> 実体化~~生成~~参照:~~キャッシュですが中程度~~低 <br/> -データベース クエリの実行: 度の高い (いくつかの状況でのクエリの向上) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化: Medium <br/> Id 参照: Medium | メタデータ~~読み込み~~参照:~~キャッシュですが高~~低 <br/> -表示~~生成~~参照:~~キャッシュですが中程度~~低 <br/> パラメーターを評価します低。 <br/> -クエリ~~翻訳~~参照:~~キャッシュですが中程度~~低 <br/> 実体化~~生成~~参照:~~キャッシュですが中程度~~低 <br/> -データベース クエリの実行: 度の高い (いくつかの状況でのクエリの向上) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化: 中規模 (EF5 よりも高速) <br/> Id 参照: Medium |
+| `  var c1 = q1.First();`                                                                             | LINQ クエリの実行      | メタデータ~~読み込み~~参照。~~高いが、キャッシュされた~~低 <br/> -表示~~生成~~参照。~~可能性のある非常に高いが、キャッシュされた~~低 <br/> パラメーターの評価版:Medium <br/> -クエリ~~翻訳~~参照。Medium <br/> 実体化~~生成~~参照。~~中規模がキャッシュされた~~低 <br/> データベース クエリの実行:高い可能性があります。 <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化します。Medium <br/> Id 参照:Medium | メタデータ~~読み込み~~参照。~~高いが、キャッシュされた~~低 <br/> -表示~~生成~~参照。~~可能性のある非常に高いが、キャッシュされた~~低 <br/> パラメーターの評価版:Low <br/> -クエリ~~翻訳~~参照。~~中規模がキャッシュされた~~低 <br/> 実体化~~生成~~参照。~~中規模がキャッシュされた~~低 <br/> データベース クエリの実行:度の高い (いくつかの状況でのクエリの向上) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化します。Medium <br/> Id 参照:Medium | メタデータ~~読み込み~~参照。~~高いが、キャッシュされた~~低 <br/> -表示~~生成~~参照。~~中規模がキャッシュされた~~低 <br/> パラメーターの評価版:Low <br/> -クエリ~~翻訳~~参照。~~中規模がキャッシュされた~~低 <br/> 実体化~~生成~~参照。~~中規模がキャッシュされた~~低 <br/> データベース クエリの実行:度の高い (いくつかの状況でのクエリの向上) <br/> + Connection.Open <br/> + Command.ExecuteReader <br/> + DataReader.Read <br/> オブジェクトの具体化します。Medium (EF5 よりも高速) <br/> Id 参照:Medium |
 | `}`                                                                                                  | Connection.Close          | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                   | Low                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                      |
 
 
@@ -207,9 +207,9 @@ Entity Framework 6 を使用して、開発者はコレクションの反復処�
 
 #### <a name="321-some-notes-about-query-plan-caching"></a>3.2.1 クエリ プランのキャッシュについての注意事項
 
--   すべてのクエリの種類のクエリ プランのキャッシュが共有: Entity SQL、LINQ to Entities と CompiledQuery オブジェクト。
+-   すべてのクエリの種類のクエリ プランのキャッシュで共有されます。Entity SQL、LINQ to Entities と CompiledQuery オブジェクト。
 -   既定では、クエリ プランのキャッシュが有効になっている Entity SQL クエリでは、ObjectQuery EntityCommand を使用またはを実行するかどうか。 これも既定で有効に linq to Entities クエリでは、.NET 4.5 では、Entity Framework と Entity Framework 6
-    -   (EntityCommand ObjectQuery 上) EnablePlanCaching プロパティを false に設定して、クエリ プランのキャッシュを無効にすることができます。 例えば:
+    -   (EntityCommand ObjectQuery 上) EnablePlanCaching プロパティを false に設定して、クエリ プランのキャッシュを無効にすることができます。 例:
 ``` csharp
                     var query = from customer in context.Customer
                                 where customer.CustomerId == id
@@ -319,8 +319,6 @@ CompiledQuery が本当にそのプランがキャッシュでの LINQ クエリ
 任意の LINQ クエリを作成する機能は非常に便利です。これを行うには、単にメソッドを呼び出す対象の IQueryable 後など*Skip()* または*Count()* します。 ただし、これは基本的には、新しい IQueryable オブジェクトを返します。 CompiledQuery 経由での作成から技術的には停止するにはありませんが、新しい IQueryable オブジェクトの生成は原因はプラン コンパイラを通るをもう一度必要です。
 
 一部のコンポーネントとの構成済みの IQueryable を使用して、高度な機能を有効にするオブジェクト。 たとえば、ASP です。NET の GridView データ バインドできます IQueryable オブジェクトに SelectMethod プロパティを使用しています。 並べ替えとデータ モデルに対するページングを許可するには、この IQueryable オブジェクトは、GridView を作成します。 、ご覧のとおり、CompiledQuery を GridView を使用してコンパイル済みのクエリは達しないが新しい autocompiled クエリが生成します。
-
-Customer Advisory Team はこれで、「潜在的なパフォーマンスの問題でコンパイルされた LINQ クエリ再コンパイル」ブログの投稿について説明します。<http://blogs.msdn.com/b/appfabriccat/archive/2010/08/06/potential-performance-issues-with-compiled-linq-query-re-compiles.aspx>します。
 
 これを実行することがあります 1 つの場所は、プログレッシブのフィルターをクエリに追加する場合です。 たとえば、省略可能なフィルター (たとえば、国と OrdersCount) のいくつかのドロップダウン リストで、[顧客] ページがあるとします。 これらのフィルターを作成するには、CompiledQuery の IQueryable 結果に対するが発生で、新しいクエリを実行するたびに、プランのコンパイラを通過します。
 
@@ -456,7 +454,7 @@ Entity Framework 6 には、IEnumerable の方法は、最適化が含まれて�
 
 ### <a name="42-using-functions-that-produce-queries-with-constants"></a>4.2 は、定数を使用してクエリを生成する関数を使用します。
 
-Skip()、利用、Contains() および DefautIfEmpty() LINQ 演算子では、パラメーターを含む SQL クエリを作成しませんが、代わりに、定数として渡された値を格納します。 このため、可能性のあるそれ以外の場合、クエリを汚染最終的に同じクエリはプランでは、EF のスタックと、データベース サーバーの両方をキャッシュ、およびは reutilized 後続のクエリ実行で同じ定数を使用しない限り取得されません。 例えば:
+Skip()、利用、Contains() および DefautIfEmpty() LINQ 演算子では、パラメーターを含む SQL クエリを作成しませんが、代わりに、定数として渡された値を格納します。 このため、可能性のあるそれ以外の場合、クエリを汚染最終的に同じクエリはプランでは、EF のスタックと、データベース サーバーの両方をキャッシュ、およびは reutilized 後続のクエリ実行で同じ定数を使用しない限り取得されません。 例:
 
 ``` csharp
 var id = 10;
@@ -510,7 +508,7 @@ for (; i < count; ++i)
 
 ### <a name="43-using-the-properties-of-a-non-mapped-object"></a>4.3、マップされていないオブジェクトのプロパティを使用します。
 
-ときに、パラメーター、クエリがキャッシュされないが、クエリは、マップされていないオブジェクト型のプロパティを使用します。 例えば:
+ときに、パラメーター、クエリがキャッシュされないが、クエリは、マップされていないオブジェクト型のプロパティを使用します。 例:
 
 ``` csharp
 using (var context = new MyContext())
@@ -691,7 +689,7 @@ var q = context.Products.AsNoTracking()
     -   OUTER JOIN クエリ DefaultIfEmpty の使用パターンは、Entity SQL での単純な OUTER JOIN ステートメントよりも複雑なクエリで発生します。
     -   使用できない場合が一般的なパターンに一致するような。
 
-スカラー プロパティを射影するクエリは、NoTracking が指定されていない場合でも追跡されないことに注意してください。 例えば:
+スカラー プロパティを射影するクエリは、NoTracking が指定されていない場合でも追跡されないことに注意してください。 例:
 
 ``` csharp
 var q = context.Products.Where(p => p.Category.CategoryName == "Beverages").Select(p => new { p.ProductName });
@@ -808,16 +806,16 @@ var q = context.InvokeProductsForCategoryCQ("Beverages");
 | EF  | テスト                                 | 時間 (ミリ秒) | メモリ   |
 |:----|:-------------------------------------|:----------|:---------|
 | EF5 | ObjectContext ESQL                   | 2414      | 38801408 |
-| EF5 | ObjectContext の Linq クエリ             | 2692      | 38277120 |
+| EF5 | ObjectContext Linq Query             | 2692      | 38277120 |
 | EF5 | DbContext Linq には、追跡をクエリなし     | 2818      | 41840640 |
-| EF5 | DbContext の Linq クエリ                 | 2930      | 41771008 |
-| EF5 | ObjectContext の Linq には、追跡をクエリなし | 3013      | 38412288 |
+| EF5 | DbContext Linq Query                 | 2930      | 41771008 |
+| EF5 | ObjectContext Linq Query No Tracking | 3013      | 38412288 |
 |     |                                      |           |          |
 | EF6 | ObjectContext ESQL                   | 2059      | 46039040 |
-| EF6 | ObjectContext の Linq クエリ             | 3074      | 45248512 |
+| EF6 | ObjectContext Linq Query             | 3074      | 45248512 |
 | EF6 | DbContext Linq には、追跡をクエリなし     | 3125      | 47575040 |
-| EF6 | DbContext の Linq クエリ                 | 3420      | 47652864 |
-| EF6 | ObjectContext の Linq には、追跡をクエリなし | 3593      | 45260800 |
+| EF6 | DbContext Linq Query                 | 3420      | 47652864 |
+| EF6 | ObjectContext Linq Query No Tracking | 3593      | 45260800 |
 
 ![EF5 ミクロ ベンチマーク、5000 ウォーム イテレーション](~/ef6/media/ef5micro5000warm.png)
 
@@ -832,24 +830,24 @@ Microbenchmarks は非常に重視するコードに小さな変更です。 Ent
 | EF5 | ObjectContext エンティティ コマンド                | 621       | 39350272 |
 | EF5 | データベースに対する Sql クエリを DbContext             | 825       | 37519360 |
 | EF5 | ObjectContext のストアのクエリ                   | 878       | 39460864 |
-| EF5 | ObjectContext の Linq には、追跡をクエリなし        | 969       | 38293504 |
+| EF5 | ObjectContext Linq Query No Tracking        | 969       | 38293504 |
 | EF5 | ObjectContext の Entity Sql クエリのオブジェクトを使用します。 | 1089      | 38981632 |
 | EF5 | コンパイル済みクエリの ObjectContext                | 1099      | 38682624 |
-| EF5 | ObjectContext の Linq クエリ                    | 1152      | 38178816 |
+| EF5 | ObjectContext Linq Query                    | 1152      | 38178816 |
 | EF5 | DbContext Linq には、追跡をクエリなし            | 1208      | 41803776 |
 | EF5 | DbSet に DbContext Sql クエリ                | 1414      | 37982208 |
-| EF5 | DbContext の Linq クエリ                        | 1574      | 41738240 |
+| EF5 | DbContext Linq Query                        | 1574      | 41738240 |
 |     |                                             |           |          |
 | EF6 | ObjectContext エンティティ コマンド                | 480       | 47247360 |
 | EF6 | ObjectContext のストアのクエリ                   | 493       | 46739456 |
 | EF6 | データベースに対する Sql クエリを DbContext             | 614       | 41607168 |
-| EF6 | ObjectContext の Linq には、追跡をクエリなし        | 684       | 46333952 |
+| EF6 | ObjectContext Linq Query No Tracking        | 684       | 46333952 |
 | EF6 | ObjectContext の Entity Sql クエリのオブジェクトを使用します。 | 767       | 48865280 |
 | EF6 | コンパイル済みクエリの ObjectContext                | 788       | 48467968 |
 | EF6 | DbContext Linq には、追跡をクエリなし            | 878       | 47554560 |
-| EF6 | ObjectContext の Linq クエリ                    | 953       | 47632384 |
+| EF6 | ObjectContext Linq Query                    | 953       | 47632384 |
 | EF6 | DbSet に DbContext Sql クエリ                | 1023      | 41992192 |
-| EF6 | DbContext の Linq クエリ                        | 1290      | 47529984 |
+| EF6 | DbContext Linq Query                        | 1290      | 47529984 |
 
 
 ![EF5 ウォーム クエリ 1000 のイテレーション](~/ef6/media/ef5warmquery1000.png)
@@ -891,10 +889,10 @@ Code First を使用して継承でモデルのマッピングを構成する場
 
 | 構成                              | 消費された時間の内訳                                                                                                                                               |
 |:-------------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| Visual Studio 2010 で Entity Framework 4     | SSDL の生成: 2 時間の 27 分 <br/> 1 秒間のマッピングの生成: <br/> CSDL の生成: 1 秒 <br/> ObjectLayer 生成: 1 秒 <br/> ビューの生成: 2 時間 14 分 |
-| Visual Studio 2010 SP1、Entity Framework 4 | SSDL の生成: 1 秒 <br/> 1 秒間のマッピングの生成: <br/> CSDL の生成: 1 秒 <br/> ObjectLayer 生成: 1 秒 <br/> ビューの生成: 1 時間 53 分   |
-| Visual Studio 2013 で Entity Framework 5     | SSDL の生成: 1 秒 <br/> 1 秒間のマッピングの生成: <br/> CSDL の生成: 1 秒 <br/> ObjectLayer 生成: 1 秒 <br/> ビューの生成: 65 分    |
-| Visual Studio 2013 で Entity Framework 6     | SSDL の生成: 1 秒 <br/> 1 秒間のマッピングの生成: <br/> CSDL の生成: 1 秒 <br/> ObjectLayer 生成: 1 秒 <br/> ビューの生成: 28 秒。   |
+| Visual Studio 2010 で Entity Framework 4     | SSDL の生成:2 時間の 27 分 <br/> マッピングの生成:1 秒 <br/> CSDL の生成:1 秒 <br/> ObjectLayer 生成:1 秒 <br/> ビューの生成:2 時間 14 分 |
+| Visual Studio 2010 SP1、Entity Framework 4 | SSDL の生成:1 秒 <br/> マッピングの生成:1 秒 <br/> CSDL の生成:1 秒 <br/> ObjectLayer 生成:1 秒 <br/> ビューの生成:1 時間 53 分   |
+| Visual Studio 2013 で Entity Framework 5     | SSDL の生成:1 秒 <br/> マッピングの生成:1 秒 <br/> CSDL の生成:1 秒 <br/> ObjectLayer 生成:1 秒 <br/> ビューの生成:65 分    |
+| Visual Studio 2013 で Entity Framework 6     | SSDL の生成:1 秒 <br/> マッピングの生成:1 秒 <br/> CSDL の生成:1 秒 <br/> ObjectLayer 生成:1 秒 <br/> ビューの生成:28 秒。   |
 
 
 SSDL を生成するときに、負荷がほぼ完全で消費 SQL Server では、クライアントの開発用コンピューターが待機している間に注目すべきアイドル状態が、サーバーから返される結果。 Dba は、この機能強化を特に感謝する必要があります。 行われるビューの生成でを今すぐコストは、モデルの生成の本質的には全体の注目すべきです。
@@ -1303,16 +1301,16 @@ Entity Framework 6 を使用している場合も、組み込みのログ記録�
 ##### <a name="11111-software-environment"></a>11.1.1.1 ソフトウェア環境
 
 -   Entity Framework 4 のソフトウェアの環境
-    -   OS 名: Windows Server 2008 R2 Enterprise SP1。
+    -   OS 名:Windows Server 2008 R2 Enterprise SP1。
     -   Visual Studio 2010 – Ultimate。
     -   (いくつかの比較) の場合のみの visual Studio 2010 SP1
 -   Entity Framework 5 および 6 ソフトウェア環境
-    -   Windows 8.1 Enterprise の OS 名:
+    -   OS 名:Windows 8.1 Enterprise
     -   Visual Studio 2013 – Ultimate。
 
 ##### <a name="11112-hardware-environment"></a>11.1.1.2 ハードウェア環境
 
--   デュアル プロセッサ: @ 2.27 GHz intel (r) Xeon(R) CPU L5520 W3530、2261 Mhz8 GHz、4 個のコア、84 の論理プロセッサ。
+-   デュアル プロセッサ:    @ 2.27 GHz intel (r) Xeon(R) CPU L5520 W3530、2261 Mhz8 GHz、4 個のコア、84 の論理プロセッサ。
 -   2412 GB RamRAM します。
 -   136 GB SCSI250GB SATA 7200 rpm 3 GB/秒、ドライブが 4 つのパーティションに分割します。
 
@@ -1320,12 +1318,12 @@ Entity Framework 6 を使用している場合も、組み込みのログ記録�
 
 ##### <a name="11121-software-environment"></a>11.1.2.1 ソフトウェア環境
 
--   OS 名: Windows Server 2008 の R28.1 Enterprise SP1。
+-   OS 名:Windows Server 2008 R28.1 Enterprise SP1。
 -   SQL Server 2008 R22012 します。
 
 ##### <a name="11122-hardware-environment"></a>11.1.2.2 ハードウェア環境
 
--   1 つのプロセッサ: intel (r) Xeon(R) CPU L5520 2.27 GHz、2261 MhzES-1620 0 @ 3.60 GHz、4 個のコア、8 の論理プロセッサ。
+-   1 つのプロセッサ。Intel (r) Xeon(R) CPU L5520 2.27 GHz、2261 MhzES-1620 0 @ 3.60 GHz、4 個のコア、8 の論理プロセッサ。
 -   824 GB RamRAM します。
 -   465 GB ATA500GB SATA 7200 rpm 6gb/s ドライブが 4 つのパーティションに分割します。
 
@@ -1510,7 +1508,7 @@ Navision モデルで使用するクエリの一覧には、Entity SQL クエリ
 
 集計を持たないシンプルなルックアップ クエリ
 
--   カウント: 16232
+-   カウント:16232
 -   例:
 
 ``` xml
@@ -1523,7 +1521,7 @@ Navision モデルで使用するクエリの一覧には、Entity SQL クエリ
 
 通常の BI クエリで複数の集計がない小計 (1 つのクエリ)
 
--   カウント: 2313
+-   カウント:2313
 -   例:
 
 ``` xml
@@ -1544,7 +1542,7 @@ Navision モデルで使用するクエリの一覧には、Entity SQL クエリ
 
 集計と集計 (すべての和集合) を使用して BI クエリ
 
--   カウント: 178
+-   カウント:178
 -   例:
 
 ``` xml
