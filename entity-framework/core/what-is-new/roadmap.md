@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: 7eba9e1a8e145ef407f844ff3a3ab3069495b7ae
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 9064b323c11282418f2bedf70f874d45c18bb78a
+ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058735"
+ms.lasthandoff: 02/16/2019
+ms.locfileid: "56325341"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core のロードマップ
 
@@ -56,7 +56,7 @@ EF Core 2.2 が完成したので、現在は EF Core 3.0 に重点が置かれ�
 
 EF Core のスケジュールは、[.NET Core のスケジュール](https://github.com/dotnet/core/blob/master/roadmap.md)と [ASP.NET Core のスケジュール](https://github.com/aspnet/Home/wiki/Roadmap)と同期されています。
 
-## <a name="backlog"></a>バックログ
+## <a name="backlog"></a>Backlog
 
 問題の追跡ツールの[バックログ マイルストーン](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc)には、いつか取り組む予定の問題や、コミュニティのだれかが対処できると考えられる問題が含まれています。
 これらの問題に関するお客様からのコメントや投票をお待ちしております。

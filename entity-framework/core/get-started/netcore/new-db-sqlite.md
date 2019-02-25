@@ -6,12 +6,12 @@ description: Entity Framework Core を使用した .NET Core の概要
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: 6cebe14e179cb6998592f5d3823c114b3bda0138
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: a0df80a8fe96be4f8cc3177919e2b087e14cb49c
+ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022312"
+ms.lasthandoff: 02/16/2019
+ms.locfileid: "56325328"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>新しいデータベースを使用した .NET Core コンソール アプリでの EF Core の概要
 
@@ -60,7 +60,7 @@ EF Core を使用するには、対象となるデータベース プロバイ�
 
   [!code-csharp[Main](../../../../samples/core/GetStarted/NetCore/ConsoleApp.SQLite/Model.cs)]
 
-ヒント: 実際のアプリケーションでは、クラスはそれぞれ別々のファイルに記述し、接続文字列は構成ファイルまたは環境変数に記述します。 チュートリアルをわかりやすくするために、すべてを 1 つのファイルに記述しています。
+ヒント :実際のアプリケーションでは、クラスはそれぞれ別々のファイルに記述し、接続文字列は構成ファイルまたは環境変数に記述します。 チュートリアルをわかりやすくするために、すべてを 1 つのファイルに記述しています。
 
 ## <a name="create-the-database"></a>データベースの作成
 
@@ -69,7 +69,7 @@ EF Core を使用するには、対象となるデータベース プロバイ�
 * `dotnet ef migrations add InitialCreate` を実行して移行をスキャフォールディングし、モデルの最初のテーブル セットを作成します。
 * `dotnet ef database update` を実行して、新しい移行をデータベースに適用します。 このコマンドは、移行を適用する前に、データベースを作成します。
 
-*blogging.db** SQLite DB はプロジェクト ディレクトリにあります。
+*blogging.db* SQLite DB はプロジェクト ディレクトリにあります。
 
 ## <a name="use-the-model"></a>モデルを使用する
 
@@ -111,6 +111,6 @@ Visual Studio からこのサンプルを実行するには、作業ディレク
 
 ## <a name="additional-resources"></a>その他のリソース
 
-* [チュートリアル: SQLite を使用した新しいデータベースでの ASP.NET Core での EF Core の概要](xref:core/get-started/aspnetcore/new-db)
-* [チュートリアル: ASP.NET Core の Razor Pages の概要](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
-* [チュートリアル: ASP.NET Core での Entity Framework Core を使用した Razor Pages](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
+* [チュートリアル: SQLite を使用した新しいデータベースでのASP.NET Core での EF Core の概要](xref:core/get-started/aspnetcore/new-db)
+* [チュートリアル: ASP.NET Core の Razor ページの概要](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
+* [チュートリアル: ASP.NET Core での Entity Framework Core を使用した Razor ページ](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
