@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: a87eca72aa58487415eea11e4f83de1a19e73506
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: cda5cc170646abc3e9d9a70d729237c01f028259
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022338"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463205"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -19,7 +19,15 @@ ms.locfileid: "50022338"
 
 2.1 から 2.2 への変更でこのログを開始します。 使用して 2.1 より前、 [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware)と[ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi)問題とプル要求のラベル。
 
-## <a name="21-----22"></a>2.1 2.2---> します。
+## <a name="22-----30"></a>2.2 ---> 3.0
+
+* https://github.com/aspnet/EntityFrameworkCore/pull/14022
+  * 廃止された Api が削除された、折りたたまれた省略可能なパラメーター オーバー ロード
+  * 削除された DatabaseColumn.GetUnderlyingStoreType()
+* https://github.com/aspnet/EntityFrameworkCore/pull/14589
+  * 廃止された Api の削除
+
+## <a name="21-----22"></a>2.1 ---> 2.2
 
 ### <a name="test-only-changes"></a>テスト専用の変更
 
@@ -56,7 +64,7 @@ ms.locfileid: "50022338"
   * このプル要求の追加の概念`CanConnect`正常性の ASP.NET Core で使用されるデータベースが使用可能なかどうかを判断するを確認します。 リレーショナルの実装では、既定では、呼び出すだけ`Exist`がプロバイダーに応じて実装別のものにできます。 非リレーショナルのプロバイダーは、使用するのには、正常性チェックのために、新しい API を実装する必要があります。
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13306](https://github.com/aspnet/EntityFrameworkCore/pull/13306) -DbParameter のサイズを設定しないように基本 RelationalTypeMapping を更新します。
   * 切り捨てが発生する可能性があるため既定サイズの設定を停止します。 プロバイダーは、サイズを設定する必要がある場合に、独自のロジックを追加する必要があります。
-* [https://github.com/aspnet/EntityFrameworkCore/pull/13372](https://github.com/aspnet/EntityFrameworkCore/pull/13372) -RevEng: 常に 10 進数の列の列の種類を指定します。
+* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng:常に 10 進数の列の列の種類を指定します。
   * 常に規則を構成するのではなく、スキャフォールディングされたコードの 10 進数の列の列の種類を構成します。
   * プロバイダーは、エンドユーザー側で変更する必要はありません。
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13469](https://github.com/aspnet/EntityFrameworkCore/pull/13469) -SQL の CASE 式を生成するため CaseExpression を追加します。

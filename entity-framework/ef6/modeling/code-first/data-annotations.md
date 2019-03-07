@@ -3,12 +3,12 @@ title: コードの最初のデータ注釈 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 8d85ef85f56a23d9b3b526554417dc9dd360e139
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: e6b017306b4f66f5bac2a9964e11391da28ceb40
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980042"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463283"
 ---
 # <a name="code-first-data-annotations"></a>Code First のデータ注釈
 > [!NOTE]
@@ -25,7 +25,7 @@ Entity Framework Code First EF が、クエリを実行するに依存するモ�
 
 ## <a name="the-model"></a>モデル
 
-クラスの単純なペアを使って最初 DataAnnotations のコードを紹介します。 ブログや投稿します。
+クラスの単純なペアを使って最初 DataAnnotations のコードを紹介します。ブログの投稿.
 
 ``` csharp
     public class Blog
@@ -176,7 +176,7 @@ MaxLength 注釈は、プロパティの長さを 10 に設定して、データ
 
 ![BloggerName 列の最大長を示すブログ表](~/ef6/media/jj591583-figure04.png)
 
-クライアント側の注釈を MVC と EF 4.1 サーバー側の注釈は両方に従ってこの検証でエラー メッセージを動的にもう一度ビルド:「BloggerName フィールドは、'10' の最大長の文字列または配列型をある必要があります」そのメッセージは、少し長くします。 多くの注釈を使用して、エラー メッセージの属性を持つエラー メッセージを指定できます。
+クライアント側の注釈を MVC と EF 4.1 サーバー側の注釈は両方に従ってこの検証は、エラー メッセージを動的に再構築で行います。「BloggerName フィールドは、'10' の最大長の文字列または配列型をある必要があります」そのメッセージは、少し長くします。 多くの注釈を使用して、エラー メッセージの属性を持つエラー メッセージを指定できます。
 
 ``` csharp
     [MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
@@ -245,9 +245,6 @@ BlogDetails にあらゆる種類のキー プロパティがないことに注�
 
 ![複合型を持つテーブルをブログ](~/ef6/media/jj591583-figure06.png)
 
-もう 1 つの興味深いことには、DateCreated プロパティ、クラス内の null 非許容の日時として定義されますが、関連するデータベース フィールドを null 値を許容します。 データベース スキーマに影響する場合は、必要な注釈を使用する必要があります。
-
- 
 
 ## <a name="concurrencycheck"></a>ConcurrencyCheck
 
@@ -374,7 +371,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
 ### <a name="multiple-column-indexes"></a>複数列のインデックス
 
-複数の列にまたがるインデックスは、指定されたテーブルの複数のインデックス注釈内で同じ名前を使用して指定されます。 複数列のインデックスを作成するときに、インデックスの列の順序を指定する必要があります。 次のコードが複数列インデックスを作成するなど、**評価**と**BlogId**と呼ばれる**IX\_BlogAndRating**します。 **BlogId**は、インデックスの最初の列と**評価**2 つ目は、します。
+複数の列にまたがるインデックスは、指定されたテーブルの複数のインデックス注釈内で同じ名前を使用して指定されます。 複数列のインデックスを作成するときに、インデックスの列の順序を指定する必要があります。 次のコードが複数列インデックスを作成するなど、**評価**と**BlogId**と呼ばれる**IX\_BlogIdAndRating**します。 **BlogId**は、インデックスの最初の列と**評価**2 つ目は、します。
 
 ``` csharp
     public class Post
@@ -391,7 +388,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
  
 
-## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>リレーションシップは、次の属性: InverseProperty と不変
+## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>リレーションシップ属性:InverseProperty と不変
 
 > [!NOTE]
 > このページは、データ注釈を使用して Code First モデルでリレーションシップを設定する方法についての情報を提供します。 EF とアクセスし、リレーションシップを使用してデータを操作する方法に関係の詳細については、次を参照してください[リレーションシップとナビゲーション プロパティ](~/ef6/fundamentals/relationships.md)。 *。
@@ -441,7 +438,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
     }
 ```
 
-最初にコードは、独自の 2 つのクラスのプロパティと一致することではありません。 投稿のデータベース テーブルでは、CreatedBy 人の 1 つの外部キーが必要し、UpdatedBy 人がコードの最初として 4 つは外部キー プロパティを作成します: Person\_Id、Person\_Id1、CreatedBy\_Id とUpdatedBy\_id。
+最初にコードは、独自の 2 つのクラスのプロパティと一致することではありません。 投稿のデータベース テーブルでは、CreatedBy 人および UpdatedBy 人のいずれか 1 つの外部キーが必要ですが、コードは最初に次の 4 つの外部キー プロパティを作成します。Person\_Id、Person\_Id1、CreatedBy\_Id と UpdatedBy\_id。
 
 ![余分な外部キーを含むテーブルを投稿します。](~/ef6/media/jj591583-figure10.png)
 
