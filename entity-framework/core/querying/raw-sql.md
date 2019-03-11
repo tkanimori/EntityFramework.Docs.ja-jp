@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 343162596780e6146b57f73a38221701009cd855
-ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
+ms.openlocfilehash: ad7ac3099cfd4c49b88acfbbff61f2af9294b6ec
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/06/2019
-ms.locfileid: "55760510"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463244"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
@@ -140,4 +140,6 @@ var blogs = context.Blogs
 * `SELECT` 以外の SQL ステートメントは、自動的に非コンポーザブルと認識されます。 その結果、ストアド プロシージャのすべての結果が常にクライアントに返され、`FromSql` の後に適用されたすべての LINQ 演算子はメモリ内で評価されます。
 
 > [!WARNING]  
-> **生 SQL クエリには常にパラメーター化を使用する:** `FromSql` や `ExecuteSqlCommand` のような生 SQL 文字列を受け取る API では、値をパラメーターとして簡単に渡すことができます。 ユーザーの入力を検証するだけでなく、生 SQL クエリ/コマンドで使用される値には常にパラメーター化を使用してください。 文字列の連結を使用してクエリ文字列の一部を動的に構築する場合は、SQL インジェクション攻撃から保護するために入力を検証する必要があります。
+> **生 SQL クエリには常にパラメーター化を使用する:** ユーザーの入力を検証するだけでなく、生 SQL クエリ/コマンドで使用される値には常にパラメーター化を使用してください。 `FromSql` や `ExecuteSqlCommand` のような生 SQL 文字列を受け取る API では、値をパラメーターとして簡単に渡すことができます。 FormattableString を受け入れる `FromSql` と `ExecuteSqlCommand` のオーバーロードでも、SQL インジェクション攻撃からの保護に役立つ方法での文字列補間の使用が許可されます。 
+> 
+> 文字列連結または補間を使用して、クエリ文字列のいずれかの部分を動的に構築する場合、または動的 SQL としてユーザー入力を実行できるステートメントまたはストアド プロシージャにその入力を渡す場合は、SQL インジェクション攻撃から保護するためにご自身で入力を検証する必要があります。

@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: b52b1fe6b2d5a585f4d55b0299891f61cbc968a3
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: b5ac31722f49589f1494a3d8d1c8a7011a4cf9ce
+ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997571"
+ms.lasthandoff: 03/06/2019
+ms.locfileid: "57463270"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
 
@@ -179,7 +179,7 @@ services.AddDbContextPool<BloggingContext>(
 
 ### <a name="explicitly-compiled-queries"></a>明示的にコンパイルされたクエリ
 
-これは 2 つ目のオプトイン パフォーマンス機能であり、大規模シナリオで利点を与えるように設計されています。
+これは 2 つ目のオプトイン パフォーマンス機能であり、大規模なシナリオで利点が得られるように設計されています。
 
 以前のバージョンの EF や LINQ to SQL では、手動または明示的にコンパイルされたクエリ API を利用できました。アプリケーションでは、1 回だけ計算し、何回も実行できるよう、クエリの変換をキャッシュできました。
 
