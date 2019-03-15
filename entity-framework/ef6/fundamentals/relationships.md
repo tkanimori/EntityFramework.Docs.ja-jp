@@ -3,12 +3,12 @@ title: リレーションシップ、ナビゲーション プロパティ、お
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 46c2d11b5704ec7ae82a423ae042b87f5efe436f
-ms.sourcegitcommit: 8b42045cd21f80f425a92f5e4e9dd4972a31720b
+ms.openlocfilehash: 416eb1fb590330ba292a858347e26b83dddc74df
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2018
-ms.locfileid: "49315660"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829201"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>リレーションシップ、ナビゲーション プロパティ、および外部キー
 このトピックでは、Entity Framework でのエンティティ間のリレーションシップの管理方法の概要を示します。 また、マップし、のリレーションシップを操作する方法のいくつかのガイダンスを提供します。
@@ -29,7 +29,7 @@ Entity Framework では、エンティティはアソシエーションまたは
 
 モデルでは、外部キー列が含まれていない、関連付け情報は、独立したオブジェクトとして管理されます。 リレーションシップは、外部キー プロパティではなくオブジェクト参照によって追跡されます。 アソシエーションのこの型が呼び出される、*独立アソシエーション*します。 変更する最も一般的な方法、*独立アソシエーション*は、アソシエーションに参加する各エンティティに対して生成されるナビゲーション プロパティを変更します。
 
-モデルでは 1 つまたは両方のアソシエーションを使用するよう選択することができます。 ただし、外部キーのみを含む結合テーブルで接続する純粋な多対多リレーションシップがあれば、EF は独立アソシエーションをこのような多対多リレーションシップの管理に使用します。   
+モデルでは 1 つまたは両方のアソシエーションを使用するよう選択することができます。 ただし、外部キーのみを含む結合テーブルで接続する純粋な多対多リレーションシップがあれば、EF は独立アソシエーションをこのような多対多リレーションシップの管理に使用します。   
 
 次の図は、Entity Framework デザイナーで作成された概念モデルを示しています。 モデルには、一対多のリレーションシップに参加している 2 つのエンティティが含まれています。 両方のエンティティには、ナビゲーション プロパティがあります。 **コース**は depend エンティティであり、 **DepartmentID**外部キー プロパティを定義します。
 
@@ -51,7 +51,7 @@ public class Department
 {
    public Department()
    {
-     this.Course = new HashSet<Course>();
+     this.Courses = new HashSet<Course>();
    }  
    public int DepartmentID { get; set; }
    public string Name { get; set; }
