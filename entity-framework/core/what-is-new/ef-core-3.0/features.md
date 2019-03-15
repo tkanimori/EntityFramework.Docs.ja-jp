@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: cf0d2cf032b9aa319fe706aece5b1ea66a5d6251
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: b6774f615b04bf9579aac5dea217e7321631da0c
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463364"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829188"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在、プレビュー段階) に含まれる新機能
 
@@ -75,7 +75,7 @@ EF Core 2.1 で導入され、EF Core 3.0 ではキーなしのエンティテ�
 この機能への取り組みは始まっていますが、現在のプレビューには含まれていません。 
 
 この機能は、通常のプロパティではなくインデックス付きプロパティにデータを格納するエンティティを有効にすること、および、同じ EF Core モデル内で異なるエンティティ型を表すために、同じ .NET クラスのインスタンス (`Dictionary<string, object>` のように単純なものである可能性があります) を使用できるようにすることと関係しています。
-この機能は、結合エンティティなしの多対多リレーションシップをサポートするための足がかりとなります。これは EF Core に対して特に要望が多かった機能強化の 1 つです。
+この機能は、結合エンティティなしの多対多リレーションシップをサポートするための足がかりとなります ([問題 #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368))。これは EF Core に対して特に要望が多かった機能強化の 1 つです。
 
 ## <a name="ef-63-on-net-core"></a>.NET Core での EF 6.3 
 

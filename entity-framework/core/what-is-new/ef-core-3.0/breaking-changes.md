@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: a7e1a03bf1131cd53123f5cc39b07bed94619b44
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: 748db8a71a04a2d696ef21a03319906b9fc776be
+ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463372"
+ms.lasthandoff: 03/14/2019
+ms.locfileid: "57829227"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -22,11 +22,10 @@ ms.locfileid: "57463372"
 
 ## <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>LINQ クエリがクライアントで評価されなくなった
 
-[問題 #12795 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+[問題 #14935 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14935)
+[問題 #12795 も参照](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
 
-> [!IMPORTANT]
-> この中断については、事前にお知らせします。
-3.0 プレビューではまだ提供されていません。
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
 
 **以前の動作**
 
@@ -98,8 +97,14 @@ EF Core 3.0 以降では、コマンド/SQL の実行は、`Debug` レベルで�
 **軽減策**
 
 このログ イベントは、イベント ID 20100 の `RelationalEventId.CommandExecuting` によって定義されています。
-`Info` レベルで再度 SQL をログに記録するには、`Debug` レベルでのログを有効にし、このイベントのみにフィルター処理を行います。
-
+`Info` レベルで SQL をもう一度ログに記録するには、`OnConfiguring` または `AddDbContext` で明示的にレベルを構成します。
+次に例を示します。
+```C#
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseSqlServer(connectionString)
+        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Info)));
+```
 
 ## <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>一時キーの値がエンティティ インスタンスに設定されなくなった
 
@@ -439,6 +444,28 @@ modelBuilder
     .HasField("_id");
 ```
 
+## <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>AddDbContext/AddDbContextPool で AddLogging および AddMemoryCache を呼び出さなくなりました
+
+[問題 #14756 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 以前では、`AddDbContext` または `AddDbContextPool` を呼び出すと、[AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) および [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) への呼び出しを通じて、D.I を使ってログ記録とメモリ キャッシュ サービスも登録されました。
+
+**新しい動作**
+
+EF Core 3.0 以降、`AddDbContext` と `AddDbContextPool` では、依存関係の挿入 (DI) を使ってこれらのサービスを登録しなくなります。
+
+**理由**
+
+EF Core 3.0 では、これらのサービスをアプリケーションの DI コンテナーに含める必要がありません。 ただし、`ILoggerFactory` がアプリケーションの DI コンテナーに登録された場合、それは引き続き EF Core によって使用されます。
+
+**軽減策**
+
+ご自身のアプリケーションでこれらのサービスが必要な場合は、[AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) または [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) を使って、DI コンテナーで明示的にそれらを登録します。
+
 ## <a name="dbcontextentry-now-performs-a-local-detectchanges"></a>DbContext.Entry でローカルの DetectChanges が実行されるようになった
 
 [問題 #13552 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
@@ -610,6 +637,43 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     optionsBuilder
         .ConfigureWarnings(w => w.Log(CoreEventId.ManyServiceProvidersCreatedWarning));
 }
+```
+
+## <a name="new-behavior-for-hasonehasmany-called-with-a-single-string"></a>1 つの文字列と共に呼び出される HasOne/HasMany の新しい動作
+
+[問題 #9171 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/9171)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 以前では、1 つの文字列と共に `HasOne` または `HasMany` を呼び出すコードは、わかりにくい方法で解釈されていました。
+次に例を示します。
+```C#
+modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
+```
+
+このコードは、プライベートである可能性がある `Entrance` ナビゲーション プロパティを使って、`Samuri` を他のエンティティ型に関連付けているように見えます。
+
+実際には、このコードは、ナビゲーション プロパティなしで、`Entrance` と呼ばれるエンティティ型に対してリレーションシップを作成しようとしています。
+
+**新しい動作**
+
+EF Core 3.0 以降では、上記のコードは、前にそれが実行すべきであるように見えたことを実行するようになりました。
+
+**理由**
+
+以前の動作は、特に構成コードを読み取ってエラーを探す場合は、非常にわかりにくいものでした。
+
+**軽減策**
+
+これが中断させるのは、型名の文字列を使って明示的にリレーションシップを構成し、かつ明示的にナビゲーション プロパティを指定しないアプリケーションのみです。
+これは一般的ではありません。
+前の動作は、ナビゲーション プロパティ名に対して明示的に `null` を渡すことで実現できます。
+次に例を示します。
+
+```C#
+modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 ```
 
 ## <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Relational:TypeMapping 注釈が単に TypeMapping となった
