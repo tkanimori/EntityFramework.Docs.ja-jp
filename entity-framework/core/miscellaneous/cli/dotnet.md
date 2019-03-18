@@ -151,7 +151,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、設定、 **A
 |                   | `--no-color`                      | しないと、出力が色分けして表示します。                                                                                                                                                                                                                                        |
 |                   | `--prefix-output`                 | プレフィックスのレベルで出力します。                                                                                                                                                                                                                                     |
 
-## <a name="dotnet-ef-database-drop"></a>dotnet ef データベースの削除
+## <a name="dotnet-ef-database-drop"></a>dotnet ef database delete
 
 データベースを削除します。
 
@@ -162,7 +162,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、設定、 **A
 | <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | しないことを確認します。                                           |
 |                   | <nobr>`--dry-run`</nobr> | 表示するデータベースが削除されます。 は削除しないでください。 |
 
-## <a name="dotnet-ef-database-update"></a>dotnet ef データベースの更新
+## <a name="dotnet-ef-database-update"></a>dotnet ef database update
 
 最後に移行したり、指定された移行は、データベースを更新します。
 
@@ -179,15 +179,15 @@ dotnet ef database update InitialCreate
 dotnet ef database update 20180904195021_InitialCreate
 ```
 
-## <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext の情報
+## <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext info
 
 に関する情報を取得します、`DbContext`型。
 
-## <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext の一覧
+## <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext list
 
 使用可能な`DbContext`型。
 
-## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext スキャフォールディング
+## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext scaffold
 
 コードを生成、`DbContext`とデータベースのエンティティ型。 エンティティ型を生成するには、このコマンドの順序は、データベース テーブルに主キーが必要です。
 
@@ -223,7 +223,7 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
 ```
 
-## <a name="dotnet-ef-migrations-add"></a>dotnet ef migrations を追加します。
+## <a name="dotnet-ef-migrations-add"></a>dotnet ef migrations add
 
 新しい移行を追加します。
 
@@ -239,11 +239,11 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 |:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | 使用するディレクトリ (およびサブ名前空間)。 パスでは、プロジェクト ディレクトリに対して相対的です。 既定値は「移行」です。 |
 
-## <a name="dotnet-ef-migrations-list"></a>dotnet ef migrations 一覧
+## <a name="dotnet-ef-migrations-list"></a>dotnet ef migrations list
 
 使用可能な移行を一覧表示します。
 
-## <a name="dotnet-ef-migrations-remove"></a>dotnet ef migrations を削除します。
+## <a name="dotnet-ef-migrations-remove"></a>dotnet ef migrations delete
 
 最後の移行 (ロールバックの移行の実行されたコードの変更) を削除します。
 
@@ -253,7 +253,7 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 |:------------------|:----------|:--------------------------------------------------------------------------------|
 | <nobr>`-f`</nobr> | `--force` | 移行を元に戻す (ロールバックをデータベースに適用された変更)。 |
 
-## <a name="dotnet-ef-migrations-script"></a>dotnet ef migrations スクリプト
+## <a name="dotnet-ef-migrations-script"></a>dotnet ef migrations script
 
 移行には、SQL スクリプトを生成します。
 
