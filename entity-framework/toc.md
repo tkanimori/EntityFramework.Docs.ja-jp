@@ -15,7 +15,7 @@
 #### [EF Core 3.0 (プレビュー)](core/what-is-new/ef-core-3.0/index.md)
 ##### [新機能](core/what-is-new/ef-core-3.0/features.md)
 ##### [破壊的変更](core/what-is-new/ef-core-3.0/breaking-changes.md)
-#### [EF Core 2.2 (最新の安定版リリース)](core/what-is-new/ef-core-2.2.md)
+#### [EF Core 2.2 (最新リリース)](core/what-is-new/ef-core-2.2.md)
 #### [EF Core 2.1](core/what-is-new/ef-core-2.1.md)
 #### [EF Core 2.0](core/what-is-new/ef-core-2.0.md)
 #### [EF Core 1.1](core/what-is-new/ef-core-1.1.md)
