@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 69c40fcd8b7ddb925728b1bad9992ad2a81e7540
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 53262bc926d79f42c4418a62717a462564dc80bf
+ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994665"
+ms.lasthandoff: 03/18/2019
+ms.locfileid: "58131413"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core データベース プロバイダーの制限事項
 
@@ -41,7 +41,7 @@ SQLite データベース エンジンは、多数の他のリレーショナル
 | DropPrimaryKey       | ✗          |                  |
 | DropTable            | ✔          | 1              |
 | DropUniqueConstraint | ✗          |                  |
-| RenameColumn         | ✗          |                  |
+| RenameColumn         | ✔          | 2.2.2            |
 | RenameIndex          | ✔          | 2.1              |
 | RenameTable          | ✔          | 1              |
 | EnsureSchema         | ✔ (操作なし)  | 2.0              |
@@ -52,7 +52,7 @@ SQLite データベース エンジンは、多数の他のリレーショナル
 
 ## <a name="migrations-limitations-workaround"></a>移行の制限の回避策
 
-回避策をいくつかは、移行テーブルを実行するコードを手動で記述してこれらの制限の再構築します。 テーブルの再構築では、既存のテーブルの名前を変更する、新しいテーブルを作成、新しいテーブルにデータをコピーおよび古いテーブルを削除する必要があります。 使用する必要があります、`Sql(string)`メソッドを次の手順の一部を実行します。
+回避策をいくつかは、移行テーブルを実行するコードを手動で記述してこれらの制限の再構築します。 テーブルのリビルドには、既存のテーブルの名前変更、新しいテーブルの作成、新しいテーブルへのデータのコピー、および古いテーブルの削除が必要です。 使用する必要があります、`Sql(string)`メソッドを次の手順の一部を実行します。
 
 参照してください[その他の種類のテーブル スキーマ変更を行う](http://sqlite.org/lang_altertable.html#otheralter)詳細については、SQLite ドキュメント。
 
