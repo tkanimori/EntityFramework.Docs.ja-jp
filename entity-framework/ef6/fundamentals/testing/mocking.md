@@ -3,12 +3,12 @@ title: モック作成フレームワークの EF6 でのテスト
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bd66a638-d245-44d4-8e71-b9c6cb335cc7
-ms.openlocfilehash: 80fd97073744be40d66c09706d3513dba18e724d
-ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
+ms.openlocfilehash: 3d39b41018beb70b72105dfb2fe4d61afc0b0525
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/06/2018
-ms.locfileid: "48834722"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319206"
 ---
 # <a name="testing-with-a-mocking-framework"></a>モック作成フレームワークとテスト
 > [!NOTE]
@@ -21,7 +21,7 @@ ms.locfileid: "48834722"
 コンテキストのメモリ内のバージョンを作成するために使用できる 2 つのさまざまな方法はあります。  
 
 - **独自のテスト代替を作成する**– この方法では、コンテキストと DbSets の独自のインメモリ実装を記述します。 これにより、多数の制御、クラスの動作が記述して、コードの妥当な量を所有している必要があります。  
-- **モック作成フレームワークを使用して、テスト代替を作成する**– (Moq) などのモック作成フレームワークを使用することが皆さんのインメモリ実装コンテキストとセットの実行時に動的に作成します。  
+- **モック作成フレームワークを使用して、テスト代替を作成する**– (Moq) などのモック作成フレームワークを使用するコンテキストとセットの実行時に動的に作成されたインメモリ実装があることができます。  
 
 この記事ではモック作成フレームワークを使用してを処理します。 独自のテスト代替を作成するため、次を参照してください。 [、独自のテスト代替によるテスト](writing-test-doubles.md)します。  
 

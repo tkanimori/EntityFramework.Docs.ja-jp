@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 748db8a71a04a2d696ef21a03319906b9fc776be
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 534ac95cccc03e9797ba766e601e2fe86eaf8061
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829227"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319219"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -653,7 +653,7 @@ EF Core 3.0 以前では、1 つの文字列と共に `HasOne` または `HasMan
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
 
-このコードは、プライベートである可能性がある `Entrance` ナビゲーション プロパティを使って、`Samuri` を他のエンティティ型に関連付けているように見えます。
+このコードは、プライベートである可能性がある `Entrance` ナビゲーション プロパティを使って、`Samurai` を他のエンティティ型に関連付けているように見えます。
 
 実際には、このコードは、ナビゲーション プロパティなしで、`Entrance` と呼ばれるエンティティ型に対してリレーションシップを作成しようとしています。
 
@@ -785,3 +785,83 @@ EF Core 3.0 以降では、EF Core で `SQLitePCLRaw.bundle_e_sqlite3` が使用
 **軽減策**
 
 iOS でネイティブの SQLite バージョンを使用するには、別の `SQLitePCLRaw` バンドルを使用するように `Microsoft.Data.Sqlite` を構成します。
+
+## <a name="char-values-are-now-stored-as-text-on-sqlite"></a>Char の値が SQLite にテキストとして格納されるようになった
+
+[問題 #15020 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+
+**以前の動作**
+
+Char の値は、以前は SQLite に整数値として格納されていました。 たとえば、Char の値 *A* は整数値 65 として格納されていました。
+
+**新しい動作**
+
+Char の値はテキストとして格納されます。
+
+**理由**
+
+値をテキストとして格納する方が自然であり、データベースと他のテクノロジとの互換性が高まるためです。
+
+**軽減策**
+
+次のように SQL を実行すると、既存のデータベースを新しい形式に移行することができます。
+
+``` sql
+UPDATE MyTable
+SET CharColumn = char(CharColumn)
+WHERE typeof(CharColumn) = 'integer';
+```
+
+EF Core では、このようなプロパティで値コンバーターを構成することで、以前の動作を使い続けることもできます。
+
+``` csharp
+modelBuilder
+    .Entity<MyEntity>()
+    .Property(e => e.CharProperty)
+    .HasConversion(
+        c => (long)c,
+        i => (char)i);
+```
+
+Microsoft.Data.Sqlite では、引き続き整数とテキストの両方の列の文字列値を読み取ることができるため、一部のシナリオではアクションが必要ありません。
+
+## <a name="migration-ids-are-now-generated-using-the-invariant-cultures-calendar"></a>移行 ID がインバリアント カルチャの暦を使用して生成されるようになった
+
+[問題 #12978 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12978)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+
+**以前の動作**
+
+移行 ID は選択されているカルチャの暦を使用して意図なく生成されていました。
+
+**新しい動作**
+
+移行 ID がインバリアント カルチャの暦 (グレゴリオ暦) を使用して常に生成されるようになりました。
+
+**理由**
+
+データベースを更新するときやマージの競合を解決するときに、移行の順序は重要です。 インバリアントの暦を使用することで、順序の問題が回避され、システムの予定表がチームのメンバーごとに違うことがなくなります。
+
+**軽減策**
+
+この変更は、グレゴリオ暦以外の暦 (タイ仏暦など) を使用し、1 年がグレゴリオ暦より長くなるすべてのユーザーに影響します。 既存の移行後に新しい移行順序が設定されるように、既存の移行 ID を更新する必要があります。
+
+移行 ID は、移行のデザイナー ファイルの移行属性にあります。
+
+``` diff
+ [DbContext(typeof(MyDbContext))]
+-[Migration("25620318122820_MyMigration")]
++[Migration("20190318122820_MyMigration")]
+ partial class MyMigration
+ {
+```
+
+移行履歴テーブルも更新する必要があります。
+
+``` sql
+UPDATE __EFMigrationsHistory
+SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
+```

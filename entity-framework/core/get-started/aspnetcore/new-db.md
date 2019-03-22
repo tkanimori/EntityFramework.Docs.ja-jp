@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 4734586adc89e9c1d866a1b4accd8b5e51fe2bb0
-ms.sourcegitcommit: ebf661025d2ad2b62466fa7bf0e0772a7811cbe7
+ms.openlocfilehash: 25e5a683acf4bbed0b978cc6a80f1b50a0b64ca1
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/11/2019
-ms.locfileid: "54211167"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319180"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>新しいデータベースを使用した ASP.NET Core での EF Core の概要
 
@@ -54,7 +54,7 @@ ms.locfileid: "54211167"
   * **[認証]** に **[認証なし]** が設定されていることを確認します。
   * **[OK]** をクリックします。
 
-警告:**[認証]** で **[なし]** ではなく **[個別のユーザー アカウント]** を使用すると、プロジェクトの `Models\IdentityModel.cs` に Entity Framework Core モデルが追加されます。 このチュートリアルで学習する手法を使用すると、エンティティ クラスを格納するのに、この既存のモデルに 2 つ目のモデルを追加するか、またはこの既存のクラスを拡張するかを選択できます。
+警告 :**[認証]** で **[なし]** ではなく **[個別のユーザー アカウント]** を使用すると、プロジェクトの `Models\IdentityModel.cs` に Entity Framework Core モデルが追加されます。 このチュートリアルで学習する手法を使用すると、エンティティ クラスを格納するのに、この既存のモデルに 2 つ目のモデルを追加するか、またはこの既存のクラスを拡張するかを選択できます。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -114,9 +114,9 @@ EF Core をインストールするには、対象となる EF Core データベ
 
 ## <a name="register-the-context-with-dependency-injection"></a>依存関係挿入にコンテキストを登録する
 
-サービス (`BloggingContext` など) は、アプリケーションの起動時に[依存関係の挿入](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html)に登録されます。 これらのサービス (MVC コントローラーなど) を必要とするコンポーネントには、コンストラクターのパラメーターやプロパティを介してこれらのサービスが指定されます。
+`BloggingContext` を MVC コント ローラーで使用できるようにするには、`Startup.cs` にサービスとして登録します。
 
-`BloggingContext` を MVC コント ローラーで使用できるようにするには、サービスとして登録します。
+サービス (`BloggingContext` など) はアプリケーションの起動時に[依存関係の挿入](http://docs.asp.net/en/latest/fundamentals/dependency-injection.html)によって登録され、コンストラクターのパラメーターやプロパティを使用してサービス (MVC コントローラーなど) を使用するコンポーネントに自動的に提供できるようになります。
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 

@@ -3,12 +3,12 @@ title: リレーションシップ、ナビゲーション プロパティ、お
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 416eb1fb590330ba292a858347e26b83dddc74df
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 8292ae7af8d760240715854611d92ab340bf1ca7
+ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829201"
+ms.lasthandoff: 03/21/2019
+ms.locfileid: "58319193"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>リレーションシップ、ナビゲーション プロパティ、および外部キー
 このトピックでは、Entity Framework でのエンティティ間のリレーションシップの管理方法の概要を示します。 また、マップし、のリレーションシップを操作する方法のいくつかのガイダンスを提供します。
@@ -93,7 +93,7 @@ public class Department
   course.Department = department;
   ```
 
-- リレーションシップを削除するにナビゲーション プロパティを設定します。`null`します。 .NET 4.0 に基づいている Entity Framework を使用する場合は、関連 end を null に設定する前に読み込まれる必要があります。 例えば:   
+- リレーションシップを削除するにナビゲーション プロパティを設定します。`null`します。 .NET 4.0 に基づいている Entity Framework を使用する場合は、関連 end を null に設定する前に読み込まれる必要があります。 例:   
   ``` csharp
   context.Entry(course).Reference(c => c.Department).Load();
   course.Department = null;
@@ -147,7 +147,7 @@ public class Department
 
 ## <a name="loading-related-objects"></a>関連オブジェクトの読み込み
 
-最もよく使用する Entity Framework では、ナビゲーション プロパティを使用して、定義されたアソシエーションで返されるエンティティに関連するエンティティを読み込みます。 詳細については、次を参照してください。[関連オブジェクトの読み込み](~/ef6/querying/related-data.md)します。
+Entity Framework で一般に定義されたアソシエーションで返されるエンティティに関連するエンティティを読み込むナビゲーション プロパティを使用します。 詳細については、次を参照してください。[関連オブジェクトの読み込み](~/ef6/querying/related-data.md)します。
 
 > [!NOTE]
 > 外部キー アソシエーションで依存オブジェクトの関連 End を読み込むと、現在メモリ内にある依存の外部キー値に基づいて関連オブジェクトが読み込まれます。
