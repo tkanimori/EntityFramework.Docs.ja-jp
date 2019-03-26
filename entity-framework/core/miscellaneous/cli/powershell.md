@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: 468698d1bbd17d4ad10b1b1601bfbc315a01c1ff
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: cb05e3fb66adf96f8a6778711a76520d0be24c71
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688707"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419771"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core ツールのリファレンス - Visual Studio でパッケージ マネージャー コンソール
 
@@ -130,7 +130,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、次のよう�
 
 | パラメーター                 | 説明                                                                                                                                                                                                          |
 |:--------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| -Context \<String>        | `DbContext`クラスを使用します。 クラス名のみ、または名前空間を持つ完全修飾します。  このパラメーターを省略した場合、EF Core は、コンテキスト クラスを検索します。 複数のコンテキスト クラスがある場合は、このパラメーターが必要です。 |
+| -Context \<String>        | 使用する `DbContext` クラス。 クラス名のみ、または名前空間を持つ完全修飾します。  このパラメーターを省略した場合、EF Core は、コンテキスト クラスを検索します。 複数のコンテキスト クラスがある場合は、このパラメーターが必要です。 |
 | -Project \<String>        | ターゲットのプロジェクトです。 このパラメーターを省略した場合、**既定のプロジェクト**の**パッケージ マネージャー コンソール**がターゲット プロジェクトとして使用されます。                                                                             |
 | -StartupProject \<String> | スタートアップ プロジェクトです。 このパラメーターを省略した場合、**スタートアップ プロジェクト**で**ソリューションのプロパティ**ターゲット プロジェクトとして使用されます。                                                                                 |
 | -Verbose                  | 詳細な出力を表示します。                                                                                                                                                                                                 |
@@ -163,7 +163,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、次のよう�
 
 ## <a name="get-dbcontext"></a>Get-DbContext
 
-使用可能な`DbContext`型。
+に関する情報を取得します、`DbContext`型。
 
 ## <a name="remove-migration"></a>Remove-Migration
 
@@ -261,4 +261,4 @@ Update-Database -Migration 20180904195021_InitialCreate
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [移行](xref:core/managing-schemas/migrations/index)
-* [リバース エンジニア リング](xref:core/managing-schemas/scaffolding)
+* [リバース エンジニアリング](xref:core/managing-schemas/scaffolding)

@@ -3,12 +3,12 @@ title: 独自のテスト代替の EF6 でのテスト
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: 2158dc73585c2720e7293096b0478c73edf522d9
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 9db56e28cd89084fece36c3e5a2c1b4495991d01
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490910"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419732"
 ---
 # <a name="testing-with-your-own-test-doubles"></a>独自のテスト代替によるテスト
 > [!NOTE]
@@ -43,7 +43,7 @@ ms.locfileid: "45490910"
 
 ## <a name="creating-a-context-interface"></a>コンテキストのインターフェイスを作成します。  
 
-EF は、サービスをテストを見ていきますモデル。 テスト用のメモリ内のバージョンで、EF コンテキストを交換できるようにするには、するためには、インターフェイスを定義します、EF コンテキスト (および、インメモリ倍) が imeplement をされます。  
+EF は、サービスをテストを見ていきますモデル。 テスト用のメモリ内のバージョンで、EF コンテキストを交換できるようにするには、するには、EF コンテキスト (およびメモリの二重) を実装するインターフェイスを定義します。
 
 テストをここでは、サービスはクエリし、コンテキストの DbSet プロパティを使用してデータの変更し、データベースに変更をプッシュする SaveChanges を呼び出すこともします。 したがって、インターフェイスでこれらのメンバーを含めています。  
 

@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 0f8389decbc1995cc629d24c5baa197255cd328a
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 1133976d8d25e4099b64a1a30a8d2066ff3f6cd7
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319141"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419667"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -20,6 +20,8 @@ ms.locfileid: "58319141"
 2.1 から 2.2 への変更でこのログを開始します。 使用して 2.1 より前、 [ `providers-beware` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-beware)と[ `providers-fyi` ](https://github.com/aspnet/EntityFrameworkCore/labels/providers-fyi)問題とプル要求のラベル。
 
 ## <a name="22-----30"></a>2.2 ---> 3.0
+
+多くに注意してください、[アプリケーション レベルの互換性に影響する変更](../what-is-new/ef-core-3.0/breaking-changes.md)プロバイダーも影響します。
 
 * https://github.com/aspnet/EntityFrameworkCore/pull/14022
   * 廃止された Api が削除された、折りたたまれた省略可能なパラメーター オーバー ロード
@@ -30,6 +32,35 @@ ms.locfileid: "58319141"
   * CharTypeMapping のサブクラスは基本の実装でいくつかのバグを修正するために必要な動作の変更により切断されている可能性があります。
 * https://github.com/aspnet/EntityFrameworkCore/pull/15090
   * IDatabaseModelFactory の基本クラスを追加し、将来問題を軽減するためにパラメーター オブジェクトを使用するように更新します。
+* https://github.com/aspnet/EntityFrameworkCore/pull/15123
+  * パラメーター オブジェクトを MigrationsSqlGenerator で将来問題を軽減するために使用されます。
+* https://github.com/aspnet/EntityFrameworkCore/pull/14972
+  * ログ レベルの明示的な構成には、プロバイダーを使用して Api にいくつかの変更が必要です。 具体的には、プロバイダーは、ログ記録インフラストラクチャを直接使用は、この変更可能性がありますを使用してを中断します。 (これは、パブリックになります) インフラストラクチャを使用するプロバイダーも、今後はから派生する必要があります`LoggingDefinitions`または`RelationalLoggingDefinitions`します。 SQL Server と例については、メモリ内プロバイダーを参照してください。
+* https://github.com/aspnet/EntityFrameworkCore/pull/15091
+  * Core、リレーショナル、および抽象化のリソース文字列では、パブリックようになりました。
+  * `CoreLoggerExtensions` `RelationalLoggerExtensions`がパブリックのようになりました。 プロバイダーは、コアまたはリレーショナル レベルで定義されているイベント ログの記録時に、これらの Api を使用する必要があります。 ログ記録のリソースを直接アクセスできません。これらは引き続き内部です。
+  * `IRawSqlCommandBuilder` シングルトン サービスからスコープ化されたサービスに変更されました
+  * `IMigrationsSqlGenerator` シングルトン サービスからスコープ化されたサービスに変更されました
+* https://github.com/aspnet/EntityFrameworkCore/pull/14706
+  * できる安全にプロバイダーによって使用されるほか、若干のリファクタリングのため、リレーショナル コマンドを構築するためのインフラストラクチャをパブリックになったされています。
+  * `IRelationalCommandBuilderFactory`シングルトン サービスからスコープ化されたサービスに変更されました
+  * `IShaperCommandContextFactory` シングルトン サービスからスコープ化されたサービスに変更されました
+  * `ISelectExpressionFactory` シングルトン サービスからスコープ化されたサービスに変更されました
+* https://github.com/aspnet/EntityFrameworkCore/pull/14733
+  * `ILazyLoader` スコープ化されたサービスから一時的なサービスに変更されました
+* https://github.com/aspnet/EntityFrameworkCore/pull/14610
+  * `IUpdateSqlGenerator` スコープ化されたサービスからシングルトン サービスに変更されました
+  * また、`ISingletonUpdateSqlGenerator`が削除されました
+* https://github.com/aspnet/EntityFrameworkCore/pull/15067
+  * 多くのプロバイダーによって使用されている内部のコードをここではパブリック
+  * 必要に応じて参照をれる必要がなくなった`IndentedStringBuilder`ので、公開されている場所から組み込まれます
+  * 使用状況`NonCapturingLazyInitializer`置き換える必要があります`LazyInitializer`BCL から
+* https://github.com/aspnet/EntityFrameworkCore/pull/14608
+  * この変更は、アプリケーションの互換性に影響する変更点に関するドキュメントで説明しています。 プロバイダーは、詳細に影響を与えるため、テストの EF core に多くの場合、テスト インフラストラクチャの変更にすることが少ない可能性がありますので、この問題に達する可能性があります。
+* https://github.com/aspnet/EntityFrameworkCore/issues/13961
+  * `EntityMaterializerSource` 簡略化されました
+* https://github.com/aspnet/EntityFrameworkCore/pull/14895
+  * StartsWith 翻訳がプロバイダーで対応するため必要/必要可能性がありますな方法で変更されました。
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
