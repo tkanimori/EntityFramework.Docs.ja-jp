@@ -99,7 +99,7 @@ ms.locfileid: "58419667"
   * このプル要求の追加の概念`CanConnect`正常性の ASP.NET Core で使用されるデータベースが使用可能なかどうかを判断するを確認します。 リレーショナルの実装では、既定では、呼び出すだけ`Exist`がプロバイダーに応じて実装別のものにできます。 非リレーショナルのプロバイダーは、使用するのには、正常性チェックのために、新しい API を実装する必要があります。
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13306](https://github.com/aspnet/EntityFrameworkCore/pull/13306) -DbParameter のサイズを設定しないように基本 RelationalTypeMapping を更新します。
   * 切り捨てが発生する可能性があるため既定サイズの設定を停止します。 プロバイダーは、サイズを設定する必要がある場合に、独自のロジックを追加する必要があります。
-* https://github.com/aspnet/EntityFrameworkCore/pull/13372 -RevEng:常に 10 進数の列の列の種類を指定します。
+* (https://github.com/aspnet/EntityFrameworkCore/pull/13372) -RevEng:常に 10 進数の列の列の種類を指定します。
   * 常に規則を構成するのではなく、スキャフォールディングされたコードの 10 進数の列の列の種類を構成します。
   * プロバイダーは、エンドユーザー側で変更する必要はありません。
 * [https://github.com/aspnet/EntityFrameworkCore/pull/13469](https://github.com/aspnet/EntityFrameworkCore/pull/13469) -SQL の CASE 式を生成するため CaseExpression を追加します。
