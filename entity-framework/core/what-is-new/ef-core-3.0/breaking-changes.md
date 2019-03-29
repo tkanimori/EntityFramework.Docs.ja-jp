@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 534ac95cccc03e9797ba766e601e2fe86eaf8061
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 7ed55d4cae36f6b25059a5b218db4b0d5e2fb266
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319219"
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419745"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -786,6 +786,56 @@ EF Core 3.0 以降では、EF Core で `SQLitePCLRaw.bundle_e_sqlite3` が使用
 
 iOS でネイティブの SQLite バージョンを使用するには、別の `SQLitePCLRaw` バンドルを使用するように `Microsoft.Data.Sqlite` を構成します。
 
+## <a name="guid-values-are-now-stored-as-text-on-sqlite"></a>GUID の値が SQLite にテキストとして格納されるようになった
+
+[問題 #15078 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15078)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+
+**以前の動作**
+
+GUID の値は、以前は SQLite に BLOB 値として格納されていました。
+
+**新しい動作**
+
+GUID の値はテキストとして格納されます。
+
+**理由**
+
+GUID のバイナリ形式は標準化されていません。 値をテキストとして格納する方が、データベースと他のテクノロジとの互換性が高まるためです。
+
+**軽減策**
+
+次のように SQL を実行すると、既存のデータベースを新しい形式に移行することができます。
+
+``` sql
+UPDATE MyTable
+SET GuidColumn = hex(substr(GuidColumn, 4, 1)) ||
+                 hex(substr(GuidColumn, 3, 1)) ||
+                 hex(substr(GuidColumn, 2, 1)) ||
+                 hex(substr(GuidColumn, 1, 1)) || '-' ||
+                 hex(substr(GuidColumn, 6, 1)) ||
+                 hex(substr(GuidColumn, 5, 1)) || '-' ||
+                 hex(substr(GuidColumn, 8, 1)) ||
+                 hex(substr(GuidColumn, 7, 1)) || '-' ||
+                 hex(substr(GuidColumn, 9, 2)) || '-' ||
+                 hex(substr(GuidColumn, 11, 6))
+WHERE typeof(GuidColumn) == 'blob';
+```
+
+EF Core では、このようなプロパティで値コンバーターを構成することで、以前の動作を使い続けることもできます。
+
+``` csharp
+modelBuilder
+    .Entity<MyEntity>()
+    .Property(e => e.GuidProperty)
+    .HasConversion(
+        g => g.ToByteArray(),
+        b => new Guid(b));
+```
+
+Microsoft.Data.Sqlite は引き続き、BLOB とテキストの両方の列から GUID 値を読み取ることができます。ただし、パラメーターと定数の既定の形式が変更されているため、GUID が含まれる多くのシナリオではアクションが必要になります。
+
 ## <a name="char-values-are-now-stored-as-text-on-sqlite"></a>Char の値が SQLite にテキストとして格納されるようになった
 
 [問題 #15020 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
@@ -865,3 +915,51 @@ Microsoft.Data.Sqlite では、引き続き整数とテキストの両方の列�
 UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
+
+## <a name="logquerypossibleexceptionwithaggregateoperator-has-been-renamed"></a>LogQueryPossibleExceptionWithAggregateOperator の名前が変更された
+
+[問題 #10985 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+
+**変更**
+
+`RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` の名前が `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning` に変更されました。
+
+**理由**
+
+この警告イベントの名前が他のすべての警告イベントと照合されるためです。
+
+**軽減策**
+
+新しい名前を使用します。 (イベント ID 番号が変更されていないことを確認してください。)
+
+## <a name="clarify-api-for-foreign-key-constraint-names"></a>外部キー制約名の API が明確化された
+
+[問題 #10730 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10730)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+
+**以前の動作**
+
+EF Core 3.0 以前は、外部キー制約名が単に "名前" と呼ばれていました。 次に例を示します。
+
+```C#
+var constraintName = myForeignKey.Name;
+```
+
+**新しい動作**
+
+EF Core 3.0 以降は、外部キー制約名が "定数名" と呼ばれるようになりました。 次に例を示します。
+
+```C#
+var constraintName = myForeignKey.ConstraintName;
+```
+
+**理由**
+
+この変更により、この領域の名前付けに一貫性が生まれ、それが外部キーが定義されている列やプロパティの名前ではなく、外部キー制約の名前であることが明確になりました。
+
+**軽減策**
+
+新しい名前を使用します。
