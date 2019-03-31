@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 1133976d8d25e4099b64a1a30a8d2066ff3f6cd7
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: 229c15ec0402e1706318593a099236f723d80595
+ms.sourcegitcommit: ab847dd881d51122e695b7cd8c025fcf3a5a9033
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419667"
+ms.lasthandoff: 03/30/2019
+ms.locfileid: "58678393"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -61,6 +61,10 @@ ms.locfileid: "58419667"
   * `EntityMaterializerSource` 簡略化されました
 * https://github.com/aspnet/EntityFrameworkCore/pull/14895
   * StartsWith 翻訳がプロバイダーで対応するため必要/必要可能性がありますな方法で変更されました。
+* https://github.com/aspnet/EntityFrameworkCore/pull/15168
+  * 規則のサービスの設定が変更されました。 プロバイダーは、"ProviderConventionSet"または"RelationalConventionSet"のいずれかから継承する必要があります。
+  * カスタマイズを追加する`IConventionSetCustomizer`サービスが、これはプロバイダーではないその他の拡張機能で使用するためのものです。
+  * 実行時に使用される規則がから解決される必要`IConventionSetBuilder`します。
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
