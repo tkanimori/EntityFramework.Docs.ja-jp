@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: f5a9ae17471391442170d8c40264e4db6922cb08
-ms.sourcegitcommit: 39080d38e1adea90db741257e60dc0e7ed08aa82
+ms.openlocfilehash: 9400fe8ea817b6aca0fb63c1de05ffe1dc997b2f
+ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/03/2018
-ms.locfileid: "50980003"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58868010"
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext の構成
 
@@ -161,6 +161,27 @@ using (var context = serviceProvider.GetService<BloggingContext>())
 
 var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
+## <a name="avoiding-dbcontext-threading-issues"></a>DbContext のスレッド処理の問題を回避します。
+
+Entity Framework Core は、同じ実行されている複数の並列操作をサポートしていません`DbContext`インスタンス。 未定義の動作、アプリケーションのクラッシュおよびデータの破損の可能性への同時アクセスがあります。 このを常に使用することが重要ため分離`DbContext`並列実行される操作のインスタンス。 
+
+Inadvernetly 原因の同時アクセスは、同じことが一般的な誤りがある`DbContext`インスタンス。
+
+### <a name="forgetting-to-await-the-completion-of-an-asynchronous-operation-before-starting-any-other-operation-on-the-same-dbcontext"></a>同じ DbContext で他の操作を開始する前に非同期操作の完了を待機することを忘れる
+
+非同期メソッドには、非ブロッキング方式で、データベースにアクセスする操作を開始する EF Core が有効にします。 場合は、呼び出し元が、これらのメソッドのいずれかの完了を待機せず、その他の操作を実行に進みますが、`DbContext`の状態、`DbContext`を指定できます (および多くの場合は) 破損しています。 
+
+常に EF Core の非同期メソッドをすぐに待機してください。  
+
+### <a name="implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection"></a>依存関係の挿入を使用して複数のスレッド間で暗黙的に DbContext インスタンスを共有
+
+[ `AddDbContext` ](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)拡張メソッドを登録`DbContext`型、[有効期間がスコープ](https://docs .microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes)既定。 
+
+これは、特定の時点で各クライアント要求を実行する 1 つのスレッドがあるため、各要求は、別の依存関係の挿入のスコープを取得するための同時アクセスの問題、ASP.NET Core アプリケーションで安全な (したがって独立した`DbContext`インスタンスの場合)。
+
+ただし、明示的に複数のスレッドを並行で実行されるコードを確認する必要がありますを`DbContext`インスタンスは同時に accesed されてこと。
+
+依存関係の挿入を使用して、これを行うかが対象とし、作成スコープとコンテキストを登録することによって (を使用して`IServiceScopeFactory`) スレッドごと、または登録することによって、`DbContext`一時的なものとして (のオーバー ロードを使用して`AddDbContext`を受け取ります`ServiceLifetime`パラメーター)。
 
 ## <a name="more-reading"></a>複数の読み取り
 
