@@ -4,8 +4,13 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
+ms.openlocfilehash: 836e59cf44f38af32e2342da5d251fbcf218888c
+ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 03/25/2019
+ms.locfileid: "58419693"
 ---
-
 # <a name="what-is-new-in-ef-core"></a>EF Core の新機能
 
 ## <a name="future-releases"></a>リリースの予定
