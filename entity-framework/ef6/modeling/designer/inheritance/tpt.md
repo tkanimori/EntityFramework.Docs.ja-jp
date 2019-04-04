@@ -19,7 +19,7 @@ Model First でも起動し、モデルからデータベースを生成でき�
 
 ## <a name="other-inheritance-options"></a>その他の継承オプション
 
-Table-per-hierarchy (TPH) では、継承、継承階層内のエンティティ型のすべてのデータを維持するためにテーブルを使用する 1 つのデータベース内の別の型です。  エンティティ デザイナーでの Table-per-hierarchy 継承をマップする方法については、次を参照してください。 [EF デザイナー TPH 継承](~/ef6/modeling/designer/inheritance/tph.md)します。 
+Table-per-hierarchy (TPH) では、継承、継承階層内のエンティティ型のすべてのデータを維持するためにテーブルを使用する 1 つのデータベース内の別の型です。  エンティティ デザイナーでの Table-per-hierarchy 継承をマップする方法については、[EF デザイナー TPH 継承](~/ef6/modeling/designer/inheritance/tph.md)を参照してください。 
 
 具象ごとのテーブル型 (TPC) 継承と混在の継承モデルは、Entity Framework ランタイムによってサポートされますが、EF Designer でサポートされていないに注意してください。 2 つのオプションがある TPC または混在の継承を使用する場合は、: Code First を使用して、または EDMX ファイルを手動で編集します。 EDMX ファイルを使用する場合は、マッピングの詳細 ウィンドウは、「セーフ モード」に格納されます。 そして、デザイナーを使用して、マッピング変更することはできません。
 

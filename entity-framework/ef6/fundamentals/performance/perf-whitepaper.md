@@ -138,7 +138,7 @@ EDMGen またはエンティティ デザイナーを使用して、Visual Studi
 | 使用する場合      | 方法                                                                                                                                                                                                                                                                                                                              |
 |:----------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | エンティティ デザイナー | 2 つのエンティティ間の関連付けを追加すると、参照に関する制約があることを確認します。 参照に関する制約は、独立アソシエーションではなく、外部キーを使用する Entity Framework を伝えます。 追加の詳細をご覧ください\<http://blogs.msdn.com/b/efdesign/archive/2009/03/16/foreign-keys-in-the-entity-framework.aspx>します。 |
-| EDMGen          | EDMGen を使用して、データベースから、ファイルを生成する、外部キーが適用されるため、そのため、モデルに追加します。 EDMGen によって公開されるさまざまなオプションの詳細については、次を参照してください。 [http://msdn.microsoft.com/library/bb387165.aspx](https://msdn.microsoft.com/library/bb387165.aspx)します。                           |
+| EDMGen          | EDMGen を使用して、データベースから、ファイルを生成する、外部キーが適用されるため、そのため、モデルに追加します。 EDMGen によって公開されるさまざまなオプションの詳細については、[http://msdn.microsoft.com/library/bb387165.aspx](https://msdn.microsoft.com/library/bb387165.aspx)を参照してください。                           |
 | Code First      | 「リレーションシップの規則」セクションを参照してください、[コードの最初の規則](~/ef6/modeling/code-first/conventions/built-in.md)Code First を使用する場合は、依存オブジェクトで外部キー プロパティを組み込む方法については、トピック。                                                                                              |
 
 #### <a name="242-moving-your-model-to-a-separate-assembly"></a>2.4.2、モデルを別のアセンブリに移動します。
@@ -191,11 +191,11 @@ Find メソッドを使用するときに考慮する必要があることです
 1.  オブジェクトがキャッシュにない場合は、検索の利点が否定しますが、構文がキーで、クエリよりも簡単です。
 2.  自動の変更を検出する場合は、有効になっている Find メソッドのコストが 1 桁、または、モデルと、オブジェクト キャッシュ内のエンティティの量の複雑さに応じて、さらに増やすことができます。
 
-また、のみを見つけることに注意してが探しているエンティティを返すは自動的に読み込み、関連付けられているエンティティが既にキャッシュにない、オブジェクトの場合。 関連付けられているエンティティを取得する必要がある場合は、一括読み込みでのキーによって、クエリを使用できます。 詳細については、次を参照してください。 **8.1 Lazy Loading とします。一括読み込み**します。
+また、のみを見つけることに注意してが探しているエンティティを返すは自動的に読み込み、関連付けられているエンティティが既にキャッシュにない、オブジェクトの場合。 関連付けられているエンティティを取得する必要がある場合は、一括読み込みでのキーによって、クエリを使用できます。 詳細については、**8.1 Lazy Loading とを参照してください。一括読み込み**します。
 
 #### <a name="312-performance-issues-when-the-object-cache-has-many-entities"></a>3.1.2 パフォーマンスの問題をオブジェクト キャッシュに多数のエンティティがある場合
 
-オブジェクト キャッシュは、Entity Framework の全体的な応答性の向上に役立ちます。 ただし、オブジェクト キャッシュが非常に大量のエンティティの追加などの特定の操作に影響を与える読み込まれた場合は、削除、エントリ、SaveChanges を検索します。 具体的には、DetectChanges への呼び出しをトリガーする操作は非常に大きいオブジェクトのキャッシュによって悪影響を及ぼす影響します。 DetectChanges は、オブジェクト状態マネージャーと、オブジェクト グラフのサイズを直接判断のパフォーマンスは、オブジェクト グラフを同期します。 DetectChanges の詳細については、次を参照してください。 [POCO エンティティでの変更を追跡](https://msdn.microsoft.com/library/dd456848.aspx)します。
+オブジェクト キャッシュは、Entity Framework の全体的な応答性の向上に役立ちます。 ただし、オブジェクト キャッシュが非常に大量のエンティティの追加などの特定の操作に影響を与える読み込まれた場合は、削除、エントリ、SaveChanges を検索します。 具体的には、DetectChanges への呼び出しをトリガーする操作は非常に大きいオブジェクトのキャッシュによって悪影響を及ぼす影響します。 DetectChanges は、オブジェクト状態マネージャーと、オブジェクト グラフのサイズを直接判断のパフォーマンスは、オブジェクト グラフを同期します。 DetectChanges の詳細については、[POCO エンティティでの変更を追跡](https://msdn.microsoft.com/library/dd456848.aspx)を参照してください。
 
 Entity Framework 6 を使用して、開発者はコレクションの反復処理し、インスタンスにつき 1 回追加を呼び出すのではなく、DbSet に直接 AddRange と RemoveRange を呼び出すことができません。 Range メソッドを使用する利点は、DetectChanges のコストは、追加された各エンティティごとに 1 回ではなくエンティティのセット全体の 1 回有料のみです。
 
@@ -262,7 +262,7 @@ CompiledQuery が本当にそのプランがキャッシュでの LINQ クエリ
 
 テストの結果を示すこと CompiledQuery を使用して実行できる 7% の特典 autocompiled 経由で LINQ クエリです。つまり、7%、Entity Framework スタックからコードを実行する時間を費やすしますアプリケーションは 7% 高速になることは限りません。 一般に、作成と EF 5.0 CompiledQuery オブジェクトの保守のコストは価値のメリットと比較した場合、ここで問題が発生可能性がありますできません。 走行距離は異なる可能性があります、ため、プロジェクトに追加のプッシュが必要な場合にこのオプションを実行します。 CompiledQueries は ObjectContext から派生したモデルと互換性があり、DbContext 派生モデルと互換性がない、のみことに注意してください。
 
-作成して、CompiledQuery を呼び出すことの詳細については、次を参照してください。[コンパイルされたクエリ (LINQ to Entities)](https://msdn.microsoft.com/library/bb896297.aspx)します。
+作成して、CompiledQuery を呼び出すことの詳細については、[コンパイルされたクエリ (LINQ to Entities)](https://msdn.microsoft.com/library/bb896297.aspx)を参照してください。
 
 2 つの考慮事項が CompiledQuery、つまり、使用するという要件静的インスタンスと、問題と構成可能性があるを使用する場合に実行する必要があります。 詳細については、これら 2 つの考慮事項を次に示します。
 
@@ -1074,7 +1074,7 @@ FROM [dbo].[Orders] AS [Extent1]
 WHERE [Extent1].[CustomerID] = @EntityKeyValue1',N'@EntityKeyValue1 nchar(5)',@EntityKeyValue1=N'AROUT'
 ```
 
-詳細については、次を参照してください。、[関連オブジェクトの読み込み](https://msdn.microsoft.com/library/bb896272.aspx)します。
+詳細については、、[関連オブジェクトの読み込み](https://msdn.microsoft.com/library/bb896272.aspx)を参照してください。
 
 #### <a name="821-lazy-loading-versus-eager-loading-cheat-sheet"></a>8.2.1 遅延読み込みと Eager Loading チート シート
 
@@ -1226,12 +1226,12 @@ Entity Framework のコンテキストは、発生する最適なパフォーマ
 
 Entity Framework 6 が導入された .NET 4.5 以降を実行しているときに、非同期操作をサポートします。 IO を持つアプリケーションが競合に関連するほとんどの場合、保存操作と非同期クエリを使用して、最もメリットが。 場合の IO の競合は、アプリケーションの低下がない、非同期は、最適な場合、同期的に実行しまたは最悪の場合の同期呼び出しと同じ量では、結果を返す、単にする非同期タスクの実行を遅らせるおよび使用余分な tim を追加自分のシナリオを完了する電子メール。
 
-非同期のプログラミング作業に役立つかどうかも、非同期には、アプリケーションのパフォーマンスは向上を決定するアクセスについて[ http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx)します。 Entity Framework での非同期操作の使用に関する詳細については、次を参照してください。[非同期クエリと保存](~/ef6/fundamentals/async.md
-)します。
+非同期のプログラミング作業に役立つかどうかも、非同期には、アプリケーションのパフォーマンスは向上を決定するアクセスについて[ http://msdn.microsoft.com/library/hh191443.aspx](https://msdn.microsoft.com/library/hh191443.aspx)します。 Entity Framework での非同期操作の使用に関する詳細については、[非同期クエリと保存](~/ef6/fundamentals/async.md
+)を参照してください。
 
 ### <a name="96-ngen"></a>9.6 NGEN
 
-Entity Framework 6 には、.NET framework の既定のインストールにはなりません。 そのため、Entity Framework のアセンブリは NGEN が既定ですべての Entity Framework コードが他の任意の MSIL アセンブリとして同じ JIT'ing コストの対象であることを意味するの。 これにより、開発と運用環境でアプリケーションのコールド起動も中に、f5 キーを押してエクスペリエンスが低下する可能性があります。 JIT'ing の CPU とメモリのコストを削減するために、適切なイメージを Entity Framework ngen ことをお勧めします。 アセンブリを NGEN で Entity Framework 6 の起動時のパフォーマンスを向上させる方法の詳細については、次を参照してください。[アセンブリを NGen で起動時のパフォーマンスを向上させる](~/ef6/fundamentals/performance/ngen.md)します。
+Entity Framework 6 には、.NET framework の既定のインストールにはなりません。 そのため、Entity Framework のアセンブリは NGEN が既定ですべての Entity Framework コードが他の任意の MSIL アセンブリとして同じ JIT'ing コストの対象であることを意味するの。 これにより、開発と運用環境でアプリケーションのコールド起動も中に、f5 キーを押してエクスペリエンスが低下する可能性があります。 JIT'ing の CPU とメモリのコストを削減するために、適切なイメージを Entity Framework ngen ことをお勧めします。 アセンブリを NGEN で Entity Framework 6 の起動時のパフォーマンスを向上させる方法の詳細については、[アセンブリを NGen で起動時のパフォーマンスを向上させる](~/ef6/fundamentals/performance/ngen.md)を参照してください。
 
 ### <a name="97-code-first-versus-edmx"></a>9.7 は code First と EDMX
 

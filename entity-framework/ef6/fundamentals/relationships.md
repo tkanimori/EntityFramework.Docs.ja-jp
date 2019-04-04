@@ -128,7 +128,7 @@ public class Department
 
 ## <a name="synchronizing-the-changes-between-the-foreign-keys-and-navigation-properties"></a>外部キーとナビゲーション プロパティの変更の同期
 
-上記の方法のいずれかを使用して、コンテキストにアタッチされているオブジェクトのリレーションシップを変更すると、Entity Framework は、外部キー、参照、およびコレクションの同期を保つ必要があります。Entity Framework は、プロキシを持つ POCO エンティティを自動的にこの同期 (とも呼ばれるリレーションシップ フィックス アップ) を管理します。 詳細については、次を参照してください。 [Proxies の操作](~/ef6/fundamentals/proxies.md)します。
+上記の方法のいずれかを使用して、コンテキストにアタッチされているオブジェクトのリレーションシップを変更すると、Entity Framework は、外部キー、参照、およびコレクションの同期を保つ必要があります。Entity Framework は、プロキシを持つ POCO エンティティを自動的にこの同期 (とも呼ばれるリレーションシップ フィックス アップ) を管理します。 詳細については、[Proxies の操作](~/ef6/fundamentals/proxies.md)を参照してください。
 
 プロキシなしの POCO エンティティを使用している場合は必ず必要がありますを**DetectChanges**コンテキストで関連オブジェクトを同期するメソッドが呼び出されます。 次の Api が自動的にトリガーに注意してください、 **DetectChanges**呼び出します。
 
@@ -147,7 +147,7 @@ public class Department
 
 ## <a name="loading-related-objects"></a>関連オブジェクトの読み込み
 
-Entity Framework で一般に定義されたアソシエーションで返されるエンティティに関連するエンティティを読み込むナビゲーション プロパティを使用します。 詳細については、次を参照してください。[関連オブジェクトの読み込み](~/ef6/querying/related-data.md)します。
+Entity Framework で一般に定義されたアソシエーションで返されるエンティティに関連するエンティティを読み込むナビゲーション プロパティを使用します。 詳細については、[関連オブジェクトの読み込み](~/ef6/querying/related-data.md)を参照してください。
 
 > [!NOTE]
 > 外部キー アソシエーションで依存オブジェクトの関連 End を読み込むと、現在メモリ内にある依存の外部キー値に基づいて関連オブジェクトが読み込まれます。
@@ -172,7 +172,7 @@ Entity Framework で一般に定義されたアソシエーションで返され
 
 同時実行チェックと解決に参加するエンティティを使用する場合、外部キー アソシエーションを常に使用することをお勧めします。
 
-詳細については、次を参照してください。[同時実行競合の処理](~/ef6/saving/concurrency.md)します。
+詳細については、[同時実行競合の処理](~/ef6/saving/concurrency.md)を参照してください。
 
 ## <a name="working-with-overlapping-keys"></a>重複したキーの使用
 

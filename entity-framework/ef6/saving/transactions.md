@@ -35,7 +35,7 @@ Entity Framework では、トランザクションでクエリをラップしま
 Entity Framework の EF6 の前に、(によって例外が既に開いている接続が渡された場合)、データベース接続自体を開くときにペダルします。 ユーザーがいくつかの操作を 1 つのトランザクションをラップする唯一の方法を使用するいずれかがつまり、トランザクションは、開いている接続でのみ開始できます、ので、 [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx)を使用して、または、 **ObjectContext.Connection**プロパティと開始呼び出し**Open()** と**BeginTransaction()** 、返された上で直接**EntityConnection**オブジェクト。 さらに、独自の基になるデータベース接続でトランザクションを開始していた場合、データベースに接続する API 呼び出しは失敗します。  
 
 > [!NOTE]
-> 閉じられた接続の受け入れのみの制限は、Entity Framework 6 で削除されました。 詳細については、次を参照してください。[接続管理](~/ef6/fundamentals/connection-management.md)します。  
+> 閉じられた接続の受け入れのみの制限は、Entity Framework 6 で削除されました。 詳細については、[接続管理](~/ef6/fundamentals/connection-management.md)を参照してください。  
 
 これで、フレームワークを ef6 開始を提供します。  
 
@@ -198,7 +198,7 @@ Null を渡す Database.UseTransaction() を現在のトランザクションの
 
 ### <a name="connection-resiliency"></a>接続の復元性  
 
-新しい接続の回復性機能には、ユーザーによって開始されたトランザクションでは使えません。 詳細については、次を参照してください。[再試行実行戦略](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported)します。  
+新しい接続の回復性機能には、ユーザーによって開始されたトランザクションでは使えません。 詳細については、[再試行実行戦略](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported)を参照してください。  
 
 ### <a name="asynchronous-programming"></a>非同期プログラミング  
 

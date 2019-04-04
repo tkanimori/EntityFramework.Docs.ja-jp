@@ -492,7 +492,7 @@ Annotation 属性 (カスタム XML 属性) の任意の数に適用されます
 
 いずれかの関数の型を指定する戻り、 **ReturnType**要素、または**ReturnType**両方ではなく属性 (下記参照)。
 
-ストレージ モデル内で指定されるストアド プロシージャは、アプリケーションの概念モデルにインポートできます。 詳細については、次を参照してください。[ストアド プロシージャを使用したクエリ](~/ef6/modeling/designer/stored-procedures/query.md)します。 **関数**要素が、ストレージ モデルでカスタム関数を定義することもできます。  
+ストレージ モデル内で指定されるストアド プロシージャは、アプリケーションの概念モデルにインポートできます。 詳細については、[ストアド プロシージャを使用したクエリ](~/ef6/modeling/designer/stored-procedures/query.md)を参照してください。 **関数**要素が、ストレージ モデルでカスタム関数を定義することもできます。  
 
 ### <a name="applicable-attributes"></a>適用可能な属性
 
@@ -632,7 +632,7 @@ Annotation 属性 (カスタム XML 属性) の任意の数に適用されます
 | **MaxLength**  | いいえ          | パラメーターの最大長。                                                                                                                                                                                            |
 | **精度**  | いいえ          | パラメーターの有効桁数。                                                                                                                                                                                                 |
 | **拡大縮小**      | いいえ          | パラメーターの小数点以下桁数。                                                                                                                                                                                                     |
-| **SRID**       | いいえ          | システムの空間参照識別子です。 空間型のパラメーターに対してのみ有効です。 詳細については、次を参照してください。 [SRID](http://en.wikipedia.org/wiki/SRID)と[SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx)します。 |
+| **SRID**       | いいえ          | システムの空間参照識別子です。 空間型のパラメーターに対してのみ有効です。 詳細については、[SRID](http://en.wikipedia.org/wiki/SRID)と[SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx)を参照してください。 |
 
 > [!NOTE]
 > Annotation 属性 (カスタム XML 属性) の任意の数に適用されます、**パラメーター**要素。 ただし、カスタム属性は SSDL 用に予約されたどの XML 名前空間にも属さない場合があります。 カスタム属性の完全修飾名は一意である必要があります。
@@ -719,7 +719,7 @@ A**プロパティ**要素は、すべての子要素を含めることはでき
 | **拡大縮小**                 | いいえ          | 対応する列の小数点以下桁数。                                                                                                                                                                                          |
 | **Unicode**               | いいえ          | **True**または**False** Unicode 文字列として、対応する列の値を格納するかどうかによって異なります。                                                                                                                   |
 | **照合順序**             | いいえ          | データ ソースで使用する照合順序を指定する文字列。                                                                                                                                                   |
-| **SRID**                  | いいえ          | システムの空間参照識別子です。 空間型のプロパティに対してのみ有効です。 詳細については、次を参照してください。 [SRID](http://en.wikipedia.org/wiki/SRID)と[SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx)します。 |
+| **SRID**                  | いいえ          | システムの空間参照識別子です。 空間型のプロパティに対してのみ有効です。 詳細については、[SRID](http://en.wikipedia.org/wiki/SRID)と[SRID (SQL Server)](https://msdn.microsoft.com/library/bb964707.aspx)を参照してください。 |
 | **StoreGeneratedPattern** | いいえ          | **None**、 **Identity** (対応する列の値は、データベースで生成される id)、または**計算済み**(かどうか、対応する列の値は、データベースで計算)。 RowType プロパティのない有効期間は。 |
 
 > [!NOTE]

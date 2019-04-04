@@ -13,7 +13,7 @@ ms.locfileid: "42993667"
 ---
 # <a name="writing-a-database-provider"></a>データベース プロバイダーの作成
 
-Entity Framework Core データベース プロバイダーの作成方法の詳細については、次を参照してください。 [、EF Core プロバイダーを記述するように](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/)によって[Arthur Vickers](https://github.com/ajcvickers)します。
+Entity Framework Core データベース プロバイダーの作成方法の詳細については、[、EF Core プロバイダーを記述するように](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/)によって[Arthur Vickers](https://github.com/ajcvickers)を参照してください。
 
 > [!NOTE]
 > ブログの投稿が EF Core 1.1 以降に更新されていないと、その後大幅な変更も加えられて[問題 681](https://github.com/aspnet/EntityFramework.Docs/issues/681)がこのドキュメントに対する更新プログラムを追跡します。

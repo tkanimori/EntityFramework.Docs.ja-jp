@@ -21,7 +21,7 @@ ms.locfileid: "45490156"
 
 Visual Studio 2013 を持っている必要があります、このチュートリアルを完了する、Visual Studio 2012 または Visual Studio 2010 がインストールされています。
 
-Visual Studio 2010 を使用している場合は、NuGet をインストールする必要があります。 詳細については、次を参照してください。[をインストールする NuGet](http://docs.nuget.org/docs/start-here/installing-nuget)します。
+Visual Studio 2010 を使用している場合は、NuGet をインストールする必要があります。 詳細については、[をインストールする NuGet](http://docs.nuget.org/docs/start-here/installing-nuget)を参照してください。
 
 ## <a name="create-the-application"></a>アプリケーションを作成する
 

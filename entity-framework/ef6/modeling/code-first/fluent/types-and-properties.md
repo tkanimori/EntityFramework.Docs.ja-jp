@@ -29,7 +29,7 @@ modelBuilder.HasDefaultSchema("sales");
 
 ### <a name="custom-conventions-ef6-onwards"></a>カスタムの規則 (EF6 以降)  
 
-EF6 Code First に入っているものを補完する、独自の規則を作成することで開始しています。 詳細については、次を参照してください。[カスタム コードの最初の規則](~/ef6/modeling/code-first/conventions/custom.md)します。  
+EF6 Code First に入っているものを補完する、独自の規則を作成することで開始しています。 詳細については、[カスタム コードの最初の規則](~/ef6/modeling/code-first/conventions/custom.md)を参照してください。  
 
 ## <a name="property-mapping"></a>プロパティのマッピング  
 

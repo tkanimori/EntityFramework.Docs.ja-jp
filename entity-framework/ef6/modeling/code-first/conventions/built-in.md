@@ -128,7 +128,7 @@ public class Course
 ```  
 
 > [!NOTE]
-> 同じ型の間で複数のリレーションシップがある場合 (たとえば、定義する、 **Person**と**帳**クラス、場所、 **Person**クラスには、が含まれています**ReviewedBooks**と**AuthoredBooks**ナビゲーション プロパティ、および**帳**クラスが含まれています、**作成者**と**レビュー担当者**ナビゲーション プロパティ) のデータ注釈または fluent API を使用して、リレーションシップを手動で構成する必要があります。 詳細については、次を参照してください。[データ注釈 - リレーションシップ](~/ef6/modeling/code-first/data-annotations.md)と[Fluent API - リレーションシップ](~/ef6/modeling/code-first/fluent/relationships.md)します。  
+> 同じ型の間で複数のリレーションシップがある場合 (たとえば、定義する、 **Person**と**帳**クラス、場所、 **Person**クラスには、が含まれています**ReviewedBooks**と**AuthoredBooks**ナビゲーション プロパティ、および**帳**クラスが含まれています、**作成者**と**レビュー担当者**ナビゲーション プロパティ) のデータ注釈または fluent API を使用して、リレーションシップを手動で構成する必要があります。 詳細については、[データ注釈 - リレーションシップ](~/ef6/modeling/code-first/data-annotations.md)と[Fluent API - リレーションシップ](~/ef6/modeling/code-first/fluent/relationships.md)を参照してください。  
 
 ## <a name="complex-types-convention"></a>複合型の規則  
 
@@ -178,4 +178,4 @@ public class SchoolEntities : DbContext
 
 ## <a name="custom-conventions"></a>カスタムの規則  
 
-カスタムの規則は、以降の EF6 でサポートされます。 詳細については、次を参照してください。[カスタム コードの最初の規則](~/ef6/modeling/code-first/conventions/custom.md)します。
+カスタムの規則は、以降の EF6 でサポートされます。 詳細については、[カスタム コードの最初の規則](~/ef6/modeling/code-first/conventions/custom.md)を参照してください。

@@ -31,7 +31,7 @@ Visual Studio 2012 および Visual Studio 2013 用の EF デザイナーでは�
 
 Visual Studio 2013 を持っている必要があります、このチュートリアルを完了する、Visual Studio 2012 または Visual Studio 2010 がインストールされています。
 
-Visual Studio 2010 を使用している場合は、NuGet をインストールする必要があります。 詳細については、次を参照してください。[をインストールする NuGet](https://docs.microsoft.com/nuget/install-nuget-client-tools)します。  
+Visual Studio 2010 を使用している場合は、NuGet をインストールする必要があります。 詳細については、[をインストールする NuGet](https://docs.microsoft.com/nuget/install-nuget-client-tools)を参照してください。  
 
 ## <a name="create-the-application"></a>アプリケーションを作成する
 
