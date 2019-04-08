@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: b6774f615b04bf9579aac5dea217e7321631da0c
-ms.sourcegitcommit: a709054b2bc7a8365201d71f59325891aacd315f
+ms.openlocfilehash: 7501a806271c9734e85e31845f260f2d512da077
+ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/14/2019
-ms.locfileid: "57829188"
+ms.lasthandoff: 04/02/2019
+ms.locfileid: "58867958"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在、プレビュー段階) に含まれる新機能
 
@@ -50,6 +50,31 @@ EF のプログラミング モデルに慣れている開発者が、Azure Cosm
 この作業は EF Core 2.2 以前に開始されたため、[いくつかのプロバイダーのプレビュー バージョンを利用できます](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/)。
 新しいプランでは、EF Core 3.0 と共にプロバイダーの開発を継続していきます。 
 
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>プリンシパルとテーブルを共有する依存エンティティが省略可能になりました
+
+[問題 #9005 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+
+この機能は、EF Core 3.0 プレビュー 4 で導入されます。
+
+次のモデルがあるとします。
+```C#
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public OrderDetails Details { get; set; }
+}
+
+public class OrderDetails
+{
+    public int Id { get; set; }
+    public string ShippingAddress { get; set; }
+}
+```
+
+EF Core 3.0 以降では、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、`OrderDetails` なしで `Order` を追加することができるようになり、主キー以外のすべての `OrderDetails` プロパティは NULL 値が許可される列にマップされます。
+`OrderDetails` は、必要なプロパティのいずれにも値がない場合、または主キー以外に必要なプロパティがなく、すべてのプロパティが `null` の場合、EF Core のクエリの実行時に `null` に設定されます。
+
 ## <a name="c-80-support"></a>C# 8.0 のサポート
 
 [問題 #12047 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
@@ -68,7 +93,7 @@ EF のプログラミング モデルに慣れている開発者が、Azure Cosm
 EF Core 2.1 で導入され、EF Core 3.0 ではキーなしのエンティティ型が考慮された[クエリ型](xref:core/modeling/query-types)は、データベースから読み取れるものの、更新することはできないデータを表します。
 この特性によって、ほとんどのシナリオのデータベース ビューに最適なものとなるため、データベース ビューのリバース エンジニアリング時にキーなしのエンティティ型の作成を自動化することを計画しています。
 
-## <a name="property-bag-entities"></a>プロパティ バッグのエンティティ 
+## <a name="property-bag-entities"></a>プロパティ バッグのエンティティ
 
 [問題 #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) と [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) の追跡
 
@@ -77,7 +102,7 @@ EF Core 2.1 で導入され、EF Core 3.0 ではキーなしのエンティテ�
 この機能は、通常のプロパティではなくインデックス付きプロパティにデータを格納するエンティティを有効にすること、および、同じ EF Core モデル内で異なるエンティティ型を表すために、同じ .NET クラスのインスタンス (`Dictionary<string, object>` のように単純なものである可能性があります) を使用できるようにすることと関係しています。
 この機能は、結合エンティティなしの多対多リレーションシップをサポートするための足がかりとなります ([問題 #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368))。これは EF Core に対して特に要望が多かった機能強化の 1 つです。
 
-## <a name="ef-63-on-net-core"></a>.NET Core での EF 6.3 
+## <a name="ef-63-on-net-core"></a>.NET Core での EF 6.3
 
 [問題 EF6#271 の追跡](https://github.com/aspnet/EntityFramework6/issues/271)
 

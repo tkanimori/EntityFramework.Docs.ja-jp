@@ -1,10 +1,18 @@
+---
+ms.openlocfilehash: 79a2a10cae9f8a5541bca132e407d4abbe95e093
+ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
+ms.translationtype: HT
+ms.contentlocale: ja-JP
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "58914104"
+---
 # <a name="contributing-to-the-entity-framework-documentation"></a>Entity Framework ドキュメントへの投稿
 
-このドキュメントでは、[Entity Framework ドキュメント サイト](https://docs.microsoft.com/ef)でホストされている記事とコード サンプルに投稿するためのプロセスを説明します。 投稿には、誤字の修正のような簡単なものから、新しい記事のような複雑なものまであります。
+記事やコード サンプルを Entity Framework ドキュメントに投稿するプロセスを以下で説明します。 投稿には、誤字の修正のような簡単なものから、新しい記事のような複雑なものまであります。
 
 ## <a name="how-to-make-a-simple-correction-or-suggestion"></a>簡単な修正や提案を行う方法
 
-記事は、マークダウン ファイルとしてリポジトリに格納されます。 マークダウン ファイルのコンテンツに対する簡単な変更は、ブラウザーでブラウザー ウィンドウの右上隅にある **[編集]** リンクをタップして行います  (幅の狭いブラウザー ウィンドウでは、**オプション** バーを展開して、**[編集]** リンクを表示する必要がある場合があります)。指示に従って pull request (PR) を作成します。 EF チームによって、PR がレビューされ、受け入れられるか変更が提案されます。
+記事は、マークダウン ファイルとしてリポジトリに格納されます。 マークダウン ファイルのコンテンツに対して簡単な変更を行うには、ブラウザー ウィンドウの右上隅にある **[編集]** リンクをクリックします。 場合によっては、**オプション** バーを展開して、**[編集]** リンクを表示する必要があります。 指示に従って pull request (PR) を作成します。 EF チームによって、PR がレビューされ、受け入れられるか変更が提案されます。
 
 ## <a name="how-to-make-a-more-complex-submission"></a>もっと複雑な投稿を行う方法
 
@@ -17,7 +25,7 @@
 
 ## <a name="markdown-syntax"></a>マークダウンの構文
 
-記事は [DocFx-flavored Markdown](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) で書かれており、これは [GitHub flavored Markdown (GFM)](https://guides.github.com/features/mastering-markdown/) のスーパーセットです。 EF ドキュメントでよく使用される UI 機能についての DFM 構文の例については、.NET Core リポジトリ スタイル ガイドの「[Metadata and Markdown Template](https://github.com/dotnet/docs/blob/master/styleguide/template.md)」(メタデータおよびマークダウン テンプレート) を参照してください。 
+記事は [DocFX Flavored Markdown (DFM)](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) で書かれています。これは [GitHub flavored Markdown (GFM)](https://guides.github.com/features/mastering-markdown/) のスーパーセットです。 EF ドキュメントでよく使用される UI 機能についての DFM 構文およびメタデータの例については、.NET Core リポジトリ スタイル ガイドの「[Metadata and Markdown Template](https://github.com/dotnet/docs/blob/master/styleguide/template.md)」(メタデータおよび Markdown テンプレート) を参照してください。
 
 ## <a name="folder-structure-conventions"></a>フォルダー構造の規則
 
@@ -27,7 +35,7 @@
 
 ## <a name="code-snippets"></a>コード スニペット
 
-記事には、ポイントを説明するためのコード スニペットが含まれることがよくあります。 DFM では、マークダウン ファイルにコードをコピーしたり、個別のコード ファイルを参照したりすることができます。 コードのエラーの可能性を最小限にするため、可能な限り個別のコード ファイルを使用することをお勧めします。 コード ファイルは、先述のサンプル プロジェクトのフォルダー構造を使用してリポジトリに格納する必要があります。
+記事には、ポイントを説明するためのコード スニペットが含まれることがよくあります。 DFM では、マークダウン ファイルにコードをコピーしたり、個別のコード ファイルを参照したりすることができます。 コードのエラーの可能性を最小限にするため、可能な限り個別のコード ファイルを使用してください。 コード ファイルは、先述のサンプル プロジェクトのフォルダー構造を使用してリポジトリに格納する必要があります。
 
 [DFM コード スニペットの構文](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet)の例を次に示します。
 
@@ -43,7 +51,7 @@
 [!code-csharp[Main](../../../samples/core/saving/Program.cs?range=1-10]
 ```
 
-C# スニペットの場合は、[C# の領域](https://msdn.microsoft.com/library/9a1ybwek.aspx)を参照できます。 可能な場合は常に、行番号ではなく領域を使用してください。コード ファイル内の行番号は変更されて、Markdown での行番号参照と同期しなくなることがよくあるためです。 C# の領域は入れ子にすることができ、外側の領域を参照した場合、内側の `#region` と `#endregion` ディレクティブはスニペットにレンダリングされません。
+C# スニペットの場合は、[C# の領域](https://msdn.microsoft.com/library/9a1ybwek.aspx)を参照できます。 行番号ではなく領域を使用してください。 コード ファイル内の行番号は変更されて、Markdown での行番号参照と同期しなくなることがよくあるためです。 C# の領域は入れ子にすることができます。 外側の領域を参照した場合、内側の `#region` と `#endregion` ディレクティブはスニペットにレンダリングされません。
 
 "snippet_Example" という名前の C# 領域をレンダリングするには:
 
@@ -59,7 +67,7 @@ C# スニペットの場合は、[C# の領域](https://msdn.microsoft.com/libra
 
 ## <a name="test-your-changes-with-docfx"></a>DocFX で変更をテストする
 
-[DocFX コマンド ライン ツール](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html#2-use-docfx-as-a-command-line-tool)を使用して変更をテストします。このツールは、ローカルにホストされるバージョンのサイトを作成します。 DocFX では、docs.microsoft.com 用に作成されたスタイルやサイトの拡張機能はレンダリングされません。
+[DocFX コマンド ライン ツール](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html#2-use-docfx-as-a-command-line-tool)を使用して変更をテストします。このツールは、ローカルにホストされたバージョンのサイトを作成します。 DocFX では、docs.microsoft.com 用に作成されたスタイルやサイトの拡張機能はレンダリングされません。
 
 DocFX には、Windows または、Linux または macOS 用の Mono 上の .NET Framework が必要です。
 

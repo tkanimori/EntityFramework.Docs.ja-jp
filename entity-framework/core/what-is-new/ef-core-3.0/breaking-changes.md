@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 7ed55d4cae36f6b25059a5b218db4b0d5e2fb266
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: fd593b2832a5a6ffe27cd4493127b5d405f684ba
+ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419745"
+ms.lasthandoff: 04/04/2019
+ms.locfileid: "58914128"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -75,6 +75,46 @@ ASP.NET Core 3.0 より前では、パッケージ参照を `Microsoft.AspNetCor
 **軽減策**
 
 ASP.NET Core 3.0 アプリケーションまたはその他のサポートされるアプリケーションで EF Core を使用するには、アプリケーションで使用される EF Core データベース プロバイダーにパッケージ参照を明示的に追加します。
+
+## <a name="fromsql-executesql-and-executesqlasync-have-been-renamed"></a>FromSql、ExecuteSql、および ExecuteSqlAsync の名前変更
+
+[問題 #10996 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10996)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+
+**以前の動作**
+
+EF Core 3.0 より前のバージョンでは、通常の文字列または SQL およびパラメーターに挿入する必要がある文字列で使用するために、これらのメソッド名がオーバーロードされました。
+
+**新しい動作**
+
+EF Core 3.0 以降では、`FromSqlRaw`、`ExecuteSqlRaw`、および `ExecuteSqlRawAsync` を使用して、パラメーターがクエリ文字列とは別に渡される、パラメーター化クエリが作成されます。
+次に例を示します。
+
+```C#
+context.Products.FromSqlRaw(
+    "SELECT * FROM Products WHERE Name = {0}",
+    product.Name);
+```
+
+`FromSqlInterpolated`、`ExecuteSqlInterpolated`、および `ExecuteSqlInterpolatedAsync` を使用して、パラメーターが挿入クエリ文字列の一部として渡されるパラメーター化クエリを作成します。
+次に例を示します。
+
+```C#
+context.Products.FromSqlInterpolated(
+    $"SELECT * FROM Products WHERE Name = {product.Name}");
+```
+
+上記のクエリはどちらも、同じ SQL パラメーターを持つ同じパラメーター化 SQL が生成されることに注意してください。
+
+**理由**
+
+このようなメソッド オーバーロードは、挿入文字列メソッドを呼び出すつもりが、誤って raw 文字列メソッドを非常に簡単に呼び出せてしまいます。その逆も同様です。
+これは、クエリをパラメーター化する必要があるときに、パラメーター化されない結果になる場合があります。
+
+**軽減策**
+
+新しいメソッド名を使用するように切り替えます。
 
 ## <a name="query-execution-is-logged-at-debug-level"></a>クエリの実行がデバッグ レベルでログに記録される
 
@@ -291,6 +331,156 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
 
 上記の例で示すように、新しい API サーフェスを使用するように、所有型リレーションシップの構成を変更します。
 
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>プリンシパルとテーブルを共有する依存エンティティが省略可能になりました
+
+[問題 #9005 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+次のモデルがあるとします。
+```C#
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public OrderDetails Details { get; set; }
+}
+
+public class OrderDetails
+{
+    public int Id { get; set; }
+    public string ShippingAddress { get; set; }
+}
+```
+EF Core 3.0 より前のバージョンでは、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、新しい `Order` を追加する場合には常に `OrderDetails` インスタンスが必要でした。
+
+
+**新しい動作**
+
+EF Core 3.0 以降では、`OrderDetails` なしで `Order` を追加することができ、主キー以外のすべての `OrderDetails` プロパティが NULL 値が許可される列にマップされます。
+`OrderDetails` は、必要なプロパティのいずれにも値がない場合、または主キー以外に必要なプロパティがなく、すべてのプロパティが `null` の場合、EF Core のクエリの実行時に `null` に設定されます。
+
+**軽減策**
+
+モデルに省略可能なすべての列と依存関係を共有するテーブルがあるが、それを指すナビゲーションが `null` になることが想定されていない場合は、ナビゲーションが `null` の場合のケースを処理するようにアプリケーションを変更する必要があります。 これができない場合は、必要なプロパティをエンティティ型に追加するか、少なくとも 1 つのプロパティに割り当てられている値が `null` 以外である必要があります。
+
+## <a name="all-entities-sharing-a-table-with-a-concurrency-token-column-have-to-map-it-to-a-property"></a>同時実行トークン列とテーブルを共有するすべてのエンティティをプロパティにマップする必要があります。
+
+[問題 #14154 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14154)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+次のモデルがあるとします。
+```C#
+public class Order
+{
+    public int Id { get; set; }
+    public int CustomerId { get; set; }
+    public byte[] Version { get; set; }
+    public OrderDetails Details { get; set; }
+}
+
+public class OrderDetails
+{
+    public int Id { get; set; }
+    public string ShippingAddress { get; set; }
+}
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Order>()
+        .Property(o => o.Version).IsRowVersion().HasColumnName("Version");
+}
+```
+EF Core 3.0 より前のバージョンでは、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、`OrderDetails` だけを更新してもクライアント上の `Version` 値は更新されず、次回の更新が失敗します。
+
+
+**新しい動作**
+
+EF Core 3.0 以降では、新しい `Version` 値が `OrderDetails` を所有している場合には `Order` に伝達されます。 それ以外の場合は、モデルの検証中に例外がスローされます。
+
+**理由**
+
+この変更は、エンティティの 1 つだけが同じテーブルにマップされている場合に、古い同時実行トークン値が更新されるのを回避するために行われました。
+
+**軽減策**
+
+テーブルを共有するすべてのエンティティには、同時実行トークン列にマップされるプロパティを含める必要があります。 シャドウ状態で作成することができます。
+```C#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<OrderDetails>()
+        .Property<byte[]>("Version").IsRowVersion().HasColumnName("Version");
+}
+```
+
+## <a name="inherited-properties-from-unmapped-types-are-now-mapped-to-a-single-column-for-all-derived-types"></a>マップされていない型から継承されたプロパティは、すべての派生型の 1 つの列にマップされるようになりました
+
+[問題 #13998 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13998)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+次のモデルがあるとします。
+```C#
+public abstract class EntityBase
+{
+    public int Id { get; set; }
+}
+
+public abstract class OrderBase : EntityBase
+{
+    public int ShippingAddress { get; set; }
+}
+
+public class BulkOrder : OrderBase
+{
+}
+
+public class Order : OrderBase
+{
+}
+
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Ignore<OrderBase>();
+    modelBuilder.Entity<EntityBase>();
+    modelBuilder.Entity<BulkOrder>();
+    modelBuilder.Entity<Order>();
+}
+```
+
+EF Core 3.0 より前のバージョンでは、`ShippingAddress` プロパティは既定で `BulkOrder` と `Order` の個別の列にマップされていました。
+
+**新しい動作**
+
+EF Core 3.0 以降では、`ShippingAddress` に対して 1 つの列だけが作成されます。
+
+**理由**
+
+以前の動作は予期しないものでした。
+
+**軽減策**
+
+プロパティは、派生型の個別の列に引き続き明示的にマップすることができます。
+
+```C#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Ignore<OrderBase>();
+    modelBuilder.Entity<EntityBase>();
+    modelBuilder.Entity<BulkOrder>()
+        .Property(o => o.ShippingAddress).HasColumnName("BulkShippingAddress");
+    modelBuilder.Entity<Order>()
+        .Property(o => o.ShippingAddress).HasColumnName("ShippingAddress");
+}
+```
+
 ## <a name="the-foreign-key-property-convention-no-longer-matches-same-name-as-the-principal-property"></a>外部キー プロパティの規則がプリンシパル プロパティと同じ名前と一致しなくなった
 
 [問題 #13274 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13274)
@@ -312,14 +502,13 @@ public class Order
     public int Id { get; set; }
     public int CustomerId { get; set; }
 }
-
 ```
 EF Core 3.0 より前では、規則により、外部キーで `CustomerId` プロパティが使用されました。
 しかし、`Order` が所有型である場合、`CustomerId` も主キーとマークされ、これは通常、期待されることではありません。
 
 **新しい動作**
 
-3.0 以降では、EF Core で、プリンシパル プロパティと同じ名前である場合、規則により、外部キーに対するプロパティの使用は試行されません。
+EF Core 3.0 以降では、プリンシパル プロパティと同じ名前である場合、規則により、外部キーに対するプロパティの使用は試行されません。
 プリンシパル プロパティ名と連結されたプリンシパル型名、およびプリンシパル プロパティ名パターンと連結されたナビゲーション名は、引き続き一致します。
 次に例を示します。
 
@@ -359,6 +548,58 @@ public class Order
 **軽減策**
 
 プロパティを外部キーにする、したがって、主キーの一部にする予定だった場合は、そのように明示的に構成します。
+
+## <a name="database-connection-is-now-closed-if-not-used-anymore-before-the-transactionscope-has-been-completed"></a>データベース接続は、これ以上使用されない場合、TransactionScope が完了する前に閉じられるようになりました
+
+[問題 #14218 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14218)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 より前のバージョンでは、コンテキストにより `TransactionScope` 内部で接続が開かれると、現在の `TransactionScope` がアクティブの間、接続が開いたままになります。
+
+```C#
+using (new TransactionScope())
+{
+    using (AdventureWorks context = new AdventureWorks())
+    {
+        context.ProductCategories.Add(new ProductCategory());
+        context.SaveChanges();
+
+        // Old behavior: Connection is still open at this point
+        
+        var categories = context.ProductCategories().ToList();
+    }
+}
+```
+
+**新しい動作**
+
+EF Core 3.0 以降では、使用が終了したらすぐに接続が閉じられます。
+
+**理由**
+
+この変更により、同じ `TransactionScope` で複数のコンテキストを使用できます。 新しい動作は、EF6 とほぼ一致します。
+
+**軽減策**
+
+接続を開いたままにする必要がある場合は、`OpenConnection()` を明示的に呼び出して、EF Core が途中で閉じないようにします。
+
+```C#
+using (new TransactionScope())
+{
+    using (AdventureWorks context = new AdventureWorks())
+    {
+        context.Database.OpenConnection();
+        context.ProductCategories.Add(new ProductCategory());
+        context.SaveChanges();
+        
+        var categories = context.ProductCategories().ToList();
+        context.Database.CloseConnection();
+    }
+}
+```
 
 ## <a name="each-property-uses-independent-in-memory-integer-key-generation"></a>各プロパティで独立したメモリ内整数キー生成が使用される
 
@@ -675,6 +916,36 @@ EF Core 3.0 以降では、上記のコードは、前にそれが実行すべ�
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 ```
+
+## <a name="the-return-type-for-several-async-methods-has-been-changed-from-task-to-valuetask"></a>いくつかの非同期メソッドの戻り値の型が Task から ValueTask に変更されました
+
+[問題 #15184 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15184)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+次の非同期メソッドでは、以前は `Task<T>` が返されていました。
+
+* `DbContext.FindAsync()`
+* `DbSet.FindAsync()`
+* `DbContext.AddAsync()`
+* `DbSet.AddAsync()`
+* `ValueGenerator.NextValueAsync()` (および派生クラス)
+
+**新しい動作**
+
+前述のメソッドは、以前と同じ `T` に対して `ValueTask<T>` を返すようになりました。
+
+**理由**
+
+この変更により、これらのメソッドを呼び出すときに発生するヒープ割り当ての数を削減して全般的なパフォーマンスを向上させます。
+
+**軽減策**
+
+上記の API を待機しているだけのアプリケーションのみを再コンパイルする必要があります。ソースの変更は必要ありません。
+より複雑な使用方法 (返された `Task` を `Task.WhenAny()` に渡すなど) では通常、返された `ValueTask<T>` を `AsTask()` を呼び出すことによって `Task<T>` に変換する必要があります。
+これにより、この変更による割り当ての削減が無効になることに注意してください。
 
 ## <a name="the-relationaltypemapping-annotation-is-now-just-typemapping"></a>Relational:TypeMapping 注釈が単に TypeMapping となった
 
