@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 9400fe8ea817b6aca0fb63c1de05ffe1dc997b2f
-ms.sourcegitcommit: a8b04050033c5dc46c076b7e21b017749e0967a8
+ms.openlocfilehash: 0350b25d0d0efe05df7cb9e93a3f4ae2d864fd63
+ms.sourcegitcommit: 47e0a66a136e743a815d099d2bee5f0da1a068c6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/02/2019
-ms.locfileid: "58868010"
+ms.lasthandoff: 04/09/2019
+ms.locfileid: "59363938"
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext の構成
 
@@ -175,7 +175,7 @@ Inadvernetly 原因の同時アクセスは、同じことが一般的な誤り�
 
 ### <a name="implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection"></a>依存関係の挿入を使用して複数のスレッド間で暗黙的に DbContext インスタンスを共有
 
-[ `AddDbContext` ](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)拡張メソッドを登録`DbContext`型、[有効期間がスコープ](https://docs .microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes)既定。 
+[ `AddDbContext` ](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)拡張メソッドを登録`DbContext`型、[有効期間がスコープ](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes)既定。 
 
 これは、特定の時点で各クライアント要求を実行する 1 つのスレッドがあるため、各要求は、別の依存関係の挿入のスコープを取得するための同時アクセスの問題、ASP.NET Core アプリケーションで安全な (したがって独立した`DbContext`インスタンスの場合)。
 
