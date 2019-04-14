@@ -65,6 +65,7 @@
 #### [値変換](core/modeling/value-conversions.md)
 #### [データ シード](core/modeling/data-seeding.md)
 #### [エンティティ型コンストラクター](core/modeling/constructors.md)
+#### [テーブル分割](core/modeling/table-splitting.md)
 #### [所有されているエンティティ型](core/modeling/owned-entities.md)
 #### [クエリの種類](core/modeling/query-types.md)
 #### [同じ DbContext を持つモデル間で切り替える](core/modeling/dynamic-model.md)
