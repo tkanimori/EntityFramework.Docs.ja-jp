@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 5ae06a4342a556936dc44c5bf6622814eaad4733
-ms.sourcegitcommit: 7a7da65404c9338e1e3df42576a13be536a6f95f
+ms.openlocfilehash: b94ac567644a9d98a05a40857cc072c500203370
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/06/2018
-ms.locfileid: "48834748"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562560"
 ---
 <a name="migrations"></a>移行
 ==========
@@ -47,8 +47,8 @@ dotnet ef migrations add InitialCreate
 
 **[移行]** ディレクトリの下で 3 つのファイルがプロジェクトに追加されます。
 
-* **00000000000000_InitialCreate.cs**--メインの移行ファイル。 (`Up()` で) 移行を適用し、(`Down()` で) それを元に戻すために必要な操作が含まれます。
-* **00000000000000_InitialCreate.Designer.cs**--移行メタデータ ファイル。 EF によって使用される情報が含まれます。
+* **XXXXXXXXXXXXXX_InitialCreate.cs**--メインの移行ファイル。 (`Up()` で) 移行を適用し、(`Down()` で) それを元に戻すために必要な操作が含まれます。
+* **XXXXXXXXXXXXXX_InitialCreate.Designer.cs**--移行メタデータ ファイル。 EF によって使用される情報が含まれます。
 * **MyContextModelSnapshot.cs**--現在のモデルのスナップショット。 次の移行を追加するときの変更内容の決定に使用されます。
 
 変更の進行がわかるように、ファイル名のタイムスタンプは時系列順で維持されます。
