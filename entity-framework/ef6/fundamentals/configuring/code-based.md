@@ -3,12 +3,12 @@ title: コード ベースの構成 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 13886d24-2c74-4a00-89eb-aa0dee328d83
-ms.openlocfilehash: c317f112f713612f7b9aef3764a0bd004fef5424
-ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
+ms.openlocfilehash: 079a4ab30af74eac8b1f51ece5801ff40a867a29
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/16/2019
-ms.locfileid: "56325354"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59619286"
 ---
 # <a name="code-based-configuration"></a>コード ベースの構成
 > [!NOTE]
@@ -76,7 +76,7 @@ public class MyContextContext : DbContext
 }
 ```  
 
-使用できます、DbConfiguration 型では、上記の属性に値が渡されるか、アセンブリと名前空間の修飾型名の文字列。 例:  
+使用できます、DbConfiguration 型では、上記の属性に値が渡されるか、アセンブリと名前空間の修飾型名の文字列。 例えば:  
 
 ``` csharp
 [DbConfigurationType("MyNamespace.MyDbConfiguration, MyAssembly")]
@@ -106,7 +106,7 @@ public class MyContextContext : DbContext
 - (前に EF を使用すると)、アプリの起動時に、プラグインまたはプロバイダーがこのイベントのイベント ハンドラー メソッドを登録する必要があります。 (アプリケーションは、EF を使用する前にこれ行う必要がありますに注意してください)。  
 - イベント ハンドラーは、ReplaceService への呼び出しを置き換える必要があるすべてのサービスです。  
 
-たとえば、repalce IDbConnectionFactory を DbProviderService は、次のようにハンドラーを登録しました。  
+など IDbConnectionFactory DbProviderService を置換するには、次のようにハンドラーを登録しました。  
 
 ``` csharp
 DbConfiguration.Loaded += (_, a) =>
