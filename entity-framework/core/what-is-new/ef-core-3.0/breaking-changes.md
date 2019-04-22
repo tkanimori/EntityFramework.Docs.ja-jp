@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: fd593b2832a5a6ffe27cd4493127b5d405f684ba
-ms.sourcegitcommit: ce44f85a5bce32ef2d3d09b7682108d3473511b3
+ms.openlocfilehash: 4b251638de43af6525f3e6faa0bd4113ab1714b9
+ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/04/2019
-ms.locfileid: "58914128"
+ms.lasthandoff: 04/16/2019
+ms.locfileid: "59619260"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -242,6 +242,28 @@ public string Id { get; set; }
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
+
+## <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior.Restrict のセマンティクスがクリーンになりました
+
+[問題 #12661 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12661)
+
+この変更は、EF Core 3.0 プレビュー 5 で導入されます。
+
+**以前の動作**
+
+3.0 以前は、`DeleteBehavior.Restrict` により `Restrict` セマンティクスでデータベースに外部キーが作成されましたが、内部の修正がどのように変更されたのかがはっきりしませんでした。
+
+**新しい動作**
+
+3.0 以降では、`DeleteBehavior.Restrict` により `Restrict` セマンティクスで外部キーが作成されます。つまり、カスケードがありません。EF 内部修正には影響を出さず、制約違反で例外がスローされます。
+
+**理由**
+
+この変更は、副作用を出さず、直観的に `DeleteBehavior` を使用するために行われました。
+
+**軽減策**
+
+`DeleteBehavior.ClientNoAction` を使用し、以前の動作を復元できます。
 
 ## <a name="query-types-are-consolidated-with-entity-types"></a>クエリ型がエンティティ型と統合される
 
@@ -685,6 +707,52 @@ modelBuilder
     .HasField("_id");
 ```
 
+## <a name="field-only-property-names-should-match-the-field-name"></a>フィールド専用プロパティの名前はフィールドの名前に一致する必要があります
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 以前では、プロパティは文字列値により指定できました。CLR 型でその名前のプロパティが見つからなかった場合、EF Core では一般的な規則でフィールドの照合が試されました。
+```C#
+private class Blog
+{
+    private int _id;
+    public string Name { get; set; }
+}
+```
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("Id");
+```
+
+**新しい動作**
+
+EF Core 3.0 以降では、フィールド専用プロパティはフィールドの名前に厳密に一致する必要があります。
+
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("_id");
+```
+
+**理由**
+
+この変更は、同じような名前が付けられた 2 つのプロパティに同じフィールドが使用されるのを回避する目的で行われました。また、フィールド専用プロパティの照合規則を、CLR プロパティにマッピングされているプロパティの場合と同じにします。
+
+**軽減策**
+
+フィールド専用プロパティには、それがマッピングされるフィールドと同じ名前を付ける必要があります。
+EF Core 3.0 の今後のプレビューでは、プロパティ名とは異なるフィールド名を明示的に構成できるように戻す予定です。
+
+```C#
+modelBuilder
+    .Entity<Blog>()
+    .Property("Id")
+    .HasField("_id");
+```
+
 ## <a name="adddbcontextadddbcontextpool-no-longer-call-addlogging-and-addmemorycache"></a>AddDbContext/AddDbContextPool で AddLogging および AddMemoryCache を呼び出さなくなりました
 
 [問題 #14756 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14756)
@@ -1010,11 +1078,35 @@ EF Core 3.0 以降では、インデックスでの `Include` の使用が、リ
 
 **理由**
 
-この変更は、すべてのデータ プロバイダーのために `Includes` でインデックス用の API を 1 か所に統合するために行われました。
+この変更は、すべてのデータ プロバイダーのために `Include` でインデックス用の API を 1 か所に統合するために行われました。
 
 **軽減策**
 
 上記のように、新しい API を使用します。
+
+## <a name="metadata-api-changes"></a>メタデータ API の変更点
+
+[問題 #214 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**新しい動作**
+
+次のプロパティは拡張メソッドに変換されました。
+
+* `IEntityType.QueryFilter` -> `GetQueryFilter()`
+* `IEntityType.DefiningQuery` -> `GetDefiningQuery()`
+* `IProperty.IsShadowProperty` -> `IsShadowProperty()`
+* `IProperty.BeforeSaveBehavior` -> `GetBeforeSaveBehavior()`
+* `IProperty.AfterSaveBehavior` -> `GetAfterSaveBehavior()`
+
+**理由**
+
+この変更により、前述のインターフェイスの実装が簡単になります。
+
+**軽減策**
+
+新しい拡張メソッドを使用します。
 
 ## <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core で SQLite FK を適用するためのプラグマが送信されなくなった
 

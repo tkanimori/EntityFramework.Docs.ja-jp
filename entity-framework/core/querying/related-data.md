@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 6beaebf2c6859fcf91e963bfae02f029f8f51147
-ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
+ms.openlocfilehash: e98e2e601203db7ea3d3344ddc7b7e0aff7f2143
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/19/2019
-ms.locfileid: "58131434"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562521"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -108,7 +108,7 @@ public class School
 
 - 型 `string` のパラメーターを受け取る `Include` のオーバーロードを使用する
   ```csharp
-  context.People.Include("Student").ToList()
+  context.People.Include("School").ToList()
   ```
 
 ### <a name="ignored-includes"></a>無視されるインクルード

@@ -4,19 +4,19 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: f466d112e5ed8661ad1e2d91079c1c01d34b9002
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: e9d1a707c643036fa15b1e0e46730eadefd65518
+ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463231"
+ms.lasthandoff: 04/14/2019
+ms.locfileid: "59562469"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core のロードマップ
 
 > [!IMPORTANT]
 > 機能セットと今後のリリースのスケジュールは、常に変更される可能性があることに注意してください。また、このページを最新の状態に保持するようにしていますが、最新のプランが反映されていない場合もあります。
 
-### <a name="ef-core-30"></a>EF Core 3.0
+## <a name="ef-core-30"></a>EF Core 3.0
 
 EF Core 2.2 は完了したので、現在は EF Core 3.0 に重点が置かれています。
 このリリースに含まれる、計画されている[新機能](xref:core/what-is-new/ef-core-3.0/features)と意図的な[破壊的変更](xref:core/what-is-new/ef-core-3.0/breaking-changes)については、[EF Core 3.0 の新機能](xref:core/what-is-new/ef-core-3.0/index)に関するページを参照してください。
