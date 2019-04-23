@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: cbe6935e-2679-4b77-8914-a8d772240cf1
 uid: core/modeling/included-types
-ms.openlocfilehash: a5a14f62524754fed179e9a41fac5e29faf185ca
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: f533b24312af37634ce4957e43c39ce776bf0bf0
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996151"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929798"
 ---
 # <a name="including--excluding-types"></a>含める/除外する型
 
@@ -68,49 +68,10 @@ public class AuditEntry
 
 データ注釈を使用して、モデルから型を除外することができます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/DataAnnotations/Samples/IgnoreType.cs?highlight=9)] -->
-``` csharp
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public BlogMetadata Metadata { get; set; }
-}
-
-[NotMapped]
-public class BlogMetadata
-{
-    public DateTime LoadedFromDatabase { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/IgnoreType.cs?highlight=20)]
 
 ## <a name="fluent-api"></a>Fluent API
 
 Fluent API を使用して、モデルから型を除外することができます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/IgnoreType.cs?highlight=7)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Ignore<BlogMetadata>();
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public BlogMetadata Metadata { get; set; }
-}
-
-public class BlogMetadata
-{
-    public DateTime LoadedFromDatabase { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/IgnoreType.cs?highlight=12)]

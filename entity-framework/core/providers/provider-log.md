@@ -6,12 +6,12 @@ ms.date: 08/08/2018
 ms.assetid: 7CEF496E-A5B0-4F5F-B68E-529609B23EF9
 ms.technology: entity-framework-core
 uid: core/providers/provider-log
-ms.openlocfilehash: 9ef87a737111053df0359f3b2d7a4f82d25c578a
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 61a58bd6119763d90731fac62343b983af510cb6
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58867945"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929876"
 ---
 # <a name="provider-impacting-changes"></a>プロバイダーに影響を与える変更
 
@@ -62,6 +62,7 @@ ms.locfileid: "58867945"
   * 規則のサービスの設定が変更されました。 プロバイダーは、"ProviderConventionSet"または"RelationalConventionSet"のいずれかから継承する必要があります。
   * カスタマイズを追加する`IConventionSetCustomizer`サービスが、これはプロバイダーではないその他の拡張機能で使用するためのものです。
   * 実行時に使用される規則がから解決される必要`IConventionSetBuilder`します。
+* https://github.com/aspnet/EntityFrameworkCore/pull/15288 データのシード処理が、内部型を使用する必要を回避するためにパブリック API にリファクタリングされています。 非リレーショナルのプロバイダーは、リレーショナルの基底クラスによって、すべてのリレーショナル プロバイダーのシード処理は処理されるためこれのみ影響する必要があります。
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
@@ -82,7 +83,6 @@ ms.locfileid: "58867945"
   * これらのテストを使用して、プロバイダーは、対応する必要があります。
 * [https://github.com/aspnet/EntityFrameworkCore/pull/12141](https://github.com/aspnet/EntityFrameworkCore/pull/12141) -機能テストの破棄ではなく、プールにコンテキストを返します
   * この変更には、対応するためのプロバイダーを必要がありますテスト リファクタリングが含まれています。
-
 
 ### <a name="test-and-product-code-changes"></a>テストと製品コードの変更
 

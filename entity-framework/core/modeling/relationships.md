@@ -4,14 +4,14 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
 uid: core/modeling/relationships
-ms.openlocfilehash: a53a862cc2443a1c4461aa287def100284635f26
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 9ef1a9269fc99f5b27a81c11a161ed5f9d74180d
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994943"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929938"
 ---
-# <a name="relationships"></a>リレーションシップ
+# <a name="relationships"></a>関係
 
 2 つのエンティティを定義するリレーションシップを互いに関連します。 リレーショナル データベースで外部キー制約によって表されます。
 
@@ -22,21 +22,21 @@ ms.locfileid: "42994943"
 
 リレーションシップの記述に使用される用語のいくつか
 
-* **依存エンティティ:** これは、外部キー プロパティを含むエンティティ。 リレーションシップの「子」とも呼ばれます。
+* **依存エンティティは:** これは、外部キー プロパティを含むエンティティです。 リレーションシップの「子」とも呼ばれます。
 
-* **プリンシパル エンティティ:** これは、プライマリ/代替キー プロパティを含むエンティティ。 リレーションシップの「親」と呼ばれるにあります。
+* **プリンシパル エンティティ:** これは、プライマリ/代替キー プロパティを含むエンティティです。 リレーションシップの「親」と呼ばれるにあります。
 
 * **外部キー:** エンティティに関連するプリンシパルのキー プロパティの値の格納に使用される依存エンティティのプロパティ。
 
 * **プリンシパルのキー:** プリンシパル エンティティを一意に識別するプロパティ。 主キーや代替キーがあります。
 
-* **ナビゲーション プロパティ:** 関連会計主体にへの参照を格納しているプリンシパルや依存エンティティで定義されたプロパティ。
+* **ナビゲーション プロパティ:** プロパティは、関連の会計主体にへの参照を格納しているプリンシパルや依存エンティティで定義します。
 
   * **コレクション ナビゲーション プロパティ:** 多くの関連エンティティへの参照を含むナビゲーション プロパティ。
 
   * **参照ナビゲーション プロパティ:** 1 つの関連エンティティへの参照を保持するナビゲーション プロパティ。
 
-  * **逆のナビゲーション プロパティ:** 特定のナビゲーション プロパティを説明しながら、リレーションシップの他方の end のナビゲーション プロパティに関係する用語です。
+  * **逆のナビゲーション プロパティ:** 特定のナビゲーション プロパティを説明しながら、この用語は、リレーションシップの他方の end のナビゲーション プロパティを指します。
 
 次のコード リストは、一対多の関係を示しています`Blog`と。 `Post`
 
@@ -98,13 +98,13 @@ ms.locfileid: "42994943"
 
 ## <a name="data-annotations"></a>データの注釈
 
-リレーションシップを構成するのに使用できる 2 つのデータ注釈がある`[ForeignKey]`と`[InverseProperty]`します。
+リレーションシップを構成するのに使用できる 2 つのデータ注釈がある`[ForeignKey]`と`[InverseProperty]`します。 これらで使用できる、`System.ComponentModel.DataAnnotations.Schema`名前空間。
 
 ### <a name="foreignkey"></a>[不変]
 
 データ注釈を使用すると、構成プロパティは、特定のリレーションシップの外部キー プロパティとして使用する必要があります。 外部キー プロパティが規則によって検出されないときにこれは通常です。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/ForeignKey.cs?name=Entities&highlight=17)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/ForeignKey.cs?highlight=30)]
 
 > [!TIP]  
 > `[ForeignKey]`リレーションシップのいずれかのナビゲーション プロパティに注釈を配置できます。 依存エンティティ クラスでナビゲーション プロパティに移動する必要はありません。
@@ -113,29 +113,29 @@ ms.locfileid: "42994943"
 
 依存とプリンシパル エンティティのナビゲーション プロパティを組み合わせる方法を構成するのには、データ注釈を使用できます。 2 つのエンティティ型の間のナビゲーション プロパティの 1 つ以上のペアがある場合にこれは通常です。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/InverseProperty.cs?name=Entities&highlight=20,23)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/InverseProperty.cs?highlight=33,36)]
 
 ## <a name="fluent-api"></a>Fluent API
 
 Fluent API でのリレーションシップを構成するには、まず、リレーションシップを作成するナビゲーション プロパティを識別します。 `HasOne` または`HasMany`の構成を開始するエンティティ型にナビゲーション プロパティを識別します。 呼び出しをチェーンする`WithOne`または`WithMany`逆ナビゲーションを識別するためにします。 `HasOne`/`WithOne` 参照ナビゲーション プロパティに対して使用し、 `HasMany` / `WithMany`コレクション ナビゲーション プロパティに対して使用します。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoForeignKey.cs?name=Model&highlight=8,9,10)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoForeignKey.cs?highlight=14-16)]
 
 ### <a name="single-navigation-property"></a>単一のナビゲーション プロパティ
 
 1 つのナビゲーション プロパティのみがある場合のパラメーターなしのオーバー ロードがあります`WithOne`と`WithMany`します。 これは、参照またはコレクションがリレーションシップのもう一方の端に概念的にが、エンティティ クラスに含まれるナビゲーション プロパティがないことを示します。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/OneNavigation.cs?name=Model&highlight=10)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/OneNavigation.cs?highlight=14-16)]
 
 ### <a name="foreign-key"></a>外部キー
 
 Fluent API を使用すると、構成プロパティは、特定のリレーションシップの外部キー プロパティとして使用する必要があります。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ForeignKey.cs?name=Model&highlight=11)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ForeignKey.cs?highlight=17)]
 
 次のコード リストは、複合外部キーを構成する方法を示します。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/CompositeForeignKey.cs?name=Model&highlight=13)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/CompositeForeignKey.cs?highlight=20)]
 
 文字列のオーバー ロードを使用する`HasForeignKey(...)`外部キーとしてシャドウ プロパティを構成する (を参照してください[プロパティをシャドウ](shadow-properties.md)詳細については)。 (下図参照)、外部キーとして使用する前に、モデルを明示的にシャドウ プロパティを追加することをお勧めします。
 
