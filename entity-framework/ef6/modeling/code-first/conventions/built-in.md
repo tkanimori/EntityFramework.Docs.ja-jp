@@ -11,7 +11,7 @@ ms.lasthandoff: 09/13/2018
 ms.locfileid: "45491001"
 ---
 # <a name="code-first-conventions"></a>コードの最初の規則
-まず、コードを使用すると、c# または Visual Basic .NET のクラスを使用してモデルを記述できます。 規則を使用して、モデルの基本的な形状が検出されます。 規則は、Code First を使用する場合は、クラス定義に基づく概念モデルを自動的に構成するために使用するルールのセットです。 規則は、System.Data.Entity.ModelConfiguration.Conventions 名前空間で定義されます。  
+まず、コードを使用すると、C# または Visual Basic .NET のクラスを使用してモデルを記述できます。 規則を使用して、モデルの基本的な形状が検出されます。 規則は、Code First を使用する場合は、クラス定義に基づく概念モデルを自動的に構成するために使用するルールのセットです。 規則は、System.Data.Entity.ModelConfiguration.Conventions 名前空間で定義されます。  
 
 さらに、データ注釈または fluent API を使用して、モデルを構成できます。 優先順位は、データ注釈と規則が続く、fluent API を使用した構成に付与されます。 詳細については、次を参照してください[データ注釈](~/ef6/modeling/code-first/data-annotations.md)、 [Fluent API - リレーションシップ](~/ef6/modeling/code-first/fluent/relationships.md)、 [Fluent API の種類とプロパティ](~/ef6/modeling/code-first/fluent/types-and-properties.md)と[VB.NETにFluentAPI](~/ef6/modeling/code-first/fluent/vb.md)。  
 

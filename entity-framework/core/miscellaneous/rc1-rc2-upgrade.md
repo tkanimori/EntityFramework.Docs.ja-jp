@@ -70,7 +70,7 @@ services.AddDbContext<ApplicationDbContext>(options =>
   options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 ```
 
-また、コンテキストのオプションを受け取り、基底コンス トラクターに渡して、派生コンテキストに、コンス トラクターを追加する必要があります。 これを削除しました背後に忍び込んでいる恐ろしい魔法のために必要です。
+また、コンテキストのオプションを受け取り、基底コンストラクターに渡して、派生コンテキストに、コンストラクターを追加する必要があります。 これを削除しました背後に忍び込んでいる恐ろしい魔法のために必要です。
 
 ``` csharp
 public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
@@ -81,7 +81,7 @@ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 
 ## <a name="passing-in-an-iserviceprovider"></a>IServiceProvider 内で渡す
 
-渡される RC1 コードがある場合、`IServiceProvider`コンテキストにこれが移動したを`DbContextOptions`、別のコンス トラクターのパラメーターではなく。 使用`DbContextOptionsBuilder.UseInternalServiceProvider(...)`サービス プロバイダーを設定します。
+渡される RC1 コードがある場合、`IServiceProvider`コンテキストにこれが移動したを`DbContextOptions`、別のコンストラクターのパラメーターではなく。 使用`DbContextOptionsBuilder.UseInternalServiceProvider(...)`サービス プロバイダーを設定します。
 
 ### <a name="testing"></a>テスト
 

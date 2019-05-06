@@ -48,7 +48,7 @@ public class MyConfiguration : DbConfiguration
 
 ## <a name="configuring-the-execution-strategy"></a>実行戦略を構成します。  
 
-SqlAzureExecutionStrategy のコンス トラクターは、MaxRetryCount と MaxDelay の 2 つのパラメーターを受け取ることができます。 MaxRetry 数は、戦略が再試行する回数の最大数です。 MaxDelay は、実行戦略を使用する再試行間の最大遅延を表す TimeSpan です。  
+SqlAzureExecutionStrategy のコンストラクターは、MaxRetryCount と MaxDelay の 2 つのパラメーターを受け取ることができます。 MaxRetry 数は、戦略が再試行する回数の最大数です。 MaxDelay は、実行戦略を使用する再試行間の最大遅延を表す TimeSpan です。  
 
 再試行の最大数を 1 および 30 秒の遅延の上限に設定するには、execue、次の場合。  
 

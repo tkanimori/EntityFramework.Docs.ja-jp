@@ -66,7 +66,7 @@ Entity Framework Tools 6.1.3 にアップグレードすることをお勧めを
 - 既定では、Entity Framework ツールは、プロジェクトに Entity Framework 4.0 を追加します。
 すべての新しいバージョンの EF を使用してアプリケーションを作成するために必要がありますをインストールする、 [NuGet パッケージ マネージャー拡張機能](https://marketplace.visualstudio.com/items?itemName=NuGetTeam.NuGetPackageManager)します。
 - 既定では、EF ツールのバージョンですべてのコード生成を EntityObject および Entity Framework 4 に基づきます。
-DbContext と Entity Framework 5、に基づいて用 DbContext のコード生成テンプレートをインストールすることによって、コード生成を切り替えることをお勧めします。 [c#](https://marketplace.visualstudio.com/items?itemName=EntityFrameworkTeam.EF5xDbContextGeneratorforC)または[Visual Basic](https://marketplace.visualstudio.com/items?itemName=EntityFrameworkTeam.EF5xDbContextGeneratorforVBNET)します。
+DbContext と Entity Framework 5、に基づいて用 DbContext のコード生成テンプレートをインストールすることによって、コード生成を切り替えることをお勧めします。 [C#](https://marketplace.visualstudio.com/items?itemName=EntityFrameworkTeam.EF5xDbContextGeneratorforC)または[Visual Basic](https://marketplace.visualstudio.com/items?itemName=EntityFrameworkTeam.EF5xDbContextGeneratorforVBNET)します。
 - NuGet パッケージ マネージャー拡張機能をインストールすると、手動でインストールまたはオンラインで利用可能な任意の EF の NuGet パッケージをアップグレードでき EF6 を使用して、デザイナーが必要としない Code First で使用できます。
 - 既定では、このバージョンの Visual Studio で使用可能な SQL Server インスタンスは、SQL Server Express SQLEXPRESS という名前です。
 必要がありますを使用する接続文字列のサーバーのセクションは、"。\\SQLEXPRESS"。

@@ -23,7 +23,7 @@ ms.locfileid: "46283655"
 
 ## <a name="using-the-feature"></a>機能を使用します。  
 
-機能を有効にするためへの呼び出しを含める必要があります[SetTransactionHandler](https://msdn.microsoft.com/library/system.data.entity.dbconfiguration.setdefaulttransactionhandler.aspx)のコンス トラクター、 **DbConfiguration**します。 慣れていない場合**DbConfiguration**を参照してください[コード ベースの構成](~/ef6/fundamentals/configuring/code-based.md)します。 この機能は、トランザクションが実際には、一時的なエラーにより、サーバーにコミットされませんでしたが、この状況で役立つ、EF6 で導入された自動再試行と組み合わせて使用できます。  
+機能を有効にするためへの呼び出しを含める必要があります[SetTransactionHandler](https://msdn.microsoft.com/library/system.data.entity.dbconfiguration.setdefaulttransactionhandler.aspx)のコンストラクター、 **DbConfiguration**します。 慣れていない場合**DbConfiguration**を参照してください[コード ベースの構成](~/ef6/fundamentals/configuring/code-based.md)します。 この機能は、トランザクションが実際には、一時的なエラーにより、サーバーにコミットされませんでしたが、この状況で役立つ、EF6 で導入された自動再試行と組み合わせて使用できます。  
 
 ``` csharp
 using System.Data.Entity;

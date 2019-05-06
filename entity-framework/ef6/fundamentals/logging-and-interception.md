@@ -227,7 +227,7 @@ public class OneLineFormatter : DatabaseLogFormatter
 
 ### <a name="setting-the-databaselogformatter"></a>設定、DatabaseLogFormatter  
 
-その新しい DatabaseLogFormatter クラスを作成した後は、EF に登録する必要があります。 これは、コード ベースの構成を使用します。 一言では、DbContext クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成して、この新しいクラスのコンス トラクターで呼び出して SetDatabaseLogFormatter を意味します。 例えば:  
+その新しい DatabaseLogFormatter クラスを作成した後は、EF に登録する必要があります。 これは、コード ベースの構成を使用します。 一言では、DbContext クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成して、この新しいクラスのコンストラクターで呼び出して SetDatabaseLogFormatter を意味します。 例えば:  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration

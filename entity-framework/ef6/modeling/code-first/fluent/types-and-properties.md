@@ -102,7 +102,7 @@ modelBuilder
 
 使用できる設定の完全な一覧については**IndexAttribute**を参照してください、*インデックス*の[Code First のデータ注釈](~/ef6/modeling/code-first/data-annotations.md)します。 これには、インデックス名をカスタマイズする、一意のインデックスの作成、および複数列インデックスの作成が含まれます。  
 
-配列を渡すことによって、1 つのプロパティで複数のインデックス注釈を指定できます**IndexAttribute**のコンス トラクターに**IndexAnnotation**します。  
+配列を渡すことによって、1 つのプロパティで複数のインデックス注釈を指定できます**IndexAttribute**のコンストラクターに**IndexAnnotation**します。  
 
 ``` csharp
 modelBuilder

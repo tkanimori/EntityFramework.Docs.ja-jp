@@ -88,7 +88,7 @@ _型_文字列を使用する DbProviderServices の実装のアセンブリ修�
 
 ### <a name="code-based-registration"></a>コード ベースの登録
 
-以降では、EF6 プロバイダー登録することもコードを使用します。 これにより、アプリケーションの構成ファイルに変更を加えずに使用される、EF のプロバイダー。 コード ベースの構成を使用するアプリケーション クラスを作成する DbConfiguration」の説明に従って、[コード ベースの構成ドキュメント](https://msdn.com/data/jj680699)します。 DbConfiguration クラスのコンス トラクターでは、EF のプロバイダーを登録する SetProviderServices を呼び出す必要がありますから。 例:
+以降では、EF6 プロバイダー登録することもコードを使用します。 これにより、アプリケーションの構成ファイルに変更を加えずに使用される、EF のプロバイダー。 コード ベースの構成を使用するアプリケーション クラスを作成する DbConfiguration」の説明に従って、[コード ベースの構成ドキュメント](https://msdn.com/data/jj680699)します。 DbConfiguration クラスのコンストラクターでは、EF のプロバイダーを登録する SetProviderServices を呼び出す必要がありますから。 例:
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -104,7 +104,7 @@ public class MyConfiguration : DbConfiguration
 
 上記のとおり、_プロバイダーの型の概要_セクション、DbProviderServices クラスが追加サービスを解決することもできます。 DbProviderServices が IDbDependencyResolver を実装し、登録されている各 DbProviderServices タイプが「既定のリゾルバー」として追加するため、可能です。 IDbDpendencyResolver メカニズムがで詳しく説明されている[依存関係の解決](~/ef6/fundamentals/configuring/dependency-resolution.md)します。 ただし、プロバイダーの追加サービスを解決するには、この仕様でのすべての概念を理解する必要はありません。
 
-その他のサービスを解決するのには、プロバイダーの最も一般的な方法を DbProviderServices クラスのコンス トラクター内の各サービスの DbProviderServices.AddDependencyResolver を呼び出します。 たとえば、SqlProviderServices (SQL Server 用の EF プロバイダー) では、初期化のための次のようなコードがあります。
+その他のサービスを解決するのには、プロバイダーの最も一般的な方法を DbProviderServices クラスのコンストラクター内の各サービスの DbProviderServices.AddDependencyResolver を呼び出します。 たとえば、SqlProviderServices (SQL Server 用の EF プロバイダー) では、初期化のための次のようなコードがあります。
 
 ``` csharp
 private SqlProviderServices()
@@ -129,7 +129,7 @@ private SqlProviderServices()
 }
 ```
 
-このコンス トラクターは、次のヘルパー クラスを使用します。
+このコンストラクターは、次のヘルパー クラスを使用します。
 
 *   SingletonDependencyResolver: 単一のサービスを解決する簡単な方法を提供する、同じインスタンスが返されるたびにその GetService が呼び出されるサービスは、します。 一時的なサービスは、オンデマンドで一時的なインスタンスを作成するために使用するシングルトン ファクトリとして多くの場合、登録されます。
 *   ExecutionStrategyResolver: リゾルバーを返す IExecutionStrategy 実装に固有です。

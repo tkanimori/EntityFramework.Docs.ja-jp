@@ -17,7 +17,7 @@ ms.locfileid: "45489337"
 
 ### <a name="behavior-for-ef5-and-earlier-versions"></a>EF5 と以前のバージョンの動作  
 
-接続を許可する 2 つのコンス トラクターがあります。  
+接続を許可する 2 つのコンストラクターがあります。  
 
 ``` csharp
 public DbContext(DbConnection existingConnection, bool contextOwnsConnection)
@@ -75,7 +75,7 @@ namespace ConnectionManagementExamples
 
 ### <a name="behavior-in-ef6-and-future-versions"></a>EF6 と今後のバージョンでの動作  
 
-EF6 と今後のバージョンでは、DbContext は、同じ 2 つのコンス トラクターがありますは受信したときに、コンス トラクターに渡された接続を閉じるには不要します。 このため、これが可能になりました。  
+EF6 と今後のバージョンでは、DbContext は、同じ 2 つのコンストラクターがありますは受信したときに、コンストラクターに渡された接続を閉じるには不要します。 このため、これが可能になりました。  
 
 ``` csharp
 using System.Collections.Generic;
@@ -125,7 +125,7 @@ namespace ConnectionManagementExamples
 
 また contextOwnsConnection フラグは、かどうか、接続が閉じられたおよび DbContext を破棄すると破棄を今すぐ制御します。 上記の例では、コンテキストが、接続は閉じられないように以前のバージョンの EF、いたでしょうが、接続自体が破棄されるときではなく、(行 32) を破棄 (40 行)。  
 
-もちろん、DbContext (true または他のコンス トラクターのいずれかを使用するセット contextOwnsConnection だけ) の接続を制御することは可能では希望される場合。  
+もちろん、DbContext (true または他のコンストラクターのいずれかを使用するセット contextOwnsConnection だけ) の接続を制御することは可能では希望される場合。  
 
 > [!NOTE]
 > このモデルで新しいトランザクションを使用する場合は、いくつか追加の考慮事項にもあります。 詳細を参照してください[トランザクション操作](~/ef6/saving/transactions.md)します。  

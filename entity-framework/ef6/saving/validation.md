@@ -150,7 +150,7 @@ IValidatableObject は、System.ComponentModel.DataAnnotations に存在する�
      }
 ```
 
-ValidationResult コンス トラクターでは、エラー メッセージと、検証に関連付けられているメンバー名を表す文字列の配列を表す文字列を受け取ります。 この検証では、タイトルと、BloggerName の両方をチェック、ため両方のプロパティ名が返されます。
+ValidationResult コンストラクターでは、エラー メッセージと、検証に関連付けられているメンバー名を表す文字列の配列を表す文字列を受け取ります。 この検証では、タイトルと、BloggerName の両方をチェック、ため両方のプロパティ名が返されます。
 
 Fluent API によって提供される検証とは異なり、ビューでこの検証の結果が認識され、ModelState にエラーを追加する前に使用した例外ハンドラーが必要ではありません。 ValidationResult で両方のプロパティ名を設定するため、これらのプロパティの両方のエラー メッセージが表示 MVC HtmlHelpers します。
 

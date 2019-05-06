@@ -5,7 +5,7 @@ ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
 ms.openlocfilehash: 7197733ab25c8475746e7863963384730919e3ff
 ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
-ms.translationtype: MT
+ms.translationtype: HT
 ms.contentlocale: ja-JP
 ms.lasthandoff: 09/13/2018
 ms.locfileid: "45489779"
@@ -101,7 +101,7 @@ namespace TransactionsExamples
 
 場合がありますも広範なスコープでは完全に同じデータベースでは、EF の外部での操作を含む、トランザクションを作成するとします。 これを実現するには、接続を開いてしと自分でトランザクションを開始をし)、データベースを既に開いている接続を使用して、その接続で、既存のトランザクションを使用するには b) の EF を指示する必要があります。  
 
-これを行うには、定義し、ブール i) 既存の接続パラメーターと contextOwnsConnection ii) を実行する DbContext コンス トラクターのいずれかから継承され、コンテキスト クラスのコンス トラクターを使用する必要があります。  
+これを行うには、定義し、ブール i) 既存の接続パラメーターと contextOwnsConnection ii) を実行する DbContext コンストラクターのいずれかから継承され、コンテキスト クラスのコンストラクターを使用する必要があります。  
 
 > [!NOTE]
 > ContextOwnsConnection フラグは、このシナリオで呼び出される場合は false に設定する必要があります。 これは、Entity Framework に通知を閉じることはできません、接続には、そのときに重要です。 (たとえば、次の 4 行目を参照)。  

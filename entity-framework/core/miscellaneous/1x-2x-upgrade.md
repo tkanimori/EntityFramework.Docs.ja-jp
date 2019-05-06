@@ -33,7 +33,7 @@ ASP.NET Core 2.0 を対象とするアプリケーションは、サードパー
 
 EF Core が 1.x で使用されるデザイン時ロジックを無効にした方法で 2.0 の ASP.NET Core web アプリケーションの推奨されるパターンが更新されました。 以前のデザイン時に、EF Core は呼び出しを試みる`Startup.ConfigureServices`アプリケーションのサービス プロバイダーにアクセスするために直接します。 外部で ASP.NET Core 2.0 では、構成が初期化されて、`Startup`クラス。 通常、EF Core を使用してアプリケーションへのアクセス、接続文字列構成からため`Startup`自体では十分なできなくします。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、EF Core ツールを使用する場合、次のエラーを受信可能性があります。
 
-> 'ApplicationContext' で、パラメーターなしのコンス トラクターが見つかりませんでした。 パラメーターなしのコンス トラクターを 'ApplicationContext' に追加するか、追加の実装 'IDesignTimeDbContextFactory&lt;ApplicationContext&gt;' 'ApplicationContext' と同じアセンブリ内
+> 'ApplicationContext' で、パラメーターなしのコンストラクターが見つかりませんでした。 パラメーターなしのコンストラクターを 'ApplicationContext' に追加するか、追加の実装 'IDesignTimeDbContextFactory&lt;ApplicationContext&gt;' 'ApplicationContext' と同じアセンブリ内
 
 ASP.NET Core 2.0 の既定のテンプレートで、新しいデザイン時フックが追加されました。 静的な`Program.BuildWebHost`メソッドは、デザイン時に、アプリケーションのサービス プロバイダーへのアクセスに EF Core を使用できます。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、更新する必要があります。、`Program`クラスを、次のようになります。
 

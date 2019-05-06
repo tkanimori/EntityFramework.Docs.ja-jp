@@ -32,7 +32,7 @@ EF Core の現在ログ記録では、1 つまたは複数の ILoggerProvider �
 * [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/):System.Diagnostics.TraceSource.TraceEvent() を使用してトレース リスナーにログ。
 
 > [!NOTE]
-> 次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンス トラクター。 古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。 それまでは、無視し、警告を抑制しても安全です。
+> 次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンストラクター。 古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。 それまでは、無視し、警告を抑制しても安全です。
 
 適切なパッケージをインストールした後、アプリケーションは、LoggerFactory のシングルトン/グローバル インスタンスを作成する必要があります。 たとえば、コンソール ロガーを使用します。
 
@@ -48,7 +48,7 @@ EF Core のこのシングルトン/グローバル インスタンスが登録�
 ## <a name="filtering-what-is-logged"></a>記録内容がフィルター処理
 
 > [!NOTE]
-> 次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンス トラクター。 古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。 それまでは、無視し、警告を抑制しても安全です。
+> 次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンストラクター。 古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。 それまでは、無視し、警告を抑制しても安全です。
 
 記録内容がフィルター処理する最も簡単な方法では、ILoggerProvider を登録するときに、これを構成します。 例:
 

@@ -13,17 +13,17 @@ ms.locfileid: "45490747"
 # <a name="connection-strings-and-models"></a>接続文字列とモデル
 このトピックでは、Entity Framework が使用するにはどのデータベース接続を検出する方法と、それを変更する方法について説明します。 このトピックでは、Code First と EF Designer で作成されたモデル両方が説明します。  
 
-通常、Entity Framework アプリケーションは、DbContext から派生したクラスを使用します。 この派生クラスを呼び出し、コンス トラクターのいずれかのコントロールに基本の DbContext クラスに。  
+通常、Entity Framework アプリケーションは、DbContext から派生したクラスを使用します。 この派生クラスを呼び出し、コンストラクターのいずれかのコントロールに基本の DbContext クラスに。  
 
 - コンテキストがデータベースに接続する方法: これはどのように接続文字列がある検出/使用済み  
 - Code First を使用して、モデルの計算コンテキストを使用するかどうか、または EF Designer で作成したモデルを読み込む  
 - その他の高度なオプション  
 
-次のフラグメントの表示方法 DbContext コンス トラクターのいくつか使用できます。  
+次のフラグメントの表示方法 DbContext コンストラクターのいくつか使用できます。  
 
 ## <a name="use-code-first-with-connection-by-convention"></a>慣例により接続で、Code First を使用します。  
 
-場合は、アプリケーションでは、その他の構成を実行して、DbContext でパラメーターなしのコンス トラクターを呼び出すと規則によって作成されたデータベース接続で Code First モードで実行する DbContext が発生します。 例えば:  
+場合は、アプリケーションでは、その他の構成を実行して、DbContext でパラメーターなしのコンストラクターを呼び出すと規則によって作成されたデータベース接続で Code First モードで実行する DbContext が発生します。 例えば:  
 
 ``` csharp  
 namespace Demo.EF
@@ -44,7 +44,7 @@ Visual Studio 2010 では、既定で Visual Studio 2012 および SQL Express �
 
 ## <a name="use-code-first-with-connection-by-convention-and-specified-database-name"></a>規則と指定したデータベース名で接続で、Code First を使用します。  
 
-DbContext に使用するデータベースの名前文字列コンス トラクターを呼び出すと、DbContext のデータベースに規約によって作成されたデータベース接続で Code First モードで実行は、アプリケーションでその他の構成を行っていない場合その名前。 例えば:  
+DbContext に使用するデータベースの名前文字列コンストラクターを呼び出すと、DbContext のデータベースに規約によって作成されたデータベース接続で Code First モードで実行は、アプリケーションでその他の構成を行っていない場合その名前。 例えば:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -74,7 +74,7 @@ public class BloggingContext : DbContext
 
 これは、SQL Express または LocalDB 以外のデータベース サーバーを使用する DbContext を通知する簡単な方法: 上記の例は、SQL Server Compact Edition のデータベースを指定します。  
 
-接続文字列の名前 (いずれかまたは名前空間の修飾なし) のコンテキストの名前に一致する場合、それが見つかる DbContext パラメーターなしのコンス トラクターを使用する場合。 接続文字列名が、コンテキストの名前と異なる場合は、接続文字列名を DbContext コンス トラクターに渡すことによって、Code First モードでこの接続を使用する DbContext を判断できます。 例えば:  
+接続文字列の名前 (いずれかまたは名前空間の修飾なし) のコンテキストの名前に一致する場合、それが見つかる DbContext パラメーターなしのコンストラクターを使用する場合。 接続文字列名が、コンテキストの名前と異なる場合は、接続文字列名を DbContext コンストラクターに渡すことによって、Code First モードでこの接続を使用する DbContext を判断できます。 例えば:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -86,7 +86,7 @@ public class BloggingContext : DbContext
 }
 ```  
 
-形式を使用する代わりに、"名前 =\<接続文字列名\>"DbContext コンス トラクターに渡される文字列。 例えば:  
+形式を使用する代わりに、"名前 =\<接続文字列名\>"DbContext コンストラクターに渡される文字列。 例えば:  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -124,7 +124,7 @@ EF Designer で作成されたモデルは Code First をモデルが既に存�
 </configuration>
 ```  
 
-EF Designer では、接続文字列名を DbContext コンス トラクターに渡すことによってこの接続を使用する DbContext を指示するコードも生成されます。 例えば:  
+EF Designer では、接続文字列名を DbContext コンストラクターに渡すことによってこの接続を使用する DbContext を指示するコードも生成されます。 例えば:  
 
 ``` csharp  
 public class NorthwindContext : DbContext
@@ -138,11 +138,11 @@ public class NorthwindContext : DbContext
 
 (Code First を使用して、コードから自動的に計算されるのではなく) 既存のモデルの読み込みに DbContext を知っているため、接続文字列が使用するモデルの詳細を含む EF 接続文字列。  
 
-## <a name="other-dbcontext-constructor-options"></a>その他の DbContext コンス トラクターのオプション  
+## <a name="other-dbcontext-constructor-options"></a>その他の DbContext コンストラクターのオプション  
 
-DbContext クラスには、その他のコンス トラクターとより高度なシナリオを有効にする使用パターンが含まれています。 これらのいくつか示します。  
+DbContext クラスには、その他のコンストラクターとより高度なシナリオを有効にする使用パターンが含まれています。 これらのいくつか示します。  
 
-- DbModelBuilder クラスを使用して、DbContext インスタンスをインスタンス化しなくても Code First モデルを構築することができます。 この結果は、DbModel オブジェクトです。 DbContext インスタンスを作成する準備ができたら、DbContext コンス トラクターのいずれかにこの DbModel オブジェクトを渡すことができます。  
+- DbModelBuilder クラスを使用して、DbContext インスタンスをインスタンス化しなくても Code First モデルを構築することができます。 この結果は、DbModel オブジェクトです。 DbContext インスタンスを作成する準備ができたら、DbContext コンストラクターのいずれかにこの DbModel オブジェクトを渡すことができます。  
 - データベースまたは接続文字列名だけでなく、完全な接続文字列を DbContext に渡すことができます。 既定でこの接続文字列は System.Data.SqlClient プロバイダーの使用します。これは、コンテキストに IConnectionFactory の別の実装を設定して変更できます。Database.DefaultConnectionFactory します。  
-- DbContext コンス トラクターに渡すことによって、既存の DbConnection オブジェクトを使用できます。 計算するのではなく、使用される接続で指定されたモデルになる接続オブジェクトが、EntityConnection のインスタンスの場合は、まずコードを使用してモデル。 かどうか、オブジェクトには他の型のインスタンス: SqlConnection など、コンテキストが Code First モードで使用されます。  
-- 既存のコンテキストをラップする DbContext を作成する DbContext コンス トラクターに既存の ObjectContext を渡すことができます。 これは、ObjectContext を使用するが、アプリケーションの一部の DbContext を活用するためにすると、既存のアプリケーションに対して使用できます。  
+- DbContext コンストラクターに渡すことによって、既存の DbConnection オブジェクトを使用できます。 計算するのではなく、使用される接続で指定されたモデルになる接続オブジェクトが、EntityConnection のインスタンスの場合は、まずコードを使用してモデル。 かどうか、オブジェクトには他の型のインスタンス: SqlConnection など、コンテキストが Code First モードで使用されます。  
+- 既存のコンテキストをラップする DbContext を作成する DbContext コンストラクターに既存の ObjectContext を渡すことができます。 これは、ObjectContext を使用するが、アプリケーションの一部の DbContext を活用するためにすると、既存のアプリケーションに対して使用できます。  
