@@ -10,41 +10,41 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 09/13/2018
 ms.locfileid: "45490611"
 ---
-# <a name="code-first-to-an-existing-database"></a><span data-ttu-id="2bf6e-102">既存のデータベースの code First</span><span class="sxs-lookup"><span data-stu-id="2bf6e-102">Code First to an Existing Database</span></span>
-<span data-ttu-id="2bf6e-103">このビデオ、およびステップ バイ ステップ チュートリアルでは、既存のデータベースを対象とする Code First の開発の概要を提供します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-103">This video and step-by-step walkthrough provide an introduction to Code First development targeting an existing database.</span></span> <span data-ttu-id="2bf6e-104">コードを最初に使用すると、C を使用して、モデル定義\#または VB.Net クラス。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-104">Code First allows you to define your model using C\# or VB.Net classes.</span></span> <span data-ttu-id="2bf6e-105">必要に応じて追加の構成は、クラスやプロパティ、または fluent API を使用して属性を使用して実行できます。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-105">Optionally additional configuration can be performed using attributes on your classes and properties or by using a fluent API.</span></span>
+# <a name="code-first-to-an-existing-database"></a><span data-ttu-id="3680a-102">既存のデータベースの code First</span><span class="sxs-lookup"><span data-stu-id="3680a-102">Code First to an Existing Database</span></span>
+<span data-ttu-id="3680a-103">このビデオ、およびステップ バイ ステップ チュートリアルでは、既存のデータベースを対象とする Code First の開発の概要を提供します。</span><span class="sxs-lookup"><span data-stu-id="3680a-103">This video and step-by-step walkthrough provide an introduction to Code First development targeting an existing database.</span></span> <span data-ttu-id="3680a-104">コードを最初に使用すると、C を使用して、モデル定義\#または VB.Net クラス。</span><span class="sxs-lookup"><span data-stu-id="3680a-104">Code First allows you to define your model using C\# or VB.Net classes.</span></span> <span data-ttu-id="3680a-105">必要に応じて追加の構成は、クラスやプロパティ、または fluent API を使用して属性を使用して実行できます。</span><span class="sxs-lookup"><span data-stu-id="3680a-105">Optionally additional configuration can be performed using attributes on your classes and properties or by using a fluent API.</span></span>
 
-## <a name="watch-the-video"></a><span data-ttu-id="2bf6e-106">ビデオを見る</span><span class="sxs-lookup"><span data-stu-id="2bf6e-106">Watch the video</span></span>
-<span data-ttu-id="2bf6e-107">このビデオは[Channel 9 で利用可能](http://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-)します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-107">This video is [now available on Channel 9](http://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-).</span></span>
+## <a name="watch-the-video"></a><span data-ttu-id="3680a-106">ビデオを見る</span><span class="sxs-lookup"><span data-stu-id="3680a-106">Watch the video</span></span>
+<span data-ttu-id="3680a-107">このビデオは[Channel 9 で利用可能](http://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-)します。</span><span class="sxs-lookup"><span data-stu-id="3680a-107">This video is [now available on Channel 9](http://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-).</span></span>
 
-## <a name="pre-requisites"></a><span data-ttu-id="2bf6e-108">前提条件</span><span class="sxs-lookup"><span data-stu-id="2bf6e-108">Pre-Requisites</span></span>
+## <a name="pre-requisites"></a><span data-ttu-id="3680a-108">前提条件</span><span class="sxs-lookup"><span data-stu-id="3680a-108">Pre-Requisites</span></span>
 
-<span data-ttu-id="2bf6e-109">必要ですが**Visual Studio 2012**または**Visual Studio 2013**このチュートリアルを完了するをインストールします。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-109">You will need to have **Visual Studio 2012** or **Visual Studio 2013** installed to complete this walkthrough.</span></span>
+<span data-ttu-id="3680a-109">必要ですが**Visual Studio 2012**または**Visual Studio 2013**このチュートリアルを完了するをインストールします。</span><span class="sxs-lookup"><span data-stu-id="3680a-109">You will need to have **Visual Studio 2012** or **Visual Studio 2013** installed to complete this walkthrough.</span></span>
 
-<span data-ttu-id="2bf6e-110">バージョンも必要になります**6.1** (またはそれ以降) の**Entity Framework Tools for Visual Studio**をインストールします。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-110">You will also need version **6.1** (or later) of the **Entity Framework Tools for Visual Studio** installed.</span></span> <span data-ttu-id="2bf6e-111">参照してください[Entity Framework の取得](~/ef6/fundamentals/install.md)については、Entity Framework Tools の最新バージョンをインストールします。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-111">See [Get Entity Framework](~/ef6/fundamentals/install.md) for information on installing the latest version of the Entity Framework Tools.</span></span>
+<span data-ttu-id="3680a-110">バージョンも必要になります**6.1** (またはそれ以降) の**Entity Framework Tools for Visual Studio**をインストールします。</span><span class="sxs-lookup"><span data-stu-id="3680a-110">You will also need version **6.1** (or later) of the **Entity Framework Tools for Visual Studio** installed.</span></span> <span data-ttu-id="3680a-111">参照してください[Entity Framework の取得](~/ef6/fundamentals/install.md)については、Entity Framework Tools の最新バージョンをインストールします。</span><span class="sxs-lookup"><span data-stu-id="3680a-111">See [Get Entity Framework](~/ef6/fundamentals/install.md) for information on installing the latest version of the Entity Framework Tools.</span></span>
 
-## <a name="1-create-an-existing-database"></a><span data-ttu-id="2bf6e-112">1.既存のデータベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-112">1. Create an Existing Database</span></span>
+## <a name="1-create-an-existing-database"></a><span data-ttu-id="3680a-112">1.既存のデータベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="3680a-112">1. Create an Existing Database</span></span>
 
-<span data-ttu-id="2bf6e-113">通常それは既に作成されて、既存のデータベースを対象としているときに、このチュートリアルではアクセスするデータベースを作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-113">Typically when you are targeting an existing database it will already be created, but for this walkthrough we need to create a database to access.</span></span>
+<span data-ttu-id="3680a-113">通常それは既に作成されて、既存のデータベースを対象としているときに、このチュートリアルではアクセスするデータベースを作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="3680a-113">Typically when you are targeting an existing database it will already be created, but for this walkthrough we need to create a database to access.</span></span>
 
-<span data-ttu-id="2bf6e-114">データベースを生成してみましょう。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-114">Let's go ahead and generate the database.</span></span>
+<span data-ttu-id="3680a-114">データベースを生成してみましょう。</span><span class="sxs-lookup"><span data-stu-id="3680a-114">Let's go ahead and generate the database.</span></span>
 
--   <span data-ttu-id="2bf6e-115">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="2bf6e-115">Open Visual Studio</span></span>
--   <span data-ttu-id="2bf6e-116">**ビュー -&gt;サーバー エクスプ ローラー**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-116">**View -&gt; Server Explorer**</span></span>
--   <span data-ttu-id="2bf6e-117">右クリックして**データ接続 -&gt;接続の追加.**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-117">Right click on **Data Connections -&gt; Add Connection…**</span></span>
--   <span data-ttu-id="2bf6e-118">データベースに接続していない場合は**サーバー エクスプ ローラー**を選択する必要があります前に**Microsoft SQL Server**データ ソースとして</span><span class="sxs-lookup"><span data-stu-id="2bf6e-118">If you haven’t connected to a database from **Server Explorer** before you’ll need to select **Microsoft SQL Server** as the data source</span></span>
+-   <span data-ttu-id="3680a-115">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="3680a-115">Open Visual Studio</span></span>
+-   <span data-ttu-id="3680a-116">**ビュー -&gt;サーバー エクスプ ローラー**</span><span class="sxs-lookup"><span data-stu-id="3680a-116">**View -&gt; Server Explorer**</span></span>
+-   <span data-ttu-id="3680a-117">右クリックして**データ接続 -&gt;接続の追加.**</span><span class="sxs-lookup"><span data-stu-id="3680a-117">Right click on **Data Connections -&gt; Add Connection…**</span></span>
+-   <span data-ttu-id="3680a-118">データベースに接続していない場合は**サーバー エクスプ ローラー**を選択する必要があります前に**Microsoft SQL Server**データ ソースとして</span><span class="sxs-lookup"><span data-stu-id="3680a-118">If you haven’t connected to a database from **Server Explorer** before you’ll need to select **Microsoft SQL Server** as the data source</span></span>
 
     ![データ ソースの選択](~/ef6/media/selectdatasource.png)
 
--   <span data-ttu-id="2bf6e-120">LocalDB インスタンスに接続し、入力**ブログ**データベース名として</span><span class="sxs-lookup"><span data-stu-id="2bf6e-120">Connect to your LocalDB instance, and enter **Blogging** as the database name</span></span>
+-   <span data-ttu-id="3680a-120">LocalDB インスタンスに接続し、入力**ブログ**データベース名として</span><span class="sxs-lookup"><span data-stu-id="3680a-120">Connect to your LocalDB instance, and enter **Blogging** as the database name</span></span>
 
     ![LocalDB の接続](~/ef6/media/localdbconnection.png)
 
--   <span data-ttu-id="2bf6e-122">選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-122">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>
+-   <span data-ttu-id="3680a-122">選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**</span><span class="sxs-lookup"><span data-stu-id="3680a-122">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>
 
     ![[データベース] ダイアログを作成します。](~/ef6/media/createdatabasedialog.png)
 
--   <span data-ttu-id="2bf6e-124">新しいデータベースがサーバー エクスプ ローラーに表示されますを右クリックして選択**新しいクエリ**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-124">The new database will now appear in Server Explorer, right-click on it and select **New Query**</span></span>
--   <span data-ttu-id="2bf6e-125">新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-125">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
+-   <span data-ttu-id="3680a-124">新しいデータベースがサーバー エクスプ ローラーに表示されますを右クリックして選択**新しいクエリ**</span><span class="sxs-lookup"><span data-stu-id="3680a-124">The new database will now appear in Server Explorer, right-click on it and select **New Query**</span></span>
+-   <span data-ttu-id="3680a-125">新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**</span><span class="sxs-lookup"><span data-stu-id="3680a-125">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
 
 ``` SQL
 CREATE TABLE [dbo].[Blogs] (
@@ -70,43 +70,43 @@ INSERT INTO [dbo].[Blogs] ([Name],[Url])
 VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 ```
 
-## <a name="2-create-the-application"></a><span data-ttu-id="2bf6e-126">2.アプリケーションを作成する</span><span class="sxs-lookup"><span data-stu-id="2bf6e-126">2. Create the Application</span></span>
+## <a name="2-create-the-application"></a><span data-ttu-id="3680a-126">2.アプリケーションを作成する</span><span class="sxs-lookup"><span data-stu-id="3680a-126">2. Create the Application</span></span>
 
-<span data-ttu-id="2bf6e-127">簡単に、Code First を使用して、データ アクセスを実行する基本的なコンソール アプリケーションをビルドしていきます。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-127">To keep things simple we’re going to build a basic console application that uses Code First to perform data access:</span></span>
+<span data-ttu-id="3680a-127">簡単に、Code First を使用して、データ アクセスを実行する基本的なコンソール アプリケーションをビルドしていきます。</span><span class="sxs-lookup"><span data-stu-id="3680a-127">To keep things simple we’re going to build a basic console application that uses Code First to perform data access:</span></span>
 
--   <span data-ttu-id="2bf6e-128">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="2bf6e-128">Open Visual Studio</span></span>
--   <span data-ttu-id="2bf6e-129">**ファイル -&gt;新機能 -&gt;プロジェクト.**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-129">**File -&gt; New -&gt; Project…**</span></span>
--   <span data-ttu-id="2bf6e-130">選択**Windows**左側のメニューと**コンソール アプリケーション**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-130">Select **Windows** from the left menu and **Console Application**</span></span>
--   <span data-ttu-id="2bf6e-131">入力**CodeFirstExistingDatabaseSample**名として</span><span class="sxs-lookup"><span data-stu-id="2bf6e-131">Enter **CodeFirstExistingDatabaseSample** as the name</span></span>
--   <span data-ttu-id="2bf6e-132">**[OK]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-132">Select **OK**</span></span>
+-   <span data-ttu-id="3680a-128">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="3680a-128">Open Visual Studio</span></span>
+-   <span data-ttu-id="3680a-129">**ファイル -&gt;新機能 -&gt;プロジェクト.**</span><span class="sxs-lookup"><span data-stu-id="3680a-129">**File -&gt; New -&gt; Project…**</span></span>
+-   <span data-ttu-id="3680a-130">選択**Windows**左側のメニューと**コンソール アプリケーション**</span><span class="sxs-lookup"><span data-stu-id="3680a-130">Select **Windows** from the left menu and **Console Application**</span></span>
+-   <span data-ttu-id="3680a-131">入力**CodeFirstExistingDatabaseSample**名として</span><span class="sxs-lookup"><span data-stu-id="3680a-131">Enter **CodeFirstExistingDatabaseSample** as the name</span></span>
+-   <span data-ttu-id="3680a-132">**[OK]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="3680a-132">Select **OK**</span></span>
 
  
 
-## <a name="3-reverse-engineer-model"></a><span data-ttu-id="2bf6e-133">3.リバース エンジニア リング モデル</span><span class="sxs-lookup"><span data-stu-id="2bf6e-133">3. Reverse Engineer Model</span></span>
+## <a name="3-reverse-engineer-model"></a><span data-ttu-id="3680a-133">3.リバース エンジニア リング モデル</span><span class="sxs-lookup"><span data-stu-id="3680a-133">3. Reverse Engineer Model</span></span>
 
-<span data-ttu-id="2bf6e-134">データベースにマップする初期コードを生成するために Entity Framework Tools for Visual Studio の使用になります。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-134">We’re going to make use of the Entity Framework Tools for Visual Studio to help us generate some initial code to map to the database.</span></span> <span data-ttu-id="2bf6e-135">これらのツールが入力することも手動で使用する場合のコードを生成するだけです。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-135">These tools are just generating code that you could also type by hand if you prefer.</span></span>
+<span data-ttu-id="3680a-134">データベースにマップする初期コードを生成するために Entity Framework Tools for Visual Studio の使用になります。</span><span class="sxs-lookup"><span data-stu-id="3680a-134">We’re going to make use of the Entity Framework Tools for Visual Studio to help us generate some initial code to map to the database.</span></span> <span data-ttu-id="3680a-135">これらのツールが入力することも手動で使用する場合のコードを生成するだけです。</span><span class="sxs-lookup"><span data-stu-id="3680a-135">These tools are just generating code that you could also type by hand if you prefer.</span></span>
 
--   <span data-ttu-id="2bf6e-136">**プロジェクト -&gt;新しい項目を追加しています.**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-136">**Project -&gt; Add New Item…**</span></span>
--   <span data-ttu-id="2bf6e-137">選択**データ**左側のメニューをクリックし**ADO.NET Entity Data Model**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-137">Select **Data** from the left menu and then **ADO.NET Entity Data Model**</span></span>
--   <span data-ttu-id="2bf6e-138">入力**BloggingContext**名をクリックします**OK**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-138">Enter **BloggingContext** as the name and click **OK**</span></span>
--   <span data-ttu-id="2bf6e-139">これにより、起動、 **Entity Data Model ウィザード**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-139">This launches the **Entity Data Model Wizard**</span></span>
--   <span data-ttu-id="2bf6e-140">選択**データベースから Code First**クリック **[次へ]**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-140">Select **Code First from Database** and click **Next**</span></span>
+-   <span data-ttu-id="3680a-136">**プロジェクト -&gt;新しい項目を追加しています.**</span><span class="sxs-lookup"><span data-stu-id="3680a-136">**Project -&gt; Add New Item…**</span></span>
+-   <span data-ttu-id="3680a-137">選択**データ**左側のメニューをクリックし**ADO.NET Entity Data Model**</span><span class="sxs-lookup"><span data-stu-id="3680a-137">Select **Data** from the left menu and then **ADO.NET Entity Data Model**</span></span>
+-   <span data-ttu-id="3680a-138">入力**BloggingContext**名をクリックします**OK**</span><span class="sxs-lookup"><span data-stu-id="3680a-138">Enter **BloggingContext** as the name and click **OK**</span></span>
+-   <span data-ttu-id="3680a-139">これにより、起動、 **Entity Data Model ウィザード**</span><span class="sxs-lookup"><span data-stu-id="3680a-139">This launches the **Entity Data Model Wizard**</span></span>
+-   <span data-ttu-id="3680a-140">選択**データベースから Code First**クリック **[次へ]**</span><span class="sxs-lookup"><span data-stu-id="3680a-140">Select **Code First from Database** and click **Next**</span></span>
 
     ![1 つと、CFE ウィザード](~/ef6/media/wizardonecfe.png)
 
--   <span data-ttu-id="2bf6e-142">最初のセクションで作成したデータベースへの接続を選択し、クリックして **[次へ]**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-142">Select the connection to the database you created in the first section and click **Next**</span></span>
+-   <span data-ttu-id="3680a-142">最初のセクションで作成したデータベースへの接続を選択し、クリックして **[次へ]**</span><span class="sxs-lookup"><span data-stu-id="3680a-142">Select the connection to the database you created in the first section and click **Next**</span></span>
 
     ![ウィザードの 2 つの CFE](~/ef6/media/wizardtwocfe.png)
 
--   <span data-ttu-id="2bf6e-144">横のチェック ボックスをクリックして**テーブル**すべてのテーブルのインポート をクリックして**完了**</span><span class="sxs-lookup"><span data-stu-id="2bf6e-144">Click the checkbox next to **Tables** to import all tables and click **Finish**</span></span>
+-   <span data-ttu-id="3680a-144">横のチェック ボックスをクリックして**テーブル**すべてのテーブルのインポート をクリックして**完了**</span><span class="sxs-lookup"><span data-stu-id="3680a-144">Click the checkbox next to **Tables** to import all tables and click **Finish**</span></span>
 
     ![ウィザードの 3 つの CFE](~/ef6/media/wizardthreecfe.png)
 
-<span data-ttu-id="2bf6e-146">リバース エンジニア リング プロセスが完了項目の数が追加されて、プロジェクトにみましょう見て何が追加されています。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-146">Once the reverse engineer process completes a number of items will have been added to the project, let's take a look at what's been added.</span></span>
+<span data-ttu-id="3680a-146">リバース エンジニア リング プロセスが完了項目の数が追加されて、プロジェクトにみましょう見て何が追加されています。</span><span class="sxs-lookup"><span data-stu-id="3680a-146">Once the reverse engineer process completes a number of items will have been added to the project, let's take a look at what's been added.</span></span>
 
-### <a name="configuration-file"></a><span data-ttu-id="2bf6e-147">構成ファイル</span><span class="sxs-lookup"><span data-stu-id="2bf6e-147">Configuration file</span></span>
+### <a name="configuration-file"></a><span data-ttu-id="3680a-147">構成ファイル</span><span class="sxs-lookup"><span data-stu-id="3680a-147">Configuration file</span></span>
 
-<span data-ttu-id="2bf6e-148">App.config ファイルが追加されました、プロジェクトにこのファイルには、既存のデータベースへの接続文字列が含まれています。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-148">An App.config file has been added to the project, this file contains the connection string to the existing database.</span></span>
+<span data-ttu-id="3680a-148">App.config ファイルが追加されました、プロジェクトにこのファイルには、既存のデータベースへの接続文字列が含まれています。</span><span class="sxs-lookup"><span data-stu-id="3680a-148">An App.config file has been added to the project, this file contains the connection string to the existing database.</span></span>
 
 ``` xml
 <connectionStrings>
@@ -117,12 +117,12 @@ VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 </connectionStrings>
 ```
 
-<span data-ttu-id="2bf6e-149">*わかります構成ファイル内の他の設定も、これらは Code First のデータベースを作成する場所を指示する既定の EF 設定です。アプリケーションでは、これらの設定は無視されます、既存のデータベースにマッピングしましたので。*</span><span class="sxs-lookup"><span data-stu-id="2bf6e-149">*You’ll notice some other settings in the configuration file too, these are default EF settings that tell Code First where to create databases. Since we are mapping to an existing database these setting will be ignored in our application.*</span></span>
+<span data-ttu-id="3680a-149">*わかります構成ファイル内の他の設定も、これらは Code First のデータベースを作成する場所を指示する既定の EF 設定です。アプリケーションでは、これらの設定は無視されます、既存のデータベースにマッピングしましたので。*</span><span class="sxs-lookup"><span data-stu-id="3680a-149">*You’ll notice some other settings in the configuration file too, these are default EF settings that tell Code First where to create databases. Since we are mapping to an existing database these setting will be ignored in our application.*</span></span>
 
-### <a name="derived-context"></a><span data-ttu-id="2bf6e-150">派生コンテキスト</span><span class="sxs-lookup"><span data-stu-id="2bf6e-150">Derived Context</span></span>
+### <a name="derived-context"></a><span data-ttu-id="3680a-150">派生コンテキスト</span><span class="sxs-lookup"><span data-stu-id="3680a-150">Derived Context</span></span>
 
-<span data-ttu-id="2bf6e-151">A **BloggingContext**クラスがプロジェクトに追加されました。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-151">A **BloggingContext** class has been added to the project.</span></span> <span data-ttu-id="2bf6e-152">コンテキストは、クエリを実行し、データを保存することができます、データベースとのセッションを表します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-152">The context represents a session with the database, allowing us to query and save data.</span></span>
-<span data-ttu-id="2bf6e-153">コンテキストを公開、 **DbSet&lt;TEntity&gt;** モデルの種類ごとにします。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-153">The context exposes a **DbSet&lt;TEntity&gt;** for each type in our model.</span></span> <span data-ttu-id="2bf6e-154">また、基底コンス トラクターを使用して、既定のコンス トラクターを呼び出す、**名 =** 構文。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-154">You’ll also notice that the default constructor calls a base constructor using the **name=** syntax.</span></span> <span data-ttu-id="2bf6e-155">このコンテキストで使用する接続文字列を構成ファイルから読み込む必要がある Code First 指示します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-155">This tells Code First that the connection string to use for this context should be loaded from the configuration file.</span></span>
+<span data-ttu-id="3680a-151">A **BloggingContext**クラスがプロジェクトに追加されました。</span><span class="sxs-lookup"><span data-stu-id="3680a-151">A **BloggingContext** class has been added to the project.</span></span> <span data-ttu-id="3680a-152">コンテキストは、クエリを実行し、データを保存することができます、データベースとのセッションを表します。</span><span class="sxs-lookup"><span data-stu-id="3680a-152">The context represents a session with the database, allowing us to query and save data.</span></span>
+<span data-ttu-id="3680a-153">コンテキストを公開、 **DbSet&lt;TEntity&gt;** モデルの種類ごとにします。</span><span class="sxs-lookup"><span data-stu-id="3680a-153">The context exposes a **DbSet&lt;TEntity&gt;** for each type in our model.</span></span> <span data-ttu-id="3680a-154">また、基底コンストラクターを使用して、既定のコンストラクターを呼び出す、**名 =** 構文。</span><span class="sxs-lookup"><span data-stu-id="3680a-154">You’ll also notice that the default constructor calls a base constructor using the **name=** syntax.</span></span> <span data-ttu-id="3680a-155">このコンテキストで使用する接続文字列を構成ファイルから読み込む必要がある Code First 指示します。</span><span class="sxs-lookup"><span data-stu-id="3680a-155">This tells Code First that the connection string to use for this context should be loaded from the configuration file.</span></span>
 
 ``` csharp
 public partial class BloggingContext : DbContext
@@ -141,11 +141,11 @@ public partial class BloggingContext : DbContext
     }
 ```
 
-<span data-ttu-id="2bf6e-156">*常に使用する必要があります、\*\*名 =*\* 構文、構成ファイルで接続文字列を使用している場合。これにより、接続文字列が存在しない場合、Entity Framework がスローされます規則により、新しいデータベースを作成するのではなく。\*</span><span class="sxs-lookup"><span data-stu-id="2bf6e-156">*You should always use the **name=** syntax when you are using a connection string in the config file. This ensures that if the connection string is not present then Entity Framework will throw rather than creating a new database by convention.*</span></span>
+<span data-ttu-id="3680a-156">*常に使用する必要があります、\*\*名 =*\* 構文、構成ファイルで接続文字列を使用している場合。これにより、接続文字列が存在しない場合、Entity Framework がスローされます規則により、新しいデータベースを作成するのではなく。\*</span><span class="sxs-lookup"><span data-stu-id="3680a-156">*You should always use the **name=** syntax when you are using a connection string in the config file. This ensures that if the connection string is not present then Entity Framework will throw rather than creating a new database by convention.*</span></span>
 
-### <a name="model-classes"></a><span data-ttu-id="2bf6e-157">モデル クラス</span><span class="sxs-lookup"><span data-stu-id="2bf6e-157">Model classes</span></span>
+### <a name="model-classes"></a><span data-ttu-id="3680a-157">モデル クラス</span><span class="sxs-lookup"><span data-stu-id="3680a-157">Model classes</span></span>
 
-<span data-ttu-id="2bf6e-158">最後に、**ブログ**と**Post**クラスもプロジェクトに追加されました。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-158">Finally, a **Blog** and **Post** class have also been added to the project.</span></span> <span data-ttu-id="2bf6e-159">これらは、私たちのモデルを構成するドメイン クラスです。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-159">These are the domain classes that make up our model.</span></span> <span data-ttu-id="2bf6e-160">Code First の規則は、既存のデータベースの構造と合っていない場所の構成を指定する、クラスに適用されるデータ注釈が表示されます。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-160">You'll see Data Annotations applied to the classes to specify configuration where the Code First conventions would not align with the structure of the existing database.</span></span> <span data-ttu-id="2bf6e-161">たとえばに表示、 **StringLength**注釈**Blog.Name**と**Blog.Url**の最大長があるため**200**で、データベース (Code First の既定値がデータベース プロバイダー - でサポートされる最大長を使用するには**nvarchar (max)** SQL server)。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-161">For example, you'll see the **StringLength** annotation on **Blog.Name** and **Blog.Url** since they have a maximum length of **200** in the database (the Code First default is to use the maximun length supported by the database provider - **nvarchar(max)** in SQL Server).</span></span>
+<span data-ttu-id="3680a-158">最後に、**ブログ**と**Post**クラスもプロジェクトに追加されました。</span><span class="sxs-lookup"><span data-stu-id="3680a-158">Finally, a **Blog** and **Post** class have also been added to the project.</span></span> <span data-ttu-id="3680a-159">これらは、私たちのモデルを構成するドメイン クラスです。</span><span class="sxs-lookup"><span data-stu-id="3680a-159">These are the domain classes that make up our model.</span></span> <span data-ttu-id="3680a-160">Code First の規則は、既存のデータベースの構造と合っていない場所の構成を指定する、クラスに適用されるデータ注釈が表示されます。</span><span class="sxs-lookup"><span data-stu-id="3680a-160">You'll see Data Annotations applied to the classes to specify configuration where the Code First conventions would not align with the structure of the existing database.</span></span> <span data-ttu-id="3680a-161">たとえばに表示、 **StringLength**注釈**Blog.Name**と**Blog.Url**の最大長があるため**200**で、データベース (Code First の既定値がデータベース プロバイダー - でサポートされる最大長を使用するには**nvarchar (max)** SQL server)。</span><span class="sxs-lookup"><span data-stu-id="3680a-161">For example, you'll see the **StringLength** annotation on **Blog.Name** and **Blog.Url** since they have a maximum length of **200** in the database (the Code First default is to use the maximun length supported by the database provider - **nvarchar(max)** in SQL Server).</span></span>
 
 ``` csharp
 public partial class Blog
@@ -167,9 +167,9 @@ public partial class Blog
 }
 ```
 
-## <a name="4-reading--writing-data"></a><span data-ttu-id="2bf6e-162">4.読み取りとデータの書き込み</span><span class="sxs-lookup"><span data-stu-id="2bf6e-162">4. Reading & Writing Data</span></span>
+## <a name="4-reading--writing-data"></a><span data-ttu-id="3680a-162">4.読み取りとデータの書き込み</span><span class="sxs-lookup"><span data-stu-id="3680a-162">4. Reading & Writing Data</span></span>
 
-<span data-ttu-id="2bf6e-163">使用して一部のデータにアクセスするには、モデルができました。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-163">Now that we have a model it’s time to use it to access some data.</span></span> <span data-ttu-id="2bf6e-164">実装、 **Main**メソッド**Program.cs**次のようです。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-164">Implement the **Main** method in **Program.cs** as shown below.</span></span> <span data-ttu-id="2bf6e-165">このコードは、コンテキストの新しいインスタンスを作成し、新しい挿入を使用して**ブログ**します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-165">This code creates a new instance of our context and then uses it to insert a new **Blog**.</span></span> <span data-ttu-id="2bf6e-166">すべてを取得する LINQ クエリを使用して**ブログ**でアルファベット順では、データベースから**タイトル**します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-166">Then it uses a LINQ query to retrieve all **Blogs** from the database ordered alphabetically by **Title**.</span></span>
+<span data-ttu-id="3680a-163">使用して一部のデータにアクセスするには、モデルができました。</span><span class="sxs-lookup"><span data-stu-id="3680a-163">Now that we have a model it’s time to use it to access some data.</span></span> <span data-ttu-id="3680a-164">実装、 **Main**メソッド**Program.cs**次のようです。</span><span class="sxs-lookup"><span data-stu-id="3680a-164">Implement the **Main** method in **Program.cs** as shown below.</span></span> <span data-ttu-id="3680a-165">このコードは、コンテキストの新しいインスタンスを作成し、新しい挿入を使用して**ブログ**します。</span><span class="sxs-lookup"><span data-stu-id="3680a-165">This code creates a new instance of our context and then uses it to insert a new **Blog**.</span></span> <span data-ttu-id="3680a-166">すべてを取得する LINQ クエリを使用して**ブログ**でアルファベット順では、データベースから**タイトル**します。</span><span class="sxs-lookup"><span data-stu-id="3680a-166">Then it uses a LINQ query to retrieve all **Blogs** from the database ordered alphabetically by **Title**.</span></span>
 
 ``` csharp
 class Program
@@ -204,7 +204,7 @@ class Program
 }
 ```
 
-<span data-ttu-id="2bf6e-167">アプリケーションを実行し、テストを実行できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-167">You can now run the application and test it out.</span></span>
+<span data-ttu-id="3680a-167">アプリケーションを実行し、テストを実行できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="3680a-167">You can now run the application and test it out.</span></span>
 
 ```
 Enter a name for a new Blog: ADO.NET Blog
@@ -215,14 +215,14 @@ The Visual Studio Blog
 Press any key to exit...
 ```
  
-## <a name="what-if-my-database-changes"></a><span data-ttu-id="2bf6e-168">データベースが変わった場合でしょうか。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-168">What if My Database Changes?</span></span>
+## <a name="what-if-my-database-changes"></a><span data-ttu-id="3680a-168">データベースが変わった場合でしょうか。</span><span class="sxs-lookup"><span data-stu-id="3680a-168">What if My Database Changes?</span></span>
 
-<span data-ttu-id="2bf6e-169">Code First Database ウィザードには、クラスを調整し、変更することができますの開始地点のセットを生成しています。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-169">The Code First to Database wizard is designed to generate a starting point set of classes that you can then tweak and modify.</span></span> <span data-ttu-id="2bf6e-170">データベース スキーマが変更された場合か、手動でクラスを編集したりクラスを上書きする別のリバース エンジニア リングを実行できます。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-170">If your database schema changes you can either manually edit the classes or perform another reverse engineer to overwrite the classes.</span></span>
+<span data-ttu-id="3680a-169">Code First Database ウィザードには、クラスを調整し、変更することができますの開始地点のセットを生成しています。</span><span class="sxs-lookup"><span data-stu-id="3680a-169">The Code First to Database wizard is designed to generate a starting point set of classes that you can then tweak and modify.</span></span> <span data-ttu-id="3680a-170">データベース スキーマが変更された場合か、手動でクラスを編集したりクラスを上書きする別のリバース エンジニア リングを実行できます。</span><span class="sxs-lookup"><span data-stu-id="3680a-170">If your database schema changes you can either manually edit the classes or perform another reverse engineer to overwrite the classes.</span></span>
 
-## <a name="using-code-first-migrations-to-an-existing-database"></a><span data-ttu-id="2bf6e-171">既存のデータベースの Code First Migrations を使用します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-171">Using Code First Migrations to an Existing Database</span></span>
+## <a name="using-code-first-migrations-to-an-existing-database"></a><span data-ttu-id="3680a-171">既存のデータベースの Code First Migrations を使用します。</span><span class="sxs-lookup"><span data-stu-id="3680a-171">Using Code First Migrations to an Existing Database</span></span>
 
-<span data-ttu-id="2bf6e-172">既存のデータベースで Code First Migrations を使用する場合を参照してください。[既存のデータベースの Code First Migrations](~/ef6/modeling/code-first/migrations/existing-database.md)します。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-172">If you want to use Code First Migrations with an existing database, see [Code First Migrations to an existing database](~/ef6/modeling/code-first/migrations/existing-database.md).</span></span>
+<span data-ttu-id="3680a-172">既存のデータベースで Code First Migrations を使用する場合を参照してください。[既存のデータベースの Code First Migrations](~/ef6/modeling/code-first/migrations/existing-database.md)します。</span><span class="sxs-lookup"><span data-stu-id="3680a-172">If you want to use Code First Migrations with an existing database, see [Code First Migrations to an existing database](~/ef6/modeling/code-first/migrations/existing-database.md).</span></span>
 
-## <a name="summary"></a><span data-ttu-id="2bf6e-173">まとめ</span><span class="sxs-lookup"><span data-stu-id="2bf6e-173">Summary</span></span>
+## <a name="summary"></a><span data-ttu-id="3680a-173">まとめ</span><span class="sxs-lookup"><span data-stu-id="3680a-173">Summary</span></span>
 
-<span data-ttu-id="2bf6e-174">このチュートリアルでは、既存のデータベースを使用して Code First の開発に説明しました。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-174">In this walkthrough we looked at Code First development using an existing database.</span></span> <span data-ttu-id="2bf6e-175">Entity Framework Tools for Visual Studio を使用して、リバース エンジニア リング、データベースにマップされ、データを格納および取得される可能性がありますクラスのセットをしました。</span><span class="sxs-lookup"><span data-stu-id="2bf6e-175">We used the Entity Framework Tools for Visual Studio to reverse engineer a set of classes that mapped to the database and could be used to store and retrieve data.</span></span>
+<span data-ttu-id="3680a-174">このチュートリアルでは、既存のデータベースを使用して Code First の開発に説明しました。</span><span class="sxs-lookup"><span data-stu-id="3680a-174">In this walkthrough we looked at Code First development using an existing database.</span></span> <span data-ttu-id="3680a-175">Entity Framework Tools for Visual Studio を使用して、リバース エンジニア リング、データベースにマップされ、データを格納および取得される可能性がありますクラスのセットをしました。</span><span class="sxs-lookup"><span data-stu-id="3680a-175">We used the Entity Framework Tools for Visual Studio to reverse engineer a set of classes that mapped to the database and could be used to store and retrieve data.</span></span>
