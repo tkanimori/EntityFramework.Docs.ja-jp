@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 0350b25d0d0efe05df7cb9e93a3f4ae2d864fd63
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 316d363d4a1b8a909efc1c32b492280c0d16cb4e
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "59363938"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405206"
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext の構成
 
@@ -163,7 +163,13 @@ var options = serviceProvider.GetService<DbContextOptions<BloggingContext>>();
 ```
 ## <a name="avoiding-dbcontext-threading-issues"></a>DbContext のスレッド処理の問題を回避します。
 
-Entity Framework Core は、同じ実行されている複数の並列操作をサポートしていません`DbContext`インスタンス。 未定義の動作、アプリケーションのクラッシュおよびデータの破損の可能性への同時アクセスがあります。 このを常に使用することが重要ため分離`DbContext`並列実行される操作のインスタンス。 
+Entity Framework Core は、同じ実行されている複数の並列操作をサポートしていません`DbContext`インスタンス。 これには、非同期クエリの並列実行と複数のスレッドからの明示的な同時使用の両方が含まれます。 そのため、常に`await`非同期呼び出しをすぐに、または個別`DbContext`並列実行される操作のインスタンス。
+
+EF Core を使用しようとすると、検出した場合、`DbContext`わかりますを同時に、インスタンス、`InvalidOperationException`このようなメッセージ。 
+
+> 2 番目の操作は、前の操作が完了する前に、このコンテキストで開始します。 これは通常発生別のスレッドで同じ DbContext のインスタンスを使用して、ただしインスタンス メンバーとは限りませんスレッド セーフであります。
+
+同時アクセスを検出した場合、未定義の動作、アプリケーションのクラッシュおよびデータの破損の可能性します。
 
 Inadvernetly 原因の同時アクセスは、同じことが一般的な誤りがある`DbContext`インスタンス。
 
