@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 4b251638de43af6525f3e6faa0bd4113ab1714b9
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: b1b5e286e08a8b6b4efe225a176e76023f9fdd20
+ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2019
-ms.locfileid: "59619260"
+ms.lasthandoff: 05/08/2019
+ms.locfileid: "65405238"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -75,6 +75,35 @@ ASP.NET Core 3.0 より前では、パッケージ参照を `Microsoft.AspNetCor
 **軽減策**
 
 ASP.NET Core 3.0 アプリケーションまたはその他のサポートされるアプリケーションで EF Core を使用するには、アプリケーションで使用される EF Core データベース プロバイダーにパッケージ参照を明示的に追加します。
+
+## <a name="the-ef-core-command-line-tool-dotnet-ef-is-no-longer-part-of-the-net-core-sdk"></a>EF Core のコマンドライン ツールである dotnet ef が .NET Core SDK の一部ではなくなった
+
+[問題 #14016 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14016)
+
+この変更は、EF Core 3.0 プレビュー 4 および .NET Core SDK の対応するバージョンで導入されました。
+
+**以前の動作**
+
+3.0 より前は `dotnet ef` ツールが .NET Core SDK に含まれており、追加の手順を必要とせずに、任意のプロジェクトのコマンド ラインから簡単に使用できました。 
+
+**新しい動作**
+
+3.0 以降は .NET SDK に `dotnet ef` ツールが含まれないため、これを使用するにはローカルまたはグローバルなツールとして明示的にインストールする必要があります。 
+
+**理由**
+
+この変更により、`dotnet ef` を通常の .NET CLI ツールとして NuGet 上で配信したり更新したりできるようになります。これは EF Core 3.0 も常に NuGet パッケージとして配信されるという事実と一致します。
+
+**軽減策**
+
+移行の管理や `DbContext` のスキャフォールディングを行うには、`dotnet-ef` を `dotnet tool install` コマンドを使用してインストールします。
+たとえば、グローバルなツールとしてインストールするには、次のコマンドを入力します。
+
+  ``` console
+  $ dotnet tool install --global dotnet-ef --version <exact-version>
+  ```
+
+[ツール マニフェスト ファイル](https://github.com/dotnet/cli/issues/10288)を使用してツールの依存関係として宣言するプロジェクトの依存関係を復元するときに、ローカルなツールとして取得することもできます。
 
 ## <a name="fromsql-executesql-and-executesqlasync-have-been-renamed"></a>FromSql、ExecuteSql、および ExecuteSqlAsync の名前変更
 
@@ -602,7 +631,7 @@ EF Core 3.0 以降では、使用が終了したらすぐに接続が閉じら�
 
 **理由**
 
-この変更により、同じ `TransactionScope` で複数のコンテキストを使用できます。 新しい動作は、EF6 とほぼ一致します。
+この変更により、同じ `TransactionScope` で複数のコンテキストを使用できます。 新しい動作は、EF6 にも一致します。
 
 **軽減策**
 
@@ -660,7 +689,7 @@ EF Core 3.0 以降では、各整数キー プロパティで、メモリ内デ�
 
 **新しい動作**
 
-EF Core 3.0 以降では、プロパティのバッキング フィールドがわかっている場合、バッキング フィールドを使用して、常にそのプロパティの読み取りと書き込みが行われます。
+EF Core 3.0 以降では、プロパティのバッキング フィールドがわかっている場合、バッキング フィールドを使用して、常に EF Core がそのプロパティの読み取りと書き込みを行います。
 アプリケーションが getter および setter メソッドにコード化された追加動作に依存している場合、これによりアプリケーションが中断される可能性があります。
 
 **理由**

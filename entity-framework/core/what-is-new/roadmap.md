@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 834C9729-7F6E-4355-917D-DE3EE9FE149E
 uid: core/what-is-new/roadmap
-ms.openlocfilehash: e9d1a707c643036fa15b1e0e46730eadefd65518
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 937bfff4cbc3ec0b2235a78cb2f1f246697128d5
+ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562469"
+ms.lasthandoff: 04/22/2019
+ms.locfileid: "59929785"
 ---
 # <a name="entity-framework-core-roadmap"></a>Entity Framework Core のロードマップ
 
@@ -49,7 +49,7 @@ EF Core のリリース スケジュールは、[.NET Core のリリース ス�
 その大半は、特定の機能、機会、優先度に関する議論であり、プロセス自体もリリースごとに進化します。
 ただし、次の作業内容を決定するときに答えようと試みている共通の質問についてまとめることは可能です。
 
-1. **この機能を使用する開発者の数は? アプリケーション/エクスペリエンスをどの程度向上させますか?** これに答えるために、多くのソースからフィードバックを収集します。問題についてのコメントと投票は、これらのソースの 1 つです。
+1. **この機能を使用する開発者の数は? アプリケーション/エクスペリエンスをどの程度向上させますか?** この質問に答えるために、多くのソースからフィードバックを収集します。問題についてのコメントと投票は、これらのソースの 1 つです。
 
 2. **この機能をまだ実装していない場合、ユーザーが使用できる回避策とは?** たとえば、多対多のネイティブ サポートがないことを回避するために、多くの開発者は統合テーブルをマップすることができます。 当然ながら、すべての開発者がこれを実行するわけではありませんが、その多くは実行できます。そしてこれは決定の要因としてカウントされます。
 
