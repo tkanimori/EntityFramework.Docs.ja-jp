@@ -40,7 +40,7 @@
 ##### [新しいデータベース](core/get-started/full-dotnet/new-db.md)
 ##### [既存のデータベース](core/get-started/full-dotnet/existing-db.md)
 
-### Entity Framework Core の基礎
+### 基礎
 #### [接続文字列](core/miscellaneous/connection-strings.md)
 #### [ログ](core/miscellaneous/logging.md)
 #### [接続の復元性](core/miscellaneous/connection-resiliency.md)
