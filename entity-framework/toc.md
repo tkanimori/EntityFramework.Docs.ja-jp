@@ -40,7 +40,7 @@
 ##### [新しいデータベース](core/get-started/full-dotnet/new-db.md)
 ##### [既存のデータベース](core/get-started/full-dotnet/existing-db.md)
 
-### Fundamentals
+### Entity Framework Core の基礎
 #### [接続文字列](core/miscellaneous/connection-strings.md)
 #### [ログ](core/miscellaneous/logging.md)
 #### [接続の復元性](core/miscellaneous/connection-resiliency.md)
@@ -147,7 +147,7 @@
 
 ### [開始するには](ef6/get-started.md)
 
-### [ASP.NET Core の基礎の概要](ef6/fundamentals/index.md)
+### [Entity Framework の基礎](ef6/fundamentals/index.md)
 #### [Entity Framework を取得する](ef6/fundamentals/install.md)
 #### [DbContext の操作](ef6/fundamentals/working-with-dbcontext.md)
 #### [リレーションシップについて](ef6/fundamentals/relationships.md)
