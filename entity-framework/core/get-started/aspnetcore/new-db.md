@@ -5,12 +5,12 @@ ms.author: riande
 ms.date: 08/03/2018
 ms.assetid: e153627f-f132-4c11-b13c-6c9a607addce
 uid: core/get-started/aspnetcore/new-db
-ms.openlocfilehash: 25e5a683acf4bbed0b978cc6a80f1b50a0b64ca1
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: fbc1a00d6d6d0624bcbbfa1e51f4e21a915baaaa
+ms.sourcegitcommit: f277883a5ed28eba57d14aaaf17405bc1ae9cf94
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319180"
+ms.lasthandoff: 05/18/2019
+ms.locfileid: "65874574"
 ---
 # <a name="getting-started-with-ef-core-on-aspnet-core-with-a-new-database"></a>新しいデータベースを使用した ASP.NET Core での EF Core の概要
 
@@ -29,8 +29,8 @@ ms.locfileid: "58319180"
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 以下のワークロードで [Visual Studio 2017 バージョン 15.7 以降](https://www.visualstudio.com/downloads/):
-  * **ASP.NET と Web 開発** (**[Web & Cloud]\(Web とクラウド\)** の下)
-  * **.NET Core クロスプラットフォームの開発** (**[他のツールセット]** の下)
+  * **ASP.NET と Web 開発** ( **[Web & Cloud]\(Web とクラウド\)** の下)
+  * **.NET Core クロスプラットフォームの開発** ( **[他のツールセット]** の下)
 * [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core)。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
@@ -49,12 +49,12 @@ ms.locfileid: "58319180"
 * **[ASP.NET Core Web アプリケーション]** を選択します。
 * 名前に「**EFGetStarted.AspNetCore.NewDb**」を入力して **[OK]** をクリックします。
 * **[新しい ASP.NET Core Web アプリケーション]** ダイアログで次の手順を実行します。
-  * ドロップダウン リストで、**[.NET Core]** と **[ASP.NET Core 2.1]** が選択されていることを確認します。
+  * ドロップダウン リストで、 **[.NET Core]** と **[ASP.NET Core 2.1]** が選択されていることを確認します。
   * **[Web アプリケーション (モデル ビュー コントローラー)]** プロジェクト テンプレートを選択します。
   * **[認証]** に **[認証なし]** が設定されていることを確認します。
   * **[OK]** をクリックします。
 
-警告 :**[認証]** で **[なし]** ではなく **[個別のユーザー アカウント]** を使用すると、プロジェクトの `Models\IdentityModel.cs` に Entity Framework Core モデルが追加されます。 このチュートリアルで学習する手法を使用すると、エンティティ クラスを格納するのに、この既存のモデルに 2 つ目のモデルを追加するか、またはこの既存のクラスを拡張するかを選択できます。
+警告 : **[認証]** で **[なし]** ではなく **[個別のユーザー アカウント]** を使用すると、プロジェクトの `Models\IdentityModel.cs` に Entity Framework Core モデルが追加されます。 このチュートリアルで学習する手法を使用すると、エンティティ クラスを格納するのに、この既存のモデルに 2 つ目のモデルを追加するか、またはこの既存のクラスを拡張するかを選択できます。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -96,7 +96,7 @@ EF Core をインストールするには、対象となる EF Core データベ
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **Models** フォルダーを右クリックし、**[追加] > [クラス]** の順に選択します。
+* **Models** フォルダーを右クリックし、 **[追加] > [クラス]** の順に選択します。
 * 名前に「**Model.cs**」を入力して **[OK]** をクリックします。
 * このファイルの内容を次のコードに置き換えます。
 
@@ -179,9 +179,9 @@ EF Core をインストールするには、対象となる EF Core データベ
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、**[追加] > [コントローラー]** の順に選択します。
-* **[Entity Framework を使用したビューがある MVC コントローラー]** を選択し、**[追加]** をクリックします。
-* **[モデル クラス]** に **Blog** を、**[データ コンテキスト クラス]** に **BloggingContext** を設定します。
+* **ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、 **[追加] > [コントローラー]** の順に選択します。
+* **[Entity Framework を使用したビューがある MVC コントローラー]** を選択し、 **[追加]** をクリックします。
+* **[モデル クラス]** に **Blog** を、 **[データ コンテキスト クラス]** に **BloggingContext** を設定します。
 * **[追加]** をクリックします。
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
@@ -207,7 +207,7 @@ EF Core をインストールするには、対象となる EF Core データベ
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* **[デバッグ]** > **[デバッグなしで開始]**
+* **[デバッグ]**  >  **[デバッグなしで開始]**
 
 # <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -222,12 +222,12 @@ dotnet run
 
   ![[作成] ページ](_static/create.png)
 
-* **[詳細]**、**[編集]** および **[削除]** リンクをテストします。
+* **[詳細]** 、 **[編集]** および **[削除]** リンクをテストします。
 
   ![インデックス ページ](_static/index-new-db.png)
 
 ## <a name="additional-resources"></a>その他のリソース
 
 * [チュートリアル: SQLite を使用した新しいデータベースでの .NET Core での EF Core の概要](xref:core/get-started/netcore/new-db-sqlite)
-* [チュートリアル: ASP.NET Core の Razor ページの概要](https://docs.microsoft.com/aspnet/core/tutorials/razor-pages/razor-pages-start)
-* [チュートリアル: ASP.NET Core での Entity Framework Core を使用した Razor ページ](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro)
+* [ASP.NET Core の Razor Pages の概要](/aspnet/core/tutorials/razor-pages/razor-pages-start)または [ASP.NET Core MVC の概要](/aspnet/core/tutorials/first-mvc-app/start-mvc)
+* [チュートリアル: ASP.NET Core での Entity Framework Core を使用した Razor Pages](https://docs.microsoft.com/aspnet/core/data/ef-rp/intro) または [ASP.NET MVC Web アプリでの EF Core の概要](/aspnet/core/data/ef-mvc/intro)
