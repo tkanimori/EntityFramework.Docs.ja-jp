@@ -62,7 +62,7 @@ ms.locfileid: "59929876"
   * 規則のサービスの設定が変更されました。 プロバイダーは、"ProviderConventionSet"または"RelationalConventionSet"のいずれかから継承する必要があります。
   * カスタマイズを追加する`IConventionSetCustomizer`サービスが、これはプロバイダーではないその他の拡張機能で使用するためのものです。
   * 実行時に使用される規則がから解決される必要`IConventionSetBuilder`します。
-* https://github.com/aspnet/EntityFrameworkCore/pull/15288 データのシード処理が、内部型を使用する必要を回避するためにパブリック API にリファクタリングされています。 非リレーショナルのプロバイダーは、リレーショナルの基底クラスによって、すべてのリレーショナル プロバイダーのシード処理は処理されるためこれのみ影響する必要があります。
+* [https://github.com/aspnet/EntityFrameworkCore/pull/15288](https://github.com/aspnet/EntityFrameworkCore/pull/15288) データのシード処理が、内部型を使用する必要を回避するためにパブリック API にリファクタリングされています。 非リレーショナルのプロバイダーは、リレーショナルの基底クラスによって、すべてのリレーショナル プロバイダーのシード処理は処理されるためこれのみ影響する必要があります。
 
 ## <a name="21-----22"></a>2.1 ---> 2.2
 
