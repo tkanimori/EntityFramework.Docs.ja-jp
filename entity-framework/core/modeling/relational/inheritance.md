@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 2aaceb05bbc1b0eb5c116b3dc1fb33c90c115a70
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: 2d0a2abc554f5f115479f886ca3f9f4f01b80b5b
+ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419680"
+ms.lasthandoff: 05/31/2019
+ms.locfileid: "66452281"
 ---
 # <a name="inheritance-relational-database"></a>継承 (リレーショナル データベース)
 
@@ -52,7 +52,7 @@ public class RssBlog : Blog
 ![イメージ](_static/inheritance-tph-data.png)
 
 >[!NOTE]
-> データベース colmmns は TPH マッピングを使用する場合、必要に応じて、null 許容に自動的にします。
+> データベースの列が TPH マッピングを使用する場合に自動的に必要に応じて、null 許容設定します。
 
 ## <a name="data-annotations"></a>データの注釈
 
@@ -99,7 +99,7 @@ modelBuilder.Entity<Blog>()
     .HasMaxLength(200);
 ```
 
-識別子は、エンティティ内の実際の CLR プロパティにもマップできます。 例:
+識別子は、エンティティ内の実際の CLR プロパティにもマップできます。 例えば:
 ```C#
 class MyContext : DbContext
 {
