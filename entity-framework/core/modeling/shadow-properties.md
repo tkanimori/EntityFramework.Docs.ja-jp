@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 75369266-d2b9-4416-b118-ed238f81f599
 uid: core/modeling/shadow-properties
-ms.openlocfilehash: b7b7b10642564dfa3dbc05755188b5b5c63e0d03
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 4029539f3642f539a427f5901577d4df96c00f30
+ms.sourcegitcommit: 119058fefd7f35952048f783ada68be9aa612256
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993803"
+ms.lasthandoff: 06/06/2019
+ms.locfileid: "66749699"
 ---
 # <a name="shadow-properties"></a>シャドウ プロパティ
 
@@ -20,7 +20,7 @@ ms.locfileid: "42993803"
 シャドウ プロパティの値を入手して使用して変更することができます、 `ChangeTracker` API。
 
 ``` csharp
-   context.Entry(myBlog).Property("LastUpdated").CurrentValue = DateTime.Now;
+context.Entry(myBlog).Property("LastUpdated").CurrentValue = DateTime.Now;
 ```
 
 シャドウ プロパティを使用した LINQ クエリで参照できます、`EF.Property`静的メソッド。
