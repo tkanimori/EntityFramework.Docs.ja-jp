@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: b1b5e286e08a8b6b4efe225a176e76023f9fdd20
-ms.sourcegitcommit: 960e42a01b3a2f76da82e074f64f52252a8afecc
+ms.openlocfilehash: faae0153e0f2bdd42d3b316582dfcab88d9ceb5b
+ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/08/2019
-ms.locfileid: "65405238"
+ms.lasthandoff: 05/31/2019
+ms.locfileid: "66452298"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -742,7 +742,7 @@ modelBuilder
 
 **以前の動作**
 
-EF Core 3.0 以前では、プロパティは文字列値により指定できました。CLR 型でその名前のプロパティが見つからなかった場合、EF Core では一般的な規則でフィールドの照合が試されました。
+EF Core 3.0 以前では、プロパティは文字列値により指定できました。CLR 型でその名前のプロパティが見つからなかった場合、EF Core では、一般的な規則を使ってそれとフィールドの照合が試行されました。
 ```C#
 private class Blog
 {
@@ -985,7 +985,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 **以前の動作**
 
-EF Core 3.0 以前では、1 つの文字列と共に `HasOne` または `HasMany` を呼び出すコードは、わかりにくい方法で解釈されていました。
+EF Core 3.0 以前では、1 つの文字列と共に `HasOne` または `HasMany` が呼び出されるコードは、わかりにくい方法で解釈されていました。
 次に例を示します。
 ```C#
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
@@ -1240,7 +1240,7 @@ Char の値は、以前は SQLite に整数値として格納されていまし�
 
 **新しい動作**
 
-Char の値はテキストとして格納されます。
+Char の値はテキストとして格納されるようになりました。
 
 **理由**
 
@@ -1277,7 +1277,7 @@ Microsoft.Data.Sqlite では、引き続き整数とテキストの両方の列�
 
 **以前の動作**
 
-移行 ID は選択されているカルチャの暦を使用して意図なく生成されていました。
+移行 ID は、誤って現在のカルチャの暦を使用して生成されていました。
 
 **新しい動作**
 
@@ -1289,7 +1289,7 @@ Microsoft.Data.Sqlite では、引き続き整数とテキストの両方の列�
 
 **軽減策**
 
-この変更は、グレゴリオ暦以外の暦 (タイ仏暦など) を使用し、1 年がグレゴリオ暦より長くなるすべてのユーザーに影響します。 既存の移行後に新しい移行順序が設定されるように、既存の移行 ID を更新する必要があります。
+この変更は、1 年がグレゴリオ暦より長くなるグレゴリオ暦以外の暦 (タイ仏暦など) を使用しているすべてのユーザーに影響します。 既存の移行後に新しい移行順序が設定されるように、既存の移行 ID を更新する必要があります。
 
 移行 ID は、移行のデザイナー ファイルの移行属性にあります。
 
@@ -1342,7 +1342,7 @@ var constraintName = myForeignKey.Name;
 
 **新しい動作**
 
-EF Core 3.0 以降は、外部キー制約名が "定数名" と呼ばれるようになりました。 次に例を示します。
+EF Core 3.0 以降は、外部キー制約名が "制約名" と呼ばれるようになりました。 次に例を示します。
 
 ```C#
 var constraintName = myForeignKey.ConstraintName;
@@ -1350,7 +1350,7 @@ var constraintName = myForeignKey.ConstraintName;
 
 **理由**
 
-この変更により、この領域の名前付けに一貫性が生まれ、それが外部キーが定義されている列やプロパティの名前ではなく、外部キー制約の名前であることが明確になりました。
+この変更により、この領域の名前付けに一貫性がもたらされます。また、それが外部キーが定義されている列やプロパティの名前ではなく、外部キー制約の名前であることが明確になりました。
 
 **軽減策**
 
