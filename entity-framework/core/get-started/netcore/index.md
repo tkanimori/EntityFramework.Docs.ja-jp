@@ -13,6 +13,6 @@ ms.locfileid: "42996421"
 ---
 # <a name="getting-started-with-ef-core-on-net-core"></a>.NET Core での EF Core の概要
 
-これらの 101 チュートリアルでは、Entity Framework Core や Visual Studio に関する予備知識が必要ありません。 データベースにデータを問い合わせ、データを保存する単純な .NET Core コンソール アプリケーションを段階的に作成します。 チュートリアルは、.NET Core (Windows、OSX、Linux など) でサポートされているあらゆるプラットフォームで実行できます。
+これらの 101 チュートリアルでは、Entity Framework Core や Visual Studio に関する予備知識は必要ありません。 データベースにデータを問い合わせ、データを保存する単純な .NET Core コンソール アプリケーションを段階的に作成します。 チュートリアルは、.NET Core (Windows、OSX、Linux など) でサポートされているあらゆるプラットフォームで実行できます。
 
 .NET Core ドキュメントは [docs.microsoft.com/dotnet/articles/core](https://docs.microsoft.com/dotnet/articles/core/) にあります。
