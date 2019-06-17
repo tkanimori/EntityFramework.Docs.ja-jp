@@ -3,12 +3,12 @@ title: 非同期クエリを実行し、保存、EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: d56e6f1d-4bd1-4b50-9558-9a30e04a8ec3
-ms.openlocfilehash: 89c7b9d533d37b4c9e123f37d8ab27c67ba26cc8
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: 8c72012be4b77ff31faf909bf02035865521a640
+ms.sourcegitcommit: 7c5c5e09a4d2671d7461e027837966c4ff91e398
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668714"
+ms.lasthandoff: 06/15/2019
+ms.locfileid: "67148497"
 ---
 # <a name="async-query-and-save"></a>非同期クエリを実行し、保存
 > [!NOTE]
