@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: faae0153e0f2bdd42d3b316582dfcab88d9ceb5b
-ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
+ms.openlocfilehash: 9112d8d235237e68232aac54453d584af0edb524
+ms.sourcegitcommit: b188194a1901f4d086d05765cbc5c9b8c9dc5eed
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/31/2019
-ms.locfileid: "66452298"
+ms.lasthandoff: 06/11/2019
+ms.locfileid: "66829493"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -29,12 +29,12 @@ ms.locfileid: "66452298"
 
 **以前の動作**
 
-3.0 より前では、EF Core では、SQL またはパラメーターに対するクエリの一部だった式を変換できない場合、クライアントで自動的に式が評価されていました。
+3\.0 より前では、EF Core では、SQL またはパラメーターに対するクエリの一部だった式を変換できない場合、クライアントで自動的に式が評価されていました。
 既定では、コストの高い式のクライアント評価でのみ警告がトリガーされました。
 
 **新しい動作**
 
-3.0 以降では、クライアントで評価される最上位のプロジェクション (クエリの最後の `Select()` 呼び出し) の式のみが EF Core で許可されます。
+3\.0 以降では、クライアントで評価される最上位のプロジェクション (クエリの最後の `Select()` 呼び出し) の式のみが EF Core で許可されます。
 クエリの他の部分の式を SQL やパラメーターに変換できない場合、例外がスローされます。
 
 **理由**
@@ -55,7 +55,7 @@ ms.locfileid: "66452298"
 
 [問題 Announcements#325 の追跡](https://github.com/aspnet/Announcements/issues/325)
 
-この変更は、ASP.NET Core 3.0 プレビュー 1 で導入されました。 
+この変更は、ASP.NET Core 3.0 プレビュー 1 で導入されます。 
 
 **以前の動作**
 
@@ -63,7 +63,7 @@ ASP.NET Core 3.0 より前では、パッケージ参照を `Microsoft.AspNetCor
 
 **新しい動作**
 
-3.0 以降では、ASP.NET Core 共有フレームワークには、EF Core も、いずれの EF Core データ プロバイダーも含まれません。
+3\.0 以降では、ASP.NET Core 共有フレームワークには、EF Core も、いずれの EF Core データ プロバイダーも含まれません。
 
 **理由**
 
@@ -80,15 +80,15 @@ ASP.NET Core 3.0 アプリケーションまたはその他のサポートされ
 
 [問題 #14016 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14016)
 
-この変更は、EF Core 3.0 プレビュー 4 および .NET Core SDK の対応するバージョンで導入されました。
+この変更は、EF Core 3.0 プレビュー 4 および .NET Core SDK の対応するバージョンで導入されます。
 
 **以前の動作**
 
-3.0 より前は `dotnet ef` ツールが .NET Core SDK に含まれており、追加の手順を必要とせずに、任意のプロジェクトのコマンド ラインから簡単に使用できました。 
+3\.0 より前は `dotnet ef` ツールが .NET Core SDK に含まれており、追加の手順を必要とせずに、任意のプロジェクトのコマンド ラインから簡単に使用できました。 
 
 **新しい動作**
 
-3.0 以降は .NET SDK に `dotnet ef` ツールが含まれないため、これを使用するにはローカルまたはグローバルなツールとして明示的にインストールする必要があります。 
+3\.0 以降は .NET SDK に `dotnet ef` ツールが含まれないため、これを使用するにはローカルまたはグローバルなツールとして明示的にインストールする必要があります。 
 
 **理由**
 
@@ -109,7 +109,7 @@ ASP.NET Core 3.0 アプリケーションまたはその他のサポートされ
 
 [問題 #10996 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10996)
 
-この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
 
 **以前の動作**
 
@@ -145,11 +145,33 @@ context.Products.FromSqlInterpolated(
 
 新しいメソッド名を使用するように切り替えます。
 
+## <a name="fromsql-methods-can-only-be-specified-on-query-roots"></a>FromSql メソッドはクエリのルートでのみ指定できる
+
+[問題 #15704 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15704)
+
+この変更は、EF Core 3.0 プレビュー 6 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 以前は、クエリ内の任意の場所で `FromSql` メソッドを指定できました。
+
+**新しい動作**
+
+EF Core 3.0 以降、新しい `FromSqlRaw` および `FromSqlInterpolated` メソッド (`FromSql` の置き換え) は、クエリのルート上でのみ (つまり `DbSet<>` で直接) 指定できます。 他の場所でそれらを指定しようとすると、コンパイル エラーが発生します。
+
+**理由**
+
+`DbSet` 以外の任意の場所で `FromSql` を指定しても、さらなる意味や価値が追加されることはなく、特定のシナリオではあいまいさの原因となる可能性があります。
+
+**軽減策**
+
+`FromSql` の呼び出し場所を移動して、それらが適用される `DbSet` 上で直接実行されるようにする必要があります。
+
 ## <a name="query-execution-is-logged-at-debug-level"></a>クエリの実行がデバッグ レベルでログに記録される
 
 [問題 #14523 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -179,7 +201,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 [問題 #12378 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12378)
 
-この変更は、EF Core 3.0 プレビュー 2 で導入されました。
+この変更は、EF Core 3.0 プレビュー 2 で導入されます。
 
 **以前の動作**
 
@@ -188,7 +210,7 @@ EF Core 3.0 より前では、後で実際の値がデータベースによっ�
 
 **新しい動作**
 
-3.0 以降では、EF Core で、エンティティの追跡情報の一部として一時キーの値が格納され、キー プロパティ自体はそのままになります。
+3\.0 以降では、EF Core で、エンティティの追跡情報の一部として一時キーの値が格納され、キー プロパティ自体はそのままになります。
 
 **理由**
 
@@ -207,7 +229,7 @@ EF Core 3.0 より前では、後で実際の値がデータベースによっ�
 
 [問題 #14616 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14616)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -247,15 +269,15 @@ public string Id { get; set; }
 
 [問題 #10114 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10114)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
-3.0 より前では、EF Core で適用された連鎖操作 (必要なプリンシパルが削除されたか、必要なプリンシパルへのリレーションシップが切断されたときに依存エンティティを削除する) は、SaveChanges が呼び出されるまで行われませんでした。
+3\.0 より前では、EF Core で適用された連鎖操作 (必要なプリンシパルが削除されたか、必要なプリンシパルへのリレーションシップが切断されたときに依存エンティティを削除する) は、SaveChanges が呼び出されるまで行われませんでした。
 
 **新しい動作**
 
-3.0 以降では、EF Core で、トリガー条件が検出されるとすぐに連鎖操作が適用されます。
+3\.0 以降では、EF Core で、トリガー条件が検出されるとすぐに連鎖操作が適用されます。
 たとえば、プリンシパル エンティティを削除するために `context.Remove()` を呼び出すと、すべての追跡対象の関連する必要な依存関係もすぐに `Deleted` に設定されます。
 
 **理由**
@@ -280,11 +302,11 @@ context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 
 **以前の動作**
 
-3.0 以前は、`DeleteBehavior.Restrict` により `Restrict` セマンティクスでデータベースに外部キーが作成されましたが、内部の修正がどのように変更されたのかがはっきりしませんでした。
+3\.0 以前は、`DeleteBehavior.Restrict` により `Restrict` セマンティクスでデータベースに外部キーが作成されましたが、内部の修正がどのように変更されたのかがはっきりしませんでした。
 
 **新しい動作**
 
-3.0 以降では、`DeleteBehavior.Restrict` により `Restrict` セマンティクスで外部キーが作成されます。つまり、カスケードがありません。EF 内部修正には影響を出さず、制約違反で例外がスローされます。
+3\.0 以降では、`DeleteBehavior.Restrict` により `Restrict` セマンティクスで外部キーが作成されます。つまり、カスケードがありません。EF 内部修正には影響を出さず、制約違反で例外がスローされます。
 
 **理由**
 
@@ -298,7 +320,7 @@ context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 
 [問題 #14194 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14194)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -330,7 +352,7 @@ API の以下の部分は使用されなくなりました。
 [問題 #9148 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/9148)
 [問題 #14153 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14153)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -536,7 +558,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 [問題 #13274 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13274)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -680,11 +702,11 @@ EF Core 3.0 以降では、各整数キー プロパティで、メモリ内デ�
 
 [問題 #12430 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12430)
 
-この変更は、EF Core 3.0 プレビュー 2 で導入されました。
+この変更は、EF Core 3.0 プレビュー 2 で導入されます。
 
 **以前の動作**
 
-3.0 より前では、プロパティのバッキング フィールドがわかっていた場合でも、EF Core では引き続き、既定でプロパティの getter および setter メソッドを使用して、プロパティ値の読み取りと書き込みが行われました。
+3\.0 より前では、プロパティのバッキング フィールドがわかっていた場合でも、EF Core では引き続き、既定でプロパティの getter および setter メソッドを使用して、プロパティ値の読み取りと書き込みが行われました。
 ただし、バッキング フィールドが直接設定されることがわかっている場合のクエリの実行は例外です。
 
 **新しい動作**
@@ -698,7 +720,7 @@ EF Core 3.0 以降では、プロパティのバッキング フィールドが�
 
 **軽減策**
 
-3.0 より前の動作は、modelBuilder fluent API でプロパティ アクセス モードの構成を使用して、復元できます。
+3\.0 より前の動作は、`ModelBuilder` のプロパティ アクセス モードの構成を通じて復元できます。
 次に例を示します。
 
 ```C#
@@ -808,7 +830,7 @@ EF Core 3.0 では、これらのサービスをアプリケーションの DI �
 
 [問題 #13552 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -830,7 +852,7 @@ EF Core 3.0 以降では、`DbContext.Entry` の呼び出しで、特定のエ�
 
 **軽減策**
 
-3.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChgangeTracker.DetectChanges()` を呼び出します。
+3\.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChgangeTracker.DetectChanges()` を呼び出します。
 
 ## <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>文字列とバイト配列のキーが既定でクライアントによって生成されない
 
@@ -853,7 +875,7 @@ EF Core 3.0 以降では、キー値が設定されていないことを示す�
 
 **軽減策**
 
-3.0 より前の動作は、他の null 以外の値が設定されていない場合に、キー プロパティで生成された値を使用するように明示的に指定することで取得できます。
+3\.0 より前の動作は、他の null 以外の値が設定されていない場合に、キー プロパティで生成された値を使用するように明示的に指定することで取得できます。
 たとえば、fluent API を使用する場合は、次のようになります。
 
 ```C#
@@ -874,7 +896,7 @@ public string Id { get; set; }
 
 [問題 #14698 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14698)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -900,7 +922,7 @@ EF Core 3.0 以降では、`ILoggerFactory` がスコープ化されたものと
 
 [問題 #13552 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -949,7 +971,7 @@ EF Core 3.0 以降では、プロキシで、ナビゲーション プロパテ�
 
 [問題 #10236 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10236)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -1048,7 +1070,7 @@ modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 
 [問題 #9913 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/9913)
 
-この変更は、EF Core 3.0 プレビュー 2 で導入されました。
+この変更は、EF Core 3.0 プレビュー 2 で導入されます。
 
 **以前の動作**
 
@@ -1071,7 +1093,7 @@ modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 
 [問題 #11811 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/11811)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -1094,7 +1116,7 @@ EF Core 3.0 以降、および今後のリリースでの TPT と TPC のサポ�
 
 [問題 #12366 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12366)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -1137,11 +1159,33 @@ EF Core 3.0 以降では、インデックスでの `Include` の使用が、リ
 
 新しい拡張メソッドを使用します。
 
+## <a name="provider-specific-metadata-api-changes"></a>プロバイダー固有のメタデータ API の変更
+
+[問題 #214 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/214)
+
+この変更は、EF Core 3.0 プレビュー 6 で導入されます。
+
+**新しい動作**
+
+プロバイダー固有の拡張メソッドがフラット化されます。
+
+* `IProperty.Relational().ColumnName` -> `IProperty.GetColumnName()`
+* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.GetSqlServerIsMemoryOptimized()`
+* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.ForSqlServerUseIdentityColumn()`
+
+**理由**
+
+この変更により、前述の拡張メソッドの実装が簡単になります。
+
+**軽減策**
+
+新しい拡張メソッドを使用します。
+
 ## <a name="ef-core-no-longer-sends-pragma-for-sqlite-fk-enforcement"></a>EF Core で SQLite FK を適用するためのプラグマが送信されなくなった
 
 [問題 #12151 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12151)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されました。
+この変更は、EF Core 3.0 プレビュー 3 で導入されます。
 
 **以前の動作**
 
@@ -1182,7 +1226,7 @@ iOS でネイティブの SQLite バージョンを使用するには、別の `
 
 [問題 #15078 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15078)
 
-この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
 
 **以前の動作**
 
@@ -1190,7 +1234,7 @@ GUID の値は、以前は SQLite に BLOB 値として格納されていまし�
 
 **新しい動作**
 
-GUID の値はテキストとして格納されます。
+GUID の値はテキストとして格納されるようになりました。
 
 **理由**
 
@@ -1232,7 +1276,7 @@ Microsoft.Data.Sqlite は引き続き、BLOB とテキストの両方の列か�
 
 [問題 #15020 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15020)
 
-この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
 
 **以前の動作**
 
@@ -1273,7 +1317,7 @@ Microsoft.Data.Sqlite では、引き続き整数とテキストの両方の列�
 
 [問題 #12978 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12978)
 
-この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
 
 **以前の動作**
 
@@ -1312,7 +1356,7 @@ SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 
 
 [問題 #10985 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
 
-この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
 
 **変更**
 
@@ -1330,7 +1374,7 @@ SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 
 
 [問題 #10730 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10730)
 
-この変更は、EF Core 3.0 プレビュー 4 で導入されました。
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
 
 **以前の動作**
 
