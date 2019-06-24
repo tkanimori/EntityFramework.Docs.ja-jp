@@ -6,11 +6,11 @@ ms.date: 02/26/2018
 ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
 uid: core/modeling/owned-entities
 ms.openlocfilehash: b2d72b08de79939904bf4e726c695440c906a8aa
-ms.sourcegitcommit: 7bde8e6ad3c4565a4638646ce04bcf5e66f7b5fd
+ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/07/2019
-ms.locfileid: "54069205"
+ms.lasthandoff: 06/24/2019
+ms.locfileid: "67333795"
 ---
 # <a name="owned-entity-types"></a>所有エンティティ型
 
