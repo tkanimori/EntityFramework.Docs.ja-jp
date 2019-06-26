@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: ce834d60b9ceb4c414f097f2d86254cc5edd958f
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: eaa7d5b1496172e4f3821433a1cd098ee7e8b737
+ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419706"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394799"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core データベース プロバイダーの制限事項
 
@@ -22,6 +22,25 @@ SQLite プロバイダーでは、いくつかの移行の制限があります�
 * スキーマ
 * シーケンス
 * 計算列
+
+## <a name="query-limitations"></a>クエリの制限事項
+
+SQLite は、次のデータ型をネイティブにサポートしていません。 EF Core が、これらの型と等しいかどうかのクエリの値を読み書きできます (`where e.Property == value`) もサポートされています。 ただし、比較のようなその他の操作と、順序付けすると、クライアントで評価が必要です。
+
+* DateTimeOffset
+* Decimal (10 進数型)
+* TimeSpan
+* UInt64
+
+代わりに`DateTimeOffset`DateTime 値を使用することをお勧めします。 複数のタイム ゾーンを処理する際は、値を保存し、し、適切なタイム ゾーンに変換する前に UTC に変換するをお勧めします。
+
+`Decimal`型には、精度の高いレベルが用意されています。 有効桁数のレベルを必要としない場合をお勧め代わりに double を使用します。 使用することができます、[値コンバーター](../../modeling/value-conversions.md)クラスでの 10 進数の使用を続行します。
+
+``` csharp
+modelBuilder.Entity<MyEntity>()
+    .Property(e => e.DecimalProperty)
+    .HasConversion<double>();
+```
 
 ## <a name="migrations-limitations"></a>移行の制限事項
 
