@@ -3,12 +3,12 @@ title: プロパティ値 - EF6 の使用
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
-ms.openlocfilehash: 97902021a671dea9854a365dc2f10eaecb9e5ab8
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: afde503bb4ed15fcf83a57053541cd5da8c89835
+ms.sourcegitcommit: 50521b4a2f71139e6a7210a69ac73da582ef46cf
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488836"
+ms.lasthandoff: 06/27/2019
+ms.locfileid: "67416669"
 ---
 # <a name="working-with-property-values"></a>プロパティ値の使用
 ほとんどの場合 Entity Framework は、状態、元の値と、エンティティ インスタンスのプロパティの現在の値を追跡の考慮されます。 ただし、表示または EF がプロパティに関する情報を操作する場合の切断されたシナリオ - などがあります。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -35,7 +35,7 @@ using (var context = new BloggingContext())
     string currentName1 = context.Entry(blog).Property(u => u.Name).CurrentValue;
 
     // Set the Name property to a new value
-    context.Entry(name).Property(u => u.Name).CurrentValue = "My Fancy Blog";
+    context.Entry(blog).Property(u => u.Name).CurrentValue = "My Fancy Blog";
 
     // Read the current value of the Name property using a string for the property name
     object currentName2 = context.Entry(blog).Property("Name").CurrentValue;
@@ -167,7 +167,7 @@ public static void PrintValues(DbPropertyValues values)
 
 ## <a name="setting-current-or-original-values-from-another-object"></a>別のオブジェクトから現在または元の値の設定  
 
-別のオブジェクトから値をコピーして、追跡対象エンティティの現在または元の値を更新できます。 例えば:  
+別のオブジェクトから値をコピーして、追跡対象エンティティの現在または元の値を更新できます。 例:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -214,7 +214,7 @@ Property Name has value My Boring Blog
 
 ## <a name="setting-current-or-original-values-from-a-dictionary"></a>ディクショナリの現在または元の値の設定  
 
-追跡対象エンティティの現在または元の値は、ディクショナリまたはその他のいくつかのデータ構造体から値をコピーすることで更新できます。 例えば:  
+追跡対象エンティティの現在または元の値は、ディクショナリまたはその他のいくつかのデータ構造体から値をコピーすることで更新できます。 例:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -270,7 +270,7 @@ using (var context = new BloggingContext())
 
 ## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>現在、元のパスまたはデータベースの値を格納している複製されたオブジェクトを作成します。  
 
-CurrentValues、行っていましたから返された DbPropertyValues オブジェクトまたはでは、エンティティの複製の作成に使用できます。 この複製を作成するために使用した DbPropertyValues オブジェクトからプロパティ値が含まれます。 例えば:  
+CurrentValues、行っていましたから返された DbPropertyValues オブジェクトまたはでは、エンティティの複製の作成に使用できます。 この複製を作成するために使用した DbPropertyValues オブジェクトからプロパティ値が含まれます。 例:  
 
 ``` csharp
 using (var context = new BloggingContext())
