@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 9112d8d235237e68232aac54453d584af0edb524
-ms.sourcegitcommit: b188194a1901f4d086d05765cbc5c9b8c9dc5eed
+ms.openlocfilehash: 96586808862c4373168dcd34a5f00c9f2f7563c3
+ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/11/2019
-ms.locfileid: "66829493"
+ms.lasthandoff: 06/26/2019
+ms.locfileid: "67394829"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -167,34 +167,18 @@ EF Core 3.0 以降、新しい `FromSqlRaw` および `FromSqlInterpolated` メ�
 
 `FromSql` の呼び出し場所を移動して、それらが適用される `DbSet` 上で直接実行されるようにする必要があります。
 
-## <a name="query-execution-is-logged-at-debug-level"></a>クエリの実行がデバッグ レベルでログに記録される
+## <a name="query-execution-is-logged-at-debug-level-reverted"></a>~~クエリの実行がデバッグ レベルでログに記録される~~ 元に戻されます
 
 [問題 #14523 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
-この変更は、EF Core 3.0 プレビュー 3 で導入されます。
+この変更は、EF Core 3.0 プレビュー 7 で元に戻されます。
 
-**以前の動作**
-
-EF Core 3.0 より前では、クエリと他のコマンドの実行は、`Info` レベルでログに記録されました。
-
-**新しい動作**
-
-EF Core 3.0 以降では、コマンド/SQL の実行は、`Debug` レベルでログに記録されます。
-
-**理由**
-
-この変更は、`Info` ログ レベルでのノイズを減らすために行われました。
-
-**軽減策**
-
-このログ イベントは、イベント ID 20100 の `RelationalEventId.CommandExecuting` によって定義されています。
-`Info` レベルで SQL をもう一度ログに記録するには、`OnConfiguring` または `AddDbContext` で明示的にレベルを構成します。
-次に例を示します。
+EF Core 3.0 の新しい構成では、あらゆるイベントのログ レベルをアプリケーションによって指定できるため、この変更は元に戻されます。 たとえば、SQL のログ記録を `Debug` に切り替えるには、`OnConfiguring` または `AddDbContext` で明示的にレベルを構成します。
 ```C#
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .UseSqlServer(connectionString)
-        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Info)));
+        .ConfigureWarnings(c => c.Log((RelationalEventId.CommandExecuting, LogLevel.Debug)));
 ```
 
 ## <a name="temporary-key-values-are-no-longer-set-onto-entity-instances"></a>一時キーの値がエンティティ インスタンスに設定されなくなった
@@ -918,28 +902,6 @@ EF Core 3.0 以降では、`ILoggerFactory` がスコープ化されたものと
 
 このような状況になった場合は、[EF Core GitHub の問題追跡ツール](https://github.com/aspnet/EntityFrameworkCore/issues)で問題を提出し、`ILoggerFactory` の使用方法をお知らせください。これにより、Microsoft では、今後、再びこのように中断しない方法についてよりよく理解できます。
 
-## <a name="idbcontextoptionsextensionwithdebuginfo-merged-into-idbcontextoptionsextension"></a>IDbContextOptionsExtension に IDbContextOptionsExtensionWithDebugInfo が結合される
-
-[問題 #13552 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13552)
-
-この変更は、EF Core 3.0 プレビュー 3 で導入されます。
-
-**以前の動作**
-
-`IDbContextOptionsExtensionWithDebugInfo` は、2.x リリース サイクル時のインターフェイスへの破壊的変更を回避するために、`IDbContextOptionsExtension` から拡張された追加のオプションのインターフェイスです。
-
-**新しい動作**
-
-インターフェイスはまとめて `IDbContextOptionsExtension` に結合されるようになりました。
-
-**理由**
-
-この変更は、インターフェイスが概念的には 1 つであるため、行われました。
-
-**軽減策**
-
-`IDbContextOptionsExtension` のすべての実装を、新しいメンバーをサポートするように更新する必要があります。
-
 ## <a name="lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded"></a>遅延読み込みプロキシで、ナビゲーション プロパティが完全に読み込まれたと見なされなくなった
 
 [問題 #12780 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12780)
@@ -1352,6 +1314,30 @@ UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
 
+## <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>IDbContextOptionsExtension から拡張機能の情報/メタデータを削除
+
+[問題 #16119 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/16119)
+
+この変更は、EF Core 3.0 プレビュー 7 で導入されます。
+
+**以前の動作**
+
+`IDbContextOptionsExtension` には、拡張機能に関するメタデータを提供するためのメソッドが含まれていました。
+
+**新しい動作**
+
+これらのメソッドは、新しい抽象基底クラス `DbContextOptionsExtensionInfo` 上に移動されました。これは新しい `IDbContextOptionsExtension.Info` プロパティから返されます。
+
+**理由**
+
+2\.0 から 3.0 までのリリースを通して、これらのメソッドに追加または変更を行う必要が複数回発生しました。
+それらを抜き出して新しい抽象基底クラスに含めることで、既存の拡張機能を損なうことなく、簡単にこのような変更を加えられるようになります。
+
+**軽減策**
+
+新しいパターンに従うよう拡張機能を更新します。
+その例は、EF Core のソース コードの、さまざまな種類の拡張機能に対する多数の `IDbContextOptionsExtension` の実装で見つかります。
+
 ## <a name="logquerypossibleexceptionwithaggregateoperator-has-been-renamed"></a>LogQueryPossibleExceptionWithAggregateOperator の名前が変更された
 
 [問題 #10985 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
@@ -1399,3 +1385,81 @@ var constraintName = myForeignKey.ConstraintName;
 **軽減策**
 
 新しい名前を使用します。
+
+## <a name="irelationaldatabasecreatorhastableshastablesasync-have-been-made-public"></a>IRelationalDatabaseCreator.HasTables/HasTablesAsync をパブリックに変更
+
+[問題 #15997 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15997)
+
+この変更は、EF Core 3.0 プレビュー 7 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 より前では、これらのメソッドは保護されていました。
+
+```C#
+var constraintName = myForeignKey.Name;
+```
+
+**新しい動作**
+
+EF Core 3.0 以降、これらのメソッドはパブリックになります。
+
+**理由**
+
+これらのメソッドは、作成されたデータベースが空であるかどうかを判断するために EF によって使用されます。 これは、EF の外部から、移行を適用するかどうか判断する場合にも役立ちます。
+
+**軽減策**
+
+すべてのオーバーライドのアクセシビリティを変更します。
+
+## <a name="microsoftentityframeworkcoredesign-is-now-a-developmentdependency-package"></a>Microsoft.EntityFrameworkCore.Design を DevelopmentDependency パッケージに変更
+
+[問題 #11506 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/11506)
+
+この変更は、EF Core 3.0 プレビュー 4 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 より前では、Microsoft.EntityFrameworkCore.Design は通常の NuGet パッケージであり、それに依存していたプロジェクトによってそのアセンブリを参照できました。
+
+**新しい動作**
+
+EF Core 3.0 以降、これは DevelopmentDependency パッケージになります。 つまり、依存関係が他のプロジェクトに推移的にフローすることがなくなり、規定ではそのアセンブリを参照できなくなります。
+
+**理由**
+
+このパッケージは、デザイン時に使用されることだけを想定しています。 デプロイされたアプリケーションからこれを参照すべきではありません。 パッケージを DevelopmentDependency にすることで、この推奨事項が強化されます。
+
+**軽減策**
+
+EF Core のデザイン時の動作をオーバーライドするためにこのパッケージを参照する必要がある場合は、プロジェクトの PackageReference 項目メタデータを更新することができます。 このパッケージが Microsoft.EntityFrameworkCore.Tools 経由で推移的に参照されている場合は、パッケージに明示的な PackageReference を追加して、そのメタデータを変更する必要があります。
+
+``` xml
+<PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0-preview4.19216.3">
+  <PrivateAssets>all</PrivateAssets>
+  <!-- Remove IncludeAssets to allow compiling against the assembly -->
+  <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
+</PackageReference>
+```
+
+## <a name="sqlitepclraw-updated-to-version-200"></a>SQLitePCL.raw のバージョン 2.0.0 への更新
+
+[問題 #14824 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14824)
+
+この変更は、EF Core 3.0 プレビュー 7 で導入されます。
+
+**以前の動作**
+
+Microsoft.EntityFrameworkCore.Sqlite は、以前はバージョン 1.1.12 の SQLitePCL.raw に依存していました。
+
+**新しい動作**
+
+バージョン 2.0.0 に依存するようパッケージが更新されました。
+
+**理由**
+
+バージョン 2.0.0 の SQLitePCL.raw では、.NET Standard 2.0 をターゲットとします。 これは以前は、推移的なパッケージの大規模なクロージャの動作を必要とする .NET Standard 1.1 をターゲットとしていました。
+
+**軽減策**
+
+SQLitePCL.raw バージョン 2.0.0 には、いくつかの破壊的変更が含まれています。 詳細については、[リリース ノート](https://github.com/ericsink/SQLitePCL.raw/blob/v2/v2.md)をご覧ください。

@@ -6,16 +6,16 @@ description: Entity Framework Core を使用した .NET Core の概要
 ms.date: 08/03/2018
 ms.assetid: 099d179e-dd7b-4755-8f3c-fcde914bf50b
 uid: core/get-started/netcore/new-db-sqlite
-ms.openlocfilehash: a0df80a8fe96be4f8cc3177919e2b087e14cb49c
-ms.sourcegitcommit: 735715f10cc8a231c213e4f055d79f0effd86570
+ms.openlocfilehash: e6996630e399659807d23304993c8e19c11ca6f5
+ms.sourcegitcommit: 83c1e2fc034e5eb1fec1ebabc8d629ffcc7c0632
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/16/2019
-ms.locfileid: "56325328"
+ms.lasthandoff: 06/25/2019
+ms.locfileid: "67351335"
 ---
 # <a name="getting-started-with-ef-core-on-net-core-console-app-with-a-new-database"></a>新しいデータベースを使用した .NET Core コンソール アプリでの EF Core の概要
 
-このチュートリアルでは、Entity Framework Core を使用して SQLite データベースに対してデータ アクセスを実行する .NET Core コンソール アプリを作成します。 モデルからの移行によってデータベースを作成します。 ASP.NET Core MVC を使用する Visual Studio バージョンについては [ASP.NET Core - 新しいデータベース](xref:core/get-started/aspnetcore/new-db)に関する記事をご覧ください。
+このチュートリアルでは、Entity Framework Core を使用して SQLite データベースに対してデータ アクセスを実行する .NET Core コンソール アプリを作成します。 [移行](xref:core/managing-schemas/migrations/index)を使用して、モデルからデータベースを作成します。 ASP.NET Core MVC を使用する Visual Studio バージョンについては [ASP.NET Core - 新しいデータベース](xref:core/get-started/aspnetcore/new-db)に関する記事をご覧ください。
 
 [この記事のサンプルは GitHub で確認してください](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted/NetCore/ConsoleApp.SQLite)。
 
@@ -104,7 +104,7 @@ Visual Studio からこのサンプルを実行するには、作業ディレク
 
 作業ディレクトリを設定するには:
 
-* **ソリューション エクスプローラー**でプロジェクトを右クリックし、**[プロパティ]** を選択します。
+* **ソリューション エクスプローラー**でプロジェクトを右クリックし、 **[プロパティ]** を選択します。
 * 左ウィンドウの **[デバッグ]** タブを選択します。
 * **作業ディレクトリ**をプロジェクトのディレクトリに設定します。
 * 変更を保存します。
