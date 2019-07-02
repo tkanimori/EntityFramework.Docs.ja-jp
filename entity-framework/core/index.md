@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
-ms.openlocfilehash: fa0695be29668789a179f9a0d6330f3361dbac29
-ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
+ms.openlocfilehash: 0e35a2b3f89c92b717b8e05c8fa3ae5af5ce8fd3
+ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/17/2019
-ms.locfileid: "58131428"
+ms.lasthandoff: 06/24/2019
+ms.locfileid: "67333780"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
 
@@ -23,7 +23,7 @@ EF Core は多くのデータベース エンジンに対応しています。�
 
 EF Core では、データ アクセスはモデルを利用して実行されます。 モデルはエンティティ クラスと、データベースとのセッションを表すコンテキスト オブジェクトから構成されます。これにより、データのクエリと保存が可能になります。 詳細については、「[Creating a Model](modeling/index.md)」 (モデルの作成) を参照してください。
 
-既存データベースからモデルを生成したり、自分のデータベースに合わせてモデルのコードを直接記述したり、EF 移行を使ってモデルからデータベースを作成してから、モデルが時間の経過と共に変化するのに合わせてそれを進化させたりできます。
+既存データベースからモデルを生成したり、自分のデータベースに合わせてモデルのコードを直接記述したり、[EF 移行](managing-schemas/migrations/index.md)を使ってモデルからデータベースを作成してから、モデルが時間の経過と共に変化するのに合わせてそれを進化させたりできます。
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
