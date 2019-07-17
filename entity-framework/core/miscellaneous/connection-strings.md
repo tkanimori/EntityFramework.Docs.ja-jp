@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: 52a8527170845d3e73ebcec518713ade3f3844f0
-ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
+ms.openlocfilehash: c306f9ca7a51fc9e3db18e883fd44f56dd1a3cb4
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/24/2019
-ms.locfileid: "67333842"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286445"
 ---
 # <a name="connection-strings"></a>接続文字列
 

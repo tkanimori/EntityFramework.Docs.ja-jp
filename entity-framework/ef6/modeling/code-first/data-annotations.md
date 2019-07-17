@@ -3,18 +3,18 @@ title: コードの最初のデータ注釈 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: e6b017306b4f66f5bac2a9964e11391da28ceb40
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: fcd01aef7303573001460b352f8099b2cc6e224a
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463283"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286479"
 ---
 # <a name="code-first-data-annotations"></a>Code First のデータ注釈
 > [!NOTE]
 > **EF4.1 以降のみ**-機能、Api、Entity Framework 4.1 で導入されたなどのこのページで説明します。 以前のバージョンを使用している一部またはすべての情報は適用されません。
 
-このページの内容を Julie Lerman によって書き込まれた最初の記事からの抜粋です (\<http://thedatafarm.com>)します。
+このページの内容を Julie Lerman によって書き込まれた最初の記事からの抜粋です (\<http://thedatafarm.com>) します。
 
 Entity Framework Code First EF が、クエリを実行するに依存するモデルを表す独自のドメイン クラスを使用することができます変更追跡、および関数を更新します。 コードが最初に '設定より規約です ' と呼ばれるプログラミング パターンを活用します。 コードはまず、クラスは Entity Framework の規則に従うし、その場合は、そのジョブを実行する方法を解明する自動的に。 ただし、クラスは、これらの規則に従っていない、構成を必要な情報に EF を提供するクラスに追加する機能があります。
 
@@ -146,7 +146,7 @@ Title プロパティに必要な追加すると、プロパティは、これ�
     public string Title { get; set; }
 ```
 
-ない追加のないアプリケーションのコードやマークアップを変更、MVC アプリケーションのプロパティおよび注釈の名前を使用してメッセージの構築も動的に、クライアント側の検証は実行します。
+コードを追加またはアプリケーションのマークアップを変更なしに、MVC アプリケーションは、プロパティと注釈の名前を使用してメッセージの構築も動的に、クライアント側の検証を実行します。
 
 ![作成ページのタイトルが必要なエラー](~/ef6/media/jj591583-figure02.png)
 
@@ -268,7 +268,7 @@ BloggerName フィールドで ConcurrencyCheck 注釈により、SaveChanges �
 
  
 
-## <a name="timestamp"></a>タイムスタンプ
+## <a name="timestamp"></a>TimeStamp
 
 同時実行チェック用 rowversion またはタイムスタンプ フィールドを使用する方が一般的です。 ConcurrencyCheck 注釈を使用するのではなく、プロパティの型がバイト配列である限り、特定のタイムスタンプの注釈を使用できます。 コード最初はタイムスタンプのプロパティと同様に処理、ConcurrencyCheck プロパティが、コードを生成するデータベース フィールドを null 非許容は確認も。 タイムスタンプ プロパティを 1 つは、特定のクラスでのみができます。
 
@@ -458,7 +458,7 @@ DataType DataAnnotation で列の TypeName 属性を混同しないでくださ�
 
  
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>Summary
 
 DataAnnotations だけでなく、コードの最初クラスでクライアントとサーバー側の検証の説明を入力しますを強化し、まずコードがその規則に基づいて、クラスに関することは想定をでも修正がもできます。 DataAnnotations にないのみを改善するデータベース スキーマの生成が既存のデータベースに、コードの最初のクラスをマップすることもできます。
 

@@ -2,14 +2,14 @@
 title: EF Core ツール リファレンス (.NET CLI) - EF Core
 author: bricelam
 ms.author: bricelam
-ms.date: 09/20/2018
+ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 959785c7b10ca668f3691106f62076d538978c03
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: 05c5f89fc79556e72a7e629c147aa817fe7d1a6b
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688668"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286461"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core ツールのリファレンス - .NET CLI
 
@@ -23,9 +23,28 @@ Visual Studio を使用しているかどうか、お勧め、[パッケージ �
 
 インストール手順は、プロジェクトの種類とバージョンによって異なります。
 
+* EF Core 3.x
 * ASP.NET Core 2.1 以降のバージョン
 * EF Core 2.x
 * EF Core 1.x へ
+
+### <a name="ef-core-3x"></a>EF Core 3.x
+
+* `dotnet ef` グローバルまたはローカルのツールとしてインストールする必要があります。 ほとんどの開発者がインストールされます`dotnet ef`として次のコマンドを使用してグローバル ツール。
+
+  ``` console
+    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+  ```
+
+  使用することも`dotnet ef`ローカル ツールとして。 これをローカルのツールとして使用するを使用してツールの依存関係として宣言するプロジェクトの依存関係を復元する[ツール マニフェスト ファイル](https://github.com/dotnet/cli/issues/10288)します。
+
+* インストール、 [.NET Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0))。 SDK は、Visual Studio の最新バージョンがある場合でもをインストールする必要があります。
+
+* 最新のインストール`Microsoft.EntityFrameworkCore.Design`パッケージ。
+
+  ``` Console
+  dotnet add package Microsoft.EntityFrameworkCore.Design
+  ```
 
 ### <a name="aspnet-core-21"></a>ASP.NET Core 2.1 以降
 
@@ -37,7 +56,7 @@ Visual Studio を使用しているかどうか、お勧め、[パッケージ �
 
 `dotnet ef`コマンドは、.NET Core SDK に含まれていますが、コマンドを有効にするには、インストールする必要が、`Microsoft.EntityFrameworkCore.Design`パッケージ。
 
-* 現在のインストール[.NET Core SDK](https://www.microsoft.com/net/download/core)します。 SDK は、Visual Studio 2017 の最新バージョンがある場合でもインストールする必要があります。
+* 現在のインストール[.NET Core SDK](https://www.microsoft.com/net/download/core)します。 SDK は、Visual Studio の最新バージョンがある場合でもをインストールする必要があります。
 
 * 最新の安定したインストール`Microsoft.EntityFrameworkCore.Design`パッケージ。
 
@@ -51,7 +70,7 @@ Visual Studio を使用しているかどうか、お勧め、[パッケージ �
 
 * 変更することで、SDK のバージョンを使用して、2.1.200 にアプリケーションを構成、 [global.json](/dotnet/core/tools/global-json)ファイル。 このファイルは通常、(プロジェクトの上に 1 つ) のソリューション ディレクトリにインクルードします。
 
-* プロジェクト ファイルを編集および追加`Microsoft.EntityFrameworkCore.Tools.DotNet`として、`DotNetCliToolReference`項目。 最新の 1.x バージョンを指定する例: 1.1.6 します。 このセクションの最後に、プロジェクト ファイルの例を参照してください。
+* プロジェクト ファイルを編集および追加`Microsoft.EntityFrameworkCore.Tools.DotNet`として、`DotNetCliToolReference`項目。 たとえば、最新の 1.x バージョンを指定します。1.1.6 します。 このセクションの最後に、プロジェクト ファイルの例を参照してください。
 
 * 最新の 1.x バージョンのインストール、`Microsoft.EntityFrameworkCore.Design`などをパッケージ化します。
 
@@ -81,7 +100,7 @@ Visual Studio を使用しているかどうか、お勧め、[パッケージ �
 
   パッケージ参照を`PrivateAssets="All"`このプロジェクトを参照するプロジェクトに公開されません。 この制限は、開発中にのみ使用される一般的なパッケージに特に便利です。
 
-### <a name="verify-installation"></a>インストールを確認します。
+### <a name="verify-installation"></a>インストールの確認
 
 EF Core CLI ツールが正しくインストールされていることを確認するには、次のコマンドを実行します。
 
@@ -140,7 +159,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、設定、 **A
 |                   | オプション                            | 説明                                                                                                                                                                                                                                                   |
 |:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                   | `--json`                          | JSON 出力を表示します。                                                                                                                                                                                                                                             |
-| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | `DbContext`クラスを使用します。 クラス名のみ、または名前空間を持つ完全修飾します。  このオプションを省略すると、EF Core は、コンテキスト クラスを紹介します。 複数のコンテキスト クラスがある場合は、このオプションが必要です。                                            |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | 使用する `DbContext` クラス。 クラス名のみ、または名前空間を持つ完全修飾します。  このオプションを省略すると、EF Core は、コンテキスト クラスを紹介します。 複数のコンテキスト クラスがある場合は、このオプションが必要です。                                            |
 | `-p`              | `--project <PROJECT>`             | ターゲット プロジェクトのプロジェクト フォルダーへの相対パス。  既定値は、現在のフォルダーです。                                                                                                                                                              |
 | `-s`              | `--startup-project <PROJECT>`     | スタートアップ プロジェクトのプロジェクト フォルダーへの相対パス。 既定値は、現在のフォルダーです。                                                                                                                                                              |
 |                   | `--framework <FRAMEWORK>`         | [ターゲット フレームワーク モニカー](/dotnet/standard/frameworks#supported-target-framework-versions)の[ターゲット フレームワーク](/dotnet/standard/frameworks)します。  プロジェクト ファイルは、複数のターゲット フレームワークを指定し、うち 1 つを選択するときに使用します。 |
@@ -209,7 +228,7 @@ dotnet ef database update 20180904195021_InitialCreate
 | `-o`            | `--output-dir <PATH>`                    | エンティティ クラス ファイルを配置するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。                                                                                       |
 |                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | エンティティ型を生成するテーブルのスキーマです。 複数のスキーマを指定するには、繰り返し`--schema`ごと。 このオプションを省略すると、すべてのスキーマが含まれます。          |
 | `-t`            | `--table <TABLE_NAME>`...                | エンティティ型を生成するテーブル。 複数のテーブルを指定するには、繰り返し`-t`または`--table`ごと。 このオプションを省略すると、すべてのテーブルが含まれます。                |
-|                 | `--use-database-names`                   | データベースに表示されているとおりに、テーブルおよび列名を使用します。 このオプションを省略すると、データベース名は、C# 名前表記規則をより厳密に準拠するように変更されます。 |
+|                 | `--use-database-names`                   | データベースに表示されているとおりに、テーブルおよび列名を使用します。 このオプションを省略すると、データベース名は、c# 名前表記規則をより厳密に準拠するように変更されます。 |
 
 次の例は、すべてのスキーマとテーブルをスキャフォールディングし、新しいファイルを配置、*モデル*フォルダー。
 
@@ -286,4 +305,4 @@ dotnet ef migrations script 20180904195021_InitialCreate
 ## <a name="additional-resources"></a>その他の技術情報
 
 * [移行](xref:core/managing-schemas/migrations/index)
-* [リバース エンジニア リング](xref:core/managing-schemas/scaffolding)
+* [リバース エンジニアリング](xref:core/managing-schemas/scaffolding)
