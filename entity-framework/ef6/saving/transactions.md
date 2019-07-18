@@ -1,52 +1,52 @@
 ---
-title: トランザクション - EF6 の使用
+title: トランザクションの操作-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
-ms.openlocfilehash: 96cfff4cca59ab27dd68f50d0260e90902e33a92
-ms.sourcegitcommit: eefcab31142f61a7aaeac03ea90dcd39f158b8b8
+ms.openlocfilehash: 7030dc675993339f72c935f6b430cead85fecb7f
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/29/2019
-ms.locfileid: "64873230"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306521"
 ---
-# <a name="working-with-transactions"></a>トランザクションの使用
+# <a name="working-with-transactions"></a>トランザクションの操作
 > [!NOTE]
 > **EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。  
 
-このドキュメントでは、トランザクションの操作を簡単に EF5 から追加しました機能強化を含め、EF6 でトランザクションを使用して説明します。  
+このドキュメントでは、EF6 でトランザクションを使用する方法について説明します。これには、トランザクションを簡単に操作できるように EF5 以降に追加された機能も含まれます。  
 
-## <a name="what-ef-does-by-default"></a>既定では EF の動作  
+## <a name="what-ef-does-by-default"></a>既定での EF の動作  
 
-すべてのバージョンの Entity Framework では、実行するたびに**SaveChanges()** 挿入、更新、またはフレームワーク、データベースの削除が操作トランザクションでラップします。 このトランザクションは、操作を実行する間だけ持続し、し完了します。 このような別の操作を実行するときに新しいトランザクションが開始されます。  
+Entity Framework のすべてのバージョンでは、 **SaveChanges ()** を実行してデータベースに対して挿入、更新、または削除を実行するたびに、フレームワークはその操作をトランザクションにラップします。 このトランザクションは、操作を実行して完了するまでに十分な時間だけ継続します。 別の操作を実行すると、新しいトランザクションが開始されます。  
 
-EF6 で始まる**Database.ExecuteSqlCommand()** 既定ではラップのコマンドは、トランザクションに存在する 1 つがない場合は。 希望する場合は、この動作をオーバーライドすることをこのメソッドのオーバー ロードがあります。 などの Api を使用して、モデルに含まれるストアド プロシージャの実行を EF6 にも**ObjectContext.ExecuteFunction()** も同じ (既定の動作、現時点ではオーバーライドできません)。  
+EF6 では、既定では、コマンドがまだ存在していない場合は、そのコマンドがトランザクションにラップされ**ます。** このメソッドのオーバーロードを使用すると、必要に応じてこの動作をオーバーライドできます。 また、EF6 **()** などの api によってモデルに含まれるストアドプロシージャの実行も、同じように実行されます (ただし、既定の動作はオーバーライドされません)。  
 
-どちらの場合、トランザクションの分離レベルは、分離レベルはどのようなデータベース プロバイダーは既定値に設定します。 既定では、たとえば、SQL Server これは READ COMMITTED です。  
+どちらの場合も、トランザクションの分離レベルは、データベースプロバイダーが既定の設定を考慮している任意の分離レベルです。 既定では、SQL Server では READ COMMITTED です。  
 
-Entity Framework では、トランザクションでクエリをラップしません。  
+Entity Framework は、トランザクション内のクエリをラップしません。  
 
-この既定の機能は、多くのユーザーとかどうかため必要はありません。 EF6 で何かするのに適しています常に行ったのとは、コードを記述だけです。  
+この既定の機能は、多数のユーザーに適しているので、EF6 では何もする必要はありません。コードを記述するのは常に同じです。  
 
-ただし、トランザクションをより細かく制御が必要なユーザー – これについては、次のセクションで説明します。  
+ただし、ユーザーによっては、トランザクションをより詳細に制御する必要があります。これについては、次のセクションで説明します。  
 
 ## <a name="how-the-apis-work"></a>Api のしくみ  
 
-Entity Framework の EF6 の前に、(によって例外が既に開いている接続が渡された場合)、データベース接続自体を開くときにペダルします。 ユーザーがいくつかの操作を 1 つのトランザクションをラップする唯一の方法を使用するいずれかがつまり、トランザクションは、開いている接続でのみ開始できます、ので、 [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx)を使用して、または、 **ObjectContext.Connection**プロパティと開始呼び出し**Open()** と**BeginTransaction()** 、返された上で直接**EntityConnection**オブジェクト。 さらに、独自の基になるデータベース接続でトランザクションを開始していた場合、データベースに接続する API 呼び出しは失敗します。  
+EF6 より前では、データベース接続自体を開いたときに insisted を Entity Framework しています (既に開いている接続が渡された場合、例外がスローされました)。 トランザクションは開いている接続でのみ開始できるため、ユーザーが複数の操作を1つのトランザクションにラップする唯一の方法は、 [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx)を使用するか、または、を使用して開始することです **。** 返された**Entityconnection**オブジェクトで**Open ()** と**BeginTransaction ()** を直接呼び出します。 また、基になるデータベース接続でトランザクションを開始した場合、データベースに接続した API 呼び出しは失敗します。  
 
 > [!NOTE]
-> 閉じられた接続の受け入れのみの制限は、Entity Framework 6 で削除されました。 詳細については、次を参照してください。[接続管理](~/ef6/fundamentals/connection-management.md)します。  
+> 閉じられた接続のみを受け入れる制限は Entity Framework 6 で削除されました。 詳細については、「[接続管理](~/ef6/fundamentals/connection-management.md)」を参照してください。  
 
-これで、フレームワークを ef6 開始を提供します。  
+EF6 以降では、フレームワークで次の機能が提供されるようになりました。  
 
-1. **Database.BeginTransaction()** :簡単にユーザーを起動し、同じトランザクション内で結合するいくつかの操作を行えるように、既存の DbContext – 内トランザクション自体を完了するため、すべてコミットまたはロールバックする 1 つとして。 また、ユーザーがより簡単に、トランザクションの分離レベルを指定することもできます。  
-2. **Database.UseTransaction()** : Entity Framework の外部で開始されたトランザクションを使用する DbContext ことができます。  
+1. **BeginTransaction ()** :ユーザーが既存の DbContext 内でトランザクションを開始して完了するための簡単な方法。同じトランザクション内で複数の操作を組み合わせることができるため、すべてがコミットされるか、すべてロールバックされます。 また、トランザクションの分離レベルをユーザーがより簡単に指定できるようにします。  
+2. **UseTransaction ()** : dbcontext で、Entity Framework の外部で開始されたトランザクションを使用できるようにします。  
 
-### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>同じコンテキスト内で 1 つのトランザクションにいくつかの操作を組み合わせること  
+### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>同じコンテキスト内で複数の操作を1つのトランザクションに結合する  
 
-**Database.BeginTransaction()** が 2 つの上書き: 1 つは、明示的な[IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx)といずれかの引数はありませんし、基になるデータベース プロバイダーから IsolationLevel の既定値を使用します。 両方のオーバーライドを返す、 **DbContextTransaction**オブジェクトを提供する**Commit()** と**Rollback()** 基になるストアにコミットとロールバックを実行する方法トランザクションです。  
+**BeginTransaction ()** には、2つのオーバーライドがあります。1つは明示的な[IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx)を受け取り、もう1つは引数を取らず、基になるデータベースプロバイダーからの既定の IsolationLevel を使用します。 どちらのオーバーライドも、基になるストアトランザクションでコミットとロールバックを実行する**commit ()** メソッドと**rollback ()** メソッドを提供する**dbcontexttransaction**オブジェクトを返します。  
 
-**DbContextTransaction**はコミットまたはロールバック後に破棄するためのものです。 簡単にこれを実現方法の 1 つは、 **using(...){…}** 自動的に呼び出されます構文**Dispose()** 完了ブロックを使用してする場合。  
+**Dbcontexttransaction**は、コミットまたはロールバックされた後に破棄されることを意図しています。 これを実現する簡単な方法の1つは、 **(...){...}** using ブロックが完了すると自動的に**Dispose ()** を呼び出す構文。  
 
 ``` csharp
 using System;
@@ -66,27 +66,20 @@ namespace TransactionsExamples
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
-                    try
+                    context.Database.ExecuteSqlCommand(
+                        @"UPDATE Blogs SET Rating = 5" +
+                            " WHERE Name LIKE '%Entity Framework%'"
+                        );
+
+                    var query = context.Posts.Where(p => p.Blog.Rating >= 5);
+                    foreach (var post in query)
                     {
-                        context.Database.ExecuteSqlCommand(
-                            @"UPDATE Blogs SET Rating = 5" +
-                                " WHERE Name LIKE '%Entity Framework%'"
-                            );
-
-                        var query = context.Posts.Where(p => p.Blog.Rating >= 5);
-                        foreach (var post in query)
-                        {
-                            post.Title += "[Cool Blog]";
-                        }
-
-                        context.SaveChanges();
-
-                        dbContextTransaction.Commit();
+                        post.Title += "[Cool Blog]";
                     }
-                    catch (Exception)
-                    {
-                        dbContextTransaction.Rollback();
-                    }
+
+                    context.SaveChanges();
+
+                    dbContextTransaction.Commit();
                 }
             }
         }
@@ -95,16 +88,16 @@ namespace TransactionsExamples
 ```  
 
 > [!NOTE]
-> トランザクションを開始するには、基になるストア接続が開かれている必要があります。 Database.BeginTransaction() を呼び出すのでが開かれていない場合は、接続が開かれます。 DbContextTransaction には、接続が開かれている場合、閉じられます、Dispose() が呼び出されるとします。  
+> トランザクションを開始するには、基になるストア接続が開いている必要があります。 そのため、BeginTransaction () を呼び出すと、接続が開かれていない場合にその接続が開かれます。 DbContextTransaction が接続を開いた場合、Dispose () が呼び出されると、このトランザクションは閉じられます。  
 
 ### <a name="passing-an-existing-transaction-to-the-context"></a>既存のトランザクションをコンテキストに渡す  
 
-場合がありますも広範なスコープでは完全に同じデータベースでは、EF の外部での操作を含む、トランザクションを作成するとします。 これを実現するには、接続を開いてしと自分でトランザクションを開始をし)、データベースを既に開いている接続を使用して、その接続で、既存のトランザクションを使用するには b) の EF を指示する必要があります。  
+場合によっては、スコープ内でさらに広範なトランザクションを使用し、同じデータベースに対する操作や、EF の外部で完全に操作を含めることができます。 これを実現するには、接続を開いて、自分でトランザクションを開始してから、既に開かれているデータベース接続を使用するように EF a に指示し、b) その接続で既存のトランザクションを使用する必要があります。  
 
-これを行うには、定義し、ブール i) 既存の接続パラメーターと contextOwnsConnection ii) を実行する DbContext コンス トラクターのいずれかから継承され、コンテキスト クラスのコンス トラクターを使用する必要があります。  
+これを行うには、既存の接続パラメーターと ii) contextOwnsConnection ブール値を受け取る DbContext コンストラクターの1つを継承する、コンテキストクラスでコンストラクターを定義して使用する必要があります。  
 
 > [!NOTE]
-> ContextOwnsConnection フラグは、このシナリオで呼び出される場合は false に設定する必要があります。 これは、Entity Framework に通知を閉じることはできません、接続には、そのときに重要です。 (たとえば、次の 4 行目を参照)。  
+> このシナリオで呼び出される場合は、contextOwnsConnection フラグを false に設定する必要があります。 これは、接続が終了したときに接続を終了しないことを Entity Framework 通知するために重要です (たとえば、次の4行目を参照)。  
 
 ``` csharp
 using (var conn = new SqlConnection("..."))
@@ -116,9 +109,9 @@ using (var conn = new SqlConnection("..."))
 }
 ```  
 
-さらに、自分で (既定の設定を回避する場合、IsolationLevel を含む)、トランザクションを開始して、既存のトランザクション接続を既に開始されている Entity Framework を使用 (33 以下の行を参照してください)。  
+さらに、(既定の設定を避ける必要がある場合は IsolationLevel を含む) 自分でトランザクションを開始し、接続で既に開始されているトランザクションがあることを Entity Framework 確認してください (下記の33行目を参照)。  
 
-SqlConnection 自体で直接、または、DbContext でデータベース操作を実行されます。 このようなすべての操作は、1 つのトランザクション内で実行されます。 責任のコミットやトランザクションをロールバックしで Dispose() を呼び出すため、およびを閉じると、データベース接続の破棄を行います。 例えば:  
+その後、SqlConnection 自体、または DbContext で直接データベース操作を実行できます。 このような操作はすべて1つのトランザクション内で実行されます。 トランザクションのコミットまたはロールバック、およびそのトランザクションに対する Dispose () の呼び出し、およびデータベース接続の終了と破棄を行います。 例えば:  
 
 ``` csharp
 using System;
@@ -140,35 +133,28 @@ namespace TransactionsExamples
 
                using (var sqlTxn = conn.BeginTransaction(System.Data.IsolationLevel.Snapshot))
                {
-                   try
-                   {
-                       var sqlCommand = new SqlCommand();
-                       sqlCommand.Connection = conn;
-                       sqlCommand.Transaction = sqlTxn;
-                       sqlCommand.CommandText =
-                           @"UPDATE Blogs SET Rating = 5" +
-                            " WHERE Name LIKE '%Entity Framework%'";
-                       sqlCommand.ExecuteNonQuery();
+                   var sqlCommand = new SqlCommand();
+                   sqlCommand.Connection = conn;
+                   sqlCommand.Transaction = sqlTxn;
+                   sqlCommand.CommandText =
+                       @"UPDATE Blogs SET Rating = 5" +
+                        " WHERE Name LIKE '%Entity Framework%'";
+                   sqlCommand.ExecuteNonQuery();
 
-                       using (var context =  
-                         new BloggingContext(conn, contextOwnsConnection: false))
-                        {
-                            context.Database.UseTransaction(sqlTxn);
-
-                            var query =  context.Posts.Where(p => p.Blog.Rating >= 5);
-                            foreach (var post in query)
-                            {
-                                post.Title += "[Cool Blog]";
-                            }
-                           context.SaveChanges();
-                        }
-
-                        sqlTxn.Commit();
-                    }
-                    catch (Exception)
+                   using (var context =  
+                     new BloggingContext(conn, contextOwnsConnection: false))
                     {
-                        sqlTxn.Rollback();
+                        context.Database.UseTransaction(sqlTxn);
+
+                        var query =  context.Posts.Where(p => p.Blog.Rating >= 5);
+                        foreach (var post in query)
+                        {
+                            post.Title += "[Cool Blog]";
+                        }
+                       context.SaveChanges();
                     }
+
+                    sqlTxn.Commit();
                 }
             }
         }
@@ -176,21 +162,21 @@ namespace TransactionsExamples
 }
 ```  
 
-### <a name="clearing-up-the-transaction"></a>トランザクションをオフにします。
+### <a name="clearing-up-the-transaction"></a>トランザクションを消去しています
 
-Null を渡す Database.UseTransaction() を現在のトランザクションの Entity Framework のナレッジをオフにすることができます。 Entity Framework は、どちらもコミットもこれを行うときに、既存のトランザクションのロールバックがので注意して使用し、これは、実行することを確認している場合にのみになります。  
+UseTransaction () に null を渡すことにより、現在のトランザクションに関する Entity Framework の知識を消去できます。 この操作を行っても、Entity Framework によって既存のトランザクションがコミットまたはロールバックされることはありません。そのため、この操作を行う必要がある場合にのみ、慎重に使用してください。  
 
-### <a name="errors-in-usetransaction"></a>[いいえ] のエラー
+### <a name="errors-in-usetransaction"></a>UseTransaction のエラー
 
-トランザクションを渡す場合 Database.UseTransaction() から例外が表示される場合。  
-- Entity Framework が既に既存のトランザクション  
-- Entity Framework は既に、TransactionScope 内で動作しています。  
-- 渡されたトランザクション内の接続オブジェクトが null です。 つまり、トランザクションは接続に関連付けられていない – 通常、これはそのトランザクションが既に完了したサインイン  
-- 渡されたトランザクション内の接続オブジェクトでは、Entity Framework の接続は一致しません。  
+次の場合にトランザクションを渡すと、UseTransaction () の例外が表示されます。  
+- Entity Framework 既存のトランザクションが既に存在します  
+- Entity Framework は TransactionScope 内で既に動作しています  
+- 渡されたトランザクション内の接続オブジェクトが null です。 つまり、トランザクションは接続に関連付けられていません。通常、これはトランザクションが既に完了していることを示す符号です。  
+- 渡されたトランザクションの接続オブジェクトが Entity Framework の接続と一致しません。  
 
-## <a name="using-transactions-with-other-features"></a>他の機能とトランザクションの使用  
+## <a name="using-transactions-with-other-features"></a>他の機能でのトランザクションの使用  
 
-このセクションでは、上記のトランザクションと対話する方法についてください。  
+このセクションでは、上記のトランザクションとの相互作用について詳しく説明します。  
 
 - 接続の復元性  
 - 非同期メソッド  
@@ -198,16 +184,16 @@ Null を渡す Database.UseTransaction() を現在のトランザクションの
 
 ### <a name="connection-resiliency"></a>接続の復元性  
 
-新しい接続の回復性機能には、ユーザーによって開始されたトランザクションでは使えません。 詳細については、次を参照してください。[再試行実行戦略](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported)します。  
+新しい接続の回復性機能は、ユーザーが開始したトランザクションでは機能しません。 詳細については、「[実行方法の再試行](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported)」を参照してください。  
 
 ### <a name="asynchronous-programming"></a>非同期プログラミング  
 
-前のセクションで説明されているアプローチには、それ以上のオプションや設定を使用する必要ありません、[非同期クエリを実行し、メソッドの保存](~/ef6/fundamentals/async.md
-)します。 行う動作によって、非同期メソッド内で、この可能性 – デッドロックまたはブロックは、アプリケーション全体のパフォーマンスを低下が発生することがさらに実行時間の長いトランザクションに注意してください。  
+前のセクションで説明した方法では、 [非同期クエリおよび保存メソッド](~/ef6/fundamentals/async.md
+)を操作するためのその他のオプションや設定は必要ありません。 ただし、非同期メソッドの実行内容によっては、トランザクションが長時間実行される可能性があることに注意してください。これにより、アプリケーション全体のパフォーマンスを低下させるデッドロックやブロッキングが発生する可能性があります。  
 
 ### <a name="transactionscope-transactions"></a>TransactionScope トランザクション  
 
-EF6 の前によりも大きなスコープのトランザクションを提供することをお勧めの方法は、TransactionScope オブジェクトを使用してでした。  
+EF6 より前の場合は、より大きなスコープのトランザクションを提供するために、TransactionScope オブジェクトを使用することをお勧めします。  
 
 ``` csharp
 using System.Collections.Generic;
@@ -254,9 +240,9 @@ namespace TransactionsExamples
 }
 ```  
 
-SqlConnection と Entity Framework し、TransactionScope アンビエント トランザクションを使用して、したがって一緒にコミットします。  
+SqlConnection と Entity Framework はどちらもアンビエント TransactionScope トランザクションを使用するため、一緒にコミットされます。  
 
-以降では、.NET 4.5.1 も使用して非同期のメソッドを使用する TransactionScope が更新されました、 [TransactionScopeAsyncFlowOption](https://msdn.microsoft.com/library/system.transactions.transactionscopeasyncflowoption.aspx)列挙体。  
+.NET 4.5.1 以降の TransactionScope は、 [TransactionScopeAsyncFlowOption](https://msdn.microsoft.com/library/system.transactions.transactionscopeasyncflowoption.aspx)列挙体を使用して非同期メソッドでも動作するように更新されました。  
 
 ``` csharp
 using System.Collections.Generic;
@@ -301,16 +287,16 @@ namespace TransactionsExamples
 }
 ```  
 
-TransactionScope アプローチをいくつかの制限は引き続きがあります。  
+TransactionScope アプローチにはまだいくつかの制限があります。  
 
-- .NET 4.5.1 が必要以上の非同期メソッドを使用します。  
-- 1 つだけの接続があることを確認する場合を除いてには、クラウドのシナリオで使用することはできません (クラウドのシナリオでは分散トランザクションはサポートされません)。  
-- 前のセクションでは、の Database.UseTransaction() アプローチを組み合わせることはできません。  
-- 任意の DDL を発行し、MSDTC サービスを使用した分散トランザクションを有効にしていない場合、例外がスローされます。  
+- 非同期メソッドを操作するには、.NET 4.5.1 以降が必要です。  
+- 接続が1つしかない (クラウドシナリオでは分散トランザクションがサポートされていない) 場合を除き、クラウドシナリオでは使用できません。  
+- 前のセクションの UseTransaction () アプローチと組み合わせることはできません。  
+- DDL を発行し、MSDTC サービスを介して分散トランザクションが有効になっていない場合は、例外がスローされます。  
 
-TransactionScope アプローチの利点があります。  
+TransactionScope アプローチの利点は次のとおりです。  
 
-- それが自動的にアップグレード ローカル トランザクションを分散トランザクションに指定されたデータベースには、複数の接続を作成するか、または、同じトランザクション内の別のデータベースへの接続と 1 つのデータベースへの接続を組み合わせる場合 (注: が必要MSDTC サービスではこれが機能する分散トランザクションを許可するように構成します。  
-- コーディングの容易さ。 明示的に制御するのではなく、アンビエントとバック グラウンドで暗黙的にで対応するトランザクションを使用する場合、TransactionScope アプローチ可能性がありますに合わせてする向上。  
+- 特定のデータベースに対して複数の接続を作成したり、同じトランザクション内の別のデータベースへの接続を使用して1つのデータベースに接続を結合したりすると、ローカルトランザクションは分散トランザクションに自動的にアップグレードされます (注:分散トランザクションが機能するように MSDTC サービスが構成されています)。  
+- コーディングの容易さ。 トランザクションがアンビエントで、明示的に制御するのではなく、バックグラウンドで暗黙的に処理されるようにする場合は、TransactionScope アプローチの方が適している可能性があります。  
 
-新しい Database.BeginTransaction() および上記の Database.UseTransaction() Api の概要では、TransactionScope アプローチはほとんどのユーザーに必要ではなくなりました。 引き続き TransactionScope を使用する場合、上記の制限事項に注意してくださいになります。 可能な限り代わりに、前のセクションで紹介するアプローチを使用することをお勧めします。  
+要約すると、上記の新しい BeginTransaction () Api と UseTransaction () Api を使用すると、ほとんどのユーザーに対して TransactionScope アプローチは不要になります。 引き続き TransactionScope を使用する場合は、上記の制限事項に注意してください。 可能であれば、前のセクションで説明した方法を使用することをお勧めします。  

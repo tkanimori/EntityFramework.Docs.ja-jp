@@ -1,41 +1,41 @@
 ---
-title: 以前のバージョンから EF Core 2 - EF Core へのアップグレード
+title: 以前のバージョンから EF Core 2 EF Core へのアップグレード
 author: divega
 ms.date: 08/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 5371c8f3b7c6102c621296bbae145d13779e0c6e
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: 1222f10811914f65822a49e18522c287ece12174
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283772"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306501"
 ---
-# <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 へのアプリケーションのアップグレード
+# <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 にアプリケーションをアップグレードする
 
-既存の Api と 2.0 の動作を大幅に絞り込むことを思い出させています。 既存のアプリケーション コードを変更することが必要になるいくつかの機能強化への影響が再コンパイルおよび廃止された Api を置換する最小限のガイド付きの変更だけを必要とするほとんどの場合は低くなりますが、大半のアプリケーションと考えています。
+既存の Api と動作を2.0 で大幅に改善する機会を得ました。 既存のアプリケーションコードの変更が必要になることはいくつかありますが、ほとんどのアプリケーションでは影響が少ないと考えられますが、ほとんどの場合、再コンパイルだけで、最新ではない Api を置き換えるための最小限のガイド変更が必要です。
 
-既存のアプリケーションを EF Core 2.0 を更新する必要があります。
+既存のアプリケーションを EF Core 2.0 に更新する場合、次のことが必要になることがあります。
 
-1. .NET Standard 2.0 をサポートしているアプリケーションのターゲットの .NET 実装をアップグレードします。 参照してください[サポートされている .NET 実装](../platforms/index.md)の詳細。
+1. アプリケーションのターゲット .NET 実装を、.NET Standard 2.0 をサポートするものにアップグレードします。 詳細については、「[サポートされる .net の実装](../platforms/index.md)」を参照してください。
 
-2. EF Core 2.0 と互換性がターゲット データベースのプロバイダーを識別します。 参照してください[EF Core 2.0 には、2.0 データベース プロバイダーが必要があります](#ef-core-20-requires-a-20-database-provider)以下。
+2. EF Core 2.0 と互換性のあるターゲットデータベースのプロバイダーを特定します。 EF Core 2.0 を参照してください。次の[2.0 データベースプロバイダーが必要](#ef-core-20-requires-a-20-database-provider)です。
 
-3. すべての EF Core パッケージ (ランタイムおよびツール) を 2.0 にアップグレードします。 参照してください[EF Core のインストール](../get-started/install/index.md)の詳細。
+3. すべての EF Core パッケージ (ランタイムおよびツール) を2.0 にアップグレードします。 詳細については、「 [EF Core のインストール](../get-started/install/index.md)」を参照してください。
 
-4. このドキュメントの残りの部分で説明されている重大な変更を補正するために必要なコード変更を加えます。
+4. このドキュメントの残りの部分で説明されている互換性に影響する変更を補うために、必要なコード変更を行います。
 
-## <a name="aspnet-core-now-includes-ef-core"></a>ASP.NET Core が EF Core が含まれています
+## <a name="aspnet-core-now-includes-ef-core"></a>ASP.NET Core に EF Core が含まれるようになりました
 
-ASP.NET Core 2.0 を対象とするアプリケーションは、サードパーティ データベース プロバイダー以外の依存関係を追加せずに EF Core 2.0 を使用できます。 ただし、以前のバージョンの ASP.NET Core を対象とするアプリケーションは、EF Core 2.0 を使用するには、ASP.NET Core 2.0 にアップグレードする必要があります。 ASP.NET Core アプリケーションを 2.0 にアップグレードする方法の詳細を参照してください[サブジェクトで ASP.NET Core ドキュメント](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/)します。
+ASP.NET Core 2.0 を対象とするアプリケーションは、サードパーティ データベース プロバイダー以外の依存関係を追加せずに EF Core 2.0 を使用できます。 ただし、以前のバージョンの ASP.NET Core を対象とするアプリケーションでは、EF Core 2.0 を使用するために ASP.NET Core 2.0 にアップグレードする必要があります。 ASP.NET Core アプリケーションを2.0 にアップグレードする方法の詳細については[、ASP.NET Core のドキュメント](https://docs.microsoft.com/aspnet/core/migration/1x-to-2x/)を参照してください。
 
-## <a name="new-way-of-getting-application-services-in-aspnet-core"></a>ASP.NET Core でのアプリケーション サービスを取得する新しい方法
+## <a name="new-way-of-getting-application-services-in-aspnet-core"></a>ASP.NET Core でアプリケーションサービスを取得するための新しい方法
 
-EF Core が 1.x で使用されるデザイン時ロジックを無効にした方法で 2.0 の ASP.NET Core web アプリケーションの推奨されるパターンが更新されました。 以前のデザイン時に、EF Core は呼び出しを試みる`Startup.ConfigureServices`アプリケーションのサービス プロバイダーにアクセスするために直接します。 外部で ASP.NET Core 2.0 では、構成が初期化されて、`Startup`クラス。 通常、EF Core を使用してアプリケーションへのアクセス、接続文字列構成からため`Startup`自体では十分なできなくします。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、EF Core ツールを使用する場合、次のエラーを受信可能性があります。
+ASP.NET Core web アプリケーションで推奨されるパターンは、1. x で使用 EF Core デザイン時のロジックが破損しているように2.0 に更新されています。 以前はデザイン時に、EF Core はアプリケーションのサービス`Startup.ConfigureServices`プロバイダーにアクセスするために、を直接呼び出そうとします。 ASP.NET Core 2.0 では、構成は`Startup`クラスの外部で初期化されます。 EF Core を使用するアプリケーションは通常、構成から接続文字列`Startup`にアクセスするので、それ自体では不十分です。 ASP.NET Core 1.x アプリケーションをアップグレードすると、EF Core ツールの使用時に次のエラーが表示される場合があります。
 
-> 'ApplicationContext' で、パラメーターなしのコンストラクターが見つかりませんでした。 パラメーターなしのコンストラクターを 'ApplicationContext' に追加するか、追加の実装 'IDesignTimeDbContextFactory&lt;ApplicationContext&gt;' 'ApplicationContext' と同じアセンブリ内
+> ' ApplicationContext ' にパラメーターなしのコンストラクターが見つかりませんでした。 パラメーターなしのコンストラクターを ' applicationcontext ' に追加するか、' applicationcontext ' と同じアセンブリに&lt;' idesigntimedbcontextfactory applicationcontext&gt;' の実装を追加してください
 
-ASP.NET Core 2.0 の既定のテンプレートで、新しいデザイン時フックが追加されました。 静的な`Program.BuildWebHost`メソッドは、デザイン時に、アプリケーションのサービス プロバイダーへのアクセスに EF Core を使用できます。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、更新する必要があります。、`Program`クラスを、次のようになります。
+新しいデザイン時フックが ASP.NET Core 2.0 の既定のテンプレートに追加されました。 静的`Program.BuildWebHost`なメソッドを使用すると、デザイン時にアプリケーションのサービスプロバイダーにアクセスする EF Core できます。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、次のように`Program`クラスを更新する必要があります。
 
 ``` csharp
 using Microsoft.AspNetCore;
@@ -58,21 +58,21 @@ namespace AspNetCoreDotNetCore2._0App
 }
 ```
 
-2.0 アプリケーションの更新は強く推奨され、動作する Entity Framework Core Migrations のような製品機能のために必要がときにこの新しいパターンの導入します。 その他の一般的な方法が[実装*IDesignTimeDbContextFactory\<TContext >*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory)します。
+アプリケーションを2.0 に更新するときにこの新しいパターンを採用することを強くお勧めします。 Entity Framework Core の移行などの製品機能を使用するには、この新しいパターンが必要です。 もう1つの一般的な方法は、 [ *\<idesigntimedbcontextfactory tcontext >* を実装](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory)することです。
 
-## <a name="idbcontextfactory-renamed"></a>IDbContextFactory 名前変更
+## <a name="idbcontextfactory-renamed"></a>IDbContextFactory の名前変更
 
-多様なアプリケーション パターンをサポートし、ユーザーを細かく制御できるようにするために、`DbContext`使用は、デザイン時があるまで、提供される、`IDbContextFactory<TContext>`インターフェイス。 デザイン時に、EF Core ツールは、プロジェクトでは、このインターフェイスの実装が検出して使用を作成する`DbContext`オブジェクト。
+さまざまなアプリケーションパターンをサポートし、ユーザー `DbContext`がデザイン時の使用方法をより細かく制御できるようにするために、以前は`IDbContextFactory<TContext>`インターフェイスを提供してきました。 デザイン時に、EF Core ツールは、プロジェクト内のこのインターフェイスの実装を検出し、それを使用`DbContext`してオブジェクトを作成します。
 
-このインターフェイスが非常に一般的な名前を試す再を使用してその他のいくつかのユーザーを困惑させる`DbContext`のシナリオを作成します。 EF ツールは、デザイン時にその実装を使用する試みられたときに不意をつかれた状態されが発生したようにコマンドが`Update-Database`または`dotnet ef database update`失敗します。
+このインターフェイスには非常に一般的な名前が付いているため、一部のユーザーが`DbContext`他の作成シナリオで再利用を試みることがあります。 EF ツールが設計時に実装を使用しようとしたときに、や`Update-Database` `dotnet ef database update`などのコマンドが失敗すると、ガードが解除されました。
 
-このインターフェイスの強力なデザイン時のセマンティクスを伝達するために変更しましたに`IDesignTimeDbContextFactory<TContext>`します。
+このインターフェイスの強力なデザイン時セマンティクスを伝えるために、名前をに`IDesignTimeDbContextFactory<TContext>`変更しました。
 
-2.0 リリース、`IDbContextFactory<TContext>`も存在しますが、不使用とマークされます。
+2\.0 リリースでは、 `IDbContextFactory<TContext>`は引き続き存在しますが、不使用とマークされています。
 
-## <a name="dbcontextfactoryoptions-removed"></a>DbContextFactoryOptions の削除
+## <a name="dbcontextfactoryoptions-removed"></a>削除された DbContextFactoryOptions
 
-変更のため、ASP.NET Core 2.0 上で説明した、ことがわかりました`DbContextFactoryOptions`が不要になった新しい`IDesignTimeDbContextFactory<TContext>`インターフェイス。 ここでは、代替の代わりに使用する必要があります。
+上記で説明した ASP.NET Core 2.0 の変更により、 `DbContextFactoryOptions`新しい`IDesignTimeDbContextFactory<TContext>`インターフェイスでは不要になったことがわかりました。 代わりに、次の代替手段を使用する必要があります。
 
 | DbContextFactoryOptions | 代替                                                  |
 |:------------------------|:-------------------------------------------------------------|
@@ -82,84 +82,84 @@ namespace AspNetCoreDotNetCore2._0App
 
 ## <a name="design-time-working-directory-changed"></a>デザイン時の作業ディレクトリが変更されました
 
-使用される作業ディレクトリにも必要な ASP.NET Core 2.0 変更`dotnet ef`に合うよう、アプリケーションを実行するときに、Visual Studio で使用される作業ディレクトリにします。 この監視可能な副作用 1 つは、ファイル名はプロジェクト ディレクトリと出力ディレクトリではなく今すぐするために使用するようにその SQLite です。
+ASP.NET Core 2.0 の変更では、アプリケーションの実行時`dotnet ef`に Visual Studio によって使用される作業ディレクトリに合わせるために、で使用される作業ディレクトリも必要でした。 これは、SQLite ファイル名がプロジェクトディレクトリに対して相対的であり、のような出力ディレクトリではないという副作用の1つです。
 
-## <a name="ef-core-20-requires-a-20-database-provider"></a>EF Core 2.0 には、2.0 データベース プロバイダーが必要です。
+## <a name="ef-core-20-requires-a-20-database-provider"></a>EF Core 2.0 には2.0 データベースプロバイダーが必要です
 
-EF Core 2.0 には、多くの簡略化を行い、データベース プロバイダーの方法で機能強化を行いました。 これは 1.0.x および 1.1.x プロバイダーは EF Core 2.0 で動作しないことを意味します。
+EF Core 2.0 では、データベースプロバイダーの動作方法について、多くの簡素化と改善が行われています。 これは、1.0. x および 1.1. x プロバイダーが EF Core 2.0 で動作しないことを意味します。
 
-EF チームに、SQL Server と SQLite プロバイダーが付属して、2.0 バージョンが利用できる、2.0 の一部としてリリースします。 サード パーティ製のオープン ソースのプロバイダー [SQL Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact)、 [PostgreSQL](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL)、および[MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql) 2.0 に対して更新されています。 その他のすべてのプロバイダーでは、プロバイダーの作成者に問い合わせてください。
+SQL Server および SQLite プロバイダーは EF チームによって出荷され、2.0 バージョンは2.0 リリースの一部として提供されます。 [SQL Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact)、 [PostgreSQL](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL)、および[MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)のオープンソースのサードパーティプロバイダーは2.0 用に更新されています。 他のすべてのプロバイダーについては、プロバイダーの作成者にお問い合わせください。
 
-## <a name="logging-and-diagnostics-events-have-changed"></a>ログ記録と診断のイベントが変更されました。
+## <a name="logging-and-diagnostics-events-have-changed"></a>ログ記録と診断イベントが変更されました
 
-注: これらの変更ではほとんどのアプリケーション コードは影響しません。
+注: これらの変更は、ほとんどのアプリケーションコードに影響しないようにしてください。
 
-イベント Id に送信されるメッセージについて、 [ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs)が 2.0 で変更されました。 イベント ID が EF Core コード全体で一意になりました。 これらのメッセージはまた、たとえば MVC で使用される構造化されたログ記録の標準パターンに従います。
+[ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs)に送信されたメッセージのイベント id が2.0 で変更されました。 イベント ID が EF Core コード全体で一意になりました。 これらのメッセージはまた、たとえば MVC で使用される構造化されたログ記録の標準パターンに従います。
 
 ロガー カテゴリも変更されました。 現在、[DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs) 経由でアクセスされる既知のカテゴリ セットがあります。
 
-[DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md)イベントは、対応する同じイベント ID の名前を使用するようになりました`ILogger`メッセージ。 イベント ペイロードがすべての標準型から派生した[EventData](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/EventData.cs)します。
+[DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md)イベントでは、対応する`ILogger`メッセージと同じイベント ID 名が使用されるようになりました。 イベントペイロードは、 [EventData](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/EventData.cs)から派生したすべての公称型です。
 
-イベント Id、ペイロードの種類、およびカテゴリに記載されている、 [CoreEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/CoreEventId.cs)と[RelationalEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore.Relational/Diagnostics/RelationalEventId.cs)クラス。
+イベント Id、ペイロードの種類、およびカテゴリは、 [Coreeventid](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/CoreEventId.cs)と[RelationalEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore.Relational/Diagnostics/RelationalEventId.cs)クラスに記載されています。
 
-Id は、新しい Microsoft.EntityFrameworkCore.Diagnostics 名前空間にも Microsoft.EntityFrameworkCore.Infraestructure から移動されました。
+Id は、Microsoft の EntityFrameworkCore. Infrastructure 名前空間にも移動されています。
 
-## <a name="ef-core-relational-metadata-api-changes"></a>EF Core のリレーショナル メタデータ API の変更
+## <a name="ef-core-relational-metadata-api-changes"></a>リレーショナルメタデータ API の変更の EF Core
 
-EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、_一般的なリレーショナル メタデータ コンセプト_へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。たとえば、1.1.x ようなコード:
+EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、_一般的なリレーショナル メタデータ コンセプト_へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。たとえば、次のような 1.1. x コードです。
 
 ``` csharp
 var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName;
 ```
 
-このようなようになりました記述する必要があります。
+次のようになります。
 
 ``` csharp
 var tableName = context.Model.FindEntityType(typeof(User)).Relational().TableName;
 ```
 
-などのメソッドを使用する代わりに`ForSqlServerToTable`、拡張メソッドは使用中の現在のプロバイダーに基づく条件付きのコードを記述できるようになりました。 例えば:
+のような`ForSqlServerToTable`メソッドを使用する代わりに、拡張メソッドを使用して、現在使用されているプロバイダーに基づいて条件付きコードを記述できるようになりました。 例えば:
 
 ```C#
 modelBuilder.Entity<User>().ToTable(
     Database.IsSqlServer() ? "SqlServerName" : "OtherName");
 ```
 
-この変更は、定義されている Api/メタデータにのみ適用されます_すべて_リレーショナル プロバイダー。 API とメタデータは、1 つのプロバイダーのみに固有である場合に、同じままです。 たとえば、クラスター化インデックスは SQL Sever に固有ように`ForSqlServerIsClustered`と`.SqlServer().IsClustered()`引き続き使用する必要があります。
+この変更は、_すべて_のリレーショナルプロバイダーに対して定義されている api/メタデータにのみ適用されることに注意してください。 API とメタデータは、1つのプロバイダーのみに限定されていても変わりません。 たとえば、クラスター化インデックスは SQL server に固有のもの`ForSqlServerIsClustered`で`.SqlServer().IsClustered()`あるため、引き続き使用する必要があります。
 
-## <a name="dont-take-control-of-the-ef-service-provider"></a>EF のサービス プロバイダーの管理を使用しません。
+## <a name="dont-take-control-of-the-ef-service-provider"></a>EF サービスプロバイダーを制御しない
 
-EF Core を使用して内部`IServiceProvider`(依存関係注入コンテナー) の内部実装します。 アプリケーションでは、EF Core を作成し、このプロバイダーは、特殊なケースで以外の管理を許可する必要があります。 呼び出しの削除を厳密に検討`UseInternalServiceProvider`します。 アプリケーションを呼び出す必要がある場合`UseInternalServiceProvider`、しを検討してください[問題をファイリング](https://github.com/aspnet/EntityFramework/Issues)シナリオを処理する他の方法で調査を行えるようにします。
+内部実装には`IServiceProvider` 、内部 (依存関係挿入コンテナー) を使用 EF Core。 アプリケーションでは、特別な場合を除き、このプロバイダーを作成および管理する EF Core を許可する必要があります。 の呼び出しを削除すること`UseInternalServiceProvider`を強くお勧めします。 アプリケーションでを呼び出す`UseInternalServiceProvider`必要がある場合は、シナリオを処理する他の方法を調査できるように、問題を[提出](https://github.com/aspnet/EntityFramework/Issues)することを検討してください。
 
-呼び出す`AddEntityFramework`、 `AddEntityFrameworkSqlServer`、アプリケーション コードでは、しない限りなどは必要ありません`UseInternalServiceProvider`ともいいます。 既存の呼び出しをすべて削除`AddEntityFramework`または`AddEntityFrameworkSqlServer`など`AddDbContext`と同様に、以前とする必要があります使用もします。
+、 `AddEntityFramework`、 `AddEntityFrameworkSqlServer`などを呼び出すことは、が呼び出され`UseInternalServiceProvider`ない限り、アプリケーションコードでは必要ありません。 または`AddEntityFramework` `AddEntityFrameworkSqlServer`などへの既存の呼び出しを`AddDbContext`削除する場合でも、以前と同じ方法で使用する必要があります。
 
-## <a name="in-memory-databases-must-be-named"></a>メモリ内データベースを指定する必要があります。
+## <a name="in-memory-databases-must-be-named"></a>インメモリデータベースは、という名前にする必要があります。
 
-グローバルな名前のないメモリ内データベースが削除され、代わりにメモリ内のすべてのデータベースを名前必要があります。 例えば:
+名前のないグローバルなメモリ内データベースデータベースは削除されているため、すべてのインメモリデータベースに名前を付ける必要があります。 例えば:
 
 ``` csharp
 optionsBuilder.UseInMemoryDatabase("MyDatabase");
 ```
 
-これを作成/使用"MyDatabase"という名前のデータベース。 場合`UseInMemoryDatabase`が再度呼び出される同じ名前の同じメモリ内データベースが使用され、複数のコンテキスト インスタンスで共有することができます。
+これにより、"MyDatabase" という名前のデータベースが作成/使用されます。 同じ名前で再度を呼び出すと、同じメモリ内データベースが使用され、複数のコンテキストインスタンスで共有できるようになります。`UseInMemoryDatabase`
 
-## <a name="read-only-api-changes"></a>読み取り専用の API の変更
+## <a name="read-only-api-changes"></a>読み取り専用 API の変更
 
-`IsReadOnlyBeforeSave`、 `IsReadOnlyAfterSave`、および`IsStoreGeneratedAlways`廃止され、置き換え[BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39)と[AfterSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55)します。 これらの動作 (ストア生成プロパティだけでなく) プロパティには適用し、データベースの行に挿入するときのプロパティの値の使用方法を判断 (`BeforeSaveBehavior`) ときに、行をデータベース、既存の更新または (`AfterSaveBehavior`)。
+`IsReadOnlyBeforeSave`、 `IsReadOnlyAfterSave`、および`IsStoreGeneratedAlways`は廃止され、 [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39)と[aftersavebehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55)に置き換えられました。 これらの動作は、(ストアによって生成されるプロパティだけでなく) 任意のプロパティに適用され、データベース行`BeforeSaveBehavior`に挿入するとき、または既存のデータベース行 (`AfterSaveBehavior`) を更新するときに、プロパティの値をどのように使用するかを決定します。
 
-プロパティとしてマーク[ValueGenerated.OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (たとえば、計算列)、既定では無視されます、プロパティに設定されている任意の値。 これは、任意の値が設定や追跡対象エンティティで変更されているかどうかに関係なくストア生成値が常に得られることを意味します。 これは、さまざまな設定で変更できます`Before\AfterSaveBehavior`します。
+[Valuegenerated. OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (計算列など) としてマークされたプロパティは、既定では、プロパティに現在設定されている値を無視します。 これは、追跡対象のエンティティで値が設定または変更されたかどうかに関係なく、ストアによって生成される値が常に取得されることを意味します。 これは、別`Before\AfterSaveBehavior`のを設定することによって変更できます。
 
-## <a name="new-clientsetnull-delete-behavior"></a>新しい ClientSetNull 削除の動作
+## <a name="new-clientsetnull-delete-behavior"></a>新しい ClientSetNull の削除動作
 
-以前のリリースで[DeleteBehavior.Restrict](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/DeleteBehavior.cs)がエンティティの動作をコンテキストによって追跡の詳細は一致した閉じられたこと`SetNull`セマンティクスです。 EF Core 2.0 で新しい`ClientSetNull`省略可能なリレーションシップの既定値としての動作が導入されています。 この動作は、`SetNull`追跡対象のエンティティのセマンティクスと`Restrict`EF Core を使用して作成されたデータベースの動作。 経験から言うと、これらは、追跡対象のエンティティとデータベースの最も期待/役立つ動作です。 `DeleteBehavior.Restrict` 省略可能なリレーションシップを設定する場合、追跡対象エンティティのようになりました受け入れられます。
+以前のリリースでは、 [deletebehavior. 制限](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/DeleteBehavior.cs)は、終了したセマンティクスに一致`SetNull`したコンテキストによって追跡されるエンティティに対して動作がありました。 EF Core 2.0 では、オプション`ClientSetNull`のリレーションシップの既定値として新しい動作が導入されました。 この動作に`SetNull`は、EF Core を使用`Restrict`して作成されたデータベースの追跡対象エンティティおよび動作のセマンティクスがあります。 ここでは、追跡対象のエンティティとデータベースに対して最も期待される、または役に立つ動作を示します。 `DeleteBehavior.Restrict`は、オプションのリレーションシップが設定されている場合、追跡対象エンティティに対して使用されるようになりました
 
-## <a name="provider-design-time-packages-removed"></a>プロバイダーのデザイン時パッケージを削除
+## <a name="provider-design-time-packages-removed"></a>プロバイダーのデザイン時に削除されたパッケージ
 
-`Microsoft.EntityFrameworkCore.Relational.Design`パッケージが削除されました。 ファイルの内容が統合された`Microsoft.EntityFrameworkCore.Relational`と`Microsoft.EntityFrameworkCore.Design`します。
+`Microsoft.EntityFrameworkCore.Relational.Design`パッケージが削除されました。 コンテンツはと`Microsoft.EntityFrameworkCore.Relational` `Microsoft.EntityFrameworkCore.Design`に統合されています。
 
-プロバイダーのデザイン時パッケージに反映されます。 これらのパッケージ (`Microsoft.EntityFrameworkCore.Sqlite.Design`、`Microsoft.EntityFrameworkCore.SqlServer.Design`など) が削除されましたし、その内容は、メイン プロバイダーのパッケージに統合します。
+これは、プロバイダーのデザイン時パッケージに反映されます。 これらのパッケージ`Microsoft.EntityFrameworkCore.Sqlite.Design`( `Microsoft.EntityFrameworkCore.SqlServer.Design`、など) は削除され、その内容はメインプロバイダーパッケージに統合されています。
 
-有効にする`Scaffold-DbContext`または`dotnet ef dbcontext scaffold`EF Core 2.0 でのみ参照する必要が 1 つのプロバイダー パッケージ。
+EF Core 2.0 `Scaffold-DbContext`で`dotnet ef dbcontext scaffold`またはを有効にするには、1つのプロバイダーパッケージのみを参照する必要があります。
 
 ``` xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"

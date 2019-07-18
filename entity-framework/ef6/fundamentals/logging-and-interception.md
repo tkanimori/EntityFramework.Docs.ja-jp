@@ -1,30 +1,30 @@
 ---
-title: ログ記録と EF6 のデータベース操作の受信
+title: データベース操作のログ記録とインターセプト-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: 3f06e073f3ab6e46883663620219e302d5db1d60
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: be32ed114269543ac36b256a202e0494d466e4f7
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490088"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306529"
 ---
-# <a name="logging-and-intercepting-database-operations"></a>ログに記録して、データベース操作の受信
+# <a name="logging-and-intercepting-database-operations"></a>データベース操作のログ記録と受信
 > [!NOTE]
 > **EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。  
 
-ときにいつでも Entity Framework コマンドを送信、データベースにこのコマンドは、Entity Framework 6 では、以降は、アプリケーション コードで受け取ることができます。 これは、SQL では、ログ記録が最もよく使用されますが、変更、または、コマンドを中止するも使用できます。  
+Entity Framework 6 以降では、Entity Framework は常にコマンドをデータベースに送信します。このコマンドは、アプリケーションコードによって傍受される可能性があります。 これは、SQL をログ記録するために最も一般的に使用されますが、コマンドを変更または中止するために使用することもできます。  
 
-具体的には、EF が含まれます。  
+具体的には、EF には次のものが含まれます。  
 
-- LINQ to SQL で DataContext.Log のようなコンテキストのログ プロパティ  
-- コンテンツと、ログに送信される出力の書式設定をカスタマイズするためのメカニズム  
-- コントロールと柔軟性を提供する傍受のための低レベルの構成要素  
+- DataContext と同様のコンテキストのログプロパティ LINQ to SQL  
+- ログに送信される出力の内容と書式をカスタマイズするためのメカニズム  
+- インターセプトのための低レベルの構成ブロックにより、制御性と柔軟性が向上  
 
-## <a name="context-log-property"></a>コンテキストのログ プロパティ  
+## <a name="context-log-property"></a>コンテキストログのプロパティ  
 
-DbContext.Database.Log プロパティは、文字列を受け取る任意のメソッドのデリゲートを設定できます。 最もよくその TextWriter の「書き込み」メソッドに設定することで、TextWriter に使用されます。 現在のコンテキストによって生成されたすべての SQL は、そのライターに記録されます。 たとえば、次のコードは SQL をコンソールにログインします。  
+DbContext. .Log プロパティは、文字列を受け取る任意のメソッドのデリゲートに設定できます。 最も一般的に使用されるのは、その TextWriter の "書き込み" メソッドに設定することによって、どの TextWriter でも使用されます。 現在のコンテキストによって生成されるすべての SQL は、そのライターにログ記録されます。 たとえば、次のコードでは、SQL がコンソールに記録されます。  
 
 ``` csharp
 using (var context = new BlogContext())
@@ -35,9 +35,9 @@ using (var context = new BlogContext())
 }
 ```  
 
-そのコンテキストに注意してください。Console.Write Database.Log が設定されます。 これは、すべての SQL をコンソールにログインするために必要です。  
+コンテキストに注意してください。データベース .Log は、Console. 書き込みに設定されています。 これは、SQL をコンソールに記録するために必要なすべてのものです。  
 
-何らかの出力を確認できるようにしましょうクエリ/挿入/更新する単純なコードを追加します。  
+いくつかの出力を確認できるように、単純なクエリ/挿入/更新コードを追加してみましょう。  
 
 ``` csharp
 using (var context = new BlogContext())
@@ -94,39 +94,39 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 -- Completed in 2 ms with result: SqlDataReader
 ```  
 
-(これは、データベースの初期化が既に過ぎていると仮定すると出力であることに注意してください。 データベースの初期化が既に行われていない場合がありますし、移行のすべての作業を表示、はるかに多くの出力が内部でのチェックまたは新しいデータベースを作成します。)  
+(これは、データベースの初期化が既に行われていることを前提とした出力です。 データベースの初期化がまだ行われていない場合は、さらに多くの出力が表示され、新しいデータベースを確認したり、新しいデータベースを作成したりするために、すべてのワーク移行が内部で行われます。  
 
-## <a name="what-gets-logged"></a>ログに記録内容を取得しますか。  
+## <a name="what-gets-logged"></a>ログ記録される内容  
 
-ときにログ プロパティの設定は、次のすべてのログに記録されます。  
+Log プロパティが設定されると、次のすべてがログに記録されます。  
 
-- コマンドのさまざまな種類のすべての SQL です。 例えば:  
-    - 通常の LINQ クエリ、eSQL クエリ、および SqlQuery などのメソッドからの生のクエリを含むクエリ  
-    - 挿入、更新、および SaveChanges の一部として生成された削除  
-    - リレーションシップの遅延読み込みによって生成されるものなどのクエリの読み込み  
+- SQL では、さまざまな種類のコマンドを使用できます。 例えば:  
+    - クエリ (通常の LINQ クエリ、eSQL クエリ、SqlQuery などのメソッドからの生のクエリを含む)  
+    - SaveChanges の一部として生成された挿入、更新、および削除  
+    - 遅延読み込みによって生成されたクエリなどのクエリを読み込むリレーションシップ  
 - パラメーター  
 - コマンドが非同期的に実行されているかどうか  
-- コマンドが実行を開始したことを示すタイムスタンプ  
-- 例外をスローするか、非同期コマンドは正常に完了しましたが失敗しました、かどうかが取り消されました  
-- 結果の値のいくつかを示す値  
-- コマンドを実行するのに要した概算の時間。 結果オブジェクトを取得するコマンドの送信からの時間であるに注意してください。 結果の読み取りに時間は含まれません。  
+- コマンドの実行開始時刻を示すタイムスタンプ  
+- コマンドが正常に完了したかどうか、例外をスローして失敗したか、または非同期の場合、が取り消されたかどうか。  
+- 結果の値を示す値  
+- コマンドの実行に要したおおよその時間です。 これは、コマンドを送信して結果オブジェクトを返すまでの時間です。 結果を読み取る時間は含まれません。  
 
-上記の例の出力を見ると、各ログに記録する 4 つのコマンドは。  
+上記の出力例を見ると、次の4つのコマンドがログに記録されます。  
 
-- クエリのコンテキストへの呼び出しの結果します。Blogs.First  
-    - メソッドは、SQL を取得するためには、このクエリの動作しません ToString"First"が提供しないこと、IQueryable を ToString を呼び出すことができますに注意してください。  
-- ブログの遅延読み込みをクエリします。投稿  
-    - どの遅延読み込みのキー値のパラメーターの詳細が行われることに注意してください。  
-    - 既定以外の値に設定されているパラメーターのプロパティのみが記録されます。 たとえば、サイズ プロパティのみのように 0 でないかどうかは。  
-- SaveChangesAsync; から結果として 2 つのコマンド1 つは、更新、挿入する新しい投稿を追加する他の投稿のタイトルを変更するには  
-    - FK とタイトルのプロパティのパラメーターの詳細に注意してください。  
-    - これらのコマンドを非同期的に実行されていることに注意してください。  
+- コンテキストの呼び出しの結果として得られるクエリ。ブログ。最初  
+    - "First" は ToString が呼び出される IQueryable を提供しないため、SQL を取得する ToString メソッドはこのクエリに対して動作しませんでした。  
+- ブログの遅延読み込みによって生成されるクエリ。等しく  
+    - 遅延読み込みが発生しているキー値のパラメーターの詳細を確認します。  
+    - 既定値以外の値に設定されているパラメーターのプロパティのみがログに記録されます。 たとえば、Size プロパティは、0以外の場合にのみ表示されます。  
+- SaveChangesAsync によって生成される2つのコマンド1つは、投稿のタイトルを変更する更新用で、もう1つは、新しい投稿を追加するための挿入用です。  
+    - FK および Title プロパティのパラメーターの詳細に注意してください。  
+    - これらのコマンドは非同期に実行されていることに注意してください。  
 
-## <a name="logging-to-different-places"></a>別の場所にログ記録  
+## <a name="logging-to-different-places"></a>別の場所へのログ記録  
 
-上記のログ記録をコンソールはとても簡単です。 簡単にメモリやファイルなどさまざまな種類を使用してログインの[TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx)します。  
+前述のように、コンソールへのログ記録はとても簡単です。 また、異なる種類の[TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx)を使用して、メモリやファイルなどに簡単にログを記録することもできます。  
 
-LINQ to SQL で LINQ to SQL のログ プロパティが TextWriter で実際のオブジェクト (たとえば、Console.Out) 中にログ設定されます (たとえば、文字列を受け取るメソッドに EF に注意が使い慣れている場合、Console.Write または Console.Out.Write)。 この理由は、文字列をシンクとして機能するすべてのデリゲートをそのまま使用して EF TextWriter からを分離するためです。 たとえば、いくつかのログ記録フレームワークが既にあることと、ログ記録メソッドを定義します次のようにします。  
+LINQ to SQL に慣れている場合は、EF で log プロパティが実際の TextWriter オブジェクト (たとえば、Console) に設定されているときに、Log プロパティが文字列を受け入れるメソッドに設定されている LINQ to SQL ことに注意してください (たとえば、、Console. write または Console) を入力します。 これは、文字列のシンクとして機能するデリゲートを受け入れることによって、TextWriter から EF を分離するためです。 たとえば、既にいくつかのログ記録フレームワークがあり、次のようなログ記録方法が定義されているとします。  
 
 ``` csharp
 public class MyLogger
@@ -138,7 +138,7 @@ public class MyLogger
 }
 ```  
 
-このような EF のログ プロパティにこれフックする可能性があります。  
+これは、次のように EF Log プロパティにフックすることができます。  
 
 ``` csharp
 var logger = new MyLogger();
@@ -147,19 +147,19 @@ context.Database.Log = s => logger.Log("EFApp", s);
 
 ## <a name="result-logging"></a>結果のログ記録  
 
-既定のロガー ログ コマンド テキスト (SQL)、パラメーター、および「実行」の行のタイムスタンプを持つデータベースにコマンドが送信される前にします。 経過時間を含む「完了」の行では、コマンドのログに記録された次の実行です。  
+既定の logger では、コマンドがデータベースに送信される前に、コマンドテキスト (SQL)、パラメーター、および "実行中" 行がタイムスタンプと共にログに記録されます。 経過時間を含む "completed" 行は、コマンドの実行後にログに記録されます。  
 
-非同期タスク実際に完了、失敗した場合、またはキャンセルされるまでは、非同期の「完了」の行をコマンドには記録されません。  
+非同期コマンドの場合、非同期タスクが実際に完了、失敗、またはキャンセルされるまで、"completed" 行は記録されません。  
 
-「完了」の行には、コマンドと実行が成功したかどうかの種類に応じて、異なる情報が含まれています。  
+"Completed" 行には、コマンドの種類と、実行が成功したかどうかによって異なる情報が含まれています。  
 
-### <a name="successful-execution"></a>正常に実行  
+### <a name="successful-execution"></a>成功した実行  
 
-出力を正常に完了するためのコマンドは"結果を使用した ms x で完了しました:"後に、結果の内容の一部を示す値。 データ リーダーの結果を返すコマンドを示す値は、型[DbDataReader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx)が返されます。 更新プログラムなどの整数値を返すコマンドに示す結果上に示したコマンドは整数になります。  
+正常に完了したコマンドの場合、出力は "x ミリ秒で完了しました。結果:" の後に結果を示すいくつかの結果が続きます。 データリーダーを返すコマンドの場合は、返される[Dbdatareader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx)の型が結果に示されます。 上に示した update コマンドなどの整数値を返すコマンドは、その整数です。  
 
 ### <a name="failed-execution"></a>失敗した実行  
 
-例外をスローして失敗したコマンドの出力には、例外からのメッセージが含まれています。 たとえば、SqlQuery が存在するテーブルに対するクエリを使用してログで結果の出力はこのようなもの。  
+例外をスローして失敗するコマンドの場合、出力には例外からのメッセージが含まれます。 たとえば、SqlQuery を使用して、存在するテーブルに対してクエリを実行すると、次のようなログ出力が生成されます。  
 
 ``` SQL
 SELECT * from ThisTableIsMissing
@@ -167,9 +167,9 @@ SELECT * from ThisTableIsMissing
 -- Failed in 1 ms with error: Invalid object name 'ThisTableIsMissing'.
 ```  
 
-### <a name="canceled-execution"></a>取り消された実行  
+### <a name="canceled-execution"></a>実行の取り消し  
 
-非同期コマンドが、タスクはキャンセル結果でした失敗、例外のためにこれは、基になる ADO.NET プロバイダー多くの場合、キャンセルを試行したときに。 そうしない場合、出力は次のようになりますし、タスクは正常にキャンセルします。  
+タスクが取り消された非同期コマンドの場合、結果は例外で失敗する可能性があります。これは、基になる ADO.NET プロバイダーが取り消しを試行したときに頻繁に実行されるためです。 これが行われず、タスクが正常に取り消されると、出力は次のようになります。  
 
 ```  
 update Blogs set Title = 'No' where Id = -1
@@ -177,24 +177,24 @@ update Blogs set Title = 'No' where Id = -1
 -- Canceled in 1 ms
 ```  
 
-## <a name="changing-log-content-and-formatting"></a>ログの内容を変更して、書式設定  
+## <a name="changing-log-content-and-formatting"></a>ログの内容と書式設定の変更  
 
-実際には DatabaseLogFormatter オブジェクトのプロパティは、Database.Log を使用します。 このオブジェクトは、文字列と DbContext をデリゲートに IDbCommandInterceptor 実装 (下記参照) を効果的にバインドします。 これは、ある DatabaseLogFormatter メソッドによって呼び出されるコマンドの実行の前後に EF を意味します。 これらの DatabaseLogFormatter メソッドは、収集し、ログ出力を書式設定し、代理人に送信します。  
+内部では、データベース .Log プロパティは DatabaseLogFormatter オブジェクトを使用します。 このオブジェクトは、IDbCommandInterceptor の実装 (下記参照) を文字列および DbContext を受け入れるデリゲートに効果的にバインドします。 これは、EF によってコマンドが実行される前と後に、DatabaseLogFormatter のメソッドが呼び出されることを意味します。 これらの DatabaseLogFormatter メソッドは、ログ出力を収集して書式設定し、デリゲートに送信します。  
 
-### <a name="customizing-databaselogformatter"></a>DatabaseLogFormatter をカスタマイズします。  
+### <a name="customizing-databaselogformatter"></a>DatabaseLogFormatter のカスタマイズ  
 
-DatabaseLogFormatter から派生し、適切なメソッドを上書きする新しいクラスを作成してログ内容と書式設定方法の変更を実現できます。 オーバーライドする最も一般的な方法を示します。  
+ログ記録とその書式設定を変更するには、DatabaseLogFormatter から派生する新しいクラスを作成し、必要に応じてメソッドをオーバーライドします。 オーバーライドする最も一般的な方法は次のとおりです。  
 
-- LogCommand – これをオーバーライドして、それらが実行される前にコマンドを記録する方法を変更します。 既定で LogCommand は各パラメーターの LogParameter を呼び出すオーバーライドで同じ処理を実行または代わりに異なる方法でパラメーターを処理することができます。  
-- LogResult – これをオーバーライドしてから、コマンドの実行結果を記録する方法を変更します。  
-- LogParameter – これをオーバーライドして、書式設定とパラメーターのログ記録の内容を変更します。  
+- LogCommand –実行前にコマンドがログに記録される方法を変更するには、これをオーバーライドします。 既定では、LogCommand は各パラメーターの Logcommand を呼び出します。オーバーライドで同じ操作を行うことも、パラメーターを別の方法で処理することもできます。  
+- LogResult –これをオーバーライドして、コマンドの実行結果がどのようにログに記録されるかを変更します。  
+- LogParameter –パラメーターログの書式設定と内容を変更するには、これをオーバーライドします。  
 
-たとえば、各コマンドは、データベースに送信される前に、1 行だけを記録したいとします。 これは、2 つの上書きを実行できます。  
+たとえば、各コマンドがデータベースに送信される前に1行だけログを記録したいとします。 これは、次の2つの上書きを使用して行うことができます。  
 
-- 書式設定および SQL の 1 つの行を記述する LogCommand をオーバーライドします。  
-- 何もしない LogResult をオーバーライドします。  
+- SQL の単一行をフォーマットして書き込むには、LogCommand をオーバーライドします。  
+- LogResult をオーバーライドして何も実行しないようにします。  
 
-コードは、次のようになります。
+コードは次のようになります。
 
 ``` csharp
 public class OneLineFormatter : DatabaseLogFormatter
@@ -221,13 +221,13 @@ public class OneLineFormatter : DatabaseLogFormatter
 }
 ```  
 
-ログインをかけるだけで構成された書き込みのデリゲートに出力を送信 Write メソッドを出力します。  
+出力をログに記録するには、書き込みメソッドを呼び出して、構成された書き込みデリゲートに出力を送信します。  
 
-(このコードで改行の例と同様の単純な削除はことに注意してください。 可能性があります機能複雑な SQL を表示します。)  
+(このコードでは、例と同じように改行を単純に削除します。 多くの場合、複雑な SQL の表示には適していません)。  
 
-### <a name="setting-the-databaselogformatter"></a>設定、DatabaseLogFormatter  
+### <a name="setting-the-databaselogformatter"></a>DatabaseLogFormatter の設定  
 
-その新しい DatabaseLogFormatter クラスを作成した後は、EF に登録する必要があります。 これは、コード ベースの構成を使用します。 一言では、DbContext クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成して、この新しいクラスのコンストラクターで呼び出して SetDatabaseLogFormatter を意味します。 例えば:  
+新しい DatabaseLogFormatter クラスを作成したら、EF に登録する必要があります。 これは、コードベースの構成を使用して行います。 簡単に言うと、これは、Dbconfiguration クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成し、この新しいクラスのコンストラクターで SetDatabaseLogFormatter を呼び出すことを意味します。 例えば:  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration
@@ -240,9 +240,9 @@ public class MyDbConfiguration : DbConfiguration
 }
 ```  
 
-### <a name="using-the-new-databaselogformatter"></a>新しい DatabaseLogFormatter を使用します。  
+### <a name="using-the-new-databaselogformatter"></a>新しい DatabaseLogFormatter の使用  
 
-この新しい DatabaseLogFormatter Database.Log が設定されているときにいつでも使用されます。 そのため、第 1 部からコードを実行しているが、次の出力では発生ようになりました。  
+この新しい DatabaseLogFormatter は、いつでもデータベース .Log が設定されるようになりました。 そのため、パート1のコードを実行すると、次の出力が生成されるようになります。  
 
 ```  
 Context 'BlogContext' is executing command 'SELECT TOP (1) [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title]FROM [dbo].[Blogs] AS [Extent1]WHERE (N'One Unicorn' = [Extent1].[Title]) AND ([Extent1].[Title] IS NOT NULL)'
@@ -251,60 +251,60 @@ Context 'BlogContext' is executing command 'update [dbo].[Posts]set [Title] = @0
 Context 'BlogContext' is executing command 'insert [dbo].[Posts]([Title], [BlogId])values (@0, @1)select [Id]from [dbo].[Posts]where @@rowcount > 0 and [Id] = scope_identity()'
 ```  
 
-## <a name="interception-building-blocks"></a>インターセプション構成要素  
+## <a name="interception-building-blocks"></a>インターセプトの構成要素  
 
-これまでに DbContext.Database.Log を使用して、EF によって生成される SQL ログに記録する方法が説明しました。 このコードは、一般的な傍受のための低レベルの構成要素を実際には比較的薄いファサードです。  
+ここまでは、EF によって生成された SQL をログに記録するために、DbContext を使用する方法を見てきました。 しかし、このコードは実際には、より一般的なインターセプトを行うために、一部の低レベルの構成要素に対して比較的シンファサードです。  
 
-### <a name="interception-interfaces"></a>インターセプション インターフェイス  
+### <a name="interception-interfaces"></a>インターセプトインターフェイス  
 
-インターセプション コード インターセプション インターフェイスの概念が構築されています。 これらのインターフェイスは IDbInterceptor から継承し、EF が何らかのアクションを実行するときに呼び出されるメソッドを定義します。 目的は、1 つのインターフェイスが傍受されないオブジェクトの種類ごとにです。 たとえば、IDbCommandInterceptor インターフェイスは、EF は ExecuteNonQuery、ExecuteScalar、ExecuteReader、および関連するメソッドの呼び出し前に呼び出されるメソッドを定義します。 同様に、インターフェイスは、これらの各操作が完了したときに呼び出されるメソッドを定義します。 これまで見てきた上を DatabaseLogFormatter クラスは、コマンドをログには、このインターフェイスを実装します。  
+インターセプトコードは、インターセプトインターフェイスの概念を中心に構築されています。 これらのインターフェイスは、IDbInterceptor から継承し、EF が何らかのアクションを実行するときに呼び出されるメソッドを定義します。 目的は、オブジェクトの型ごとに1つのインターフェイスを受け取ることです。 たとえば、IDbCommandInterceptor インターフェイスは、EF が ExecuteNonQuery、ExecuteScalar、ExecuteReader、および関連メソッドの呼び出しを行う前に呼び出されるメソッドを定義します。 同様に、インターフェイスは、これらの各操作が完了したときに呼び出されるメソッドを定義します。 上で見た DatabaseLogFormatter クラスは、このインターフェイスを実装してコマンドを記録します。  
 
-### <a name="the-interception-context"></a>インターセプトのコンテキスト  
+### <a name="the-interception-context"></a>インターセプトコンテキスト  
 
-インターセプター インターフェイスのいずれかで定義されているメソッドで検索することことすべての呼び出しは指定された型 DbInterceptionContext のオブジェクトまたは何らかの種類から派生したこの DbCommandInterceptionContext など明らかな\<\>します。 このオブジェクトには、EF がかかっている操作に関するコンテキスト情報が含まれています。 たとえば、DbContext に代わって、この操作を実行中は場合、DbContext は、DbInterceptionContext で含まし。 同様に、非同期的に実行されているコマンドについては、DbCommandInterceptionContext にへの IsAsync フラグが設定します。  
+任意のインターセプターインターフェイスで定義されているメソッドを見ると、すべての呼び出しには DbInterceptionContext 型のオブジェクト、または DbCommandInterceptionContext\<\>などの派生型のオブジェクトが指定されていることがわかります。 このオブジェクトには、EF が行っているアクションに関するコンテキスト情報が含まれています。 たとえば、アクションが DbContext の代わりに実行されている場合、DbContext は DbInterceptionContext に含まれます。 同様に、非同期に実行されるコマンドの場合、IsAsync フラグは DbCommandInterceptionContext に設定されます。  
 
 ### <a name="result-handling"></a>結果の処理  
 
-DbCommandInterceptionContext\< \>クラスには、結果、OriginalResult、例外、および OriginalException と呼ばれるプロパティが含まれています。 これらのプロパティ設定に null/0、操作を実行する前に呼び出されるインターセプターのメソッドを呼び出し、つまりの.メソッドを実行します。 操作が実行され、成功すると場合、結果と OriginalResult し、設定操作の結果にするされます。 操作が実行された後に呼び出されるインターセプターのメソッドで、これらの値を確認しできます-がの.メソッドを実行します。 同様に、操作をスローする場合、例外と OriginalException プロパティは設定されます。  
+\< DbCommandInterceptionContext\>クラスには、Result、originalresult、Exception、および originalresult というプロパティが含まれています。 これらのプロパティは、操作が実行される前に呼び出されるインターセプトメソッド (つまり...) の呼び出しに対して null または0に設定されます。メソッドを実行しています。 操作が実行され、成功した場合、Result と OriginalResult は操作の結果に設定されます。 これらの値は、操作が実行された後に呼び出されるインターセプトメソッド (つまり...実行されたメソッド。 同様に、操作がをスローした場合、Exception プロパティと OriginalException プロパティが設定されます。  
 
-#### <a name="suppressing-execution"></a>実行を抑制します。  
+#### <a name="suppressing-execution"></a>実行の抑制  
 
-コマンドが実行される前に、インターセプターが、Result プロパティを設定かどうか (のいずれかで、...メソッドの実行) し、EF は、コマンドを実際に実行を試行しませんが、代わりにだけ、結果セット。 つまり、インターセプターは、コマンドの実行を抑制するが、続行コマンドが実行された場合、EF があります。  
+コマンドが実行される前にインターセプターが Result プロパティを設定する場合 (メソッドを実行すると、EF は実際にはコマンドを実行しませんが、代わりに結果セットを使用します。 つまり、インターセプターはコマンドの実行を抑制できますが、コマンドが実行されたかのように EF を続行します。  
 
-これを使用する方法の例では、ラッピング プロバイダーでコマンドをバッチ処理が実現していました。 インターセプターは後で実行するためのコマンドをバッチとして保存しますを通常どおり、コマンドを実行した EF「ふり」は。 、バッチ処理を実装するためにそれ以上が必要ですが、これは、傍受される結果の変更を使用する方法の例に注意してください。  
+これがどのように使用されるかの例として、通常、ラッピングプロバイダーで実行されたコマンドバッチ処理があります。 インターセプターは、後で実行するためにコマンドをバッチとして格納しますが、コマンドが通常どおり実行されたことを EF に "示す" とします。 バッチ処理を実装するには、これを超えるものが必要であることに注意してください。ただし、これはインターセプトの結果を変更する方法の例です。  
 
-いずれかで例外のプロパティを設定して実行を抑制することも、.メソッドを実行します。 これにより、EF に指定した例外をスローして、操作の実行に失敗したかのように続行されます。 これが、もちろん、原因でクラッシュし、アプリケーションが一時的な例外や EF によって処理されるその他のいくつかの例外があります。 たとえば、このされる可能性がありますテスト環境でコマンドの実行が失敗したときに、アプリケーションの動作をテストします。  
+[例外] プロパティを設定することにより、実行を抑制することもできます。メソッドを実行しています。 これにより、指定された例外をスローすることで、操作の実行が失敗した場合と同様に EF が続行します。 もちろん、これによってアプリケーションがクラッシュすることがありますが、一時的な例外や EF によって処理される他の例外である場合もあります。 たとえば、これをテスト環境で使用して、コマンドの実行が失敗したときにアプリケーションの動作をテストすることができます。  
 
-#### <a name="changing-the-result-after-execution"></a>実行後、結果を変更します。  
+#### <a name="changing-the-result-after-execution"></a>実行後の結果の変更  
 
-コマンドが実行された後にインターセプターがかどうかに結果のプロパティを設定 (のいずれかで、...メソッドの実行)、EF は実際には、操作から返された結果ではなく、変更された結果を使用します。 同様に、インターセプターは、コマンドが実行された後に、例外のプロパティを設定、されている場合、EF セット例外がスローされます、操作は、例外をスローしていた場合。  
+コマンドが実行された後にインターセプターが Result プロパティを設定する場合 (実行されたメソッド)、EF は、実際に操作から返された結果ではなく、変更された結果を使用します。 同様に、コマンドの実行後にインターセプターが Exception プロパティを設定した場合、EF は、操作によって例外がスローされたかのように set 例外をスローします。  
 
-インターセプターは、例外をスローしないことを示す null に例外プロパティを設定することができますも。 これは、操作の実行に失敗しましたが、インターセプターが EF 操作が正常に完了した場合、続行する場合に役立ちます。 これは通常必要もあります EF がある継続を使用するいくつかの結果値を持つように、結果を設定します。  
+インターセプターでは、例外をスローする必要がないことを示すために、Exception プロパティを null に設定することもできます。 これは、操作の実行に失敗しても、操作が成功したかのように、インターセプターが EF を使用する場合に便利です。 これには、通常、EF が処理を続行するための結果値があるように結果を設定する必要もあります。  
 
-#### <a name="originalresult-and-originalexception"></a>OriginalResult と OriginalException  
+#### <a name="originalresult-and-originalexception"></a>OriginalResult と Originalresult  
 
-EF の操作が実行された後に設定されます実行は失敗しなかった場合の結果と OriginalResult プロパティか、例外および OriginalException プロパティ実行例外で失敗しました。  
+EF によって操作が実行されると、実行が失敗した場合は Result プロパティと OriginalResult プロパティが設定され、例外が発生して実行が失敗した場合は例外および Originalresult プロパティが設定されます。  
 
-OriginalResult と OriginalException プロパティは読み取り専用と、実際に操作を実行した後、EF によってのみ設定されます。 インターセプターでは、これらのプロパティを設定できません。 つまり、インターセプターは、例外または結果では実際の例外ではなく他のいくつかのインターセプタによって設定されているか、操作を実行したときに発生した結果の間で区別できます。  
+OriginalResult プロパティと Originalresult プロパティは読み取り専用であり、実際に操作を実行した後に EF によってのみ設定されます。 これらのプロパティは、インターセプターでは設定できません。 つまり、どのインターセプターも、他のインターセプターによって設定された例外と結果を、実際の例外や、操作の実行時に発生した結果と区別することはできません。  
 
-### <a name="registering-interceptors"></a>インターセプターを登録します。  
+### <a name="registering-interceptors"></a>インターセプターの登録  
 
-インターセプトのインターフェイスを実装するクラスが作成されたら、DbInterception クラスを使用して EF で登録できます。 例えば:  
+1つ以上のインターセプトインターフェイスを実装するクラスが作成されたら、DbInterception クラスを使用して EF に登録できます。 例えば:  
 
 ``` csharp
 DbInterception.Add(new NLogCommandInterceptor());
 ```  
 
-インターセプターは、DbConfiguration コード ベースの構成機構を使用して、アプリケーション ドメイン レベルで登録することもできます。  
+インターセプターは、DbConfiguration コードベースの構成メカニズムを使用して、アプリドメインレベルで登録することもできます。  
 
-### <a name="example-logging-to-nlog"></a>例: ログ NLog を  
+### <a name="example-logging-to-nlog"></a>例:NLog へのログ記録  
 
-まとめてみましょうすべてこれには、例を使用して IDbCommandInterceptor と[NLog](http://nlog-project.org/)に。  
+ここでは、IDbCommandInterceptor と[Nlog](http://nlog-project.org/)を使用して、次のことを行う例について説明します。  
 
-- ログの警告を非非同期的に実行される任意のコマンド  
-- 実行されたときにスローする任意のコマンドのエラー ログに記録します。  
+- 非同期的に実行されていないコマンドに対して警告をログに記録します。  
+- 実行時にスローされるすべてのコマンドに対してエラーをログに記録します。  
 
-上記のように登録する必要がありますが、ログ記録を行うクラスを次に示します。  
+ログ記録を実行するクラスを次に示します。これは、上記のように登録する必要があります。  
 
 ``` csharp
 public class NLogCommandInterceptor : IDbCommandInterceptor
@@ -368,4 +368,4 @@ public class NLogCommandInterceptor : IDbCommandInterceptor
 }
 ```  
 
-このコードが傍受されるコンテキストを使用するコマンドを非非同期的に実行されているときに検出して、コマンドを実行中にエラーがある場合を検出する方法に注意してください。  
+このコードでは、コマンドが非同期に実行されていないことを検出し、コマンドの実行中にエラーが発生したことを検出するために、インターセプトコンテキストを使用する方法に注意してください。  

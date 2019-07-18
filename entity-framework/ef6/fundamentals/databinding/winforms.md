@@ -1,56 +1,56 @@
 ---
-title: WinForms - EF6 とのデータ バインド
+title: WinForms を使用したデータバインド-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: 8da5bf653221b7919abb89d6d33bc8ed172828a4
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: ad55ef4d496bbfe30eafcab9811c92989066519f
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490156"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306563"
 ---
-# <a name="databinding-with-winforms"></a>WinForms とのデータ バインド
-このステップ バイ ステップ チュートリアルでは、POCO 型を「マスター/詳細」の形式で、ウィンドウ フォーム (WinForms) コントロールにバインドする方法を示します。 アプリケーションでは、Entity Framework を使用して、データベースからデータをオブジェクトに設定、変更の追跡、およびデータベースにデータを保持します。
+# <a name="databinding-with-winforms"></a>WinForms を使用したデータバインド
+このステップバイステップチュートリアルでは、POCO 型を "マスター/詳細" フォームでウィンドウフォーム (WinForms) コントロールにバインドする方法について説明します。 アプリケーションでは、Entity Framework を使用して、データベースのデータをオブジェクトに読み込み、変更を追跡し、データベースにデータを保持します。
 
-モデルが一対多のリレーションシップに参加している 2 つの型を定義します。 カテゴリ (プリンシパル\\マスター) と製品 (依存\\詳細)。 次に、Visual Studio ツールは、WinForms コントロールのモデルで定義された型のバインドに使用されます。 WinForms データ バインディング フレームワークにより、関連するオブジェクト間のナビゲーション: により、対応する子データで更新する詳細ビューがマスター ビューの行を選択します。
+このモデルでは、一対多のリレーションシップに参加する2つの型が定義されています。カテゴリ (プリンシパル\\マスタ) と製品 (依存\\関係の詳細)。 次に、Visual Studio ツールを使用して、モデルで定義されている型を WinForms コントロールにバインドします。 WinForms データバインディングフレームワークを使用すると、関連するオブジェクト間のナビゲーションが可能になります。マスタービューで行を選択すると、対応する子データで詳細ビューが更新されます。
 
-スクリーン ショットとこのチュートリアルで示した各コードは、Visual Studio 2013 から取得されますが、このチュートリアルでは、Visual Studio 2012 または Visual Studio 2010 を行うことができます。
+このチュートリアルのスクリーンショットとコードリストは Visual Studio 2013 から取得されていますが、Visual Studio 2012 または Visual Studio 2010 を使用してこのチュートリアルを完了することができます。
 
 ## <a name="pre-requisites"></a>前提条件
 
-Visual Studio 2013 を持っている必要があります、このチュートリアルを完了する、Visual Studio 2012 または Visual Studio 2010 がインストールされています。
+このチュートリアルを完了するには、Visual Studio 2013、Visual Studio 2012、または Visual Studio 2010 がインストールされている必要があります。
 
-Visual Studio 2010 を使用している場合は、NuGet をインストールする必要があります。 詳細については、[をインストールする NuGet](http://docs.nuget.org/docs/start-here/installing-nuget)を参照してください。
+Visual Studio 2010 を使用している場合は、NuGet もインストールする必要があります。 詳細については、「 [NuGet のインストール](http://docs.nuget.org/docs/start-here/installing-nuget)」を参照してください。
 
 ## <a name="create-the-application"></a>アプリケーションを作成する
 
 -   Visual Studio を開く
--   **ファイル -&gt;新機能 -&gt;プロジェクト.**
--   選択**Windows**左側のウィンドウで、 **Windows FormsApplication**右側のウィンドウで
--   入力**WinFormswithEFSample**名として
+-   **ファイル-&gt; &gt;新規プロジェクト....**
+-   左側のウィンドウで **[windows]** を選択し、右側のウィンドウで**windows フォームアプリケーション**を選択します。
+-   名前として「 **Winフォーム Withefsample** 」と入力します。
 -   **[OK]** を選択します。
 
-## <a name="install-the-entity-framework-nuget-package"></a>Entity Framework NuGet パッケージをインストールします。
+## <a name="install-the-entity-framework-nuget-package"></a>Entity Framework NuGet パッケージをインストールする
 
--   ソリューション エクスプ ローラーを右クリックし、 **WinFormswithEFSample**プロジェクト
--   選択**NuGet パッケージを管理しています.**
--   NuGet パッケージの管理 ダイアログ ボックスで、、**オンライン** タブで選択し、 **EntityFramework**パッケージ
--   クリックして**インストール**  
+-   ソリューションエクスプローラーで、 **Winフォーム Withefsample**プロジェクトを右クリックします。
+-   **[NuGet パッケージの管理...]** を選択します。
+-   NuGet パッケージの管理 ダイアログで、**オンライン** タブを選択し、 **entityframework**パッケージを選択します。
+-   **[インストール]** をクリックします。  
     > [!NOTE]
-    > EntityFramework アセンブリだけでなく System.ComponentModel.DataAnnotations への参照も追加されます。 System.Data.Entity への参照をプロジェクトには場合、は、EntityFramework パッケージがインストールされている場合、削除するされます。 System.Data.Entity アセンブリは Entity Framework 6 アプリケーションは使用されません。
+    > EntityFramework アセンブリに加えて、System.componentmodel への参照も追加されます。 プロジェクトに system.object への参照が含まれている場合は、EntityFramework パッケージのインストール時に削除されます。 Entity Framework 6 アプリケーションでは、system.object アセンブリは使用されなくなりました。
 
 ## <a name="implementing-ilistsource-for-collections"></a>コレクションの IListSource の実装
 
-コレクションのプロパティは、双方向データ バインド Windows フォームを使用する場合の並べ替えを有効にする IListSource インターフェイスを実装する必要があります。 IListSource の機能を追加する ObservableCollection を拡張しようとしてこれを行うには。
+コレクションプロパティは、Windows フォームを使用するときに、並べ替えを使用した双方向のデータバインディングを有効にするために、IListSource インターフェイスを実装する必要があります。 これを行うには、System.collections.objectmodel.observablecollection を拡張して IListSource 機能を追加します。
 
--   追加、 **ObservableListSource**クラスをプロジェクト。
+-   **ObservableListSource**クラスをプロジェクトに追加します。
     -   プロジェクト名を右クリックします。
-    -   選択**追加 -&gt;新しい項目**
-    -   選択**クラス**入力**ObservableListSource**クラス名
--   既定では、次のコードで生成されたコードに置き換えます。
+    -   [**追加]&gt; 、[新しい項目] の**選択
+    -   **[クラス]** を選択し、クラス名として「 **ObservableListSource** 」と入力します。
+-   既定で生成されるコードを次のコードに置き換えます。
 
-*このクラスには、双方向データ バインドと並べ替えができるようにします。クラスは ObservableCollection から派生&lt;T&gt; IListSource の明示的な実装を追加します。IListSource の GetList() メソッドは、同期、ObservableCollection を維持する IBindingList 実装を返す実装されます。ToBindingList によって生成された IBindingList 実装では、並べ替えをサポートします。ToBindingList の拡張機能メソッドは、EntityFramework アセンブリで定義されます。*
+*このクラスは、双方向のデータバインディングと並べ替えを有効にします。クラスは system.collections.objectmodel.observablecollection&lt;T&gt;から派生し、IListSource の明示的な実装を追加します。IListSource の GetList () メソッドを実装すると、System.collections.objectmodel.observablecollection との同期を維持した状態で IBindingList 実装が返されます。ToBindingList によって生成される IBindingList 実装は、並べ替えをサポートしています。ToBindingList 拡張メソッドは EntityFramework アセンブリで定義されています。*
 
 ``` csharp
     using System.Collections;
@@ -77,18 +77,18 @@ Visual Studio 2010 を使用している場合は、NuGet をインストール�
     }
 ```
 
-## <a name="define-a-model"></a>モデルを定義します。
+## <a name="define-a-model"></a>モデルの定義
 
-できます、このチュートリアルでは、Code First または EF Designer を使用してモデルを実装するために選択しました。 2 つのセクションでは、次のいずれかを完了します。
+このチュートリアルでは、Code First または EF デザイナーを使用してモデルを実装することを選択できます。 次の2つのセクションのいずれかを実行します。
 
-### <a name="option-1-define-a-model-using-code-first"></a>オプション 1: Code First を使用してモデルを定義します。
+### <a name="option-1-define-a-model-using-code-first"></a>オプション 1:Code First を使用してモデルを定義する
 
-このセクションでは、モデルおよび関連する Code First を使用してデータベースを作成する方法を示します。 次のセクションにスキップ (**オプション 2: Database First を使用してモデルを定義)** エンジニア リング EF designer を使用してデータベースからモデルを使用する場合は、データベースの最初を逆にします。
+このセクションでは、Code First を使用してモデルとそれに関連付けられたデータベースを作成する方法について説明します。 次のセクションに進みます **(オプション 2:Database First を使用して、** EF デザイナーを使用してデータベースからモデルをリバースエンジニアリングする場合は、Database First) を使用してモデルを定義します。
 
-Code First の開発を使用する場合に、(ドメイン) の概念モデルを定義する .NET Framework クラスを記述することで、通常で開始します。
+Code First 開発を使用する場合は、通常、概念 (ドメイン) モデルを定義する .NET Framework クラスを記述することから始めます。
 
--   新しい追加**製品**プロジェクトにクラス
--   既定では、次のコードで生成されたコードに置き換えます。
+-   新しい**製品**クラスをプロジェクトに追加する
+-   既定で生成されるコードを次のコードに置き換えます。
 
 ``` csharp
     using System;
@@ -110,8 +110,8 @@ Code First の開発を使用する場合に、(ドメイン) の概念モデル
     }
 ```
 
--   追加、**カテゴリ**クラスをプロジェクト。
--   既定では、次のコードで生成されたコードに置き換えます。
+-   **カテゴリ**クラスをプロジェクトに追加します。
+-   既定で生成されるコードを次のコードに置き換えます。
 
 ``` csharp
     using System;
@@ -134,12 +134,12 @@ Code First の開発を使用する場合に、(ドメイン) の概念モデル
     }
 ```
 
-エンティティを定義するだけでなくから派生したクラスを定義する必要があります。 **DbContext**公開**DbSet&lt;TEntity&gt;** プロパティ。 **DbSet**プロパティは、モデルに追加する型も把握してコンテキストを使用します。 **DbContext**と**DbSet**型 EntityFramework アセンブリで定義されます。
+エンティティを定義するだけでなく、 **dbcontext**から派生し、 **&lt;dbcontext&gt; TEntity**プロパティを公開するクラスを定義する必要があります。 **Dbset**プロパティを使用すると、モデルに含める型をコンテキストに認識させることができます。 **Dbcontext**および**Dbcontext**型は entityframework アセンブリで定義されています。
 
-DbContext 派生型のインスタンスがデータベースからデータを使用してオブジェクトの設定が含まれています。 ランタイム処理中に、エンティティ オブジェクトを管理、追跡、および永続化するデータをデータベースに変更します。
+DbContext の派生型のインスタンスは、実行時にエンティティオブジェクトを管理します。これには、データベースからのデータを使用したオブジェクトの読み込み、変更の追跡、およびデータベースへのデータの永続化が含まれます。
 
--   新しい追加**ProductContext**クラスをプロジェクト。
--   既定では、次のコードで生成されたコードに置き換えます。
+-   新しい**Productcontext**クラスをプロジェクトに追加します。
+-   既定で生成されるコードを次のコードに置き換えます。
 
 ``` csharp
     using System;
@@ -160,39 +160,39 @@ DbContext 派生型のインスタンスがデータベースからデータを�
 
 プロジェクトをコンパイルします。
 
-### <a name="option-2-define-a-model-using-database-first"></a>オプション 2: Database First を使用してモデルを定義します。
+### <a name="option-2-define-a-model-using-database-first"></a>オプション 2:Database First を使用してモデルを定義する
 
-このセクションでは、EF designer を使用してデータベースからモデルをリバース エンジニア リング Database First を使用する方法を示します。 前のセクションを完了している場合 (**オプション 1: Code First を使用してモデルを定義)**、このセクションをスキップし、すぐに進んで、 **Lazy Loading**セクション。
+このセクションでは、Database First を使用して、EF デザイナーを使用してデータベースからモデルをリバースエンジニアリングする方法について説明します。 前のセクションを完了した**場合 (オプション 1:Code First)** を使用してモデルを定義し、このセクションをスキップして、**遅延読み込み**のセクションに直接移動します。
 
-#### <a name="create-an-existing-database"></a>既存のデータベースを作成します。
+#### <a name="create-an-existing-database"></a>既存のデータベースを作成する
 
-通常それは既に作成されて、既存のデータベースを対象としているときに、このチュートリアルではアクセスするデータベースを作成する必要があります。
+通常、既存のデータベースを対象とする場合は、既に作成されますが、このチュートリアルでは、にアクセスするデータベースを作成する必要があります。
 
-Visual Studio と共にインストールされているデータベース サーバーは、インストールした Visual Studio のバージョンによって異なります。
+Visual Studio と共にインストールされるデータベースサーバーは、インストールされている Visual Studio のバージョンによって異なります。
 
--   Visual Studio 2010 を使用している場合は、SQL Express データベースを作成するがします。
--   Visual Studio 2012 を使用しているかどうかは、作成する、 [LocalDB](https://msdn.microsoft.com/library/hh510202.aspx)データベース。
+-   Visual Studio 2010 を使用している場合は、SQL Express データベースを作成します。
+-   Visual Studio 2012 を使用している場合は、 [LocalDB](https://msdn.microsoft.com/library/hh510202.aspx)データベースを作成します。
 
-データベースを生成してみましょう。
+では、データベースを生成してみましょう。
 
--   **ビュー -&gt;サーバー エクスプ ローラー**
--   右クリックして**データ接続 -&gt;接続の追加.**
--   場合、まだデータベースに接続して、サーバー エクスプ ローラーから前に、データ ソースとして Microsoft SQL Server を選択する必要があります。
+-   **ビュー-&gt;サーバーエクスプローラー**
+-   [**データ接続-&gt;接続の追加**] を右クリックします。
+-   サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして Microsoft SQL Server を選択する必要があります。
 
     ![データ ソースの変更](~/ef6/media/changedatasource.png)
 
--   LocalDB または SQL Express をインストールしたものに応じてのいずれかに接続し、入力**製品**データベース名として
+-   インストールされているものに応じて LocalDB または SQL Express に接続し、データベース名として「 **Products** 」と入力します。
 
-    ![LocalDB の接続を追加します。](~/ef6/media/addconnectionlocaldb.png)
+    ![接続 LocalDB の追加](~/ef6/media/addconnectionlocaldb.png)
 
-    ![接続の高速を追加します。](~/ef6/media/addconnectionexpress.png)
+    ![接続 Express の追加](~/ef6/media/addconnectionexpress.png)
 
--   選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**
+-   [ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 **[はい]** を選択します。
 
     ![データベースの作成](~/ef6/media/createdatabase.png)
 
--   新しいデータベースがサーバー エクスプ ローラーに表示されますを右クリックして選択**新しいクエリ**
--   新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**
+-   新しいデータベースがサーバーエクスプローラーに表示され、右クリックして **[新しいクエリ]** を選択します。
+-   次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[実行]** を選択します。
 
 ``` SQL
     CREATE TABLE [dbo].[Categories] (
@@ -213,104 +213,104 @@ Visual Studio と共にインストールされているデータベース サ�
     ALTER TABLE [dbo].[Products] ADD CONSTRAINT [FK_dbo.Products_dbo.Categories_CategoryId] FOREIGN KEY ([CategoryId]) REFERENCES [dbo].[Categories] ([CategoryId]) ON DELETE CASCADE
 ```
 
-#### <a name="reverse-engineer-model"></a>リバース エンジニア リング モデル
+#### <a name="reverse-engineer-model"></a>リバースエンジニアリングモデル
 
-Visual Studio の一部として含まれている Entity Framework デザイナーを使用してモデルを作成することになります。
+ここでは、Visual Studio の一部として含まれている Entity Framework Designer を使用して、モデルを作成します。
 
--   **プロジェクト -&gt;新しい項目を追加しています.**
--   選択**データ**左側のメニューをクリックし**ADO.NET Entity Data Model**
--   入力**ProductModel**名をクリックします**OK**
--   これにより、起動、 **Entity Data Model ウィザード**
--   選択**データベースから生成**クリック **[次へ]**
+-   **プロジェクト-&gt;新しい項目の追加...**
+-   左側のメニューから **データ** を選択し、ADO.NET をクリックし**Entity Data Model**
+-   名前として「 **Productmodel** 」と入力し、[ **OK]** をクリックします。
+-   **Entity Data Model ウィザード**が起動します。
+-   **[データベースから生成]** を選択し、 **[次へ]** をクリックします。
 
-    ![ChooseModelContents](~/ef6/media/choosemodelcontents.png)
+    ![Modelcontents を行う](~/ef6/media/choosemodelcontents.png)
 
--   最初のセクションで作成したデータベース接続を選択して、入力**ProductContext**をクリックして、接続文字列の名前として **[次へ]**
+-   最初のセクションで作成したデータベースへの接続を選択し、接続文字列の名前として「 **Productcontext** 」と入力して、 **[次へ]** をクリックします。
 
-    ![接続を選択します。](~/ef6/media/chooseyourconnection.png)
+    ![接続の選択](~/ef6/media/chooseyourconnection.png)
 
--   すべてのテーブルをインポートし、[完了] をクリックします。 'テーブル' の横にあるチェック ボックスをクリックします。
+-   [テーブル] の横にあるチェックボックスをオンにしてすべてのテーブルをインポートし、[完了] をクリックします。
 
-    ![オブジェクトを選択します。](~/ef6/media/chooseyourobjects.png)
+    ![オブジェクトの選択](~/ef6/media/chooseyourobjects.png)
 
-リバース エンジニア リング プロセスが完了すると、新しいモデルがプロジェクトに追加しを開いて、Entity Framework デザイナーで表示することです。 App.config ファイルが、データベースの接続詳細を含むプロジェクトにも追加されました。
+リバースエンジニアリングプロセスが完了すると、新しいモデルがプロジェクトに追加され、Entity Framework Designer で表示できるように開かれます。 App.config ファイルも、データベースの接続の詳細と共にプロジェクトに追加されています。
 
-#### <a name="additional-steps-in-visual-studio-2010"></a>Visual Studio 2010 で追加の手順
+#### <a name="additional-steps-in-visual-studio-2010"></a>Visual Studio 2010 の追加手順
 
-Visual Studio 2010 で作業している場合は、EF6 コード生成を使用する EF designer を更新する必要があります。
+Visual Studio 2010 で作業している場合は、EF6 コード生成を使用するように EF デザイナーを更新する必要があります。
 
--   EF Designer でのモデルの空いている場所を右クリックして**コード生成項目の追加.**
--   選択**オンライン テンプレート**、左側のメニューと検索から**DbContext**
--   選択、 **EF 6.x C 用 DbContext ジェネレーター\#、** 入力**ProductsModel**名として追加 をクリック
+-   EF デザイナーでモデルの空の場所を右クリックし、 **[コード生成項目の追加...]** を選択します。
+-   左側のメニューから **[オンラインテンプレート]** を選択し、 **dbcontext**を検索します。
+-   **C\#の EF 6.x dbcontext ジェネレーター**を選択し、名前として「製品**モデル**」と入力して、[追加] をクリックします。
 
-#### <a name="updating-code-generation-for-data-binding"></a>データ バインディングの更新のコード生成
+#### <a name="updating-code-generation-for-data-binding"></a>データバインディングのコード生成の更新
 
-EF では、T4 テンプレートを使用して、モデルからコードを生成します。 Visual Studio に付属のか、Visual Studio ギャラリーからダウンロードしたテンプレートは、一般的な用途に使用されるもの。 つまり、これらのテンプレートから生成されたエンティティがある単純な ICollection&lt;T&gt;プロパティ。 ただし、データ バインディングの実行時は IListSource を実装するコレクションのプロパティを用意することをお勧めします。 これは、ため、上記の ObservableListSource クラスを作成したとするテンプレートを変更しようとして今すぐこのクラスを使用します。
+EF は T4 テンプレートを使用して、モデルからコードを生成します。 Visual Studio に付属しているテンプレート、または Visual Studio ギャラリーからダウンロードしたテンプレートは、汎用的な使用を目的としています。 これは、これらのテンプレートから生成されたエンティティ&lt;に&gt;単純な ICollection T プロパティがあることを意味します。 ただし、データバインディングを実行する場合は、IListSource を実装するコレクションプロパティを設定することをお勧めします。 このため、上記の ObservableListSource クラスを作成したので、このクラスを使用するようにテンプレートを変更します。
 
--   開く、**ソリューション エクスプ ローラー**を見つけて**ProductModel.edmx**ファイル
--   検索、 **ProductModel.tt** ProductModel.edmx ファイルの下で入れ子にはファイル
+-   **ソリューションエクスプローラー**を開き、 **productmodel. .edmx**ファイルを検索します。
+-   ProductModel. .edmx ファイルの下に入れ子になっている**ProductModel.tt**ファイルを見つけます。
 
-    ![製品モデルのテンプレート](~/ef6/media/productmodeltemplate.png)
+    ![製品モデルテンプレート](~/ef6/media/productmodeltemplate.png)
 
--   Visual Studio エディターで開く ProductModel.tt ファイルをダブルクリックします
--   検索し、置換の 2 つの出現回数"**ICollection**"with"**ObservableListSource**"。 これらは、296 と 484 を約行にあります。
--   検索し、置換の最初に見つかった"**HashSet**"with"**ObservableListSource**"。 この状況の発生は、約 50 行に配置されます。 **しない**HashSet は後で、コードの 2 番目に出現を置換します。
--   ProductModel.tt ファイルを保存します。 これは、再生成するエンティティのコードで発生する必要があります。 コードは自動的に再生成しない場合は、ProductModel.tt を右クリックし、「カスタム ツールの実行」を選択します。
+-   ProductModel.tt ファイルをダブルクリックして、Visual Studio エディターで開きます。
+-   "**ICollection**" の2つの出現箇所を検索し、"**ObservableListSource**" に置き換えます。 これらは、約296と484にあります。
+-   最初に出現する "**HashSet**" を検索し、"**ObservableListSource**" に置き換えます。 この現象は、約50行目にあります。 コードの後半で見つかった HashSet の2回目の出現を置き換え**ないでください**。
+-   ProductModel.tt ファイルを保存します。 これにより、エンティティのコードが再生成されます。 コードが自動的に再生成されない場合は、ProductModel.tt を右クリックし、[カスタムツールの実行] を選択します。
 
-かどうか (これは ProductModel.tt 下で入れ子になった) Category.cs ファイルを開くようになりましたし、製品のコレクションが、型を持つことを確認する必要があります**ObservableListSource&lt;製品&gt;** します。
+Category.cs ファイル (ProductModel.tt の下に入れ子になっています) を開くと、Products コレクションの type が**ObservableListSource&lt;Product&gt;** であることがわかります。
 
 プロジェクトをコンパイルします。
 
 ## <a name="lazy-loading"></a>遅延読み込み
 
-**製品**プロパティを**カテゴリ**クラスと**カテゴリ**プロパティを**製品**クラスは、ナビゲーション プロパティ。 Entity Framework では、ナビゲーション プロパティは、2 つのエンティティ型間のリレーションシップを移動する方法を提供します。
+**Product**クラスの**Category**クラスおよび**category**プロパティの**Products**プロパティは、ナビゲーションプロパティです。 Entity Framework では、ナビゲーションプロパティを使用して、2つのエンティティ型間のリレーションシップをナビゲートすることができます。
 
-EF では、関連エンティティを読み込む、データベースから自動的に初めてナビゲーション プロパティにアクセスするの選ぶことができます。 この種類の読み込み (遅延読み込みと呼ばれます) にするには、初めての各ナビゲーション プロパティにアクセスする別のクエリが実行されること、データベースに対して、内容が既にコンテキストでない場合あります。
+EF では、ナビゲーションプロパティに初めてアクセスするときに、関連エンティティをデータベースから自動的に読み込むことができます。 この種類の読み込み (遅延読み込みと呼ばれます) を使用すると、各ナビゲーションプロパティに初めてアクセスしたときに、コンテンツがコンテキスト内に存在しない場合、データベースに対して個別のクエリが実行されることに注意してください。
 
-POCO エンティティ型を使用する場合、EF は実行時にプロキシの派生型のインスタンスを作成し、読み込み用のフックを追加するクラスの仮想プロパティをオーバーライドして遅延読み込みを実現します。 関連オブジェクトの遅延読み込みを取得する必要がありますを宣言するナビゲーション プロパティの getter として**パブリック**と**仮想**(**Overridable** Visual Basic で)、およびするクラスがすることはできません**シール**(**NotOverridable** Visual Basic で)。 データベースを使用して最初のナビゲーション プロパティは自動的遅延読み込みを有効にするための仮想になります。 コードの最初のセクションで同じ理由から仮想ナビゲーション プロパティを作成することにしました
+POCO エンティティ型を使用する場合、EF は、実行時に派生プロキシ型のインスタンスを作成し、クラスの仮想プロパティをオーバーライドして読み込みフックを追加することにより、遅延読み込みを実現します。 関連オブジェクトの遅延読み込みを行うには、ナビゲーションプロパティ getter を**public**および**virtual** (Visual Basic で**オーバーライド**可能) として宣言し、クラスを**sealed** (Visual Basic では**NotOverridable** ) にする必要があります。 Database First を使用すると、遅延読み込みを有効にするために、ナビゲーションプロパティが自動的に仮想化されます。 Code First セクションでは、ナビゲーションプロパティを同じ理由で仮想にすることを選択しました。
 
-## <a name="bind-object-to-controls"></a>オブジェクトをコントロールにバインドします。
+## <a name="bind-object-to-controls"></a>コントロールへのオブジェクトのバインド
 
-この WinForms アプリケーションのデータ ソースとしてモデルに定義されているクラスを追加します。
+この WinForms アプリケーションのデータソースとして、モデルで定義されているクラスを追加します。
 
 -   メイン メニューで、次のように選択します**プロジェクト -&gt;新しいデータ ソースを追加しています。**
-    (Visual Studio 2010 では、選択する必要があります**データ -&gt;新しいデータ ソースの追加...**)
--   データ ソースの種類の選択、次のように選択します**オブジェクト**クリック**次へ。**
--   選択、データ オブジェクト ダイアログ ボックスで、展開、 **WinFormswithEFSample** 2 つの時刻と選択**カテゴリ**製品の使用をいたしますので、製品のデータ ソースを選択する必要はありませんカテゴリのデータ ソースのプロパティです。
+    (Visual Studio 2010 では、[**データ-&gt;新しいデータソースの追加**] を選択する必要があります)。
+-   データソースの種類を選択 ウィンドウで、**オブジェクト** を選択し、**次へ** をクリックします。
+-   [データオブジェクトの選択] ダイアログで、 **Winフォーム Withefsample**を2回展開し、 **[カテゴリ]** を選択します。製品データソースを選択する必要はありません。これは、カテゴリデータソースで製品のプロパティを使用して取得するからです。
 
     ![データ ソース](~/ef6/media/datasource.png)
 
--   クリックして**完了します**。
-    *データ ソース ウィンドウが表示されていない場合は、選択 * * * ビュー -&gt;その他の Windows-&gt;データ ソース**
--   キーを押して、データ ソース ウィンドウが自動しないように、ピン アイコンを非表示にします。 ウィンドウが表示された場合は、更新ボタンをクリックする必要があります。
+-   [**完了] をクリックします。** [データ*ソース] ウィンドウが表示されていない場合は、[&gt; * * *&gt;ビュー-その他のウィンドウ-データソース] を選択し*ます。 
+    *
+-   [データソース] ウィンドウが自動的に非表示にならないように、ピンアイコンを押します。 ウィンドウが既に表示されている場合は、[更新] ボタンをクリックしなければならないことがあります。
 
-    ![データ ソース 2](~/ef6/media/datasource2.png)
+    ![データソース2](~/ef6/media/datasource2.png)
 
--   ソリューション エクスプ ローラーで、 **Form1.cs**メイン フォームをデザイナーで開くファイル。
--   選択、**カテゴリ**データ ソースをフォームにドラッグします。 既定で新しい DataGridView (**categoryDataGridView**) ナビゲーション ツール バー コントロールは、デザイナーに追加されます。 これらのコントロールは BindingSource にバインドされます (**categoryBindingSource**) とバインドのナビゲーター (**categoryBindingNavigator**) も作成されるコンポーネント。
--   列の編集、 **categoryDataGridView**します。 設定する、 **CategoryId**列を読み取り専用にします。 値、 **CategoryId**プロパティは、データを保存した後に、データベースによって生成されます。
-    -   DataGridView コントロールを右クリックし、列の編集を選択してください.
+-   ソリューションエクスプローラーで、 **Form1.cs**ファイルをダブルクリックして、デザイナーでメインフォームを開きます。
+-   **カテゴリ**データソースを選択し、フォーム上にドラッグします。 既定では、新しい DataGridView (**カテゴリ DataGridView**) コントロールとナビゲーションツールバーコントロールがデザイナーに追加されます。 これらのコントロールは、作成された BindingSource (**カテゴリ bindingsource**) コンポーネントとバインドナビゲーター (**カテゴリ bindingnavigator**) コンポーネントにバインドされます。
+-   **カテゴリ datagridview**の列を編集します。 **CategoryId**列を読み取り専用に設定します。 **CategoryId**プロパティの値は、データを保存した後にデータベースによって生成されます。
+    -   DataGridView コントロールを右クリックし、[列の編集...] を選択します。
     -   CategoryId 列を選択し、ReadOnly を True に設定します。
-    -   [Ok]
--   カテゴリのデータ ソースから製品を選択し、フォームにドラッグします。 ProductDataGridView と productBindingSource は、フォームに追加されます。
--   ProductDataGridView で列を編集します。 CategoryId およびカテゴリ列を非表示にして、読み取り専用に ProductId を設定します。 ProductId プロパティの値は、データを保存した後に、データベースによって生成されます。
-    -   DataGridView コントロールを右クリックして**列の編集.**.
-    -   選択、 **ProductId**およびセット列**ReadOnly**に**True**します。
-    -   選択、 **CategoryId**列とキーを押して、**削除**ボタンをクリックします。 これにより、**カテゴリ**列。
+    -   [OK] を押します。
+-   カテゴリデータソースの下にある [Products] を選択し、フォームにドラッグします。 ProductDataGridView と Productdatagridview がフォームに追加されます。
+-   ProductDataGridView の列を編集します。 CategoryId 列と Category 列を非表示にし、ProductId を読み取り専用に設定します。 ProductId プロパティの値は、データを保存した後にデータベースによって生成されます。
+    -   DataGridView コントロールを右クリックし、 **[列の編集...]** を選択します。
+    -   **ProductId**列を選択し、 **ReadOnly**を**True**に設定します。
+    -   **CategoryId**列を選択し、 **[削除]** をクリックします。 **Category**列でも同じ操作を行います。
     -   **[OK]** を押します。
 
-    これまでに DataGridView コントロールに関連付けられている BindingSource コンポーネントをデザイナー。 次のセクションのコードに追加のコードが categoryBindingSource.DataSource を現在 DbContext で追跡されるエンティティのコレクションに設定します。 ときに製品 categoryBindingSource と productsBindingSource.DataMember プロパティに productsBindingSource.DataSource プロパティを設定した製品、WinForms、カテゴリの下にドラッグ アンド ドロップして、処理します。 このバインドでは、ため、productDataGridView で現在選択されているカテゴリに属する製品だけが表示されます。
--   有効にする、**保存**マウスの右ボタンをクリックして選択ナビゲーション ツールバーのボタン**有効**します。
+    ここまでで、DataGridView コントロールはデザイナーの BindingSource コンポーネントに関連付けられていました。 次のセクションでは、コードを分離コードに追加して、現在 DbContext によって追跡されているエンティティのコレクションにカテゴリ Bindingsource を設定します。 カテゴリの下から製品をドラッグアンドドロップした場合、WinForms プロパティを Category Bindingsource に設定し、Products に製品を設定することが処理されました。 このバインドにより、現在選択されているカテゴリに属する製品だけが productDataGridView に表示されます。
+-   ナビゲーションツールバーの **[保存]** ボタンを有効にするには、マウスの右ボタンをクリックし、 **[有効]** を選択します。
 
-    ![1 のフォーム デザイナー](~/ef6/media/form1-designer.png)
+    ![フォーム1デザイナー](~/ef6/media/form1-designer.png)
 
--   保存のイベント ハンドラーを追加 ボタンをダブルクリックしてボタンをクリックします。 イベント ハンドラーに追加され、フォームの分離コードに移動されます。 コード、 **categoryBindingNavigatorSaveItem\_クリックして**イベント ハンドラーは、次のセクションで追加されます。
+-   [保存] ボタンのイベントハンドラーを、ボタンをダブルクリックして追加します。 これにより、イベントハンドラーが追加され、フォームの分離コードに移動します。 **CategoryBindingNavigatorSaveItem\_click**イベントハンドラーのコードは、次のセクションで追加されます。
 
-## <a name="add-the-code-that-handles-data-interaction"></a>データの操作を処理するコードを追加します。
+## <a name="add-the-code-that-handles-data-interaction"></a>データの相互作用を処理するコードを追加する
 
-これで、ProductContext を使用して、データ アクセスを実行するコード追加します。 次に示すように、メイン フォーム ウィンドウのコードを更新します。
+次に、ProductContext を使用してデータアクセスを実行するコードを追加します。 次に示すように、メインフォームウィンドウのコードを更新します。
 
-コードでは、ProductContext の実行時間の長いインスタンスを宣言します。 ProductContext オブジェクトは、クエリやデータをデータベースに保存に使用されます。 ProductContext インスタンスの Dispose() メソッドは、オーバーライドされた OnClosing メソッドから呼び出されます。 コード コメントでは、コードの動作について詳しく説明します。
+このコードは、ProductContext の実行時間の長いインスタンスを宣言します。 ProductContext オブジェクトは、データをクエリしてデータベースに保存するために使用されます。 その後、ProductContext インスタンスの Dispose () メソッドが、オーバーライドされた OnClosing メソッドから呼び出されます。 コードのコメントには、コードの動作についての詳細が記載されています。
 
 ``` csharp
     using System;
@@ -397,16 +397,16 @@ POCO エンティティ型を使用する場合、EF は実行時にプロキシ
     }
 ```
 
-## <a name="test-the-windows-forms-application"></a>Windows フォーム アプリケーションをテストします。
+## <a name="test-the-windows-forms-application"></a>Windows フォームアプリケーションのテスト
 
--   コンパイルと実行して、アプリケーションが機能をテストできます。
+-   アプリケーションをコンパイルして実行すると、機能をテストできます。
 
-    ![1 を形成する前に保存](~/ef6/media/form1beforesave.png)
+    ![保存前のフォーム1](~/ef6/media/form1beforesave.png)
 
--   保存した後にストア生成キーを画面に表示しています。
+-   保存すると、ストアによって生成されたキーが画面に表示されます。
 
-    ![フォームの 1 の後に保存](~/ef6/media/form1aftersave.png)
+    ![保存後のフォーム1](~/ef6/media/form1aftersave.png)
 
--   Code First を使用した場合も表示されますが、 **WinFormswithEFSample.ProductContext**データベースが作成されます。
+-   Code First を使用した場合は、 **Winフォーム Withefsample. ProductContext**データベースが作成されていることもわかります。
 
-    ![Server オブジェクト エクスプ ローラー](~/ef6/media/serverobjexplorer.png)
+    ![サーバーオブジェクトエクスプローラー](~/ef6/media/serverobjexplorer.png)
