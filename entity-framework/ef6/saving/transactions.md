@@ -1,52 +1,52 @@
 ---
-title: トランザクション - EF6 の使用
+title: トランザクションの操作-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
-ms.openlocfilehash: 96cfff4cca59ab27dd68f50d0260e90902e33a92
-ms.sourcegitcommit: eefcab31142f61a7aaeac03ea90dcd39f158b8b8
+ms.openlocfilehash: 7030dc675993339f72c935f6b430cead85fecb7f
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/29/2019
-ms.locfileid: "64873230"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306521"
 ---
-# <a name="working-with-transactions"></a><span data-ttu-id="71de5-102">トランザクションの使用</span><span class="sxs-lookup"><span data-stu-id="71de5-102">Working with Transactions</span></span>
+# <a name="working-with-transactions"></a><span data-ttu-id="cfedc-102">トランザクションの操作</span><span class="sxs-lookup"><span data-stu-id="cfedc-102">Working with Transactions</span></span>
 > [!NOTE]
-> <span data-ttu-id="71de5-103">**EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="71de5-103">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="71de5-104">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="71de5-104">If you are using an earlier version, some or all of the information does not apply.</span></span>  
+> <span data-ttu-id="cfedc-103">**EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="cfedc-103">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="cfedc-104">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="cfedc-104">If you are using an earlier version, some or all of the information does not apply.</span></span>  
 
-<span data-ttu-id="71de5-105">このドキュメントでは、トランザクションの操作を簡単に EF5 から追加しました機能強化を含め、EF6 でトランザクションを使用して説明します。</span><span class="sxs-lookup"><span data-stu-id="71de5-105">This document will describe using transactions in EF6 including the enhancements we have added since EF5 to make working with transactions easy.</span></span>  
+<span data-ttu-id="cfedc-105">このドキュメントでは、EF6 でトランザクションを使用する方法について説明します。これには、トランザクションを簡単に操作できるように EF5 以降に追加された機能も含まれます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-105">This document will describe using transactions in EF6 including the enhancements we have added since EF5 to make working with transactions easy.</span></span>  
 
-## <a name="what-ef-does-by-default"></a><span data-ttu-id="71de5-106">既定では EF の動作</span><span class="sxs-lookup"><span data-stu-id="71de5-106">What EF does by default</span></span>  
+## <a name="what-ef-does-by-default"></a><span data-ttu-id="cfedc-106">既定での EF の動作</span><span class="sxs-lookup"><span data-stu-id="cfedc-106">What EF does by default</span></span>  
 
-<span data-ttu-id="71de5-107">すべてのバージョンの Entity Framework では、実行するたびに**SaveChanges()** 挿入、更新、またはフレームワーク、データベースの削除が操作トランザクションでラップします。</span><span class="sxs-lookup"><span data-stu-id="71de5-107">In all versions of Entity Framework, whenever you execute **SaveChanges()** to insert, update or delete on the database the framework will wrap that operation in a transaction.</span></span> <span data-ttu-id="71de5-108">このトランザクションは、操作を実行する間だけ持続し、し完了します。</span><span class="sxs-lookup"><span data-stu-id="71de5-108">This transaction lasts only long enough to execute the operation and then completes.</span></span> <span data-ttu-id="71de5-109">このような別の操作を実行するときに新しいトランザクションが開始されます。</span><span class="sxs-lookup"><span data-stu-id="71de5-109">When you execute another such operation a new transaction is started.</span></span>  
+<span data-ttu-id="cfedc-107">Entity Framework のすべてのバージョンでは、 **SaveChanges ()** を実行してデータベースに対して挿入、更新、または削除を実行するたびに、フレームワークはその操作をトランザクションにラップします。</span><span class="sxs-lookup"><span data-stu-id="cfedc-107">In all versions of Entity Framework, whenever you execute **SaveChanges()** to insert, update or delete on the database the framework will wrap that operation in a transaction.</span></span> <span data-ttu-id="cfedc-108">このトランザクションは、操作を実行して完了するまでに十分な時間だけ継続します。</span><span class="sxs-lookup"><span data-stu-id="cfedc-108">This transaction lasts only long enough to execute the operation and then completes.</span></span> <span data-ttu-id="cfedc-109">別の操作を実行すると、新しいトランザクションが開始されます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-109">When you execute another such operation a new transaction is started.</span></span>  
 
-<span data-ttu-id="71de5-110">EF6 で始まる**Database.ExecuteSqlCommand()** 既定ではラップのコマンドは、トランザクションに存在する 1 つがない場合は。</span><span class="sxs-lookup"><span data-stu-id="71de5-110">Starting with EF6 **Database.ExecuteSqlCommand()** by default will wrap the command in a transaction if one was not already present.</span></span> <span data-ttu-id="71de5-111">希望する場合は、この動作をオーバーライドすることをこのメソッドのオーバー ロードがあります。</span><span class="sxs-lookup"><span data-stu-id="71de5-111">There are overloads of this method that allow you to override this behavior if you wish.</span></span> <span data-ttu-id="71de5-112">などの Api を使用して、モデルに含まれるストアド プロシージャの実行を EF6 にも**ObjectContext.ExecuteFunction()** も同じ (既定の動作、現時点ではオーバーライドできません)。</span><span class="sxs-lookup"><span data-stu-id="71de5-112">Also in EF6 execution of stored procedures included in the model through APIs such as **ObjectContext.ExecuteFunction()** does the same (except that the default behavior cannot at the moment be overridden).</span></span>  
+<span data-ttu-id="cfedc-110">EF6 では、既定では、コマンドがまだ存在していない場合は、そのコマンドがトランザクションにラップされ**ます。**</span><span class="sxs-lookup"><span data-stu-id="cfedc-110">Starting with EF6 **Database.ExecuteSqlCommand()** by default will wrap the command in a transaction if one was not already present.</span></span> <span data-ttu-id="cfedc-111">このメソッドのオーバーロードを使用すると、必要に応じてこの動作をオーバーライドできます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-111">There are overloads of this method that allow you to override this behavior if you wish.</span></span> <span data-ttu-id="cfedc-112">また、EF6 **()** などの api によってモデルに含まれるストアドプロシージャの実行も、同じように実行されます (ただし、既定の動作はオーバーライドされません)。</span><span class="sxs-lookup"><span data-stu-id="cfedc-112">Also in EF6 execution of stored procedures included in the model through APIs such as **ObjectContext.ExecuteFunction()** does the same (except that the default behavior cannot at the moment be overridden).</span></span>  
 
-<span data-ttu-id="71de5-113">どちらの場合、トランザクションの分離レベルは、分離レベルはどのようなデータベース プロバイダーは既定値に設定します。</span><span class="sxs-lookup"><span data-stu-id="71de5-113">In either case, the isolation level of the transaction is whatever isolation level the database provider considers its default setting.</span></span> <span data-ttu-id="71de5-114">既定では、たとえば、SQL Server これは READ COMMITTED です。</span><span class="sxs-lookup"><span data-stu-id="71de5-114">By default, for instance, on SQL Server this is READ COMMITTED.</span></span>  
+<span data-ttu-id="cfedc-113">どちらの場合も、トランザクションの分離レベルは、データベースプロバイダーが既定の設定を考慮している任意の分離レベルです。</span><span class="sxs-lookup"><span data-stu-id="cfedc-113">In either case, the isolation level of the transaction is whatever isolation level the database provider considers its default setting.</span></span> <span data-ttu-id="cfedc-114">既定では、SQL Server では READ COMMITTED です。</span><span class="sxs-lookup"><span data-stu-id="cfedc-114">By default, for instance, on SQL Server this is READ COMMITTED.</span></span>  
 
-<span data-ttu-id="71de5-115">Entity Framework では、トランザクションでクエリをラップしません。</span><span class="sxs-lookup"><span data-stu-id="71de5-115">Entity Framework does not wrap queries in a transaction.</span></span>  
+<span data-ttu-id="cfedc-115">Entity Framework は、トランザクション内のクエリをラップしません。</span><span class="sxs-lookup"><span data-stu-id="cfedc-115">Entity Framework does not wrap queries in a transaction.</span></span>  
 
-<span data-ttu-id="71de5-116">この既定の機能は、多くのユーザーとかどうかため必要はありません。 EF6 で何かするのに適しています常に行ったのとは、コードを記述だけです。</span><span class="sxs-lookup"><span data-stu-id="71de5-116">This default functionality is suitable for a lot of users and if so there is no need to do anything different in EF6; just write the code as you always did.</span></span>  
+<span data-ttu-id="cfedc-116">この既定の機能は、多数のユーザーに適しているので、EF6 では何もする必要はありません。コードを記述するのは常に同じです。</span><span class="sxs-lookup"><span data-stu-id="cfedc-116">This default functionality is suitable for a lot of users and if so there is no need to do anything different in EF6; just write the code as you always did.</span></span>  
 
-<span data-ttu-id="71de5-117">ただし、トランザクションをより細かく制御が必要なユーザー – これについては、次のセクションで説明します。</span><span class="sxs-lookup"><span data-stu-id="71de5-117">However some users require greater control over their transactions – this is covered in the following sections.</span></span>  
+<span data-ttu-id="cfedc-117">ただし、ユーザーによっては、トランザクションをより詳細に制御する必要があります。これについては、次のセクションで説明します。</span><span class="sxs-lookup"><span data-stu-id="cfedc-117">However some users require greater control over their transactions – this is covered in the following sections.</span></span>  
 
-## <a name="how-the-apis-work"></a><span data-ttu-id="71de5-118">Api のしくみ</span><span class="sxs-lookup"><span data-stu-id="71de5-118">How the APIs work</span></span>  
+## <a name="how-the-apis-work"></a><span data-ttu-id="cfedc-118">Api のしくみ</span><span class="sxs-lookup"><span data-stu-id="cfedc-118">How the APIs work</span></span>  
 
-<span data-ttu-id="71de5-119">Entity Framework の EF6 の前に、(によって例外が既に開いている接続が渡された場合)、データベース接続自体を開くときにペダルします。</span><span class="sxs-lookup"><span data-stu-id="71de5-119">Prior to EF6 Entity Framework insisted on opening the database connection itself (it threw an exception if it was passed a connection that was already open).</span></span> <span data-ttu-id="71de5-120">ユーザーがいくつかの操作を 1 つのトランザクションをラップする唯一の方法を使用するいずれかがつまり、トランザクションは、開いている接続でのみ開始できます、ので、 [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx)を使用して、または、 **ObjectContext.Connection**プロパティと開始呼び出し**Open()** と**BeginTransaction()** 、返された上で直接**EntityConnection**オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="71de5-120">Since a transaction can only be started on an open connection, this meant that the only way a user could wrap several operations into one transaction was either to use a [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx) or use the **ObjectContext.Connection** property and start calling **Open()** and **BeginTransaction()** directly on the returned **EntityConnection** object.</span></span> <span data-ttu-id="71de5-121">さらに、独自の基になるデータベース接続でトランザクションを開始していた場合、データベースに接続する API 呼び出しは失敗します。</span><span class="sxs-lookup"><span data-stu-id="71de5-121">In addition, API calls which contacted the database would fail if you had started a transaction on the underlying database connection on your own.</span></span>  
+<span data-ttu-id="cfedc-119">EF6 より前では、データベース接続自体を開いたときに insisted を Entity Framework しています (既に開いている接続が渡された場合、例外がスローされました)。</span><span class="sxs-lookup"><span data-stu-id="cfedc-119">Prior to EF6 Entity Framework insisted on opening the database connection itself (it threw an exception if it was passed a connection that was already open).</span></span> <span data-ttu-id="cfedc-120">トランザクションは開いている接続でのみ開始できるため、ユーザーが複数の操作を1つのトランザクションにラップする唯一の方法は、 [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx)を使用するか、または、を使用して開始することです **。** 返された**Entityconnection**オブジェクトで**Open ()** と**BeginTransaction ()** を直接呼び出します。</span><span class="sxs-lookup"><span data-stu-id="cfedc-120">Since a transaction can only be started on an open connection, this meant that the only way a user could wrap several operations into one transaction was either to use a [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx) or use the **ObjectContext.Connection** property and start calling **Open()** and **BeginTransaction()** directly on the returned **EntityConnection** object.</span></span> <span data-ttu-id="cfedc-121">また、基になるデータベース接続でトランザクションを開始した場合、データベースに接続した API 呼び出しは失敗します。</span><span class="sxs-lookup"><span data-stu-id="cfedc-121">In addition, API calls which contacted the database would fail if you had started a transaction on the underlying database connection on your own.</span></span>  
 
 > [!NOTE]
-> <span data-ttu-id="71de5-122">閉じられた接続の受け入れのみの制限は、Entity Framework 6 で削除されました。</span><span class="sxs-lookup"><span data-stu-id="71de5-122">The limitation of only accepting closed connections was removed in Entity Framework 6.</span></span> <span data-ttu-id="71de5-123">詳細については、次を参照してください。[接続管理](~/ef6/fundamentals/connection-management.md)します。</span><span class="sxs-lookup"><span data-stu-id="71de5-123">For details, see [Connection Management](~/ef6/fundamentals/connection-management.md).</span></span>  
+> <span data-ttu-id="cfedc-122">閉じられた接続のみを受け入れる制限は Entity Framework 6 で削除されました。</span><span class="sxs-lookup"><span data-stu-id="cfedc-122">The limitation of only accepting closed connections was removed in Entity Framework 6.</span></span> <span data-ttu-id="cfedc-123">詳細については、「[接続管理](~/ef6/fundamentals/connection-management.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="cfedc-123">For details, see [Connection Management](~/ef6/fundamentals/connection-management.md).</span></span>  
 
-<span data-ttu-id="71de5-124">これで、フレームワークを ef6 開始を提供します。</span><span class="sxs-lookup"><span data-stu-id="71de5-124">Starting with EF6 the framework now provides:</span></span>  
+<span data-ttu-id="cfedc-124">EF6 以降では、フレームワークで次の機能が提供されるようになりました。</span><span class="sxs-lookup"><span data-stu-id="cfedc-124">Starting with EF6 the framework now provides:</span></span>  
 
-1. <span data-ttu-id="71de5-125">**Database.BeginTransaction()** :簡単にユーザーを起動し、同じトランザクション内で結合するいくつかの操作を行えるように、既存の DbContext – 内トランザクション自体を完了するため、すべてコミットまたはロールバックする 1 つとして。</span><span class="sxs-lookup"><span data-stu-id="71de5-125">**Database.BeginTransaction()** : An easier method for a user to start and complete transactions themselves within an existing DbContext – allowing several operations to be combined within the same transaction and hence either all committed or all rolled back as one.</span></span> <span data-ttu-id="71de5-126">また、ユーザーがより簡単に、トランザクションの分離レベルを指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="71de5-126">It also allows the user to more easily specify the isolation level for the transaction.</span></span>  
-2. <span data-ttu-id="71de5-127">**Database.UseTransaction()** : Entity Framework の外部で開始されたトランザクションを使用する DbContext ことができます。</span><span class="sxs-lookup"><span data-stu-id="71de5-127">**Database.UseTransaction()** : which allows the DbContext to use a transaction which was started outside of the Entity Framework.</span></span>  
+1. <span data-ttu-id="cfedc-125">**BeginTransaction ()** :ユーザーが既存の DbContext 内でトランザクションを開始して完了するための簡単な方法。同じトランザクション内で複数の操作を組み合わせることができるため、すべてがコミットされるか、すべてロールバックされます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-125">**Database.BeginTransaction()** : An easier method for a user to start and complete transactions themselves within an existing DbContext – allowing several operations to be combined within the same transaction and hence either all committed or all rolled back as one.</span></span> <span data-ttu-id="cfedc-126">また、トランザクションの分離レベルをユーザーがより簡単に指定できるようにします。</span><span class="sxs-lookup"><span data-stu-id="cfedc-126">It also allows the user to more easily specify the isolation level for the transaction.</span></span>  
+2. <span data-ttu-id="cfedc-127">**UseTransaction ()** : dbcontext で、Entity Framework の外部で開始されたトランザクションを使用できるようにします。</span><span class="sxs-lookup"><span data-stu-id="cfedc-127">**Database.UseTransaction()** : which allows the DbContext to use a transaction which was started outside of the Entity Framework.</span></span>  
 
-### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a><span data-ttu-id="71de5-128">同じコンテキスト内で 1 つのトランザクションにいくつかの操作を組み合わせること</span><span class="sxs-lookup"><span data-stu-id="71de5-128">Combining several operations into one transaction within the same context</span></span>  
+### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a><span data-ttu-id="cfedc-128">同じコンテキスト内で複数の操作を1つのトランザクションに結合する</span><span class="sxs-lookup"><span data-stu-id="cfedc-128">Combining several operations into one transaction within the same context</span></span>  
 
-<span data-ttu-id="71de5-129">**Database.BeginTransaction()** が 2 つの上書き: 1 つは、明示的な[IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx)といずれかの引数はありませんし、基になるデータベース プロバイダーから IsolationLevel の既定値を使用します。</span><span class="sxs-lookup"><span data-stu-id="71de5-129">**Database.BeginTransaction()** has two overrides – one which takes an explicit [IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx) and one which takes no arguments and uses the default IsolationLevel from the underlying database provider.</span></span> <span data-ttu-id="71de5-130">両方のオーバーライドを返す、 **DbContextTransaction**オブジェクトを提供する**Commit()** と**Rollback()** 基になるストアにコミットとロールバックを実行する方法トランザクションです。</span><span class="sxs-lookup"><span data-stu-id="71de5-130">Both overrides return a **DbContextTransaction** object which provides **Commit()** and **Rollback()** methods which perform commit and rollback on the underlying store transaction.</span></span>  
+<span data-ttu-id="cfedc-129">**BeginTransaction ()** には、2つのオーバーライドがあります。1つは明示的な[IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx)を受け取り、もう1つは引数を取らず、基になるデータベースプロバイダーからの既定の IsolationLevel を使用します。</span><span class="sxs-lookup"><span data-stu-id="cfedc-129">**Database.BeginTransaction()** has two overrides – one which takes an explicit [IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx) and one which takes no arguments and uses the default IsolationLevel from the underlying database provider.</span></span> <span data-ttu-id="cfedc-130">どちらのオーバーライドも、基になるストアトランザクションでコミットとロールバックを実行する**commit ()** メソッドと**rollback ()** メソッドを提供する**dbcontexttransaction**オブジェクトを返します。</span><span class="sxs-lookup"><span data-stu-id="cfedc-130">Both overrides return a **DbContextTransaction** object which provides **Commit()** and **Rollback()** methods which perform commit and rollback on the underlying store transaction.</span></span>  
 
-<span data-ttu-id="71de5-131">**DbContextTransaction**はコミットまたはロールバック後に破棄するためのものです。</span><span class="sxs-lookup"><span data-stu-id="71de5-131">The **DbContextTransaction** is meant to be disposed once it has been committed or rolled back.</span></span> <span data-ttu-id="71de5-132">簡単にこれを実現方法の 1 つは、 **using(...){…}**</span><span class="sxs-lookup"><span data-stu-id="71de5-132">One easy way to accomplish this is the **using(…) {…}**</span></span> <span data-ttu-id="71de5-133">自動的に呼び出されます構文**Dispose()** 完了ブロックを使用してする場合。</span><span class="sxs-lookup"><span data-stu-id="71de5-133">syntax which will automatically call **Dispose()** when the using block completes:</span></span>  
+<span data-ttu-id="cfedc-131">**Dbcontexttransaction**は、コミットまたはロールバックされた後に破棄されることを意図しています。</span><span class="sxs-lookup"><span data-stu-id="cfedc-131">The **DbContextTransaction** is meant to be disposed once it has been committed or rolled back.</span></span> <span data-ttu-id="cfedc-132">これを実現する簡単な方法の1つは、 **(...){...}**</span><span class="sxs-lookup"><span data-stu-id="cfedc-132">One easy way to accomplish this is the **using(…) {…}**</span></span> <span data-ttu-id="cfedc-133">using ブロックが完了すると自動的に**Dispose ()** を呼び出す構文。</span><span class="sxs-lookup"><span data-stu-id="cfedc-133">syntax which will automatically call **Dispose()** when the using block completes:</span></span>  
 
 ``` csharp
 using System;
@@ -66,27 +66,20 @@ namespace TransactionsExamples
             {
                 using (var dbContextTransaction = context.Database.BeginTransaction())
                 {
-                    try
+                    context.Database.ExecuteSqlCommand(
+                        @"UPDATE Blogs SET Rating = 5" +
+                            " WHERE Name LIKE '%Entity Framework%'"
+                        );
+
+                    var query = context.Posts.Where(p => p.Blog.Rating >= 5);
+                    foreach (var post in query)
                     {
-                        context.Database.ExecuteSqlCommand(
-                            @"UPDATE Blogs SET Rating = 5" +
-                                " WHERE Name LIKE '%Entity Framework%'"
-                            );
-
-                        var query = context.Posts.Where(p => p.Blog.Rating >= 5);
-                        foreach (var post in query)
-                        {
-                            post.Title += "[Cool Blog]";
-                        }
-
-                        context.SaveChanges();
-
-                        dbContextTransaction.Commit();
+                        post.Title += "[Cool Blog]";
                     }
-                    catch (Exception)
-                    {
-                        dbContextTransaction.Rollback();
-                    }
+
+                    context.SaveChanges();
+
+                    dbContextTransaction.Commit();
                 }
             }
         }
@@ -95,16 +88,16 @@ namespace TransactionsExamples
 ```  
 
 > [!NOTE]
-> <span data-ttu-id="71de5-134">トランザクションを開始するには、基になるストア接続が開かれている必要があります。</span><span class="sxs-lookup"><span data-stu-id="71de5-134">Beginning a transaction requires that the underlying store connection is open.</span></span> <span data-ttu-id="71de5-135">Database.BeginTransaction() を呼び出すのでが開かれていない場合は、接続が開かれます。</span><span class="sxs-lookup"><span data-stu-id="71de5-135">So calling Database.BeginTransaction() will open the connection  if it is not already opened.</span></span> <span data-ttu-id="71de5-136">DbContextTransaction には、接続が開かれている場合、閉じられます、Dispose() が呼び出されるとします。</span><span class="sxs-lookup"><span data-stu-id="71de5-136">If DbContextTransaction opened the connection then it will close it when Dispose() is called.</span></span>  
+> <span data-ttu-id="cfedc-134">トランザクションを開始するには、基になるストア接続が開いている必要があります。</span><span class="sxs-lookup"><span data-stu-id="cfedc-134">Beginning a transaction requires that the underlying store connection is open.</span></span> <span data-ttu-id="cfedc-135">そのため、BeginTransaction () を呼び出すと、接続が開かれていない場合にその接続が開かれます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-135">So calling Database.BeginTransaction() will open the connection  if it is not already opened.</span></span> <span data-ttu-id="cfedc-136">DbContextTransaction が接続を開いた場合、Dispose () が呼び出されると、このトランザクションは閉じられます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-136">If DbContextTransaction opened the connection then it will close it when Dispose() is called.</span></span>  
 
-### <a name="passing-an-existing-transaction-to-the-context"></a><span data-ttu-id="71de5-137">既存のトランザクションをコンテキストに渡す</span><span class="sxs-lookup"><span data-stu-id="71de5-137">Passing an existing transaction to the context</span></span>  
+### <a name="passing-an-existing-transaction-to-the-context"></a><span data-ttu-id="cfedc-137">既存のトランザクションをコンテキストに渡す</span><span class="sxs-lookup"><span data-stu-id="cfedc-137">Passing an existing transaction to the context</span></span>  
 
-<span data-ttu-id="71de5-138">場合がありますも広範なスコープでは完全に同じデータベースでは、EF の外部での操作を含む、トランザクションを作成するとします。</span><span class="sxs-lookup"><span data-stu-id="71de5-138">Sometimes you would like a transaction which is even broader in scope and which includes operations on the same database but outside of EF completely.</span></span> <span data-ttu-id="71de5-139">これを実現するには、接続を開いてしと自分でトランザクションを開始をし)、データベースを既に開いている接続を使用して、その接続で、既存のトランザクションを使用するには b) の EF を指示する必要があります。</span><span class="sxs-lookup"><span data-stu-id="71de5-139">To accomplish this you must open the connection and start the transaction yourself and then tell EF a) to use the already-opened database connection, and b) to use the existing transaction on that connection.</span></span>  
+<span data-ttu-id="cfedc-138">場合によっては、スコープ内でさらに広範なトランザクションを使用し、同じデータベースに対する操作や、EF の外部で完全に操作を含めることができます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-138">Sometimes you would like a transaction which is even broader in scope and which includes operations on the same database but outside of EF completely.</span></span> <span data-ttu-id="cfedc-139">これを実現するには、接続を開いて、自分でトランザクションを開始してから、既に開かれているデータベース接続を使用するように EF a に指示し、b) その接続で既存のトランザクションを使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="cfedc-139">To accomplish this you must open the connection and start the transaction yourself and then tell EF a) to use the already-opened database connection, and b) to use the existing transaction on that connection.</span></span>  
 
-<span data-ttu-id="71de5-140">これを行うには、定義し、ブール i) 既存の接続パラメーターと contextOwnsConnection ii) を実行する DbContext コンス トラクターのいずれかから継承され、コンテキスト クラスのコンス トラクターを使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="71de5-140">To do this you must define and use a constructor on your context class which inherits from one of the DbContext constructors which take i) an existing connection parameter and ii) the contextOwnsConnection boolean.</span></span>  
+<span data-ttu-id="cfedc-140">これを行うには、既存の接続パラメーターと ii) contextOwnsConnection ブール値を受け取る DbContext コンストラクターの1つを継承する、コンテキストクラスでコンストラクターを定義して使用する必要があります。</span><span class="sxs-lookup"><span data-stu-id="cfedc-140">To do this you must define and use a constructor on your context class which inherits from one of the DbContext constructors which take i) an existing connection parameter and ii) the contextOwnsConnection boolean.</span></span>  
 
 > [!NOTE]
-> <span data-ttu-id="71de5-141">ContextOwnsConnection フラグは、このシナリオで呼び出される場合は false に設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="71de5-141">The contextOwnsConnection flag must be set to false when called in this scenario.</span></span> <span data-ttu-id="71de5-142">これは、Entity Framework に通知を閉じることはできません、接続には、そのときに重要です。 (たとえば、次の 4 行目を参照)。</span><span class="sxs-lookup"><span data-stu-id="71de5-142">This is important as it informs Entity Framework that it should not close the connection when it is done with it (for example, see line 4 below):</span></span>  
+> <span data-ttu-id="cfedc-141">このシナリオで呼び出される場合は、contextOwnsConnection フラグを false に設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="cfedc-141">The contextOwnsConnection flag must be set to false when called in this scenario.</span></span> <span data-ttu-id="cfedc-142">これは、接続が終了したときに接続を終了しないことを Entity Framework 通知するために重要です (たとえば、次の4行目を参照)。</span><span class="sxs-lookup"><span data-stu-id="cfedc-142">This is important as it informs Entity Framework that it should not close the connection when it is done with it (for example, see line 4 below):</span></span>  
 
 ``` csharp
 using (var conn = new SqlConnection("..."))
@@ -116,9 +109,9 @@ using (var conn = new SqlConnection("..."))
 }
 ```  
 
-<span data-ttu-id="71de5-143">さらに、自分で (既定の設定を回避する場合、IsolationLevel を含む)、トランザクションを開始して、既存のトランザクション接続を既に開始されている Entity Framework を使用 (33 以下の行を参照してください)。</span><span class="sxs-lookup"><span data-stu-id="71de5-143">Furthermore, you must start the transaction yourself (including the IsolationLevel if you want to avoid the default setting) and let Entity Framework know that there is an existing transaction already started on the connection (see line 33 below).</span></span>  
+<span data-ttu-id="cfedc-143">さらに、(既定の設定を避ける必要がある場合は IsolationLevel を含む) 自分でトランザクションを開始し、接続で既に開始されているトランザクションがあることを Entity Framework 確認してください (下記の33行目を参照)。</span><span class="sxs-lookup"><span data-stu-id="cfedc-143">Furthermore, you must start the transaction yourself (including the IsolationLevel if you want to avoid the default setting) and let Entity Framework know that there is an existing transaction already started on the connection (see line 33 below).</span></span>  
 
-<span data-ttu-id="71de5-144">SqlConnection 自体で直接、または、DbContext でデータベース操作を実行されます。</span><span class="sxs-lookup"><span data-stu-id="71de5-144">Then you are free to execute database operations either directly on the SqlConnection itself, or on the DbContext.</span></span> <span data-ttu-id="71de5-145">このようなすべての操作は、1 つのトランザクション内で実行されます。</span><span class="sxs-lookup"><span data-stu-id="71de5-145">All such operations are executed within one transaction.</span></span> <span data-ttu-id="71de5-146">責任のコミットやトランザクションをロールバックしで Dispose() を呼び出すため、およびを閉じると、データベース接続の破棄を行います。</span><span class="sxs-lookup"><span data-stu-id="71de5-146">You take responsibility for committing or rolling back the transaction and for calling Dispose() on it, as well as for closing and disposing the database connection.</span></span> <span data-ttu-id="71de5-147">例えば:</span><span class="sxs-lookup"><span data-stu-id="71de5-147">For example:</span></span>  
+<span data-ttu-id="cfedc-144">その後、SqlConnection 自体、または DbContext で直接データベース操作を実行できます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-144">Then you are free to execute database operations either directly on the SqlConnection itself, or on the DbContext.</span></span> <span data-ttu-id="cfedc-145">このような操作はすべて1つのトランザクション内で実行されます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-145">All such operations are executed within one transaction.</span></span> <span data-ttu-id="cfedc-146">トランザクションのコミットまたはロールバック、およびそのトランザクションに対する Dispose () の呼び出し、およびデータベース接続の終了と破棄を行います。</span><span class="sxs-lookup"><span data-stu-id="cfedc-146">You take responsibility for committing or rolling back the transaction and for calling Dispose() on it, as well as for closing and disposing the database connection.</span></span> <span data-ttu-id="cfedc-147">例えば:</span><span class="sxs-lookup"><span data-stu-id="cfedc-147">For example:</span></span>  
 
 ``` csharp
 using System;
@@ -140,35 +133,28 @@ namespace TransactionsExamples
 
                using (var sqlTxn = conn.BeginTransaction(System.Data.IsolationLevel.Snapshot))
                {
-                   try
-                   {
-                       var sqlCommand = new SqlCommand();
-                       sqlCommand.Connection = conn;
-                       sqlCommand.Transaction = sqlTxn;
-                       sqlCommand.CommandText =
-                           @"UPDATE Blogs SET Rating = 5" +
-                            " WHERE Name LIKE '%Entity Framework%'";
-                       sqlCommand.ExecuteNonQuery();
+                   var sqlCommand = new SqlCommand();
+                   sqlCommand.Connection = conn;
+                   sqlCommand.Transaction = sqlTxn;
+                   sqlCommand.CommandText =
+                       @"UPDATE Blogs SET Rating = 5" +
+                        " WHERE Name LIKE '%Entity Framework%'";
+                   sqlCommand.ExecuteNonQuery();
 
-                       using (var context =  
-                         new BloggingContext(conn, contextOwnsConnection: false))
-                        {
-                            context.Database.UseTransaction(sqlTxn);
-
-                            var query =  context.Posts.Where(p => p.Blog.Rating >= 5);
-                            foreach (var post in query)
-                            {
-                                post.Title += "[Cool Blog]";
-                            }
-                           context.SaveChanges();
-                        }
-
-                        sqlTxn.Commit();
-                    }
-                    catch (Exception)
+                   using (var context =  
+                     new BloggingContext(conn, contextOwnsConnection: false))
                     {
-                        sqlTxn.Rollback();
+                        context.Database.UseTransaction(sqlTxn);
+
+                        var query =  context.Posts.Where(p => p.Blog.Rating >= 5);
+                        foreach (var post in query)
+                        {
+                            post.Title += "[Cool Blog]";
+                        }
+                       context.SaveChanges();
                     }
+
+                    sqlTxn.Commit();
                 }
             }
         }
@@ -176,39 +162,39 @@ namespace TransactionsExamples
 }
 ```  
 
-### <a name="clearing-up-the-transaction"></a><span data-ttu-id="71de5-148">トランザクションをオフにします。</span><span class="sxs-lookup"><span data-stu-id="71de5-148">Clearing up the transaction</span></span>
+### <a name="clearing-up-the-transaction"></a><span data-ttu-id="cfedc-148">トランザクションを消去しています</span><span class="sxs-lookup"><span data-stu-id="cfedc-148">Clearing up the transaction</span></span>
 
-<span data-ttu-id="71de5-149">Null を渡す Database.UseTransaction() を現在のトランザクションの Entity Framework のナレッジをオフにすることができます。</span><span class="sxs-lookup"><span data-stu-id="71de5-149">You can pass null to Database.UseTransaction() to clear Entity Framework’s knowledge of the current transaction.</span></span> <span data-ttu-id="71de5-150">Entity Framework は、どちらもコミットもこれを行うときに、既存のトランザクションのロールバックがので注意して使用し、これは、実行することを確認している場合にのみになります。</span><span class="sxs-lookup"><span data-stu-id="71de5-150">Entity Framework will neither commit nor rollback the existing transaction when you do this, so use with care and only if you’re sure this is what you want to do.</span></span>  
+<span data-ttu-id="cfedc-149">UseTransaction () に null を渡すことにより、現在のトランザクションに関する Entity Framework の知識を消去できます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-149">You can pass null to Database.UseTransaction() to clear Entity Framework’s knowledge of the current transaction.</span></span> <span data-ttu-id="cfedc-150">この操作を行っても、Entity Framework によって既存のトランザクションがコミットまたはロールバックされることはありません。そのため、この操作を行う必要がある場合にのみ、慎重に使用してください。</span><span class="sxs-lookup"><span data-stu-id="cfedc-150">Entity Framework will neither commit nor rollback the existing transaction when you do this, so use with care and only if you’re sure this is what you want to do.</span></span>  
 
-### <a name="errors-in-usetransaction"></a><span data-ttu-id="71de5-151">[いいえ] のエラー</span><span class="sxs-lookup"><span data-stu-id="71de5-151">Errors in UseTransaction</span></span>
+### <a name="errors-in-usetransaction"></a><span data-ttu-id="cfedc-151">UseTransaction のエラー</span><span class="sxs-lookup"><span data-stu-id="cfedc-151">Errors in UseTransaction</span></span>
 
-<span data-ttu-id="71de5-152">トランザクションを渡す場合 Database.UseTransaction() から例外が表示される場合。</span><span class="sxs-lookup"><span data-stu-id="71de5-152">You will see an exception from Database.UseTransaction() if you pass a transaction when:</span></span>  
-- <span data-ttu-id="71de5-153">Entity Framework が既に既存のトランザクション</span><span class="sxs-lookup"><span data-stu-id="71de5-153">Entity Framework already has an existing transaction</span></span>  
-- <span data-ttu-id="71de5-154">Entity Framework は既に、TransactionScope 内で動作しています。</span><span class="sxs-lookup"><span data-stu-id="71de5-154">Entity Framework is already operating within a TransactionScope</span></span>  
-- <span data-ttu-id="71de5-155">渡されたトランザクション内の接続オブジェクトが null です。</span><span class="sxs-lookup"><span data-stu-id="71de5-155">The connection object in the transaction passed is null.</span></span> <span data-ttu-id="71de5-156">つまり、トランザクションは接続に関連付けられていない – 通常、これはそのトランザクションが既に完了したサインイン</span><span class="sxs-lookup"><span data-stu-id="71de5-156">That is, the transaction is not associated with a connection – usually this is a sign that that transaction has already completed</span></span>  
-- <span data-ttu-id="71de5-157">渡されたトランザクション内の接続オブジェクトでは、Entity Framework の接続は一致しません。</span><span class="sxs-lookup"><span data-stu-id="71de5-157">The connection object in the transaction passed does not match the Entity Framework’s connection.</span></span>  
+<span data-ttu-id="cfedc-152">次の場合にトランザクションを渡すと、UseTransaction () の例外が表示されます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-152">You will see an exception from Database.UseTransaction() if you pass a transaction when:</span></span>  
+- <span data-ttu-id="cfedc-153">Entity Framework 既存のトランザクションが既に存在します</span><span class="sxs-lookup"><span data-stu-id="cfedc-153">Entity Framework already has an existing transaction</span></span>  
+- <span data-ttu-id="cfedc-154">Entity Framework は TransactionScope 内で既に動作しています</span><span class="sxs-lookup"><span data-stu-id="cfedc-154">Entity Framework is already operating within a TransactionScope</span></span>  
+- <span data-ttu-id="cfedc-155">渡されたトランザクション内の接続オブジェクトが null です。</span><span class="sxs-lookup"><span data-stu-id="cfedc-155">The connection object in the transaction passed is null.</span></span> <span data-ttu-id="cfedc-156">つまり、トランザクションは接続に関連付けられていません。通常、これはトランザクションが既に完了していることを示す符号です。</span><span class="sxs-lookup"><span data-stu-id="cfedc-156">That is, the transaction is not associated with a connection – usually this is a sign that that transaction has already completed</span></span>  
+- <span data-ttu-id="cfedc-157">渡されたトランザクションの接続オブジェクトが Entity Framework の接続と一致しません。</span><span class="sxs-lookup"><span data-stu-id="cfedc-157">The connection object in the transaction passed does not match the Entity Framework’s connection.</span></span>  
 
-## <a name="using-transactions-with-other-features"></a><span data-ttu-id="71de5-158">他の機能とトランザクションの使用</span><span class="sxs-lookup"><span data-stu-id="71de5-158">Using transactions with other features</span></span>  
+## <a name="using-transactions-with-other-features"></a><span data-ttu-id="cfedc-158">他の機能でのトランザクションの使用</span><span class="sxs-lookup"><span data-stu-id="cfedc-158">Using transactions with other features</span></span>  
 
-<span data-ttu-id="71de5-159">このセクションでは、上記のトランザクションと対話する方法についてください。</span><span class="sxs-lookup"><span data-stu-id="71de5-159">This section details how the above transactions interact with:</span></span>  
+<span data-ttu-id="cfedc-159">このセクションでは、上記のトランザクションとの相互作用について詳しく説明します。</span><span class="sxs-lookup"><span data-stu-id="cfedc-159">This section details how the above transactions interact with:</span></span>  
 
-- <span data-ttu-id="71de5-160">接続の復元性</span><span class="sxs-lookup"><span data-stu-id="71de5-160">Connection resiliency</span></span>  
-- <span data-ttu-id="71de5-161">非同期メソッド</span><span class="sxs-lookup"><span data-stu-id="71de5-161">Asynchronous methods</span></span>  
-- <span data-ttu-id="71de5-162">TransactionScope トランザクション</span><span class="sxs-lookup"><span data-stu-id="71de5-162">TransactionScope transactions</span></span>  
+- <span data-ttu-id="cfedc-160">接続の復元性</span><span class="sxs-lookup"><span data-stu-id="cfedc-160">Connection resiliency</span></span>  
+- <span data-ttu-id="cfedc-161">非同期メソッド</span><span class="sxs-lookup"><span data-stu-id="cfedc-161">Asynchronous methods</span></span>  
+- <span data-ttu-id="cfedc-162">TransactionScope トランザクション</span><span class="sxs-lookup"><span data-stu-id="cfedc-162">TransactionScope transactions</span></span>  
 
-### <a name="connection-resiliency"></a><span data-ttu-id="71de5-163">接続の復元性</span><span class="sxs-lookup"><span data-stu-id="71de5-163">Connection Resiliency</span></span>  
+### <a name="connection-resiliency"></a><span data-ttu-id="cfedc-163">接続の復元性</span><span class="sxs-lookup"><span data-stu-id="cfedc-163">Connection Resiliency</span></span>  
 
-<span data-ttu-id="71de5-164">新しい接続の回復性機能には、ユーザーによって開始されたトランザクションでは使えません。</span><span class="sxs-lookup"><span data-stu-id="71de5-164">The new Connection Resiliency feature does not work with user-initiated transactions.</span></span> <span data-ttu-id="71de5-165">詳細については、次を参照してください。[再試行実行戦略](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported)します。</span><span class="sxs-lookup"><span data-stu-id="71de5-165">For details, see [Retrying Execution Strategies](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported).</span></span>  
+<span data-ttu-id="cfedc-164">新しい接続の回復性機能は、ユーザーが開始したトランザクションでは機能しません。</span><span class="sxs-lookup"><span data-stu-id="cfedc-164">The new Connection Resiliency feature does not work with user-initiated transactions.</span></span> <span data-ttu-id="cfedc-165">詳細については、「[実行方法の再試行](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="cfedc-165">For details, see [Retrying Execution Strategies](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported).</span></span>  
 
-### <a name="asynchronous-programming"></a><span data-ttu-id="71de5-166">非同期プログラミング</span><span class="sxs-lookup"><span data-stu-id="71de5-166">Asynchronous Programming</span></span>  
+### <a name="asynchronous-programming"></a><span data-ttu-id="cfedc-166">非同期プログラミング</span><span class="sxs-lookup"><span data-stu-id="cfedc-166">Asynchronous Programming</span></span>  
 
-<span data-ttu-id="71de5-167">前のセクションで説明されているアプローチには、それ以上のオプションや設定を使用する必要ありません、[非同期クエリを実行し、メソッドの保存](~/ef6/fundamentals/async.md
-)します。</span><span class="sxs-lookup"><span data-stu-id="71de5-167">The approach outlined in the previous sections needs no further options or settings to work with the [asynchronous query and save methods](~/ef6/fundamentals/async.md
-).</span></span> <span data-ttu-id="71de5-168">行う動作によって、非同期メソッド内で、この可能性 – デッドロックまたはブロックは、アプリケーション全体のパフォーマンスを低下が発生することがさらに実行時間の長いトランザクションに注意してください。</span><span class="sxs-lookup"><span data-stu-id="71de5-168">But be aware that, depending on what you do within the asynchronous methods, this may result in long-running transactions – which can in turn cause deadlocks or blocking which is bad for the performance of the overall application.</span></span>  
+<span data-ttu-id="cfedc-167">前のセクションで説明した方法では、 [非同期クエリおよび保存メソッド](~/ef6/fundamentals/async.md
+)を操作するためのその他のオプションや設定は必要ありません。</span><span class="sxs-lookup"><span data-stu-id="cfedc-167">The approach outlined in the previous sections needs no further options or settings to work with the [asynchronous query and save methods](~/ef6/fundamentals/async.md
+).</span></span> <span data-ttu-id="cfedc-168">ただし、非同期メソッドの実行内容によっては、トランザクションが長時間実行される可能性があることに注意してください。これにより、アプリケーション全体のパフォーマンスを低下させるデッドロックやブロッキングが発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="cfedc-168">But be aware that, depending on what you do within the asynchronous methods, this may result in long-running transactions – which can in turn cause deadlocks or blocking which is bad for the performance of the overall application.</span></span>  
 
-### <a name="transactionscope-transactions"></a><span data-ttu-id="71de5-169">TransactionScope トランザクション</span><span class="sxs-lookup"><span data-stu-id="71de5-169">TransactionScope Transactions</span></span>  
+### <a name="transactionscope-transactions"></a><span data-ttu-id="cfedc-169">TransactionScope トランザクション</span><span class="sxs-lookup"><span data-stu-id="cfedc-169">TransactionScope Transactions</span></span>  
 
-<span data-ttu-id="71de5-170">EF6 の前によりも大きなスコープのトランザクションを提供することをお勧めの方法は、TransactionScope オブジェクトを使用してでした。</span><span class="sxs-lookup"><span data-stu-id="71de5-170">Prior to EF6 the recommended way of providing larger scope transactions was to use a TransactionScope object:</span></span>  
+<span data-ttu-id="cfedc-170">EF6 より前の場合は、より大きなスコープのトランザクションを提供するために、TransactionScope オブジェクトを使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="cfedc-170">Prior to EF6 the recommended way of providing larger scope transactions was to use a TransactionScope object:</span></span>  
 
 ``` csharp
 using System.Collections.Generic;
@@ -255,9 +241,9 @@ namespace TransactionsExamples
 }
 ```  
 
-<span data-ttu-id="71de5-171">SqlConnection と Entity Framework し、TransactionScope アンビエント トランザクションを使用して、したがって一緒にコミットします。</span><span class="sxs-lookup"><span data-stu-id="71de5-171">The SqlConnection and Entity Framework would both use the ambient TransactionScope transaction and hence be committed together.</span></span>  
+<span data-ttu-id="cfedc-171">SqlConnection と Entity Framework はどちらもアンビエント TransactionScope トランザクションを使用するため、一緒にコミットされます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-171">The SqlConnection and Entity Framework would both use the ambient TransactionScope transaction and hence be committed together.</span></span>  
 
-<span data-ttu-id="71de5-172">以降では、.NET 4.5.1 も使用して非同期のメソッドを使用する TransactionScope が更新されました、 [TransactionScopeAsyncFlowOption](https://msdn.microsoft.com/library/system.transactions.transactionscopeasyncflowoption.aspx)列挙体。</span><span class="sxs-lookup"><span data-stu-id="71de5-172">Starting with .NET 4.5.1 TransactionScope has been updated to also work with asynchronous methods via the use of the [TransactionScopeAsyncFlowOption](https://msdn.microsoft.com/library/system.transactions.transactionscopeasyncflowoption.aspx) enumeration:</span></span>  
+<span data-ttu-id="cfedc-172">.NET 4.5.1 以降の TransactionScope は、 [TransactionScopeAsyncFlowOption](https://msdn.microsoft.com/library/system.transactions.transactionscopeasyncflowoption.aspx)列挙体を使用して非同期メソッドでも動作するように更新されました。</span><span class="sxs-lookup"><span data-stu-id="cfedc-172">Starting with .NET 4.5.1 TransactionScope has been updated to also work with asynchronous methods via the use of the [TransactionScopeAsyncFlowOption](https://msdn.microsoft.com/library/system.transactions.transactionscopeasyncflowoption.aspx) enumeration:</span></span>  
 
 ``` csharp
 using System.Collections.Generic;
@@ -302,16 +288,16 @@ namespace TransactionsExamples
 }
 ```  
 
-<span data-ttu-id="71de5-173">TransactionScope アプローチをいくつかの制限は引き続きがあります。</span><span class="sxs-lookup"><span data-stu-id="71de5-173">There are still some limitations to the TransactionScope approach:</span></span>  
+<span data-ttu-id="cfedc-173">TransactionScope アプローチにはまだいくつかの制限があります。</span><span class="sxs-lookup"><span data-stu-id="cfedc-173">There are still some limitations to the TransactionScope approach:</span></span>  
 
-- <span data-ttu-id="71de5-174">.NET 4.5.1 が必要以上の非同期メソッドを使用します。</span><span class="sxs-lookup"><span data-stu-id="71de5-174">Requires .NET 4.5.1 or greater to work with asynchronous methods.</span></span>  
-- <span data-ttu-id="71de5-175">1 つだけの接続があることを確認する場合を除いてには、クラウドのシナリオで使用することはできません (クラウドのシナリオでは分散トランザクションはサポートされません)。</span><span class="sxs-lookup"><span data-stu-id="71de5-175">It cannot be used in cloud scenarios unless you are sure you have one and only one connection (cloud scenarios do not support distributed transactions).</span></span>  
-- <span data-ttu-id="71de5-176">前のセクションでは、の Database.UseTransaction() アプローチを組み合わせることはできません。</span><span class="sxs-lookup"><span data-stu-id="71de5-176">It cannot be combined with the Database.UseTransaction() approach of the previous sections.</span></span>  
-- <span data-ttu-id="71de5-177">任意の DDL を発行し、MSDTC サービスを使用した分散トランザクションを有効にしていない場合、例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="71de5-177">It will throw exceptions if you issue any DDL and have not enabled distributed transactions through the MSDTC Service.</span></span>  
+- <span data-ttu-id="cfedc-174">非同期メソッドを操作するには、.NET 4.5.1 以降が必要です。</span><span class="sxs-lookup"><span data-stu-id="cfedc-174">Requires .NET 4.5.1 or greater to work with asynchronous methods.</span></span>  
+- <span data-ttu-id="cfedc-175">接続が1つしかない (クラウドシナリオでは分散トランザクションがサポートされていない) 場合を除き、クラウドシナリオでは使用できません。</span><span class="sxs-lookup"><span data-stu-id="cfedc-175">It cannot be used in cloud scenarios unless you are sure you have one and only one connection (cloud scenarios do not support distributed transactions).</span></span>  
+- <span data-ttu-id="cfedc-176">前のセクションの UseTransaction () アプローチと組み合わせることはできません。</span><span class="sxs-lookup"><span data-stu-id="cfedc-176">It cannot be combined with the Database.UseTransaction() approach of the previous sections.</span></span>  
+- <span data-ttu-id="cfedc-177">DDL を発行し、MSDTC サービスを介して分散トランザクションが有効になっていない場合は、例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="cfedc-177">It will throw exceptions if you issue any DDL and have not enabled distributed transactions through the MSDTC Service.</span></span>  
 
-<span data-ttu-id="71de5-178">TransactionScope アプローチの利点があります。</span><span class="sxs-lookup"><span data-stu-id="71de5-178">Advantages of the TransactionScope approach:</span></span>  
+<span data-ttu-id="cfedc-178">TransactionScope アプローチの利点は次のとおりです。</span><span class="sxs-lookup"><span data-stu-id="cfedc-178">Advantages of the TransactionScope approach:</span></span>  
 
-- <span data-ttu-id="71de5-179">それが自動的にアップグレード ローカル トランザクションを分散トランザクションに指定されたデータベースには、複数の接続を作成するか、または、同じトランザクション内の別のデータベースへの接続と 1 つのデータベースへの接続を組み合わせる場合 (注: が必要MSDTC サービスではこれが機能する分散トランザクションを許可するように構成します。</span><span class="sxs-lookup"><span data-stu-id="71de5-179">It will automatically upgrade a local transaction to a distributed transaction if you make more than one connection to a given database or combine a connection to one database with a connection to a different database within the same transaction (note: you must have the MSDTC service configured to allow distributed transactions for this to work).</span></span>  
-- <span data-ttu-id="71de5-180">コーディングの容易さ。</span><span class="sxs-lookup"><span data-stu-id="71de5-180">Ease of coding.</span></span> <span data-ttu-id="71de5-181">明示的に制御するのではなく、アンビエントとバック グラウンドで暗黙的にで対応するトランザクションを使用する場合、TransactionScope アプローチ可能性がありますに合わせてする向上。</span><span class="sxs-lookup"><span data-stu-id="71de5-181">If you prefer the transaction to be ambient and dealt with implicitly in the background rather than explicitly under you control then the TransactionScope approach may suit you better.</span></span>  
+- <span data-ttu-id="cfedc-179">特定のデータベースに対して複数の接続を作成したり、同じトランザクション内の別のデータベースへの接続を使用して1つのデータベースに接続を結合したりすると、ローカルトランザクションは分散トランザクションに自動的にアップグレードされます (注:分散トランザクションが機能するように MSDTC サービスが構成されています)。</span><span class="sxs-lookup"><span data-stu-id="cfedc-179">It will automatically upgrade a local transaction to a distributed transaction if you make more than one connection to a given database or combine a connection to one database with a connection to a different database within the same transaction (note: you must have the MSDTC service configured to allow distributed transactions for this to work).</span></span>  
+- <span data-ttu-id="cfedc-180">コーディングの容易さ。</span><span class="sxs-lookup"><span data-stu-id="cfedc-180">Ease of coding.</span></span> <span data-ttu-id="cfedc-181">トランザクションがアンビエントで、明示的に制御するのではなく、バックグラウンドで暗黙的に処理されるようにする場合は、TransactionScope アプローチの方が適している可能性があります。</span><span class="sxs-lookup"><span data-stu-id="cfedc-181">If you prefer the transaction to be ambient and dealt with implicitly in the background rather than explicitly under you control then the TransactionScope approach may suit you better.</span></span>  
 
-<span data-ttu-id="71de5-182">新しい Database.BeginTransaction() および上記の Database.UseTransaction() Api の概要では、TransactionScope アプローチはほとんどのユーザーに必要ではなくなりました。</span><span class="sxs-lookup"><span data-stu-id="71de5-182">In summary, with the new Database.BeginTransaction() and Database.UseTransaction() APIs above, the TransactionScope approach is no longer necessary for most users.</span></span> <span data-ttu-id="71de5-183">引き続き TransactionScope を使用する場合、上記の制限事項に注意してくださいになります。</span><span class="sxs-lookup"><span data-stu-id="71de5-183">If you do continue to use TransactionScope then be aware of the above limitations.</span></span> <span data-ttu-id="71de5-184">可能な限り代わりに、前のセクションで紹介するアプローチを使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="71de5-184">We recommend using the approach outlined in the previous sections instead where possible.</span></span>  
+<span data-ttu-id="cfedc-182">要約すると、上記の新しい BeginTransaction () Api と UseTransaction () Api を使用すると、ほとんどのユーザーに対して TransactionScope アプローチは不要になります。</span><span class="sxs-lookup"><span data-stu-id="cfedc-182">In summary, with the new Database.BeginTransaction() and Database.UseTransaction() APIs above, the TransactionScope approach is no longer necessary for most users.</span></span> <span data-ttu-id="cfedc-183">引き続き TransactionScope を使用する場合は、上記の制限事項に注意してください。</span><span class="sxs-lookup"><span data-stu-id="cfedc-183">If you do continue to use TransactionScope then be aware of the above limitations.</span></span> <span data-ttu-id="cfedc-184">可能であれば、前のセクションで説明した方法を使用することをお勧めします。</span><span class="sxs-lookup"><span data-stu-id="cfedc-184">We recommend using the approach outlined in the previous sections instead where possible.</span></span>  
