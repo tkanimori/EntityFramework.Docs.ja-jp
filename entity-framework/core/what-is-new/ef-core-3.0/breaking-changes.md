@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: dcbea1a2aab5baea35f81500bb7bb5482695d778
-ms.sourcegitcommit: 812010a35afe902d8c4bb03a67d575f8e91b5ec0
+ms.openlocfilehash: 7cc0bd3946be2e63d9fb46a023bf6abe750ae0e3
+ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/02/2019
-ms.locfileid: "67506264"
+ms.lasthandoff: 07/17/2019
+ms.locfileid: "68286491"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -96,11 +96,10 @@ ASP.NET Core 3.0 アプリケーションまたはその他のサポートされ
 
 **軽減策**
 
-移行の管理や `DbContext` のスキャフォールディングを行うには、`dotnet-ef` を `dotnet tool install` コマンドを使用してインストールします。
-たとえば、グローバルなツールとしてインストールするには、次のコマンドを入力します。
+移行の管理や `DbContext` のスキャフォールディングを行えるようにするには、`dotnet-ef` をグローバル ツールとしてインストールします。
 
   ``` console
-  $ dotnet tool install --global dotnet-ef --version <exact-version>
+    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
   ```
 
 [ツール マニフェスト ファイル](https://github.com/dotnet/cli/issues/10288)を使用してツールの依存関係として宣言するプロジェクトの依存関係を復元するときに、ローカルなツールとして取得することもできます。
@@ -1313,6 +1312,28 @@ Microsoft.Data.Sqlite では、引き続き整数とテキストの両方の列�
 UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
+
+## <a name="userownumberforpaging-has-been-removed"></a>UseRowNumberForPaging の削除
+
+[問題 #16400 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/16400)
+
+この変更は、EF Core 3.0 プレビュー 6 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 より前では、`UseRowNumberForPaging` を使って、SQL Server 2008 と互換性のあるページング用の SQL を生成することができました。
+
+**新しい動作**
+
+EF Core 3.0 以降では、EF によって生成できるのは、それ以降のバージョンの SQL Server とのみ互換性があるページング用の SQL のみとなります。 
+
+**理由**
+
+[SQL Server 2008 はもうサポートされていない製品であり](https://blogs.msdn.microsoft.com/sqlreleaseservices/end-of-mainstream-support-for-sql-server-2008-and-sql-server-2008-r2/)、EF Core 3.0 で行われたクエリの変更に対応するようこの機能を更新する作業は負荷が大きいため、このような変更が行われます。
+
+**軽減策**
+
+生成された SQL がサポートされるように、より新しいバージョンの SQL Server に更新するか、より高い互換性レベルを使用することをお勧めします。 ただし、これを実行できない場合は、詳細情報とともに[問題の追跡にコメント](https://github.com/aspnet/EntityFrameworkCore/issues/16400)してください。 Microsoft では、フィードバックに基づいてこの決定を再検討する場合があります。
 
 ## <a name="extension-infometadata-has-been-removed-from-idbcontextoptionsextension"></a>IDbContextOptionsExtension から拡張機能の情報/メタデータを削除
 

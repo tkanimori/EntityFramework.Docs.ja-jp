@@ -3,12 +3,12 @@ title: グローバル クエリ フィルター - EF Core
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: 4afc9fb0338d34845639d57013ac710445321940
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: e1cb9f5afc54aaa12e5880ace606277b00911c06
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562443"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306469"
 ---
 # <a name="global-query-filters"></a>グローバル クエリ フィルター
 
@@ -31,20 +31,20 @@ ms.locfileid: "59562443"
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#Entities)]
 
-_Blog_ エンティティの __tenantId_ フィールドの宣言をメモします。 これは、固有のテナントと各 Blog インスタンスの関連付けに使用されます。 また、_Post_ エンティティ型の _IsDeleted_ プロパティが定義されています。 これは、_Post_ インスタンスが "論理削除" されたかどうかの追跡を継続するために使用されます。 つまり、基になるデータを物理的に削除せずに、インスタンスは削除済みとしてマークされます。
+_Blog_ エンティティの _tenantId_ フィールドの宣言をメモします。 これは、固有のテナントと各 Blog インスタンスの関連付けに使用されます。 また、_Post_ エンティティ型の _IsDeleted_ プロパティが定義されています。 これは、_Post_ インスタンスが "論理削除" されたかどうかの追跡を継続するために使用されます。 つまり、基になるデータを物理的に削除せずに、インスタンスは削除済みとしてマークされます。
 
-次に、```HasQueryFilter``` API を使用して _OnModelCreating_ でクエリ フィルターを構成します。
+次に、`HasQueryFilter` API を使用して _OnModelCreating_ でクエリ フィルターを構成します。
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#Configuration)]
 
 _HasQueryFilter_ 呼び出しに渡される述語式は、型に対応するいずれかの LINQ クエリに自動的に適用されます。
 
 > [!TIP]
-> DbContext インスタンス レベルのフィールドの使用に注意してください。```_tenantId``` は、現在のテナントを設定するために使用されます。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているインスタンス) の値を使用します。
+> DbContext インスタンス レベルのフィールドの使用に注意してください。`_tenantId` は、現在のテナントを設定するために使用されます。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているインスタンス) の値を使用します。
 
 ## <a name="disabling-filters"></a>フィルターを無効にする
 
-フィルターは、```IgnoreQueryFilters()``` 演算子を使用して、個々の LINQ クエリに対して無効にできます。
+フィルターは、`IgnoreQueryFilters()` 演算子を使用して、個々の LINQ クエリに対して無効にできます。
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#IgnoreFilters)]
 

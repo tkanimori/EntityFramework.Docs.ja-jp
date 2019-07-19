@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: 3024c0101c9d886ef844d1b7dc85aaf1be27e86b
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 91592ea9f7c73f10446993282c1874c852000871
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58914079"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306545"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
@@ -146,11 +146,11 @@ var blogs = context.Blogs
 * このメソッドに渡された `SELECT` ステートメントは、一般的にコンポーザブルである必要があります。EF Core がサーバー上で追加のクエリ演算子を評価する必要がある場合 (たとえば、`FromSql` の後に適用される LINQ 演算子を変換する場合)、指定された SQL はサブクエリとして扱われます。 これは、渡される SQL に、次のようなサブクエリでは無効な文字またはオプションを含めてはならないことを意味します。
   * 末尾のセミコロン
   * SQL Server では、末尾のクエリ レベル ヒント (例: `OPTION (HASH JOIN)`)
-  * SQL Server では、`SELECT` 句の `TOP 100 PERCENT` を伴わない `ORDER BY` 句
+  * SQL Server で、`SELECT` 句の `OFFSET 0` または `TOP 100 PERCENT` を伴わない `ORDER BY` 句
 
 * `SELECT` 以外の SQL ステートメントは、自動的に非コンポーザブルと認識されます。 その結果、ストアド プロシージャのすべての結果が常にクライアントに返され、`FromSql` の後に適用されたすべての LINQ 演算子はメモリ内で評価されます。
 
 > [!WARNING]  
-> **生 SQL クエリには常にパラメーター化を使用する:** ユーザーの入力を検証するだけでなく、生 SQL クエリ/コマンドで使用される値には常にパラメーター化を使用してください。 `FromSql` や `ExecuteSqlCommand` のような生 SQL 文字列を受け取る API では、値をパラメーターとして簡単に渡すことができます。 FormattableString を受け入れる `FromSql` と `ExecuteSqlCommand` のオーバーロードでも、SQL インジェクション攻撃からの保護に役立つ方法での文字列補間の使用が許可されます。 
+> **生 SQL クエリには常にパラメーター化を使用する:** ユーザーの入力を検証するだけでなく、生 SQL クエリ/コマンドで使用される値には常にパラメーター化を使用してください。 `FromSql` や `ExecuteSqlCommand` のような生 SQL 文字列を受け取る API では、値をパラメーターとして簡単に渡すことができます。 FormattableString を指定できる `FromSql` と `ExecuteSqlCommand` のオーバーロードでも、SQL インジェクション攻撃からの保護に役立つ方法での文字列補間構文の使用が許可されます。 
 > 
 > 文字列連結または補間を使用して、クエリ文字列のいずれかの部分を動的に構築する場合、または動的 SQL としてユーザー入力を実行できるステートメントまたはストアド プロシージャにその入力を渡す場合は、SQL インジェクション攻撃から保護するためにご自身で入力を検証する必要があります。
