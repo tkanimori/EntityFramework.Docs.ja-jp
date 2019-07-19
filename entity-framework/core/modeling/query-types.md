@@ -4,12 +4,12 @@ author: anpete
 ms.date: 02/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/query-types
-ms.openlocfilehash: cb391343e6f24092ae0874003c0ef2935dd4e03f
-ms.sourcegitcommit: 8dd71a57a01c439431164c163a0722877d0e5cd8
+ms.openlocfilehash: 6f0f860c6a4e619e13d55e6207234a8b5261ee09
+ms.sourcegitcommit: d1230e34673b8323a227ab37958dfa77f3684728
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/07/2018
-ms.locfileid: "53028181"
+ms.lasthandoff: 07/19/2019
+ms.locfileid: "68330792"
 ---
 # <a name="query-types"></a>クエリの種類
 > [!NOTE]
@@ -74,6 +74,8 @@ ms.locfileid: "53028181"
 クエリの種類のマッピングを構成するのに標準の fluent 構成 Api を使用します。
 
 [!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#Configuration)]
+
+次に、を`DbContext` `DbQuery<T>`含めるようにを構成します。[!code-csharp[Main](../../../samples/core/QueryTypes/Program.cs#DbQuery)]
 
 最後に、標準的な方法で、データベース ビューを照会できます。
 
