@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 5ebc4edba07063ad5e77154adcde5f2664c0d748
-ms.sourcegitcommit: 85d17524d8e022f933cde7fc848313f57dfd3eb8
+ms.openlocfilehash: db1b83a9222e00a5e226a134085b18247b31f29a
+ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/06/2019
-ms.locfileid: "55760523"
+ms.lasthandoff: 07/18/2019
+ms.locfileid: "68306482"
 ---
 # <a name="installing-entity-framework-core"></a>Entiy Framework Core のインストール
 
@@ -94,7 +94,7 @@ EF Core 関連のタスクをプロジェクト内で実行するためのツー
 
 `dotnet ef` のコマンドは現在のバージョンの .NET Core SDK に含まれていますが、このコマンドを特定のプロジェクトで使用できるようにするには、次の方法で `Microsoft.EntityFrameworkCore.Design` パッケージをインストールする必要があります。
 
- ``` Console    
+``` Console 
 dotnet add package Microsoft.EntityFrameworkCore.Design 
 ``` 
 
