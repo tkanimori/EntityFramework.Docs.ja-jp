@@ -88,8 +88,8 @@ CONSTRAINT [FK_Person_PersonInfo] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Per
 
 この手順では更新、 **Person**からデータを結合するエンティティ型、 **Person**と**PersonInfo**テーブル。
 
--   選択、**電子メール**と**Phone**のプロパティ、* * PersonInfo * * エンティティ キーを押します**Ctrl + X**キー。
--   選択、* * ユーザー * * エンティティ キーを押します**Ctrl + V**キー。
+-   選択、**電子メール**と**Phone**のプロパティ、**PersonInfo**エンティティ キーを押します**Ctrl + X**キー。
+-   選択、**ユーザー** エンティティ キーを押します**Ctrl + V**キー。
 -   デザイン サーフェイスでは、選択、 **PersonInfo**エンティティ キーを押します**削除**キーボードのキー。
 -   クリックして**いいえ**を削除するように求められたら、 **PersonInfo**テーブルにマップしようとしていますが、モデルから、**人**エンティティ。
 
@@ -98,7 +98,7 @@ CONSTRAINT [FK_Person_PersonInfo] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Per
 次の手順が必要です、**マッピングの詳細**ウィンドウ。 このウィンドウを表示されない場合は、サーフェスと選択のデザインを右クリックして**マッピングの詳細**します。
 
 -   選択、 **Person**エンティティの種類をクリックします**&lt;テーブルまたはビューの追加&gt;** で、**マッピングの詳細**ウィンドウ。
--   選択 * * PersonInfo * * - ドロップダウン リストから。
+-   選択 **PersonInfo** - ドロップダウン リストから。
     **マッピングの詳細**ウィンドウが更新され、既定の列マッピング、これらは、ここでは問題ありません。
 
 **Person**エンティティ型が現在にマップされている、 **Person**と**PersonInfo**テーブル。
@@ -134,7 +134,7 @@ CONSTRAINT [FK_Person_PersonInfo] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Per
 
 次の T-SQL ステートメントは、このアプリケーションを実行した結果、データベースに対して実行されました。 
 
--   次の 2 つ**挿入**ステートメントのコンテキストを実行した結果として実行します。SaveChanges() します。 データを取得する、 **Person**エンティティの間で分割し、 **Person**と**PersonInfo**テーブル。
+-   次の 2 つ**INSERT**ステートメントのコンテキストを実行した結果として実行します。SaveChanges() します。 データを取得する、 **Person**エンティティの間で分割し、 **Person**と**PersonInfo**テーブル。
 
     ![1 を挿入します。](~/ef6/media/insert1.png)
 
