@@ -1,17 +1,18 @@
 ---
 title: ASP.NET Core - 既存のデータベース - EF Core の概要
 author: rowanmiller
+description: 既存のデータベースを使用した ASP.NET Core での EF Core の概要
 ms.date: 08/02/2018
 ms.assetid: 2bc68bea-ff77-4860-bf0b-cf00db6712a0
 uid: core/get-started/aspnetcore/existing-db
-ms.openlocfilehash: c8acb95395968f710e6b896de6c3598cb7b23676
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.openlocfilehash: 6b0ed0a9222644bee31d23234aa27b2084137f4a
+ms.sourcegitcommit: 755a15a789631cc4ea581e2262a2dcc49c219eef
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058787"
+ms.lasthandoff: 07/25/2019
+ms.locfileid: "68497509"
 ---
-# <a name="getting-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>既存のデータベースを使用した ASP.NET Core での EF Core の概要
+# <a name="get-started-with-ef-core-on-aspnet-core-with-an-existing-database"></a>既存のデータベースを使用した ASP.NET Core での EF Core の概要
 
 このチュートリアルでは、Entity Framework Core を使用して、基本的なデータ アクセスを実行する ASP.NET Core MVC アプリケーションを作成します。 既存のデータベースのリバース エンジニアリングによって Entity Framework モデルを作成します。
 
@@ -22,8 +23,8 @@ ms.locfileid: "54058787"
 以下のソフトウェアをインストールします。
 
 * [Visual Studio 2017 15.7](https://www.visualstudio.com/downloads/) および以下のワークロード。
-  * **ASP.NET と Web 開発** (**[Web & Cloud]\(Web とクラウド\)** の下)
-  * **.NET Core クロスプラットフォームの開発** (**[他のツールセット]** の下)
+  * **ASP.NET と Web 開発** ( **[Web & Cloud]\(Web とクラウド\)** の下)
+  * **.NET Core クロスプラットフォームの開発** ( **[他のツールセット]** の下)
 * [.NET Core 2.1 SDK](https://www.microsoft.com/net/download/core)。
 
 ## <a name="create-blogging-database"></a>Blogging データベースを作成する
@@ -33,12 +34,12 @@ ms.locfileid: "54058787"
 * Visual Studio を開く
 * **[ツール] -> [データベースへの接続]**
 * **[Microsoft SQL Server]** を選択して **[続行]** をクリックします。
-* **[サーバー名]** に「**(localdb) \mssqllocaldb**」を入力します。
+* **[サーバー名]** に「 **(localdb) \mssqllocaldb**」を入力します。
 * **[データベース名]** に「**master**」を入力して **[OK]** をクリックします。
 * **[サーバー エクスプローラー]** 内の **[データ接続]** の下に、master データベースが表示されるようになりました。
-* **[サーバー エクスプローラー]** でこのデータベースを右クリックし、**[新しいクエリ]** を選択します。
+* **[サーバー エクスプローラー]** でこのデータベースを右クリックし、 **[新しいクエリ]** を選択します。
 * 以下に表示されているスクリプトを、クエリ エディターにコピーします。
-* クエリ エディターを右クリックし、**[実行]** を選択します。
+* クエリ エディターを右クリックし、 **[実行]** を選択します。
 
 [!code-sql[Main](../_shared/create-blogging-database-script.sql)]
 
@@ -48,7 +49,7 @@ ms.locfileid: "54058787"
 * **[ファイル] > [新規] > [プロジェクト]**
 * 左側のメニューから **[インストール済み] > [Visual C#] > [Web]** の順に選択します
 * **[ASP.NET Core Web アプリケーション]** プロジェクト テンプレートを選択します
-* 名前には「**EFGetStarted.AspNetCore.ExistingDb**」と入力し (コードで後で使用される名前空間と正確に一致する必要があります)、**[OK]** をクリックします 
+* 名前には「**EFGetStarted.AspNetCore.ExistingDb**」と入力し (コードで後で使用される名前空間と正確に一致する必要があります)、 **[OK]** をクリックします 
 * **[新しい ASP.NET Core Web アプリケーション]** ダイアログが表示されるのを待ちます
 * ターゲット フレームワークのドロップダウンが **[.NET Core]** に設定されており、バージョンのドロップダウンが **[ASP.NET Core 2.1]** に設定されていることを確認します
 * **[Web アプリケーション (モデル ビュー コントローラー)]** テンプレートを選択します
@@ -156,9 +157,9 @@ public partial class BloggingContext : DbContext
 
 ## <a name="create-a-controller-and-views"></a>コントローラーとビューの作成
 
-* **ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、**[追加] -> [コントローラー]** の順に選択します。
-* **[Entity Framework を使用したビューがある MVC コントローラー]** を選択し、**[OK]** をクリックします。
-* **[モデル クラス]** に **Blog** を、**[データ コンテキスト クラス]** に **[BloggingContext]** を設定します。
+* **ソリューション エクスプローラー**の **Controllers** フォルダーを右クリックし、 **[追加] -> [コントローラー]** の順に選択します。
+* **[Entity Framework を使用したビューがある MVC コントローラー]** を選択し、 **[OK]** をクリックします。
+* **[モデル クラス]** に **Blog** を、 **[データ コンテキスト クラス]** に **[BloggingContext]** を設定します。
 * **[追加]** をクリックします。
 
 ## <a name="run-the-application"></a>アプリケーションの実行
@@ -169,7 +170,7 @@ public partial class BloggingContext : DbContext
 * アプリケーションが作成され、Web ブラウザー内で開きます
 * `/Blogs` に移動します。
 * **[新規作成]** をクリックします。
-* 新しいブログの **URL** を入力して、**[作成]** をクリックします。
+* 新しいブログの **URL** を入力して、 **[作成]** をクリックします。
 
   ![[作成] ページ](_static/create.png)
 
