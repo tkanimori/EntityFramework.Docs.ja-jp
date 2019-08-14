@@ -134,7 +134,7 @@ CONSTRAINT [FK_Person_PersonInfo] FOREIGN KEY ([PersonId]) REFERENCES [dbo].[Per
 
 次の T-SQL ステートメントは、このアプリケーションを実行した結果、データベースに対して実行されました。 
 
--   次の 2 つ**挿入**ステートメントのコンテキストを実行した結果として実行します。SaveChanges() します。 データを取得する、 **Person**エンティティの間で分割し、 **Person**と**PersonInfo**テーブル。
+-   次の 2 つ**INSERT**ステートメントのコンテキストを実行した結果として実行します。SaveChanges() します。 データを取得する、 **Person**エンティティの間で分割し、 **Person**と**PersonInfo**テーブル。
 
     ![1 を挿入します。](~/ef6/media/insert1.png)
 
