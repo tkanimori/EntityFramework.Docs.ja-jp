@@ -1,46 +1,46 @@
 ---
-title: EF Core ツール リファレンス (.NET CLI) - EF Core
+title: EF Core ツールリファレンス (.NET CLI)-EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 05c5f89fc79556e72a7e629c147aa817fe7d1a6b
-ms.sourcegitcommit: e90d6cfa3e96f10b8b5275430759a66a0c714ed1
+ms.openlocfilehash: 0278353640ea242df9e6ee5278c9dda78bfd341b
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/17/2019
-ms.locfileid: "68286461"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565271"
 ---
-# <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core ツールのリファレンス - .NET CLI
+# <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core ツールリファレンス-.NET CLI
 
-Entity Framework Core のコマンド ライン インターフェイス (CLI) ツールでは、デザイン時開発タスクを実行します。 たとえば、作成[移行](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations)移行を適用し、既存のデータベースに基づくモデルのコードを生成します。 クロス プラットフォーム拡張機能のコマンドは、 [dotnet](/dotnet/core/tools)コマンドで、一部の[.NET Core SDK](https://www.microsoft.com/net/core)します。 これらのツールは、.NET Core プロジェクトで動作します。
+Entity Framework Core 用のコマンドラインインターフェイス (CLI) ツールは、デザイン時の開発タスクを実行します。 たとえば、既存のデータベースに基づいて、[移行](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations)を作成し、移行を適用し、モデルのコードを生成します。 コマンドは、 [.NET Core SDK](https://www.microsoft.com/net/core)の一部であるクロスプラットフォーム[dotnet](/dotnet/core/tools)コマンドの拡張機能です。 これらのツールは、.NET Core プロジェクトで動作します。
 
-Visual Studio を使用しているかどうか、お勧め、[パッケージ マネージャー コンソール ツール](powershell.md)代わりにします。
-* 選択されている現在のプロジェクトに自動的に連動、**パッケージ マネージャー コンソール**せず、ディレクトリを手動で切り替えることです。
-* コマンドが完了した後、コマンドによって生成されたファイルが自動的に開きます。
+Visual Studio を使用している場合は、代わりに[パッケージマネージャーコンソールツール](powershell.md)を使用することをお勧めします。
+* **パッケージマネージャーコンソール**で選択した現在のプロジェクトと自動的に連動します。ディレクトリを手動で切り替える必要はありません。
+* コマンドが完了すると、コマンドによって生成されたファイルが自動的に開かれます。
 
 ## <a name="installing-the-tools"></a>ツールのインストール
 
 インストール手順は、プロジェクトの種類とバージョンによって異なります。
 
 * EF Core 3.x
-* ASP.NET Core 2.1 以降のバージョン
+* ASP.NET Core バージョン2.1 以降
 * EF Core 2.x
-* EF Core 1.x へ
+* EF Core 1.x
 
 ### <a name="ef-core-3x"></a>EF Core 3.x
 
-* `dotnet ef` グローバルまたはローカルのツールとしてインストールする必要があります。 ほとんどの開発者がインストールされます`dotnet ef`として次のコマンドを使用してグローバル ツール。
+* `dotnet ef`は、グローバルまたはローカルのツールとしてインストールする必要があります。 ほとんどの開発者`dotnet ef`は、次のコマンドを使用して、をグローバルツールとしてインストールします。
 
   ``` console
-    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef --version 3.0.0-*
   ```
 
-  使用することも`dotnet ef`ローカル ツールとして。 これをローカルのツールとして使用するを使用してツールの依存関係として宣言するプロジェクトの依存関係を復元する[ツール マニフェスト ファイル](https://github.com/dotnet/cli/issues/10288)します。
+  をローカルツールと`dotnet ef`して使用することもできます。 ローカルツールとして使用するには、[ツールマニフェストファイル](https://github.com/dotnet/cli/issues/10288)を使用して、ツールの依存関係として宣言するプロジェクトの依存関係を復元します。
 
-* インストール、 [.NET Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0))。 SDK は、Visual Studio の最新バージョンがある場合でもをインストールする必要があります。
+* [.NET Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)) をインストールします。 最新バージョンの Visual Studio がインストールされている場合でも、SDK をインストールする必要があります。
 
-* 最新のインストール`Microsoft.EntityFrameworkCore.Design`パッケージ。
+* 最新`Microsoft.EntityFrameworkCore.Design`のパッケージをインストールします。
 
   ``` Console
   dotnet add package Microsoft.EntityFrameworkCore.Design
@@ -48,37 +48,37 @@ Visual Studio を使用しているかどうか、お勧め、[パッケージ �
 
 ### <a name="aspnet-core-21"></a>ASP.NET Core 2.1 以降
 
-* 現在のインストール[.NET Core SDK](https://www.microsoft.com/net/download/core)します。 SDK は、Visual Studio 2017 の最新バージョンがある場合でもインストールする必要があります。
+* 現在の[.NET Core SDK](https://www.microsoft.com/net/download/core)をインストールします。 SDK は、Visual Studio 2017 の最新バージョンがある場合でもインストールする必要があります。
 
-  これは、ASP.NET Core 2.1 + ために必要なすべての`Microsoft.EntityFrameworkCore.Design`にパッケージが含まれる、 [Microsoft.AspNetCore.App メタパッケージ](/aspnet/core/fundamentals/metapackage-app)します。
+  `Microsoft.EntityFrameworkCore.Design`パッケージは[AspNetCore メタパッケージ](/aspnet/core/fundamentals/metapackage-app)に含まれているため、これは ASP.NET Core 2.1 以降で必要なことです。
 
-### <a name="ef-core-2x-not-aspnet-core"></a>EF Core 2.x (ASP.NET Core ではなく)
+### <a name="ef-core-2x-not-aspnet-core"></a>EF Core 2.x (ASP.NET Core ではありません)
 
-`dotnet ef`コマンドは、.NET Core SDK に含まれていますが、コマンドを有効にするには、インストールする必要が、`Microsoft.EntityFrameworkCore.Design`パッケージ。
+コマンドは .NET Core SDK に含まれていますが、 `Microsoft.EntityFrameworkCore.Design`パッケージをインストールするために必要なコマンドを有効にします。 `dotnet ef`
 
-* 現在のインストール[.NET Core SDK](https://www.microsoft.com/net/download/core)します。 SDK は、Visual Studio の最新バージョンがある場合でもをインストールする必要があります。
+* 現在の[.NET Core SDK](https://www.microsoft.com/net/download/core)をインストールします。 最新バージョンの Visual Studio がインストールされている場合でも、SDK をインストールする必要があります。
 
-* 最新の安定したインストール`Microsoft.EntityFrameworkCore.Design`パッケージ。
+* 最新の安定`Microsoft.EntityFrameworkCore.Design`したパッケージをインストールします。
 
   ``` Console
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
-### <a name="ef-core-1x"></a>EF Core 1.x へ
+### <a name="ef-core-1x"></a>EF Core 1.x
 
-* .NET Core SDK バージョン 2.1.200 をインストールします。 以降のバージョンは、EF Core 1.0 および 1.1 の CLI ツールで互換性がありません。
+* .NET Core SDK バージョン2.1.200 をインストールします。 以降のバージョンは、EF Core 1.0 および1.1 の CLI ツールと互換性がありません。
 
-* 変更することで、SDK のバージョンを使用して、2.1.200 にアプリケーションを構成、 [global.json](/dotnet/core/tools/global-json)ファイル。 このファイルは通常、(プロジェクトの上に 1 つ) のソリューション ディレクトリにインクルードします。
+* 2\.1.200 SDK バージョンを使用するようにアプリケーションを構成します。そのためには、[グローバルな json](/dotnet/core/tools/global-json)ファイルを変更します。 通常、このファイルはソリューションディレクトリ (プロジェクトの1つ上) に含まれています。
 
-* プロジェクト ファイルを編集および追加`Microsoft.EntityFrameworkCore.Tools.DotNet`として、`DotNetCliToolReference`項目。 たとえば、最新の 1.x バージョンを指定します。1.1.6 します。 このセクションの最後に、プロジェクト ファイルの例を参照してください。
+* プロジェクトファイルを編集し、 `Microsoft.EntityFrameworkCore.Tools.DotNet` `DotNetCliToolReference`アイテムとしてを追加します。 最新の1.x バージョンを指定します。次に例を示します。1.1.6. このセクションの最後にあるプロジェクトファイルの例を参照してください。
 
-* 最新の 1.x バージョンのインストール、`Microsoft.EntityFrameworkCore.Design`などをパッケージ化します。
+* `Microsoft.EntityFrameworkCore.Design`パッケージの最新バージョン1.x をインストールします。次に例を示します。
 
   ```console
   dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
   ```
 
-  追加された両方のパッケージ参照では、プロジェクト ファイルがこのようになります。
+  両方のパッケージ参照を追加すると、プロジェクトファイルは次のようになります。
 
   ``` xml
   <Project Sdk="Microsoft.NET.Sdk">
@@ -98,18 +98,18 @@ Visual Studio を使用しているかどうか、お勧め、[パッケージ �
   </Project>
   ```
 
-  パッケージ参照を`PrivateAssets="All"`このプロジェクトを参照するプロジェクトに公開されません。 この制限は、開発中にのみ使用される一般的なパッケージに特に便利です。
+  を含む`PrivateAssets="All"`パッケージ参照は、このプロジェクトを参照するプロジェクトに公開されません。 この制限は、開発時にのみ使用されるパッケージに特に役立ちます。
 
 ### <a name="verify-installation"></a>インストールの確認
 
-EF Core CLI ツールが正しくインストールされていることを確認するには、次のコマンドを実行します。
+次のコマンドを実行して EF Core CLI ツールが正しくインストールされていることを確認します。
 
   ``` Console
   dotnet restore
   dotnet ef
   ```
 
-コマンドの出力は、使用中のツールのバージョンを識別します。
+コマンドからの出力は、使用されているツールのバージョンを識別します。
 
 ```console
 
@@ -125,50 +125,50 @@ Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
 <Usage documentation follows, not shown.>
 ```
 
-## <a name="using-the-tools"></a>ツールを使用します。
+## <a name="using-the-tools"></a>ツールの使用
 
-ツールを使用するのには、スタートアップ プロジェクトを作成するか、環境を設定する必要があります。
+ツールを使用する前に、スタートアッププロジェクトを作成するか、環境を設定することが必要になる場合があります。
 
-### <a name="target-project-and-startup-project"></a>ターゲット プロジェクトとスタートアップ プロジェクト
+### <a name="target-project-and-startup-project"></a>ターゲットプロジェクトとスタートアッププロジェクト
 
-コマンドを参照してください、*プロジェクト*と*スタートアップ プロジェクト*します。
+これらのコマンドは、*プロジェクト*と*スタートアッププロジェクト*を参照します。
 
-* *プロジェクト*とも呼ばれますが、*ターゲット プロジェクト*コマンドが追加または、ファイルを削除であるためです。 既定では、現在のディレクトリ内のプロジェクトは、ターゲット プロジェクトです。 ターゲット プロジェクトとして使用して、別のプロジェクトを指定することができます、 <nobr> `--project` </nobr>オプション。
+* *プロジェクト*は*ターゲットプロジェクト*とも呼ばれます。これは、コマンドによってファイルが追加または削除されるためです。 既定では、現在のディレクトリ内のプロジェクトはターゲットプロジェクトです。 <nobr>`--project`</nobr>オプションを使用して、別のプロジェクトをターゲットプロジェクトとして指定できます。
 
-* *スタートアップ プロジェクト*ツールをビルドして実行されます。 ツールは、データベース接続文字列と、モデルの構成など、プロジェクトに関する情報を取得するデザイン時にアプリケーション コードを実行する必要があります。 既定では、現在のディレクトリ内のプロジェクトは、スタートアップ プロジェクトです。 使用して、別のプロジェクトをスタートアップ プロジェクトとして指定できます、 <nobr> `--startup-project` </nobr>オプション。
+* *スタートアッププロジェクト*は、ツールをビルドして実行するためのものです。 このツールでは、デザイン時にアプリケーションコードを実行して、プロジェクトに関する情報 (データベース接続文字列やモデルの構成など) を取得する必要があります。 既定では、現在のディレクトリのプロジェクトはスタートアッププロジェクトです。 <nobr>`--startup-project`</nobr>オプションを使用して、別のプロジェクトをスタートアッププロジェクトとして指定できます。
 
-スタートアップ プロジェクトとターゲット プロジェクトは、同じプロジェクトでは多くの場合です。 個別のプロジェクトが、一般的なシナリオは。
+多くの場合、スタートアッププロジェクトとターゲットプロジェクトは同じプロジェクトです。 個別のプロジェクトである一般的なシナリオは、次のような場合です。
 
-* EF Core コンテキストとエンティティ クラスは、.NET Core クラス ライブラリでは。
-* .NET Core コンソール アプリまたは web アプリは、クラス ライブラリを参照します。
+* EF Core コンテキストとエンティティクラスは、.NET Core クラスライブラリにあります。
+* .NET Core コンソールアプリまたは web アプリはクラスライブラリを参照します。
 
-することも[EF Core コンテキストから別のクラス ライブラリにコードを移行配置](xref:core/managing-schemas/migrations/projects)します。
+また、[移行コードを EF Core コンテキストとは別のクラスライブラリに配置](xref:core/managing-schemas/migrations/projects)することもできます。
 
-### <a name="other-target-frameworks"></a>その他のターゲット フレームワーク
+### <a name="other-target-frameworks"></a>その他のターゲットフレームワーク
 
-CLI ツールは、.NET Core プロジェクトと .NET Framework プロジェクトで動作します。 .NET Standard クラス ライブラリで、EF Core モデルを必要とするアプリケーションは、.NET Core または .NET Framework プロジェクトがあります。 たとえば、これは、Xamarin とユニバーサル Windows プラットフォーム アプリの場合は true。 このような場合、ツールのスタートアップ プロジェクトとして機能するが唯一の目的は、.NET Core コンソール アプリ プロジェクトを作成できます。 プロジェクトは、実際のコードなしでダミー プロジェクト&mdash;ターゲット ツールを提供する必要があるだけです。
+CLI ツールは、.NET Core プロジェクトと .NET Framework プロジェクトで使用できます。 .NET Standard クラスライブラリに EF Core モデルがあるアプリには、.NET Core または .NET Framework プロジェクトがない可能性があります。 たとえば、これは Xamarin とユニバーサル Windows プラットフォームアプリに当てはまります。 このような場合は、ツールのスタートアッププロジェクトとして機能することだけを目的とした .NET Core コンソールアプリプロジェクトを作成できます。 プロジェクトは、実際のコード&mdash;を持たないダミープロジェクトにすることができます。これは、ツールのターゲットを指定するためにのみ必要です。
 
-必要なダミー プロジェクトはなぜですか。 前述のように、ツールは、デザイン時にアプリケーション コードを実行する必要があります。 は、.NET Core ランタイムを使用する必要があります。 EF Core モデルは、.NET Core または .NET Framework を対象とするプロジェクトでは、EF Core ツールは、プロジェクトからランタイムを借用します。 EF Core モデルが .NET Standard クラス ライブラリの場合、インストールできません。 .NET Standard は、実際の .NET 実装ではありません。一連の .NET 実装をサポートする必要がある Api の仕様です。 したがって .NET Standard はアプリケーション コードを実行する EF Core ツールのための十分です。 スタートアップ プロジェクトとして使用するように作成するダミーのプロジェクトでは、ツールが、.NET Standard クラス ライブラリを読み込むことができます、具体的なターゲット プラットフォームを提供します。
+ダミープロジェクトが必要な理由 前述のように、ツールはデザイン時にアプリケーションコードを実行する必要があります。 そのためには、.NET Core ランタイムを使用する必要があります。 EF Core モデルが .NET Core または .NET Framework を対象とするプロジェクト内にある場合、EF Core ツールはプロジェクトからランタイムを借用します。 EF Core モデルが .NET Standard クラスライブラリ内にある場合は、これを行うことはできません。 .NET Standard は実際の .NET 実装ではありません。これは、.NET 実装がサポートする必要のある一連の Api の仕様です。 したがって、EF Core ツールでアプリケーションコードを実行するために .NET Standard は十分ではありません。 スタートアッププロジェクトとして使用するために作成するダミープロジェクトは、ツールが .NET Standard クラスライブラリを読み込むことができる具象ターゲットプラットフォームを提供します。
 
 ### <a name="aspnet-core-environment"></a>ASP.NET Core 環境
 
-ASP.NET Core プロジェクト用の環境を指定するには、設定、 **ASPNETCORE_ENVIRONMENT**コマンドを実行する前に環境変数。
+ASP.NET Core プロジェクトの環境を指定するには、コマンドを実行する前に**ASPNETCORE_ENVIRONMENT**環境変数を設定します。
 
-## <a name="common-options"></a>一般的なオプション
+## <a name="common-options"></a>共通オプション
 
 |                   | オプション                            | 説明                                                                                                                                                                                                                                                   |
 |:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                   | `--json`                          | JSON 出力を表示します。                                                                                                                                                                                                                                             |
-| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | 使用する `DbContext` クラス。 クラス名のみ、または名前空間を持つ完全修飾します。  このオプションを省略すると、EF Core は、コンテキスト クラスを紹介します。 複数のコンテキスト クラスがある場合は、このオプションが必要です。                                            |
-| `-p`              | `--project <PROJECT>`             | ターゲット プロジェクトのプロジェクト フォルダーへの相対パス。  既定値は、現在のフォルダーです。                                                                                                                                                              |
-| `-s`              | `--startup-project <PROJECT>`     | スタートアップ プロジェクトのプロジェクト フォルダーへの相対パス。 既定値は、現在のフォルダーです。                                                                                                                                                              |
-|                   | `--framework <FRAMEWORK>`         | [ターゲット フレームワーク モニカー](/dotnet/standard/frameworks#supported-target-framework-versions)の[ターゲット フレームワーク](/dotnet/standard/frameworks)します。  プロジェクト ファイルは、複数のターゲット フレームワークを指定し、うち 1 つを選択するときに使用します。 |
-|                   | `--configuration <CONFIGURATION>` | たとえば、ビルド構成:`Debug`または`Release`します。                                                                                                                                                                                                   |
-|                   | `--runtime <IDENTIFIER>`          | パッケージを復元するターゲット ランタイムの識別子。 ランタイム ID (RID) の一覧については、[RID カタログ](/dotnet/core/rid-catalog)に関するページをご覧ください。                                                                                                      |
-| `-h`              | `--help`                          | ヘルプ情報が表示されます。                                                                                                                                                                                                                                        |
-| `-v`              | `--verbose`                       | 詳細な出力を表示します。                                                                                                                                                                                                                                          |
-|                   | `--no-color`                      | しないと、出力が色分けして表示します。                                                                                                                                                                                                                                        |
-|                   | `--prefix-output`                 | プレフィックスのレベルで出力します。                                                                                                                                                                                                                                     |
+| <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | 使用する `DbContext` クラス。 クラス名のみ、または名前空間で完全修飾されています。  このオプションを省略した場合、EF Core によってコンテキストクラスが検索されます。 複数のコンテキストクラスがある場合は、このオプションが必要です。                                            |
+| `-p`              | `--project <PROJECT>`             | ターゲットプロジェクトのプロジェクトフォルダーへの相対パス。  既定値は現在のフォルダーです。                                                                                                                                                              |
+| `-s`              | `--startup-project <PROJECT>`     | スタートアッププロジェクトのプロジェクトフォルダーへの相対パス。 既定値は現在のフォルダーです。                                                                                                                                                              |
+|                   | `--framework <FRAMEWORK>`         | [ターゲットフレームワーク](/dotnet/standard/frameworks)の[ターゲットフレームワークモニカー](/dotnet/standard/frameworks#supported-target-framework-versions) 。  プロジェクトファイルで複数のターゲットフレームワークを指定し、そのうちの1つを選択する場合は、を使用します。 |
+|                   | `--configuration <CONFIGURATION>` | ビルド構成 (たとえば`Debug` 、または`Release`)。                                                                                                                                                                                                   |
+|                   | `--runtime <IDENTIFIER>`          | パッケージを復元する対象のランタイムの識別子。 ランタイム ID (RID) の一覧については、[RID カタログ](/dotnet/core/rid-catalog)に関するページをご覧ください。                                                                                                      |
+| `-h`              | `--help`                          | ヘルプ情報を表示します。                                                                                                                                                                                                                                        |
+| `-v`              | `--verbose`                       | 詳細出力を表示します。                                                                                                                                                                                                                                          |
+|                   | `--no-color`                      | 出力を色分けしません。                                                                                                                                                                                                                                        |
+|                   | `--prefix-output`                 | レベルのプレフィックス出力。                                                                                                                                                                                                                                     |
 
 ## <a name="dotnet-ef-database-drop"></a>dotnet ef database delete
 
@@ -178,12 +178,12 @@ ASP.NET Core プロジェクト用の環境を指定するには、設定、 **A
 
 |                   | オプション                   | 説明                                              |
 |:------------------|:-------------------------|:---------------------------------------------------------|
-| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | しないことを確認します。                                           |
-|                   | <nobr>`--dry-run`</nobr> | 表示するデータベースが削除されます。 は削除しないでください。 |
+| <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | 確認しないでください。                                           |
+|                   | <nobr>`--dry-run`</nobr> | 削除するデータベースを表示しますが、削除はしません。 |
 
 ## <a name="dotnet-ef-database-update"></a>dotnet ef database update
 
-最後に移行したり、指定された移行は、データベースを更新します。
+最後に移行したデータベース、または指定した移行にデータベースを更新します。
 
 引数:
 
@@ -191,7 +191,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、設定、 **A
 |:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `<MIGRATION>` | Target の移行。 移行は名前または ID で識別される可能性があります。 数値 0 は特殊なケースでは意味*最初の移行の前に*と、すべての移行を元に戻されます。 移行が指定されていない場合のコマンドは、既定最後の移行になります。 |
 
-次の例では、指定された移行するデータベースを更新します。 最初の移行の名前を使用し、2 つ目は移行 ID を使用します。
+次の例では、指定された移行にデータベースを更新します。 最初のは移行名を使用し、2番目のは移行 ID を使用します。
 
 ```console
 dotnet ef database update InitialCreate
@@ -200,43 +200,43 @@ dotnet ef database update 20180904195021_InitialCreate
 
 ## <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext info
 
-に関する情報を取得します、`DbContext`型。
+`DbContext`型に関する情報を取得します。
 
 ## <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext list
 
-使用可能な`DbContext`型。
+使用可能`DbContext`な種類が一覧表示されます。
 
 ## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext scaffold
 
-コードを生成、`DbContext`とデータベースのエンティティ型。 エンティティ型を生成するには、このコマンドの順序は、データベース テーブルに主キーが必要です。
+データベースの`DbContext`およびエンティティ型のコードを生成します。 このコマンドでエンティティ型を生成するには、データベーステーブルに主キーが必要です。
 
 引数:
 
 | 引数       | 説明                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | データベースへの接続文字列。 ASP.NET Core 2.x プロジェクトの値を指定できます*名 =\<接続文字列の名前 >* します。 その場合は、名前は、プロジェクトに設定されている構成ソースから取得されます。 |
-| `<PROVIDER>`   | 使用するプロバイダー。 たとえば、NuGet パッケージの名前は、この通常:`Microsoft.EntityFrameworkCore.SqlServer`します。                                                                                           |
+| `<CONNECTION>` | データベースへの接続文字列。 ASP.NET Core 2.x プロジェクトの場合、値には*名前 =\<接続文字列 > の名前*を指定できます。 その場合、プロジェクト用に設定されている構成ソースから名前を取得します。 |
+| `<PROVIDER>`   | 使用するプロバイダー。 通常、これは NuGet パッケージの名前です (例: `Microsoft.EntityFrameworkCore.SqlServer`)。                                                                                           |
 
 オプション:
 
 |                 | オプション                                   | 説明                                                                                                                                                                    |
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-d</nobr> | `--data-annotations`                     | 属性を使用すると、可能な限り、モデルを構成できます。 このオプションを省略した場合は、fluent API のみが使用されます。                                                                |
-| `-c`            | `--context <NAME>`                       | 名前、`DbContext`クラスを生成します。                                                                                                                                 |
-|                 | `--context-dir <PATH>`                   | 格納するディレクトリ、`DbContext`でクラス ファイル。 パスでは、プロジェクト ディレクトリに対して相対的です。 名前空間は、フォルダー名から派生します。                                 |
+| <nobr>-d</nobr> | `--data-annotations`                     | 属性を使用してモデルを構成します (可能な場合)。 このオプションを省略した場合は、fluent API のみが使用されます。                                                                |
+| `-c`            | `--context <NAME>`                       | 生成する`DbContext`クラスの名前。                                                                                                                                 |
+|                 | `--context-dir <PATH>`                   | `DbContext`クラスファイルを格納するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。 名前空間は、フォルダー名から派生します。                                 |
 | `-f`            | `--force`                                | 既存のファイルを上書きします。                                                                                                                                                      |
-| `-o`            | `--output-dir <PATH>`                    | エンティティ クラス ファイルを配置するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。                                                                                       |
-|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | エンティティ型を生成するテーブルのスキーマです。 複数のスキーマを指定するには、繰り返し`--schema`ごと。 このオプションを省略すると、すべてのスキーマが含まれます。          |
-| `-t`            | `--table <TABLE_NAME>`...                | エンティティ型を生成するテーブル。 複数のテーブルを指定するには、繰り返し`-t`または`--table`ごと。 このオプションを省略すると、すべてのテーブルが含まれます。                |
-|                 | `--use-database-names`                   | データベースに表示されているとおりに、テーブルおよび列名を使用します。 このオプションを省略すると、データベース名は、c# 名前表記規則をより厳密に準拠するように変更されます。 |
+| `-o`            | `--output-dir <PATH>`                    | エンティティクラスファイルを配置するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。                                                                                       |
+|                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | エンティティ型を生成するテーブルのスキーマ。 複数のスキーマを指定する`--schema`には、それぞれのスキーマを繰り返します。 このオプションを省略した場合、すべてのスキーマが含まれます。          |
+| `-t`            | `--table <TABLE_NAME>`...                | エンティティ型を生成するテーブル。 複数のテーブルを指定する`-t`に`--table`は、1つのテーブルに対してまたはを繰り返します。 このオプションを省略した場合、すべてのテーブルが含まれます。                |
+|                 | `--use-database-names`                   | テーブル名と列名は、データベースに表示されるとおりに使用します。 このオプションを省略した場合、データベース名は、名前のスタイルC#規則により厳密に準拠するように変更されます。 |
 
-次の例は、すべてのスキーマとテーブルをスキャフォールディングし、新しいファイルを配置、*モデル*フォルダー。
+次の例では、すべてのスキーマとテーブルをスキャフォールディングし、新しいファイルを [*モデル*] フォルダーに配置します。
 
 ```console
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
 ```
 
-次の例では、選択したテーブルのみをスキャフォールディングし、指定の名前を持つ別のフォルダーにコンテキストを作成します。
+次の例では、選択したテーブルのみをスキャフォールディングし、指定した名前の別のフォルダーにコンテキストを作成します。
 
 ```console
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
@@ -264,17 +264,17 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 
 ## <a name="dotnet-ef-migrations-remove"></a>dotnet ef migrations delete
 
-最後の移行 (ロールバックの移行の実行されたコードの変更) を削除します。
+最後の移行を削除します (移行のために実行されたコード変更をロールバックします)。
 
 オプション:
 
 |                   | オプション    | 説明                                                                     |
 |:------------------|:----------|:--------------------------------------------------------------------------------|
-| <nobr>`-f`</nobr> | `--force` | 移行を元に戻す (ロールバックをデータベースに適用された変更)。 |
+| <nobr>`-f`</nobr> | `--force` | 移行を元に戻します (データベースに適用された変更をロールバックします)。 |
 
 ## <a name="dotnet-ef-migrations-script"></a>dotnet ef migrations script
 
-移行には、SQL スクリプトを生成します。
+移行から SQL スクリプトを生成します。
 
 引数:
 
@@ -287,7 +287,7 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 
 |                   | オプション            | 説明                                                        |
 |:------------------|:------------------|:-------------------------------------------------------------------|
-| <nobr>`-o`</nobr> | `--output <FILE>` | スクリプトを記述するファイルです。                                   |
+| <nobr>`-o`</nobr> | `--output <FILE>` | スクリプトの書き込み先のファイル。                                   |
 | `-i`              | `--idempotent`    | すべての移行でのデータベースで使用できるスクリプトを生成します。 |
 
 次の例では、InitialCreate 移行用のスクリプトを作成します。
@@ -296,7 +296,7 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 dotnet ef migrations script 0 InitialCreate
 ```
 
-次の例では、InitialCreate 移行後のすべての移行のスクリプトを作成します。
+次の例では、InitialCreate 移行後にすべての移行用のスクリプトを作成します。
 
 ```console
 dotnet ef migrations script 20180904195021_InitialCreate
