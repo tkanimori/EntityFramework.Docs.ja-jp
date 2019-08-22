@@ -1,27 +1,27 @@
 ---
-title: 構成ファイルの設定 - EF6
+title: 構成ファイルの設定-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
-ms.openlocfilehash: faba4e406b9f26f5bed6149f75c59da362d84692
-ms.sourcegitcommit: 15022dd06d919c29b1189c82611ea32f9fdc6617
+ms.openlocfilehash: 86389e4a3a3bac46e2a4cf2da648a4b19e29f3c3
+ms.sourcegitcommit: 299011fc4bd576eed58a4274f967639fa13fec53
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/27/2018
-ms.locfileid: "47415784"
+ms.lasthandoff: 08/21/2019
+ms.locfileid: "69886553"
 ---
 # <a name="configuration-file-settings"></a>構成ファイルの設定
-Entity Framework は、さまざまな設定を構成ファイルから指定できます。 一般に EF に依存して '設定より規約' 原則: この記事で説明されているすべての設定を既定の動作、のみ、既定値が不要になった、要件を満たすときに、設定を変更する方法について心配する必要があります。  
+Entity Framework では、構成ファイルからいくつかの設定を指定できます。 一般的な EF では、"構成よりも規約" の原則に従います。この投稿で説明されているすべての設定は既定の動作であるため、既定で要件を満たさなくなった場合にのみ設定を変更することを考慮する必要があります。  
 
-## <a name="a-code-based-alternative"></a>コード ベースの待機  
+## <a name="a-code-based-alternative"></a>コードベースの代替手段  
 
-これらすべての設定も適用できますコードを使用します。 以降では、EF6 を導入しました[コード ベースの構成](code-based.md)、コードからの構成の適用の主要な方法を提供します。 EF6 より前は、構成をコードから適用できますが、さまざまな Api を使用して、さまざまな領域を構成する必要があります。 構成ファイルのオプションは、これらの設定をコードを更新することがなく展開時に簡単に変更できます。
+これらの設定はすべて、コードを使用して適用することもできます。 EF6 以降では、コードから構成を適用するための一元的な方法を提供する[コードベースの構成](code-based.md)が導入されました。 EF6 より前でも、構成はコードから適用できますが、さまざまな Api を使用してさまざまな領域を構成する必要があります。 [構成ファイル] オプションを使用すると、コードを更新しなくても、配置時にこれらの設定を簡単に変更できます。
 
-## <a name="the-entity-framework-configuration-section"></a>Entity Framework の構成セクション  
+## <a name="the-entity-framework-configuration-section"></a>Entity Framework 構成セクション  
 
-データベースの初期化子を使用してコンテキストが設定でした EF4.1 で始まる、 **appSettings**構成ファイルのセクション。 カスタムに導入されています EF 4.3 **entityFramework**新しい設定を処理するセクション。 Entity Framework は、古い形式を使用して設定データベース初期化子を認識が可能であれば、新しい形式への移行をお勧めします。
+EF 4.1 以降では、構成ファイルの**appSettings**セクションを使用して、コンテキストのデータベース初期化子を設定できます。 EF 4.3 では、新しい設定を処理するためのカスタム**Entityframework**セクションが導入されました。 Entity Framework では、古い形式を使用して設定されたデータベース初期化子を引き続き認識しますが、可能な限り新しい形式に移行することをお勧めします。
 
-**EntityFramework** EntityFramework NuGet パッケージをインストールしたときに、セクションは、プロジェクトの構成ファイルに追加自動的にされました。  
+Entityframework の NuGet パッケージをインストールすると、プロジェクトの構成ファイルに**entityframework**セクションが自動的に追加されました。  
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -36,11 +36,11 @@ Entity Framework は、さまざまな設定を構成ファイルから指定で
 
 ## <a name="connection-strings"></a>接続文字列  
 
-[このページ](~/ef6/fundamentals/configuring/connection-strings.md)構成ファイルで接続文字列を含む Entity Framework が使用するデータベースを決定する方法の詳細を提供します。  
+[このページ](~/ef6/fundamentals/configuring/connection-strings.md)では、構成ファイル内の接続文字列など、使用するデータベースを Entity Framework によって決定する方法の詳細について説明します。  
 
-接続文字列は、標準の移動**connectionStrings**要素は必要ありません、 **entityFramework**セクション。  
+接続文字列は標準の**connectionStrings**要素に含まれ、 **entityframework**セクションは必要ありません。  
 
-最初に基づくコード モデルでは、通常の ADO.NET 接続文字列を使用します。 例えば:  
+Code First ベースのモデルでは、通常の ADO.NET 接続文字列を使用します。 例えば:  
 
 ``` xml
 <connectionStrings>
@@ -50,7 +50,7 @@ Entity Framework は、さまざまな設定を構成ファイルから指定で
 </connectionStrings>
 ```  
 
-EF デザイナー ベースのモデル使用特殊な EF 接続文字列。 例えば:  
+EF デザイナーベースのモデルでは、特殊な EF 接続文字列を使用します。 例えば:  
 
 ``` xml  
 <connectionStrings>
@@ -60,7 +60,7 @@ EF デザイナー ベースのモデル使用特殊な EF 接続文字列。 �
         res://*/BloggingModel.csdl|
         res://*/BloggingModel.ssdl|
         res://*/BloggingModel.msl;
-      provider=System.Data.SqlClient
+      provider=System.Data.SqlClient;
       provider connection string=
         &quot;data source=(localdb)\mssqllocaldb;
         initial catalog=Blogging;
@@ -70,35 +70,35 @@ EF デザイナー ベースのモデル使用特殊な EF 接続文字列。 �
 </connectionStrings>
 ```
 
-## <a name="code-based-configuration-type-ef6-onwards"></a>コード ベースの構成の種類 (EF6 以降)  
+## <a name="code-based-configuration-type-ef6-onwards"></a>コードベースの構成の種類 (EF6 以降)  
 
-EF6 から始めて、ef を使用する DbConfiguration を指定できます[コード ベースの構成](code-based.md)アプリケーションでします。 ほとんどの場合は、EF は、DbConfiguration を自動的に検出すると、この設定を指定する必要はありません。 構成ファイルで DbConfiguration を指定する必要がある場合の詳細を参照してください、**移動 DbConfiguration**の[コード ベースの構成](code-based.md)します。  
+EF6 以降では、アプリケーションの[コードベースの構成](code-based.md)に使用する EF の dbconfiguration を指定できます。 ほとんどの場合、EF によって自動的に DbConfiguration が検出されるため、この設定を指定する必要はありません。 構成ファイルで DbConfiguration を指定する必要がある場合の詳細については、「[コードベースの構成](code-based.md)」の「 **Dbconfiguration の移動**」セクションを参照してください。  
 
-内のアセンブリ修飾型名を指定する DbConfiguration 型を設定する、 **codeConfigurationType**要素。  
+DbConfiguration 型を設定するには、 **codeConfigurationType**要素にアセンブリ修飾型名を指定します。  
 
 > [!NOTE]
-> アセンブリの修飾名は、その後のコンマに格納されている、型、アセンブリ、名前空間修飾名です。 必要に応じてことができますもアセンブリのバージョン、カルチャ、および公開キー トークンを指定します。  
+> アセンブリ修飾名は、名前空間の修飾名の後にコンマを付け、その後に型が存在するアセンブリを指定します。 必要に応じて、アセンブリのバージョン、カルチャ、および公開キートークンを指定することもできます。  
 
 ``` xml
 <entityFramework codeConfigurationType="MyNamespace.MyConfiguration, MyAssembly">
 </entityFramework>
 ```  
 
-## <a name="ef-database-providers-ef6-onwards"></a>EF データベース プロバイダー (EF6 以降)  
+## <a name="ef-database-providers-ef6-onwards"></a>EF データベースプロバイダー (EF6 以降)  
 
-EF6 では、前にデータベース プロバイダーの Entity Framework に固有の部分は、コアの ADO.NET プロバイダーの一部として含まれる必要があります。 EF6 から始めて、EF の特定の部分ようになりました管理され、個別に登録します。  
+EF6 より前は、データベースプロバイダーの Entity Framework 固有の部分をコア ADO.NET プロバイダーの一部として含める必要がありました。 EF6 以降では、EF 固有の部分が管理され、個別に登録されるようになりました。  
 
-通常は、自分でプロバイダーを登録する必要はありません。 これは通常実行されます、プロバイダーをインストールするときにします。  
+通常、プロバイダーを自分で登録する必要はありません。 これは通常、プロバイダーをインストールするときに実行されます。  
 
-含めることでプロバイダーが登録されている、**プロバイダー**の下の要素、**プロバイダー**子セクションの**entityFramework**セクション。 プロバイダーのエントリに必要な 2 つの属性があります。  
+プロバイダーは、 **Entityframework**セクションの**providers**子セクションに**プロバイダー**要素を含めることによって登録されます。 プロバイダーエントリには、次の2つの必須の属性があります。  
 
-- **invariantName**コア ADO.NET プロバイダーを識別しますこのプロバイダーが対象と EF。  
-- **型**EF プロバイダーの実装のアセンブリ修飾型名には  
+- **示す invariantname**は、この EF プロバイダーが対象とするコア ADO.NET プロバイダーを識別します  
+- **type**は、EF プロバイダーの実装のアセンブリ修飾型名です。  
 
 > [!NOTE]
-> アセンブリの修飾名は、その後のコンマに格納されている、型、アセンブリ、名前空間修飾名です。 必要に応じてことができますもアセンブリのバージョン、カルチャ、および公開キー トークンを指定します。  
+> アセンブリ修飾名は、名前空間の修飾名の後にコンマを付け、その後に型が存在するアセンブリを指定します。 必要に応じて、アセンブリのバージョン、カルチャ、および公開キートークンを指定することもできます。  
 
-例としては、次に Entity Framework をインストールするときに、既定の SQL Server プロバイダーを登録するために作成するエントリを示します。  
+例として、Entity Framework をインストールするときに既定の SQL Server プロバイダーを登録するために作成されたエントリを次に示します。  
 
 ``` xml  
 <providers>
@@ -106,11 +106,11 @@ EF6 では、前にデータベース プロバイダーの Entity Framework に
 </providers>
 ```  
 
-## <a name="interceptors-ef61-onwards"></a>インターセプター (EF6.1 以降)  
+## <a name="interceptors-ef61-onwards"></a>インターセプター (EF 6.1 以降)  
 
-EF6.1 で始まると、インターセプターが構成ファイルに登録できます。 インターセプターを使用すると、EF は接続などを開く、データベース クエリの実行など、特定の操作を実行するときに、追加のロジックを実行できます。  
+EF 6.1 以降では、構成ファイルにインターセプターを登録できます。 インターセプターを使用すると、EF がデータベースクエリの実行や接続の開始などの特定の操作を実行するときに、追加のロジックを実行できます。  
 
-インターセプターが含めることによって登録されている、**インターセプター**の下の要素、**インターセプター**子セクションの**entityFramework**セクション。 たとえば、次の構成に登録組み込み**DatabaseLogger**インターセプターをコンソールにすべてのデータベース操作が記録されます。  
+インターセプターは、 **Entityframework**セクションのインターセプター子セクションの下に**インターセプター**要素を含めることによって登録されます。 たとえば、次の構成では、すべてのデータベース操作をコンソールに記録する組み込みの**Databaselogger**インターセプターが登録されます。  
 
 ``` xml  
 <interceptors>
@@ -118,9 +118,9 @@ EF6.1 で始まると、インターセプターが構成ファイルに登録�
 </interceptors>
 ```  
 
-### <a name="logging-database-operations-to-a-file-ef61-onwards"></a>ファイル (EF6.1 以降) にデータベース操作のログ記録  
+### <a name="logging-database-operations-to-a-file-ef61-onwards"></a>ファイルへのデータベース操作のログ記録 (EF 6.1 以降)  
 
-インターセプター構成ファイルを使用して登録すると、問題をデバッグする際に既存のアプリケーションにログ記録を追加するときに便利です。 **DatabaseLogger**コンストラクター パラメーターとしてファイル名を指定することで、ファイルへのログ記録をサポートしています。  
+構成ファイルを使用したインターセプターの登録は、問題のデバッグを支援するために、既存のアプリケーションにログ記録を追加する場合に特に便利です。 **Databaselogger**では、ファイル名をコンストラクターパラメーターとして指定することによって、ファイルへのログ記録をサポートしています。  
 
 ``` xml  
 <interceptors>
@@ -132,7 +132,7 @@ EF6.1 で始まると、インターセプターが構成ファイルに登録�
 </interceptors>
 ```  
 
-既定では、アプリが起動されるたびに新しいファイルで上書きするログ ファイルは、なります。 代わりに、ログに追加するには、ファイルが既に存在する場合などを使用します。  
+既定では、これにより、アプリが開始されるたびにログファイルが新しいファイルで上書きされます。 既に存在する場合は、ログファイルに追加するには、次のようにを使用します。  
 
 ``` xml  
 <interceptors>
@@ -145,18 +145,18 @@ EF6.1 で始まると、インターセプターが構成ファイルに登録�
 </interceptors>
 ```  
 
-に関する追加情報について**DatabaseLogger**インターセプターを登録するには、ブログの投稿を参照してくださいと[EF 6.1: 再コンパイルせずにログ記録をオン](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/)します。  
+**Databaselogger**およびインターセプターの登録の詳細については、ブログ[投稿「EF 6.1:再コンパイル](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/)せずにログ記録をオンにします。  
 
-## <a name="code-first-default-connection-factory"></a>最初の既定の接続ファクトリ コード  
+## <a name="code-first-default-connection-factory"></a>既定の接続ファクトリの Code First  
 
-構成セクションでは、Code First がコンテキストを使用するデータベースを検索に使用する既定の接続ファクトリを指定できます。 既定の接続ファクトリは、コンテキストの構成ファイルに接続文字列が追加されていない場合にのみ使用されます。  
+[構成] セクションでは、コンテキストに使用するデータベースを検索するために使用 Code First 既定の接続ファクトリを指定できます。 既定の接続ファクトリは、コンテキストの構成ファイルに接続文字列が追加されていない場合にのみ使用されます。  
 
-EF の NuGet パッケージをインストールしたときに SQL Express または LocalDB は、インストールしたかに応じてのいずれかを示す既定の接続ファクトリが登録されました。  
+EF NuGet パッケージをインストールすると、インストールされているものに応じて、SQL Express または LocalDB を指す既定の接続ファクトリが登録されました。  
 
-内のアセンブリ修飾型名を指定する接続ファクトリを設定する、 **defaultConnectionFactory**要素。  
+接続ファクトリを設定するには、 **Defaultconnectionfactory**要素にアセンブリ修飾型名を指定します。  
 
 > [!NOTE]
-> アセンブリの修飾名は、その後のコンマに格納されている、型、アセンブリ、名前空間修飾名です。 必要に応じてことができますもアセンブリのバージョン、カルチャ、および公開キー トークンを指定します。  
+> アセンブリ修飾名は、名前空間の修飾名の後にコンマを付け、その後に型が存在するアセンブリを指定します。 必要に応じて、アセンブリのバージョン、カルチャ、および公開キートークンを指定することもできます。  
 
 独自の既定の接続ファクトリを設定する例を次に示します。  
 
@@ -166,9 +166,9 @@ EF の NuGet パッケージをインストールしたときに SQL Express ま
 </entityFramework>
 ```  
 
-上記の例では、パラメーターなしのコンストラクターを持つカスタムのファクトリが必要です。 使用してコンストラクターのパラメーターを指定できますが必要な場合、**パラメーター**要素。  
+上の例では、カスタムファクトリにパラメーターなしのコンストラクターが必要です。 必要に応じて、 **parameters**要素を使用してコンストラクターのパラメーターを指定できます。  
 
-たとえば、Entity Framework に含まれていると、SqlCeConnectionFactory コンストラクターにプロバイダーの不変名を指定する必要があります。 プロバイダーの不変名では、SQL Compact を使用するのバージョンを識別します。 次の構成は、既定ではバージョン 4.0 SQL Compact を使用するコンテキストになります。  
+たとえば、Entity Framework に含まれる SqlCeConnectionFactory では、プロバイダーの不変名をコンストラクターに指定する必要があります。 プロバイダー不変名は、使用する SQL Compact のバージョンを識別します。 次の構成では、コンテキストによって既定で SQL Compact バージョン4.0 が使用されます。  
 
 ``` xml  
 <entityFramework>
@@ -180,9 +180,9 @@ EF の NuGet パッケージをインストールしたときに SQL Express ま
 </entityFramework>
 ```  
 
-既定の接続ファクトリを設定していない場合は、Code First を使用して指す、SqlConnectionFactory`.\SQLEXPRESS`します。 SqlConnectionFactory では、接続文字列の各部をオーバーライドできるようにするコンストラクターもあります。 以外の SQL Server インスタンスを使用する場合`.\SQLEXPRESS`このコンストラクターを使用してサーバーを設定することができます。  
+既定の接続ファクトリを設定していない場合、Code First はを`.\SQLEXPRESS`指す sqlconnectionfactory を使用します。 SqlConnectionFactory には、接続文字列の一部をオーバーライドできるコンストラクターも用意されています。 以外`.\SQLEXPRESS`の SQL Server インスタンスを使用する場合は、このコンストラクターを使用してサーバーを設定できます。  
 
-Code First を使用すると、次の構成、 **MyDatabaseServer**コンテキスト設定明示的な接続文字列がないです。  
+次の構成では、明示的な接続文字列が設定されていないコンテキストに対して Code First が**Mydatabaseserver**を使用するようになります。  
 
 ``` xml  
 <entityFramework>
@@ -194,19 +194,19 @@ Code First を使用すると、次の構成、 **MyDatabaseServer**コンテキ
 </entityFramework>
 ```  
 
-既定では、コンストラクターの引数が文字列型ことが前提です。 型の属性を使用して、これを変更することができます。  
+既定では、コンストラクターの引数が文字列型であると想定されています。 Type 属性を使用してこれを変更できます。  
 
 ``` xml
 <parameter value="2" type="System.Int32" />
 ```  
 
-## <a name="database-initializers"></a>データベースの初期化子  
+## <a name="database-initializers"></a>データベース初期化子  
 
-データベースの初期化子は、コンテキストごとに構成されます。 構成ファイルを使用して設定できる、**コンテキスト**要素。 この要素は、構成されているコンテキストを識別するために、アセンブリ修飾名を使用します。  
+データベース初期化子は、コンテキスト単位で構成されます。 これらは、**コンテキスト**要素を使用して構成ファイルで設定できます。 この要素は、アセンブリ修飾名を使用して、構成されているコンテキストを識別します。  
 
-既定では、コンテキストが Code First は CreateDatabaseIfNotExists 初期化子を使用して構成されます。 **DisableDatabaseInitialization**属性を**コンテキスト**データベースの初期化を無効にするために使用する要素。  
+既定では、Code First のコンテキストは、CreateDatabaseIfNotExists 初期化子を使用するように構成されています。 データベースの初期化を無効にするために使用できる、**コンテキスト**要素に**disabledatabaseinitialization**属性があります。  
 
-たとえば、次の構成では、MyAssembly.dll で定義されている Blogging.BlogContext コンテキストのデータベースの初期化を無効にします。  
+たとえば、次の構成では、MyAssembly で定義されているブログのコンテキストコンテキストのデータベース初期化が無効になっています。  
 
 ``` xml  
 <contexts>
@@ -214,7 +214,7 @@ Code First を使用すると、次の構成、 **MyDatabaseServer**コンテキ
 </contexts>
 ```  
 
-使用することができます、 **databaseInitializer**カスタム初期化子を設定する要素。  
+**Databaseinitializer**要素を使用して、カスタム初期化子を設定できます。  
 
 ``` xml
 <contexts>
@@ -224,7 +224,7 @@ Code First を使用すると、次の構成、 **MyDatabaseServer**コンテキ
 </contexts>
 ```  
 
-コンストラクターのパラメーターは、既定の接続ファクトリとして同じ構文を使用します。  
+コンストラクターのパラメーターは、既定の接続ファクトリと同じ構文を使用します。  
 
 ``` xml  
 <contexts>
@@ -238,9 +238,9 @@ Code First を使用すると、次の構成、 **MyDatabaseServer**コンテキ
 </contexts>
 ```  
 
-Entity Framework に含まれている汎用データベース初期化子のいずれかを構成することができます。 **型**属性はジェネリック型の .NET Framework 形式を使用します。  
+Entity Framework に含まれている汎用データベース初期化子のいずれかを構成できます。 **Type**属性は、ジェネリック型の .NET Framework 形式を使用します。  
 
-たとえば、Code First Migrations を使用している場合は、使用して自動的に移行するデータベースを構成できます、`MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>`初期化子。  
+たとえば、Code First Migrations を使用している場合は、 `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>`初期化子を使用してデータベースを自動的に移行するように構成できます。  
 
 ``` xml
 <contexts>
