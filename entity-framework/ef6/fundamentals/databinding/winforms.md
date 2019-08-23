@@ -3,12 +3,12 @@ title: WinForms を使用したデータバインド-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
-ms.openlocfilehash: ad55ef4d496bbfe30eafcab9811c92989066519f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 3c7c58f5ded29c136bbdca1d81c64b07c53ce583
+ms.sourcegitcommit: 7391cc31193c1216ec9ed485709042ad0c2106cf
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306563"
+ms.lasthandoff: 08/23/2019
+ms.locfileid: "69985471"
 ---
 # <a name="databinding-with-winforms"></a>WinForms を使用したデータバインド
 このステップバイステップチュートリアルでは、POCO 型を "マスター/詳細" フォームでウィンドウフォーム (WinForms) コントロールにバインドする方法について説明します。 アプリケーションでは、Entity Framework を使用して、データベースのデータをオブジェクトに読み込み、変更を追跡し、データベースにデータを保持します。
@@ -280,8 +280,8 @@ POCO エンティティ型を使用する場合、EF は、実行時に派生プ
 
     ![データ ソース](~/ef6/media/datasource.png)
 
--   [**完了] をクリックします。** [データ*ソース] ウィンドウが表示されていない場合は、[&gt; * * *&gt;ビュー-その他のウィンドウ-データソース] を選択し*ます。 
-    *
+-   [**完了] をクリックします。**
+    [データソース] ウィンドウが表示されていない場合は、[**表示&gt; ]、[その他のウィンドウ&gt; -データソース**] を選択します。
 -   [データソース] ウィンドウが自動的に非表示にならないように、ピンアイコンを押します。 ウィンドウが既に表示されている場合は、[更新] ボタンをクリックしなければならないことがあります。
 
     ![データソース2](~/ef6/media/datasource2.png)
