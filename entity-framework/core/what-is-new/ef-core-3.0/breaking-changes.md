@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: c73663412efcd93c04892f193d4f5a2485724e22
-ms.sourcegitcommit: 755a15a789631cc4ea581e2262a2dcc49c219eef
+ms.openlocfilehash: 884cc6611b986fb213d99d3d2fc69d7bebe34aa2
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/25/2019
-ms.locfileid: "68497522"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565312"
 ---
 # <a name="breaking-changes-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在プレビュー段階) に含まれる破壊的変更
 
@@ -25,6 +25,7 @@ ms.locfileid: "68497522"
 | **重大な変更**                                                                                               | **影響** |
 |:------------------------------------------------------------------------------------------------------------------|------------|
 | [LINQ クエリがクライアントで評価されなくなった](#linq-queries-are-no-longer-evaluated-on-the-client)         | High       |
+| [EF Core 3.0 では .NET Standard 2.0 ではなく .NET Standard 2.1 がターゲットにされる](#netstandard21) | High      |
 | [EF Core のコマンドライン ツールである dotnet ef が .NET Core SDK の一部ではなくなった](#dotnet-ef) | High      |
 | [FromSql、ExecuteSql、および ExecuteSqlAsync の名前が変更された](#fromsql) | High      |
 | [クエリ型がエンティティ型と統合される](#qt) | High      |
@@ -33,6 +34,7 @@ ms.locfileid: "68497522"
 | [DeleteBehavior.Restrict のセマンティクスがクリーンになった](#deletebehavior) | Medium      |
 | [所有型のリレーションシップ用の構成 API が変更された](#config) | Medium      |
 | [各プロパティで独立したメモリ内整数キー生成が使用される](#each) | Medium      |
+| [追跡なしのクエリでは、識別子の解決が実行されなくなった](#notrackingresolution) | Medium      |
 | [メタデータ API の変更](#metadata-api-changes) | Medium      |
 | [プロバイダー固有のメタデータ API の変更](#provider) | Medium      |
 | [UseRowNumberForPaging が削除された](#urn) | Medium      |
@@ -102,6 +104,29 @@ ms.locfileid: "68497522"
 **軽減策**
 
 クエリを完全に変換できない場合は、変換できる形式でクエリを書き直すか、`AsEnumerable()`、`ToList()`、または同様のものを使用して、LINQ-to-Objects を使ってさらに処理できるクライアントに明示的にデータを戻します。
+
+<a name="netstandard21"></a>
+### <a name="ef-core-30-targets-net-standard-21-rather-than-net-standard-20"></a>EF Core 3.0 では .NET Standard 2.0 ではなく .NET Standard 2.1 がターゲットにされる
+
+[問題 #15498 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15498)
+
+この変更は、EF Core 3.0 プレビュー 7 で導入されます。
+
+**以前の動作**
+
+3\.0 以前の EF Core の場合は、.NET Standard 2.0 がターゲットとされ、その標準をサポートするすべてのプラットフォーム (.NET Framework を含む) 上で実行されていました。
+
+**新しい動作**
+
+3\.0 以降の EF Core の場合は、.NET Standard 2.1 がターゲットとされ、この標準をサポートするすべてのプラットフォームで実行されます。 これには、.NET Framework は含まれません。
+
+**理由**
+
+これは、.NET Core やその他の最新の .NET プラットフォーム (Xamarin など) にエネルギーを集中するために .NET テクノロジ全体にわたって行われる戦略的な決定の一部です。
+
+**軽減策**
+
+最新の .NET プラットフォームへの移行を検討してください。 これが不可能な場合は、EF Core 2.1 または EF Core 2.2 を引き続き使用します。どちらも .NET Framework をサポートしています。
 
 <a name="no-longer"></a>
 ### <a name="entity-framework-core-is-no-longer-part-of-the-aspnet-core-shared-framework"></a>Entity Framework Core が ASP.NET Core 共有フレームワークの一部ではなくなった
@@ -222,6 +247,34 @@ EF Core 3.0 以降、新しい `FromSqlRaw` および `FromSqlInterpolated` メ�
 **軽減策**
 
 `FromSql` の呼び出し場所を移動して、それらが適用される `DbSet` 上で直接実行されるようにする必要があります。
+
+<a name="notrackingresolution"></a>
+### <a name="no-tracking-queries-no-longer-perform-identity-resolution"></a>追跡なしのクエリでは、識別子の解決が実行されなくなった
+
+[問題 #13518 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13518)
+
+この変更は、EF Core 3.0 プレビュー 6 で導入されます。
+
+**以前の動作**
+
+EF Core 3.0 以前の場合は、指定した型と ID を持つエンティティが出現するたびに同じエンティティ インスタンスが使用されます。 これは、追跡クエリの動作と一致します。 次のクエリを例にします。
+
+```C#
+var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
+```
+指定したカテゴリに関連付けられている各 `Category` に対して同じ `Product` インスタンスが返されます。
+
+**新しい動作**
+
+EF Core 3.0 以降では、指定した型と ID を持つエンティティが、返されたグラフ内の異なる場所で検出されると、それぞれ異なるエンティティ インスタンスが作成されます。 たとえば、上記のクエリでは、2 つの製品が同じカテゴリに関連付けられている場合でも、各 `Product` に対して新しい `Category` インスタンスが返されるようになります。
+
+**理由**
+
+識別子の解決 (つまり、エンティティの型と ID が以前に検出されたエンティティと同じであることを確認する) を行う場合は、パフォーマンスおよびメモリのオーバーヘッドが増大します。 これは、通常、最初の場所で追跡なしのクエリが使用されている理由に矛盾しています。 また、識別子の解決は有用なこともありますが、エンティティをシリアル化してクライアントに送信する場合 (追跡なしのクエリでは一般的な処理) は必要ありません。
+
+**軽減策**
+
+識別子の解決が必要な場合は、追跡クエリを使用します。
 
 <a name="qe"></a>
 
@@ -1222,8 +1275,8 @@ EF Core 3.0 以降では、インデックスでの `Include` の使用が、リ
 プロバイダー固有の拡張メソッドがフラット化されます。
 
 * `IProperty.Relational().ColumnName` -> `IProperty.GetColumnName()`
-* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.GetSqlServerIsMemoryOptimized()`
-* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.ForSqlServerUseIdentityColumn()`
+* `IEntityType.SqlServer().IsMemoryOptimized` -> `IEntityType.IsMemoryOptimized()`
+* `PropertyBuilder.UseSqlServerIdentityColumn()` -> `PropertyBuilder.UseIdentityColumn()`
 
 **理由**
 
@@ -1260,7 +1313,7 @@ EF Core 3.0 以降では、EF Core で、SQLite への接続が開かれたと�
 
 <a name="sqlite3"></a>
 
-### <a name="microsoftentityframeworkcoresqlite-now-depends-on-sqlitepclrawbundleesqlite3"></a>Microsoft.EntityFrameworkCore.Sqlite が SQLitePCLRaw.bundle_e_sqlite3 に依存するようになった
+### <a name="microsoftentityframeworkcoresqlite-now-depends-on-sqlitepclrawbundle_e_sqlite3"></a>Microsoft.EntityFrameworkCore.Sqlite が SQLitePCLRaw.bundle_e_sqlite3 に依存するようになった
 
 **以前の動作**
 

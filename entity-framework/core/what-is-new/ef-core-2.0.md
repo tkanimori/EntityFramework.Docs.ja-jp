@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: b5ac31722f49589f1494a3d8d1c8a7011a4cf9ce
-ms.sourcegitcommit: a013e243a14f384999ceccaf9c779b8c1ae3b936
+ms.openlocfilehash: 2712845512d9eb349ef3a7e14f4365327db0fcd6
+ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2019
-ms.locfileid: "57463270"
+ms.lasthandoff: 08/17/2019
+ms.locfileid: "69565341"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
 
@@ -32,6 +32,7 @@ modelBuilder.Entity<Product>()
 modelBuilder.Entity<Product>().ToTable("Products");
 modelBuilder.Entity<ProductDetails>().ToTable("Products");
 ```
+この機能の詳細については、[テーブル分割](xref:core/modeling/table-splitting)に関するページを参照してください。
 
 ### <a name="owned-types"></a>所有されている型
 
@@ -91,7 +92,7 @@ public class BloggingContext : DbContext
     }
 }
 ```
-エンティティ型 ```Post``` のインスタンスに対してマルチテナントと論理削除を実行するモデルレベル フィルターを定義します。 DbContext インスタンス レベル プロパティ ```TenantId``` の使用に注目してください。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているコンテキスト インスタンス) の値を使用します。
+エンティティ型 `Post` のインスタンスに対してマルチテナントと論理削除を実行するモデルレベル フィルターを定義します。 DbContext インスタンス レベル プロパティ `TenantId` の使用に注目してください。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているコンテキスト インスタンス) の値を使用します。
 
 フィルターは、IgnoreQueryFilters() 演算子を利用し、個々の LINQ クエリに対して無効にできます。
 
@@ -159,7 +160,7 @@ builder.ApplyConfiguration(new CustomerConfiguration());
 
 ASP.NET Core アプリケーションで EF Core を使用する基本パターンは通常、カスタム DbContext 型を依存関係挿入システムに登録し、その後、コントローラーのコンストラクター パラメーターからその型のインスタンスを取得するというパターンになります。 つまり、DbContext の新しいインスタンスが要求ごとに作成されます。
 
-バージョン 2.0 では、依存関係挿入でカスタム DbContext 型を登録する新しい方法を導入しました。再利用可能な DbContext インスタンスのプールが透過的に導入されます。 DbContext プールを使用するには、サービス登録で ```AddDbContext``` の代わりに ```AddDbContextPool``` を使用します。
+バージョン 2.0 では、依存関係挿入でカスタム DbContext 型を登録する新しい方法を導入しました。再利用可能な DbContext インスタンスのプールが透過的に導入されます。 DbContext プールを使用するには、サービス登録で `AddDbContext` の代わりに `AddDbContextPool` を使用します。
 
 ``` csharp
 services.AddDbContextPool<BloggingContext>(
@@ -172,7 +173,7 @@ services.AddDbContextPool<BloggingContext>(
 
 ### <a name="limitations"></a>制限事項
 
-この新しい方法では、DbContext の ```OnConfiguring()``` メソッドでできることにいくつかの制限があります。
+この新しい方法では、DbContext の `OnConfiguring()` メソッドでできることにいくつかの制限があります。
 
 > [!WARNING]  
 > 派生した DbContext クラス (要求間で共有できない) で独自の状態を維持する場合 (プライベート フィールドなど)、DbContext プールを使用しないでください。 EF Core は、DbContext インスタンスをプールに追加する前に認識された状態のみをリセットします。
@@ -218,7 +219,7 @@ EF Core では、さまざまメカニズムを利用し、キー値を自動生
 
 ### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>FromSql と ExecuteSqlCommand の文字列補間
 
-C# 6 では文字列補間が導入されました。この機能では、C# 式を文字列リテラルに直接埋め込むことができます。実行時、文字列が効率的に構築されます。 EF Core 2.0 では、RAW SQL 文字列を受け取る 2 つのプライマリ API、```FromSql``` と ```ExecuteSqlCommand``` に、補間文字列の特殊なサポートを追加しました。 この新しいサポートにより、'安全な' 方法で C# 文字列補間を使用できます。 すなわち、実行時に SQL を動的に構築するときに起こりうる SQL 挿入のよくある間違いを防ぎます。
+C# 6 では文字列補間が導入されました。この機能では、C# 式を文字列リテラルに直接埋め込むことができます。実行時、文字列が効率的に構築されます。 EF Core 2.0 では、RAW SQL 文字列を受け取る 2 つのプライマリ API、`FromSql` と `ExecuteSqlCommand` に、補間文字列の特殊なサポートを追加しました。 この新しいサポートにより、'安全な' 方法で C# 文字列補間を使用できます。 すなわち、実行時に SQL を動的に構築するときに起こりうる SQL 挿入のよくある間違いを防ぎます。
 
 次に例を示します。
 
