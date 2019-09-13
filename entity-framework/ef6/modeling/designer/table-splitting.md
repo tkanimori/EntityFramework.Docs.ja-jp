@@ -1,91 +1,91 @@
 ---
-title: デザイナーのテーブルは、次の分割の EF6
+title: デザイナーのテーブル分割-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
-ms.openlocfilehash: 8b0ca6778a06ed43b1365d2e5969ff15948f8004
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: f5e7532e6c0b473d8ce77cbd11e3e673b0af6cbe
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490697"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921776"
 ---
-# <a name="designer-table-splitting"></a><span data-ttu-id="81e33-102">デザイナーのテーブルを分割</span><span class="sxs-lookup"><span data-stu-id="81e33-102">Designer Table Splitting</span></span>
-<span data-ttu-id="81e33-103">このチュートリアルでは、Entity Framework デザイナー (EF Designer) を持つモデルを変更することで、複数のエンティティ型を 1 つのテーブルにマップする方法を示します。</span><span class="sxs-lookup"><span data-stu-id="81e33-103">This walkthrough shows how to map multiple entity types to a single table by modifying a model with the Entity Framework Designer (EF Designer).</span></span>
+# <a name="designer-table-splitting"></a><span data-ttu-id="5ed47-102">デザイナーのテーブル分割</span><span class="sxs-lookup"><span data-stu-id="5ed47-102">Designer Table Splitting</span></span>
+<span data-ttu-id="5ed47-103">このチュートリアルでは、Entity Framework Designer (EF Designer) を使用してモデルを変更することで、複数のエンティティ型を1つのテーブルにマップする方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-103">This walkthrough shows how to map multiple entity types to a single table by modifying a model with the Entity Framework Designer (EF Designer).</span></span>
 
-<span data-ttu-id="81e33-104">テーブル分割を使用する理由の 1 つは、遅延読み込み、オブジェクトの読み込みに使用する場合、一部のプロパティの読み込みを遅らせることが。</span><span class="sxs-lookup"><span data-stu-id="81e33-104">One reason you may want to use table splitting is delaying the loading of some properties when using lazy loading to load your objects.</span></span> <span data-ttu-id="81e33-105">個別のエンティティに非常に大量のデータを含めることが必要な場合のみを読み込む可能性のあるプロパティを分離することができます。</span><span class="sxs-lookup"><span data-stu-id="81e33-105">You can separate the properties that might contain very large amount of data into a seperate entity and only load it when required.</span></span>
+<span data-ttu-id="5ed47-104">テーブル分割を使用する理由の1つとして、遅延読み込みを使用してオブジェクトを読み込むときに、一部のプロパティの読み込みが遅れることがあります。</span><span class="sxs-lookup"><span data-stu-id="5ed47-104">One reason you may want to use table splitting is delaying the loading of some properties when using lazy loading to load your objects.</span></span><span data-ttu-id="5ed47-105"> 非常に大量のデータを含む可能性のあるプロパティを別のエンティティに分割し、必要な場合にのみ読み込むことができます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-105"> You can separate the properties that might contain very large amount of data into a separate entity and only load it when required.</span></span>
 
-<span data-ttu-id="81e33-106">次の図は、EF Designer を使用する場合に使用される主なウィンドウを示します。</span><span class="sxs-lookup"><span data-stu-id="81e33-106">The following image shows the main windows that are used when working with the EF Designer.</span></span>
+<span data-ttu-id="5ed47-106">次の図は、EF デザイナーを操作するときに使用されるメインウィンドウを示しています。</span><span class="sxs-lookup"><span data-stu-id="5ed47-106">The following image shows the main windows that are used when working with the EF Designer.</span></span>
 
 ![EF デザイナー](~/ef6/media/efdesigner.png)
 
-## <a name="prerequisites"></a><span data-ttu-id="81e33-108">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="81e33-108">Prerequisites</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="5ed47-108">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="5ed47-108">Prerequisites</span></span>
 
-<span data-ttu-id="81e33-109">このチュートリアルを完了するための要件を次に示します。</span><span class="sxs-lookup"><span data-stu-id="81e33-109">To complete this walkthrough, you will need:</span></span>
+<span data-ttu-id="5ed47-109">このチュートリアルを完了するための要件を次に示します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-109">To complete this walkthrough, you will need:</span></span>
 
-- <span data-ttu-id="81e33-110">Visual Studio の最新バージョン。</span><span class="sxs-lookup"><span data-stu-id="81e33-110">A recent version of Visual Studio.</span></span>
-- <span data-ttu-id="81e33-111">[School サンプル データベース](~/ef6/resources/school-database.md)します。</span><span class="sxs-lookup"><span data-stu-id="81e33-111">The [School sample database](~/ef6/resources/school-database.md).</span></span>
+- <span data-ttu-id="5ed47-110">Visual Studio の最新バージョン。</span><span class="sxs-lookup"><span data-stu-id="5ed47-110">A recent version of Visual Studio.</span></span>
+- <span data-ttu-id="5ed47-111">[School サンプルデータベース](~/ef6/resources/school-database.md)。</span><span class="sxs-lookup"><span data-stu-id="5ed47-111">The [School sample database](~/ef6/resources/school-database.md).</span></span>
 
-## <a name="set-up-the-project"></a><span data-ttu-id="81e33-112">プロジェクトを設定します。</span><span class="sxs-lookup"><span data-stu-id="81e33-112">Set up the Project</span></span>
+## <a name="set-up-the-project"></a><span data-ttu-id="5ed47-112">プロジェクトを設定する</span><span class="sxs-lookup"><span data-stu-id="5ed47-112">Set up the Project</span></span>
 
-<span data-ttu-id="81e33-113">このチュートリアルでは、Visual Studio 2012 を使用しています。</span><span class="sxs-lookup"><span data-stu-id="81e33-113">This walkthrough is using Visual Studio 2012.</span></span>
+<span data-ttu-id="5ed47-113">このチュートリアルでは、Visual Studio 2012 を使用します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-113">This walkthrough is using Visual Studio 2012.</span></span>
 
--   <span data-ttu-id="81e33-114">Visual Studio 2012 を開きます。</span><span class="sxs-lookup"><span data-stu-id="81e33-114">Open Visual Studio 2012.</span></span>
--   <span data-ttu-id="81e33-115">**[ファイル]** メニューの **[新規作成]** をポイントし、 **[プロジェクト]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="81e33-115">On the **File** menu, point to **New**, and then click **Project**.</span></span>
--   <span data-ttu-id="81e33-116">左側のウィンドウで、Visual C をクリックします。\#、し、コンソール アプリケーション テンプレートを選択します。</span><span class="sxs-lookup"><span data-stu-id="81e33-116">In the left pane, click Visual C\#, and then select the Console Application template.</span></span>
--   <span data-ttu-id="81e33-117">入力**TableSplittingSample**をクリックして、プロジェクトの名前として**OK**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-117">Enter **TableSplittingSample** as the name of the project and click **OK**.</span></span>
+-   <span data-ttu-id="5ed47-114">Visual Studio 2012 を開きます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-114">Open Visual Studio 2012.</span></span>
+-   <span data-ttu-id="5ed47-115">**[ファイル]** メニューの **[新規作成]** をポイントし、 **[プロジェクト]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-115">On the **File** menu, point to **New**, and then click **Project**.</span></span>
+-   <span data-ttu-id="5ed47-116">左側のウィンドウで、[Visual C\#] をクリックし、[コンソールアプリケーション] テンプレートを選択します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-116">In the left pane, click Visual C\#, and then select the Console Application template.</span></span>
+-   <span data-ttu-id="5ed47-117">プロジェクトの名前として「[]」**と入力し**、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-117">Enter **TableSplittingSample** as the name of the project and click **OK**.</span></span>
 
-## <a name="create-a-model-based-on-the-school-database"></a><span data-ttu-id="81e33-118">School データベースに基づくモデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="81e33-118">Create a Model based on the School Database</span></span>
+## <a name="create-a-model-based-on-the-school-database"></a><span data-ttu-id="5ed47-118">School データベースに基づくモデルを作成する</span><span class="sxs-lookup"><span data-stu-id="5ed47-118">Create a Model based on the School Database</span></span>
 
--   <span data-ttu-id="81e33-119">ソリューション エクスプ ローラーでプロジェクト名を右クリックし、[**追加**、] をクリックし、**新しい項目の**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-119">Right-click the project name in Solution Explorer, point to **Add**, and then click **New Item**.</span></span>
--   <span data-ttu-id="81e33-120">選択**データ**選択し、左側のメニューから**ADO.NET Entity Data Model**テンプレート ペインでします。</span><span class="sxs-lookup"><span data-stu-id="81e33-120">Select **Data** from the left menu and then select **ADO.NET Entity Data Model** in the Templates pane.</span></span>
--   <span data-ttu-id="81e33-121">入力**TableSplittingModel.edmx**のファイル名、およびクリック**追加**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-121">Enter **TableSplittingModel.edmx** for the file name, and then click **Add**.</span></span>
--   <span data-ttu-id="81e33-122">モデルのコンテンツの選択 ダイアログ ボックスで、次のように選択します。**データベースから生成**、 をクリックし、 **次へ。**</span><span class="sxs-lookup"><span data-stu-id="81e33-122">In the Choose Model Contents dialog box, select **Generate from database**, and then click **Next.**</span></span>
--   <span data-ttu-id="81e33-123">[新しい接続] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="81e33-123">Click New Connection.</span></span> <span data-ttu-id="81e33-124">接続のプロパティ ダイアログ ボックスで、サーバー名を入力します (たとえば、 **(localdb)\\mssqllocaldb**) を選択します、認証方式として、型**学校**データベース名、し、。クリックして**OK**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-124">In the Connection Properties dialog box, enter the server name (for example, **(localdb)\\mssqllocaldb**), select the authentication method, type **School** for the database name, and then click **OK**.</span></span>
-    <span data-ttu-id="81e33-125">データ接続の選択 ダイアログ ボックスは、データベース接続の設定で更新されます。</span><span class="sxs-lookup"><span data-stu-id="81e33-125">The Choose Your Data Connection dialog box is updated with your database connection setting.</span></span>
--   <span data-ttu-id="81e33-126">データベース オブジェクトの選択 ダイアログ ボックスで、展開、**テーブル**ノードとチェック、 **Person**テーブル。</span><span class="sxs-lookup"><span data-stu-id="81e33-126">In the Choose Your Database Objects dialog box, unfold the **Tables** node and check the **Person** table.</span></span> <span data-ttu-id="81e33-127">これを指定したテーブルに追加されます、**学校**モデル。</span><span class="sxs-lookup"><span data-stu-id="81e33-127">This will add the specified table to the **School** model.</span></span>
--   <span data-ttu-id="81e33-128">**[完了]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="81e33-128">Click **Finish**.</span></span>
+-   <span data-ttu-id="5ed47-119">ソリューションエクスプローラーでプロジェクト名を右クリックして **[追加]** をポイントし、 **[新しい項目]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-119">Right-click the project name in Solution Explorer, point to **Add**, and then click **New Item**.</span></span>
+-   <span data-ttu-id="5ed47-120">左側のメニューから **[データ]** を選択し、テンプレート ペインで  **[ADO.NET Entity Data Model]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-120">Select **Data** from the left menu and then select **ADO.NET Entity Data Model** in the Templates pane.</span></span>
+-   <span data-ttu-id="5ed47-121">ファイル名として「」**と入力し**、 **[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-121">Enter **TableSplittingModel.edmx** for the file name, and then click **Add**.</span></span>
+-   <span data-ttu-id="5ed47-122">[モデルのコンテンツの選択] ダイアログボックスで、[ **データベースから生成**] を選択し、[次へ] をクリックし **ます。**</span><span class="sxs-lookup"><span data-stu-id="5ed47-122">In the Choose Model Contents dialog box, select **Generate from database**, and then click **Next.**</span></span>
+-   <span data-ttu-id="5ed47-123">[新しい接続] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-123">Click New Connection.</span></span> <span data-ttu-id="5ed47-124">[接続プロパティ] ダイアログボックスで、サーバー名 (たとえば、 **(localdb)\\mssqllocaldb**) を入力し、認証方法を選択します。データベース名として「 **School** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-124">In the Connection Properties dialog box, enter the server name (for example, **(localdb)\\mssqllocaldb**), select the authentication method, type **School** for the database name, and then click **OK**.</span></span>
+    <span data-ttu-id="5ed47-125">[データ接続の選択] ダイアログボックスが、データベース接続の設定によって更新されます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-125">The Choose Your Data Connection dialog box is updated with your database connection setting.</span></span>
+-   <span data-ttu-id="5ed47-126">[データベースオブジェクトの選択] ダイアログボックスで、[**テーブル** ] ノードを展開し、 **Person**テーブルを確認します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-126">In the Choose Your Database Objects dialog box, unfold the **Tables** node and check the **Person** table.</span></span> <span data-ttu-id="5ed47-127">これにより、指定したテーブルが**School**モデルに追加されます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-127">This will add the specified table to the **School** model.</span></span>
+-   <span data-ttu-id="5ed47-128">[ **完了**] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-128">Click **Finish**.</span></span>
 
-<span data-ttu-id="81e33-129">モデルを編集するため、デザイン サーフェイスを提供するエンティティ デザイナーが表示されます。</span><span class="sxs-lookup"><span data-stu-id="81e33-129">The Entity Designer, which provides a design surface for editing your model, is displayed.</span></span> <span data-ttu-id="81e33-130">選択したすべてのオブジェクト、**データベース オブジェクトの選択** ダイアログ ボックスは、モデルに追加されます。</span><span class="sxs-lookup"><span data-stu-id="81e33-130">All the objects that you selected in the **Choose Your Database Objects** dialog box are added to the model.</span></span>
+<span data-ttu-id="5ed47-129">モデルを編集するためのデザイン画面を提供する Entity Designer が表示されます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-129">The Entity Designer, which provides a design surface for editing your model, is displayed.</span></span> <span data-ttu-id="5ed47-130">[ **データベースオブジェクト** の選択] ダイアログボックスで選択したすべてのオブジェクトがモデルに追加されます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-130">All the objects that you selected in the **Choose Your Database Objects** dialog box are added to the model.</span></span>
 
-## <a name="map-two-entities-to-a-single-table"></a><span data-ttu-id="81e33-131">2 つのエンティティを 1 つのテーブルにマップします。</span><span class="sxs-lookup"><span data-stu-id="81e33-131">Map Two Entities to a Single Table</span></span>
+## <a name="map-two-entities-to-a-single-table"></a><span data-ttu-id="5ed47-131">2つのエンティティを1つのテーブルにマップする</span><span class="sxs-lookup"><span data-stu-id="5ed47-131">Map Two Entities to a Single Table</span></span>
 
-<span data-ttu-id="81e33-132">このセクションに分割する、 **Person** 2 つのエンティティにエンティティし、それらを 1 つのテーブルにマップします。</span><span class="sxs-lookup"><span data-stu-id="81e33-132">In this section you will split the **Person** entity into two entities and then map them to a single table.</span></span>
+<span data-ttu-id="5ed47-132">このセクションでは、 **Person**エンティティを2つのエンティティに分割し、1つのテーブルにマップします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-132">In this section you will split the **Person** entity into two entities and then map them to a single table.</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="81e33-133">**Person**エンティティに大量のデータを含む可能性のある任意のプロパティが含まれていません。 例としてだけに使用されます。</span><span class="sxs-lookup"><span data-stu-id="81e33-133">The **Person** entity does not contain any properties that may contain large amount of data; it is just used as an example.</span></span>
+> <span data-ttu-id="5ed47-133">**Person**エンティティには、大量のデータを含む可能性のあるプロパティが含まれていません。例として使用されています。</span><span class="sxs-lookup"><span data-stu-id="5ed47-133">The **Person** entity does not contain any properties that may contain large amount of data; it is just used as an example.</span></span>
 
--   <span data-ttu-id="81e33-134">デザイン サーフェイスの空の領域を右クリックし、[**新規追加**、] をクリック**エンティティ**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-134">Right-click an empty area of the design surface, point to **Add New**, and click **Entity**.</span></span>
-    <span data-ttu-id="81e33-135">**新しいエンティティ** ダイアログ ボックスが表示されます。</span><span class="sxs-lookup"><span data-stu-id="81e33-135">The **New Entity** dialog box appears.</span></span>
--   <span data-ttu-id="81e33-136">型**HireInfo**の**エンティティ名**と**PersonID**の**キー プロパティ**名。</span><span class="sxs-lookup"><span data-stu-id="81e33-136">Type **HireInfo** for the **Entity name** and **PersonID** for the **Key Property** name.</span></span>
--   <span data-ttu-id="81e33-137">**[OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="81e33-137">Click **OK**.</span></span>
--   <span data-ttu-id="81e33-138">新しいエンティティ型が作成され、デザイン画面に表示されます。</span><span class="sxs-lookup"><span data-stu-id="81e33-138">A new entity type is created and displayed on the design surface.</span></span>
--   <span data-ttu-id="81e33-139">選択、 **HireDate**のプロパティ、 **Person**エンティティ型とキーを押して**Ctrl + X**キー。</span><span class="sxs-lookup"><span data-stu-id="81e33-139">Select the **HireDate** property of the **Person** entity type and press **Ctrl+X** keys.</span></span>
--   <span data-ttu-id="81e33-140">選択、 **HireInfo**エンティティ キーを押します**Ctrl + V**キー。</span><span class="sxs-lookup"><span data-stu-id="81e33-140">Select the **HireInfo** entity and press **Ctrl+V** keys.</span></span>
--   <span data-ttu-id="81e33-141">間のアソシエーションを作成する**Person**と**HireInfo**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-141">Create an association between **Person** and **HireInfo**.</span></span> <span data-ttu-id="81e33-142">これを行うには、デザイン サーフェイスの空の領域を右クリックし、 をポイント**新規追加**、 をクリック**アソシエーション**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-142">To do this, right-click an empty area of the design surface, point to **Add New**, and click **Association**.</span></span>
--   <span data-ttu-id="81e33-143">**の関連付けの追加** ダイアログ ボックスが表示されます。</span><span class="sxs-lookup"><span data-stu-id="81e33-143">The **Add Association** dialog box appears.</span></span> <span data-ttu-id="81e33-144">**PersonHireInfo**既定で名前を指定します。</span><span class="sxs-lookup"><span data-stu-id="81e33-144">The **PersonHireInfo** name is given by default.</span></span>
--   <span data-ttu-id="81e33-145">多重度を指定**1(One)** リレーションシップの両端でします。</span><span class="sxs-lookup"><span data-stu-id="81e33-145">Specify multiplicity **1(One)** on both ends of the relationship.</span></span>
--   <span data-ttu-id="81e33-146">**[OK]** を押します。</span><span class="sxs-lookup"><span data-stu-id="81e33-146">Press **OK**.</span></span>
+-   <span data-ttu-id="5ed47-134">デザイン画面の空の領域を右クリックし、[ **新規追加**] をポイントして、[ **エンティティ**] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-134">Right-click an empty area of the design surface, point to **Add New**, and click **Entity**.</span></span>
+    <span data-ttu-id="5ed47-135">[ **新しいエンティティ** ] ダイアログボックスが表示されます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-135">The **New Entity** dialog box appears.</span></span>
+-   <span data-ttu-id="5ed47-136">[ **エンティティ名**] に「 **hireinfo** 」、**キープロパティ**名に「 **PersonID** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-136">Type **HireInfo** for the **Entity name** and **PersonID** for the **Key Property** name.</span></span>
+-   <span data-ttu-id="5ed47-137">[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-137">Click **OK**.</span></span>
+-   <span data-ttu-id="5ed47-138">新しいエンティティ型が作成され、デザイン画面に表示されます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-138">A new entity type is created and displayed on the design surface.</span></span>
+-   <span data-ttu-id="5ed47-139">\ \*\*\**  \ \*\*\** Personエンティティ 型の HireDate プロパティを選択し、ctrl キーを押し**ながら X**キーを押します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-139">Select the **HireDate** property of the **Person** entity type and press **Ctrl+X** keys.</span></span>
+-   <span data-ttu-id="5ed47-140">**Hireinfo** エンティティを選択し、ctrl キーを押し**ながら V**キーを押します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-140">Select the **HireInfo** entity and press **Ctrl+V** keys.</span></span>
+-   <span data-ttu-id="5ed47-141">**Person**と**hireinfo**の間の関連付けを作成します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-141">Create an association between **Person** and **HireInfo**.</span></span> <span data-ttu-id="5ed47-142">これを行うには、デザイン画面の空の領域を右クリックし、[ **新規追加**] をポイントして、[ **関連付け**] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-142">To do this, right-click an empty area of the design surface, point to **Add New**, and click **Association**.</span></span>
+-   <span data-ttu-id="5ed47-143">[ **アソシエーション** の追加] ダイアログボックスが表示されます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-143">The **Add Association** dialog box appears.</span></span> <span data-ttu-id="5ed47-144">既定では、**個人情報**の名前が指定されています。</span><span class="sxs-lookup"><span data-stu-id="5ed47-144">The **PersonHireInfo** name is given by default.</span></span>
+-   <span data-ttu-id="5ed47-145">リレーションシップの両方の end で多重度**1 (1)** を指定します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-145">Specify multiplicity **1(One)** on both ends of the relationship.</span></span>
+-   <span data-ttu-id="5ed47-146">**[OK]** を押します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-146">Press **OK**.</span></span>
 
-<span data-ttu-id="81e33-147">次の手順が必要です、**マッピングの詳細**ウィンドウ。</span><span class="sxs-lookup"><span data-stu-id="81e33-147">The next step requires the **Mapping Details** window.</span></span> <span data-ttu-id="81e33-148">このウィンドウを表示されない場合は、サーフェスと選択のデザインを右クリックして**マッピングの詳細**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-148">If you cannot see this window, right-click the design surface and select **Mapping Details**.</span></span>
+<span data-ttu-id="5ed47-147">次の手順では、[ **マッピングの詳細** ] ウィンドウが必要です。</span><span class="sxs-lookup"><span data-stu-id="5ed47-147">The next step requires the **Mapping Details** window.</span></span> <span data-ttu-id="5ed47-148">このウィンドウが表示されない場合は、デザイン画面を右クリックし、 **[マッピングの詳細]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-148">If you cannot see this window, right-click the design surface and select **Mapping Details**.</span></span>
 
--   <span data-ttu-id="81e33-149">選択、 **HireInfo**エンティティの種類をクリックします**&lt;テーブルまたはビューの追加&gt;** で、**マッピングの詳細**ウィンドウ。</span><span class="sxs-lookup"><span data-stu-id="81e33-149">Select the **HireInfo** entity type and click **&lt;Add a Table or View&gt;** in the **Mapping Details** window.</span></span>
--   <span data-ttu-id="81e33-150">選択**Person**から、 **&lt;テーブルまたはビューの追加&gt;** フィールドのドロップダウン リスト。</span><span class="sxs-lookup"><span data-stu-id="81e33-150">Select **Person** from the **&lt;Add a Table or View&gt;** field drop-down list.</span></span> <span data-ttu-id="81e33-151">リストは、テーブルが含まれていたり、ビューを選択したエンティティをマップできます。</span><span class="sxs-lookup"><span data-stu-id="81e33-151">The list contains tables or views to which the selected entity can be mapped.</span></span>
-    <span data-ttu-id="81e33-152">既定では、適切なプロパティをマップする必要があります。</span><span class="sxs-lookup"><span data-stu-id="81e33-152">The appropriate properties should be mapped by default.</span></span>
+-   <span data-ttu-id="5ed47-149"> **Hireinfo** エンティティ型を選択し、[ **マッピングの詳細** ] ウィンドウで [ **&lt;テーブルまたはビュー&gt;**  の追加] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-149">Select the **HireInfo** entity type and click **&lt;Add a Table or View&gt;** in the **Mapping Details** window.</span></span>
+-   <span data-ttu-id="5ed47-150">[  **&lt;テーブルまたはビュー&gt;** フィールドの追加]ドロップダウンリストから[Person]を選択し ます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-150">Select **Person** from the **&lt;Add a Table or View&gt;** field drop-down list.</span></span> <span data-ttu-id="5ed47-151">この一覧には、選択したエンティティをマップできるテーブルまたはビューが含まれています。</span><span class="sxs-lookup"><span data-stu-id="5ed47-151">The list contains tables or views to which the selected entity can be mapped.</span></span>
+    <span data-ttu-id="5ed47-152">既定では、適切なプロパティをマップする必要があります。</span><span class="sxs-lookup"><span data-stu-id="5ed47-152">The appropriate properties should be mapped by default.</span></span>
 
-    ![マップ](~/ef6/media/mapping.png)
+    ![マッピング](~/ef6/media/mapping.png)
 
--   <span data-ttu-id="81e33-154">選択、 **PersonHireInfo**デザイン画面でアソシエーション。</span><span class="sxs-lookup"><span data-stu-id="81e33-154">Select the **PersonHireInfo** association on the design surface.</span></span>
--   <span data-ttu-id="81e33-155">デザイン サーフェスと選択のアソシエーションを右クリックして**プロパティ**します。</span><span class="sxs-lookup"><span data-stu-id="81e33-155">Right-click the association on the design surface and select **Properties**.</span></span>
--   <span data-ttu-id="81e33-156">**プロパティ**ウィンドウで、**参照に関する制約**プロパティの省略記号ボタンをクリックします。</span><span class="sxs-lookup"><span data-stu-id="81e33-156">In the **Properties** window, select the **Referential Constraints** property and click the ellipses button.</span></span>
--   <span data-ttu-id="81e33-157">選択**Person**から、**プリンシパル**ドロップダウン リスト。</span><span class="sxs-lookup"><span data-stu-id="81e33-157">Select **Person** from the **Principal** drop-down list.</span></span>
--   <span data-ttu-id="81e33-158">**[OK]** を押します。</span><span class="sxs-lookup"><span data-stu-id="81e33-158">Press **OK**.</span></span>
+-   <span data-ttu-id="5ed47-154">デザイン画面で、 **[個人情報]** の関連付けを選択します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-154">Select the **PersonHireInfo** association on the design surface.</span></span>
+-   <span data-ttu-id="5ed47-155">デザイン画面でアソシエーションを右クリックし、 **[プロパティ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-155">Right-click the association on the design surface and select **Properties**.</span></span>
+-   <span data-ttu-id="5ed47-156">**[プロパティ]** ウィンドウで、 **[参照]** に関する制約 プロパティを選択し、省略記号ボタンをクリックします。</span><span class="sxs-lookup"><span data-stu-id="5ed47-156">In the **Properties** window, select the **Referential Constraints** property and click the ellipses button.</span></span>
+-   <span data-ttu-id="5ed47-157">**[プリンシパル]** ドロップダウンリストから **[Person]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-157">Select **Person** from the **Principal** drop-down list.</span></span>
+-   <span data-ttu-id="5ed47-158">**[OK]** を押します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-158">Press **OK**.</span></span>
 
- 
+ 
 
-## <a name="use-the-model"></a><span data-ttu-id="81e33-159">モデルを使用します。</span><span class="sxs-lookup"><span data-stu-id="81e33-159">Use the Model</span></span>
+## <a name="use-the-model"></a><span data-ttu-id="5ed47-159">モデルを使用する</span><span class="sxs-lookup"><span data-stu-id="5ed47-159">Use the Model</span></span>
 
--   <span data-ttu-id="81e33-160">Main メソッドでは、次のコードを貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="81e33-160">Paste the following code in the Main method.</span></span>
+-   <span data-ttu-id="5ed47-160">Main メソッドに次のコードを貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="5ed47-160">Paste the following code in the Main method.</span></span>
 
 ``` csharp
     using (var context = new SchoolEntities())
@@ -120,18 +120,18 @@ ms.locfileid: "45490697"
             existingPerson.LastName, hireInfo.HireDate);
     }
 ```
--   <span data-ttu-id="81e33-161">アプリケーションをコンパイルして実行します。</span><span class="sxs-lookup"><span data-stu-id="81e33-161">Compile and run the application.</span></span>
+-   <span data-ttu-id="5ed47-161">アプリケーションをコンパイルして実行します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-161">Compile and run the application.</span></span>
 
-<span data-ttu-id="81e33-162">に対して次の T-SQL ステートメントが実行された、**学校**このアプリケーションを実行した結果のデータベース。</span><span class="sxs-lookup"><span data-stu-id="81e33-162">The following T-SQL statements were executed against the **School** database as a result of running this application.</span></span> 
+<span data-ttu-id="5ed47-162">このアプリケーションを実行した結果、 **School**データベースに対して次の t-sql ステートメントが実行されました。</span><span class="sxs-lookup"><span data-stu-id="5ed47-162">The following T-SQL statements were executed against the **School** database as a result of running this application.</span></span> 
 
--   <span data-ttu-id="81e33-163">次**挿入**コンテキストを実行した結果として実行されました。データを SaveChanges() と組み合わせて、 **Person**と**HireInfo**エンティティ</span><span class="sxs-lookup"><span data-stu-id="81e33-163">The following **INSERT** was executed as a result of executing context.SaveChanges() and combines data from the **Person** and **HireInfo** entities</span></span>
+-   <span data-ttu-id="5ed47-163">次の**INSERT**は、コンテキストの実行結果として実行されました。SaveChanges () と**Person**および**hireinfo**エンティティのデータを結合します。</span><span class="sxs-lookup"><span data-stu-id="5ed47-163">The following **INSERT** was executed as a result of executing context.SaveChanges() and combines data from the **Person** and **HireInfo** entities</span></span>
 
-    ![挿入](~/ef6/media/insert.png)
+    ![Insert](~/ef6/media/insert.png)
 
--   <span data-ttu-id="81e33-165">次**選択**コンテキストを実行した結果として実行されました。マップされている列だけ選択して People.FirstOrDefault()**人**</span><span class="sxs-lookup"><span data-stu-id="81e33-165">The following **SELECT** was executed as a result of executing context.People.FirstOrDefault() and selects just the columns mapped to **Person**</span></span>
+-   <span data-ttu-id="5ed47-165">次の**SELECT**は、コンテキストの実行結果として実行されました。FirstOrDefault () を選択し、 **Person**にマップされた列のみを選択します</span><span class="sxs-lookup"><span data-stu-id="5ed47-165">The following **SELECT** was executed as a result of executing context.People.FirstOrDefault() and selects just the columns mapped to **Person**</span></span>
 
-    ![1 を選択します](~/ef6/media/select1.png)
+    ![1を選択します](~/ef6/media/select1.png)
 
--   <span data-ttu-id="81e33-167">次**選択**ナビゲーション プロパティの existingPerson.Instructor へのアクセスの結果は実行しにマップされている列だけを選択します**HireInfo。**</span><span class="sxs-lookup"><span data-stu-id="81e33-167">The following **SELECT** was executed as a result of accessing the navigation property existingPerson.Instructor and selects just the columns mapped to **HireInfo**</span></span>
+-   <span data-ttu-id="5ed47-167">次の**SELECT**は、ナビゲーションプロパティ existingperson にアクセスした結果として実行され、 **hireinfo**にマップされた列のみを選択しました。</span><span class="sxs-lookup"><span data-stu-id="5ed47-167">The following **SELECT** was executed as a result of accessing the navigation property existingPerson.Instructor and selects just the columns mapped to **HireInfo**</span></span>
 
-    ![2 を選択します。](~/ef6/media/select2.png)
+    ![2を選択](~/ef6/media/select2.png)
