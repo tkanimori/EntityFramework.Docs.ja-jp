@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 47e22be274d02b5221c638d07151d9607aa7e24f
-ms.sourcegitcommit: 0d36e8ff0892b7f034b765b15e041f375f88579a
+ms.openlocfilehash: cb207d9e1b1004a4084dd6fc66712183b5bdd5dc
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2018
-ms.locfileid: "44250804"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921701"
 ---
 # <a name="client-vs-server-evaluation"></a>クライアントとサーバーの評価
 
@@ -22,7 +22,7 @@ Entity Framework Core では、クライアント上でクエリの一部を評�
 
 次の例では、SQL Server データベースから返されるブログの URL を標準化するために、ヘルパー メソッドが使用されています。 SQL Server プロバイダーはこのメソッドの実装方法に関する分析情報を保持していないため、このメソッドを SQL に変換することはできません。 クエリの他の側面はすべてデータベースで評価されますが、このメソッド経由で返された `URL` の受け渡しは、クライアント上で実行されます。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/Sample.cs?highlight=6)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs?highlight=6)] -->
 ``` csharp
 var blogs = context.Blogs
     .OrderByDescending(blog => blog.Rating)
@@ -34,7 +34,7 @@ var blogs = context.Blogs
     .ToList();
 ```
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs)] -->
 ``` csharp
 public static string StandardizeUrl(string url)
 {
@@ -53,7 +53,7 @@ public static string StandardizeUrl(string url)
 
 クライアントの評価は非常に便利な場合もありますが、一部の例では、パフォーマンスが低下する恐れがあります。 次のクエリを検討してください。このクエリでは現在、ヘルパー メソッドがフィルター内で使用されています。 データベース内ではこれを実行できないので、すべてのデータがメモリ内にプルされて、クライアント上でフィルターが適用されます。 データ量と、そのデータがフィルターで除外される量によっては、このことがパフォーマンス低下につながります。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/Sample.cs)] -->
 ``` csharp
 var blogs = context.Blogs
     .Where(blog => StandardizeUrl(blog.Url).Contains("dotnet"))
@@ -68,7 +68,7 @@ var blogs = context.Blogs
 
 クライアントの評価が行われる場合の動作を、エラーをスローするか、または何もしないかに変更できます。 ASP.NET Core を使用している場合、通常は `DbContext.OnConfiguring` または `Startup.cs` でコンテキストのオプションを設定するときに、この変更が行われます。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/ClientEval/ThrowOnClientEval/BloggingContext.cs?highlight=5)] -->
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {

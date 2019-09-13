@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: a71aa01e81d9830d7b9e6cb01c200851100a15df
-ms.sourcegitcommit: 87e72899d17602f7526d6ccd22f3c8ee844145df
+ms.openlocfilehash: d61fa884f4669daa220ffc96ae59dd63518e6d5a
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/20/2019
-ms.locfileid: "69628430"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921674"
 ---
 # <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在、プレビュー段階) に含まれる新機能
 
@@ -94,15 +94,6 @@ EF Core 3.0 以降では、`OrderDetails` が `Order` によって所有され�
 
 EF Core 2.1 で導入され、EF Core 3.0 ではキーなしのエンティティ型が考慮された[クエリ型](xref:core/modeling/query-types)は、データベースから読み取れるものの、更新することはできないデータを表します。
 この特性によって、ほとんどのシナリオのデータベース ビューに最適なものとなるため、データベース ビューのリバース エンジニアリング時にキーなしのエンティティ型の作成を自動化することを計画しています。
-
-## <a name="property-bag-entities"></a>プロパティ バッグのエンティティ
-
-[問題 #13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) と [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) の追跡
-
-この機能への取り組みは始まっていますが、現在のプレビューには含まれていません。 
-
-この機能は、通常のプロパティではなくインデックス付きプロパティにデータを格納するエンティティを有効にすること、および、同じ EF Core モデル内で異なるエンティティ型を表すために、同じ .NET クラスのインスタンス (`Dictionary<string, object>` のように単純なものである可能性があります) を使用できるようにすることと関係しています。
-この機能は、結合エンティティなしの多対多リレーションシップをサポートするための足がかりとなります ([問題 #1368](https://github.com/aspnet/EntityFrameworkCore/issues/1368))。これは EF Core に対して特に要望が多かった機能強化の 1 つです。
 
 ## <a name="ef-63-on-net-core"></a>.NET Core での EF 6.3
 

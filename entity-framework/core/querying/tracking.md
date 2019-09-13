@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 6c5d516fcb3950ae168860029660e1b1061546b8
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: d93be5c2b727d8fbaddd103f8f367c699ae80a7c
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668779"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921654"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 
@@ -24,7 +24,7 @@ Entity Framework Core が、変更追跡のエンティティ インスタンス
 
 次の例では、ブログ評価に対する変更が検出され、`SaveChanges()` の間にデータベースに対して永続化されています。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -40,7 +40,7 @@ using (var context = new BloggingContext())
 
 次のように、追跡なしになるように個々のクエリをスワップできます。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=4)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=4)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -52,7 +52,7 @@ using (var context = new BloggingContext())
 
 また、コンテキスト インスタンスのレベルで、既定の追跡動作を変更できます。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=3)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=3)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -69,7 +69,7 @@ using (var context = new BloggingContext())
 
 クエリの結果の型がエンティティ型ではない場合でも、結果にエンティティ型が含まれていれば、既定で引き続き追跡されます。 次のクエリでは、匿名の型が返され、結果セット内で `Blog` のインスタンスが追跡されます。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs?highlight=7)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=7)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
@@ -85,7 +85,7 @@ using (var context = new BloggingContext())
 
 結果セットにエンティティ型が含まれていない場合、追跡なしのクエリが実行されます。 次のクエリでは、エンティティからいくつかの値を持つ (ただし、実際のエンティティ型のインスタンスはない) 匿名の型が返され 、追跡は行われていません。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Querying/Tracking/Sample.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
 ``` csharp
 using (var context = new BloggingContext())
 {
