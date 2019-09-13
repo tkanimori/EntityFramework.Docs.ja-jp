@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: db1b83a9222e00a5e226a134085b18247b31f29a
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 62194d1db4efcdaed53ca0e14f160315f8e3cf03
+ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306482"
+ms.lasthandoff: 09/12/2019
+ms.locfileid: "70921757"
 ---
 # <a name="installing-entity-framework-core"></a>Entiy Framework Core のインストール
 
@@ -19,9 +19,9 @@ ms.locfileid: "68306482"
 
 * たとえば、.NET Core をターゲットとするアプリを EF Core を使用して開発することができます。 .NET Core アプリを構築するには、[.NET Core SDK](https://dotnet.microsoft.com/download) が必要です。 必要に応じて、Visual Studio、Visual Studio for Mac、Visual Studio Code などの開発環境を使用することもできます。 詳しくは、「[.NET Core の概要](/dotnet/core/get-started)」をご覧ください。
 
-* EF Core を使用して .NET Framework 4.6.1 以降をターゲットとするアプリケーションを Windows で、Visual Studio を使用して開発することができます。 Visual Studio の最新バージョンをお勧めします。 それよりも古いバージョン (たとえば Visual Studio 2015) を使用する場合は、必ず [NuGet クライアントをバージョン 3.6.0 にアップグレードしてください](https://www.nuget.org/downloads)。これで .NET Standard 2.0 のライブラリと連携できるようになります。
+* EF Core を使用して .NET Framework 4.6.1 以降をターゲットとするアプリケーションを Windows で、Visual Studio を使用して開発することができます。 [Visual Studio](https://visualstudio.microsoft.com/vs) の最新バージョンをお勧めします。 それよりも古いバージョン (たとえば Visual Studio 2015) を使用する場合は、必ず [NuGet クライアントをバージョン 3.6.0 にアップグレードしてください](https://www.nuget.org/downloads)。これで .NET Standard 2.0 のライブラリと連携できるようになります。
 
-* EF Core を他の .NET 実装 (たとえば Xamarin や .NET Native) 上で実行することができます。 ただし、実際にはそのような実装には実行時の制約があるため、開発したアプリでの EF Core の動作に影響を与える可能性があります。 詳しくは、「[EF Core でサポートされている .NET 実装](xref:core/platforms/index)」をご覧ください。
+* EF Core を他の .NET 実装 (たとえば [Xamarin](https://dotnet.microsoft.com/apps/xamarin) や .NET Native) 上で実行することができます。 ただし、実際にはそのような実装には実行時の制約があるため、開発したアプリでの EF Core の動作に影響を与える可能性があります。 詳しくは、「[EF Core でサポートされている .NET 実装](xref:core/platforms/index)」をご覧ください。
 
 * データベース プロバイダーによっては、特定のデータベース エンジン バージョン、.NET 実装、またはオペレーティング システムが要求される場合があります。 開発するアプリケーションに適した環境をサポートする [EF Core データベース プロバイダー](xref:core/providers/index)があることを確認してください。
 
