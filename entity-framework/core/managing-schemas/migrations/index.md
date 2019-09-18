@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 7d97551044ae4a8fc42d1676199da884f3e2994d
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: ffa9a34f13ab29f0ba93f9fd1f469398630604ce
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565262"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005456"
 ---
 <a name="migrations"></a>移行
 ==========
@@ -25,6 +25,9 @@ ms.locfileid: "69565262"
 * [移行を元に戻します](#revert-a-migration)。 データベースの変更をやり直します。
 * [SQL スクリプトを生成します](#generate-sql-scripts)。 実稼働データベースを更新したり、移行コードをトラブルシューティングしたりするためにスクリプトが必要な場合があります。
 * [実行時に移行を適用します](#apply-migrations-at-runtime)。 デザイン時の更新やスクリプトの実行が最適なオプションでない場合、`Migrate()` メソッドを呼び出します。
+
+> [!TIP]
+> `DbContext` がスタートアップ プロジェクトとは異なるアセンブリに含まれている場合、ターゲットとスタートアップ プロジェクトは[パッケージ マネージャー コンソール ツール](xref:core/miscellaneous/cli/powershell#target-and-startup-project)または [.NET Core CLI ツール](xref:core/miscellaneous/cli/dotnet#target-project-and-startup-project)のいずれかに明示的に指定できます。
 
 <a name="install-the-tools"></a>ツールのインストール
 -----------------
