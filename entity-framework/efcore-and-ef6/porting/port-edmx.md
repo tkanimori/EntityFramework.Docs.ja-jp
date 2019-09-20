@@ -1,53 +1,50 @@
 ---
-title: EF6 から EF Core への移植 - EDMX ベースのモデルの移植
+title: EF6 から EF Core に移植して、EDMX ベースのモデルを移植する
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 63003709-f1ec-4bdc-8083-65a60c4826d2
 uid: efcore-and-ef6/porting/port-edmx
-ms.openlocfilehash: 2c3336ac675a830566001a0ddb3777839f52db18
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: a1c978e141f47a39fff59eb5fc417a63afd37b04
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997412"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71148998"
 ---
-# <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>EF Core に EF6 EDMX ベース モデルの移植
+# <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>EF6 EDMX ベースのモデルを EF Core に移植する
 
-EF Core は、モデルの EDMX ファイルの形式をサポートしていません。 これらのモデルに移植する最適なオプションでは、アプリケーションのデータベースから新しいコード ベースのモデルを生成します。
+EF Core は、モデルの EDMX ファイル形式をサポートしていません。 これらのモデルを移植する最良の方法は、アプリケーションのデータベースから新しいコードベースのモデルを生成することです。
 
-## <a name="install-ef-core-nuget-packages"></a>EF Core NuGet パッケージをインストールします。
+## <a name="install-ef-core-nuget-packages"></a>NuGet パッケージのインストール EF Core
 
-インストール、 `Microsoft.EntityFrameworkCore.Tools` NuGet パッケージ。
+`Microsoft.EntityFrameworkCore.Tools` NuGet パッケージをインストールします。
 
-## <a name="regenerate-the-model"></a>モデルを再生成します。
+## <a name="regenerate-the-model"></a>モデルの再生成
 
-既存のデータベースに基づくモデルを作成する、リバース エンジニア リング機能を使えるようになりました。
+リバースエンジニアリング機能を使用して、既存のデータベースに基づいてモデルを作成できるようになりました。
 
-パッケージ マネージャー コンソールで、次のコマンドを実行 (ツールが NuGet パッケージ マネージャーを -> パッケージ マネージャー コンソールを ->)。 参照してください[パッケージ マネージャー コンソール (Visual Studio)](../../core/miscellaneous/cli/powershell.md)コマンド オプションのテーブルなどのサブセットをスキャフォールディングします。
+パッケージマネージャーコンソールで次のコマンドを実行します ([ツール] – > NuGet パッケージマネージャー– > パッケージマネージャーコンソール)。 テーブルのサブセットをスキャフォールディングするためのコマンドオプションについては、「[パッケージマネージャーコンソール (Visual Studio)](../../core/miscellaneous/cli/powershell.md) 」を参照してください。
 
 ``` powershell
 Scaffold-DbContext "<connection string>" <database provider name>
 ```
 
-たとえば、SQL Server LocalDB インスタンスで Blogging データベースからモデルをスキャフォールディングするコマンドを示します。
+たとえば、SQL Server LocalDB インスタンスのブログデータベースからモデルをスキャフォールディングするコマンドを次に示します。
 
 ``` powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-## <a name="remove-ef6-model"></a>EF6 モデルを削除します。
+## <a name="remove-ef6-model"></a>EF6 モデルの削除
 
-EF6 モデルをアプリケーションから削除するとようになりました。
+ここで、アプリケーションから EF6 モデルを削除します。
 
-これを EF6 の NuGet パッケージ (EntityFramework) をインストールすると、そのままに EF Core と EF6 が同じアプリケーションで並列で使用できます。 ただし、アプリケーションの領域で EF6 を使用する場合は、パッケージをアンインストールし、役立つの注意が必要なコードのコンパイル エラーが発生します。
+EF6 NuGet パッケージ (EntityFramework) はインストールされたままにしておくことをお勧めします。これは EF Core と EF6 を同じアプリケーションでサイドバイサイドで使用できるようにするためです。 ただし、アプリケーションの任意の領域で EF6 を使用するつもりがない場合は、パッケージをアンインストールすることで、注意が必要なコードの一部でコンパイルエラーが発生することがあります。
 
-## <a name="update-your-code"></a>コードを更新します
+## <a name="update-your-code"></a>コードを更新する
 
-この時点では、コンパイル エラーをアドレス指定と EF6 と EF Core の動作の変更に影響するかどうかを確認コードの問題になります。
+この時点で、コンパイルエラーに対処し、コードを確認して、EF6 と EF Core 間で動作が変化するかどうかを確認します。
 
-## <a name="test-the-port"></a>ポートをテストします。
+## <a name="test-the-port"></a>ポートをテストする
 
-アプリケーションをコンパイルするためにだけしないわけでは EF Core に移植が正常にします。 None、動作の変更と、アプリケーションが悪影響を受けることを確認するアプリケーションのすべての領域をテストする必要があります。
-
-> [!TIP]
-> 参照してください[既存のデータベースでの ASP.NET Core での EF Core の概要](xref:core/get-started/aspnetcore/existing-db)既存のデータベースを操作する方法に関するその他のリファレンスについては 
+アプリケーションがコンパイルされるので、は EF Core に正常に移植されるという意味ではありません。 アプリケーションのすべての領域をテストして、動作の変更がアプリケーションに悪影響を与えないことを確認する必要があります。
