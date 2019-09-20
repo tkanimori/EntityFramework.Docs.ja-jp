@@ -1,52 +1,53 @@
 ---
-title: テーブル分割 - EF Core
+title: テーブル分割-EF Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 04/10/2019
 ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: 4a0bfaf017106a0bfdff084b1c472bdc17459a89
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: 684fcfbb66debfd1b89e23c8aaf0a32909378c6b
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562588"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149186"
 ---
-# <a name="table-splitting"></a><span data-ttu-id="2e083-102">テーブル分割</span><span class="sxs-lookup"><span data-stu-id="2e083-102">Table Splitting</span></span>
+# <a name="table-splitting"></a><span data-ttu-id="6ebb5-102">テーブル分割</span><span class="sxs-lookup"><span data-stu-id="6ebb5-102">Table Splitting</span></span>
 
 >[!NOTE]
-> <span data-ttu-id="2e083-103">この機能は、EF Core 2.0 の新機能です。</span><span class="sxs-lookup"><span data-stu-id="2e083-103">This feature is new in EF Core 2.0.</span></span>
+> <span data-ttu-id="6ebb5-103">この機能は EF Core 2.0 で新たに追加されています。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-103">This feature is new in EF Core 2.0.</span></span>
 
-<span data-ttu-id="2e083-104">EF Core は、2 つ以上のエンティティを 1 つの行にマップすることができます。</span><span class="sxs-lookup"><span data-stu-id="2e083-104">EF Core allows to map two or more entities to a single row.</span></span> <span data-ttu-id="2e083-105">これは呼び出されます_テーブル分割_または_テーブルの共有_します。</span><span class="sxs-lookup"><span data-stu-id="2e083-105">This is called _table splitting_ or _table sharing_.</span></span>
+<span data-ttu-id="6ebb5-104">EF Core を使用すると、複数のエンティティを1つの行にマップできます。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-104">EF Core allows to map two or more entities to a single row.</span></span> <span data-ttu-id="6ebb5-105">これは、_テーブル分割_または_テーブル共有_と呼ばれます。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-105">This is called _table splitting_ or _table sharing_.</span></span>
 
-## <a name="configuration"></a><span data-ttu-id="2e083-106">構成</span><span class="sxs-lookup"><span data-stu-id="2e083-106">Configuration</span></span>
+## <a name="configuration"></a><span data-ttu-id="6ebb5-106">構成</span><span class="sxs-lookup"><span data-stu-id="6ebb5-106">Configuration</span></span>
 
-<span data-ttu-id="2e083-107">テーブル分割を同じテーブルにマップする必要があるエンティティ型を使用するには、同じ列にマップされている主キーと 1 つのエンティティ型の主キーと同じテーブル内の別の間で構成されている少なくとも 1 つのリレーションシップが。</span><span class="sxs-lookup"><span data-stu-id="2e083-107">To use table splitting the entity types need to be mapped to the same table, have the primary keys mapped to the same columns and at least one relationship configured between the primary key of one entity type and another in the same table.</span></span>
+<span data-ttu-id="6ebb5-107">テーブル分割を使用するには、エンティティ型を同じテーブルにマップする必要があります。主キーを同じ列にマップし、少なくとも1つのエンティティ型の主キーと同じテーブル内の別のリレーションシップを構成します。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-107">To use table splitting the entity types need to be mapped to the same table, have the primary keys mapped to the same columns and at least one relationship configured between the primary key of one entity type and another in the same table.</span></span>
 
-<span data-ttu-id="2e083-108">テーブル分割の一般的なシナリオが使用して、列のサブセットのみテーブルのパフォーマンス以上、カプセル化。</span><span class="sxs-lookup"><span data-stu-id="2e083-108">A common scenario for table splitting is using only a subset of the columns in the table for greater performance or encapsulation.</span></span>
+<span data-ttu-id="6ebb5-108">テーブル分割の一般的なシナリオでは、テーブル内の列のサブセットのみを使用して、パフォーマンスまたはカプセル化を向上させることができます。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-108">A common scenario for table splitting is using only a subset of the columns in the table for greater performance or encapsulation.</span></span>
 
-<span data-ttu-id="2e083-109">この例では`Order`のサブセットを表す`DetailedOrder`します。</span><span class="sxs-lookup"><span data-stu-id="2e083-109">In this example `Order` represents a subset of `DetailedOrder`.</span></span>
+<span data-ttu-id="6ebb5-109">この例`Order`では、の`DetailedOrder`サブセットを表します。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-109">In this example `Order` represents a subset of `DetailedOrder`.</span></span>
 
 [!code-csharp[Order](../../../samples/core/Modeling/TableSplitting/Order.cs?name=Order)]
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/TableSplitting/DetailedOrder.cs?name=DetailedOrder)]
 
-<span data-ttu-id="2e083-110">呼び出すだけでなく、必要な構成`HasBaseType((string)null)`マッピングを回避するために`DetailedOrder`と同じ階層に`Order`します。</span><span class="sxs-lookup"><span data-stu-id="2e083-110">In addition to the required configuration we call `HasBaseType((string)null)` to avoid mapping `DetailedOrder` in the same hierarchy as `Order`.</span></span>
+<span data-ttu-id="6ebb5-110">必要な構成に加えて、を`Property(o => o.Status).HasColumnName("Status")`呼び出して`DetailedOrder.Status` 、と`Order.Status`同じ列にマップします。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-110">In addition to the required configuration we call `Property(o => o.Status).HasColumnName("Status")` to map `DetailedOrder.Status` to the same column as `Order.Status`.</span></span>
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting&highlight=3)]
 
-<span data-ttu-id="2e083-111">参照してください、[完全なサンプル プロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting)詳細なコンテキスト。</span><span class="sxs-lookup"><span data-stu-id="2e083-111">See the [full sample project](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) for more context.</span></span>
+> [!TIP]
+> <span data-ttu-id="6ebb5-111">詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting)を参照してください。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-111">See the [full sample project](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) for more context.</span></span>
 
-## <a name="usage"></a><span data-ttu-id="2e083-112">使用法</span><span class="sxs-lookup"><span data-stu-id="2e083-112">Usage</span></span>
+## <a name="usage"></a><span data-ttu-id="6ebb5-112">使用法</span><span class="sxs-lookup"><span data-stu-id="6ebb5-112">Usage</span></span>
 
-<span data-ttu-id="2e083-113">保存して、テーブル分割を使用してエンティティのクエリを実行するその他のエンティティと同じ方法で行われます、唯一の違いは、挿入行の共有のすべてのエンティティを追跡する必要があります。</span><span class="sxs-lookup"><span data-stu-id="2e083-113">Saving and querying entities using table splitting is done in the same way as other entities, the only difference is that all entities sharing a row must be tracked for the insert.</span></span>
+<span data-ttu-id="6ebb5-113">テーブル分割を使用したエンティティの保存とクエリは、他のエンティティと同じ方法で実行されます。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-113">Saving and querying entities using table splitting is done in the same way as other entities.</span></span> <span data-ttu-id="6ebb5-114">EF Core 3.0 以降では、依存エンティティ参照をに`null`することができます。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-114">And starting with EF Core 3.0 the dependent entity reference can be `null`.</span></span> <span data-ttu-id="6ebb5-115">依存エンティティ`NULL`によって使用されるすべての列がデータベースである場合は、クエリの実行時にインスタンスが作成されません。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-115">If all of the columns used by the dependent entity are `NULL` is the database then no instance for it will be created when queried.</span></span> <span data-ttu-id="6ebb5-116">また、すべてのプロパティが省略可能であり、がに`null`設定されている場合もありますが、これは想定されていない可能性があります。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-116">This would also happen all of the properties are optional and set to `null`, which might not be expected.</span></span>
 
 [!code-csharp[Usage](../../../samples/core/Modeling/TableSplitting/Program.cs?name=Usage)]
 
-## <a name="concurrency-tokens"></a><span data-ttu-id="2e083-114">同時実行トークン</span><span class="sxs-lookup"><span data-stu-id="2e083-114">Concurrency tokens</span></span>
+## <a name="concurrency-tokens"></a><span data-ttu-id="6ebb5-117">同時実行トークン</span><span class="sxs-lookup"><span data-stu-id="6ebb5-117">Concurrency tokens</span></span>
 
-<span data-ttu-id="2e083-115">同時実行トークンを持つテーブルを共有するエンティティ型のいずれかの場合は、同じテーブルにマップされているエンティティの 1 つだけが更新されたときに古い同時実行トークンの値を回避するために他のすべてのエンティティ型に含まする必要があります。</span><span class="sxs-lookup"><span data-stu-id="2e083-115">If any of the entity types sharing a table has a concurrency token then it must be included in all other entity types to avoid a stale concurrency token value when only one of the entities mapped to the same table is updated.</span></span>
+<span data-ttu-id="6ebb5-118">テーブルを共有するいずれかのエンティティ型が同時実行トークンを持っている場合は、同じテーブルにマップされたエンティティの1つだけが更新されたときに、古い同時実行トークンの値を回避するために、他のすべてのエンティティ型に含める必要があります。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-118">If any of the entity types sharing a table has a concurrency token then it must be included in all other entity types to avoid a stale concurrency token value when only one of the entities mapped to the same table is updated.</span></span>
 
-<span data-ttu-id="2e083-116">使用側コードに公開を避けるためには、シャドウ状態の 1 つ作成します。</span><span class="sxs-lookup"><span data-stu-id="2e083-116">To avoid exposing it to the consuming code it's possible the create one in shadow-state.</span></span>
+<span data-ttu-id="6ebb5-119">コンシューマー側のコードにそれを公開しないようにするには、シャドウ状態で1つ作成することができます。</span><span class="sxs-lookup"><span data-stu-id="6ebb5-119">To avoid exposing it to the consuming code it's possible the create one in shadow-state.</span></span>
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=ConcurrencyToken&highlight=2)]
