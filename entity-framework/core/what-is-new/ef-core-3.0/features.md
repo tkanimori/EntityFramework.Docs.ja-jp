@@ -4,60 +4,83 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: d61fa884f4669daa220ffc96ae59dd63518e6d5a
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 528733d6eec33de2c9538541a6ed5be704b9d433
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921674"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005553"
 ---
-# <a name="new-features-included-in-ef-core-30-currently-in-preview"></a>EF Core 3.0 (現在、プレビュー段階) に含まれる新機能
-
-> [!IMPORTANT]
-> 機能セットと今後のリリースのスケジュールは、常に変更される可能性があることに注意してください。また、このページを最新の状態に保持するようにしていますが、最新のプランが反映されていない場合もあります。
+# <a name="new-features-included-in-ef-core-30"></a>EF Core 3.0 に含まれる新機能
 
 以下のリストには、EF Core 3.0 について計画されている主な新機能が含まれています。
-これらの機能のほとんどは現在のプレビューに含まれていませんが、RTM に向けて進行中であるため、使用できるようになります。
 
-理由は、リリースの開始時に、計画されている[破壊的変更](xref:core/what-is-new/ef-core-3.0/breaking-changes)の実装に焦点を合わせているためです。
-これらの破壊的変更の多くは、EF Core 自体の機能強化です。
-さらに強化するために他にも多くの変更が必要です。 
-
-進行中のバグ修正と機能強化に関する完全なリストについては、[問題の追跡ツールのこのクエリ](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc)で確認できます。
+EF Core 3.0 はメジャー リリースであり、既存のアプリケーションに悪影響を及ぼす可能性がある API の強化である、[破壊的変更](xref:core/what-is-new/ef-core-3.0/breaking-changes)も多く含まれています。  
 
 ## <a name="linq-improvements"></a>LINQ の機能強化 
 
-[問題 #12795 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+LINQ を使うと、好みの言語を使ってデータベース クエリを記述でき、豊富な型情報を利用して IntelliSense とコンパイル時の型チェックを提供できます。
+しかし、LINQ では、任意の式 (メソッド呼び出しまたは操作) を含む複雑なクエリを無制限に記述できます。
+これらのすべての組み合わせを処理することは、LINQ プロバイダーにとって以前よりかなり困難でした。
+EF Core 3.0 では、より多くの式での SQL への変換、より多くのケースでの効率的なクエリの生成を可能にし、非効率的なクエリが検出されないことがないようにし、既存のアプリケーションやデータ プロバイダーを中断させることなく、新しいクエリの機能とパフォーマンスの強化を徐々に導入しやすくなるように、LINQ の実装を書き直しました。
 
-この機能への取り組みは始まっていますが、現在のプレビューには含まれていません。
+### <a name="client-evaluation"></a>クライアントの評価
 
-LINQ を使うと、好みの言語を使ってデータベース クエリを記述でき、豊富な型情報を利用して IntelliSense とコンパイル時の型チェックを活用できます。
-ただし、LINQ では複雑なクエリを無制限に記述することもできます。これは、LINQ プロバイダーにとって常に重要な課題となります。
-EF Core の最初のいくつかのバージョンでは、クエリのうち SQL に変換可能な部分を特定してから、クエリの残りの部分をクライアント側のメモリ内で実行させることにより、これを部分的に解決しました。
-状況によってはこのクライアント側の実行が望ましいものとなる場合がありますが、その他の多くの場合では、アプリケーションが運用環境に展開されるまで特定できない非効率なクエリが発生する可能性があります。
-EF Core 3.0 では、LINQ の実装のしくみとそのテスト方法に関して、大きな変更を加える予定です。
-その目的は、これをより堅牢にすること (たとえば、修正プログラムのリリースで破壊的なクエリを回避すること)、より多くの式を適切に SQL に変換できるようにすること、効率的なクエリをより多くのケースで生成すること、および非効率なクエリの見逃しを防ぐことです。
+EF Core 3.0 の主な設計変更では、SQL またはパラメーターに変換できない LINQ 式の処理方法に関連があります。
+
+最初のいくつかのバージョンの EF Core では、SQL に変換できるクエリの部分とクエリの残りの部分をクライアントに対して実行できる部分を特定するだけです。
+状況によっては、このクライアント側の実行の種類が望ましいものとなる場合がありますが、その他の多くの場合では、非効率なクエリが発生する可能性があります。
+たとえば、EF Core 2.2 では `Where()` 呼び出しで述語を変換できなかった場合、フィルターを使用せずに SQL ステートメントを実行し、データベースの行をすべて読み取り、メモリ内でフィルター処理します。
+これは、データベースに少数の行が含まれている場合に許容される可能性がありますが、データベースの行が多い場合は、パフォーマンスに大きな問題が発生したり、アプリケーションのエラーが発生したりする可能性があります。
+EF Core 3.0 では、最上位レベルのプロジェクション (`Select()` への最後の呼び出し) でのみ発生するように、クライアント評価を制限しています。
+EF Core 3.0 でクエリ内の他の場所では変換できない式を検出した場合、ランタイムの例外がスローされます。
 
 ## <a name="cosmos-db-support"></a>Cosmos DB のサポート 
 
-[問題 #8443 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/8443)
-
-この機能は現在のプレビューに含まれていますが、まだ完成していません。 
-
-EF のプログラミング モデルに慣れている開発者が、Azure Cosmos DB をアプリケーション データベースとして簡単にターゲット設定できるようにするために、EF Core 用の Cosmos DB プロバイダーに取り組んでいます。
+EF Core 用の Cosmos DB プロバイダーでは、EF のプログラミング モデルに慣れている開発者が、Azure Cosmos DB をアプリケーション データベースとして簡単にターゲット設定できるようにします。
 その目的は、グローバル配布、"常にオン" 機能、高いスケーラビリティ、低待機時間など、Cosmos DB の利点のいくつかを .NET 開発者がさらに使いやすくすることです。
 プロバイダーでは、Cosmos DB の SQL API に対して、変更の自動追跡、LINQ、値変換など、ほとんどの EF Core 機能が有効になります。
-この作業は EF Core 2.2 以前に開始されたため、[いくつかのプロバイダーのプレビュー バージョンを利用できます](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/)。
-新しいプランでは、EF Core 3.0 と共にプロバイダーの開発を継続していきます。 
+
+## <a name="c-80-support"></a>C# 8.0 のサポート
+
+EF Core 3.0 では、C# 8.0 の新機能の一部を利用します。
+
+### <a name="asynchronous-streams"></a>非同期ストリーム
+
+非同期クエリの結果は、新しい標準 `IAsyncEnumerable<T>` インターフェイスを使用して公開されるようになり、`await foreach` を使用して使用できるようになりました。
+
+``` csharp
+var orders = 
+  from o in context.Orders
+  where o.Status == OrderStatus.Pending
+  select o;
+
+await foreach(var o in orders)
+{
+  Proccess(o);
+} 
+```
+
+### <a name="nullable-reference-types"></a>null 許容参照型 
+
+コード内でこの新しい機能が有効になっている場合、EF Core はデータベース内の列およびリレーションシップの NULL 値の許容を決定するために、参照型 (文字列プロパティやナビゲーション プロパティなどのプリミティブ型) のプロパティの NULL 値の許容を判断できます。
+
+## <a name="interception"></a>interception
+
+EF Core 3.0 の新しいインターセプト API を使用すると、接続を開いたり、トランザクションを開始したり、コマンドを実行したりするなど、EF Core の通常の動作の一部として実行される低レベルのデータベース操作の結果をプログラムによって監視および変更できます。 
+
+## <a name="reverse-engineering-of-database-views"></a>データベース ビューのリバース エンジニアリング
+
+キーなしのエンティティ型 (以前の[クエリ型](xref:core/modeling/query-types)) は、データベースから読み取ることができるデータを表しますが、更新はできません。
+この特性によって、ほとんどのシナリオのマッピング データベース ビューに最適なものとなるため、データベース ビューのリバース エンジニアリング時にキーなしのエンティティ型の作成を自動化しました。
 
 ## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a>プリンシパルとテーブルを共有する依存エンティティが省略可能になりました
 
-[問題 #9005 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+EF Core 3.0 以降では、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、`OrderDetails` なしで `Order` を追加することができるようになり、主キー以外のすべての `OrderDetails` プロパティは NULL 値が許可される列にマップされます。
 
-この機能は、EF Core 3.0 プレビュー 4 で導入されます。
+クエリ時には、必須プロパティのいずれかに値がない場合、または主キー以外に必須プロパティがなく、すべてのプロパティが `null` である場合、EF Core によって `OrderDetails` が `null` に設定されます。
 
-次のモデルがあるとします。
-```C#
+``` csharp
 public class Order
 {
     public int Id { get; set; }
@@ -73,39 +96,17 @@ public class OrderDetails
 }
 ```
 
-EF Core 3.0 以降では、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、`OrderDetails` なしで `Order` を追加することができるようになり、主キー以外のすべての `OrderDetails` プロパティは NULL 値が許可される列にマップされます。
-
-クエリ時には、必須プロパティのいずれかに値がない場合、または主キー以外に必須プロパティがなく、すべてのプロパティが `null` である場合、EF Core によって `OrderDetails` が `null` に設定されます。
-
-## <a name="c-80-support"></a>C# 8.0 のサポート
-
-[問題 #12047 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
-[問題 #10347 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10347)
-
-この機能への取り組みは始まっていますが、現在のプレビューには含まれていません。
-
-非同期ストリーム (`await foreach` を含む) や Null 許容参照型など、[C# 8.0 で導入される新機能](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/)の一部を EF Core を使う際にも利用していただきたいと考えています。
-
-## <a name="reverse-engineering-of-database-views"></a>データベース ビューのリバース エンジニアリング
-
-[問題 #1679 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/1679)
-
-この機能は現在のプレビューに含まれていません。
-
-EF Core 2.1 で導入され、EF Core 3.0 ではキーなしのエンティティ型が考慮された[クエリ型](xref:core/modeling/query-types)は、データベースから読み取れるものの、更新することはできないデータを表します。
-この特性によって、ほとんどのシナリオのデータベース ビューに最適なものとなるため、データベース ビューのリバース エンジニアリング時にキーなしのエンティティ型の作成を自動化することを計画しています。
-
 ## <a name="ef-63-on-net-core"></a>.NET Core での EF 6.3
 
-[問題 EF6#271 の追跡](https://github.com/aspnet/EntityFramework6/issues/271)
-
-この機能への取り組みは始まっていますが、現在のプレビューには含まれていません。 
-
 多くの既存のアプリケーションでは以前のバージョンの EF が使われていて、.NET Core を利用するためだけにそれらを EF Core に移植すると多大な労力が必要となる場合があります。
-そのため、次のバージョンの EF 6 は .NET Core 3.0 上で実行するように調整されます。
-最小限の変更で既存のアプリケーションを移植できるようにするために、この作業を行っています。
-これにはいくつかの制限があります。 次に例を示します。
-- .NET Core での SQL Server の含まれているサポート以外の、他のデータベースを操作するための新しいプロバイダーが必要になります
+そのため、.NET Core 3.0 上で最新バージョンの EF 6 を実行できるようにしました。
+次のように、いくつかの制約があります。
+- .NET Core での作業に新しいプロバイダーが必要です
 - SQL Server での空間サポートは有効になりません
 
-この時点では、EF 6 について計画されている新機能がないことにも注意してください。
+## <a name="postponed-features"></a>延期された機能
+
+EF Core 3.0 向けに最初に計画された一部の機能は、今後のリリースに延期されました。 
+
+- 移行でモデルのパーツを無視する機能。[#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725) によって追跡されます。
+- 2 つの異なる問題によって追跡されるプロパティ バッグ エンティティ。共有型のエンティティに関する [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) と、インデックス付きプロパティのマッピング サポートに関する [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610)。
