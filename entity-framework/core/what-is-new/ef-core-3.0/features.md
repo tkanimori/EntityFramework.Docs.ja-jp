@@ -4,60 +4,83 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: 2EBE2CCC-E52D-483F-834C-8877F5EB0C0C
 uid: core/what-is-new/ef-core-3.0/features
-ms.openlocfilehash: d61fa884f4669daa220ffc96ae59dd63518e6d5a
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 528733d6eec33de2c9538541a6ed5be704b9d433
+ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921674"
+ms.lasthandoff: 09/16/2019
+ms.locfileid: "71005553"
 ---
-# <a name="new-features-included-in-ef-core-30-currently-in-preview"></a><span data-ttu-id="bf3cc-102">EF Core 3.0 (現在、プレビュー段階) に含まれる新機能</span><span class="sxs-lookup"><span data-stu-id="bf3cc-102">New features included in EF Core 3.0 (currently in preview)</span></span>
+# <a name="new-features-included-in-ef-core-30"></a><span data-ttu-id="20bf2-102">EF Core 3.0 に含まれる新機能</span><span class="sxs-lookup"><span data-stu-id="20bf2-102">New features included in EF Core 3.0</span></span>
 
-> [!IMPORTANT]
-> <span data-ttu-id="bf3cc-103">機能セットと今後のリリースのスケジュールは、常に変更される可能性があることに注意してください。また、このページを最新の状態に保持するようにしていますが、最新のプランが反映されていない場合もあります。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-103">Please note that the feature sets and schedules of future releases are always subject to change, and although we will try to keep this page up to date, it may not reflect our latest plans at all times.</span></span>
+<span data-ttu-id="20bf2-103">以下のリストには、EF Core 3.0 について計画されている主な新機能が含まれています。</span><span class="sxs-lookup"><span data-stu-id="20bf2-103">The following list includes the major new features planned for EF Core 3.0.</span></span>
 
-<span data-ttu-id="bf3cc-104">以下のリストには、EF Core 3.0 について計画されている主な新機能が含まれています。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-104">The following list includes the major new features planned for EF Core 3.0.</span></span>
-<span data-ttu-id="bf3cc-105">これらの機能のほとんどは現在のプレビューに含まれていませんが、RTM に向けて進行中であるため、使用できるようになります。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-105">Most of these features are not included in the current preview, but will become available as we make progress towards RTM.</span></span>
+<span data-ttu-id="20bf2-104">EF Core 3.0 はメジャー リリースであり、既存のアプリケーションに悪影響を及ぼす可能性がある API の強化である、[破壊的変更](xref:core/what-is-new/ef-core-3.0/breaking-changes)も多く含まれています。</span><span class="sxs-lookup"><span data-stu-id="20bf2-104">EF Core 3.0 is a major release and also contains numerous [breaking changes](xref:core/what-is-new/ef-core-3.0/breaking-changes), which are API improvements that may have negative impact on existing applications.</span></span>  
 
-<span data-ttu-id="bf3cc-106">理由は、リリースの開始時に、計画されている[破壊的変更](xref:core/what-is-new/ef-core-3.0/breaking-changes)の実装に焦点を合わせているためです。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-106">The reason is that at the beginning of the release we are focusing on implementing planned [breaking changes](xref:core/what-is-new/ef-core-3.0/breaking-changes).</span></span>
-<span data-ttu-id="bf3cc-107">これらの破壊的変更の多くは、EF Core 自体の機能強化です。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-107">Many of these breaking changes are improvements to EF Core on their own.</span></span>
-<span data-ttu-id="bf3cc-108">さらに強化するために他にも多くの変更が必要です。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-108">Many others are required to unblock further improvements.</span></span> 
+## <a name="linq-improvements"></a><span data-ttu-id="20bf2-105">LINQ の機能強化</span><span class="sxs-lookup"><span data-stu-id="20bf2-105">LINQ improvements</span></span> 
 
-<span data-ttu-id="bf3cc-109">進行中のバグ修正と機能強化に関する完全なリストについては、[問題の追跡ツールのこのクエリ](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc)で確認できます。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-109">For a complete list of bug fixes and enhancements underway, you can see [this query in our issue tracker](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.0.0+sort%3Areactions-%2B1-desc).</span></span>
+<span data-ttu-id="20bf2-106">LINQ を使うと、好みの言語を使ってデータベース クエリを記述でき、豊富な型情報を利用して IntelliSense とコンパイル時の型チェックを提供できます。</span><span class="sxs-lookup"><span data-stu-id="20bf2-106">LINQ enables you to write database queries without leaving your language of choice, taking advantage of rich type information to offer IntelliSense and compile-time type checking.</span></span>
+<span data-ttu-id="20bf2-107">しかし、LINQ では、任意の式 (メソッド呼び出しまたは操作) を含む複雑なクエリを無制限に記述できます。</span><span class="sxs-lookup"><span data-stu-id="20bf2-107">But LINQ also enables you to write an unlimited number of complicated queries containing arbitrary expressions (method calls or operations).</span></span>
+<span data-ttu-id="20bf2-108">これらのすべての組み合わせを処理することは、LINQ プロバイダーにとって以前よりかなり困難でした。</span><span class="sxs-lookup"><span data-stu-id="20bf2-108">Handling all those combinations has always been a significant challenge for LINQ providers.</span></span>
+<span data-ttu-id="20bf2-109">EF Core 3.0 では、より多くの式での SQL への変換、より多くのケースでの効率的なクエリの生成を可能にし、非効率的なクエリが検出されないことがないようにし、既存のアプリケーションやデータ プロバイダーを中断させることなく、新しいクエリの機能とパフォーマンスの強化を徐々に導入しやすくなるように、LINQ の実装を書き直しました。</span><span class="sxs-lookup"><span data-stu-id="20bf2-109">In EF Core 3.0, we've rewritten our LINQ implementation to enable translating more expressions into SQL, to generate efficient queries in more cases, to prevent inefficient queries from going undetected, and to make it easier for us to gradually introduce new query capabilities and performance improvementswithout breaking existing applications and data providers.</span></span>
 
-## <a name="linq-improvements"></a><span data-ttu-id="bf3cc-110">LINQ の機能強化</span><span class="sxs-lookup"><span data-stu-id="bf3cc-110">LINQ improvements</span></span> 
+### <a name="client-evaluation"></a><span data-ttu-id="20bf2-110">クライアントの評価</span><span class="sxs-lookup"><span data-stu-id="20bf2-110">Client evaluation</span></span>
 
-[<span data-ttu-id="bf3cc-111">問題 #12795 の追跡</span><span class="sxs-lookup"><span data-stu-id="bf3cc-111">Tracking Issue #12795</span></span>](https://github.com/aspnet/EntityFrameworkCore/issues/12795)
+<span data-ttu-id="20bf2-111">EF Core 3.0 の主な設計変更では、SQL またはパラメーターに変換できない LINQ 式の処理方法に関連があります。</span><span class="sxs-lookup"><span data-stu-id="20bf2-111">The main design change in EF Core 3.0 has to do with how it handles LINQ expressions that it cannot translate to SQL or parameters:</span></span>
 
-<span data-ttu-id="bf3cc-112">この機能への取り組みは始まっていますが、現在のプレビューには含まれていません。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-112">Work on this feature has started but it isn't included in the current preview.</span></span>
+<span data-ttu-id="20bf2-112">最初のいくつかのバージョンの EF Core では、SQL に変換できるクエリの部分とクエリの残りの部分をクライアントに対して実行できる部分を特定するだけです。</span><span class="sxs-lookup"><span data-stu-id="20bf2-112">In the first few versions, EF Core simply figured out what portions of a query could be translated to SQL, and executed the rest of the query on the client.</span></span>
+<span data-ttu-id="20bf2-113">状況によっては、このクライアント側の実行の種類が望ましいものとなる場合がありますが、その他の多くの場合では、非効率なクエリが発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="20bf2-113">This type of client-side execution can be desirable in some situations, but in many other cases it can result in inefficient queries.</span></span>
+<span data-ttu-id="20bf2-114">たとえば、EF Core 2.2 では `Where()` 呼び出しで述語を変換できなかった場合、フィルターを使用せずに SQL ステートメントを実行し、データベースの行をすべて読み取り、メモリ内でフィルター処理します。</span><span class="sxs-lookup"><span data-stu-id="20bf2-114">For example, if EF Core 2.2 couldn't translate a predicate in a `Where()` call, it executed a SQL statement without a filter, read all all the rows from the database, and then filtered them in-memory.</span></span>
+<span data-ttu-id="20bf2-115">これは、データベースに少数の行が含まれている場合に許容される可能性がありますが、データベースの行が多い場合は、パフォーマンスに大きな問題が発生したり、アプリケーションのエラーが発生したりする可能性があります。</span><span class="sxs-lookup"><span data-stu-id="20bf2-115">That may be acceptable if the database contains a small number of rows, but can result in significant performance issues or even application failure if the database contains a large number or rows.</span></span>
+<span data-ttu-id="20bf2-116">EF Core 3.0 では、最上位レベルのプロジェクション (`Select()` への最後の呼び出し) でのみ発生するように、クライアント評価を制限しています。</span><span class="sxs-lookup"><span data-stu-id="20bf2-116">In EF Core 3.0 we have restricted client evaluation to only happen on the top-level projection (the last call to `Select()`).</span></span>
+<span data-ttu-id="20bf2-117">EF Core 3.0 でクエリ内の他の場所では変換できない式を検出した場合、ランタイムの例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="20bf2-117">When EF Core 3.0 detects expressions that cannot be translated anywhere else in the query, it throws a runtime exception.</span></span>
 
-<span data-ttu-id="bf3cc-113">LINQ を使うと、好みの言語を使ってデータベース クエリを記述でき、豊富な型情報を利用して IntelliSense とコンパイル時の型チェックを活用できます。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-113">LINQ enables you to write database queries without leaving your language of choice, taking advantage of rich type information to get IntelliSense and compile-time type checking.</span></span>
-<span data-ttu-id="bf3cc-114">ただし、LINQ では複雑なクエリを無制限に記述することもできます。これは、LINQ プロバイダーにとって常に重要な課題となります。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-114">But LINQ also enables you to write an unlimited number of complicated queries, and that has always been a huge challenge for LINQ providers.</span></span>
-<span data-ttu-id="bf3cc-115">EF Core の最初のいくつかのバージョンでは、クエリのうち SQL に変換可能な部分を特定してから、クエリの残りの部分をクライアント側のメモリ内で実行させることにより、これを部分的に解決しました。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-115">In the first few versions of EF Core, we solved that in part by figuring out what portions of a query could be translated to SQL, and then by allowing the rest of the query to execute in memory on the client.</span></span>
-<span data-ttu-id="bf3cc-116">状況によってはこのクライアント側の実行が望ましいものとなる場合がありますが、その他の多くの場合では、アプリケーションが運用環境に展開されるまで特定できない非効率なクエリが発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-116">This client-side execution can be desirable in some situations, but in many other cases it can result in inefficient queries that may not be identified until an application is deployed to production.</span></span>
-<span data-ttu-id="bf3cc-117">EF Core 3.0 では、LINQ の実装のしくみとそのテスト方法に関して、大きな変更を加える予定です。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-117">In EF Core 3.0, we're planning to make profound changes to how our LINQ implementation works, and how we test it.</span></span>
-<span data-ttu-id="bf3cc-118">その目的は、これをより堅牢にすること (たとえば、修正プログラムのリリースで破壊的なクエリを回避すること)、より多くの式を適切に SQL に変換できるようにすること、効率的なクエリをより多くのケースで生成すること、および非効率なクエリの見逃しを防ぐことです。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-118">The goals are to make it more robust (for example, to avoid breaking queries in patch releases), to enable translating more expressions correctly into SQL, to generate efficient queries in more cases, and to prevent inefficient queries from going undetected.</span></span>
+## <a name="cosmos-db-support"></a><span data-ttu-id="20bf2-118">Cosmos DB のサポート</span><span class="sxs-lookup"><span data-stu-id="20bf2-118">Cosmos DB support</span></span> 
 
-## <a name="cosmos-db-support"></a><span data-ttu-id="bf3cc-119">Cosmos DB のサポート</span><span class="sxs-lookup"><span data-stu-id="bf3cc-119">Cosmos DB support</span></span> 
+<span data-ttu-id="20bf2-119">EF Core 用の Cosmos DB プロバイダーでは、EF のプログラミング モデルに慣れている開発者が、Azure Cosmos DB をアプリケーション データベースとして簡単にターゲット設定できるようにします。</span><span class="sxs-lookup"><span data-stu-id="20bf2-119">The Cosmos DB provider for EF Core enables developers familiar with the EF programing model to easily target Azure Cosmos DB as an application database.</span></span>
+<span data-ttu-id="20bf2-120">その目的は、グローバル配布、"常にオン" 機能、高いスケーラビリティ、低待機時間など、Cosmos DB の利点のいくつかを .NET 開発者がさらに使いやすくすることです。</span><span class="sxs-lookup"><span data-stu-id="20bf2-120">The goal is to make some of the advantages of Cosmos DB, like global distribution, "always on" availability, elastic scalability, and low latency, even more accessible to .NET developers.</span></span>
+<span data-ttu-id="20bf2-121">プロバイダーでは、Cosmos DB の SQL API に対して、変更の自動追跡、LINQ、値変換など、ほとんどの EF Core 機能が有効になります。</span><span class="sxs-lookup"><span data-stu-id="20bf2-121">The provider will enable most EF Core features, like automatic change tracking, LINQ, and value conversions, against the SQL API in Cosmos DB.</span></span>
 
-[<span data-ttu-id="bf3cc-120">問題 #8443 の追跡</span><span class="sxs-lookup"><span data-stu-id="bf3cc-120">Tracking Issue #8443</span></span>](https://github.com/aspnet/EntityFrameworkCore/issues/8443)
+## <a name="c-80-support"></a><span data-ttu-id="20bf2-122">C# 8.0 のサポート</span><span class="sxs-lookup"><span data-stu-id="20bf2-122">C# 8.0 support</span></span>
 
-<span data-ttu-id="bf3cc-121">この機能は現在のプレビューに含まれていますが、まだ完成していません。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-121">This feature is included in the current preview, but isn't complete yet.</span></span> 
+<span data-ttu-id="20bf2-123">EF Core 3.0 では、C# 8.0 の新機能の一部を利用します。</span><span class="sxs-lookup"><span data-stu-id="20bf2-123">EF Core 3.0 takes advantage of some of the new features in C# 8.0:</span></span>
 
-<span data-ttu-id="bf3cc-122">EF のプログラミング モデルに慣れている開発者が、Azure Cosmos DB をアプリケーション データベースとして簡単にターゲット設定できるようにするために、EF Core 用の Cosmos DB プロバイダーに取り組んでいます。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-122">We're working on a Cosmos DB provider for EF Core, to enable developers familiar with the EF programing model to easily target Azure Cosmos DB as an application database.</span></span>
-<span data-ttu-id="bf3cc-123">その目的は、グローバル配布、"常にオン" 機能、高いスケーラビリティ、低待機時間など、Cosmos DB の利点のいくつかを .NET 開発者がさらに使いやすくすることです。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-123">The goal is to make some of the advantages of Cosmos DB, like global distribution, "always on" availability, elastic scalability, and low latency, even more accessible to .NET developers.</span></span>
-<span data-ttu-id="bf3cc-124">プロバイダーでは、Cosmos DB の SQL API に対して、変更の自動追跡、LINQ、値変換など、ほとんどの EF Core 機能が有効になります。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-124">The provider will enable most EF Core features, like automatic change tracking, LINQ, and value conversions, against the SQL API in Cosmos DB.</span></span>
-<span data-ttu-id="bf3cc-125">この作業は EF Core 2.2 以前に開始されたため、[いくつかのプロバイダーのプレビュー バージョンを利用できます](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/)。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-125">We started this effort before EF Core 2.2, and [we have made some preview versions of the provider available](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/).</span></span>
-<span data-ttu-id="bf3cc-126">新しいプランでは、EF Core 3.0 と共にプロバイダーの開発を継続していきます。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-126">The new plan is to continue developing the provider alongside EF Core 3.0.</span></span> 
+### <a name="asynchronous-streams"></a><span data-ttu-id="20bf2-124">非同期ストリーム</span><span class="sxs-lookup"><span data-stu-id="20bf2-124">Asynchronous streams</span></span>
 
-## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a><span data-ttu-id="bf3cc-127">プリンシパルとテーブルを共有する依存エンティティが省略可能になりました</span><span class="sxs-lookup"><span data-stu-id="bf3cc-127">Dependent entities sharing the table with the principal are now optional</span></span>
+<span data-ttu-id="20bf2-125">非同期クエリの結果は、新しい標準 `IAsyncEnumerable<T>` インターフェイスを使用して公開されるようになり、`await foreach` を使用して使用できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="20bf2-125">Asynchronous query results are now exposed using the new standard `IAsyncEnumerable<T>` interface and can be consumed using `await foreach`.</span></span>
 
-[<span data-ttu-id="bf3cc-128">問題 #9005 の追跡</span><span class="sxs-lookup"><span data-stu-id="bf3cc-128">Tracking Issue #9005</span></span>](https://github.com/aspnet/EntityFrameworkCore/issues/9005)
+``` csharp
+var orders = 
+  from o in context.Orders
+  where o.Status == OrderStatus.Pending
+  select o;
 
-<span data-ttu-id="bf3cc-129">この機能は、EF Core 3.0 プレビュー 4 で導入されます。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-129">This feature will be introduced in EF Core 3.0-preview 4.</span></span>
+await foreach(var o in orders)
+{
+  Proccess(o);
+} 
+```
 
-<span data-ttu-id="bf3cc-130">次のモデルがあるとします。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-130">Consider the following model:</span></span>
-```C#
+### <a name="nullable-reference-types"></a><span data-ttu-id="20bf2-126">null 許容参照型</span><span class="sxs-lookup"><span data-stu-id="20bf2-126">Nullable reference types</span></span> 
+
+<span data-ttu-id="20bf2-127">コード内でこの新しい機能が有効になっている場合、EF Core はデータベース内の列およびリレーションシップの NULL 値の許容を決定するために、参照型 (文字列プロパティやナビゲーション プロパティなどのプリミティブ型) のプロパティの NULL 値の許容を判断できます。</span><span class="sxs-lookup"><span data-stu-id="20bf2-127">When this new feature is enabled in your code, EF Core can reason about the nullability of properties of refrence types (either of primitive types like string or navigation properties) to decide the nullability of columns and relationships in the database.</span></span>
+
+## <a name="interception"></a><span data-ttu-id="20bf2-128">interception</span><span class="sxs-lookup"><span data-stu-id="20bf2-128">Interception</span></span>
+
+<span data-ttu-id="20bf2-129">EF Core 3.0 の新しいインターセプト API を使用すると、接続を開いたり、トランザクションを開始したり、コマンドを実行したりするなど、EF Core の通常の動作の一部として実行される低レベルのデータベース操作の結果をプログラムによって監視および変更できます。</span><span class="sxs-lookup"><span data-stu-id="20bf2-129">The new interception API in EF Core 3.0 allows programatically observing and modifying the outcome of low-level database operations that occur as part of the normal operation of EF Core, such as opening connections, initating transactions, and executing commands.</span></span> 
+
+## <a name="reverse-engineering-of-database-views"></a><span data-ttu-id="20bf2-130">データベース ビューのリバース エンジニアリング</span><span class="sxs-lookup"><span data-stu-id="20bf2-130">Reverse engineering of database views</span></span>
+
+<span data-ttu-id="20bf2-131">キーなしのエンティティ型 (以前の[クエリ型](xref:core/modeling/query-types)) は、データベースから読み取ることができるデータを表しますが、更新はできません。</span><span class="sxs-lookup"><span data-stu-id="20bf2-131">Entity types without keys (previously known as [query types](xref:core/modeling/query-types)) represent data that can be read from the database, but cannot be updated.</span></span>
+<span data-ttu-id="20bf2-132">この特性によって、ほとんどのシナリオのマッピング データベース ビューに最適なものとなるため、データベース ビューのリバース エンジニアリング時にキーなしのエンティティ型の作成を自動化しました。</span><span class="sxs-lookup"><span data-stu-id="20bf2-132">This characteristic makes them an excellent fit for mapping database views in most scenarios, so we automated the creation of entity types without keys when reverse engineering database views.</span></span>
+
+## <a name="dependent-entities-sharing-the-table-with-the-principal-are-now-optional"></a><span data-ttu-id="20bf2-133">プリンシパルとテーブルを共有する依存エンティティが省略可能になりました</span><span class="sxs-lookup"><span data-stu-id="20bf2-133">Dependent entities sharing the table with the principal are now optional</span></span>
+
+<span data-ttu-id="20bf2-134">EF Core 3.0 以降では、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、`OrderDetails` なしで `Order` を追加することができるようになり、主キー以外のすべての `OrderDetails` プロパティは NULL 値が許可される列にマップされます。</span><span class="sxs-lookup"><span data-stu-id="20bf2-134">Starting with EF Core 3.0, if `OrderDetails` is owned by `Order` or explicitly mapped to the same table, it will be possible to add an `Order` without an `OrderDetails` and all of the `OrderDetails` properties, except the primary key will be mapped to nullable columns.</span></span>
+
+<span data-ttu-id="20bf2-135">クエリ時には、必須プロパティのいずれかに値がない場合、または主キー以外に必須プロパティがなく、すべてのプロパティが `null` である場合、EF Core によって `OrderDetails` が `null` に設定されます。</span><span class="sxs-lookup"><span data-stu-id="20bf2-135">When querying, EF Core will set `OrderDetails` to `null` if any of its required properties doesn't have a value, or if it has no required properties besides the primary key and all properties are `null`.</span></span>
+
+``` csharp
 public class Order
 {
     public int Id { get; set; }
@@ -73,40 +96,17 @@ public class OrderDetails
 }
 ```
 
-<span data-ttu-id="bf3cc-131">EF Core 3.0 以降では、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、`OrderDetails` なしで `Order` を追加することができるようになり、主キー以外のすべての `OrderDetails` プロパティは NULL 値が許可される列にマップされます。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-131">Starting with EF Core 3.0, if `OrderDetails` is owned by `Order` or explicitly mapped to the same table, it will be possible to add an `Order` without an `OrderDetails` and all of the `OrderDetails` properties, except the primary key will be mapped to nullable columns.</span></span>
+## <a name="ef-63-on-net-core"></a><span data-ttu-id="20bf2-136">.NET Core での EF 6.3</span><span class="sxs-lookup"><span data-stu-id="20bf2-136">EF 6.3 on .NET Core</span></span>
 
-<span data-ttu-id="bf3cc-132">クエリ時には、必須プロパティのいずれかに値がない場合、または主キー以外に必須プロパティがなく、すべてのプロパティが `null` である場合、EF Core によって `OrderDetails` が `null` に設定されます。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-132">When querying, EF Core will set `OrderDetails` to `null` if any of its required properties doesn't have a value, or if it has no required properties besides the primary key and all properties are `null`.</span></span>
+<span data-ttu-id="20bf2-137">多くの既存のアプリケーションでは以前のバージョンの EF が使われていて、.NET Core を利用するためだけにそれらを EF Core に移植すると多大な労力が必要となる場合があります。</span><span class="sxs-lookup"><span data-stu-id="20bf2-137">We understand that many existing applications use previous versions of EF, and that porting them to EF Core only to take advantage of .NET Core can sometimes require a significant effort.</span></span>
+<span data-ttu-id="20bf2-138">そのため、.NET Core 3.0 上で最新バージョンの EF 6 を実行できるようにしました。</span><span class="sxs-lookup"><span data-stu-id="20bf2-138">For that reason, we have enabled the newewst version of EF 6 to run on .NET Core 3.0.</span></span>
+<span data-ttu-id="20bf2-139">次のように、いくつかの制約があります。</span><span class="sxs-lookup"><span data-stu-id="20bf2-139">There are some limitations, for example:</span></span>
+- <span data-ttu-id="20bf2-140">.NET Core での作業に新しいプロバイダーが必要です</span><span class="sxs-lookup"><span data-stu-id="20bf2-140">New providers are required to work on .NET Core</span></span>
+- <span data-ttu-id="20bf2-141">SQL Server での空間サポートは有効になりません</span><span class="sxs-lookup"><span data-stu-id="20bf2-141">Spatial support with SQL Server won't be enabled</span></span>
 
-## <a name="c-80-support"></a><span data-ttu-id="bf3cc-133">C# 8.0 のサポート</span><span class="sxs-lookup"><span data-stu-id="bf3cc-133">C# 8.0 support</span></span>
+## <a name="postponed-features"></a><span data-ttu-id="20bf2-142">延期された機能</span><span class="sxs-lookup"><span data-stu-id="20bf2-142">Postponed features</span></span>
 
-<span data-ttu-id="bf3cc-134">[問題 #12047 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
-[問題 #10347 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10347)</span><span class="sxs-lookup"><span data-stu-id="bf3cc-134">[Tracking Issue #12047](https://github.com/aspnet/EntityFrameworkCore/issues/12047)
-[Tracking Issue #10347](https://github.com/aspnet/EntityFrameworkCore/issues/10347)</span></span>
+<span data-ttu-id="20bf2-143">EF Core 3.0 向けに最初に計画された一部の機能は、今後のリリースに延期されました。</span><span class="sxs-lookup"><span data-stu-id="20bf2-143">Some features originally planned for EF Core 3.0 were postponed to future releases:</span></span> 
 
-<span data-ttu-id="bf3cc-135">この機能への取り組みは始まっていますが、現在のプレビューには含まれていません。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-135">Work on this feature has started but it isn't included in the current preview.</span></span>
-
-<span data-ttu-id="bf3cc-136">非同期ストリーム (`await foreach` を含む) や Null 許容参照型など、[C# 8.0 で導入される新機能](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/)の一部を EF Core を使う際にも利用していただきたいと考えています。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-136">We want our customers to take advantage of some of the [new features coming in C# 8.0](https://blogs.msdn.microsoft.com/dotnet/2018/11/12/building-c-8-0/) like async streams (including `await foreach`) and nullable reference types while using EF Core.</span></span>
-
-## <a name="reverse-engineering-of-database-views"></a><span data-ttu-id="bf3cc-137">データベース ビューのリバース エンジニアリング</span><span class="sxs-lookup"><span data-stu-id="bf3cc-137">Reverse engineering of database views</span></span>
-
-[<span data-ttu-id="bf3cc-138">問題 #1679 の追跡</span><span class="sxs-lookup"><span data-stu-id="bf3cc-138">Tracking Issue #1679</span></span>](https://github.com/aspnet/EntityFrameworkCore/issues/1679)
-
-<span data-ttu-id="bf3cc-139">この機能は現在のプレビューに含まれていません。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-139">This feature isn't included in the current preview.</span></span>
-
-<span data-ttu-id="bf3cc-140">EF Core 2.1 で導入され、EF Core 3.0 ではキーなしのエンティティ型が考慮された[クエリ型](xref:core/modeling/query-types)は、データベースから読み取れるものの、更新することはできないデータを表します。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-140">[Query types](xref:core/modeling/query-types), introduced in EF Core 2.1 and considered entity types without keys in EF Core 3.0, represent data that can be read from the database, but cannot be updated.</span></span>
-<span data-ttu-id="bf3cc-141">この特性によって、ほとんどのシナリオのデータベース ビューに最適なものとなるため、データベース ビューのリバース エンジニアリング時にキーなしのエンティティ型の作成を自動化することを計画しています。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-141">This characteristic makes them an excellent fit for database views in most scenarios, so we plan to automate the creation of entity types without keys when reverse engineering database views.</span></span>
-
-## <a name="ef-63-on-net-core"></a><span data-ttu-id="bf3cc-142">.NET Core での EF 6.3</span><span class="sxs-lookup"><span data-stu-id="bf3cc-142">EF 6.3 on .NET Core</span></span>
-
-[<span data-ttu-id="bf3cc-143">問題 EF6#271 の追跡</span><span class="sxs-lookup"><span data-stu-id="bf3cc-143">Tracking Issue EF6#271</span></span>](https://github.com/aspnet/EntityFramework6/issues/271)
-
-<span data-ttu-id="bf3cc-144">この機能への取り組みは始まっていますが、現在のプレビューには含まれていません。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-144">Work on this feature has started but it isn't included in the current preview.</span></span> 
-
-<span data-ttu-id="bf3cc-145">多くの既存のアプリケーションでは以前のバージョンの EF が使われていて、.NET Core を利用するためだけにそれらを EF Core に移植すると多大な労力が必要となる場合があります。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-145">We understand that many existing applications use previous versions of EF, and that porting them to EF Core only to take advantage of .NET Core can sometimes require a significant effort.</span></span>
-<span data-ttu-id="bf3cc-146">そのため、次のバージョンの EF 6 は .NET Core 3.0 上で実行するように調整されます。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-146">For that reason, we will be adapting the next version of EF 6 to run on .NET Core 3.0.</span></span>
-<span data-ttu-id="bf3cc-147">最小限の変更で既存のアプリケーションを移植できるようにするために、この作業を行っています。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-147">We are doing this to facilitate porting existing applications with minimal changes.</span></span>
-<span data-ttu-id="bf3cc-148">これにはいくつかの制限があります。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-148">There are going to be some limitations.</span></span> <span data-ttu-id="bf3cc-149">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-149">For example:</span></span>
-- <span data-ttu-id="bf3cc-150">.NET Core での SQL Server の含まれているサポート以外の、他のデータベースを操作するための新しいプロバイダーが必要になります</span><span class="sxs-lookup"><span data-stu-id="bf3cc-150">It will require new providers to work with other databases besides the included SQL Server support on .NET Core</span></span>
-- <span data-ttu-id="bf3cc-151">SQL Server での空間サポートは有効になりません</span><span class="sxs-lookup"><span data-stu-id="bf3cc-151">Spatial support with SQL Server won't be enabled</span></span>
-
-<span data-ttu-id="bf3cc-152">この時点では、EF 6 について計画されている新機能がないことにも注意してください。</span><span class="sxs-lookup"><span data-stu-id="bf3cc-152">Note also that there are no new features planned for EF 6 at this point.</span></span>
+- <span data-ttu-id="20bf2-144">移行でモデルのパーツを無視する機能。[#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725) によって追跡されます。</span><span class="sxs-lookup"><span data-stu-id="20bf2-144">Ability to ingore parts of a model in migrations, tracked by [#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725).</span></span>
+- <span data-ttu-id="20bf2-145">2 つの異なる問題によって追跡されるプロパティ バッグ エンティティ。共有型のエンティティに関する [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) と、インデックス付きプロパティのマッピング サポートに関する [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610)。</span><span class="sxs-lookup"><span data-stu-id="20bf2-145">Property bag entities, tracked by two separate issues: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) about shared-type entities and [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610) about indexed property mapping support.</span></span>
