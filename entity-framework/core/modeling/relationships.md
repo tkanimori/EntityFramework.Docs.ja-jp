@@ -1,157 +1,157 @@
 ---
-title: リレーションシップ - EF Core
+title: リレーションシップ-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
 uid: core/modeling/relationships
-ms.openlocfilehash: 3731d30a15222a18ad6c729e010b9bf0994c82b2
-ms.sourcegitcommit: 83c1e2fc034e5eb1fec1ebabc8d629ffcc7c0632
+ms.openlocfilehash: 1e9c62bec47263ef452c7ac425a0bb446f9371d8
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2019
-ms.locfileid: "67351346"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197656"
 ---
-# <a name="relationships"></a>関係
+# <a name="relationships"></a>リレーションシップ
 
-2 つのエンティティを定義するリレーションシップを互いに関連します。 リレーショナル データベースで外部キー制約によって表されます。
+リレーションシップは、2つのエンティティが相互にどのように関連しているかを定義します。 リレーショナルデータベースでは、これは foreign key 制約によって表されます。
 
 > [!NOTE]  
-> この記事のサンプルのほとんどは、概念を説明するのに一対多リレーションシップを使用します。 一対一および多対多のリレーションシップの例については、[リレーションシップの他のパターン](#other-relationship-patterns)記事の最後のセクション。
+> この記事のほとんどのサンプルでは、一対多の関係を使用して概念を示しています。 一対一および多対多リレーションシップの例については、記事の最後にある「[その他のリレーションシップパターン](#other-relationship-patterns)」を参照してください。
 
 ## <a name="definition-of-terms"></a>用語の定義
 
-リレーションシップの記述に使用される用語のいくつか
+リレーションシップの説明に使用される用語は多数あります。
 
-* **依存エンティティは:** これは、外部キー プロパティを含むエンティティです。 リレーションシップの「子」とも呼ばれます。
+* **依存エンティティ:** これは、外部キープロパティを含むエンティティです。 リレーションシップの "子" と呼ばれることもあります。
 
-* **プリンシパル エンティティ:** これは、プライマリ/代替キー プロパティを含むエンティティです。 リレーションシップの「親」と呼ばれるにあります。
+* **プリンシパルエンティティ:** これは、主キーと代替キーのプロパティを含むエンティティです。 リレーションシップの "親" と呼ばれることもあります。
 
-* **外部キー:** エンティティに関連するプリンシパルのキー プロパティの値の格納に使用される依存エンティティのプロパティ。
+* **外部キー:** エンティティが関連付けられているプリンシパルキープロパティの値を格納するために使用される、依存エンティティ内のプロパティ。
 
-* **プリンシパルのキー:** プリンシパル エンティティを一意に識別するプロパティ。 主キーや代替キーがあります。
+* **プリンシパルキー:** プリンシパルエンティティを一意に識別するプロパティ。 これは、主キーまたは代替キーの場合があります。
 
-* **ナビゲーション プロパティ:** プロパティは、関連の会計主体にへの参照を格納しているプリンシパルや依存エンティティで定義します。
+* **ナビゲーションプロパティ:** 関連エンティティへの参照を含む、プリンシパルエンティティまたは依存エンティティで定義されたプロパティ。
 
-  * **コレクション ナビゲーション プロパティ:** 多くの関連エンティティへの参照を含むナビゲーション プロパティ。
+  * **コレクションナビゲーションプロパティ:** 関連する多くのエンティティへの参照を格納するナビゲーションプロパティ。
 
-  * **参照ナビゲーション プロパティ:** 1 つの関連エンティティへの参照を保持するナビゲーション プロパティ。
+  * **参照ナビゲーションプロパティ:** 単一の関連エンティティへの参照を保持するナビゲーションプロパティ。
 
-  * **逆のナビゲーション プロパティ:** 特定のナビゲーション プロパティを説明しながら、この用語は、リレーションシップの他方の end のナビゲーション プロパティを指します。
+  * **逆ナビゲーションプロパティ:** この用語は、特定のナビゲーションプロパティを説明するときに、リレーションシップのもう一方の端のナビゲーションプロパティを参照します。
 
-次のコード リストは、一対多の関係を示しています`Blog`と。 `Post`
+次のコードリストは、との間`Blog`の一対多リレーションシップを示しています。`Post`
 
-* `Post` 依存エンティティは、します。
+* `Post`は依存エンティティです。
 
-* `Blog` プリンシパル エンティティには
+* `Blog`プリンシパルエンティティ
 
-* `Post.BlogId` 外部キーです。
+* `Post.BlogId`は外部キーです。
 
-* `Blog.BlogId` プリンシパルのキー (この例では、代替キーではなく、主キー)
+* `Blog.BlogId`は主キー (この場合は、代替キーではなく主キー) です。
 
-* `Post.Blog` 参照ナビゲーション プロパティは、します。
+* `Post.Blog`参照ナビゲーションプロパティです
 
-* `Blog.Posts` コレクション ナビゲーション プロパティは、します。
+* `Blog.Posts`コレクションナビゲーションプロパティです
 
-* `Post.Blog` 逆のナビゲーション プロパティは、 `Blog.Posts` (その逆)
+* `Post.Blog`はの`Blog.Posts`逆ナビゲーションプロパティです (逆も同様)。
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/Full.cs#Entities)]
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs#Entities)]
 
 ## <a name="conventions"></a>規約
 
-慣例によりは、型上で検出されたナビゲーション プロパティがある場合に、リレーションシップが作成されます。 現在のデータベース プロバイダーによってスカラー型として指す型がマップしないことができる場合、プロパティはナビゲーション プロパティと見なされます。
+規則により、型で検出されたナビゲーションプロパティがある場合に、リレーションシップが作成されます。 プロパティは、参照先の型が現在のデータベースプロバイダーによってスカラー型としてマップされていない場合、ナビゲーションプロパティと見なされます。
 
 > [!NOTE]  
-> 規則によって検出されたリレーションシップは、プリンシパル エンティティの主キーを常に対象とします。 代替キーを対象とは、Fluent API を使用して追加の構成を実行する必要があります。
+> 規則によって検出されたリレーションシップは、常にプリンシパルエンティティの主キーを対象とします。 代替キーをターゲットにするには、Fluent API を使用して追加の構成を実行する必要があります。
 
 ### <a name="fully-defined-relationships"></a>完全に定義されたリレーションシップ
 
-リレーションシップの最も一般的なパターンでは、リレーションシップと依存エンティティ クラスで定義されている外部キー プロパティの両方の end で定義されているナビゲーション プロパティがあります。
+リレーションシップの最も一般的なパターンは、リレーションシップの両端と、依存エンティティクラスで定義されている外部キープロパティの両方でナビゲーションプロパティを定義することです。
 
-* 2 つの型の間のナビゲーション プロパティのペアが見つかった場合同じリレーションシップの逆のナビゲーション プロパティとして構成されます。
+* 2つの型の間にナビゲーションプロパティのペアが見つかった場合、それらは同じリレーションシップの逆ナビゲーションプロパティとして構成されます。
 
-* 依存エンティティには、という名前のプロパティが含まれている場合`<primary key property name>`、 `<navigation property name><primary key property name>`、または`<principal entity name><primary key property name>`し、外部キーとして構成されます。
+* 依存エンティティに、、または`<primary key property name>` `<principal entity name><primary key property name>`という`<navigation property name><primary key property name>`名前のプロパティが含まれている場合は、外部キーとして構成されます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/Full.cs?name=Entities&highlight=6,15,16)]
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs?name=Entities&highlight=6,15,16)]
 
 > [!WARNING]  
-> 2 つの型の間で定義されている複数のナビゲーション プロパティがあるかどうか (つまり、互いを指すナビゲーションの 1 つ以上の個別のペア)、し、リレーションシップは作成されません慣例および識別するためにそれらを手動で構成する必要がある方法ナビゲーション プロパティを組み合わせます。
+> 2つの型の間に複数のナビゲーションプロパティが定義されている場合 (つまり、互いをポイントするナビゲーションの複数の異なるペア)、規則によってリレーションシップは作成されず、手動でこれらのプロパティを構成して、ナビゲーションプロパティが上にあります。
 
-### <a name="no-foreign-key-property"></a>外部キー プロパティ
+### <a name="no-foreign-key-property"></a>外部キープロパティがありません
 
-依存エンティティ クラスで定義されている外部キー プロパティを持つことをお勧めしますが、これは必要ありません。 名前でシャドウの外部キー プロパティが導入される外部キー プロパティが見つからない場合`<navigation property name><principal key property name>`(を参照してください[プロパティをシャドウ](shadow-properties.md)詳細については)。
+依存エンティティクラスで外部キープロパティを定義することをお勧めしますが、必須ではありません。 外部キープロパティが見つからない場合は、名前`<navigation property name><principal key property name>`を使用して shadow 外部キープロパティが導入されます (詳細については、「 [shadow Properties](shadow-properties.md) 」を参照してください)。
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/NoForeignKey.cs?name=Entities&highlight=6,15)]
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/NoForeignKey.cs?name=Entities&highlight=6,15)]
 
-### <a name="single-navigation-property"></a>単一のナビゲーション プロパティ
+### <a name="single-navigation-property"></a>単一ナビゲーションプロパティ
 
-(ありません逆のナビゲーションと外部キー プロパティ) の 1 つだけのナビゲーション プロパティを含めると、規則で定義されたリレーションシップを持つだけです。 単一のナビゲーション プロパティと外部キー プロパティすることもできます。
+ナビゲーションプロパティを1つだけ含め (逆のナビゲーションも、外部キープロパティも含まない)、規約によってリレーションシップを定義するには十分です。 また、1つのナビゲーションプロパティと外部キープロパティを使用することもできます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Samples/Relationships/OneNavigation.cs?name=Entities&highlight=6)]
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/OneNavigation.cs?name=Entities&highlight=6)]
 
 ### <a name="cascade-delete"></a>連鎖削除
 
-設定される連鎖削除規則により、 *Cascade*に必要なリレーションシップと*ClientSetNull*の省略可能なリレーションシップです。 *Cascade*依存エンティティも削除されることを意味します。 *ClientSetNull*メモリに読み込まれていない依存するエンティティが存在することを意味変更なしとする必要があります手動で削除、または有効なプリンシパル エンティティをポイントするように更新します。 メモリに読み込まれるエンティティの場合は、EF Core を外部キー プロパティを null に設定を試みます。
+慣例により、cascade delete は必要なリレーションシップの場合は*cascade*に、オプションのリレーションシップの場合は*clientsetnull*に設定されます。 *Cascade*は、依存エンティティも削除されることを意味します。 *Clientsetnull*は、メモリに読み込まれていない依存エンティティは変更されず、手動で削除するか、有効なプリンシパルエンティティを指すように更新する必要があります。 メモリに読み込まれるエンティティの場合、EF Core は外部キーのプロパティを null に設定しようとします。
 
-参照してください、[必須および省略可能リレーションシップ](#required-and-optional-relationships)必須および省略可能なリレーションシップの違い」セクション。
+必須リレーションシップとオプションリレーションシップの違いについては、「[必須リレーションシップ」と「オプションのリレーションシップ](#required-and-optional-relationships)」セクションを参照してください。
 
-参照してください[連鎖削除](../saving/cascade-delete.md)の詳細について、さまざまな動作と規約によって使用される既定値を削除しています。
+さまざまな削除動作と規約で使用される既定値の詳細については、「 [Cascade delete](../saving/cascade-delete.md) 」を参照してください。
 
 ## <a name="data-annotations"></a>データの注釈
 
-リレーションシップを構成するのに使用できる 2 つのデータ注釈がある`[ForeignKey]`と`[InverseProperty]`します。 これらで使用できる、`System.ComponentModel.DataAnnotations.Schema`名前空間。
+リレーションシップの構成に使用できるデータ注釈には、 `[ForeignKey]`と`[InverseProperty]`の2つがあります。 これらは、 `System.ComponentModel.DataAnnotations.Schema`名前空間で使用できます。
 
-### <a name="foreignkey"></a>[不変]
+### <a name="foreignkey"></a>[ForeignKey]
 
-データ注釈を使用すると、構成プロパティは、特定のリレーションシップの外部キー プロパティとして使用する必要があります。 外部キー プロパティが規則によって検出されないときにこれは通常です。
+データ注釈を使用して、特定のリレーションシップの外部キープロパティとして使用するプロパティを構成できます。 これは通常、外部キープロパティが規則によって検出されない場合に実行されます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/ForeignKey.cs?highlight=30)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?highlight=30)]
 
 > [!TIP]  
-> `[ForeignKey]`リレーションシップのいずれかのナビゲーション プロパティに注釈を配置できます。 依存エンティティ クラスでナビゲーション プロパティに移動する必要はありません。
+> 注釈`[ForeignKey]`は、リレーションシップのいずれかのナビゲーションプロパティに配置できます。 依存エンティティクラスのナビゲーションプロパティに移動する必要はありません。
 
 ### <a name="inverseproperty"></a>[InverseProperty]
 
-依存とプリンシパル エンティティのナビゲーション プロパティを組み合わせる方法を構成するのには、データ注釈を使用できます。 2 つのエンティティ型の間のナビゲーション プロパティの 1 つ以上のペアがある場合にこれは通常です。
+データ注釈を使用すると、依存エンティティとプリンシパルエンティティのナビゲーションプロパティをどのように組み合わせるかを構成できます。 これは通常、2つのエンティティ型の間に複数のナビゲーションプロパティのペアがある場合に実行されます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Relationships/InverseProperty.cs?highlight=33,36)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/InverseProperty.cs?highlight=33,36)]
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API でのリレーションシップを構成するには、まず、リレーションシップを作成するナビゲーション プロパティを識別します。 `HasOne` または`HasMany`の構成を開始するエンティティ型にナビゲーション プロパティを識別します。 呼び出しをチェーンする`WithOne`または`WithMany`逆ナビゲーションを識別するためにします。 `HasOne`/`WithOne` 参照ナビゲーション プロパティに対して使用し、 `HasMany` / `WithMany`コレクション ナビゲーション プロパティに対して使用します。
+Fluent API でリレーションシップを構成するには、まず、リレーションシップを構成するナビゲーションプロパティを特定します。 `HasOne`また`HasMany`はは、構成を開始するエンティティ型のナビゲーションプロパティを識別します。 次に、または`WithOne` `WithMany`への呼び出しを連結して、逆のナビゲーションを識別します。 `HasOne`/`WithOne`は、参照ナビゲーションプロパティに使用`HasMany`され、 / `WithMany`コレクションナビゲーションプロパティに使用されます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoForeignKey.cs?highlight=14-16)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?highlight=14-16)]
 
-### <a name="single-navigation-property"></a>単一のナビゲーション プロパティ
+### <a name="single-navigation-property"></a>単一ナビゲーションプロパティ
 
-1 つのナビゲーション プロパティのみがある場合のパラメーターなしのオーバー ロードがあります`WithOne`と`WithMany`します。 これは、参照またはコレクションがリレーションシップのもう一方の端に概念的にが、エンティティ クラスに含まれるナビゲーション プロパティがないことを示します。
+ナビゲーションプロパティが1つしかない場合は、と`WithOne` `WithMany`のパラメーターなしのオーバーロードがあります。 これは、リレーションシップのもう一方の端には概念的に参照またはコレクションが存在するが、エンティティクラスにはナビゲーションプロパティが含まれていないことを示します。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/OneNavigation.cs?highlight=14-16)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneNavigation.cs?highlight=14-16)]
 
 ### <a name="foreign-key"></a>外部キー
 
-Fluent API を使用すると、構成プロパティは、特定のリレーションシップの外部キー プロパティとして使用する必要があります。
+Fluent API を使用して、特定のリレーションシップの外部キープロパティとして使用するプロパティを構成できます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ForeignKey.cs?highlight=17)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ForeignKey.cs?highlight=17)]
 
-次のコード リストは、複合外部キーを構成する方法を示します。
+次のコードリストは、複合外部キーを構成する方法を示しています。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/CompositeForeignKey.cs?highlight=20)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?highlight=20)]
 
-文字列のオーバー ロードを使用する`HasForeignKey(...)`外部キーとしてシャドウ プロパティを構成する (を参照してください[プロパティをシャドウ](shadow-properties.md)詳細については)。 (下図参照)、外部キーとして使用する前に、モデルを明示的にシャドウ プロパティを追加することをお勧めします。
+の`HasForeignKey(...)`文字列オーバーロードを使用して、shadow プロパティを外部キーとして構成できます (詳細については、「 [shadow Properties](shadow-properties.md) 」を参照してください)。 次に示すように、外部キーとして使用する前に、シャドウプロパティをモデルに明示的に追加することをお勧めします。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/ShadowForeignKey.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ShadowForeignKey.cs#Sample)]
 
-### <a name="without-navigation-property"></a>ナビゲーション プロパティを使用しないで
+### <a name="without-navigation-property"></a>ナビゲーションプロパティなし
 
-必ずしも、ナビゲーション プロパティを提供する必要はありません。 単に、リレーションシップの一方の側で外部キーを行うことができます。
+必ずしもナビゲーションプロパティを指定する必要はありません。 リレーションシップの一方の側に外部キーを指定するだけです。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/NoNavigation.cs?highlight=14-17)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoNavigation.cs?highlight=14-17)]
 
-### <a name="principal-key"></a>プリンシパル キー
+### <a name="principal-key"></a>プリンシパルキー
 
-主キー以外のプロパティを参照する外部キーを設定する場合は、リレーションシップのプリンシパルのキー プロパティを構成する Fluent API を使用できます。 プリンシパルは、キーとして自動的に構成されているプロパティである代替キーとしてのセットアップ (を参照してください[代替キー](alternate-keys.md)詳細については)。
+外部キーで主キー以外のプロパティを参照する場合は、Fluent API を使用してリレーションシップのプリンシパルキープロパティを構成できます。 プリンシパルキーとして構成したプロパティは、代替キーとして自動的に設定されます (詳細については、「[代替キー](alternate-keys.md) 」を参照してください)。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/PrincipalKey.cs?highlight=11)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?highlight=11)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -188,9 +188,9 @@ public class RecordOfSale
 }
 ```
 
-次のコード リストは、複合主キーを構成する方法を示します。
+次のコードリストは、複合プリンシパルキーを構成する方法を示しています。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/CompositePrincipalKey.cs?highlight=11)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?highlight=11)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -230,13 +230,13 @@ public class RecordOfSale
 ```
 
 > [!WARNING]  
-> プリンシパルのキー プロパティを指定した順序は、外部キーの指定された順序と一致する必要があります。
+> プリンシパルキープロパティを指定する順序は、外部キーに指定されている順序と一致している必要があります。
 
-### <a name="required-and-optional-relationships"></a>必須およびオプションの関係
+### <a name="required-and-optional-relationships"></a>必須およびオプションのリレーションシップ
 
-Fluent API を使用して、リレーションシップが必須か省略可能かどうかを構成することができます。 最終的に外部キー プロパティが必須または省略可能なのかどうかを制御します。 これは、シャドウ状態の外部キーを使用しているときに最も役立ちます。 外部キー プロパティがエンティティ クラスであるかどうかは、リレーションシップの requiredness が外部キー プロパティが必須または省略可能なのかどうかに基づいて決定されます (を参照してください[必須および省略可能なプロパティ](required-optional.md)詳細情報)。
+Fluent API を使用して、リレーションシップが必須か省略可能かを構成できます。 これは最終的に、外部キープロパティが必須か省略可能かを制御します。 これは、シャドウ状態の外部キーを使用している場合に最も役立ちます。 エンティティクラスに外部キープロパティがある場合、リレーションシップの requiredness は、外部キープロパティが必須か省略可能かに基づいて決定されます (詳細については、[必須プロパティと省略可能なプロパティ](required-optional.md)を参照してください)。
 
-<!-- [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Relationships/Required.cs?highlight=11)] -->
+<!-- [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?highlight=11)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -272,11 +272,11 @@ public class Post
 
 ### <a name="cascade-delete"></a>連鎖削除
 
-Fluent API を使用して、明示的に指定したリレーションシップの連鎖削除の動作を構成することができます。
+Fluent API を使用して、特定のリレーションシップに対して連鎖削除動作を明示的に構成することができます。
 
-参照してください[連鎖削除](../saving/cascade-delete.md)各オプションの詳細についてはデータの保存 セクションでします。
+各オプションの詳細については、「データの保存」セクションの「[連鎖削除](../saving/cascade-delete.md)」を参照してください。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/CascadeDelete.cs?highlight=11)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/CascadeDelete.cs?highlight=11)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -311,13 +311,13 @@ public class Post
 }
 ```
 
-## <a name="other-relationship-patterns"></a>その他のリレーションシップのパターン
+## <a name="other-relationship-patterns"></a>その他のリレーションシップパターン
 
 ### <a name="one-to-one"></a>一対一
 
-一対一のリレーションシップでは、両方の側での参照ナビゲーション プロパティがあります。 一対多のリレーションシップと同じ規則に従ってがプリンシパルごとに 1 つだけの依存が関連することを確認する場合は、外部キー プロパティに一意のインデックスが導入されています。
+一対一のリレーションシップには、両側の参照ナビゲーションプロパティがあります。 これらは一対多のリレーションシップと同じ規則に従いますが、依存関係が各プリンシパルに関連付けられるように、外部キープロパティに一意のインデックスが導入されます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/Relationships/OneToOne.cs?highlight=6,15,16)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Relationships/OneToOne.cs?highlight=6,15,16)] -->
 ``` csharp
 public class Blog
 {
@@ -339,13 +339,13 @@ public class BlogImage
 ```
 
 > [!NOTE]  
-> EF はベースの外部キー プロパティを検出する機能に依存するエンティティのいずれかを選択します。 依存として間違ったエンティティを選択した場合は、これを修正する Fluent API を使用できます。
+> EF は、外部キープロパティを検出する機能に基づいて、依存するエンティティの1つを選択します。 依存関係として間違ったエンティティが選択されている場合は、Fluent API を使用してこれを修正できます。
 
-使用する Fluent API を使用した、リレーションシップを構成するときに、`HasOne`と`WithOne`メソッド。
+Fluent API との関係を構成する場合は、メソッド`HasOne`と`WithOne`メソッドを使用します。
 
--依存エンティティ型を指定する必要がある外部キーを構成するときに提供されるジェネリック パラメーターに注意してください`HasForeignKey`で以下のリスト。 一対多リレーションシップでは、参照ナビゲーションを使用したエンティティは、の依存しており、コレクションを使用して 1 つは、プリンシパルには明らかです。 はありませんが、一対一リレーションシップのためを明示的に定義する必要があります。
+外部キーを構成するときは、依存エンティティ型を指定する必要があります。以下`HasForeignKey`の一覧で、に提供されているジェネリックパラメーターに注意してください。 一対多のリレーションシップでは、参照ナビゲーションを持つエンティティが依存しており、コレクションを持つエンティティがプリンシパルであることが明らかです。 ただし、これは一対一のリレーションシップではないため、明示的に定義する必要があります。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/OneToOne.cs?highlight=11)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?highlight=11)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -382,9 +382,9 @@ public class BlogImage
 
 ### <a name="many-to-many"></a>多対多
 
-結合テーブルを表すエンティティ クラスを持たない多対多リレーションシップはまだサポートされていません。 ただし、結合テーブルとのマッピングで独立した 2 つの一対多リレーションシップのエンティティ クラスを含めることによって、多対多リレーションシップを表すことができます。
+結合テーブルを表すエンティティクラスのない多対多リレーションシップは、まだサポートされていません。 ただし、結合テーブルのエンティティクラスを含め、2つの個別の一対多リレーションシップをマップすることで、多対多リレーションシップを表すことができます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/Relationships/ManyToMany.cs?highlight=11,12,13,14,16,17,18,19,39,40,41,42,43,44,45,46)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?highlight=11,12,13,14,16,17,18,19,39,40,41,42,43,44,45,46)] -->
 ``` csharp
 class MyContext : DbContext
 {

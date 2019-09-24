@@ -1,0 +1,549 @@
+- name: Entity Framework
+  href: index.md
+  items:
+    - name: EF Core と EF6 を比較する
+      href: efcore-and-ef6/index.md
+      items:
+        - name: 同じアプリケーションでの EF6 と EF Core
+          href: efcore-and-ef6/side-by-side.md
+        - name: EF6 から EF Core へ移植
+          href: efcore-and-ef6/porting/index.md
+          items:
+            - name: 要件の検証
+              href: efcore-and-ef6/porting/ensure-requirements.md
+            - name: EDMX ベース モデルの移植
+              href: efcore-and-ef6/porting/port-edmx.md
+            - name: コードベース モデルの移植
+              href: efcore-and-ef6/porting/port-code.md
+    - name: Entity Framework Core
+      href: core/index.md
+      items:
+        - name: 新着記事
+          href: core/what-is-new/index.md
+          items:
+            - name: ロードマップ
+              href: core/what-is-new/roadmap.md
+            - name: EF Core 3.0 (最新リリース)
+              href: core/what-is-new/ef-core-3.0/index.md
+              items:
+                - name: 新機能
+                  href: core/what-is-new/ef-core-3.0/features.md
+                - name: 互換性に影響する変更
+                  href: core/what-is-new/ef-core-3.0/breaking-changes.md
+            - name: EF Core 2.2
+              href: core/what-is-new/ef-core-2.2.md
+            - name: EF Core 2.1
+              href: core/what-is-new/ef-core-2.1.md
+            - name: EF Core 2.0
+              href: core/what-is-new/ef-core-2.0.md
+            - name: EF Core 1.1
+              href: core/what-is-new/ef-core-1.1.md
+            - name: EF Core 1.0
+              href: core/what-is-new/ef-core-1.0.md
+            - name: 旧バージョンからのアップグレード
+              items:
+                - name: 1.0 RC1 から RC2
+                  href: core/miscellaneous/rc1-rc2-upgrade.md
+                - name: 1.0 RC2 から RTM
+                  href: core/miscellaneous/rc2-rtm-upgrade.md
+                - name: 1.x から 2.0
+                  href: core/miscellaneous/1x-2x-upgrade.md
+        - name: 開始するには
+          href: core/get-started/index.md
+          items:
+            - name: EF Core のインストール
+              href: core/get-started/install/index.md
+            - name: ⤤ ASP.NET Core チュートリアル
+              href: /aspnet/core/data/ef-rp/intro
+        - name: 基礎
+          items:
+            - name: 接続文字列
+              href: core/miscellaneous/connection-strings.md
+            - name: ログの記録
+              href: core/miscellaneous/logging.md
+            - name: 接続の復元性
+              href: core/miscellaneous/connection-resiliency.md
+            - name: テスト
+              href: core/miscellaneous/testing/index.md
+              items:
+                - name: SQLite のテスト
+                  href: core/miscellaneous/testing/sqlite.md
+                - name: InMemory のテスト
+                  href: core/miscellaneous/testing/in-memory.md
+            - name: DbContext の構成
+              href: core/miscellaneous/configuring-dbcontext.md
+        - name: モデルの作成
+          href: core/modeling/index.md
+          items:
+            - name: 種類を含める/除外する
+              href: core/modeling/included-types.md
+            - name: プロパティを含める/除外する
+              href: core/modeling/included-properties.md
+            - name: キー (主)
+              href: core/modeling/keys.md
+            - name: 生成された値
+              href: core/modeling/generated-properties.md
+            - name: 必須/任意のプロパティ
+              href: core/modeling/required-optional.md
+            - name: 最大長
+              href: core/modeling/max-length.md
+            - name: コンカレンシー トークン
+              href: core/modeling/concurrency.md
+            - name: シャドウ プロパティ
+              href: core/modeling/shadow-properties.md
+            - name: リレーションシップ
+              href: core/modeling/relationships.md
+            - name: Indexes
+              href: core/modeling/indexes.md
+            - name: 代替キー
+              href: core/modeling/alternate-keys.md
+            - name: 継承
+              href: core/modeling/inheritance.md
+            - name: バッキング フィールド
+              href: core/modeling/backing-field.md
+            - name: 値変換
+              href: core/modeling/value-conversions.md
+            - name: データのシード処理
+              href: core/modeling/data-seeding.md
+            - name: エンティティ型コンストラクター
+              href: core/modeling/constructors.md
+            - name: テーブル分割
+              href: core/modeling/table-splitting.md
+            - name: 所有されているエンティティ型
+              href: core/modeling/owned-entities.md
+            - name: キーなしエンティティ型
+              href: core/modeling/keyless-entity-types.md
+            - name: 同じ DbContext を持つモデル間で切り替える
+              href: core/modeling/dynamic-model.md
+            - name: 空間データ (GIS)
+              href: core/modeling/spatial.md
+            - name: リレーショナル データベース モデリング
+              href: core/modeling/relational/index.md
+              items:
+                - name: テーブル マッピング
+                  href: core/modeling/relational/tables.md
+                - name: 列マッピング
+                  href: core/modeling/relational/columns.md
+                - name: データの種類
+                  href: core/modeling/relational/data-types.md
+                - name: 主キー
+                  href: core/modeling/relational/primary-keys.md
+                - name: 既定のスキーマ
+                  href: core/modeling/relational/default-schema.md
+                - name: 計算列
+                  href: core/modeling/relational/computed-columns.md
+                - name: シーケンス
+                  href: core/modeling/relational/sequences.md
+                - name: 既定値
+                  href: core/modeling/relational/default-values.md
+                - name: Indexes
+                  href: core/modeling/relational/indexes.md
+                - name: 外部キー制約
+                  href: core/modeling/relational/fk-constraints.md
+                - name: 代替キー (一意の制約)
+                  href: core/modeling/relational/unique-constraints.md
+                - name: 継承 (リレーショナル データベース)
+                  href: core/modeling/relational/inheritance.md
+        - name: データベース スキーマを管理する
+          href: core/managing-schemas/index.md
+          items:
+            - name: 移行
+              href: core/managing-schemas/migrations/index.md
+              items:
+                - name: チーム環境
+                  href: core/managing-schemas/migrations/teams.md
+                - name: カスタム操作
+                  href: core/managing-schemas/migrations/operations.md
+                - name: 別個のプロジェクトを使用する
+                  href: core/managing-schemas/migrations/projects.md
+                - name: 複数のプロバイダー
+                  href: core/managing-schemas/migrations/providers.md
+                - name: カスタム履歴テーブル
+                  href: core/managing-schemas/migrations/history-table.md
+            - name: Create API と Drop API
+              href: core/managing-schemas/ensure-created.md
+            - name: リバース エンジニアリング (スキャホールディング)
+              href: core/managing-schemas/scaffolding.md
+        - name: データのクエリ
+          href: core/querying/index.md
+          items:
+            - name: 基本のクエリ
+              href: core/querying/basic.md
+            - name: 関連データの読み込み
+              href: core/querying/related-data.md
+            - name: クライアントとサーバーの評価
+              href: core/querying/client-eval.md
+            - name: 追跡と追跡なし
+              href: core/querying/tracking.md
+            - name: 生 SQL クエリ
+              href: core/querying/raw-sql.md
+            - name: 非同期クエリ
+              href: core/querying/async.md
+            - name: クエリのしくみ
+              href: core/querying/overview.md
+            - name: グローバル クエリ フィルター
+              href: core/querying/filters.md
+            - name: クエリのタグ
+              href: core/querying/tags.md
+        - name: データの保存
+          href: core/saving/index.md
+          items:
+            - name: 基本の保存
+              href: core/saving/basic.md
+            - name: 関連データ
+              href: core/saving/related-data.md
+            - name: 連鎖削除
+              href: core/saving/cascade-delete.md
+            - name: コンカレンシーの競合
+              href: core/saving/concurrency.md
+            - name: トランザクション
+              href: core/saving/transactions.md
+            - name: 非同期保存
+              href: core/saving/async.md
+            - name: 接続解除エンティティ
+              href: core/saving/disconnected-entities.md
+            - name: 生成値の明示的値
+              href: core/saving/explicit-values-generated-properties.md
+        - name: サポートされている .NET 実装
+          href: core/platforms/index.md
+        - name: データベース プロバイダー
+          href: core/providers/index.md
+          items:
+            - name: Microsoft SQL Server
+              href: core/providers/sql-server/index.md
+              items:
+                - name: メモリ最適化テーブル
+                  href: core/providers/sql-server/memory-optimized-tables.md
+            - name: SQLite
+              href: core/providers/sqlite/index.md
+              items:
+                - name: SQLite の制限
+                  href: core/providers/sqlite/limitations.md
+            - name: Cosmos
+              href: core/providers/cosmos/index.md
+              items:
+                - name: 非構造化データを使用する
+                  href: core/providers/cosmos/unstructured-data.md
+                - name: Cosmos の制限事項
+                  href: core/providers/cosmos/limitations.md
+            - name: InMemory (テスト用)
+              href: core/providers/in-memory/index.md
+            - name: データベース プロバイダーを記述する
+              href: core/providers/writing-a-provider.md
+            - name: プロバイダーに影響を与える変更
+              href: core/providers/provider-log.md
+        - name: ツールと拡張機能
+          href: core/extensions/index.md
+        - name: コマンド ライン リファレンス
+          href: core/miscellaneous/cli/index.md
+          items:
+            - name: パッケージ マネージャー コンソール (Visual Studio)
+              href: core/miscellaneous/cli/powershell.md
+            - name: .NET Core CLI
+              href: core/miscellaneous/cli/dotnet.md
+            - name: デザイン時 DbContext 作成
+              href: core/miscellaneous/cli/dbcontext-creation.md
+            - name: デザイン時サービス
+              href: core/miscellaneous/cli/services.md
+        - name: ⤤ EF Core API リファレンス
+          href: 'https://docs.microsoft.com/dotnet/api/?view=efcore-2.1'
+    - name: Entity Framework 6
+      href: ef6/index.md
+      items:
+        - name: 新着記事
+          href: ef6/what-is-new/index.md
+          items:
+            - name: 以前のリリース
+              href: ef6/what-is-new/past-releases.md
+            - name: EF6 へのアップグレード
+              href: ef6/what-is-new/upgrading-to-ef6.md
+            - name: Visual Studio のリリース
+              href: ef6/what-is-new/visual-studio.md
+        - name: 開始するには
+          href: ef6/get-started.md
+        - name: 基礎
+          href: ef6/fundamentals/index.md
+          items:
+            - name: Entity Framework を取得する
+              href: ef6/fundamentals/install.md
+            - name: DbContext の操作
+              href: ef6/fundamentals/working-with-dbcontext.md
+            - name: リレーションシップについて
+              href: ef6/fundamentals/relationships.md
+            - name: 非同期クエリと保存
+              href: ef6/fundamentals/async.md
+            - name: 構成
+              items:
+                - name: コード ベース
+                  href: ef6/fundamentals/configuring/code-based.md
+                - name: 構成ファイル
+                  href: ef6/fundamentals/configuring/config-file.md
+                - name: 接続文字列
+                  href: ef6/fundamentals/configuring/connection-strings.md
+                - name: 依存関係の解決
+                  href: ef6/fundamentals/configuring/dependency-resolution.md
+            - name: 接続管理
+              href: ef6/fundamentals/connection-management.md
+            - name: 接続の復元性
+              items:
+                - name: 再試行ロジック
+                  href: ef6/fundamentals/connection-resiliency/retry-logic.md
+                - name: トランザクションのコミットの失敗
+                  href: ef6/fundamentals/connection-resiliency/commit-failures.md
+            - name: データ バインド
+              items:
+                - name: WinForms
+                  href: ef6/fundamentals/databinding/winforms.md
+                - name: WPF
+                  href: ef6/fundamentals/databinding/wpf.md
+            - name: 接続解除エンティティ
+              href: ef6/fundamentals/disconnected-entities/index.md
+              items:
+                - name: 自己追跡エンティティ
+                  href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
+                  items:
+                    - name: チュートリアル
+                      href: ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md
+            - name: ログとインターセプト
+              href: ef6/fundamentals/logging-and-interception.md
+            - name: パフォーマンス
+              items:
+                - name: パフォーマンスに関する考慮事項 (ホワイトペーパー)
+                  href: ef6/fundamentals/performance/perf-whitepaper.md
+                - name: NGEN の使用
+                  href: ef6/fundamentals/performance/ngen.md
+                - name: 事前生成済みビューの使用
+                  href: ef6/fundamentals/performance/pre-generated-views.md
+            - name: プロバイダー
+              href: ef6/fundamentals/providers/index.md
+              items:
+                - name: EF6 プロバイダー モデル
+                  href: ef6/fundamentals/providers/provider-model.md
+                - name: プロバイダーでの空間サポート
+                  href: ef6/fundamentals/providers/spatial-support.md
+            - name: プロキシの使用
+              href: ef6/fundamentals/proxies.md
+            - name: EF6 のテスト
+              items:
+                - name: モックの使用
+                  href: ef6/fundamentals/testing/mocking.md
+                - name: 独自のテスト ダブルの作成
+                  href: ef6/fundamentals/testing/writing-test-doubles.md
+                - name: EF4 でのテストの容易性 (記事)
+                  href: ef6/fundamentals/testing/testability-article.md
+        - name: モデルの作成
+          href: ef6/modeling/index.md
+          items:
+            - name: Code First の使用
+              items:
+                - name: ワークフロー
+                  items:
+                    - name: 新しいデータベースの場合
+                      href: ef6/modeling/code-first/workflows/new-database.md
+                    - name: 既存のデータベースの場合
+                      href: ef6/modeling/code-first/workflows/existing-database.md
+                - name: データの注釈
+                  href: ef6/modeling/code-first/data-annotations.md
+                - name: DbSets
+                  href: ef6/modeling/code-first/dbsets.md
+                - name: データの種類
+                  items:
+                    - name: 列挙体
+                      href: ef6/modeling/code-first/data-types/enums.md
+                    - name: Spatial
+                      href: ef6/modeling/code-first/data-types/spatial.md
+                - name: 規約
+                  items:
+                    - name: 組み込みの規約
+                      href: ef6/modeling/code-first/conventions/built-in.md
+                    - name: カスタム規約
+                      href: ef6/modeling/code-first/conventions/custom.md
+                    - name: モデルの規則
+                      href: ef6/modeling/code-first/conventions/model.md
+                - name: スムーズな構成
+                  items:
+                    - name: リレーションシップ
+                      href: ef6/modeling/code-first/fluent/relationships.md
+                    - name: 種類とプロパティ
+                      href: ef6/modeling/code-first/fluent/types-and-properties.md
+                    - name: Visual Basic での使用
+                      href: ef6/modeling/code-first/fluent/vb.md
+                    - name: ストアド プロシージャ マッピング
+                      href: ef6/modeling/code-first/fluent/cud-stored-procedures.md
+                - name: 移行
+                  href: ef6/modeling/code-first/migrations/index.md
+                  items:
+                    - name: 自動移行
+                      href: ef6/modeling/code-first/migrations/automatic.md
+                    - name: 既存データベースの操作
+                      href: ef6/modeling/code-first/migrations/existing-database.md
+                    - name: 移行履歴のカスタマイズ
+                      href: ef6/modeling/code-first/migrations/history-customization.md
+                    - name: Migrate.exe の使用
+                      href: ef6/modeling/code-first/migrations/migrate-exe.md
+                    - name: チーム環境での移行
+                      href: ef6/modeling/code-first/migrations/teams.md
+            - name: EF デザイナーの使用
+              items:
+                - name: ワークフロー
+                  items:
+                    - name: Model-First
+                      href: ef6/modeling/designer/workflows/model-first.md
+                    - name: Database-First
+                      href: ef6/modeling/designer/workflows/database-first.md
+                - name: データの種類
+                  items:
+                    - name: 複合型
+                      href: ef6/modeling/designer/data-types/complex-types.md
+                    - name: 列挙体
+                      href: ef6/modeling/designer/data-types/enums.md
+                    - name: Spatial
+                      href: ef6/modeling/designer/data-types/spatial.md
+                - name: マッピングの分割
+                  items:
+                    - name: エンティティ分割
+                      href: ef6/modeling/designer/entity-splitting.md
+                    - name: テーブル分割
+                      href: ef6/modeling/designer/table-splitting.md
+                - name: 継承のマッピング
+                  items:
+                    - name: Table-Per-Hierarchy
+                      href: ef6/modeling/designer/inheritance/tph.md
+                    - name: Table-Per-Type
+                      href: ef6/modeling/designer/inheritance/tpt.md
+                - name: ストアド プロシージャのマッピング
+                  items:
+                    - name: クエリ
+                      href: ef6/modeling/designer/stored-procedures/query.md
+                    - name: 更新
+                      href: ef6/modeling/designer/stored-procedures/cud.md
+                - name: マッピングのリレーションシップ
+                  href: ef6/modeling/designer/relationships.md
+                - name: 複数のダイアグラム
+                  href: ef6/modeling/designer/multiple-diagrams.md
+                - name: ランタイム バージョンの選択
+                  href: ef6/modeling/designer/select-runtime-version.md
+                - name: コード生成
+                  href: ef6/modeling/designer/codegen/index.md
+                  items:
+                    - name: 従来の ObjectContext
+                      href: ef6/modeling/designer/codegen/legacy-objectcontext.md
+                - name: 詳細設定
+                  items:
+                    - name: EDMX ファイル形式
+                      items:
+                        - name: CSDL 仕様
+                          href: ef6/modeling/designer/advanced/edmx/csdl-spec.md
+                        - name: MSL 仕様
+                          href: ef6/modeling/designer/advanced/edmx/msl-spec.md
+                        - name: SSDL 仕様
+                          href: ef6/modeling/designer/advanced/edmx/ssdl-spec.md
+                    - name: クエリの定義
+                      href: ef6/modeling/designer/advanced/defining-query.md
+                    - name: 複数結果セット
+                      href: ef6/modeling/designer/advanced/multiple-result-sets.md
+                    - name: テーブル値関数
+                      href: ef6/modeling/designer/advanced/tvfs.md
+                - name: ショートカット キー
+                  href: ef6/modeling/designer/keyboard-shortcuts.md
+        - name: データのクエリ
+          href: ef6/querying/index.md
+          items:
+            - name: Load メソッド
+              href: ef6/querying/load-method.md
+            - name: ローカル データ
+              href: ef6/querying/local-data.md
+            - name: 追跡と非追跡クエリ
+              href: ef6/querying/no-tracking.md
+            - name: 生 SQL クエリの使用
+              href: ef6/querying/raw-sql.md
+            - name: 関連データのクエリ
+              href: ef6/querying/related-data.md
+        - name: データの保存
+          href: ef6/saving/index.md
+          items:
+            - name: 変更追跡
+              items:
+                - name: 自動検出の変更
+                  href: ef6/saving/change-tracking/auto-detect-changes.md
+                - name: エンティティ状態
+                  href: ef6/saving/change-tracking/entity-state.md
+                - name: プロパティの値
+                  href: ef6/saving/change-tracking/property-values.md
+            - name: コンカレンシーの競合の処理
+              href: ef6/saving/concurrency.md
+            - name: トランザクションの使用
+              href: ef6/saving/transactions.md
+            - name: データの検証
+              href: ef6/saving/validation.md
+        - name: その他のリソース
+          href: ef6/resources/index.md
+          items:
+            - name: ブログ
+              href: ef6/resources/blogs.md
+            - name: ケース スタディ
+              href: ef6/resources/case-studies.md
+            - name: 投稿
+              href: ef6/resources/contribute.md
+            - name: ヘルプ情報の入手
+              href: ef6/resources/get-help.md
+            - name: 用語集
+              href: ef6/resources/glossary.md
+            - name: School サンプル データベース
+              href: ef6/resources/school-database.md
+            - name: ツールと拡張機能
+              href: ef6/resources/tools.md
+            - name: ライセンス
+              items:
+                - name: EF5
+                  items:
+                    - name: 中国語 (簡体字)
+                      href: ef6/resources/licenses/ef5/chs.md
+                    - name: 繁体字中国語
+                      href: ef6/resources/licenses/ef5/cht.md
+                    - name: ドイツ語
+                      href: ef6/resources/licenses/ef5/deu.md
+                    - name: 英語
+                      href: ef6/resources/licenses/ef5/enu.md
+                    - name: スペイン語
+                      href: ef6/resources/licenses/ef5/esn.md
+                    - name: フランス語
+                      href: ef6/resources/licenses/ef5/fra.md
+                    - name: イタリア語
+                      href: ef6/resources/licenses/ef5/ita.md
+                    - name: 日本語
+                      href: ef6/resources/licenses/ef5/jpn.md
+                    - name: 韓国語
+                      href: ef6/resources/licenses/ef5/kor.md
+                    - name: ロシア語
+                      href: ef6/resources/licenses/ef5/rus.md
+                - name: EF6
+                  items:
+                    - name: プレリリース
+                      items:
+                        - name: '[アルファ]'
+                          href: ef6/resources/licenses/ef6/prerelease/alpha.md
+                        - name: ベータ - リリース候補
+                          href: ef6/resources/licenses/ef6/prerelease/beta-rc.md
+                    - name: 中国語 (簡体字)
+                      href: ef6/resources/licenses/ef6/chs.md
+                    - name: 繁体字中国語
+                      href: ef6/resources/licenses/ef6/cht.md
+                    - name: ドイツ語
+                      href: ef6/resources/licenses/ef6/deu.md
+                    - name: 英語
+                      href: ef6/resources/licenses/ef6/enu.md
+                    - name: スペイン語
+                      href: ef6/resources/licenses/ef6/esn.md
+                    - name: フランス語
+                      href: ef6/resources/licenses/ef6/fra.md
+                    - name: イタリア語
+                      href: ef6/resources/licenses/ef6/ita.md
+                    - name: 日本語
+                      href: ef6/resources/licenses/ef6/jpn.md
+                    - name: 韓国語
+                      href: ef6/resources/licenses/ef6/kor.md
+                    - name: ロシア語
+                      href: ef6/resources/licenses/ef6/rus.md
+        - name: ⤤ EF6 API リファレンス
+          href: 'https://docs.microsoft.com/dotnet/api/?view=entity-framework-6.2.0'

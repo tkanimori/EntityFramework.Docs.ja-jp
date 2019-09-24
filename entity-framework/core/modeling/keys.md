@@ -1,27 +1,27 @@
 ---
-title: キー (プライマリ) - EF Core
+title: キー (プライマリ)-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 912ffef7-86a0-4cdc-a776-55f907459d20
 uid: core/modeling/keys
-ms.openlocfilehash: 51d163b867085f42f415dbd7afa9e311ab1781a0
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: 8b32bf6417890a954c933a5973a2c90c609beeca
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929837"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197273"
 ---
-# <a name="keys-primary"></a>キー (プライマリ)
+# <a name="keys-primary"></a>キー (主)
 
-キーは、各エンティティ インスタンスのプライマリの一意の識別子として機能します。 リレーショナル データベースを使用する場合はこれはマップの概念、*主キー*します。 主キーでない一意の識別子を構成することもできます (を参照してください[代替キー](alternate-keys.md)詳細については)。 
+キーは、各エンティティインスタンスのプライマリ一意識別子として機能します。 リレーショナルデータベースを使用する場合、これは*主キー*の概念にマップされます。 また、主キーではない一意の識別子を構成することもできます (詳細については、「[代替キー](alternate-keys.md) 」を参照してください)。 
 
-次のいずれかのセットアップ/主キーの作成に使用できます。
+次のいずれかの方法を使用して、主キーの設定/作成を行うことができます。
 
 ## <a name="conventions"></a>規約
 
-プロパティの名前付け規則、により`Id`または`<type name>Id`はエンティティのキーとして構成されます。
+慣例により、または`Id` `<type name>Id`という名前のプロパティは、エンティティのキーとして構成されます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/KeyId.cs?highlight=3)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/KeyId.cs?highlight=3)] -->
 ``` csharp
 class Car
 {
@@ -32,7 +32,7 @@ class Car
 }
 ```
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/KeyTypeNameId.cs?highlight=3)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/KeyTypeNameId.cs?highlight=3)] -->
 ``` csharp
 class Car
 {
@@ -45,16 +45,16 @@ class Car
 
 ## <a name="data-annotations"></a>データの注釈
 
-データ注釈を使用して、エンティティのキーにする 1 つのプロパティを構成することができます。
+データ注釈を使用して、1つのプロパティをエンティティのキーとして構成できます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/KeySingle.cs?highlight=13)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/KeySingle.cs?highlight=13)]
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、エンティティのキーにする 1 つのプロパティを構成することができます。
+Fluent API を使用して、1つのプロパティをエンティティのキーとして構成できます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/KeySingle.cs?highlight=11,12)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/KeySingle.cs?highlight=11,12)]
 
-キー (複合キーと呼ばれる) エンティティの複数のプロパティを構成するのに Fluent API を使用することもできます。 Fluent API を使用して複合キーを構成することができますのみ - 規則は複合キーをセットアップしないと、いずれかを構成するデータの注釈は使用できません。
+また、Fluent API を使用して、エンティティ (複合キーと呼ばれます) のキーとして複数のプロパティを構成することもできます。 複合キーは、Fluent API を使用してのみ構成できます。複合キーは設定されず、データ注釈を使用して構成することはできません。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/KeyComposite.cs?highlight=11,12)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/KeyComposite.cs?highlight=11,12)]

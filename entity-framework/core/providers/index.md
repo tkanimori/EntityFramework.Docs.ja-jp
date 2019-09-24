@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 02/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/providers/index
-ms.openlocfilehash: 3748496db89c110d55a0876727e33e1f3ec987d9
-ms.sourcegitcommit: 5280dcac4423acad8b440143433459b18886115b
+ms.openlocfilehash: 096d68f814e279bd224dfc50111d6576ab5eb223
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/18/2019
-ms.locfileid: "58914092"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149247"
 ---
 # <a name="database-providers"></a>データベース プロバイダー
 
@@ -21,10 +21,10 @@ Entity Framework Core は、データベース プロバイダーと呼ばれる
 
 | NuGet パッケージ                                                                                                        | サポートされているデータベース エンジン | メンテナンス/仕入先                                                           | メモ/要件 | 役に立つリンク                                                                                                                                                                                       |
 |:---------------------------------------------------------------------------------------------------------------------|:---------------------------|:------------------------------------------------------------------------------|:---------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer)    | SQL Server 2008 以降    | [EF Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore/) (Microsoft) |                      | [docs](xref:core/providers/sql-server/index)                                                                                                                                                       |
+| [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer)    | SQL Server 2012 以降    | [EF Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore/) (Microsoft) |                      | [docs](xref:core/providers/sql-server/index)                                                                                                                                                       |
 | [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite)          | SQLite 3.7 以降         | [EF Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore/) (Microsoft) |                      | [docs](xref:core/providers/sqlite/index)                                                                                                                                                           |
 | [Microsoft.EntityFrameworkCore.InMemory](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory)      | EF Core In-Memory データベース | [EF Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore/) (Microsoft) | テストのみ     | [docs](xref:core/providers/in-memory/index)                                                                                                                                                        |
-| [Microsoft.EntityFrameworkCore.Cosmos](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos)          | Azure Cosmos DB SQL API    | [EF Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore/) (Microsoft) | プレビューのみ         | [ブログ](https://blogs.msdn.microsoft.com/dotnet/2018/10/17/announcing-entity-framework-core-2-2-preview-3/)                                                                                         |
+| [Microsoft.EntityFrameworkCore.Cosmos](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos)          | Azure Cosmos DB SQL API    | [EF Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore/) (Microsoft) |                      | [docs](xref:core/providers/cosmos/index)                                                                                         |
 | [Npgsql.EntityFrameworkCore.PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL)        | PostgreSQL                 | [Npgsql 開発チーム](https://github.com/npgsql)                          |                      | [docs](http://www.npgsql.org/efcore/index.html)                                                                                                                                                    |
 | [Pomelo.EntityFrameworkCore.MySql](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql)                  | MySQL、MariaDB             | [Pomelo Foundation プロジェクト](https://github.com/PomeloFoundation)              |                      | [readme](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql/blob/master/README.md)                                                                                               |
 | [Pomelo.EntityFrameworkCore.MyCat](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MyCat)                  | MyCAT Server               | [Pomelo Foundation プロジェクト](https://github.com/PomeloFoundation)              | プレリリースのみ      | [readme](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MyCat/blob/master/README.md)                                                                                               |
@@ -51,10 +51,6 @@ Entity Framework Core は、データベース プロバイダーと呼ばれる
 Cosmos DB の SQL API 向けの EF Core プロバイダーを開発しています。
 これは弊社が生成した最初の完全なドキュメント指向データベース プロバイダーであり、この演習から学んだ内容は、EF Core の今後のリリースや、場合によっては関連のない他のプロバイダーの設計の改善のために通知されます。
 プレビューは [NuGet ギャラリー](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos)で入手できます。
-
-### <a name="oracle-first-party-provider"></a>Oracle のファースト パーティ プロバイダー
-Oracle .NET チームは、[EF Core 用 Oracle プロバイダー](https://www.nuget.org/packages/Oracle.EntityFrameworkCore/)のベータ版を公開しています。
-リリース時期も含め、このプロバイダーに関するご質問は [Oracle コミュニティ サイト](https://community.oracle.com/)に直接お寄せください。
 
 ## <a name="adding-a-database-provider-to-your-application"></a>データベース プロバイダーをアプリケーションに追加する
 

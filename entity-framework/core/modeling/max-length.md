@@ -1,35 +1,35 @@
 ---
-title: 最大の長さ - EF Core
+title: 最大長-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c39c5d43-018d-48b8-94f2-b8bc7c686c69
 uid: core/modeling/max-length
-ms.openlocfilehash: 3220518cb0a409b6e802d2f3a98acdb949ffbf56
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
+ms.openlocfilehash: b6f0594fed0c491b4f79dcda5273cdebe9ecf35f
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929850"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197227"
 ---
 # <a name="maximum-length"></a>最大長
 
-最大長を構成する特定のプロパティを使用する適切なデータ型のデータ ストアにヒントを提供します。 最大長にのみ適用されます、配列のデータ型など`string`と`byte[]`します。
+最大長を構成すると、特定のプロパティに対して使用する適切なデータ型に関するヒントがデータストアに提供されます。 最大長は、配列のデータ型 ( `string`や`byte[]`など) にのみ適用されます。
 
 > [!NOTE]  
-> Entity Framework では、プロバイダーにデータを渡す前に最大の長さの検証は実行しません。 適切な検証するために、プロバイダーまたはデータ ストアの責任です。 たとえば、基になる列のデータ型として例外が発生が最大長を超えると、SQL Server を対象とするときに許可されません余分なデータを格納します。
+> Entity Framework は、データをプロバイダーに渡す前に、最大長の検証を行いません。 必要に応じて、プロバイダーまたはデータストアが検証する必要があります。 たとえば、SQL Server を対象とする場合、基になる列のデータ型では過剰なデータを格納できないため、最大長を超えると例外が発生します。
 
 ## <a name="conventions"></a>規約
 
-慣例によりには、データベース プロバイダーのプロパティの適切なデータ型を選択するまでそのままです。 長さを持つプロパティの場合は、データベース プロバイダーはデータ型では、データの最大の長さが一般を選択します。 たとえば、Microsoft SQL Server は使用`nvarchar(max)`の`string`プロパティ (または`nvarchar(450)`列がキーとして使用されている場合)。
+慣例により、プロパティに適切なデータ型を選択するために、データベースプロバイダーが使用されます。 長さがのプロパティの場合、データベースプロバイダーは通常、データの長さが最も長いデータ型を選択します。 たとえば、Microsoft SQL Server はプロパティに`nvarchar(max)` `string`を使用します`nvarchar(450)` (または、列がキーとして使用されている場合)。
 
 ## <a name="data-annotations"></a>データの注釈
 
-データ注釈を使用して、プロパティの最大長を構成することができます。 この例では、この結果として SQL Server を対象とする、`nvarchar(500)`使用されているデータ型。
+データ注釈を使用して、プロパティの最大長を構成できます。 この例では、この SQL Server を対象とする`nvarchar(500)`と、データ型が使用されます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/MaxLength.cs?highlight=14)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/MaxLength.cs?highlight=14)]
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、プロパティの最大長を構成することができます。 この例では、この結果として SQL Server を対象とする、`nvarchar(500)`使用されているデータ型。
+Fluent API を使用して、プロパティの最大長を構成できます。 この例では、この SQL Server を対象とする`nvarchar(500)`と、データ型が使用されます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/MaxLength.cs?highlight=11-13)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/MaxLength.cs?highlight=11-13)]

@@ -1,29 +1,29 @@
 ---
-title: シャドウ プロパティ - EF Core
+title: シャドウのプロパティ-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 75369266-d2b9-4416-b118-ed238f81f599
 uid: core/modeling/shadow-properties
-ms.openlocfilehash: 4029539f3642f539a427f5901577d4df96c00f30
-ms.sourcegitcommit: 119058fefd7f35952048f783ada68be9aa612256
+ms.openlocfilehash: 5fdc4c50c295f73d0fa5eef3518adf4d3eb95599
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/06/2019
-ms.locfileid: "66749699"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197703"
 ---
 # <a name="shadow-properties"></a>シャドウ プロパティ
 
-シャドウ プロパティは、.NET のエンティティ クラスで定義されていないが、EF Core モデルでは、そのエンティティ型に対して定義されているプロパティ。 純粋な変更の追跡ツールでは、値とこれらのプロパティの状態が維持されます。
+Shadow プロパティは、.NET エンティティクラスで定義されていないが、EF Core モデルでそのエンティティ型に対して定義されているプロパティです。 これらのプロパティの値と状態は、単に変更トラッカーに保持されます。
 
-シャドウ プロパティは、マップされたエンティティ型で公開してはなりませんが、データベース内のデータがある場合に便利です。 外部キー プロパティ、2 つのエンティティ間のリレーションシップは、データベース内の外部キー値によって表されますが、リレーションシップがエンティティ型の間のナビゲーション プロパティを使用して、エンティティ型で管理されている、最もよく使用されます。
+シャドウプロパティは、マップされたエンティティ型では公開できないデータがデータベースに存在する場合に便利です。 2つのエンティティ間のリレーションシップはデータベース内の外部キー値によって表されますが、リレーションシップはエンティティ型間のナビゲーションプロパティを使用してエンティティ型で管理される外部キープロパティで最もよく使用されます。
 
-シャドウ プロパティの値を入手して使用して変更することができます、 `ChangeTracker` API。
+シャドウプロパティの値は、API を`ChangeTracker`使用して取得および変更できます。
 
 ``` csharp
 context.Entry(myBlog).Property("LastUpdated").CurrentValue = DateTime.Now;
 ```
 
-シャドウ プロパティを使用した LINQ クエリで参照できます、`EF.Property`静的メソッド。
+シャドウプロパティは、静的メソッドを使用して`EF.Property` LINQ クエリで参照できます。
 
 ``` csharp
 var blogs = context.Blogs
@@ -32,11 +32,11 @@ var blogs = context.Blogs
 
 ## <a name="conventions"></a>規約
 
-リレーションシップが検出されますが、依存エンティティ クラスの外部キー プロパティが見つからないときに、慣例シャドウ プロパティを作成できます。 この場合、影の外部キー プロパティが導入されます。 シャドウの外部キー プロパティの名前は`<navigation property name><principal key property name>`(プリンシパル エンティティを指す、依存エンティティのナビゲーションは、名前付けの使用)。 かどうかには、プリンシパルのキー プロパティの名前には、ナビゲーション プロパティの名前が含まれていますし、名前になります`<principal key property name>`します。 依存エンティティにナビゲーション プロパティがない場合、プリンシパルの種類名は、その代わりに使用されます。
+リレーションシップが検出されたが、依存エンティティクラスで外部キープロパティが見つからない場合は、規則によってシャドウプロパティを作成できます。 この場合、shadow 外部キープロパティが導入されます。 Shadow 外部キーのプロパティにはと`<navigation property name><principal key property name>`いう名前が付けられます (これは、プリンシパルエンティティをポイントする依存エンティティのナビゲーションで、名前付けに使用されます)。 プリンシパルキープロパティ名にナビゲーションプロパティの名前が含まれている場合、その名前はだけ`<principal key property name>`になります。 依存エンティティにナビゲーションプロパティがない場合は、その代わりにプリンシパルの型名が使用されます。
 
-たとえば、次のコード リストになります。、`BlogId`シャドウ プロパティがに導入される、`Post`エンティティ。
+たとえば、次のコードリストでは、 `BlogId`シャドウプロパティが`Post`エンティティに導入されます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/ShadowForeignKey.cs)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/ShadowForeignKey.cs)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -64,15 +64,15 @@ public class Post
 
 ## <a name="data-annotations"></a>データの注釈
 
-シャドウ プロパティを作成して、データ注釈を使用したことはできません。
+シャドウプロパティをデータ注釈と共に作成することはできません。
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、シャドウ プロパティを構成することができます。 文字列のオーバー ロードを呼び出した後`Property`他のプロパティの構成の呼び出しを連結することができます。
+Fluent API を使用してシャドウプロパティを構成できます。 の`Property`文字列オーバーロードを呼び出した後は、他のプロパティに対する任意の構成呼び出しをチェーンできます。
 
-名前が指定されている場合、`Property`メソッド (シャドウ プロパティまたはエンティティ クラスで定義されているいずれか)、既存のプロパティの名前に一致し、コードでは新しいシャドウ プロパティを導入するのではなく、その既存のプロパティを設定します。
+`Property`メソッドに指定された名前が既存のプロパティの名前 (shadow プロパティまたは entity クラスで定義されているプロパティ) と一致する場合、コードは新しい shadow プロパティを導入するのではなく、既存のプロパティを構成します。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/ShadowProperty.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/ShadowProperty.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {

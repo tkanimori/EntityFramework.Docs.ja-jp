@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 0278353640ea242df9e6ee5278c9dda78bfd341b
-ms.sourcegitcommit: 7b7f774a5966b20d2aed5435a672a1edbe73b6fb
+ms.openlocfilehash: 910136871cce5818b8e70a012e5132259b66e4c1
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/17/2019
-ms.locfileid: "69565271"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197582"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core ツールリファレンス-.NET CLI
 
@@ -33,7 +33,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 * `dotnet ef`は、グローバルまたはローカルのツールとしてインストールする必要があります。 ほとんどの開発者`dotnet ef`は、次のコマンドを使用して、をグローバルツールとしてインストールします。
 
   ``` console
-  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef
   ```
 
   をローカルツールと`dotnet ef`して使用することもできます。 ローカルツールとして使用するには、[ツールマニフェストファイル](https://github.com/dotnet/cli/issues/10288)を使用して、ツールの依存関係として宣言するプロジェクトの依存関係を復元します。

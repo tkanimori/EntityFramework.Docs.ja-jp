@@ -3,35 +3,63 @@ title: サポートされている .NET 実装 - EF Core
 author: rowanmiller
 ms.date: 08/30/2017
 uid: core/platforms/index
-ms.openlocfilehash: 8fc25f4a35794162c92fd292990c24e977d1bf1b
-ms.sourcegitcommit: 5e11125c9b838ce356d673ef5504aec477321724
+ms.openlocfilehash: ac3cf3d0a84200bbf4ba7ec18b9115e06d1748f4
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/25/2018
-ms.locfileid: "50022263"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149219"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>EF Core でサポートされている .NET 実装
 
-Microsoft は .NET コードを記述できるあらゆる場所で EF Core を使えるようにすることを目指しており、その目標に向かって現在も取り組んでいます。 EF Core の .NET Core および .NET Framework でのサポートは、自動テストによってカバーされており、多くのアプリケーションがそれを正常に使用していることがわかっていますが、Mono、Xamarin、UWP にはいくつか問題があります。
+私達は、最新の .NET 実装を使用するすべての開発者が EF Core を使用できることを希望しており、その目標に向けて取り組んでいます。 EF Core の .NET Core でのサポートは、自動テストされており、多くのアプリケーションで正常に使用できることがわかっていますが、Mono、Xamarin、UWP ではいくつか問題があります。
 
 ## <a name="overview"></a>概要
 
 .NET 実装のガイダンスを下の表にまとめました。
 
-| .NET 実装                                                                                                  | Status                                                             | EF Core 1.x の要件                                                                                | EF Core 2.x の要件 <sup>(1)</sup>                                                                 |
-|:---------------------------------------------------------------------------------------------------------------------|:-------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------|:--------------------------------------------------------------------------------------------------------|
-| **.NET Core** ([ASP.NET Core](../get-started/aspnetcore/index.md)、[コンソール](../get-started/netcore/index.md)など) | 完全サポート/推奨                                    | [.NET Core SDK 1.x](https://www.microsoft.com/net/core/)                                                | [.NET Core SDK 2.x](https://www.microsoft.com/net/core/)                                                |
-| **.NET Framework** (WinForms、WPF、ASP.NET、[コンソール](../get-started/full-dotnet/index.md)など)                    | 完全サポート/推奨 EF6 も使用できます <sup>(2)</sup> | .NET Framework 4.5.1                                                                                    | .NET Framework 4.6.1                                                                                    |
-| **Mono & Xamarin**                                                                                                   | 進行中 <sup>(3)</sup>                                         | Mono 4.6 <br/> Xamarin.iOS 10 <br/> Xamarin.Mac 3 <br/> Xamarin.Android 7                               | Mono 5.4 <br/> Xamarin.iOS 10.14 <br/> Xamarin.Mac 3.8 <br/> Xamarin.Android 7.5                        |
-| [**ユニバーサル Windows プラットフォーム**](../get-started/uwp/index.md)                                                        | EF Core 2.0.1 を推奨 <sup>(4)</sup>                           | [.NET Core UWP 5.x パッケージ](https://www.nuget.org/packages/Microsoft.NETCore.UniversalWindowsPlatform/) | [.NET Core UWP 6.x パッケージ](https://www.nuget.org/packages/Microsoft.NETCore.UniversalWindowsPlatform/) |
+| EF Core                       | 1.x    | 2.x        | 3.x             |
+|:------------------------------|:-------|:-----------|:----------------|
+| .NET Standard                 | 1.3    | 2.0        | 2.1             |
+| .NET Core                     | 1    | 2.0        | 3.0             |
+| .NET Framework<sup>(1)</sup>  | 4.5.1  | 4.7.2      | (サポートされていません) |
+| Mono                          | 4.6    | 5.4        | 6.4             |
+| Xamarin.iOS<sup>(2)</sup>     | 10.0   | 10.14      | 12.16           |
+| Xamarin.Android<sup>(2)</sup> | 7.0    | 8.0        | 10.0            |
+| UWP<sup>(3)</sup>             | 10.0   | 10.0.16299 | TBD             |
+| Unity<sup>(4)</sup>           | 2018.1 | 2018.1     | TBD             |
 
-<sup>(1)</sup> EF Core 2.0 は、[.NET Standard 2.0](https://docs.microsoft.com/dotnet/standard/net-standard) をサポートする .NET の実装を対象とし、そのためこれを必要とします。
+<sup>(1)</sup> 下記の「[.NET Framework](#net-framework)」のセクションを参照してください。
 
-<sup>(2)</sup> 適切なテクノロジを選択するには、「[Compare EF Core & EF6](../../efcore-and-ef6/index.md)」(EF Core と EF6 を比較する) を参照してください。
+<sup>(2)</sup> Xamarin には、EF Core 2 で開発された一部のアプリケーションが正しく動作しない問題と既知の制限があります。 回避策については、[アクティブな懸案事項](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-xamarin)の一覧を確認してください。
 
-<sup>(3)</sup> Xamarin には問題と既知の制限があり、そのために、EF Core 2.0 で開発された一部のアプリケーションが正しく動作しない可能性があります。 回避策については、[アクティブな懸案事項](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-xamarin)の一覧を確認してください。
+<sup>(3)</sup> EF Core 2.0.1 以降をお勧めします。 [.NET Core UWP 6.x パッケージ](https://www.nuget.org/packages/Microsoft.NETCore.UniversalWindowsPlatform/)をインストールします。 この記事の「[ユニバーサル Windows プラットフォーム](#universal-windows-platform)」のセクションを参照してください。
 
-<sup>(4)</sup> この記事の「[ユニバーサル Windows プラットフォーム](#universal-windows-platform)」セクションをご覧ください。
+<sup>(4)</sup> Unity には、問題と既知の制限があります。 [アクティブな懸案事項](https://github.com/aspnet/entityframeworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aarea-unity)の一覧を確認してください。
+
+## <a name="net-framework"></a>.NET Framework
+
+.NET Framework をターゲットとするアプリケーションを .NET Standard のライブラリと連携させるには、次のような変更が必要になる可能性があります。
+
+プロジェクト ファイルを編集し、初期プロパティ グループに次のエントリが表示されるようにします。
+
+``` xml
+<AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
+```
+
+テスト プロジェクトの場合、次のエントリも必要です。
+
+``` xml
+<GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
+```
+
+それよりも古いバージョンの Visual Studio を使用する場合は、必ず [NuGet クライアントをバージョン 3.6.0 にアップグレードしてください](https://www.nuget.org/downloads)。これで .NET Standard 2.0 のライブラリと連携できるようになります。
+
+また、可能であれば、NuGet の packages.config を PackageReference に移行することをお勧めします。 次のプロパティをプロジェクト ファイルに追加します。
+
+``` xml
+<RestoreProjectStyle>PackageReference</RestoreProjectStyle>
+```
 
 ## <a name="universal-windows-platform"></a>ユニバーサル Windows プラットフォーム
 
