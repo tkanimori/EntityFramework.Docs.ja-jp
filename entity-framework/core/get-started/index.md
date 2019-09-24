@@ -1,39 +1,169 @@
 ---
 title: 概要 - EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+author: rick-anderson
+ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: b846d63f2c285a43d60eecfb2be3d460a5d31924
-ms.sourcegitcommit: 064b09431f05848830e145a6cd65cad58881557c
+ms.openlocfilehash: b921d1e99b07bdeb24fb81e16f65d9fef444bd33
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/28/2018
-ms.locfileid: "52552595"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149013"
 ---
-# <a name="getting-started-with-entity-framework-core"></a><span data-ttu-id="5c5b6-102">Entity Framework Core の概要</span><span class="sxs-lookup"><span data-stu-id="5c5b6-102">Getting Started with Entity Framework Core</span></span>
+# <a name="getting-started-with-ef-core"></a><span data-ttu-id="becf8-102">EF Core の概要</span><span class="sxs-lookup"><span data-stu-id="becf8-102">Getting Started with EF Core</span></span>
 
-## <a name="installing-ef-coreinstallindexmd"></a>[<span data-ttu-id="5c5b6-103">EF Core のインストール</span><span class="sxs-lookup"><span data-stu-id="5c5b6-103">Installing EF Core</span></span>](install/index.md)
+<span data-ttu-id="becf8-103">このチュートリアルでは、Entity Framework Core を使用して SQLite データベースに対してデータ アクセスを実行する .NET Core コンソール アプリを作成します。</span><span class="sxs-lookup"><span data-stu-id="becf8-103">In this tutorial, you create a .NET Core console app that performs data access against a SQLite database using Entity Framework Core.</span></span>
 
-<span data-ttu-id="5c5b6-104">さまざまなプラットフォームと人気の IDE でアプリケーションに EF Core を追加するために必要な手順のまとめ。</span><span class="sxs-lookup"><span data-stu-id="5c5b6-104">A summary of the steps necessary to add EF Core to your application in different platforms and popular IDEs.</span></span>
+<span data-ttu-id="becf8-104">このチュートリアルは、Windows 上の Visual Studio または Windows、macOS または Linux. 上の .NET Core CLI を対象としています。</span><span class="sxs-lookup"><span data-stu-id="becf8-104">You can follow the tutorial by using Visual Studio on Windows, or by using the .NET Core CLI on Windows, macOS, or Linux.</span></span>
 
-## <a name="step-by-step-tutorials"></a><span data-ttu-id="5c5b6-105">ステップ バイ ステップのチュートリアル</span><span class="sxs-lookup"><span data-stu-id="5c5b6-105">Step-by-step Tutorials</span></span>
+<span data-ttu-id="becf8-105">[この記事のサンプルは GitHub で確認してください](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted)。</span><span class="sxs-lookup"><span data-stu-id="becf8-105">[View this article's sample on GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/GetStarted).</span></span>
 
-<span data-ttu-id="5c5b6-106">これらの入門用チュートリアルでは、Entity Framework Core や特定の IDE に関する予備知識は必要ありません。</span><span class="sxs-lookup"><span data-stu-id="5c5b6-106">These introductory tutorials require no previous knowledge of Entity Framework Core or any particular IDE.</span></span> <span data-ttu-id="5c5b6-107">そこでは、データベースを照会し、データを保存する単純なアプリケーションを、ステップ バイ ステップで作成していきます。</span><span class="sxs-lookup"><span data-stu-id="5c5b6-107">They will take you step-by-step through the creation of a simple application that queries and saves data from a database.</span></span> <span data-ttu-id="5c5b6-108">Microsoft は、さまざまなシステムやアプリケーションで始めるためのチュートリアルを提供してきました。</span><span class="sxs-lookup"><span data-stu-id="5c5b6-108">We have provided tutorials to get you started on various operating systems and application types.</span></span>
+## <a name="prerequisites"></a><span data-ttu-id="becf8-106">必須コンポーネント</span><span class="sxs-lookup"><span data-stu-id="becf8-106">Prerequisites</span></span>
 
-<span data-ttu-id="5c5b6-109">Entity Framework Core では、既存のデータベースに基づいてモデルを作成したり、自分のモデルに基づいてデータベースを自動作成させたりできます。</span><span class="sxs-lookup"><span data-stu-id="5c5b6-109">Entity Framework Core can create a model based on an existing database, or create a database for you based on your model.</span></span> <span data-ttu-id="5c5b6-110">両方の手法を紹介するチュートリアルを用意しています。</span><span class="sxs-lookup"><span data-stu-id="5c5b6-110">There are tutorials that demonstrate both of these approaches.</span></span>
+<span data-ttu-id="becf8-107">以下のソフトウェアをインストールします。</span><span class="sxs-lookup"><span data-stu-id="becf8-107">Install the following software:</span></span>
 
-* <span data-ttu-id="5c5b6-111">.NET Core コンソール アプリ</span><span class="sxs-lookup"><span data-stu-id="5c5b6-111">.NET Core Console Apps</span></span>
-  * [<span data-ttu-id="5c5b6-112">新しいデータベース</span><span class="sxs-lookup"><span data-stu-id="5c5b6-112">New Database</span></span>](netcore/new-db-sqlite.md)
-* <span data-ttu-id="5c5b6-113">ASP.NET Core アプリ</span><span class="sxs-lookup"><span data-stu-id="5c5b6-113">ASP.NET Core Apps</span></span>
-  * [<span data-ttu-id="5c5b6-114">新しいデータベース</span><span class="sxs-lookup"><span data-stu-id="5c5b6-114">New Database</span></span>](aspnetcore/new-db.md)
-  * [<span data-ttu-id="5c5b6-115">既存のデータベース</span><span class="sxs-lookup"><span data-stu-id="5c5b6-115">Existing Database</span></span>](aspnetcore/existing-db.md)
-  * [<span data-ttu-id="5c5b6-116">EF Core と Razor ページ</span><span class="sxs-lookup"><span data-stu-id="5c5b6-116">EF Core and Razor Pages</span></span>](/aspnet/core/data/ef-rp/intro)
-* <span data-ttu-id="5c5b6-117">ユニバーサル Windows プラットフォーム (UWP) アプリ</span><span class="sxs-lookup"><span data-stu-id="5c5b6-117">Universal Windows Platform (UWP) Apps</span></span>
-  * [<span data-ttu-id="5c5b6-118">新しいデータベース</span><span class="sxs-lookup"><span data-stu-id="5c5b6-118">New Database</span></span>](uwp/getting-started.md)
-* <span data-ttu-id="5c5b6-119">.NET Framework アプリ</span><span class="sxs-lookup"><span data-stu-id="5c5b6-119">.NET Framework Apps</span></span>
-  * [<span data-ttu-id="5c5b6-120">新しいデータベース</span><span class="sxs-lookup"><span data-stu-id="5c5b6-120">New Database</span></span>](full-dotnet/new-db.md)
-  * [<span data-ttu-id="5c5b6-121">既存のデータベース</span><span class="sxs-lookup"><span data-stu-id="5c5b6-121">Existing Database</span></span>](full-dotnet/existing-db.md)
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="becf8-108">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="becf8-108">.NET Core CLI</span></span>](#tab/netcore-cli)
 
-> [!NOTE]  
-> <span data-ttu-id="5c5b6-122">これらのチュートリアルと付属のサンプルは、EF Core 2.1 を使用するために更新されました。</span><span class="sxs-lookup"><span data-stu-id="5c5b6-122">These tutorials and the accompanying samples have been updated to use EF Core 2.1.</span></span> <span data-ttu-id="5c5b6-123">ただし、ほとんどの場合、命令を最小限変更するだけで、以前のリリースを使用するアプリケーションを作成できるはずです。</span><span class="sxs-lookup"><span data-stu-id="5c5b6-123">However, in the majority of cases it should be possible to create applications that use previous releases, with minimal modification to the instructions.</span></span> 
+* <span data-ttu-id="becf8-109">[.NET Core 3.0 SDK](https://www.microsoft.com/net/download/core)</span><span class="sxs-lookup"><span data-stu-id="becf8-109">[.NET Core 3.0 SDK](https://www.microsoft.com/net/download/core).</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="becf8-110">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="becf8-110">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="becf8-111">次のワークロードでは、[Visual Studio 2019 バージョン 16.3 以降](https://www.visualstudio.com/downloads/):</span><span class="sxs-lookup"><span data-stu-id="becf8-111">[Visual Studio 2019 version 16.3 or later](https://www.visualstudio.com/downloads/) with this  workload:</span></span>
+  * <span data-ttu-id="becf8-112">**.NET Core クロスプラットフォームの開発** ( **[他のツールセット]** の下)</span><span class="sxs-lookup"><span data-stu-id="becf8-112">**.NET Core cross-platform development** (under **Other Toolsets**)</span></span>
+
+---
+
+## <a name="create-a-new-project"></a><span data-ttu-id="becf8-113">新しいプロジェクトを作成する</span><span class="sxs-lookup"><span data-stu-id="becf8-113">Create a new project</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="becf8-114">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="becf8-114">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+``` Console
+dotnet new console -o EFGetStarted
+cd EFGetStarted
+```
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="becf8-115">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="becf8-115">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="becf8-116">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="becf8-116">Open Visual Studio</span></span>
+* <span data-ttu-id="becf8-117">**[新しいプロジェクトの作成]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="becf8-117">Click **Create a new project**</span></span>
+* <span data-ttu-id="becf8-118"><bpt id="p2">**</bpt>C#<ept id="p2">**</ept> タグと共に <bpt id="p1">**</bpt>[Console App (.NET Core)]\(コンソール アプリ (.NET Core)\)<ept id="p1">**</ept> を選択し、<bpt id="p3">**</bpt>[次へ]<ept id="p3">**</ept> をクリックします。</span><span class="sxs-lookup"><span data-stu-id="becf8-118">Select **Console App (.NET Core)** with the **C#** tag and click **Next**</span></span>
+* <span data-ttu-id="becf8-119">名前に「**EFGetStarted**」を入力して **[作成]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="becf8-119">Enter **EFGetStarted** for the name and click **Create**</span></span>
+
+---
+
+## <a name="install-entity-framework-core"></a><span data-ttu-id="becf8-120">Entity Framework Core をインストールする</span><span class="sxs-lookup"><span data-stu-id="becf8-120">Install Entity Framework Core</span></span>
+
+<span data-ttu-id="becf8-121">EF Core をインストールするには、対象となる EF Core データベース プロバイダーのパッケージをインストールします。</span><span class="sxs-lookup"><span data-stu-id="becf8-121">To install EF Core, you install the package for the EF Core database provider(s) you want to target.</span></span> <span data-ttu-id="becf8-122">このチュートリアルでは、.NET Core がサポートしているすべてのプラットフォームで実行できるため、SQLite を使用しています。</span><span class="sxs-lookup"><span data-stu-id="becf8-122">This tutorial uses SQLite because it runs on all platforms that .NET Core supports.</span></span> <span data-ttu-id="becf8-123">使用可能なプロバイダーの一覧については、「[Database Providers](../providers/index.md)」 (データベース プロバイダー) をご覧ください。</span><span class="sxs-lookup"><span data-stu-id="becf8-123">For a list of available providers, see [Database Providers](../providers/index.md).</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="becf8-124">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="becf8-124">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+``` Console
+dotnet add package Microsoft.EntityFrameworkCore.Sqlite
+```
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="becf8-125">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="becf8-125">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="becf8-126">**[ツール] > [NuGet パッケージ マネージャー] > [パッケージ マネージャー コンソール]**</span><span class="sxs-lookup"><span data-stu-id="becf8-126">**Tools > NuGet Package Manager > Package Manager Console**</span></span>
+* <span data-ttu-id="becf8-127">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="becf8-127">Run the following commands:</span></span>
+
+  ``` PowerShell
+  Install-Package Microsoft.EntityFrameworkCore.Sqlite
+  ```
+
+<span data-ttu-id="becf8-128">ヒント :プロジェクトを右クリックし、 **[NuGet パッケージの管理]** を選択してパッケージをインストールすることもできます。</span><span class="sxs-lookup"><span data-stu-id="becf8-128">Tip: You can also install packages by right-clicking on the project and selecting **Manage NuGet Packages**</span></span>
+
+---
+
+## <a name="create-the-model"></a><span data-ttu-id="becf8-129">モデルを作成する</span><span class="sxs-lookup"><span data-stu-id="becf8-129">Create the model</span></span>
+
+<span data-ttu-id="becf8-130">モデルを構成するコンテキスト クラスおよびエンティティ クラスを定義します。</span><span class="sxs-lookup"><span data-stu-id="becf8-130">Define a context class and entity classes that make up the model.</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="becf8-131">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="becf8-131">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+* <span data-ttu-id="becf8-132">以下のコードを使用して、プロジェクト ディレクトリで **Model.cs** を作成します。</span><span class="sxs-lookup"><span data-stu-id="becf8-132">In the project directory create **Model.cs** with the following code</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="becf8-133">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="becf8-133">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="becf8-134">プロジェクト名を右クリックし、 **[追加]、[クラス]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="becf8-134">Right-click on the project and select **Add > Class**</span></span>
+* <span data-ttu-id="becf8-135">名前に「**Model.cs**」を入力して **[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="becf8-135">Enter **Model.cs** as the name and click **Add**</span></span>
+* <span data-ttu-id="becf8-136">このファイルの内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="becf8-136">Replace the contents of the file with the following code</span></span>
+
+---
+
+[!code-csharp[Main](../../../samples/core/GetStarted/Model.cs)]
+
+<span data-ttu-id="becf8-137">EF Core では、既存のデータベースからモデルを[リバース エンジニアリング](../managing-schemas/scaffolding.md)することもできます。</span><span class="sxs-lookup"><span data-stu-id="becf8-137">EF Core can also [reverse engineer](../managing-schemas/scaffolding.md) a model from an existing database.</span></span>
+
+<span data-ttu-id="becf8-138">ヒント :実際のアプリでは、クラスはそれぞれ別々のファイルに記述し、[接続文字列](../miscellaneous/connection-strings.md)は構成ファイルまたは環境変数に記述します。</span><span class="sxs-lookup"><span data-stu-id="becf8-138">Tip: In a real app, you put each class in a separate file and put the [connection string](../miscellaneous/connection-strings.md) in a configuration file or environment variable.</span></span> <span data-ttu-id="becf8-139">チュートリアルをわかりやすくするために、すべてを 1 つのファイルに記述しています。</span><span class="sxs-lookup"><span data-stu-id="becf8-139">To keep the tutorial simple, everything is contained in one file.</span></span>
+
+## <a name="create-the-database"></a><span data-ttu-id="becf8-140">データベースの作成</span><span class="sxs-lookup"><span data-stu-id="becf8-140">Create the database</span></span>
+
+<span data-ttu-id="becf8-141">次の手順では、[移行](xref:core/managing-schemas/migrations/index)を使用し、データベースを作成しています。</span><span class="sxs-lookup"><span data-stu-id="becf8-141">The following steps use [migrations](xref:core/managing-schemas/migrations/index) to create a database.</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="becf8-142">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="becf8-142">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+* <span data-ttu-id="becf8-143">次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="becf8-143">Run the following commands:</span></span>
+
+  ``` Console
+  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet add package Microsoft.EntityFrameworkCore.Design
+  dotnet ef migrations add InitialCreate
+  dotnet ef database update
+  ```
+
+  <span data-ttu-id="becf8-144">これにより、プロジェクトでコマンドを実行するために必要な [dotnet ef](../miscellaneous/cli/dotnet.md) と設計パッケージがインストールされます。</span><span class="sxs-lookup"><span data-stu-id="becf8-144">This installs [dotnet ef](../miscellaneous/cli/dotnet.md) and the design package which is required to run the command on a project.</span></span> <span data-ttu-id="becf8-145">この `migrations` では、モデルの最初のテーブル セットを作成する移行がスキャフォールディングされます。</span><span class="sxs-lookup"><span data-stu-id="becf8-145">The `migrations` command scaffolds a migration to create the initial set of tables for the model.</span></span> <span data-ttu-id="becf8-146">`database update` コマンドではデータベースが作成され、それに新しい移行が適用されます。</span><span class="sxs-lookup"><span data-stu-id="becf8-146">The `database update` command creates the database and applies the new migration to it.</span></span>
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="becf8-147">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="becf8-147">Visual Studio</span></span>](#tab/visual-studio)
+
+* <span data-ttu-id="becf8-148">**パッケージ マネージャー コンソール**で、次のコマンドを実行します。</span><span class="sxs-lookup"><span data-stu-id="becf8-148">Run the following commands in **Package Manager Console**</span></span>
+
+  ``` PowerShell
+  Install-Package Microsoft.EntityFrameworkCore.Tools
+  Add-Migration InitialCreate
+  Update-Database
+  ```
+
+  <span data-ttu-id="becf8-149">これにより [EF Core 用の PMC ツール](../miscellaneous/cli/powershell.md)がインストールされます。</span><span class="sxs-lookup"><span data-stu-id="becf8-149">This installs the [PMC tools for EF Core](../miscellaneous/cli/powershell.md).</span></span> <span data-ttu-id="becf8-150">この `Add-Migration` では、モデルの最初のテーブル セットを作成する移行がスキャフォールディングされます。</span><span class="sxs-lookup"><span data-stu-id="becf8-150">The `Add-Migration` command scaffolds a migration to create the initial set of tables for the model.</span></span> <span data-ttu-id="becf8-151">`Update-Database` コマンドではデータベースが作成され、それに新しい移行が適用されます。</span><span class="sxs-lookup"><span data-stu-id="becf8-151">The `Update-Database` command creates the database and applies the new migration to it.</span></span>
+
+---
+
+## <a name="create-read-update--delete"></a><span data-ttu-id="becf8-152">作成、読み取り、更新、および削除</span><span class="sxs-lookup"><span data-stu-id="becf8-152">Create, read, update & delete</span></span>
+
+* <span data-ttu-id="becf8-153">*Program.cs* を開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="becf8-153">Open *Program.cs* and replace the contents with the following code:</span></span>
+
+  [!code-csharp[Main](../../../samples/core/GetStarted/Program.cs)]
+
+## <a name="run-the-app"></a><span data-ttu-id="becf8-154">アプリを実行する</span><span class="sxs-lookup"><span data-stu-id="becf8-154">Run the app</span></span>
+
+# <a name="net-core-clitabnetcore-cli"></a>[<span data-ttu-id="becf8-155">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="becf8-155">.NET Core CLI</span></span>](#tab/netcore-cli)
+
+``` Console
+dotnet run
+```
+
+# <a name="visual-studiotabvisual-studio"></a>[<span data-ttu-id="becf8-156">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="becf8-156">Visual Studio</span></span>](#tab/visual-studio)
+
+<span data-ttu-id="becf8-157">Visual Studio で、.NET Core コンソール アプリの実行時に使用される作業ディレクトリには一貫性がありません。</span><span class="sxs-lookup"><span data-stu-id="becf8-157">Visual Studio uses an inconsistent working directory when running .NET Core console apps.</span></span> <span data-ttu-id="becf8-158">(「<bpt id="p1">[</bpt>dotnet/project-system#3619<ept id="p1">]」 (https://github.com/dotnet/project-system/issues/3619)</ept> を参照)。これにより、「<bpt id="p2">*</bpt>no such table:Blogs<ept id="p2">*</ept>」\(そのようなテーブルはありません: ブログ\) という例外がスローされます。</span><span class="sxs-lookup"><span data-stu-id="becf8-158">(see [dotnet/project-system#3619](https://github.com/dotnet/project-system/issues/3619)) This results in an exception being thrown: *no such table: Blogs*.</span></span> <span data-ttu-id="becf8-159">作業ディレクトリを更新するには:</span><span class="sxs-lookup"><span data-stu-id="becf8-159">To update the working directory:</span></span>
+
+* <span data-ttu-id="becf8-160">プロジェクトを右クリックし、 **[プロジェクト ファイルの編集]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="becf8-160">Right-click on the project and select **Edit Project File**</span></span>
+* <span data-ttu-id="becf8-161">*[TargetFramework]* プロパティの直下に、次を追加します。</span><span class="sxs-lookup"><span data-stu-id="becf8-161">Just below the *TargetFramework* property, add the following:</span></span>
+
+  ``` XML
+  <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
+  ```
+
+* <span data-ttu-id="becf8-162">ファイルを保存します。</span><span class="sxs-lookup"><span data-stu-id="becf8-162">Save the file</span></span>
+
+<span data-ttu-id="becf8-163">これで次のように、そのアプリを実行できます。</span><span class="sxs-lookup"><span data-stu-id="becf8-163">Now you can run the app:</span></span>
+
+* <span data-ttu-id="becf8-164">**[デバッグ] > [デバッグなしで開始]**</span><span class="sxs-lookup"><span data-stu-id="becf8-164">**Debug > Start Without Debugging**</span></span>
+
+---
+
+# <a name="next-steps"></a><span data-ttu-id="becf8-165">次の手順</span><span class="sxs-lookup"><span data-stu-id="becf8-165">Next steps</span></span>
+
+* <span data-ttu-id="becf8-166">Web アプリでの EF Core の使用には、[ASP.NET Core のチュートリアル](/aspnet/core/data/ef-rp/intro)のページを参照してください</span><span class="sxs-lookup"><span data-stu-id="becf8-166">Follow the [ASP.NET Core Tutorial](/aspnet/core/data/ef-rp/intro) to use EF Core in a web app</span></span>
+* <span data-ttu-id="becf8-167">[LINQ クエリ式](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)について参照してください</span><span class="sxs-lookup"><span data-stu-id="becf8-167">Learn more about [LINQ query expressions](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)</span></span>
+* <span data-ttu-id="becf8-168">[required](xref:core/modeling/required-optional) や [maximum length](xref:core/modeling/max-length) などを指定し、[モデルを構成](xref:core/modeling/index)します</span><span class="sxs-lookup"><span data-stu-id="becf8-168">[Configure your model](xref:core/modeling/index) to specify things like [required](xref:core/modeling/required-optional) and [maximum length](xref:core/modeling/max-length)</span></span>
+* <span data-ttu-id="becf8-169">モデルの変更後のデータベース スキーマの更新に、[Migrations](xref:core/managing-schemas/migrations/index) を使用します</span><span class="sxs-lookup"><span data-stu-id="becf8-169">Use [Migrations](xref:core/managing-schemas/migrations/index) to update the database schema after changing your model</span></span>

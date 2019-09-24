@@ -1,63 +1,90 @@
 ---
-title: EF Core のログ記録
+title: ログ記録-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 0a996403afdbe076b1690c98eeb305b40c4d1f4a
-ms.sourcegitcommit: 109a16478de498b65717a6e09be243647e217fb3
+ms.openlocfilehash: 6a8499f9f0220087e76f2e0b3a75ce551c4ddb80
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/10/2019
-ms.locfileid: "55985575"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197506"
 ---
-# <a name="logging"></a><span data-ttu-id="23ee2-102">ログの記録</span><span class="sxs-lookup"><span data-stu-id="23ee2-102">Logging</span></span>
+# <a name="logging"></a><span data-ttu-id="8b6ad-102">ログの記録</span><span class="sxs-lookup"><span data-stu-id="8b6ad-102">Logging</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="23ee2-103">この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging)は GitHub で確認できます。</span><span class="sxs-lookup"><span data-stu-id="23ee2-103">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging) on GitHub.</span></span>
+> <span data-ttu-id="8b6ad-103">この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging)は GitHub で確認できます。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-103">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging) on GitHub.</span></span>
 
-## <a name="aspnet-core-applications"></a><span data-ttu-id="23ee2-104">ASP.NET Core アプリケーション</span><span class="sxs-lookup"><span data-stu-id="23ee2-104">ASP.NET Core applications</span></span>
+## <a name="aspnet-core-applications"></a><span data-ttu-id="8b6ad-104">ASP.NET Core アプリケーション</span><span class="sxs-lookup"><span data-stu-id="8b6ad-104">ASP.NET Core applications</span></span>
 
-<span data-ttu-id="23ee2-105">ASP.NET Core のログ記録メカニズムと EF Core を自動的に統合されるたびに`AddDbContext`または`AddDbContextPool`使用されます。</span><span class="sxs-lookup"><span data-stu-id="23ee2-105">EF Core integrates automatically with the logging mechanisms of ASP.NET Core whenever `AddDbContext` or `AddDbContextPool` is used.</span></span> <span data-ttu-id="23ee2-106">したがって、ASP.NET Core を使用して、ログ記録する必要があります構成」の説明に従って、 [ASP.NET Core ドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)します。</span><span class="sxs-lookup"><span data-stu-id="23ee2-106">Therefore, when using ASP.NET Core, logging should be configured as described in the [ASP.NET Core documentation](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).</span></span>
+<span data-ttu-id="8b6ad-105">EF Core は、また`AddDbContext` `AddDbContextPool`はが使用されるたびに、ASP.NET Core のログメカニズムと自動的に統合されます。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-105">EF Core integrates automatically with the logging mechanisms of ASP.NET Core whenever `AddDbContext` or `AddDbContextPool` is used.</span></span> <span data-ttu-id="8b6ad-106">そのため、ASP.NET Core を使用する場合は、 [ASP.NET Core のドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)で説明されているようにログ記録を構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-106">Therefore, when using ASP.NET Core, logging should be configured as described in the [ASP.NET Core documentation](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).</span></span>
 
-## <a name="other-applications"></a><span data-ttu-id="23ee2-107">他のアプリケーション</span><span class="sxs-lookup"><span data-stu-id="23ee2-107">Other applications</span></span>
+## <a name="other-applications"></a><span data-ttu-id="8b6ad-107">その他のアプリケーション</span><span class="sxs-lookup"><span data-stu-id="8b6ad-107">Other applications</span></span>
 
-<span data-ttu-id="23ee2-108">EF Core の現在ログ記録では、1 つまたは複数の ILoggerProvider で構成されている自体が ILoggerFactory が必要です。</span><span class="sxs-lookup"><span data-stu-id="23ee2-108">EF Core logging currently requires an ILoggerFactory which is itself configured with one or more ILoggerProvider.</span></span> <span data-ttu-id="23ee2-109">一般的なプロバイダーは、次のパッケージで出荷されます。</span><span class="sxs-lookup"><span data-stu-id="23ee2-109">Common providers are shipped in the following packages:</span></span>
+<span data-ttu-id="8b6ad-108">EF Core のログ記録には、それ自体が1つ以上のログプロバイダーで構成された ILoggerFactory が必要です。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-108">EF Core logging requires an ILoggerFactory which is itself configured with one or more logging providers.</span></span> <span data-ttu-id="8b6ad-109">共通プロバイダーは、次のパッケージに付属しています。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-109">Common providers are shipped in the following packages:</span></span>
 
-* <span data-ttu-id="23ee2-110">[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/):単純なコンソール ロガー。</span><span class="sxs-lookup"><span data-stu-id="23ee2-110">[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): A simple console logger.</span></span>
-* <span data-ttu-id="23ee2-111">[Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/):Azure App Service '診断ログ' と 'ログ ストリーム' 機能をサポートしています。</span><span class="sxs-lookup"><span data-stu-id="23ee2-111">[Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Supports Azure App Services 'Diagnostics logs' and 'Log stream' features.</span></span>
-* <span data-ttu-id="23ee2-112">[Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/):デバッガーにログを System.Diagnostics.Debug.WriteLine() を使用して監視します。</span><span class="sxs-lookup"><span data-stu-id="23ee2-112">[Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Logs to a debugger monitor using System.Diagnostics.Debug.WriteLine().</span></span>
-* <span data-ttu-id="23ee2-113">[Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/):Windows イベント ログに記録します。</span><span class="sxs-lookup"><span data-stu-id="23ee2-113">[Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Logs to Windows Event Log.</span></span>
-* <span data-ttu-id="23ee2-114">[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/):EventSource/EventListener をサポートしています。</span><span class="sxs-lookup"><span data-stu-id="23ee2-114">[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): Supports EventSource/EventListener.</span></span>
-* <span data-ttu-id="23ee2-115">[Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/):System.Diagnostics.TraceSource.TraceEvent() を使用してトレース リスナーにログ。</span><span class="sxs-lookup"><span data-stu-id="23ee2-115">[Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Logs to a trace listener using System.Diagnostics.TraceSource.TraceEvent().</span></span>
+* <span data-ttu-id="8b6ad-110">[Microsoft.](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/).Logging. コンソール:単純なコンソールロガー。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-110">[Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/): A simple console logger.</span></span>
+* <span data-ttu-id="8b6ad-111">[Microsoft.](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/)..... service:では、Azure アプリ Services の "診断ログ" 機能と "ログストリーム" 機能がサポートされています。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-111">[Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/): Supports Azure App Services 'Diagnostics logs' and 'Log stream' features.</span></span>
+* <span data-ttu-id="8b6ad-112">[Microsoft. 拡張子。デバッグ](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/):システムの診断 () を使用してデバッガーモニターにログを記録します。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-112">[Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/): Logs to a debugger monitor using System.Diagnostics.Debug.WriteLine().</span></span>
+* <span data-ttu-id="8b6ad-113">[Microsoft. 拡張子. Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/):Windows イベントログにログを記録します。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-113">[Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/): Logs to Windows Event Log.</span></span>
+* <span data-ttu-id="8b6ad-114">[Microsoft.](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/).Logging:EventSource/EventListener をサポートします。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-114">[Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/): Supports EventSource/EventListener.</span></span>
+* <span data-ttu-id="8b6ad-115">... [Logging. TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/):を使用して`System.Diagnostics.TraceSource.TraceEvent()`トレースリスナーにログを記録します。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-115">[Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/): Logs to a trace listener using `System.Diagnostics.TraceSource.TraceEvent()`.</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="23ee2-116">次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンストラクター。</span><span class="sxs-lookup"><span data-stu-id="23ee2-116">The following code sample uses a `ConsoleLoggerProvider` constructor that has been obsoleted in version 2.2.</span></span> <span data-ttu-id="23ee2-117">古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。</span><span class="sxs-lookup"><span data-stu-id="23ee2-117">Proper replacements for obsolete logging APIs will be available in version 3.0.</span></span> <span data-ttu-id="23ee2-118">それまでは、無視し、警告を抑制しても安全です。</span><span class="sxs-lookup"><span data-stu-id="23ee2-118">In the meantime, it is safe to ignore and suppress the warnings.</span></span>
+<span data-ttu-id="8b6ad-116">適切なパッケージをインストールした後、アプリケーションは Server.loggerfactory のシングルトン/グローバルインスタンスを作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-116">After installing the appropriate package(s), the application should create a singleton/global instance of a LoggerFactory.</span></span> <span data-ttu-id="8b6ad-117">たとえば、コンソールロガーを使用すると、次のようになります。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-117">For example, using the console logger:</span></span>
 
-<span data-ttu-id="23ee2-119">適切なパッケージをインストールした後、アプリケーションは、LoggerFactory のシングルトン/グローバル インスタンスを作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="23ee2-119">After installing the appropriate package(s), the application should create a singleton/global instance of a LoggerFactory.</span></span> <span data-ttu-id="23ee2-120">たとえば、コンソール ロガーを使用します。</span><span class="sxs-lookup"><span data-stu-id="23ee2-120">For example, using the console logger:</span></span>
+# <a name="version-30tabv3"></a>[<span data-ttu-id="8b6ad-118">バージョン3.0</span><span class="sxs-lookup"><span data-stu-id="8b6ad-118">Version 3.0</span></span>](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#DefineLoggerFactory)]
 
-<span data-ttu-id="23ee2-121">EF Core のこのシングルトン/グローバル インスタンスが登録し、必要がある、`DbContextOptionsBuilder`します。</span><span class="sxs-lookup"><span data-stu-id="23ee2-121">This singleton/global instance should then be registered with EF Core on the `DbContextOptionsBuilder`.</span></span> <span data-ttu-id="23ee2-122">例:</span><span class="sxs-lookup"><span data-stu-id="23ee2-122">For example:</span></span>
+# <a name="version-2xtabv2"></a>[<span data-ttu-id="8b6ad-119">バージョン2.x</span><span class="sxs-lookup"><span data-stu-id="8b6ad-119">Version 2.x</span></span>](#tab/v2)
+
+> [!NOTE]
+> <span data-ttu-id="8b6ad-120">次のコードサンプルでは`ConsoleLoggerProvider` 、バージョン2.2 で廃止され、3.0 で置き換えられたコンストラクターを使用しています。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-120">The following code sample uses a `ConsoleLoggerProvider` constructor that has been obsoleted in version 2.2 and replaced in 3.0.</span></span> <span data-ttu-id="8b6ad-121">2\.2 を使用すると、警告を無視して非表示にするのが安全です。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-121">It is safe to ignore and suppress the warnings when using 2.2.</span></span>
+
+``` csharp
+public static readonly LoggerFactory MyLoggerFactory
+    = new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
+```
+
+***
+
+<span data-ttu-id="8b6ad-122">このシングルトン/グローバルインスタンスは、の`DbContextOptionsBuilder`EF Core に登録する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-122">This singleton/global instance should then be registered with EF Core on the `DbContextOptionsBuilder`.</span></span> <span data-ttu-id="8b6ad-123">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-123">For example:</span></span>
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#RegisterLoggerFactory)]
 
 > [!WARNING]
-> <span data-ttu-id="23ee2-123">アプリケーションは、コンテキスト インスタンスごとに新しい ILoggerFactory インスタンスを作成しないことが非常に重要です。</span><span class="sxs-lookup"><span data-stu-id="23ee2-123">It is very important that applications do not create a new ILoggerFactory instance for each context instance.</span></span> <span data-ttu-id="23ee2-124">これは、メモリ リークとパフォーマンスの低下になります。</span><span class="sxs-lookup"><span data-stu-id="23ee2-124">Doing so will result in a memory leak and poor performance.</span></span>
+> <span data-ttu-id="8b6ad-124">アプリケーションでは、コンテキストインスタンスごとに新しい ILoggerFactory インスタンスを作成しないことが非常に重要です。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-124">It is very important that applications do not create a new ILoggerFactory instance for each context instance.</span></span> <span data-ttu-id="8b6ad-125">そうすると、メモリリークが発生し、パフォーマンスが低下します。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-125">Doing so will result in a memory leak and poor performance.</span></span>
 
-## <a name="filtering-what-is-logged"></a><span data-ttu-id="23ee2-125">記録内容がフィルター処理</span><span class="sxs-lookup"><span data-stu-id="23ee2-125">Filtering what is logged</span></span>
+## <a name="filtering-what-is-logged"></a><span data-ttu-id="8b6ad-126">ログ記録対象のフィルター処理</span><span class="sxs-lookup"><span data-stu-id="8b6ad-126">Filtering what is logged</span></span>
 
-> [!NOTE]
-> <span data-ttu-id="23ee2-126">次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンストラクター。</span><span class="sxs-lookup"><span data-stu-id="23ee2-126">The following code sample uses a `ConsoleLoggerProvider` constructor that has been obsoleted in version 2.2.</span></span> <span data-ttu-id="23ee2-127">古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。</span><span class="sxs-lookup"><span data-stu-id="23ee2-127">Proper replacements for obsolete logging APIs will be available in version 3.0.</span></span> <span data-ttu-id="23ee2-128">それまでは、無視し、警告を抑制しても安全です。</span><span class="sxs-lookup"><span data-stu-id="23ee2-128">In the meantime, it is safe to ignore and suppress the warnings.</span></span>
+<span data-ttu-id="8b6ad-127">アプリケーションでは、ILoggerProvider でフィルターを構成することによって、ログ記録の内容を制御できます。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-127">The application can control what is logged by configuring a filter on the ILoggerProvider.</span></span> <span data-ttu-id="8b6ad-128">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-128">For example:</span></span>
 
-<span data-ttu-id="23ee2-129">記録内容がフィルター処理する最も簡単な方法では、ILoggerProvider を登録するときに、これを構成します。</span><span class="sxs-lookup"><span data-stu-id="23ee2-129">The easiest way to filter what is logged is to configure it when registering the ILoggerProvider.</span></span> <span data-ttu-id="23ee2-130">例:</span><span class="sxs-lookup"><span data-stu-id="23ee2-130">For example:</span></span>
+# <a name="version-30tabv3"></a>[<span data-ttu-id="8b6ad-129">バージョン3.0</span><span class="sxs-lookup"><span data-stu-id="8b6ad-129">Version 3.0</span></span>](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContextWithFiltering.cs#DefineLoggerFactory)]
 
-<span data-ttu-id="23ee2-131">この例では、メッセージのみを返すため、ログをフィルター処理します。</span><span class="sxs-lookup"><span data-stu-id="23ee2-131">In this example, the log is filtered to return only messages:</span></span>
- * <span data-ttu-id="23ee2-132">'Microsoft.EntityFrameworkCore.Database.Command' カテゴリ</span><span class="sxs-lookup"><span data-stu-id="23ee2-132">in the 'Microsoft.EntityFrameworkCore.Database.Command' category</span></span>
- * <span data-ttu-id="23ee2-133">'情報' レベルで</span><span class="sxs-lookup"><span data-stu-id="23ee2-133">at the 'Information' level</span></span>
+# <a name="version-2xtabv2"></a>[<span data-ttu-id="8b6ad-130">バージョン2.x</span><span class="sxs-lookup"><span data-stu-id="8b6ad-130">Version 2.x</span></span>](#tab/v2)
 
-<span data-ttu-id="23ee2-134">EF Core 用ロガー カテゴリが定義されている、`DbLoggerCategory`単純な文字列を解決するには、カテゴリが、これらを見つけやすいようにするクラス。</span><span class="sxs-lookup"><span data-stu-id="23ee2-134">For EF Core, logger categories are defined in the `DbLoggerCategory` class to make it easy to find categories, but these resolve to simple strings.</span></span>
+> [!NOTE]
+> <span data-ttu-id="8b6ad-131">次のコードサンプルでは`ConsoleLoggerProvider` 、バージョン2.2 で廃止され、3.0 で置き換えられたコンストラクターを使用しています。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-131">The following code sample uses a `ConsoleLoggerProvider` constructor that has been obsoleted in version 2.2 and replaced in 3.0.</span></span> <span data-ttu-id="8b6ad-132">2\.2 を使用すると、警告を無視して非表示にするのが安全です。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-132">It is safe to ignore and suppress the warnings when using 2.2.</span></span>
 
-<span data-ttu-id="23ee2-135">詳細については、基になるログ記録インフラストラクチャが記載されて、 [ASP.NET Core のログ記録に関するドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)します。</span><span class="sxs-lookup"><span data-stu-id="23ee2-135">More details on the underlying logging infrastructure can be found in the [ASP.NET Core logging documentation](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).</span></span>
+``` csharp
+public static readonly LoggerFactory MyLoggerFactory
+    = new LoggerFactory(new[]
+    {
+        new ConsoleLoggerProvider((category, level)
+            => category == DbLoggerCategory.Database.Command.Name
+               && level == LogLevel.Information, true)
+    });
+```
+
+***
+
+<span data-ttu-id="8b6ad-133">この例では、ログは、メッセージのみを返すようにフィルター処理されています。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-133">In this example, the log is filtered to only return messages:</span></span>
+ * <span data-ttu-id="8b6ad-134">' Microsoft. EntityFrameworkCore. Database. Command ' カテゴリ</span><span class="sxs-lookup"><span data-stu-id="8b6ad-134">in the 'Microsoft.EntityFrameworkCore.Database.Command' category</span></span>
+ * <span data-ttu-id="8b6ad-135">' 情報 ' レベル</span><span class="sxs-lookup"><span data-stu-id="8b6ad-135">at the 'Information' level</span></span>
+
+<span data-ttu-id="8b6ad-136">EF Core の場合、logger カテゴリは`DbLoggerCategory`クラスで定義されるため、カテゴリを簡単に見つけることができますが、単純な文字列に解決されます。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-136">For EF Core, logger categories are defined in the `DbLoggerCategory` class to make it easy to find categories, but these resolve to simple strings.</span></span>
+
+<span data-ttu-id="8b6ad-137">基になるログ記録インフラストラクチャの詳細については、 [ASP.NET Core のログ記録に関するドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)を参照してください。</span><span class="sxs-lookup"><span data-stu-id="8b6ad-137">More details on the underlying logging infrastructure can be found in the [ASP.NET Core logging documentation](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x).</span></span>

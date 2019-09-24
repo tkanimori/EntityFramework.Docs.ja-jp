@@ -1,36 +1,36 @@
 ---
-title: 外部キー制約 - EF Core
+title: Foreign Key 制約-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: dbaf4bac-1fd5-46c0-ac57-64d7153bc574
 uid: core/modeling/relational/fk-constraints
-ms.openlocfilehash: a83f72b5d832e349fb4a5fb3b2de0b82bd79ef2a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d7ed4466f4df9ec01267b048ba1bbcc6e8bbdad5
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993989"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197063"
 ---
-# <a name="foreign-key-constraints"></a><span data-ttu-id="f1db1-102">外部キー制約</span><span class="sxs-lookup"><span data-stu-id="f1db1-102">Foreign Key Constraints</span></span>
+# <a name="foreign-key-constraints"></a><span data-ttu-id="40370-102">外部キー制約</span><span class="sxs-lookup"><span data-stu-id="40370-102">Foreign Key Constraints</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="f1db1-103">このセクションの構成は、リレーショナル データベース全般に適用されます。</span><span class="sxs-lookup"><span data-stu-id="f1db1-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="f1db1-104">ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。</span><span class="sxs-lookup"><span data-stu-id="f1db1-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
+> <span data-ttu-id="40370-103">このセクションの構成は、リレーショナル データベース全般に適用されます。</span><span class="sxs-lookup"><span data-stu-id="40370-103">The configuration in this section is applicable to relational databases in general.</span></span> <span data-ttu-id="40370-104">ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。</span><span class="sxs-lookup"><span data-stu-id="40370-104">The extension methods shown here will become available when you install a relational database provider (due to the shared *Microsoft.EntityFrameworkCore.Relational* package).</span></span>
 
-<span data-ttu-id="f1db1-105">モデル内の各リレーションシップの外部キー制約が導入されました。</span><span class="sxs-lookup"><span data-stu-id="f1db1-105">A foreign key constraint is introduced for each relationship in the model.</span></span>
+<span data-ttu-id="40370-105">外部キー制約は、モデル内のリレーションシップごとに導入されます。</span><span class="sxs-lookup"><span data-stu-id="40370-105">A foreign key constraint is introduced for each relationship in the model.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="f1db1-106">規約</span><span class="sxs-lookup"><span data-stu-id="f1db1-106">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="40370-106">規約</span><span class="sxs-lookup"><span data-stu-id="40370-106">Conventions</span></span>
 
-<span data-ttu-id="f1db1-107">慣例により、外部キー制約の名前は`FK_<dependent type name>_<principal type name>_<foreign key property name>`します。</span><span class="sxs-lookup"><span data-stu-id="f1db1-107">By convention, foreign key constraints are named `FK_<dependent type name>_<principal type name>_<foreign key property name>`.</span></span> <span data-ttu-id="f1db1-108">複合外部キーの`<foreign key property name>`は外部キー プロパティ名、アンダー スコア区切りリストになります。</span><span class="sxs-lookup"><span data-stu-id="f1db1-108">For composite foreign keys `<foreign key property name>` becomes an underscore separated list of foreign key property names.</span></span>
+<span data-ttu-id="40370-107">規則により、外部キー制約に`FK_<dependent type name>_<principal type name>_<foreign key property name>`はという名前が付けられます。</span><span class="sxs-lookup"><span data-stu-id="40370-107">By convention, foreign key constraints are named `FK_<dependent type name>_<principal type name>_<foreign key property name>`.</span></span> <span data-ttu-id="40370-108">複合外部キー `<foreign key property name>`の場合は、外部キープロパティ名のアンダースコアで区切られたリストになります。</span><span class="sxs-lookup"><span data-stu-id="40370-108">For composite foreign keys `<foreign key property name>` becomes an underscore separated list of foreign key property names.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="f1db1-109">データの注釈</span><span class="sxs-lookup"><span data-stu-id="f1db1-109">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="40370-109">データの注釈</span><span class="sxs-lookup"><span data-stu-id="40370-109">Data Annotations</span></span>
 
-<span data-ttu-id="f1db1-110">データ注釈を使用して外部キー制約名を構成することはできません。</span><span class="sxs-lookup"><span data-stu-id="f1db1-110">Foreign key constraint names cannot be configured using data annotations.</span></span>
+<span data-ttu-id="40370-110">外部キー制約の名前は、データ注釈を使用して構成することはできません。</span><span class="sxs-lookup"><span data-stu-id="40370-110">Foreign key constraint names cannot be configured using data annotations.</span></span>
 
-## <a name="fluent-api"></a><span data-ttu-id="f1db1-111">Fluent API</span><span class="sxs-lookup"><span data-stu-id="f1db1-111">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="40370-111">Fluent API</span><span class="sxs-lookup"><span data-stu-id="40370-111">Fluent API</span></span>
 
-<span data-ttu-id="f1db1-112">Fluent API を使用して、リレーションシップの外部キー制約名を構成することができます。</span><span class="sxs-lookup"><span data-stu-id="f1db1-112">You can use the Fluent API to configure the foreign key constraint name for a relationship.</span></span>
+<span data-ttu-id="40370-112">Fluent API を使用して、リレーションシップの外部キー制約の名前を構成できます。</span><span class="sxs-lookup"><span data-stu-id="40370-112">You can use the Fluent API to configure the foreign key constraint name for a relationship.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/RelationshipConstraintName.cs?highlight=12)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/RelationshipConstraintName.cs?highlight=12)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -62,6 +62,6 @@ public class Post
     public string Content { get; set; }
 
     public int BlogId { get; set; }
-    public Blog Blog { get; set; }
+    public Blog Blog { get; set; }
 }
 ```

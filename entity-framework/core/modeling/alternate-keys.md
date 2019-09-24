@@ -1,30 +1,30 @@
 ---
-title: 代替キー - EF Core
+title: 代替キー-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 8a5931d4-b480-4298-af36-0e29d74a37c0
 uid: core/modeling/alternate-keys
-ms.openlocfilehash: b26d8bc1630af9e811d9c4e7da850a618bc8042e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 87df5d174a1db12fb3ab763ac76c3b863a83087e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996972"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197463"
 ---
-# <a name="alternate-keys"></a><span data-ttu-id="1c82e-102">代替キー</span><span class="sxs-lookup"><span data-stu-id="1c82e-102">Alternate Keys</span></span>
+# <a name="alternate-keys"></a><span data-ttu-id="45dea-102">代替キー</span><span class="sxs-lookup"><span data-stu-id="45dea-102">Alternate Keys</span></span>
 
-<span data-ttu-id="1c82e-103">代替キーは、主キーだけでなくエンティティのインスタンスごとに、代替の一意の識別子として機能します。</span><span class="sxs-lookup"><span data-stu-id="1c82e-103">An alternate key serves as an alternate unique identifier for each entity instance in addition to the primary key.</span></span> <span data-ttu-id="1c82e-104">代替キーは、リレーションシップのターゲットとして使用できます。</span><span class="sxs-lookup"><span data-stu-id="1c82e-104">Alternate keys can be used as the target of a relationship.</span></span> <span data-ttu-id="1c82e-105">リレーショナル データベースを使用する場合に代替のキーの列と 1 つまたは複数外部キー制約、列を参照する一意のインデックス/制約の概念にマッピングします。</span><span class="sxs-lookup"><span data-stu-id="1c82e-105">When using a relational database this maps to the concept of a unique index/constraint on the alternate key column(s) and one or more foreign key constraints that reference the column(s).</span></span>
+<span data-ttu-id="45dea-103">代替キーは、主キーに加えて、各エンティティインスタンスの代替一意識別子として機能します。</span><span class="sxs-lookup"><span data-stu-id="45dea-103">An alternate key serves as an alternate unique identifier for each entity instance in addition to the primary key.</span></span> <span data-ttu-id="45dea-104">代替キーは、リレーションシップのターゲットとして使用できます。</span><span class="sxs-lookup"><span data-stu-id="45dea-104">Alternate keys can be used as the target of a relationship.</span></span> <span data-ttu-id="45dea-105">リレーショナルデータベースを使用する場合、これは代替キー列の一意のインデックス/制約の概念と、その列を参照する1つ以上の foreign key 制約にマップされます。</span><span class="sxs-lookup"><span data-stu-id="45dea-105">When using a relational database this maps to the concept of a unique index/constraint on the alternate key column(s) and one or more foreign key constraints that reference the column(s).</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="1c82e-106">代替キーではなく、一意のインデックスが必要し、列の一意性を適用する場合は、「[インデックス](indexes.md)します。</span><span class="sxs-lookup"><span data-stu-id="1c82e-106">If you just want to enforce uniqueness of a column then you want a unique index rather than an alternate key, see [Indexes](indexes.md).</span></span> <span data-ttu-id="1c82e-107">Ef には、外部キーのターゲットとして使用されることがあるために、代替キーは一意のインデックスよりもより多くの機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="1c82e-107">In EF, alternate keys provide greater functionality than unique indexes because they can be used as the target of a foreign key.</span></span>
+> <span data-ttu-id="45dea-106">列の一意性を確保するだけの場合は、別のキーではなく一意のインデックスを作成するには、「[インデックス](indexes.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="45dea-106">If you just want to enforce uniqueness of a column then you want a unique index rather than an alternate key, see [Indexes](indexes.md).</span></span> <span data-ttu-id="45dea-107">EF では、代替キーは外部キーのターゲットとして使用できるため、一意のインデックスよりも多くの機能を提供します。</span><span class="sxs-lookup"><span data-stu-id="45dea-107">In EF, alternate keys provide greater functionality than unique indexes because they can be used as the target of a foreign key.</span></span>
 
-<span data-ttu-id="1c82e-108">通常、この代替キーが必要なときに導入されています。 および、それらを手動で構成する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="1c82e-108">Alternate keys are typically introduced for you when needed and you do not need to manually configure them.</span></span> <span data-ttu-id="1c82e-109">参照してください[規則](#conventions)の詳細。</span><span class="sxs-lookup"><span data-stu-id="1c82e-109">See [Conventions](#conventions) for more details.</span></span>
+<span data-ttu-id="45dea-108">通常、代替キーは必要に応じて導入され、手動で構成する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="45dea-108">Alternate keys are typically introduced for you when needed and you do not need to manually configure them.</span></span> <span data-ttu-id="45dea-109">詳細については、「[規約](#conventions)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="45dea-109">See [Conventions](#conventions) for more details.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="1c82e-110">規約</span><span class="sxs-lookup"><span data-stu-id="1c82e-110">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="45dea-110">規約</span><span class="sxs-lookup"><span data-stu-id="45dea-110">Conventions</span></span>
 
-<span data-ttu-id="1c82e-111">慣例により、リレーションシップのターゲットとして、主キーではないプロパティを識別する場合の代替キーが導入されました。</span><span class="sxs-lookup"><span data-stu-id="1c82e-111">By convention, an alternate key is introduced for you when you identify a property, that is not the primary key, as the target of a relationship.</span></span>
+<span data-ttu-id="45dea-111">慣例により、主キーではないプロパティをリレーションシップのターゲットとして指定すると、代替キーが導入されます。</span><span class="sxs-lookup"><span data-stu-id="45dea-111">By convention, an alternate key is introduced for you when you identify a property, that is not the primary key, as the target of a relationship.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/AlternateKey.cs?highlight=12)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/AlternateKey.cs?highlight=12)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -60,15 +60,15 @@ public class Post
 }
 ```
 
-## <a name="data-annotations"></a><span data-ttu-id="1c82e-112">データの注釈</span><span class="sxs-lookup"><span data-stu-id="1c82e-112">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="45dea-112">データの注釈</span><span class="sxs-lookup"><span data-stu-id="45dea-112">Data Annotations</span></span>
 
-<span data-ttu-id="1c82e-113">代替キーは、データ注釈を使用していない構成できます。</span><span class="sxs-lookup"><span data-stu-id="1c82e-113">Alternate keys can not be configured using Data Annotations.</span></span>
+<span data-ttu-id="45dea-113">データ注釈を使用して代替キーを構成することはできません。</span><span class="sxs-lookup"><span data-stu-id="45dea-113">Alternate keys can not be configured using Data Annotations.</span></span>
 
-## <a name="fluent-api"></a><span data-ttu-id="1c82e-114">Fluent API</span><span class="sxs-lookup"><span data-stu-id="1c82e-114">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="45dea-114">Fluent API</span><span class="sxs-lookup"><span data-stu-id="45dea-114">Fluent API</span></span>
 
-<span data-ttu-id="1c82e-115">Fluent API を使用して、代替キーを 1 つのプロパティを構成することができます。</span><span class="sxs-lookup"><span data-stu-id="1c82e-115">You can use the Fluent API to configure a single property to be an alternate key.</span></span>
+<span data-ttu-id="45dea-115">Fluent API を使用して、1つのプロパティを代替キーとして構成することができます。</span><span class="sxs-lookup"><span data-stu-id="45dea-115">You can use the Fluent API to configure a single property to be an alternate key.</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeySingle.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeySingle.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -90,9 +90,9 @@ class Car
 }
 ```
 
-<span data-ttu-id="1c82e-116">(別の複合キーと呼ばれます) は代替キーの複数のプロパティを構成するのに Fluent API を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="1c82e-116">You can also use the Fluent API to configure multiple properties to be an alternate key (known as a composite alternate key).</span></span>
+<span data-ttu-id="45dea-116">また、Fluent API を使用して、複数のプロパティを別のキー (複合代替キーと呼ばれます) として構成することもできます。</span><span class="sxs-lookup"><span data-stu-id="45dea-116">You can also use the Fluent API to configure multiple properties to be an alternate key (known as a composite alternate key).</span></span>
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeyComposite.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeyComposite.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {

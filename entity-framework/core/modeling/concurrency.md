@@ -1,57 +1,57 @@
 ---
-title: 同時実行トークン - EF Core
+title: 同時実行トークン-EF Core
 author: rowanmiller
 ms.date: 03/03/2018
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 uid: core/modeling/concurrency
-ms.openlocfilehash: 0051d416544a11385f99d36e45843c5b20725af7
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: db768c1de99000be91d33764ccd3c3924237f8bb
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994227"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197453"
 ---
-# <a name="concurrency-tokens"></a><span data-ttu-id="36618-102">同時実行制御トークン</span><span class="sxs-lookup"><span data-stu-id="36618-102">Concurrency Tokens</span></span>
+# <a name="concurrency-tokens"></a><span data-ttu-id="469ff-102">コンカレンシー トークン</span><span class="sxs-lookup"><span data-stu-id="469ff-102">Concurrency Tokens</span></span>
 
 > [!NOTE]
-> <span data-ttu-id="36618-103">このページは、同時実行制御トークンを構成する方法を説明します。</span><span class="sxs-lookup"><span data-stu-id="36618-103">This page documents how to configure concurrency tokens.</span></span> <span data-ttu-id="36618-104">参照してください[同時実行競合の処理](../saving/concurrency.md)EF Core と、アプリケーションで同時実行の競合を処理する方法の例での同時実行制御のしくみの詳細についてはします。</span><span class="sxs-lookup"><span data-stu-id="36618-104">See [Handling Concurrency Conflicts](../saving/concurrency.md) for a detailed explanation of how concurrency control works on EF Core and examples of how to handle concurrency conflicts in your application.</span></span>
+> <span data-ttu-id="469ff-103">このページでは、同時実行トークンの構成方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="469ff-103">This page documents how to configure concurrency tokens.</span></span> <span data-ttu-id="469ff-104">EF Core での同時実行制御のしくみと、アプリケーションで同時実行の競合を処理する方法の例については、「[同時実行の競合の処理](../saving/concurrency.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="469ff-104">See [Handling Concurrency Conflicts](../saving/concurrency.md) for a detailed explanation of how concurrency control works on EF Core and examples of how to handle concurrency conflicts in your application.</span></span>
 
-<span data-ttu-id="36618-105">同時実行トークンとして構成されているプロパティは、オプティミスティック同時実行制御を実装するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="36618-105">Properties configured as concurrency tokens are used to implement optimistic concurrency control.</span></span>
+<span data-ttu-id="469ff-105">同時実行トークンとして構成されたプロパティは、オプティミスティック同時実行制御を実装するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="469ff-105">Properties configured as concurrency tokens are used to implement optimistic concurrency control.</span></span>
 
-## <a name="conventions"></a><span data-ttu-id="36618-106">規約</span><span class="sxs-lookup"><span data-stu-id="36618-106">Conventions</span></span>
+## <a name="conventions"></a><span data-ttu-id="469ff-106">規約</span><span class="sxs-lookup"><span data-stu-id="469ff-106">Conventions</span></span>
 
-<span data-ttu-id="36618-107">慣例により、プロパティは同時実行トークンとして構成されることはありません。</span><span class="sxs-lookup"><span data-stu-id="36618-107">By convention, properties are never configured as concurrency tokens.</span></span>
+<span data-ttu-id="469ff-107">慣例により、プロパティは同時実行トークンとして構成されません。</span><span class="sxs-lookup"><span data-stu-id="469ff-107">By convention, properties are never configured as concurrency tokens.</span></span>
 
-## <a name="data-annotations"></a><span data-ttu-id="36618-108">データの注釈</span><span class="sxs-lookup"><span data-stu-id="36618-108">Data Annotations</span></span>
+## <a name="data-annotations"></a><span data-ttu-id="469ff-108">データの注釈</span><span class="sxs-lookup"><span data-stu-id="469ff-108">Data Annotations</span></span>
 
-<span data-ttu-id="36618-109">データ注釈を使用して、同時実行トークンとしてプロパティを構成することができます。</span><span class="sxs-lookup"><span data-stu-id="36618-109">You can use the Data Annotations to configure a property as a concurrency token.</span></span>
+<span data-ttu-id="469ff-109">データ注釈を使用して、プロパティを同時実行トークンとして構成できます。</span><span class="sxs-lookup"><span data-stu-id="469ff-109">You can use the Data Annotations to configure a property as a concurrency token.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Concurrency.cs#ConfigureConcurrencyAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs#ConfigureConcurrencyAnnotations)]
 
-## <a name="fluent-api"></a><span data-ttu-id="36618-110">Fluent API</span><span class="sxs-lookup"><span data-stu-id="36618-110">Fluent API</span></span>
+## <a name="fluent-api"></a><span data-ttu-id="469ff-110">Fluent API</span><span class="sxs-lookup"><span data-stu-id="469ff-110">Fluent API</span></span>
 
-<span data-ttu-id="36618-111">Fluent API を使用して、同時実行トークンとしてプロパティを構成することができます。</span><span class="sxs-lookup"><span data-stu-id="36618-111">You can use the Fluent API to configure a property as a concurrency token.</span></span>
+<span data-ttu-id="469ff-111">Fluent API を使用して、プロパティを同時実行トークンとして構成できます。</span><span class="sxs-lookup"><span data-stu-id="469ff-111">You can use the Fluent API to configure a property as a concurrency token.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Concurrency.cs#ConfigureConcurrencyFluent)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs#ConfigureConcurrencyFluent)]
 
-## <a name="timestamprow-version"></a><span data-ttu-id="36618-112">タイムスタンプや行のバージョン</span><span class="sxs-lookup"><span data-stu-id="36618-112">Timestamp/row version</span></span>
+## <a name="timestamprow-version"></a><span data-ttu-id="469ff-112">タイムスタンプ/行バージョン</span><span class="sxs-lookup"><span data-stu-id="469ff-112">Timestamp/row version</span></span>
 
-<span data-ttu-id="36618-113">タイムスタンプは、行が挿入または更新されるたびにデータベースによってで新しい値が生成された場所のプロパティです。</span><span class="sxs-lookup"><span data-stu-id="36618-113">A timestamp is a property where a new value is generated by the database every time a row is inserted or updated.</span></span> <span data-ttu-id="36618-114">プロパティは、同時実行トークンとしても扱われます。</span><span class="sxs-lookup"><span data-stu-id="36618-114">The property is also treated as a concurrency token.</span></span> <span data-ttu-id="36618-115">これにより、他のユーザー データのクエリを実行するために更新しようとしている行を変更した場合、例外が発生します。</span><span class="sxs-lookup"><span data-stu-id="36618-115">This ensures you will get an exception if anyone else has modified a row that you are trying to update since you queried for the data.</span></span>
+<span data-ttu-id="469ff-113">Timestamp は、行が挿入または更新されるたびにデータベースによって新しい値が生成されるプロパティです。</span><span class="sxs-lookup"><span data-stu-id="469ff-113">A timestamp is a property where a new value is generated by the database every time a row is inserted or updated.</span></span> <span data-ttu-id="469ff-114">プロパティは同時実行トークンとしても扱われます。</span><span class="sxs-lookup"><span data-stu-id="469ff-114">The property is also treated as a concurrency token.</span></span> <span data-ttu-id="469ff-115">これにより、データを照会した後に更新しようとしている行が他のユーザーによって変更された場合に、例外が発生します。</span><span class="sxs-lookup"><span data-stu-id="469ff-115">This ensures you will get an exception if anyone else has modified a row that you are trying to update since you queried for the data.</span></span>
 
-<span data-ttu-id="36618-116">これを実現する方法は、使用中のデータベース プロバイダーの責任です。</span><span class="sxs-lookup"><span data-stu-id="36618-116">How this is achieved is up to the database provider being used.</span></span> <span data-ttu-id="36618-117">For SQL Server をタイムスタンプは通常の使用、 *byte[]* としては、プロパティの設定、 *ROWVERSION*データベース内の列。</span><span class="sxs-lookup"><span data-stu-id="36618-117">For SQL Server, timestamp is usually used on a *byte[]* property, which will be setup as a *ROWVERSION* column in the database.</span></span>
+<span data-ttu-id="469ff-116">これは、使用されているデータベースプロバイダーによって実現されます。</span><span class="sxs-lookup"><span data-stu-id="469ff-116">How this is achieved is up to the database provider being used.</span></span> <span data-ttu-id="469ff-117">SQL Server の場合、timestamp は通常、 *byte []* プロパティで使用されます。このプロパティは、データベースの*ROWVERSION*列として設定されます。</span><span class="sxs-lookup"><span data-stu-id="469ff-117">For SQL Server, timestamp is usually used on a *byte[]* property, which will be setup as a *ROWVERSION* column in the database.</span></span>
 
-### <a name="conventions"></a><span data-ttu-id="36618-118">規約</span><span class="sxs-lookup"><span data-stu-id="36618-118">Conventions</span></span>
+### <a name="conventions"></a><span data-ttu-id="469ff-118">規約</span><span class="sxs-lookup"><span data-stu-id="469ff-118">Conventions</span></span>
 
-<span data-ttu-id="36618-119">慣例により、プロパティはタイムスタンプとして構成されることはありません。</span><span class="sxs-lookup"><span data-stu-id="36618-119">By convention, properties are never configured as timestamps.</span></span>
+<span data-ttu-id="469ff-119">慣例により、プロパティはタイムスタンプとして構成されません。</span><span class="sxs-lookup"><span data-stu-id="469ff-119">By convention, properties are never configured as timestamps.</span></span>
 
-### <a name="data-annotations"></a><span data-ttu-id="36618-120">データの注釈</span><span class="sxs-lookup"><span data-stu-id="36618-120">Data Annotations</span></span>
+### <a name="data-annotations"></a><span data-ttu-id="469ff-120">データの注釈</span><span class="sxs-lookup"><span data-stu-id="469ff-120">Data Annotations</span></span>
 
-<span data-ttu-id="36618-121">データ注釈を使用して、タイムスタンプとしてプロパティを構成することができます。</span><span class="sxs-lookup"><span data-stu-id="36618-121">You can use Data Annotations to configure a property as a timestamp.</span></span>
+<span data-ttu-id="469ff-121">データ注釈を使用して、プロパティをタイムスタンプとして構成できます。</span><span class="sxs-lookup"><span data-stu-id="469ff-121">You can use Data Annotations to configure a property as a timestamp.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Timestamp.cs#ConfigureTimestampAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs#ConfigureTimestampAnnotations)]
 
-### <a name="fluent-api"></a><span data-ttu-id="36618-122">Fluent API</span><span class="sxs-lookup"><span data-stu-id="36618-122">Fluent API</span></span>
+### <a name="fluent-api"></a><span data-ttu-id="469ff-122">Fluent API</span><span class="sxs-lookup"><span data-stu-id="469ff-122">Fluent API</span></span>
 
-<span data-ttu-id="36618-123">タイムスタンプ プロパティを構成するのには、Fluent API を使用できます。</span><span class="sxs-lookup"><span data-stu-id="36618-123">You can use the Fluent API to configure a property as a timestamp.</span></span>
+<span data-ttu-id="469ff-123">Fluent API を使用して、プロパティをタイムスタンプとして構成できます。</span><span class="sxs-lookup"><span data-stu-id="469ff-123">You can use the Fluent API to configure a property as a timestamp.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Timestamp.cs#ConfigureTimestampFluent)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Timestamp.cs#ConfigureTimestampFluent)]
