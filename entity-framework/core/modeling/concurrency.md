@@ -1,57 +1,57 @@
 ---
-title: 同時実行トークン - EF Core
+title: 同時実行トークン-EF Core
 author: rowanmiller
 ms.date: 03/03/2018
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 uid: core/modeling/concurrency
-ms.openlocfilehash: 0051d416544a11385f99d36e45843c5b20725af7
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: db768c1de99000be91d33764ccd3c3924237f8bb
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994227"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197453"
 ---
-# <a name="concurrency-tokens"></a>同時実行制御トークン
+# <a name="concurrency-tokens"></a>コンカレンシー トークン
 
 > [!NOTE]
-> このページは、同時実行制御トークンを構成する方法を説明します。 参照してください[同時実行競合の処理](../saving/concurrency.md)EF Core と、アプリケーションで同時実行の競合を処理する方法の例での同時実行制御のしくみの詳細についてはします。
+> このページでは、同時実行トークンの構成方法について説明します。 EF Core での同時実行制御のしくみと、アプリケーションで同時実行の競合を処理する方法の例については、「[同時実行の競合の処理](../saving/concurrency.md)」を参照してください。
 
-同時実行トークンとして構成されているプロパティは、オプティミスティック同時実行制御を実装するために使用されます。
+同時実行トークンとして構成されたプロパティは、オプティミスティック同時実行制御を実装するために使用されます。
 
 ## <a name="conventions"></a>規約
 
-慣例により、プロパティは同時実行トークンとして構成されることはありません。
+慣例により、プロパティは同時実行トークンとして構成されません。
 
 ## <a name="data-annotations"></a>データの注釈
 
-データ注釈を使用して、同時実行トークンとしてプロパティを構成することができます。
+データ注釈を使用して、プロパティを同時実行トークンとして構成できます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Concurrency.cs#ConfigureConcurrencyAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs#ConfigureConcurrencyAnnotations)]
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、同時実行トークンとしてプロパティを構成することができます。
+Fluent API を使用して、プロパティを同時実行トークンとして構成できます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Concurrency.cs#ConfigureConcurrencyFluent)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs#ConfigureConcurrencyFluent)]
 
-## <a name="timestamprow-version"></a>タイムスタンプや行のバージョン
+## <a name="timestamprow-version"></a>タイムスタンプ/行バージョン
 
-タイムスタンプは、行が挿入または更新されるたびにデータベースによってで新しい値が生成された場所のプロパティです。 プロパティは、同時実行トークンとしても扱われます。 これにより、他のユーザー データのクエリを実行するために更新しようとしている行を変更した場合、例外が発生します。
+Timestamp は、行が挿入または更新されるたびにデータベースによって新しい値が生成されるプロパティです。 プロパティは同時実行トークンとしても扱われます。 これにより、データを照会した後に更新しようとしている行が他のユーザーによって変更された場合に、例外が発生します。
 
-これを実現する方法は、使用中のデータベース プロバイダーの責任です。 For SQL Server をタイムスタンプは通常の使用、 *byte[]* としては、プロパティの設定、 *ROWVERSION*データベース内の列。
+これは、使用されているデータベースプロバイダーによって実現されます。 SQL Server の場合、timestamp は通常、 *byte []* プロパティで使用されます。このプロパティは、データベースの*ROWVERSION*列として設定されます。
 
 ### <a name="conventions"></a>規約
 
-慣例により、プロパティはタイムスタンプとして構成されることはありません。
+慣例により、プロパティはタイムスタンプとして構成されません。
 
 ### <a name="data-annotations"></a>データの注釈
 
-データ注釈を使用して、タイムスタンプとしてプロパティを構成することができます。
+データ注釈を使用して、プロパティをタイムスタンプとして構成できます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Samples/Timestamp.cs#ConfigureTimestampAnnotations)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs#ConfigureTimestampAnnotations)]
 
 ### <a name="fluent-api"></a>Fluent API
 
-タイムスタンプ プロパティを構成するのには、Fluent API を使用できます。
+Fluent API を使用して、プロパティをタイムスタンプとして構成できます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Samples/Timestamp.cs#ConfigureTimestampFluent)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Timestamp.cs#ConfigureTimestampFluent)]

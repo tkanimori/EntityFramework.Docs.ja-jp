@@ -1,36 +1,36 @@
 ---
-title: 外部キー制約 - EF Core
+title: Foreign Key 制約-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: dbaf4bac-1fd5-46c0-ac57-64d7153bc574
 uid: core/modeling/relational/fk-constraints
-ms.openlocfilehash: a83f72b5d832e349fb4a5fb3b2de0b82bd79ef2a
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d7ed4466f4df9ec01267b048ba1bbcc6e8bbdad5
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42993989"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197063"
 ---
 # <a name="foreign-key-constraints"></a>外部キー制約
 
 > [!NOTE]  
 > このセクションの構成は、リレーショナル データベース全般に適用されます。 ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。
 
-モデル内の各リレーションシップの外部キー制約が導入されました。
+外部キー制約は、モデル内のリレーションシップごとに導入されます。
 
 ## <a name="conventions"></a>規約
 
-慣例により、外部キー制約の名前は`FK_<dependent type name>_<principal type name>_<foreign key property name>`します。 複合外部キーの`<foreign key property name>`は外部キー プロパティ名、アンダー スコア区切りリストになります。
+規則により、外部キー制約に`FK_<dependent type name>_<principal type name>_<foreign key property name>`はという名前が付けられます。 複合外部キー `<foreign key property name>`の場合は、外部キープロパティ名のアンダースコアで区切られたリストになります。
 
 ## <a name="data-annotations"></a>データの注釈
 
-データ注釈を使用して外部キー制約名を構成することはできません。
+外部キー制約の名前は、データ注釈を使用して構成することはできません。
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、リレーションシップの外部キー制約名を構成することができます。
+Fluent API を使用して、リレーションシップの外部キー制約の名前を構成できます。
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/Relational/RelationshipConstraintName.cs?highlight=12)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Relational/RelationshipConstraintName.cs?highlight=12)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -62,6 +62,6 @@ public class Post
     public string Content { get; set; }
 
     public int BlogId { get; set; }
-    public Blog Blog { get; set; }
+    public Blog Blog { get; set; }
 }
 ```

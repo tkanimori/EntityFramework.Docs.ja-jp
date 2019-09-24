@@ -1,30 +1,30 @@
 ---
-title: 代替キー - EF Core
+title: 代替キー-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 8a5931d4-b480-4298-af36-0e29d74a37c0
 uid: core/modeling/alternate-keys
-ms.openlocfilehash: b26d8bc1630af9e811d9c4e7da850a618bc8042e
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 87df5d174a1db12fb3ab763ac76c3b863a83087e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42996972"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197463"
 ---
 # <a name="alternate-keys"></a>代替キー
 
-代替キーは、主キーだけでなくエンティティのインスタンスごとに、代替の一意の識別子として機能します。 代替キーは、リレーションシップのターゲットとして使用できます。 リレーショナル データベースを使用する場合に代替のキーの列と 1 つまたは複数外部キー制約、列を参照する一意のインデックス/制約の概念にマッピングします。
+代替キーは、主キーに加えて、各エンティティインスタンスの代替一意識別子として機能します。 代替キーは、リレーションシップのターゲットとして使用できます。 リレーショナルデータベースを使用する場合、これは代替キー列の一意のインデックス/制約の概念と、その列を参照する1つ以上の foreign key 制約にマップされます。
 
 > [!TIP]  
-> 代替キーではなく、一意のインデックスが必要し、列の一意性を適用する場合は、「[インデックス](indexes.md)します。 Ef には、外部キーのターゲットとして使用されることがあるために、代替キーは一意のインデックスよりもより多くの機能を提供します。
+> 列の一意性を確保するだけの場合は、別のキーではなく一意のインデックスを作成するには、「[インデックス](indexes.md)」を参照してください。 EF では、代替キーは外部キーのターゲットとして使用できるため、一意のインデックスよりも多くの機能を提供します。
 
-通常、この代替キーが必要なときに導入されています。 および、それらを手動で構成する必要はありません。 参照してください[規則](#conventions)の詳細。
+通常、代替キーは必要に応じて導入され、手動で構成する必要はありません。 詳細については、「[規約](#conventions)」を参照してください。
 
 ## <a name="conventions"></a>規約
 
-慣例により、リレーションシップのターゲットとして、主キーではないプロパティを識別する場合の代替キーが導入されました。
+慣例により、主キーではないプロパティをリレーションシップのターゲットとして指定すると、代替キーが導入されます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Samples/AlternateKey.cs?highlight=12)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/AlternateKey.cs?highlight=12)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -62,13 +62,13 @@ public class Post
 
 ## <a name="data-annotations"></a>データの注釈
 
-代替キーは、データ注釈を使用していない構成できます。
+データ注釈を使用して代替キーを構成することはできません。
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、代替キーを 1 つのプロパティを構成することができます。
+Fluent API を使用して、1つのプロパティを代替キーとして構成することができます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeySingle.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeySingle.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -90,9 +90,9 @@ class Car
 }
 ```
 
-(別の複合キーと呼ばれます) は代替キーの複数のプロパティを構成するのに Fluent API を使用することもできます。
+また、Fluent API を使用して、複数のプロパティを別のキー (複合代替キーと呼ばれます) として構成することもできます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Samples/AlternateKeyComposite.cs?highlight=7,8)] -->
+<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/AlternateKeyComposite.cs?highlight=7,8)] -->
 ``` csharp
 class MyContext : DbContext
 {

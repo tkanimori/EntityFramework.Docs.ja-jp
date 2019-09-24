@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9d2e647f-29e4-483b-af00-74269eb06e8f
 uid: core/modeling/relational/data-types
-ms.openlocfilehash: d667cbcb821e321faed36d097b531c7c55b81248
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 26664ebe18abcdeaa2b9c8dc23a6410204f53c8e
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149169"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197185"
 ---
 # <a name="data-types"></a>データの種類
 
@@ -30,10 +30,10 @@ ms.locfileid: "71149169"
 
 たとえば、次のコードは`Url` 、の最大`200`長`Rating`を持つ非 unicode 文字列としてを構成し、 `5`の有効桁数`2`と小数点以下桁数を指定します。
 
-[!code-csharp[Main](../../../../samples/core/Modeling/DataAnnotations/Samples/Relational/DataType.cs?name=Entities&highlight=4,6)]
+[!code-csharp[Main](../../../../samples/core/Modeling/DataAnnotations/Relational/DataType.cs?name=Entities&highlight=4,6)]
 
 ## <a name="fluent-api"></a>Fluent API
 
 また、Fluent API を使用して、列に同じデータ型を指定することもできます。
 
-[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Samples/Relational/DataType.cs?name=Model&highlight=9-10)]
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/DataType.cs?name=Model&highlight=9-10)]

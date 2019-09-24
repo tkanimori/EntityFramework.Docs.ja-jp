@@ -1,15 +1,15 @@
 ---
-title: EF Core のログ記録
+title: ログ記録-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f6e35c6d-45b7-4258-be1d-87c1bb67438d
 uid: core/miscellaneous/logging
-ms.openlocfilehash: 0a996403afdbe076b1690c98eeb305b40c4d1f4a
-ms.sourcegitcommit: 109a16478de498b65717a6e09be243647e217fb3
+ms.openlocfilehash: 6a8499f9f0220087e76f2e0b3a75ce551c4ddb80
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/10/2019
-ms.locfileid: "55985575"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197506"
 ---
 # <a name="logging"></a>ログの記録
 
@@ -18,46 +18,73 @@ ms.locfileid: "55985575"
 
 ## <a name="aspnet-core-applications"></a>ASP.NET Core アプリケーション
 
-ASP.NET Core のログ記録メカニズムと EF Core を自動的に統合されるたびに`AddDbContext`または`AddDbContextPool`使用されます。 したがって、ASP.NET Core を使用して、ログ記録する必要があります構成」の説明に従って、 [ASP.NET Core ドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)します。
+EF Core は、また`AddDbContext` `AddDbContextPool`はが使用されるたびに、ASP.NET Core のログメカニズムと自動的に統合されます。 そのため、ASP.NET Core を使用する場合は、 [ASP.NET Core のドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)で説明されているようにログ記録を構成する必要があります。
 
-## <a name="other-applications"></a>他のアプリケーション
+## <a name="other-applications"></a>その他のアプリケーション
 
-EF Core の現在ログ記録では、1 つまたは複数の ILoggerProvider で構成されている自体が ILoggerFactory が必要です。 一般的なプロバイダーは、次のパッケージで出荷されます。
+EF Core のログ記録には、それ自体が1つ以上のログプロバイダーで構成された ILoggerFactory が必要です。 共通プロバイダーは、次のパッケージに付属しています。
 
-* [Microsoft.Extensions.Logging.Console](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/):単純なコンソール ロガー。
-* [Microsoft.Extensions.Logging.AzureAppServices](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/):Azure App Service '診断ログ' と 'ログ ストリーム' 機能をサポートしています。
-* [Microsoft.Extensions.Logging.Debug](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/):デバッガーにログを System.Diagnostics.Debug.WriteLine() を使用して監視します。
-* [Microsoft.Extensions.Logging.EventLog](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/):Windows イベント ログに記録します。
-* [Microsoft.Extensions.Logging.EventSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/):EventSource/EventListener をサポートしています。
-* [Microsoft.Extensions.Logging.TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/):System.Diagnostics.TraceSource.TraceEvent() を使用してトレース リスナーにログ。
+* [Microsoft.](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Console/).Logging. コンソール:単純なコンソールロガー。
+* [Microsoft.](https://www.nuget.org/packages/Microsoft.Extensions.Logging.AzureAppServices/)..... service:では、Azure アプリ Services の "診断ログ" 機能と "ログストリーム" 機能がサポートされています。
+* [Microsoft. 拡張子。デバッグ](https://www.nuget.org/packages/Microsoft.Extensions.Logging.Debug/):システムの診断 () を使用してデバッガーモニターにログを記録します。
+* [Microsoft. 拡張子. Logging](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventLog/):Windows イベントログにログを記録します。
+* [Microsoft.](https://www.nuget.org/packages/Microsoft.Extensions.Logging.EventSource/).Logging:EventSource/EventListener をサポートします。
+* ... [Logging. TraceSource](https://www.nuget.org/packages/Microsoft.Extensions.Logging.TraceSource/):を使用して`System.Diagnostics.TraceSource.TraceEvent()`トレースリスナーにログを記録します。
 
-> [!NOTE]
-> 次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンストラクター。 古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。 それまでは、無視し、警告を抑制しても安全です。
+適切なパッケージをインストールした後、アプリケーションは Server.loggerfactory のシングルトン/グローバルインスタンスを作成する必要があります。 たとえば、コンソールロガーを使用すると、次のようになります。
 
-適切なパッケージをインストールした後、アプリケーションは、LoggerFactory のシングルトン/グローバル インスタンスを作成する必要があります。 たとえば、コンソール ロガーを使用します。
+# <a name="version-30tabv3"></a>[バージョン3.0](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#DefineLoggerFactory)]
 
-EF Core のこのシングルトン/グローバル インスタンスが登録し、必要がある、`DbContextOptionsBuilder`します。 例:
+# <a name="version-2xtabv2"></a>[バージョン2.x](#tab/v2)
+
+> [!NOTE]
+> 次のコードサンプルでは`ConsoleLoggerProvider` 、バージョン2.2 で廃止され、3.0 で置き換えられたコンストラクターを使用しています。 2\.2 を使用すると、警告を無視して非表示にするのが安全です。
+
+``` csharp
+public static readonly LoggerFactory MyLoggerFactory
+    = new LoggerFactory(new[] { new ConsoleLoggerProvider((_, __) => true, true) });
+```
+
+***
+
+このシングルトン/グローバルインスタンスは、の`DbContextOptionsBuilder`EF Core に登録する必要があります。 次に例を示します。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContext.cs#RegisterLoggerFactory)]
 
 > [!WARNING]
-> アプリケーションは、コンテキスト インスタンスごとに新しい ILoggerFactory インスタンスを作成しないことが非常に重要です。 これは、メモリ リークとパフォーマンスの低下になります。
+> アプリケーションでは、コンテキストインスタンスごとに新しい ILoggerFactory インスタンスを作成しないことが非常に重要です。 そうすると、メモリリークが発生し、パフォーマンスが低下します。
 
-## <a name="filtering-what-is-logged"></a>記録内容がフィルター処理
+## <a name="filtering-what-is-logged"></a>ログ記録対象のフィルター処理
 
-> [!NOTE]
-> 次のコード例では、 `ConsoleLoggerProvider` version 2.2 で廃止されましたがコンストラクター。 古い形式のログ記録 Api 用の適切な置換は、バージョン 3.0 で使用可能になります。 それまでは、無視し、警告を抑制しても安全です。
+アプリケーションでは、ILoggerProvider でフィルターを構成することによって、ログ記録の内容を制御できます。 次に例を示します。
 
-記録内容がフィルター処理する最も簡単な方法では、ILoggerProvider を登録するときに、これを構成します。 例:
+# <a name="version-30tabv3"></a>[バージョン3.0](#tab/v3)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Logging/Logging/BloggingContextWithFiltering.cs#DefineLoggerFactory)]
 
-この例では、メッセージのみを返すため、ログをフィルター処理します。
- * 'Microsoft.EntityFrameworkCore.Database.Command' カテゴリ
- * '情報' レベルで
+# <a name="version-2xtabv2"></a>[バージョン2.x](#tab/v2)
 
-EF Core 用ロガー カテゴリが定義されている、`DbLoggerCategory`単純な文字列を解決するには、カテゴリが、これらを見つけやすいようにするクラス。
+> [!NOTE]
+> 次のコードサンプルでは`ConsoleLoggerProvider` 、バージョン2.2 で廃止され、3.0 で置き換えられたコンストラクターを使用しています。 2\.2 を使用すると、警告を無視して非表示にするのが安全です。
 
-詳細については、基になるログ記録インフラストラクチャが記載されて、 [ASP.NET Core のログ記録に関するドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)します。
+``` csharp
+public static readonly LoggerFactory MyLoggerFactory
+    = new LoggerFactory(new[]
+    {
+        new ConsoleLoggerProvider((category, level)
+            => category == DbLoggerCategory.Database.Command.Name
+               && level == LogLevel.Information, true)
+    });
+```
+
+***
+
+この例では、ログは、メッセージのみを返すようにフィルター処理されています。
+ * ' Microsoft. EntityFrameworkCore. Database. Command ' カテゴリ
+ * ' 情報 ' レベル
+
+EF Core の場合、logger カテゴリは`DbLoggerCategory`クラスで定義されるため、カテゴリを簡単に見つけることができますが、単純な文字列に解決されます。
+
+基になるログ記録インフラストラクチャの詳細については、 [ASP.NET Core のログ記録に関するドキュメント](https://docs.microsoft.com/aspnet/core/fundamentals/logging?tabs=aspnetcore2x)を参照してください。

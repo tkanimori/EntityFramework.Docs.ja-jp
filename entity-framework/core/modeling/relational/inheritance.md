@@ -1,35 +1,35 @@
 ---
-title: 継承 (リレーショナル データベース) - EF Core
+title: 継承 (リレーショナルデータベース)-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 2d0a2abc554f5f115479f886ca3f9f4f01b80b5b
-ms.sourcegitcommit: ea1cdec0b982b922a59b9d9301d3ed2b94baca0f
+ms.openlocfilehash: a7fb19f9c86d1768967d172c006eb5d894254e0c
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/31/2019
-ms.locfileid: "66452281"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196930"
 ---
 # <a name="inheritance-relational-database"></a>継承 (リレーショナル データベース)
 
 > [!NOTE]  
 > このセクションの構成は、リレーショナル データベース全般に適用されます。 ここに示す拡張方法は、リレーショナル データベース プロバイダーをインストールすると (共有 *Microsoft.EntityFrameworkCore.Relational* パッケージによって) 利用できるようになります。
 
-EF モデルでの継承は、データベース内でエンティティ クラスの継承を表現する方法を制御するために使用されます。
+EF モデルの継承は、エンティティクラスの継承がデータベースでどのように表現されるかを制御するために使用されます。
 
 > [!NOTE]  
-> 現時点では、EF Core での table-per-hierarchy (TPH) パターンのみが実装されます。 テーブルあたり型 (TPT) などの他の一般的なパターンとテーブル-、具象型の種類 (TPC) はまだ提供されません。
+> 現時点では、EF Core で実装されているのは、階層単位 (TPH) パターンだけです。 テーブルごとのテーブル (TPT) や具象型ごとのテーブル (TPC) などのその他の一般的なパターンは、まだ使用できません。
 
 ## <a name="conventions"></a>規約
 
-慣例により、継承を-table-per-hierarchy (TPH) パターンを使用してマップされます。 TPH は、階層内のすべての種類のデータを格納するのに 1 つのテーブルを使用します。 識別子列を使用して、各行を表す種類を識別します。
+慣例により、継承は、階層単位 (TPH) のパターンを使用してマップされます。 TPH は、1つのテーブルを使用して、階層内のすべての型のデータを格納します。 識別子列は、各行が表す型を識別するために使用されます。
 
-2 つまたは複数の継承された型がモデルで明示的に含まれている場合は、EF Core に継承はセットアップのみ (を参照してください[継承](../inheritance.md)の詳細)。
+EF Core は、継承された複数の型がモデルに明示的に含まれている場合にのみ継承を設定します (詳細については、「[継承](../inheritance.md)」を参照してください)。
 
-単純な継承シナリオおよび TPH パターンを使用してリレーショナル データベース テーブルに格納されているデータの例を次に示します。 *識別子*列の型を指定する*ブログ*行ごとに格納されます。
+単純な継承シナリオと、TPH パターンを使用してリレーショナルデータベーステーブルに格納されているデータを示す例を次に示します。 *識別子*列には、各行に格納されている*ブログ*の種類が示されます。
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/Samples/InheritanceDbSets.cs)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/InheritanceDbSets.cs)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -52,17 +52,17 @@ public class RssBlog : Blog
 ![イメージ](_static/inheritance-tph-data.png)
 
 >[!NOTE]
-> データベースの列が TPH マッピングを使用する場合に自動的に必要に応じて、null 許容設定します。
+> TPH マッピングを使用する場合、データベース列は必要に応じて自動的に null 許容になります。
 
 ## <a name="data-annotations"></a>データの注釈
 
-データ注釈を使用して、継承を構成することはできません。
+データ注釈を使用して継承を構成することはできません。
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API を使用して、名前と識別子列と、階層内の各型を識別するために使用される値の型を構成することができます。
+Fluent API を使用して、識別子列の名前と型、および階層内の各型を識別するために使用される値を構成できます。
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/Samples/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
+<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
 ``` csharp
 class MyContext : DbContext
 {
@@ -89,9 +89,9 @@ public class RssBlog : Blog
 }
 ```
 
-## <a name="configuring-the-discriminator-property"></a>識別子のプロパティを構成します。
+## <a name="configuring-the-discriminator-property"></a>識別子プロパティの構成
 
-上記の例では、識別子として作成されます、[プロパティをシャドウ](xref:core/modeling/shadow-properties)階層の基本エンティティです。 モデルのプロパティであるために、その他のプロパティと同じように構成できます。 たとえば、識別子の規則によって、既定値が使用されているときに、最大長を設定します。
+上の例では、識別子は、階層の基本エンティティの[shadow プロパティ](xref:core/modeling/shadow-properties)として作成されます。 モデルのプロパティであるため、他のプロパティと同様に構成できます。 たとえば、既定の規則に従った識別子を使用する場合の最大長を設定するには、次のようにします。
 
 ```C#
 modelBuilder.Entity<Blog>()
@@ -99,7 +99,7 @@ modelBuilder.Entity<Blog>()
     .HasMaxLength(200);
 ```
 
-識別子は、エンティティ内の実際の CLR プロパティにもマップできます。 例えば:
+識別子は、エンティティ内の実際の CLR プロパティにマップすることもできます。 次に例を示します。
 ```C#
 class MyContext : DbContext
 {
@@ -125,7 +125,7 @@ public class RssBlog : Blog
 }
 ```
 
-これら 2 つを組み合わせることは、識別子を実際のプロパティにマップし、構成の両方にできます。
+これらの2つの要素を組み合わせて、識別子を実際のプロパティにマップして構成することができます。
 ```C#
 modelBuilder.Entity<Blog>(b =>
 {
