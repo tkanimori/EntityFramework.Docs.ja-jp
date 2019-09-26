@@ -4,12 +4,12 @@ author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: b921d1e99b07bdeb24fb81e16f65d9fef444bd33
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 41ebdcbb3f51c914ee7befb3c1a9c0042e9b43c8
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149013"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71196898"
 ---
 # <a name="getting-started-with-ef-core"></a>EF Core の概要
 
@@ -47,7 +47,7 @@ cd EFGetStarted
 
 * Visual Studio を開く
 * **[新しいプロジェクトの作成]** をクリックします。
-* <bpt id="p2">**</bpt>C#<ept id="p2">**</ept> タグと共に <bpt id="p1">**</bpt>[Console App (.NET Core)]\(コンソール アプリ (.NET Core)\)<ept id="p1">**</ept> を選択し、<bpt id="p3">**</bpt>[次へ]<ept id="p3">**</ept> をクリックします。
+* **[C#]** タグを持つ **[コンソール アプリ (.NET Core)]** を選択し、 **[次へ]** を選択します
 * 名前に「**EFGetStarted**」を入力して **[作成]** をクリックします。
 
 ---
@@ -106,7 +106,7 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
 * 次のコマンドを実行します。
 
   ``` Console
-  dotnet tool install --global dotnet-ef --version 3.0.0-*
+  dotnet tool install --global dotnet-ef
   dotnet add package Microsoft.EntityFrameworkCore.Design
   dotnet ef migrations add InitialCreate
   dotnet ef database update
@@ -144,7 +144,7 @@ dotnet run
 
 # <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-Visual Studio で、.NET Core コンソール アプリの実行時に使用される作業ディレクトリには一貫性がありません。 (「<bpt id="p1">[</bpt>dotnet/project-system#3619<ept id="p1">]」 (https://github.com/dotnet/project-system/issues/3619)</ept> を参照)。これにより、「<bpt id="p2">*</bpt>no such table:Blogs<ept id="p2">*</ept>」\(そのようなテーブルはありません: ブログ\) という例外がスローされます。 作業ディレクトリを更新するには:
+Visual Studio で、.NET Core コンソール アプリの実行時に使用される作業ディレクトリには一貫性がありません。 ([dotnet/project-system#3619](https://github.com/dotnet/project-system/issues/3619) を参照)。これにより、次の例外がスローされます: "*そのようなテーブルはありません:Blogs*"。 作業ディレクトリを更新するには:
 
 * プロジェクトを右クリックし、 **[プロジェクト ファイルの編集]** を選択します。
 * *[TargetFramework]* プロパティの直下に、次を追加します。

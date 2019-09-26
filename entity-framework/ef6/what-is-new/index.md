@@ -3,12 +3,13 @@ title: 新機能 - EF6
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
-ms.openlocfilehash: 568790d9c9bb7dd2213907bef8fa090710cd3ba0
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+uid: ef6/what-is-new/index
+ms.openlocfilehash: bb7038764644682c2149a8a500f342804d01f3d2
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149117"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71198045"
 ---
 # <a name="whats-new-in-ef6"></a>EF6 の新機能
 
@@ -25,7 +26,26 @@ EF 6.3.0 ランタイムは、NuGet で 2019 年 9 月にリリースされま�
   - 移行コマンドは、アウトプロセスの実行と SDK 形式のプロジェクトで動作するよう、書き替えられています。
 - SQL Server HierarchyId のサポート
 - Roslyn と NuGet PackageReference との互換性の向上
-- アセンブリからの移行を有効化、追加、スクリプト作成、および適用する ef6.exe を追加しました。 これは、migrate.exe の代わりです
+- アセンブリからの移行を有効化、追加、スクリプト作成、および適用する `ef6.exe` ユーティリティが追加されました。 これにより `migrate.exe` が置き換えられます
+
+### <a name="ef-designer-support"></a>EF デザイナーのサポート
+
+現在、.NET Core または .NET Standard のプロジェクトで EF デザイナーを直接使用することはサポートされていません。 
+
+この制限を回避するには、エンティティと DbContext の EDMX ファイルと生成されたクラスを、リンク ファイルとして、同じソリューション内の .NET Core 3.0 または .NET Standard 2.1 プロジェクトに追加します。
+
+そのリンク ファイルは、プロジェクト ファイル内で次のようになります。
+
+``` csproj 
+&lt;ItemGroup&gt;
+  &lt;EntityDeploy Include="..\EdmxDesignHost\Entities.edmx" Link="Model\Entities.edmx" /&gt;
+  &lt;Compile Include="..\EdmxDesignHost\Entities.Context.cs" Link="Model\Entities.Context.cs" /&gt;
+  &lt;Compile Include="..\EdmxDesignHost\Thing.cs" Link="Model\Thing.cs" /&gt;
+  &lt;Compile Include="..\EdmxDesignHost\Person.cs" Link="Model\Person.cs" /&gt;
+&lt;/ItemGroup&gt;
+```
+
+EDMX ファイルが EntityDeploy ビルド アクションにリンクされていることに注意してください。 これは特別な MSBuild タスク (EF 6.3 パッケージに含まれるようになりました) で、EF モデルを埋め込みリソースとして対象のアセンブリに追加する処理 (または、EDMX の [メタデータ成果物の処理] 設定に基づいて、これをファイルとして出力フォルダーにコピーする処理) を担当します。 これを設定する方法について詳しくは、[EDMX .NET Core サンプル](https://aka.ms/EdmxDotNetCoreSample)に関するページをご覧ください。
 
 ## <a name="past-releases"></a>以前のリリース
 
