@@ -1,33 +1,32 @@
 - name: Entity Framework
   href: index.md
   items:
-    - name: EF Core と EF6 を比較する
-      href: efcore-and-ef6/index.md
+    - name: EF Core および EF6
       items:
-        - name: 同じアプリケーションでの EF6 と EF Core
-          href: efcore-and-ef6/side-by-side.md
-        - name: EF6 から EF Core へ移植
-          href: efcore-and-ef6/porting/index.md
+        - name: EF Core と EF6 を比較する
+          href: efcore-and-ef6/index.md
+        - name: EF6 から EF Core への移植
           items:
-            - name: 要件の検証
-              href: efcore-and-ef6/porting/ensure-requirements.md
+            - name: 概要
+              href: efcore-and-ef6/porting/index.md
             - name: EDMX ベース モデルの移植
               href: efcore-and-ef6/porting/port-edmx.md
             - name: コードベース モデルの移植
               href: efcore-and-ef6/porting/port-code.md
+        - name: 同じアプリケーションで EF6 と EF Core を使う
+          href: efcore-and-ef6/side-by-side.md
     - name: Entity Framework Core
-      href: core/index.md
       items:
+        - name: 概要
+          href: core/index.md
         - name: 新着記事
-          href: core/what-is-new/index.md
           items:
-            - name: ロードマップ
-              href: core/what-is-new/roadmap.md
-            - name: EF Core 3.0 (最新リリース)
-              href: core/what-is-new/ef-core-3.0/index.md
+            - name: 概要
+              href: core/what-is-new/index.md
+            - name: EF Core 3.0
               items:
                 - name: 新機能
-                  href: core/what-is-new/ef-core-3.0/features.md
+                  href: core/what-is-new/ef-core-3.0/index.md
                 - name: 互換性に影響する変更
                   href: core/what-is-new/ef-core-3.0/breaking-changes.md
             - name: EF Core 2.2
@@ -49,8 +48,9 @@
                 - name: 1.x から 2.0
                   href: core/miscellaneous/1x-2x-upgrade.md
         - name: 開始するには
-          href: core/get-started/index.md
           items:
+            - name: EF Core のチュートリアル
+              href: core/get-started/index.md
             - name: EF Core のインストール
               href: core/get-started/install/index.md
             - name: ⤤ ASP.NET Core チュートリアル
@@ -64,17 +64,21 @@
             - name: 接続の復元性
               href: core/miscellaneous/connection-resiliency.md
             - name: テスト
-              href: core/miscellaneous/testing/index.md
               items:
+                - name: 概要
+                  href: core/miscellaneous/testing/index.md
                 - name: SQLite のテスト
                   href: core/miscellaneous/testing/sqlite.md
                 - name: InMemory のテスト
                   href: core/miscellaneous/testing/in-memory.md
             - name: DbContext の構成
               href: core/miscellaneous/configuring-dbcontext.md
+            - name: null 許容参照型
+              href: core/miscellaneous/nullable-reference-types.md
         - name: モデルの作成
-          href: core/modeling/index.md
           items:
+            - name: 概要
+              href: core/modeling/index.md
             - name: 種類を含める/除外する
               href: core/modeling/included-types.md
             - name: プロパティを含める/除外する
@@ -83,7 +87,7 @@
               href: core/modeling/keys.md
             - name: 生成された値
               href: core/modeling/generated-properties.md
-            - name: 必須/任意のプロパティ
+            - name: 必須および任意のプロパティ
               href: core/modeling/required-optional.md
             - name: 最大長
               href: core/modeling/max-length.md
@@ -118,8 +122,9 @@
             - name: 空間データ (GIS)
               href: core/modeling/spatial.md
             - name: リレーショナル データベース モデリング
-              href: core/modeling/relational/index.md
               items:
+                - name: 概要
+                  href: core/modeling/relational/index.md
                 - name: テーブル マッピング
                   href: core/modeling/relational/tables.md
                 - name: 列マッピング
@@ -145,11 +150,13 @@
                 - name: 継承 (リレーショナル データベース)
                   href: core/modeling/relational/inheritance.md
         - name: データベース スキーマを管理する
-          href: core/managing-schemas/index.md
           items:
+            - name: 概要
+              href: core/managing-schemas/index.md
             - name: 移行
-              href: core/managing-schemas/migrations/index.md
               items:
+                - name: 概要
+                  href: core/managing-schemas/migrations/index.md
                 - name: チーム環境
                   href: core/managing-schemas/migrations/teams.md
                 - name: カスタム操作
@@ -165,8 +172,9 @@
             - name: リバース エンジニアリング (スキャホールディング)
               href: core/managing-schemas/scaffolding.md
         - name: データのクエリ
-          href: core/querying/index.md
           items:
+            - name: 概要
+              href: core/querying/index.md
             - name: 基本のクエリ
               href: core/querying/basic.md
             - name: 関連データの読み込み
@@ -186,8 +194,9 @@
             - name: クエリのタグ
               href: core/querying/tags.md
         - name: データの保存
-          href: core/saving/index.md
           items:
+            - name: 概要
+              href: core/saving/index.md
             - name: 基本の保存
               href: core/saving/basic.md
             - name: 関連データ
@@ -207,21 +216,25 @@
         - name: サポートされている .NET 実装
           href: core/platforms/index.md
         - name: データベース プロバイダー
-          href: core/providers/index.md
           items:
+            - name: 概要
+              href: core/providers/index.md
             - name: Microsoft SQL Server
-              href: core/providers/sql-server/index.md
               items:
+                - name: 概要
+                  href: core/providers/sql-server/index.md
                 - name: メモリ最適化テーブル
                   href: core/providers/sql-server/memory-optimized-tables.md
             - name: SQLite
-              href: core/providers/sqlite/index.md
               items:
+                - name: 概要
+                  href: core/providers/sqlite/index.md
                 - name: SQLite の制限
                   href: core/providers/sqlite/limitations.md
             - name: Cosmos
-              href: core/providers/cosmos/index.md
               items:
+                - name: 概要
+                  href: core/providers/cosmos/index.md
                 - name: 非構造化データを使用する
                   href: core/providers/cosmos/unstructured-data.md
                 - name: Cosmos の制限事項
@@ -235,8 +248,9 @@
         - name: ツールと拡張機能
           href: core/extensions/index.md
         - name: コマンド ライン リファレンス
-          href: core/miscellaneous/cli/index.md
           items:
+            - name: 概要
+              href: core/miscellaneous/cli/index.md
             - name: パッケージ マネージャー コンソール (Visual Studio)
               href: core/miscellaneous/cli/powershell.md
             - name: .NET Core CLI
@@ -248,11 +262,13 @@
         - name: ⤤ EF Core API リファレンス
           href: 'https://docs.microsoft.com/dotnet/api/?view=efcore-2.1'
     - name: Entity Framework 6
-      href: ef6/index.md
       items:
+        - name: 概要
+          href: ef6/index.md
         - name: 新着記事
-          href: ef6/what-is-new/index.md
           items:
+            - name: 概要
+              href: ef6/what-is-new/index.md
             - name: 以前のリリース
               href: ef6/what-is-new/past-releases.md
             - name: EF6 へのアップグレード
@@ -262,7 +278,6 @@
         - name: 開始するには
           href: ef6/get-started.md
         - name: 基礎
-          href: ef6/fundamentals/index.md
           items:
             - name: Entity Framework を取得する
               href: ef6/fundamentals/install.md
@@ -297,11 +312,13 @@
                 - name: WPF
                   href: ef6/fundamentals/databinding/wpf.md
             - name: 接続解除エンティティ
-              href: ef6/fundamentals/disconnected-entities/index.md
               items:
+                - name: 概要
+                  href: ef6/fundamentals/disconnected-entities/index.md
                 - name: 自己追跡エンティティ
-                  href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
                   items:
+                    - name: 概要
+                      href: ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md
                     - name: チュートリアル
                       href: ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md
             - name: ログとインターセプト
@@ -315,8 +332,9 @@
                 - name: 事前生成済みビューの使用
                   href: ef6/fundamentals/performance/pre-generated-views.md
             - name: プロバイダー
-              href: ef6/fundamentals/providers/index.md
               items:
+                - name: 概要
+                  href: ef6/fundamentals/providers/index.md
                 - name: EF6 プロバイダー モデル
                   href: ef6/fundamentals/providers/provider-model.md
                 - name: プロバイダーでの空間サポート
@@ -332,8 +350,9 @@
                 - name: EF4 でのテストの容易性 (記事)
                   href: ef6/fundamentals/testing/testability-article.md
         - name: モデルの作成
-          href: ef6/modeling/index.md
           items:
+            - name: 概要
+              href: ef6/modeling/index.md
             - name: Code First の使用
               items:
                 - name: ワークフロー
@@ -371,8 +390,9 @@
                     - name: ストアド プロシージャ マッピング
                       href: ef6/modeling/code-first/fluent/cud-stored-procedures.md
                 - name: 移行
-                  href: ef6/modeling/code-first/migrations/index.md
                   items:
+                    - name: 概要
+                      href: ef6/modeling/code-first/migrations/index.md
                     - name: 自動移行
                       href: ef6/modeling/code-first/migrations/automatic.md
                     - name: 既存データベースの操作
@@ -424,8 +444,9 @@
                 - name: ランタイム バージョンの選択
                   href: ef6/modeling/designer/select-runtime-version.md
                 - name: コード生成
-                  href: ef6/modeling/designer/codegen/index.md
                   items:
+                    - name: 概要
+                      href: ef6/modeling/designer/codegen/index.md
                     - name: 従来の ObjectContext
                       href: ef6/modeling/designer/codegen/legacy-objectcontext.md
                 - name: 詳細設定
@@ -447,8 +468,9 @@
                 - name: ショートカット キー
                   href: ef6/modeling/designer/keyboard-shortcuts.md
         - name: データのクエリ
-          href: ef6/querying/index.md
           items:
+            - name: 概要
+              href: ef6/querying/index.md
             - name: Load メソッド
               href: ef6/querying/load-method.md
             - name: ローカル データ
@@ -460,8 +482,9 @@
             - name: 関連データのクエリ
               href: ef6/querying/related-data.md
         - name: データの保存
-          href: ef6/saving/index.md
           items:
+            - name: 概要
+              href: ef6/saving/index.md
             - name: 変更追跡
               items:
                 - name: 自動検出の変更
@@ -477,7 +500,6 @@
             - name: データの検証
               href: ef6/saving/validation.md
         - name: その他のリソース
-          href: ef6/resources/index.md
           items:
             - name: ブログ
               href: ef6/resources/blogs.md
