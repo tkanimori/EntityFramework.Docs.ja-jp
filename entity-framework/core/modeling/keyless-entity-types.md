@@ -5,16 +5,16 @@ ms.author: ansvyryd
 ms.date: 02/26/2018
 ms.assetid: 9F4450C5-1A3F-4BB6-AC19-9FAC64292AAD
 uid: core/modeling/keyless-entity-types
-ms.openlocfilehash: b968ac9602b9aa1f1c1e3181b6b76a64394d70f0
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: e78b9f91fd2505de300ced7b5e73291b5d1ad3b4
+ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71150789"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71266771"
 ---
 # <a name="keyless-entity-types"></a>キーなしエンティティ型
 > [!NOTE]
-> これは EF Core 2.1 の新機能です。 3\.0 より前では、これらはクエリの種類と呼ばれていました。
+> この機能は、EF Core 2.1 で、クエリの種類の名前の下に追加されました。 EF Core 3.0 では、概念はキーなしエンティティ型に名前変更されました。
 
 EF Core モデルには、通常のエンティティ型に加えて、_キーなしエンティティ型_を含めることができます。これを使用すると、キー値が含まれていないデータに対してデータベースクエリを実行できます。
 
@@ -56,7 +56,7 @@ EF Core モデルには、通常のエンティティ型に加えて、_キー�
 次の例では、キーなしエンティティ型を使用してデータベースビューに対してクエリを実行する方法を示します。
 
 > [!TIP]
-> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/QueryTypes)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/KeylessEntityTypes)は GitHub で確認できます。
 
 最初に、ブログや投稿の単純なモデルを定義します。
 

@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 585F90A3-4D5A-4DD1-92D8-5243B14E0FEC
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: 16600ccbb1194d584fae15671118d9c046f1f637
-ms.sourcegitcommit: 06073f8efde97dd5f540dbfb69f574d8380566fe
+ms.openlocfilehash: 5f97015f0228387574e3a19fb20cae1bdb403410
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/24/2019
-ms.locfileid: "67333855"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149178"
 ---
 # <a name="new-features-in-ef-core-21"></a>EF Core 2.1 の新機能
 
@@ -81,7 +81,7 @@ EF Core モデルにクエリ型を含めることができるようになりま
 - モデルで定義されているクエリへのマッピング
 - `FromSql()` クエリの戻り値の型として機能
 
-このトピックの詳細については、[クエリ型に関するセクション](xref:core/modeling/query-types)をご覧ください。
+このトピックの詳細については、[クエリ型に関するセクション](xref:core/modeling/keyless-entity-types)をご覧ください。
 
 ## <a name="include-for-derived-types"></a>派生型の Include
 `Include` メソッドの式を記述する際に、派生型でのみ定義されているナビゲーション プロパティを指定できるようになりました。 `Include` の厳密に型指定されたバージョンについては、明示的なキャストまたは `as` 演算子を使用してサポートします。 また、`Include` の文字列バージョンの派生型で定義されているナビゲーション プロパティの名前の参照もサポートされるようになりました。

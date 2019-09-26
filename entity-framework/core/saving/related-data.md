@@ -4,19 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
 uid: core/saving/related-data
-ms.openlocfilehash: 7349c57c0dccd3c911178641d3b34a478a4f6194
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 45c7b8e4bfa4ce7967ad76ef4a7d4818b0d3aebf
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994745"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197881"
 ---
 # <a name="saving-related-data"></a>関連データの保存
 
 分離されたエンティティに加え、モデルに定義されたリレーションシップを活用することもできます。
 
 > [!TIP]  
-> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/RelatedData/)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/RelatedData/)は GitHub で確認できます。
 
 ## <a name="adding-a-graph-of-new-entities"></a>新しいエンティティ グループの追加
 
@@ -24,7 +24,7 @@ ms.locfileid: "42994745"
 
 次の例では、ブログと 3 つの関連する投稿のすべてがデータベースに挿入されます。 これらの投稿が検出され、追加されるのは、`Blog.Posts` ナビゲーション プロパティ経由で到達可能であるためです。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
+[!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
 
 > [!TIP]  
 > 単一のエンティティの状態を設定するには、EntityEntry.State プロパティを使用します。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
@@ -35,7 +35,7 @@ ms.locfileid: "42994745"
 
 次の例では、データベースからフェッチされた `blog` エンティティの `Posts` プロパティに `post` エンティティが追加されているため、そのエンティティが挿入されます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#AddingRelatedEntity)]
+[!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#AddingRelatedEntity)]
 
 ## <a name="changing-relationships"></a>リレーションシップの変更
 
@@ -43,7 +43,7 @@ ms.locfileid: "42994745"
 
 次の例では、`Blog` ナビゲーション プロパティが `blog` をポイントするように設定されているため、`post` エンティティが新しい `blog` エンティティに所属するように更新されます。 コンテキストによって既に追跡されているエンティティ (`post`) のナビゲーション プロパティによって参照される新しいエンティティであるため、`blog` もデータベースに挿入されることに注意してください。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#ChangingRelationships)]
+[!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#ChangingRelationships)]
 
 ## <a name="removing-relationships"></a>リレーションシップの削除
 
@@ -59,4 +59,4 @@ ms.locfileid: "42994745"
 
 次の例では、`Blog` と `Post` 間のリレーションシップに連鎖削除が構成されているため、`post` エンティティがデータベースから削除されます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/RelatedData/Sample.cs#RemovingRelationships)]
+[!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#RemovingRelationships)]

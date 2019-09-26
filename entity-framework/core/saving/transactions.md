@@ -4,19 +4,19 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: 4c50d6694c6678678c0af8defe2601abee923af1
-ms.sourcegitcommit: 5f11a5fa5d2cde81a4e4d0d5c3a60aa74b83cbd4
+ms.openlocfilehash: ff12c4e7ace1f1b9e503cb2353bcdd53efd87cce
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/11/2019
-ms.locfileid: "54226193"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197896"
 ---
 # <a name="using-transactions"></a>トランザクションの使用
 
 トランザクションは、複数のデータベース操作をアトミックな方法で処理することを可能にします。 トランザクションがコミットされる場合は、すべての操作がデータベースに正常に適用されます。 トランザクションがロールバックされる場合、データベースに適用される操作はありません。
 
 > [!TIP]  
-> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Transactions/)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Transactions/)は GitHub で確認できます。
 
 ## <a name="default-transaction-behavior"></a>既定のトランザクションの動作
 
@@ -30,7 +30,7 @@ ms.locfileid: "54226193"
 
 すべてのデータベース プロバイダーがトランザクションをサポートしているわけではありません。 トランザクション API が呼び出された場合、一部のプロバイダーでは、例外がスローされるか、何も実行されないことがあります。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/ControllingTransaction/Sample.cs?name=Transaction&highlight=3,17,18,19)]
 
 ## <a name="cross-context-transaction-relational-databases-only"></a>クロスコンテキスト トランザクション (リレーショナル データベースのみ)
 
@@ -47,7 +47,7 @@ ms.locfileid: "54226193"
 > [!TIP]  
 > `DbContextOptionsBuilder` は、コンテキストを構成する `DbContext.OnConfiguring` 内で使用される API であり、その API を外部で使用して、`DbContextOptions` を作成します。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/SharingTransaction/Sample.cs?name=Context&highlight=3,4,5)]
 
 別の方法は、`DbContext.OnConfiguring` を引き続き使用しますが、保存された `DbConnection` を受け取って `DbContext.OnConfiguring` で使用することです。
 
@@ -74,7 +74,7 @@ public class BloggingContext : DbContext
 
 同じ接続を共有する複数のコンテキスト インスタンスを作成できるようになりました。 次に、`DbContext.Database.UseTransaction(DbTransaction)` API を使用して、両方のコンテキストを同じトランザクションに参加させます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/SharingTransaction/Sample.cs?name=Transaction&highlight=1,2,3,7,16,23,24,25)]
 
 ## <a name="using-external-dbtransactions-relational-databases-only"></a>外部 DbTransactions の使用 (リレーショナル データベースのみ)
 
@@ -82,7 +82,7 @@ public class BloggingContext : DbContext
 
 次の例は、同じトランザクション内で ADO.NET SqlClient 操作と Entity Framework Core 操作を実行する方法を示しています。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/ExternalDbTransaction/Sample.cs?name=Transaction&highlight=4,10,21,26,27,28)]
 
 ## <a name="using-systemtransactions"></a>System.Transactions の使用
 
@@ -91,11 +91,11 @@ public class BloggingContext : DbContext
 
 大規模なスコープで調整を行う必要がある場合は、アンビエント トランザクションを使用できます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/AmbientTransaction/Sample.cs?name=Transaction&highlight=1,2,3,26,27,28)]
 
 明示的なトランザクションに参加することもできます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
+[!code-csharp[Main](../../../samples/core/Saving/Transactions/CommitableTransaction/Sample.cs?name=Transaction&highlight=1,15,28,29,30)]
 
 ### <a name="limitations-of-systemtransactions"></a>System.Transactions の制限  
 
