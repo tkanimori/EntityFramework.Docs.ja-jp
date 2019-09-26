@@ -4,12 +4,12 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: bb7038764644682c2149a8a500f342804d01f3d2
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: c49f4cba0066d1e218f11c3959d96f9cafa913f4
+ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198045"
+ms.lasthandoff: 09/25/2019
+ms.locfileid: "71266783"
 ---
 # <a name="whats-new-in-ef6"></a>EF6 の新機能
 
@@ -23,7 +23,8 @@ EF 6.3.0 ランタイムは、NuGet で 2019 年 9 月にリリースされま�
 
 - .NET Core 3.0 のサポート
   - EntityFramework パッケージでは、.NET Framework 4.x に加え .NET Standard 2.1 をターゲットとするようになりました。
-  - 移行コマンドは、アウトプロセスの実行と SDK 形式のプロジェクトで動作するよう、書き替えられています。
+  - これは、EF 6.3 がクロスプラットフォームで、Linux や macOS などの Windows 以外のオペレーティングシステムでサポートされることを意味します。
+  - 移行コマンドは、アウト プロセスの実行と SDK 形式のプロジェクトで動作するように書き替えられています。
 - SQL Server HierarchyId のサポート
 - Roslyn と NuGet PackageReference との互換性の向上
 - アセンブリからの移行を有効化、追加、スクリプト作成、および適用する `ef6.exe` ユーティリティが追加されました。 これにより `migrate.exe` が置き換えられます
@@ -37,12 +38,12 @@ EF 6.3.0 ランタイムは、NuGet で 2019 年 9 月にリリースされま�
 そのリンク ファイルは、プロジェクト ファイル内で次のようになります。
 
 ``` csproj 
-&lt;ItemGroup&gt;
-  &lt;EntityDeploy Include="..\EdmxDesignHost\Entities.edmx" Link="Model\Entities.edmx" /&gt;
-  &lt;Compile Include="..\EdmxDesignHost\Entities.Context.cs" Link="Model\Entities.Context.cs" /&gt;
-  &lt;Compile Include="..\EdmxDesignHost\Thing.cs" Link="Model\Thing.cs" /&gt;
-  &lt;Compile Include="..\EdmxDesignHost\Person.cs" Link="Model\Person.cs" /&gt;
-&lt;/ItemGroup&gt;
+<ItemGroup>
+  <EntityDeploy Include="..\EdmxDesignHost\Entities.edmx" Link="Model\Entities.edmx" />
+  <Compile Include="..\EdmxDesignHost\Entities.Context.cs" Link="Model\Entities.Context.cs" />
+  <Compile Include="..\EdmxDesignHost\Thing.cs" Link="Model\Thing.cs" />
+  <Compile Include="..\EdmxDesignHost\Person.cs" Link="Model\Person.cs" />
+</ItemGroup>
 ```
 
 EDMX ファイルが EntityDeploy ビルド アクションにリンクされていることに注意してください。 これは特別な MSBuild タスク (EF 6.3 パッケージに含まれるようになりました) で、EF モデルを埋め込みリソースとして対象のアセンブリに追加する処理 (または、EDMX の [メタデータ成果物の処理] 設定に基づいて、これをファイルとして出力フォルダーにコピーする処理) を担当します。 これを設定する方法について詳しくは、[EDMX .NET Core サンプル](https://aka.ms/EdmxDotNetCoreSample)に関するページをご覧ください。
