@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 28b2180e898b91d233b590b1639674a464f8c679
-ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
+ms.openlocfilehash: 781578d9de05895cdbc777aa53c3f6d6f9777869
+ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/04/2019
-ms.locfileid: "70271434"
+ms.lasthandoff: 09/20/2019
+ms.locfileid: "71149050"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
 
@@ -36,7 +36,7 @@ modelBuilder.Entity<ProductDetails>().ToTable("Products");
 
 ### <a name="owned-types"></a>所有されている型
 
-所有されているエンティティ型は、別の所有されているエンティティ型と同じ CLR 型を共有できます。ただし、CLR 型だけでは識別できないため、別のエンティティ型からそれへのナビゲーションが必要になります。 定義となるナビゲーションを含むエンティティは所有者です。 所有者に問い合わせるとき、所有されている型が既定で含まれます。
+所有されているエンティティ型は、別の所有されているエンティティ型と同じ .NET 型を共有できます。ただし、.NET 型だけでは識別できないため、別のエンティティ型からそれへのナビゲーションが必要になります。 定義となるナビゲーションを含むエンティティは所有者です。 所有者に問い合わせるとき、所有されている型が既定で含まれます。
 
 慣例によって、所有されている型に対してシャドウ主キーが作成され、テーブル分割を利用し、同じテーブルに所有者としてマッピングされます。 それによって、所有されている型を EF6 の複合型の使用方法と同じように使用できます。
 

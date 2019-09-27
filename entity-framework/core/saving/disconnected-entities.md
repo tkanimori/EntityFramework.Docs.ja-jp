@@ -5,12 +5,12 @@ ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 51367d2619b1943c300f8954123f70b909ad96e7
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 070f2ad396ec21858096c29413ac80bdf8547328
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42994400"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197803"
 ---
 # <a name="disconnected-entities"></a>接続解除エンティティ
 
@@ -19,7 +19,7 @@ DbContext インスタンスでは、データベースから返されるエン�
 しかし、エンティティが 1 つのコンテキスト インスタンスを使って照会され、別のインスタンスを使って保存される場合があります。 これは、エンティティの照会、クライアントへの送信、変更、要求内でのサーバーへの返送、および保存が行われる Web アプリケーションなどの "接続解除" シナリオで、頻繁に発生します。 この場合、2 番目のコンテキスト インスタンスでは、エンティティが新しいか (挿入する必要がある) または既存か (更新する必要があるか) を把握する必要があります。
 
 > [!TIP]  
-> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/Disconnected/)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/)は GitHub で確認できます。
 
 > [!TIP]
 > EF Core では、指定されたプライマリ キー値を持つ任意のエンティティの 1 つのインスタンスしか追跡できません。 これを回避する最善の方法は、各作業単位に一時的なコンテキストを使用して、最初は空のコンテキストにエンティティをアタッチし、それらのエンティティを保存してから、コンテキストが消去および破棄されるようにすることです。
@@ -38,11 +38,11 @@ DbContext インスタンスでは、データベースから返されるエン�
 
 エンティティ型がわかっている場合、設定されていないキーのチェックは簡単です。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewSimple)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewSimple)]
 
 しかし、EF でもエンティティ型やキーの種類をチェックするための組み込みの方法を備えています。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewGeneral)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewGeneral)]
 
 > [!TIP]  
 > エンティティがコンテキストによって追跡されると、エンティティが追加済みの状態になっていても、すぐにキーが設定されます。 これは、TrackGraph API を使用している場合など、エンティティのグラフを走査して各グラフで行う操作を決定する際に役立ちます。 キー値は、エンティティを追跡するために何らかの呼び出しが行われる "_前_" に、ここに示された方法でのみ使用する必要があります。
@@ -55,7 +55,7 @@ DbContext インスタンスでは、データベースから返されるエン�
 
 エンティティに対してクエリを実行するには、単純に Find メソッドを使用します。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#IsItNewQuery)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewQuery)]
 
 クライアントからフラグを渡す完全なコードの提示は、このドキュメントでは行いません。 Web アプリでは、多くの場合、さまざまなアクションに対して異なる要求を行うか、または要求内で何らかの状態を渡して、コントローラーでその状態を抽出することになります。
 
@@ -63,20 +63,20 @@ DbContext インスタンスでは、データベースから返されるエン�
 
 挿入または更新のどちらが必要かがわかったら、次のように Add または Update を適切に使用できます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertAndUpdateSingleEntity)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertAndUpdateSingleEntity)]
 
 ただし、エンティティが自動生成されたキー値を使用する場合は、両方のケースで Update メソッドを使用できます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntity)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntity)]
 
 Update メソッドは通常、挿入ではなく、更新用のエンティティをマークします。 ただし、エンティティが自動生成されたキーを保持しており、設定済みのキー値がない場合、そのエンティティは更新用ではなく、自動的に挿入用にマークされます。
 
 > [!TIP]  
 > この動作は、EF Core 2.0 で導入されました。 それ以前のリリースでは、Add または Update のどちらかを常に明示的に選択する必要があります。
 
-エンティティが自動生成されたキーを使用していない場合、アプリケーションでは、エンティティの挿入または更新のどちらが必要かを、次の例のように判断する必要があります。
+エンティティが自動生成されたキーを使用していない場合、アプリケーションでは、エンティティの挿入または更新のどちらが必要かを、次のように判断する必要があります。次に例を示します。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
 
 この場合の手順は、次のようになります。
 * Find で null が返された場合、データベースがこの ID のブログを既に含んでいるわけではないため、Add を呼び出して挿入用にマークします。
@@ -85,7 +85,7 @@ Update メソッドは通常、挿入ではなく、更新用のエンティテ�
   * SetValues の呼び出しでは、必要に応じて更新されるエンティティをマークします。
 
 > [!TIP]  
-> SetValues は、追跡されたエンティティのプロパティに別の値を保持しているプロパティを、変更済みとしてマークすることしか行いません。 これは、更新が送信されると、実際に変更されたそれらの列のみが更新されることを意味します  (また、何も変更されなかった場合は、更新もまったく送信されません)。
+> SetValues は、追跡されたエンティティのプロパティに別の値を保持しているプロパティを、変更済みとしてマークすることしか行いません。 これは、更新が送信されると、実際に変更されたそれらの列のみが更新されることを意味します (また、何も変更されなかった場合は、更新もまったく送信されません)。
 
 ## <a name="working-with-graphs"></a>グラフを操作する
 
@@ -97,17 +97,17 @@ Update メソッドは通常、挿入ではなく、更新用のエンティテ�
 
 グラフの操作の例では、関連する投稿のコレクションと共にブログを挿入または更新しています。 グラフ内のすべてのエンティティが挿入される必要がある場合、またはすべてが更新される必要がある場合、プロセスは上述した単一のエンティティの場合と同じです。 たとえば、作成されたブログと投稿のグラフは次のよになります。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#CreateBlogAndPosts)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#CreateBlogAndPosts)]
 
 また、次のように挿入できます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertGraph)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertGraph)]
 
 Add の呼び出しでは、ブログとすべての投稿が挿入されるようにマークします。
 
 同様に、グラフ内のすべてのエンティティが更新される必要がある場合は、Update を使用できます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#UpdateGraph)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#UpdateGraph)]
 
 ブログとそのすべての投稿が、更新されるようにマークされます。
 
@@ -115,26 +115,26 @@ Add の呼び出しでは、ブログとすべての投稿が挿入されるよ�
 
 自動生成されたキーを使用する場合、挿入を必要とするエンティティと更新を必要とするエンティティがグラフ内に混在していても、挿入と更新の両方に Update を再使用できます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateGraph)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateGraph)]
 
 Update は、設定されたキー値がない場合は、グラフ、ブログ、または投稿内のエンティティを挿入用にマークし、その他のエンティティはすべて更新用にマークします。
 
 前述のように、自動生成キーを使用しない場合は、クエリおよびいくつかの処理を使用できます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertOrUpdateGraphWithFind)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateGraphWithFind)]
 
 ## <a name="handling-deletes"></a>削除の処理
 
 エンティティの不在は、エンティティが削除されていることを意味することがよくあるため、削除は慎重に扱う必要があります。 これに対処する方法の 1 つは、エンティティが実際に削除されるのではなく、削除としてマークされるように、"論理的な削除" を使用することです。 これで、削除は更新と同様になります。 論理的な削除は、[クエリ フィルター](xref:core/querying/filters)を使用して実装できます。
 
-実際の削除では、一般的なパターンとしてクエリ パターンの拡張機能を使用して、本質的なグラフの差分特定を行います。例:
+実際の削除では、一般的なパターンとしてクエリ パターンの拡張機能を使用して、本質的なグラフの差分特定を行います。次に例を示します。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#InsertUpdateOrDeleteGraphWithFind)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertUpdateOrDeleteGraphWithFind)]
 
 ## <a name="trackgraph"></a>TrackGraph
 
 内部的には、Add、Attach、および Update では、追加済み (挿入する)、変更済み (更新する)、変更なし (何もしない)、または削除済み (削除) としてマークする必要があるかどうかに関して各エンティティで行われる判断と共に、グラフ走査を使用します。 このメカニズムは TrackGraph API 経由で公開されています。 たとえば、クライアントがエンティティのグラフを返送するときに、処理方法を示したフラグが各エンティティ上に設定されていると仮定しましょう。 このフラグを処理するために、次のように TrackGraph を使用できます。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/Disconnected/Sample.cs#TrackGraph)]
+[!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#TrackGraph)]
 
 例を簡単にするために、フラグはエンティティの一部分としてしか表示されていません。 フラグは通常、DTO の一部か、または要求に含まれている他の状態になります。

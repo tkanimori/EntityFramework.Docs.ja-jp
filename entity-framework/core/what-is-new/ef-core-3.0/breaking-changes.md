@@ -4,16 +4,16 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 04487291f24bb702dad4b497c34234afdd5e3c9a
-ms.sourcegitcommit: d01fc19aa42ca34c3bebccbc96ee26d06fcecaa2
+ms.openlocfilehash: f7c241159c689d4648b2778b53e50c22f580deb0
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/16/2019
-ms.locfileid: "71005583"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197925"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
 以下の API と動作変更により、3.0.0 へのアップグレード時に、既存のアプリケーションが中断される可能性があります。
-データベース プロバイダーにのみ影響することが予想される変更については、[プロバイダーの変更](../../providers/provider-log.md)に関するページに記載されています。
+データベース プロバイダーにのみ影響することが予想される変更については、[プロバイダーの変更](xref:core/providers/provider-log)に関するページに記載されています。
 ある 3.0 プレビューから別の 3.0 プレビューへの破壊的変更については、ここには記載されていません。
 
 ## <a name="summary"></a>まとめ
@@ -23,6 +23,7 @@ ms.locfileid: "71005583"
 | [LINQ クエリがクライアントで評価されなくなった](#linq-queries-are-no-longer-evaluated-on-the-client)         | High       |
 | [EF Core 3.0 では .NET Standard 2.0 ではなく .NET Standard 2.1 がターゲットにされる](#netstandard21) | High      |
 | [EF Core のコマンドライン ツールである dotnet ef が .NET Core SDK の一部ではなくなった](#dotnet-ef) | High      |
+| [DetectChanges でストア生成キーの値が優先される](#dc) | High      |
 | [FromSql、ExecuteSql、および ExecuteSqlAsync の名前が変更された](#fromsql) | High      |
 | [クエリ型がエンティティ型と統合される](#qt) | High      |
 | [Entity Framework Core が ASP.NET Core 共有フレームワークの一部ではなくなった](#no-longer) | Medium      |
@@ -37,7 +38,6 @@ ms.locfileid: "71005583"
 | [FromSql メソッドはクエリのルートでのみ指定できる](#fromsql) | Low      |
 | [~~クエリの実行がデバッグ レベルでログに記録される~~ 元に戻されます](#qe) | Low      |
 | [一時キーの値がエンティティ インスタンスに設定されなくなった](#tkv) | Low      |
-| [DetectChanges でストア生成キーの値が優先される](#dc) | Low      |
 | [プリンシパルとテーブルを共有する依存エンティティが省略可能になった](#de) | Low      |
 | [同時実行トークン列とテーブルを共有するすべてのエンティティをプロパティにマップする必要がある](#aes) | Low      |
 | [マップされていない型から継承されたプロパティが、すべての派生型の 1 つの列にマップされるようになった](#ip) | Low      |
@@ -69,6 +69,7 @@ ms.locfileid: "71005583"
 | [SQLitePCL.raw がバージョン 2.0.0 に更新された](#SQLitePCL) | Low      |
 | [NetTopologySuite がバージョン 2.0.0 に更新された](#NetTopologySuite) | Low      |
 | [複数のあいまいな自己参照リレーションシップを構成する必要がある](#mersa) | Low      |
+| [DbFunction.Schema が null または空の文字列である場合、モデルの既定のスキーマに構成される](#udf-empty-string) | Low      |
 
 ### <a name="linq-queries-are-no-longer-evaluated-on-the-client"></a>LINQ クエリがクライアントで評価されなくなった
 
@@ -174,7 +175,7 @@ ASP.NET Core 3.0 アプリケーションまたはその他のサポートされ
 移行の管理や `DbContext` のスキャフォールディングを行えるようにするには、`dotnet-ef` をグローバル ツールとしてインストールします。
 
   ``` console
-    $ dotnet tool install --global dotnet-ef --version 3.0.0-*
+    $ dotnet tool install --global dotnet-ef
   ```
 
 [ツール マニフェスト ファイル](https://github.com/dotnet/cli/issues/10288)を使用してツールの依存関係として宣言するプロジェクトの依存関係を復元するときに、ローカルなツールとして取得することもできます。
@@ -420,7 +421,7 @@ context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 
 **以前の動作**
 
-EF Core 3.0 より前では、[クエリ型](xref:core/modeling/query-types)は、構造化された方法で主キーが定義されないデータのクエリを実行するための手段でした。
+EF Core 3.0 より前では、[クエリ型](xref:core/modeling/keyless-entity-types)は、構造化された方法で主キーが定義されないデータのクエリを実行するための手段でした。
 つまり、クエリ型は、キーが利用できるときに (テーブルからの可能性が高くなりますが、ビューからの可能性もあります) 通常のエンティティ型が使用された場合に、キーなしの (ビューからの可能性が高くなりますが、テーブルからの可能性もあります) エンティティ型をマップするために使用されました。
 
 **新しい動作**
@@ -873,7 +874,7 @@ modelBuilder
 
 **以前の動作**
 
-EF Core 3.0 以前では、プロパティは文字列値により指定できました。CLR 型でその名前のプロパティが見つからなかった場合、EF Core では、一般的な規則を使ってそれとフィールドの照合が試行されました。
+EF Core 3.0 以前では、プロパティは文字列値により指定できました。.NET 型でその名前のプロパティが見つからなかった場合、EF Core では、一般的な規則を使ってそれとフィールドの照合が試行されました。
 ```C#
 private class Blog
 {
@@ -1714,4 +1715,39 @@ modelBuilder
      .Entity<User>()
      .HasOne(e => e.UpdatedBy)
      .WithMany();
+```
+
+<a name="udf-empty-string"></a>
+### <a name="dbfunctionschema-being-null-or-empty-string-configures-it-to-be-in-models-default-schema"></a>DbFunction.Schema が null または空の文字列である場合、モデルの既定のスキーマに構成される
+
+[問題 #12757 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12757)
+
+この変更は、EF Core 3.0 プレビュー 7 で導入されます。
+
+**以前の動作**
+
+空の文字列としてスキーマを使用して構成された DbFunction は、スキーマのない組み込み関数として扱われていました。 たとえば、次のコードは `DatePart` CLR 関数を SqlServer の組み込み関数 `DATEPART` にマップします。
+
+```C#
+[DbFunction("DATEPART", Schema = "")]
+public static int? DatePart(string datePartArg, DateTime? date) => throw new Exception();
+
+```
+
+**新しい動作**
+
+すべての DbFunction マッピングは、ユーザー定義関数にマップされるものと見なされます。 そのため、空の文字列値を指定すると、関数がモデルの既定のスキーマ内に配置されます。 それ以外の、スキーマとなり得るものは fluent API の `modelBuilder.HasDefaultSchema()` または `dbo` を使用して明示的に構成されます。
+
+**理由**
+
+以前は空のスキーマを使用して関数を組み込みとして扱っていましたが、そのロジックは、組み込みの関数がどのスキーマにも属していない SqlServer にのみ適用されます。
+
+**軽減策**
+
+DbFunction の変換を手動で組み込み関数にマップされるように構成します。
+
+```C#
+modelBuilder
+    .HasDbFunction(typeof(MyContext).GetMethod(nameof(MyContext.DatePart)))
+    .HasTranslation(args => SqlFunctionExpression.Create("DatePart", args, typeof(int?), null));
 ```

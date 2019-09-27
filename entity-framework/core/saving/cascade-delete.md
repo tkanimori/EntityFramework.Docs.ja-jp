@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 15b7e69676ef9aeb70121fcec404c34a17e5e2bb
-ms.sourcegitcommit: 8d04a2ad98036f32ca70c77ce3040c5edb1cdf82
+ms.openlocfilehash: ec04de4eab2a28e3aa81ff27accef4fc11c83995
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/11/2018
-ms.locfileid: "44384840"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197794"
 ---
 # <a name="cascade-delete"></a>連鎖削除
 
@@ -28,7 +28,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 > [!NOTE]  
 > EF Core モデルに構成されている削除動作は、EF Core を使用してプリンシパル エンティティが削除され、依存エンティティがメモリ内に読み込まれている場合 (つまり、追跡されている依存エンティティの場合) にのみ適用されます。 対応する連鎖動作をデータベースに設定し、コンテキストによって追跡されていないデータに対して必要なアクションが適用されるようにする必要があります。 EF Core を使用してデータベースを作成すると、この連鎖動作が設定されます。
 
-上記の 2 番目のアクションで、外部キーが Null 許容でない場合、外部キー値を null に設定する操作は無効になります  (Null 許容ではない外部キーは、必須のリレーションシップと同等です)。このような場合、EF Core は、SaveChanges が呼び出されるまで外部キーのプロパティが null とマークされていたことを追跡します。このとき、変更をデータベースに永続化できないため、例外がスローされます。 これは、データベースから制約違反を受け取る場合と似ています。
+上記の 2 番目のアクションで、外部キーが Null 許容でない場合、外部キー値を null に設定する操作は無効になります (Null 許容ではない外部キーは、必須のリレーションシップと同等です)。このような場合、EF Core は、SaveChanges が呼び出されるまで外部キーのプロパティが null とマークされていたことを追跡します。このとき、変更をデータベースに永続化できないため、例外がスローされます。 これは、データベースから制約違反を受け取る場合と似ています。
 
 次の表に示すように、削除動作は 4 つあります。
 
@@ -66,13 +66,13 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 > EF Core は EF6 とは異なり、連鎖の影響はすぐに発生するのではなく、SaveChanges が呼び出されたときにのみ発生します。
 
 > [!NOTE]  
-> **EF Core 2.0 の変更点**: 以前のリリースでは、*Restrict* を使用すると、追跡されている依存エンティティの省略可能な外部キーのプロパティが null に設定されていました。これは、省略可能なリレーションシップの既定の削除動作でした。 EF Core 2.0 では、その動作を表す *ClientSetNull* が導入され、省略可能なリレーションシップの既定になりました。 *Restrict* の動作は、依存エンティティに対する副作用がないように調整されました。
+> **EF Core 2.0 の変更:** 以前のリリースでは、*Restrict* を使用すると、追跡されている依存エンティティの省略可能な外部キーのプロパティが null に設定されていました。これは、省略可能なリレーションシップの既定の削除動作でした。 EF Core 2.0 では、その動作を表す *ClientSetNull* が導入され、省略可能なリレーションシップの既定になりました。 *Restrict* の動作は、依存エンティティに対する副作用がないように調整されました。
 
 ## <a name="entity-deletion-examples"></a>エンティティ削除の例
 
-以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/)の一部です。 このサンプルは、親エンティティが削除されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で、何が起こるかを示しています。
+以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/)の一部です。 このサンプルは、親エンティティが削除されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で、何が起こるかを示しています。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
+[!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
 各動作のサンプルを見て、何が起こるかを理解しましょう。
 
@@ -181,9 +181,9 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ## <a name="delete-orphans-examples"></a>孤立の削除例
 
-以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/CascadeDelete/)の一部です。 このサンプルは、親/プリンシパルとその子/依存のリレーションシップが切断されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で何が起こるかを示しています。 この例では、プリンシパル/親 (ブログ) のコレクション ナビゲーション プロパティから依存/子 (投稿) を削除することで、リレーションシップが切断されています。 ただし、依存/子からプリンシパル/親への参照が null に設定される場合、動作は同じです。
+以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/)の一部です。 このサンプルは、親/プリンシパルとその子/依存のリレーションシップが切断されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で何が起こるかを示しています。 この例では、プリンシパル/親 (ブログ) のコレクション ナビゲーション プロパティから依存/子 (投稿) を削除することで、リレーションシップが切断されています。 ただし、依存/子からプリンシパル/親への参照が null に設定される場合、動作は同じです。
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
+[!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 
 各動作のサンプルを見て、何が起こるかを理解しましょう。
 
