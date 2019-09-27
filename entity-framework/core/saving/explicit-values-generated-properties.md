@@ -4,88 +4,88 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 3f1993c2-cdf5-425b-bac2-a2665a20322b
 uid: core/saving/explicit-values-generated-properties
-ms.openlocfilehash: 00abef4d1208400ff68ced0a241b98b8dc9be5c0
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: d6aa9a0a9ce34e09a39026ad7ea9195b6777858c
+ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997854"
+ms.lasthandoff: 09/23/2019
+ms.locfileid: "71197861"
 ---
-# <a name="setting-explicit-values-for-generated-properties"></a><span data-ttu-id="55635-102">生成されるプロパティに明示的な値を設定する</span><span class="sxs-lookup"><span data-stu-id="55635-102">Setting Explicit Values for Generated Properties</span></span>
+# <a name="setting-explicit-values-for-generated-properties"></a><span data-ttu-id="8a814-102">生成されるプロパティに明示的な値を設定する</span><span class="sxs-lookup"><span data-stu-id="8a814-102">Setting Explicit Values for Generated Properties</span></span>
 
-<span data-ttu-id="55635-103">生成されるプロパティとは、エンティティが追加または更新されるときに、(EF またはデータベースのどちらかによって) 値が生成されるプロパティのことです。</span><span class="sxs-lookup"><span data-stu-id="55635-103">A generated property is a property whose value is generated (either by EF or the database) when the entity is added and/or updated.</span></span> <span data-ttu-id="55635-104">詳細については、「[生成される値](../modeling/generated-properties.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="55635-104">See [Generated Properties](../modeling/generated-properties.md) for more information.</span></span>
+<span data-ttu-id="8a814-103">生成されるプロパティとは、エンティティが追加または更新されるときに、(EF またはデータベースのどちらかによって) 値が生成されるプロパティのことです。</span><span class="sxs-lookup"><span data-stu-id="8a814-103">A generated property is a property whose value is generated (either by EF or the database) when the entity is added and/or updated.</span></span> <span data-ttu-id="8a814-104">詳細については、「[生成される値](../modeling/generated-properties.md)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="8a814-104">See [Generated Properties](../modeling/generated-properties.md) for more information.</span></span>
 
-<span data-ttu-id="55635-105">プロパティを生成するのではなく、生成されるプロパティに明示的な値を設定したいという場合があります。</span><span class="sxs-lookup"><span data-stu-id="55635-105">There may be situations where you want to set an explicit value for a generated property, rather than having one generated.</span></span>
+<span data-ttu-id="8a814-105">プロパティを生成するのではなく、生成されるプロパティに明示的な値を設定したいという場合があります。</span><span class="sxs-lookup"><span data-stu-id="8a814-105">There may be situations where you want to set an explicit value for a generated property, rather than having one generated.</span></span>
 
 > [!TIP]  
-> <span data-ttu-id="55635-106">この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/ExplicitValuesGenerateProperties/)は GitHub で確認できます。</span><span class="sxs-lookup"><span data-stu-id="55635-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Saving/ExplicitValuesGenerateProperties/) on GitHub.</span></span>
+> <span data-ttu-id="8a814-106">この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/ExplicitValuesGenerateProperties/)は GitHub で確認できます。</span><span class="sxs-lookup"><span data-stu-id="8a814-106">You can view this article's [sample](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/ExplicitValuesGenerateProperties/) on GitHub.</span></span>
 
-## <a name="the-model"></a><span data-ttu-id="55635-107">モデル</span><span class="sxs-lookup"><span data-stu-id="55635-107">The model</span></span>
+## <a name="the-model"></a><span data-ttu-id="8a814-107">モデル</span><span class="sxs-lookup"><span data-stu-id="8a814-107">The model</span></span>
 
-<span data-ttu-id="55635-108">この記事で使用されるモデルには、単一の `Employee` エンティティが含まれます。</span><span class="sxs-lookup"><span data-stu-id="55635-108">The model used in this article contains a single `Employee` entity.</span></span>
+<span data-ttu-id="8a814-108">この記事で使用されるモデルには、単一の `Employee` エンティティが含まれます。</span><span class="sxs-lookup"><span data-stu-id="8a814-108">The model used in this article contains a single `Employee` entity.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Employee.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Employee.cs#Sample)]
 
-## <a name="saving-an-explicit-value-during-add"></a><span data-ttu-id="55635-109">追加中に明示的な値を保存する</span><span class="sxs-lookup"><span data-stu-id="55635-109">Saving an explicit value during add</span></span>
+## <a name="saving-an-explicit-value-during-add"></a><span data-ttu-id="8a814-109">追加中に明示的な値を保存する</span><span class="sxs-lookup"><span data-stu-id="8a814-109">Saving an explicit value during add</span></span>
 
-<span data-ttu-id="55635-110">`Employee.EmploymentStarted` プロパティは、(既定の設定を使用して) 新しいエンティティに対して、データベースで値が生成されるように構成されています。</span><span class="sxs-lookup"><span data-stu-id="55635-110">The `Employee.EmploymentStarted` property is configured to have values generated by the database for new entities (using a default value).</span></span>
+<span data-ttu-id="8a814-110">`Employee.EmploymentStarted` プロパティは、(既定の設定を使用して) 新しいエンティティに対して、データベースで値が生成されるように構成されています。</span><span class="sxs-lookup"><span data-stu-id="8a814-110">The `Employee.EmploymentStarted` property is configured to have values generated by the database for new entities (using a default value).</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#EmploymentStarted)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#EmploymentStarted)]
 
-<span data-ttu-id="55635-111">次のコードでは、データベースに 2 名の従業員を挿入しています。</span><span class="sxs-lookup"><span data-stu-id="55635-111">The following code inserts two employees into the database.</span></span>
-* <span data-ttu-id="55635-112">1 人目の従業員では、`Employee.EmploymentStarted` プロパティに割り当てられている値がないため、`DateTime` には CLR 既定値が設定されたままです。</span><span class="sxs-lookup"><span data-stu-id="55635-112">For the first, no value is assigned to `Employee.EmploymentStarted` property, so it remains set to the CLR default value for `DateTime`.</span></span>
-* <span data-ttu-id="55635-113">2 人目の従業員では、`1-Jan-2000` という明示的な値を設定しました。</span><span class="sxs-lookup"><span data-stu-id="55635-113">For the second, we have set an explicit value of `1-Jan-2000`.</span></span>
+<span data-ttu-id="8a814-111">次のコードでは、データベースに 2 名の従業員を挿入しています。</span><span class="sxs-lookup"><span data-stu-id="8a814-111">The following code inserts two employees into the database.</span></span>
+* <span data-ttu-id="8a814-112">1 人目の従業員では、`Employee.EmploymentStarted` プロパティに割り当てられている値がないため、`DateTime` には CLR 既定値が設定されたままです。</span><span class="sxs-lookup"><span data-stu-id="8a814-112">For the first, no value is assigned to `Employee.EmploymentStarted` property, so it remains set to the CLR default value for `DateTime`.</span></span>
+* <span data-ttu-id="8a814-113">2 人目の従業員では、`1-Jan-2000` という明示的な値を設定しました。</span><span class="sxs-lookup"><span data-stu-id="8a814-113">For the second, we have set an explicit value of `1-Jan-2000`.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmploymentStarted)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmploymentStarted)]
 
-<span data-ttu-id="55635-114">1 人目の従業員に対してはデータベースが値を生成したこと、また、2 人目の従業員に対しては明示的な値が使用されたことが、出力に表示されます。</span><span class="sxs-lookup"><span data-stu-id="55635-114">Output shows that the database generated a value for the first employee and our explicit value was used for the second.</span></span>
+<span data-ttu-id="8a814-114">1 人目の従業員に対してはデータベースが値を生成したこと、また、2 人目の従業員に対しては明示的な値が使用されたことが、出力に表示されます。</span><span class="sxs-lookup"><span data-stu-id="8a814-114">Output shows that the database generated a value for the first employee and our explicit value was used for the second.</span></span>
 
 ``` Console
 1: John Doe, 1/26/2017 12:00:00 AM
 2: Jane Doe, 1/1/2000 12:00:00 AM
 ```
 
-### <a name="explicit-values-into-sql-server-identity-columns"></a><span data-ttu-id="55635-115">SQL Server の IDENTITY 列に対する明示的な値</span><span class="sxs-lookup"><span data-stu-id="55635-115">Explicit values into SQL Server IDENTITY columns</span></span>
+### <a name="explicit-values-into-sql-server-identity-columns"></a><span data-ttu-id="8a814-115">SQL Server の IDENTITY 列に対する明示的な値</span><span class="sxs-lookup"><span data-stu-id="8a814-115">Explicit values into SQL Server IDENTITY columns</span></span>
 
-<span data-ttu-id="55635-116">慣例として、`Employee.EmployeeId` プロパティは、ストア生成された `IDENTITY` 列です。</span><span class="sxs-lookup"><span data-stu-id="55635-116">By convention the `Employee.EmployeeId` property is a store generated `IDENTITY` column.</span></span>
+<span data-ttu-id="8a814-116">慣例として、`Employee.EmployeeId` プロパティは、ストア生成された `IDENTITY` 列です。</span><span class="sxs-lookup"><span data-stu-id="8a814-116">By convention the `Employee.EmployeeId` property is a store generated `IDENTITY` column.</span></span>
 
-<span data-ttu-id="55635-117">ほとんどの状況で、上述した方法がキー プロパティに対して有効です。</span><span class="sxs-lookup"><span data-stu-id="55635-117">For most situations, the approach shown above will work for key properties.</span></span> <span data-ttu-id="55635-118">しかし、SQL Server の `IDENTITY` 列に明示的な値を挿入するには、`SaveChanges()` を呼び出す前に `IDENTITY_INSERT` を手動で有効にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="55635-118">However, to insert explicit values into a SQL Server `IDENTITY` column, you need to manually enable `IDENTITY_INSERT` before calling `SaveChanges()`.</span></span>
+<span data-ttu-id="8a814-117">ほとんどの状況で、上述した方法がキー プロパティに対して有効です。</span><span class="sxs-lookup"><span data-stu-id="8a814-117">For most situations, the approach shown above will work for key properties.</span></span> <span data-ttu-id="8a814-118">しかし、SQL Server の `IDENTITY` 列に明示的な値を挿入するには、`SaveChanges()` を呼び出す前に `IDENTITY_INSERT` を手動で有効にする必要があります。</span><span class="sxs-lookup"><span data-stu-id="8a814-118">However, to insert explicit values into a SQL Server `IDENTITY` column, you need to manually enable `IDENTITY_INSERT` before calling `SaveChanges()`.</span></span>
 
 > [!NOTE]  
-> <span data-ttu-id="55635-119">SQL Server プロバイダー内で自動的にこれを行うための[機能要求](https://github.com/aspnet/EntityFramework/issues/703)が、バックログに用意されています。</span><span class="sxs-lookup"><span data-stu-id="55635-119">We have a [feature request](https://github.com/aspnet/EntityFramework/issues/703) on our backlog to do this automatically within the SQL Server provider.</span></span>
+> <span data-ttu-id="8a814-119">SQL Server プロバイダー内で自動的にこれを行うための[機能要求](https://github.com/aspnet/EntityFramework/issues/703)が、バックログに用意されています。</span><span class="sxs-lookup"><span data-stu-id="8a814-119">We have a [feature request](https://github.com/aspnet/EntityFramework/issues/703) on our backlog to do this automatically within the SQL Server provider.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmployeeId)]
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmployeeId)]
 
-<span data-ttu-id="55635-120">指定された ID がデータベースに保存されたことが、出力に表示されます。</span><span class="sxs-lookup"><span data-stu-id="55635-120">Output shows that the supplied ids were saved to the database.</span></span>
+<span data-ttu-id="8a814-120">指定された ID がデータベースに保存されたことが、出力に表示されます。</span><span class="sxs-lookup"><span data-stu-id="8a814-120">Output shows that the supplied ids were saved to the database.</span></span>
 
 ``` Console
 100: John Doe
 101: Jane Doe
 ```
 
-## <a name="setting-an-explicit-value-during-update"></a><span data-ttu-id="55635-121">更新中に明示的な値を設定する</span><span class="sxs-lookup"><span data-stu-id="55635-121">Setting an explicit value during update</span></span>
+## <a name="setting-an-explicit-value-during-update"></a><span data-ttu-id="8a814-121">更新中に明示的な値を設定する</span><span class="sxs-lookup"><span data-stu-id="8a814-121">Setting an explicit value during update</span></span>
 
-<span data-ttu-id="55635-122">`Employee.LastPayRaise` プロパティは、更新中にデータベースで値が生成されるように構成されています。</span><span class="sxs-lookup"><span data-stu-id="55635-122">The `Employee.LastPayRaise` property is configured to have values generated by the database during updates.</span></span>
+<span data-ttu-id="8a814-122">`Employee.LastPayRaise` プロパティは、更新中にデータベースで値が生成されるように構成されています。</span><span class="sxs-lookup"><span data-stu-id="8a814-122">The `Employee.LastPayRaise` property is configured to have values generated by the database during updates.</span></span>
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#LastPayRaise)]
-
-> [!NOTE]  
-> <span data-ttu-id="55635-123">既定では、更新中に生成されるように構成されたプロパティに明示的な値の保存を試行しようとすると、EF Core は例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="55635-123">By default, EF Core will throw an exception if you try to save an explicit value for a property that is configured to be generated during update.</span></span> <span data-ttu-id="55635-124">これを回避するには、下位レベルのメタデータ API にドロップダウンして、`AfterSaveBehavior` を設定する必要があります (上記を参照)。</span><span class="sxs-lookup"><span data-stu-id="55635-124">To avoid this, you need to drop down to the lower level metadata API and set the `AfterSaveBehavior` (as shown above).</span></span>
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#LastPayRaise)]
 
 > [!NOTE]  
-> <span data-ttu-id="55635-125">**EF Core 2.0 での変更:** 前のリリースでは、保存後の動作は `IsReadOnlyAfterSave` フラグ経由で制御されていました。</span><span class="sxs-lookup"><span data-stu-id="55635-125">**Changes in EF Core 2.0:** In previous releases the after-save behavior was controlled through the `IsReadOnlyAfterSave` flag.</span></span> <span data-ttu-id="55635-126">このフラグは廃止され、`AfterSaveBehavior` に置き換えられました。</span><span class="sxs-lookup"><span data-stu-id="55635-126">This flag has been obsoleted and replaced by `AfterSaveBehavior`.</span></span>
+> <span data-ttu-id="8a814-123">既定では、更新中に生成されるように構成されたプロパティに明示的な値の保存を試行しようとすると、EF Core は例外をスローします。</span><span class="sxs-lookup"><span data-stu-id="8a814-123">By default, EF Core will throw an exception if you try to save an explicit value for a property that is configured to be generated during update.</span></span> <span data-ttu-id="8a814-124">これを回避するには、下位レベルのメタデータ API にドロップダウンして、`AfterSaveBehavior` を設定する必要があります (上記を参照)。</span><span class="sxs-lookup"><span data-stu-id="8a814-124">To avoid this, you need to drop down to the lower level metadata API and set the `AfterSaveBehavior` (as shown above).</span></span>
 
-<span data-ttu-id="55635-127">また、データベースには、`UPDATE` 操作中に `LastPayRaise` 列の値を生成するためのトリガーがあります。</span><span class="sxs-lookup"><span data-stu-id="55635-127">There is also a trigger in the database to generate values for the `LastPayRaise` column during `UPDATE` operations.</span></span>
+> [!NOTE]  
+> <span data-ttu-id="8a814-125">**EF Core 2.0 の変更:** 前のリリースでは、保存後の動作は `IsReadOnlyAfterSave` フラグによって制御されていました。</span><span class="sxs-lookup"><span data-stu-id="8a814-125">**Changes in EF Core 2.0:** In previous releases the after-save behavior was controlled through the `IsReadOnlyAfterSave` flag.</span></span> <span data-ttu-id="8a814-126">このフラグは廃止され、`AfterSaveBehavior` に置き換えられました。</span><span class="sxs-lookup"><span data-stu-id="8a814-126">This flag has been obsoleted and replaced by `AfterSaveBehavior`.</span></span>
 
-[!code-sql[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
+<span data-ttu-id="8a814-127">また、データベースには、`UPDATE` 操作中に `LastPayRaise` 列の値を生成するためのトリガーがあります。</span><span class="sxs-lookup"><span data-stu-id="8a814-127">There is also a trigger in the database to generate values for the `LastPayRaise` column during `UPDATE` operations.</span></span>
 
-<span data-ttu-id="55635-128">次のコードでは、データベース内の 2 人の従業員の給与を引き上げています。</span><span class="sxs-lookup"><span data-stu-id="55635-128">The following code increases the salary of two employees in the database.</span></span>
-* <span data-ttu-id="55635-129">1 人目の従業員では、`Employee.LastPayRaise` プロパティに割り当てられている値がないため、null に設定されたままです。</span><span class="sxs-lookup"><span data-stu-id="55635-129">For the first, no value is assigned to `Employee.LastPayRaise` property, so it remains set to null.</span></span>
-* <span data-ttu-id="55635-130">2 人目の従業員では、1 週間前 (給与引き上げの日付へ戻る) の明示的な値を設定します。</span><span class="sxs-lookup"><span data-stu-id="55635-130">For the second, we have set an explicit value of one week ago (back dating the pay raise).</span></span>
+[!code-sql[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
 
-[!code-csharp[Main](../../../samples/core/Saving/Saving/ExplicitValuesGenerateProperties/Sample.cs#LastPayRaise)]
+<span data-ttu-id="8a814-128">次のコードでは、データベース内の 2 人の従業員の給与を引き上げています。</span><span class="sxs-lookup"><span data-stu-id="8a814-128">The following code increases the salary of two employees in the database.</span></span>
+* <span data-ttu-id="8a814-129">1 人目の従業員では、`Employee.LastPayRaise` プロパティに割り当てられている値がないため、null に設定されたままです。</span><span class="sxs-lookup"><span data-stu-id="8a814-129">For the first, no value is assigned to `Employee.LastPayRaise` property, so it remains set to null.</span></span>
+* <span data-ttu-id="8a814-130">2 人目の従業員では、1 週間前 (給与引き上げの日付へ戻る) の明示的な値を設定します。</span><span class="sxs-lookup"><span data-stu-id="8a814-130">For the second, we have set an explicit value of one week ago (back dating the pay raise).</span></span>
 
-<span data-ttu-id="55635-131">1 人目の従業員に対してはデータベースが値を生成したこと、また、2 人目の従業員に対しては明示的な値が使用されたことが、出力に表示されます。</span><span class="sxs-lookup"><span data-stu-id="55635-131">Output shows that the database generated a value for the first employee and our explicit value was used for the second.</span></span>
+[!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#LastPayRaise)]
+
+<span data-ttu-id="8a814-131">1 人目の従業員に対してはデータベースが値を生成したこと、また、2 人目の従業員に対しては明示的な値が使用されたことが、出力に表示されます。</span><span class="sxs-lookup"><span data-stu-id="8a814-131">Output shows that the database generated a value for the first employee and our explicit value was used for the second.</span></span>
 
 ``` Console
 1: John Doe, 1/26/2017 12:00:00 AM
