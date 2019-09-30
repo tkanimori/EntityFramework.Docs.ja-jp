@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: eb808dd9d9b1b214947524cd83999f67be9cc0ff
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 7bdedf563b7d919ba334db79af73c3eed3ba4129
+ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149066"
+ms.lasthandoff: 09/26/2019
+ms.locfileid: "71317578"
 ---
 # <a name="installing-entity-framework-core"></a>Entiy Framework Core のインストール
 
@@ -17,7 +17,7 @@ ms.locfileid: "71149066"
 
 * EF Core とは、[.NET Standard 2.1](/dotnet/standard/net-standard) のライブラリです。 したがって、EF Core の動作には .NET Standard 2.1 をサポートする .NET 実装が必要です。 EF Core は他の .NET Standard 2.1 ライブラリから参照することもできます。 
 
-* たとえば、.NET Core をターゲットとするアプリを EF Core を使用して開発することができます。 .NET Core アプリを構築するには、[.NET Core SDK](https://dotnet.microsoft.com/download) が必要です。 必要に応じて、Visual Studio、Visual Studio for Mac、Visual Studio Code などの開発環境を使用することもできます。 詳しくは、「[.NET Core の概要](/dotnet/core/get-started)」をご覧ください。
+* たとえば、.NET Core をターゲットとするアプリを EF Core を使用して開発することができます。 .NET Core アプリを構築するには、[.NET Core SDK](https://dotnet.microsoft.com/download) が必要です。 必要に応じて、[Visual Studio](https://visualstudio.microsoft.com/vs)、[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac)、[Visual Studio Code](https://code.visualstudio.com) などの開発環境を使用することもできます。 詳しくは、「[.NET Core の概要](/dotnet/core/get-started)」をご覧ください。
 
 * EF Core を使用すると、Windows 上で Visual Studio を使用してアプリケーションを開発できます。 [Visual Studio](https://visualstudio.microsoft.com/vs) の最新バージョンをお勧めします。
 
