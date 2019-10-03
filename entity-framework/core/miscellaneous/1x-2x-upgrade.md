@@ -4,12 +4,12 @@ author: divega
 ms.date: 08/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 uid: core/miscellaneous/1x-2x-upgrade
-ms.openlocfilehash: 1222f10811914f65822a49e18522c287ece12174
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 42e59b47f569ef6fcf72fc5bd5f94d3e9d807a24
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306501"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813568"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 にアプリケーションをアップグレードする
 
@@ -94,19 +94,19 @@ SQL Server および SQLite プロバイダーは EF チームによって出荷
 
 注: これらの変更は、ほとんどのアプリケーションコードに影響しないようにしてください。
 
-[ILogger](https://github.com/aspnet/Logging/blob/dev/src/Microsoft.Extensions.Logging.Abstractions/ILogger.cs)に送信されたメッセージのイベント id が2.0 で変更されました。 イベント ID が EF Core コード全体で一意になりました。 これらのメッセージはまた、たとえば MVC で使用される構造化されたログ記録の標準パターンに従います。
+[ILogger](https://docs.microsoft.com/en-us/dotnet/api/microsoft.extensions.logging.ilogger)に送信されたメッセージのイベント id が2.0 で変更されました。 イベント ID が EF Core コード全体で一意になりました。 これらのメッセージはまた、たとえば MVC で使用される構造化されたログ記録の標準パターンに従います。
 
-ロガー カテゴリも変更されました。 現在、[DbLoggerCategory](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/DbLoggerCategory.cs) 経由でアクセスされる既知のカテゴリ セットがあります。
+ロガー カテゴリも変更されました。 現在、[DbLoggerCategory](https://github.com/aspnet/EntityFrameworkCore/blob/rel/2.0.0/src/EFCore/DbLoggerCategory.cs) 経由でアクセスされる既知のカテゴリ セットがあります。
 
-[DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md)イベントでは、対応する`ILogger`メッセージと同じイベント ID 名が使用されるようになりました。 イベントペイロードは、 [EventData](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/EventData.cs)から派生したすべての公称型です。
+[DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md)イベントでは、対応する`ILogger`メッセージと同じイベント ID 名が使用されるようになりました。 イベントペイロードは、 [EventData](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.eventdata)から派生したすべての公称型です。
 
-イベント Id、ペイロードの種類、およびカテゴリは、 [Coreeventid](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Diagnostics/CoreEventId.cs)と[RelationalEventId](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore.Relational/Diagnostics/RelationalEventId.cs)クラスに記載されています。
+イベント Id、ペイロードの種類、およびカテゴリは、 [Coreeventid](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.coreeventid)と[RelationalEventId](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.diagnostics.relationaleventid)クラスに記載されています。
 
 Id は、Microsoft の EntityFrameworkCore. Infrastructure 名前空間にも移動されています。
 
 ## <a name="ef-core-relational-metadata-api-changes"></a>リレーショナルメタデータ API の変更の EF Core
 
-EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、_一般的なリレーショナル メタデータ コンセプト_へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。たとえば、次のような 1.1. x コードです。
+EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.imodel) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、_一般的なリレーショナル メタデータ コンセプト_へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。たとえば、次のような 1.1. x コードです。
 
 ``` csharp
 var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName;
@@ -118,7 +118,7 @@ var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName
 var tableName = context.Model.FindEntityType(typeof(User)).Relational().TableName;
 ```
 
-のような`ForSqlServerToTable`メソッドを使用する代わりに、拡張メソッドを使用して、現在使用されているプロバイダーに基づいて条件付きコードを記述できるようになりました。 例えば:
+のような`ForSqlServerToTable`メソッドを使用する代わりに、拡張メソッドを使用して、現在使用されているプロバイダーに基づいて条件付きコードを記述できるようになりました。 以下に例を示します。
 
 ```C#
 modelBuilder.Entity<User>().ToTable(
@@ -135,7 +135,7 @@ modelBuilder.Entity<User>().ToTable(
 
 ## <a name="in-memory-databases-must-be-named"></a>インメモリデータベースは、という名前にする必要があります。
 
-名前のないグローバルなメモリ内データベースデータベースは削除されているため、すべてのインメモリデータベースに名前を付ける必要があります。 例えば:
+名前のないグローバルなメモリ内データベースデータベースは削除されているため、すべてのインメモリデータベースに名前を付ける必要があります。 以下に例を示します。
 
 ``` csharp
 optionsBuilder.UseInMemoryDatabase("MyDatabase");
@@ -145,13 +145,13 @@ optionsBuilder.UseInMemoryDatabase("MyDatabase");
 
 ## <a name="read-only-api-changes"></a>読み取り専用 API の変更
 
-`IsReadOnlyBeforeSave`、 `IsReadOnlyAfterSave`、および`IsStoreGeneratedAlways`は廃止され、 [BeforeSaveBehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L39)と[aftersavebehavior](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/IProperty.cs#L55)に置き換えられました。 これらの動作は、(ストアによって生成されるプロパティだけでなく) 任意のプロパティに適用され、データベース行`BeforeSaveBehavior`に挿入するとき、または既存のデータベース行 (`AfterSaveBehavior`) を更新するときに、プロパティの値をどのように使用するかを決定します。
+`IsReadOnlyBeforeSave`、 `IsReadOnlyAfterSave`、および`IsStoreGeneratedAlways`は廃止され、 [BeforeSaveBehavior](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.iproperty.beforesavebehavior)と[aftersavebehavior](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.iproperty.aftersavebehavior)に置き換えられました。 これらの動作は、(ストアによって生成されるプロパティだけでなく) 任意のプロパティに適用され、データベース行`BeforeSaveBehavior`に挿入するとき、または既存のデータベース行 (`AfterSaveBehavior`) を更新するときに、プロパティの値をどのように使用するかを決定します。
 
-[Valuegenerated. OnAddOrUpdate](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/ValueGenerated.cs) (計算列など) としてマークされたプロパティは、既定では、プロパティに現在設定されている値を無視します。 これは、追跡対象のエンティティで値が設定または変更されたかどうかに関係なく、ストアによって生成される値が常に取得されることを意味します。 これは、別`Before\AfterSaveBehavior`のを設定することによって変更できます。
+[Valuegenerated. OnAddOrUpdate](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.metadata.valuegenerated) (計算列など) としてマークされたプロパティは、既定では、プロパティに現在設定されている値を無視します。 これは、追跡対象のエンティティで値が設定または変更されたかどうかに関係なく、ストアによって生成される値が常に取得されることを意味します。 これは、別`Before\AfterSaveBehavior`のを設定することによって変更できます。
 
 ## <a name="new-clientsetnull-delete-behavior"></a>新しい ClientSetNull の削除動作
 
-以前のリリースでは、 [deletebehavior. 制限](https://github.com/aspnet/EntityFramework/blob/dev/src/EFCore/Metadata/DeleteBehavior.cs)は、終了したセマンティクスに一致`SetNull`したコンテキストによって追跡されるエンティティに対して動作がありました。 EF Core 2.0 では、オプション`ClientSetNull`のリレーションシップの既定値として新しい動作が導入されました。 この動作に`SetNull`は、EF Core を使用`Restrict`して作成されたデータベースの追跡対象エンティティおよび動作のセマンティクスがあります。 ここでは、追跡対象のエンティティとデータベースに対して最も期待される、または役に立つ動作を示します。 `DeleteBehavior.Restrict`は、オプションのリレーションシップが設定されている場合、追跡対象エンティティに対して使用されるようになりました
+以前のリリースでは、 [deletebehavior. 制限](https://docs.microsoft.com/en-us/dotnet/api/microsoft.entityframeworkcore.deletebehavior)は、終了したセマンティクスに一致`SetNull`したコンテキストによって追跡されるエンティティに対して動作がありました。 EF Core 2.0 では、オプション`ClientSetNull`のリレーションシップの既定値として新しい動作が導入されました。 この動作に`SetNull`は、EF Core を使用`Restrict`して作成されたデータベースの追跡対象エンティティおよび動作のセマンティクスがあります。 ここでは、追跡対象のエンティティとデータベースに対して最も期待される、または役に立つ動作を示します。 `DeleteBehavior.Restrict`は、オプションのリレーションシップが設定されている場合、追跡対象エンティティに対して使用されるようになりました
 
 ## <a name="provider-design-time-packages-removed"></a>プロバイダーのデザイン時に削除されたパッケージ
 

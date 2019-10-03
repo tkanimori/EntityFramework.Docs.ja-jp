@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 02/23/2018
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/providers/index
-ms.openlocfilehash: 096d68f814e279bd224dfc50111d6576ab5eb223
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: db06906e6af518a27a21f30b12d722ce06e9bd52
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149247"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813523"
 ---
 # <a name="database-providers"></a>データベース プロバイダー
 
@@ -44,27 +44,23 @@ Entity Framework Core は、データベース プロバイダーと呼ばれる
 | [Devart.Data.SQLite.EFCore](https://www.nuget.org/packages/Devart.Data.SQLite.EFCore/)                               | SQLite 3 以降           | [DevArt](https://www.devart.com/)                                             | 支払い済み                 | [docs](https://www.devart.com/dotconnect/sqlite/docs/)                                                                                                                                             |
 | [Devart.Data.MySql.EFCore](https://www.nuget.org/packages/Devart.Data.MySql.EFCore/)                                 | MySQL 5 以降            | [DevArt](https://www.devart.com/)                                             | 支払い済み                 | [docs](https://www.devart.com/dotconnect/mysql/docs/)                                                                                                                                              |
 
-## <a name="future-providers"></a>将来のプロバイダー
-
-### <a name="cosmos-db"></a>Cosmos DB
-
-Cosmos DB の SQL API 向けの EF Core プロバイダーを開発しています。
-これは弊社が生成した最初の完全なドキュメント指向データベース プロバイダーであり、この演習から学んだ内容は、EF Core の今後のリリースや、場合によっては関連のない他のプロバイダーの設計の改善のために通知されます。
-プレビューは [NuGet ギャラリー](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos)で入手できます。
-
 ## <a name="adding-a-database-provider-to-your-application"></a>データベース プロバイダーをアプリケーションに追加する
 
-EF Core のほとんどのデータベース プロバイダーは、NuGet パッケージとして配布されます。 つまり、コマンド ラインで `dotnet` ツールを使用してそれらをインストールできます。
+EF Core のほとんどのデータベース プロバイダーは、NuGet パッケージとして配布され、次のようにインストールできます。
+
+# <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ``` console
 dotnet add package provider_package_name
 ```
 
-あるいは、Visual Studio で NuGet のパッケージ マネージャー コンソールを使用する場合、次のようになります。
+# <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 install-package provider_package_name
 ```
+
+***
 
 インストールされたら、`DbContext` で、`OnConfiguring` メソッド、または依存関係注入コンテナーを使用している場合は `AddDbContext` メソッドを使用してプロバイダーを構成します。
 たとえば、次の行は、渡された接続文字列を使用して、SQL Server プロバイダーを構成します。

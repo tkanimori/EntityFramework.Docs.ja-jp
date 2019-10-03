@@ -1,23 +1,19 @@
 ---
-title: Microsoft SQL Server データベース プロバイダー - メモリ最適化テーブル - EF Core
+title: Microsoft SQL Server データベースプロバイダー-メモリ最適化テーブル-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 2e007c82-c6e4-45bb-8129-851b79ec1a0a
 uid: core/providers/sql-server/memory-optimized-tables
-ms.openlocfilehash: 63d2cbf8b69e4f1945ad60914e284fb42c48e8db
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 7383e74b3f83172f9b8e0eaf9bd09d4e187e87f8
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42995803"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813490"
 ---
-# <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a>メモリ最適化テーブルでは、SQL Server EF Core データベース プロバイダーでサポートします。
+# <a name="memory-optimized-tables-support-in-sql-server-ef-core-database-provider"></a>SQL Server EF Core データベースプロバイダーでのメモリ最適化テーブルのサポート
 
-> [!NOTE]  
->
-> この機能は、EF Core 1.1 で導入されました。
-
-[メモリ最適化テーブル](https://docs.microsoft.com/sql/relational-databases/in-memory-oltp/memory-optimized-tables)はテーブル全体がメモリに存在する SQL Server の機能です。 ディスク上にあっての持続性の目的でのみ、テーブル データの 2 番目のコピーが維持されます。 メモリ最適化テーブル内のデータは、データベースの復旧中にのみディスクから読み取られます。 たとえば、サーバー後を再起動します。
+[メモリ最適化テーブル](https://docs.microsoft.com/sql/relational-databases/in-memory-oltp/memory-optimized-tables)は、テーブル全体がメモリ内に存在する SQL Server の機能です。 ディスク上にはテーブル データの 2 番目のコピーが保持されますが、持続性を実現するためのものにすぎません。 メモリ最適化テーブルのデータは、データベースの復旧中にディスクからのみ読み込まれます。 たとえば、サーバーを再起動した後です。
 
 ## <a name="configuring-a-memory-optimized-table"></a>メモリ最適化テーブルの構成
 
