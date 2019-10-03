@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: ebec5775770c0f1e297eaaf35bf644c605a69afc
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: d8f52edfdf4bd7776ab8d81185c867cbfd7bcf44
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197773"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813598"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
@@ -62,7 +62,6 @@ var blogs = context.Blogs
 
 > [!NOTE]
 > バージョン 3.0 より前では、`FromSqlRaw` と `FromSqlInterpolated` は、`FromSql` という名前の 2 つのオーバーロードでした。 詳細については、[前のバージョンのセクション](#previous-versions)を参照してください。
-
 
 <!-- [!code-csharp[Main](samples/core/Querying/RawSQL/Sample.cs)] -->
 ``` csharp
@@ -172,6 +171,6 @@ var blogs = context.Blogs
 
 * SQL Server ではストアド プロシージャ呼び出しを構成することができないため、そのような呼び出しに追加のクエリ演算子を適用しようとすると、無効な SQL が発生します。 クエリ演算子は、クライアント評価のため、`AsEnumerable()` の後に導入される場合があります。
 
-# <a name="previous-versions"></a>以前のバージョン
+## <a name="previous-versions"></a>以前のバージョン
 
 EF Core バージョン 2.2 以前では、`FromSql` という名前の 2 つのオーバーロードがありました。これは新しい `FromSqlRaw` や `FromSqlInterpolated` と同じように動作しました。 この場合、挿入文字列メソッドを呼び出すつもりが、誤って raw 文字列メソッドを非常に簡単に呼び出せてしまいます。その逆も同様です。 これは、クエリをパラメーター化する必要があるときに、パラメーター化されない結果になる場合があります。
