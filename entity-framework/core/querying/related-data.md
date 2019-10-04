@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 4bf9598f9b7e74c2835d3926215de9a7ef4e6f96
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 4e4ba21cd099daab4db8a8f358800fde26980c14
+ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921790"
+ms.lasthandoff: 10/02/2019
+ms.locfileid: "71813586"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -30,7 +30,6 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 > [!TIP]  
 > Entity Framework Core は、以前にコンテキスト インスタンスに読み込まれた他のエンティティに対して、ナビゲーション プロパティを自動的に修正します。 そのため、ナビゲーション プロパティのデータを明示的に含めていない場合でも、関連エンティティの一部またはすべてが以前に読み込まれていれば、プロパティを設定することができます。
 
-
 複数のリレーションシップの関連データを 1 つのクエリに含めることができます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleIncludes)]
@@ -40,9 +39,6 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 `ThenInclude` メソッドを使用して、リレーションシップをドリル ダウンし、複数のレベルの関連データを含めることができます。 次の例では、すべてのブログ、関連記事、および各投稿の作成者を読み込みます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#SingleThenInclude)]
-
-> [!NOTE]  
-> Visual Studio の現在のバージョンでは、適切なコード補完オプションが提供されていないため、コレクションのナビゲーション プロパティのあとに `ThenInclude` メソッドを使用すると、正しい式に構文エラーのフラグが付けられる可能性があります。 これは https://github.com/dotnet/roslyn/issues/8237 で追跡された IntelliSense のバグの症状です。 コードが正しく、正常にコンパイルできる限り、このような見せかけ上の構文エラーは無視しても構いません。 
 
 `ThenInclude` に対して複数の呼び出しを連鎖させて、さらなるレベルの関連データを含めることができます。
 
@@ -55,6 +51,9 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 含まれているエンティティの 1 つについて複数の関連エンティティを含めることができます。 たとえば、`Blogs` をクエリするときに、`Posts` を含め、さらに `Posts` の `Author` と `Tags` の両方を含めたい場合があります。 この場合、ルートから始まる各インクルード パスを指定する必要があります。 たとえば、`Blog -> Posts -> Author` と`Blog -> Posts -> Tags` です。 これで冗長的な結合を実現することにはならず、ほとんどの場合、SQL を生成するときに EF で結合は統合されます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
+
+> [!CAUTION]
+> バージョン 3.0.0 より、各 `Include` によって追加の JOIN がリレーショナル プロバイダーによって作成された SQL クエリに追加されます。以前のバージョンでは追加の SQL クエリが生成されていました。 これにより、クエリのパフォーマンスが良かれ悪しかれ大幅に変わります。 特に、`Include` 演算子が非常に多い LINQ クエリは、デカルト爆発の問題を回避するために、複数の個別の LINQ クエリに分割する必要がある場合があります。
 
 ### <a name="include-on-derived-types"></a>派生型に対するインクルード
 
@@ -111,22 +110,7 @@ public class School
   context.People.Include("School").ToList()
   ```
 
-### <a name="ignored-includes"></a>無視されるインクルード
-
-クエリが開始されたエンティティ型のインスタンスを返さないようにクエリを変更した場合、インクルード演算子は無視されます。
-
-次の例では、インクルード演算子は `Blog` に基づいていますが、匿名型を返すようにクエリを変更するために `Select` 演算子が使用されています。 この場合、インクルード演算子には何の効果もありません。
-
-[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#IgnoredInclude)]
-
-既定では、インクルード演算子が無視されると、EF Core では警告をログに記録します。 ログ記録の出力の表示に関する詳細については、[ログ記録](../miscellaneous/logging.md)に関するページを参照してください。 インクルード演算子が無視された場合の動作を、エラーをスローするか、または何もしないかに変更できます。 ASP.NET Core を使用している場合、通常は `DbContext.OnConfiguring` または `Startup.cs` でコンテキストのオプションを設定するときに、この変更が行われます。
-
-[!code-csharp[Main](../../../samples/core/Querying/RelatedData/ThrowOnIgnoredInclude/BloggingContext.cs#OnConfiguring)]
-
 ## <a name="explicit-loading"></a>明示的読み込み
-
-> [!NOTE]  
-> この機能は、EF Core 1.1 で導入されました。
 
 `DbContext.Entry(...)` API を使用してナビゲーション プロパティを明示的に読み込むことができます。
 
@@ -148,10 +132,8 @@ public class School
 
 ## <a name="lazy-loading"></a>遅延読み込み
 
-> [!NOTE]  
-> この機能は、EF Core 2.1 で導入されました。
-
 遅延読み込みを使用するには、[Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) パッケージをインストールし、`UseLazyLoadingProxies` を呼び出して有効にする方法が最も簡単です。 次に例を示します。
+
 ```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
@@ -159,12 +141,15 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         .UseSqlServer(myConnectionString);
 ```
 または、AddDbContext を使用する場合:
+
 ```csharp
 .AddDbContext<BloggingContext>(
     b => b.UseLazyLoadingProxies()
           .UseSqlServer(myConnectionString));
 ```
+
 EF Core は、オーバーライド可能なナビゲーション プロパティの場合に遅延読み込みを有効にします。つまり `virtual` であり、継承可能なクラスのナビゲーション プロパティである必要があります。 たとえば、次のエンティティでは、`Post.Blog` および `Blog.Posts` ナビゲーション プロパティの遅延読み込みが実行されます。
+
 ```csharp
 public class Blog
 {
@@ -183,9 +168,11 @@ public class Post
     public virtual Blog Blog { get; set; }
 }
 ```
+
 ### <a name="lazy-loading-without-proxies"></a>プロキシを使用しない遅延読み込み
 
 遅延読み込みプロキシは、[エンティティ型コンストラクター](../modeling/constructors.md)に関するページで説明されているように、エンティティに `ILazyLoader` サービスを挿入することで機能します。 次に例を示します。
+
 ```csharp
 public class Blog
 {
@@ -238,7 +225,9 @@ public class Post
     }
 }
 ```
+
 この場合、エンティティ型を継承したり、ナビゲーション プロパティを仮想にしたりする必要はありません。コンテキストにアタッチされたときに、`new` で作成されたエンティティ インスタンスの遅延読み込みを実行することができます。 ただし、これには、[Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) パッケージで定義される `ILazyLoader` サービスが必要です。 このパッケージに含まれる型のセットは、それに依存してもほとんど影響がないように、最低限のセットになっています。 しかし、エンティティ型で EF Core パッケージへの依存を完全に回避するには、デリゲートとして `ILazyLoader.Load` メソッドを挿入することが可能です。 次に例を示します。
+
 ```csharp
 public class Blog
 {
@@ -291,7 +280,9 @@ public class Post
     }
 }
 ```
+
 上記のコードでは、デリゲートの使用をビット クリーナーにするために、拡張メソッド `Load` を使用しています。
+
 ```csharp
 public static class PocoLoadingExtensions
 {
@@ -308,6 +299,7 @@ public static class PocoLoadingExtensions
     }
 }
 ```
+
 > [!NOTE]  
 > 遅延読み込みデリゲートのコンストラクター パラメーターは、"lazyLoader" と指定する必要があります。 これとは別の名前を使用する構成が今後のリリースで計画されています。
 
