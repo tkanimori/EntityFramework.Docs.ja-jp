@@ -1,65 +1,65 @@
 ---
-title: データベースの最初の EF6
+title: Database First-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: c81025fe7c3ad6398f003f7be2a3f9f072eec327
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: d40cff4ddccf43a394ef4f244653372a5a89b05a
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46284084"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182449"
 ---
-# <a name="database-first"></a><span data-ttu-id="24a9f-102">最初のデータベースします。</span><span class="sxs-lookup"><span data-stu-id="24a9f-102">Database First</span></span>
-<span data-ttu-id="24a9f-103">このビデオ、およびステップ バイ ステップ チュートリアルでは、Entity Framework を使用して Database First の開発の概要を提供します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-103">This video and step-by-step walkthrough provide an introduction to Database First development using Entity Framework.</span></span> <span data-ttu-id="24a9f-104">データベース最初にすることができますをリバース エンジニア リング、既存のデータベースからモデル。</span><span class="sxs-lookup"><span data-stu-id="24a9f-104">Database First allows you to reverse engineer a model from an existing database.</span></span> <span data-ttu-id="24a9f-105">モデルは、EDMX ファイル (拡張子は .edmx) に格納され、表示および編集できます、Entity Framework デザイナーで。</span><span class="sxs-lookup"><span data-stu-id="24a9f-105">The model is stored in an EDMX file (.edmx extension) and can be viewed and edited in the Entity Framework Designer.</span></span> <span data-ttu-id="24a9f-106">アプリケーションと対話するクラスは、EDMX ファイルから自動的に生成されます。</span><span class="sxs-lookup"><span data-stu-id="24a9f-106">The classes that you interact with in your application are automatically generated from the EDMX file.</span></span>
+# <a name="database-first"></a><span data-ttu-id="7a93a-102">Database First</span><span class="sxs-lookup"><span data-stu-id="7a93a-102">Database First</span></span>
+<span data-ttu-id="7a93a-103">このビデオとステップバイステップのチュートリアルでは、Entity Framework を使用した Database First 開発の概要について説明します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-103">This video and step-by-step walkthrough provide an introduction to Database First development using Entity Framework.</span></span> <span data-ttu-id="7a93a-104">Database First を使用すると、既存のデータベースからモデルをリバースエンジニアリングできます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-104">Database First allows you to reverse engineer a model from an existing database.</span></span> <span data-ttu-id="7a93a-105">モデルは EDMX ファイル (.edmx 拡張子) に格納されており、Entity Framework Designer で表示および編集できます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-105">The model is stored in an EDMX file (.edmx extension) and can be viewed and edited in the Entity Framework Designer.</span></span> <span data-ttu-id="7a93a-106">アプリケーションで対話するクラスは、EDMX ファイルから自動的に生成されます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-106">The classes that you interact with in your application are automatically generated from the EDMX file.</span></span>
 
-## <a name="watch-the-video"></a><span data-ttu-id="24a9f-107">ビデオを見る</span><span class="sxs-lookup"><span data-stu-id="24a9f-107">Watch the video</span></span>
-<span data-ttu-id="24a9f-108">このビデオでは、Entity Framework を使用して Database First の開発の概要を提供します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-108">This video provides an introduction to Database First development using Entity Framework.</span></span> <span data-ttu-id="24a9f-109">データベース最初にすることができますをリバース エンジニア リング、既存のデータベースからモデル。</span><span class="sxs-lookup"><span data-stu-id="24a9f-109">Database First allows you to reverse engineer a model from an existing database.</span></span> <span data-ttu-id="24a9f-110">モデルは、EDMX ファイル (拡張子は .edmx) に格納され、表示および編集できます、Entity Framework デザイナーで。</span><span class="sxs-lookup"><span data-stu-id="24a9f-110">The model is stored in an EDMX file (.edmx extension) and can be viewed and edited in the Entity Framework Designer.</span></span> <span data-ttu-id="24a9f-111">アプリケーションと対話するクラスは、EDMX ファイルから自動的に生成されます。</span><span class="sxs-lookup"><span data-stu-id="24a9f-111">The classes that you interact with in your application are automatically generated from the EDMX file.</span></span>
+## <a name="watch-the-video"></a><span data-ttu-id="7a93a-107">ビデオを見る</span><span class="sxs-lookup"><span data-stu-id="7a93a-107">Watch the video</span></span>
+<span data-ttu-id="7a93a-108">このビデオでは、Entity Framework を使用した Database First 開発の概要について説明します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-108">This video provides an introduction to Database First development using Entity Framework.</span></span> <span data-ttu-id="7a93a-109">Database First を使用すると、既存のデータベースからモデルをリバースエンジニアリングできます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-109">Database First allows you to reverse engineer a model from an existing database.</span></span> <span data-ttu-id="7a93a-110">モデルは EDMX ファイル (.edmx 拡張子) に格納されており、Entity Framework Designer で表示および編集できます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-110">The model is stored in an EDMX file (.edmx extension) and can be viewed and edited in the Entity Framework Designer.</span></span> <span data-ttu-id="7a93a-111">アプリケーションで対話するクラスは、EDMX ファイルから自動的に生成されます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-111">The classes that you interact with in your application are automatically generated from the EDMX file.</span></span>
 
-<span data-ttu-id="24a9f-112">**提供**: [Rowan Miller](http://romiller.com/)</span><span class="sxs-lookup"><span data-stu-id="24a9f-112">**Presented By**: [Rowan Miller](http://romiller.com/)</span></span>
+<span data-ttu-id="7a93a-112">**表示者**:[Rowan 明美](https://romiller.com/)</span><span class="sxs-lookup"><span data-stu-id="7a93a-112">**Presented By**: [Rowan Miller](https://romiller.com/)</span></span>
 
-<span data-ttu-id="24a9f-113">**ビデオ**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)</span><span class="sxs-lookup"><span data-stu-id="24a9f-113">**Video**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)</span></span>
+<span data-ttu-id="7a93a-113">**ビデオ**:[WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)</span><span class="sxs-lookup"><span data-stu-id="7a93a-113">**Video**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)</span></span>
 
-## <a name="pre-requisites"></a><span data-ttu-id="24a9f-114">前提条件</span><span class="sxs-lookup"><span data-stu-id="24a9f-114">Pre-Requisites</span></span>
+## <a name="pre-requisites"></a><span data-ttu-id="7a93a-114">前提条件</span><span class="sxs-lookup"><span data-stu-id="7a93a-114">Pre-Requisites</span></span>
 
-<span data-ttu-id="24a9f-115">少なくとも Visual Studio 2010 が必要がありますか、このチュートリアルを実行する Visual Studio 2012 がインストールされています。</span><span class="sxs-lookup"><span data-stu-id="24a9f-115">You will need to have at least Visual Studio 2010 or Visual Studio 2012 installed to complete this walkthrough.</span></span>
+<span data-ttu-id="7a93a-115">このチュートリアルを完了するには、少なくとも Visual Studio 2010 または Visual Studio 2012 がインストールされている必要があります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-115">You will need to have at least Visual Studio 2010 or Visual Studio 2012 installed to complete this walkthrough.</span></span>
 
-<span data-ttu-id="24a9f-116">Visual Studio 2010 を使用している場合も必要になりますが[NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールします。</span><span class="sxs-lookup"><span data-stu-id="24a9f-116">If you are using Visual Studio 2010, you will also need to have [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installed.</span></span>
+<span data-ttu-id="7a93a-116">Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)もインストールする必要があります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-116">If you are using Visual Studio 2010, you will also need to have [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installed.</span></span>
 
- 
+ 
 
-## <a name="1-create-an-existing-database"></a><span data-ttu-id="24a9f-117">1.既存のデータベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-117">1. Create an Existing Database</span></span>
+## <a name="1-create-an-existing-database"></a><span data-ttu-id="7a93a-117">1. 既存のデータベースを作成する</span><span class="sxs-lookup"><span data-stu-id="7a93a-117">1. Create an Existing Database</span></span>
 
-<span data-ttu-id="24a9f-118">通常それは既に作成されて、既存のデータベースを対象としているときに、このチュートリアルではアクセスするデータベースを作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="24a9f-118">Typically when you are targeting an existing database it will already be created, but for this walkthrough we need to create a database to access.</span></span>
+<span data-ttu-id="7a93a-118">通常、既存のデータベースを対象とする場合は、既に作成されますが、このチュートリアルでは、にアクセスするデータベースを作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-118">Typically when you are targeting an existing database it will already be created, but for this walkthrough we need to create a database to access.</span></span>
 
-<span data-ttu-id="24a9f-119">Visual Studio と共にインストールされているデータベース サーバーは、インストールした Visual Studio のバージョンによって異なります。</span><span class="sxs-lookup"><span data-stu-id="24a9f-119">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you have installed:</span></span>
+<span data-ttu-id="7a93a-119">Visual Studio と共にインストールされるデータベースサーバーは、インストールされている Visual Studio のバージョンによって異なります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-119">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you have installed:</span></span>
 
--   <span data-ttu-id="24a9f-120">Visual Studio 2010 を使用している場合は、SQL Express データベースを作成するがします。</span><span class="sxs-lookup"><span data-stu-id="24a9f-120">If you are using Visual Studio 2010 you'll be creating a SQL Express database.</span></span>
--   <span data-ttu-id="24a9f-121">Visual Studio 2012 を使用しているかどうかは、作成する、 [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx)データベース。</span><span class="sxs-lookup"><span data-stu-id="24a9f-121">If you are using Visual Studio 2012 then you'll be creating a [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) database.</span></span>
+-   <span data-ttu-id="7a93a-120">Visual Studio 2010 を使用している場合は、SQL Express データベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-120">If you are using Visual Studio 2010 you'll be creating a SQL Express database.</span></span>
+-   <span data-ttu-id="7a93a-121">Visual Studio 2012 を使用している場合は、 [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx)データベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-121">If you are using Visual Studio 2012 then you'll be creating a [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) database.</span></span>
 
- 
+ 
 
-<span data-ttu-id="24a9f-122">データベースを生成してみましょう。</span><span class="sxs-lookup"><span data-stu-id="24a9f-122">Let's go ahead and generate the database.</span></span>
+<span data-ttu-id="7a93a-122">では、データベースを生成してみましょう。</span><span class="sxs-lookup"><span data-stu-id="7a93a-122">Let's go ahead and generate the database.</span></span>
 
--   <span data-ttu-id="24a9f-123">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="24a9f-123">Open Visual Studio</span></span>
--   <span data-ttu-id="24a9f-124">**ビュー -&gt;サーバー エクスプ ローラー**</span><span class="sxs-lookup"><span data-stu-id="24a9f-124">**View -&gt; Server Explorer**</span></span>
--   <span data-ttu-id="24a9f-125">右クリックして**データ接続 -&gt;接続の追加.**</span><span class="sxs-lookup"><span data-stu-id="24a9f-125">Right click on **Data Connections -&gt; Add Connection…**</span></span>
--   <span data-ttu-id="24a9f-126">場合、まだデータベースに接続して、サーバー エクスプ ローラーから前に、データ ソースとして Microsoft SQL Server を選択する必要があります。</span><span class="sxs-lookup"><span data-stu-id="24a9f-126">If you haven’t connected to a database from Server Explorer before you’ll need to select Microsoft SQL Server as the data source</span></span>
+-   <span data-ttu-id="7a93a-123">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="7a93a-123">Open Visual Studio</span></span>
+-   <span data-ttu-id="7a93a-124">**ビュー-&gt; サーバーエクスプローラー**</span><span class="sxs-lookup"><span data-stu-id="7a93a-124">**View -&gt; Server Explorer**</span></span>
+-   <span data-ttu-id="7a93a-125">[データ接続] を右クリックし **、&gt; [接続の追加**] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-125">Right click on **Data Connections -&gt; Add Connection…**</span></span>
+-   <span data-ttu-id="7a93a-126">サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして Microsoft SQL Server を選択する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-126">If you haven’t connected to a database from Server Explorer before you’ll need to select Microsoft SQL Server as the data source</span></span>
 
-    ![データ ソースの選択](~/ef6/media/selectdatasource.png)
+    ![データソースの選択](~/ef6/media/selectdatasource.png)
 
--   <span data-ttu-id="24a9f-128">LocalDB または SQL Express をインストールしたものに応じてのいずれかに接続し、入力**DatabaseFirst.Blogging**データベース名として</span><span class="sxs-lookup"><span data-stu-id="24a9f-128">Connect to either LocalDB or SQL Express, depending on which one you have installed, and enter **DatabaseFirst.Blogging** as the database name</span></span>
+-   <span data-ttu-id="7a93a-128">インストールされているものに応じて LocalDB または SQL Express に接続し、データベース名として「Databasefirst」と入力し**ます。**</span><span class="sxs-lookup"><span data-stu-id="7a93a-128">Connect to either LocalDB or SQL Express, depending on which one you have installed, and enter **DatabaseFirst.Blogging** as the database name</span></span>
 
     ![Sql Express 接続 DF](~/ef6/media/sqlexpressconnectiondf.png)
 
     ![LocalDB 接続 DF](~/ef6/media/localdbconnectiondf.png)
 
--   <span data-ttu-id="24a9f-131">選択**OK**かどうかは、新しいデータベースを作成するように要求がある **[はい]**</span><span class="sxs-lookup"><span data-stu-id="24a9f-131">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>
+-   <span data-ttu-id="7a93a-131">[ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 **[はい]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-131">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>
 
-    ![[データベース] ダイアログを作成します。](~/ef6/media/createdatabasedialog.png)
+    ![データベースの作成ダイアログ](~/ef6/media/createdatabasedialog.png)
 
--   <span data-ttu-id="24a9f-133">新しいデータベースがサーバー エクスプ ローラーに表示されますを右クリックして選択**新しいクエリ**</span><span class="sxs-lookup"><span data-stu-id="24a9f-133">The new database will now appear in Server Explorer, right-click on it and select **New Query**</span></span>
--   <span data-ttu-id="24a9f-134">新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**</span><span class="sxs-lookup"><span data-stu-id="24a9f-134">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
+-   <span data-ttu-id="7a93a-133">新しいデータベースがサーバーエクスプローラーに表示され、右クリックして **[新しいクエリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-133">The new database will now appear in Server Explorer, right-click on it and select **New Query**</span></span>
+-   <span data-ttu-id="7a93a-134">次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[実行]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-134">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
 
 ``` SQL
 CREATE TABLE [dbo].[Blogs] (
@@ -79,78 +79,78 @@ CREATE TABLE [dbo].[Posts] (
 );
 ```
 
-## <a name="2-create-the-application"></a><span data-ttu-id="24a9f-135">2.アプリケーションを作成する</span><span class="sxs-lookup"><span data-stu-id="24a9f-135">2. Create the Application</span></span>
+## <a name="2-create-the-application"></a><span data-ttu-id="7a93a-135">2. アプリケーションを作成する</span><span class="sxs-lookup"><span data-stu-id="7a93a-135">2. Create the Application</span></span>
 
-<span data-ttu-id="24a9f-136">単純化するには、Database First を使用して、データ アクセスを実行する基本的なコンソール アプリケーションをビルドしていきます。</span><span class="sxs-lookup"><span data-stu-id="24a9f-136">To keep things simple we’re going to build a basic console application that uses the Database First to perform data access:</span></span>
+<span data-ttu-id="7a93a-136">単純にするために、Database First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-136">To keep things simple we’re going to build a basic console application that uses the Database First to perform data access:</span></span>
 
--   <span data-ttu-id="24a9f-137">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="24a9f-137">Open Visual Studio</span></span>
--   <span data-ttu-id="24a9f-138">**ファイル -&gt;新機能 -&gt;プロジェクト.**</span><span class="sxs-lookup"><span data-stu-id="24a9f-138">**File -&gt; New -&gt; Project…**</span></span>
--   <span data-ttu-id="24a9f-139">選択**Windows**左側のメニューと**コンソール アプリケーション**</span><span class="sxs-lookup"><span data-stu-id="24a9f-139">Select **Windows** from the left menu and **Console Application**</span></span>
--   <span data-ttu-id="24a9f-140">入力**DatabaseFirstSample**名として</span><span class="sxs-lookup"><span data-stu-id="24a9f-140">Enter **DatabaseFirstSample** as the name</span></span>
--   <span data-ttu-id="24a9f-141">**[OK]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-141">Select **OK**</span></span>
+-   <span data-ttu-id="7a93a-137">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="7a93a-137">Open Visual Studio</span></span>
+-   <span data-ttu-id="7a93a-138">**ファイル-&gt; 新規-@no__t プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="7a93a-138">**File -&gt; New -&gt; Project…**</span></span>
+-   <span data-ttu-id="7a93a-139">左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-139">Select **Windows** from the left menu and **Console Application**</span></span>
+-   <span data-ttu-id="7a93a-140">名前として「 **Databasefirstsample** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-140">Enter **DatabaseFirstSample** as the name</span></span>
+-   <span data-ttu-id="7a93a-141">**[OK]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-141">Select **OK**</span></span>
 
- 
+ 
 
-## <a name="3-reverse-engineer-model"></a><span data-ttu-id="24a9f-142">3.リバース エンジニア リング モデル</span><span class="sxs-lookup"><span data-stu-id="24a9f-142">3. Reverse Engineer Model</span></span>
+## <a name="3-reverse-engineer-model"></a><span data-ttu-id="7a93a-142">3.リバースエンジニアリングモデル</span><span class="sxs-lookup"><span data-stu-id="7a93a-142">3. Reverse Engineer Model</span></span>
 
-<span data-ttu-id="24a9f-143">Visual Studio の一部として含まれている Entity Framework デザイナーを使用してモデルを作成することになります。</span><span class="sxs-lookup"><span data-stu-id="24a9f-143">We’re going to make use of Entity Framework Designer, which is included as part of Visual Studio, to create our model.</span></span>
+<span data-ttu-id="7a93a-143">ここでは、Visual Studio の一部として含まれている Entity Framework Designer を使用して、モデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-143">We’re going to make use of Entity Framework Designer, which is included as part of Visual Studio, to create our model.</span></span>
 
--   <span data-ttu-id="24a9f-144">**プロジェクト -&gt;新しい項目を追加しています.**</span><span class="sxs-lookup"><span data-stu-id="24a9f-144">**Project -&gt; Add New Item…**</span></span>
--   <span data-ttu-id="24a9f-145">選択**データ**左側のメニューをクリックし**ADO.NET Entity Data Model**</span><span class="sxs-lookup"><span data-stu-id="24a9f-145">Select **Data** from the left menu and then **ADO.NET Entity Data Model**</span></span>
--   <span data-ttu-id="24a9f-146">入力**BloggingModel**名をクリックします**OK**</span><span class="sxs-lookup"><span data-stu-id="24a9f-146">Enter **BloggingModel** as the name and click **OK**</span></span>
--   <span data-ttu-id="24a9f-147">これにより、起動、 **Entity Data Model ウィザード**</span><span class="sxs-lookup"><span data-stu-id="24a9f-147">This launches the **Entity Data Model Wizard**</span></span>
--   <span data-ttu-id="24a9f-148">選択**データベースから生成**クリック **[次へ]**</span><span class="sxs-lookup"><span data-stu-id="24a9f-148">Select **Generate from Database** and click **Next**</span></span>
+-   <span data-ttu-id="7a93a-144">**プロジェクト-&gt; 新しい項目の追加...**</span><span class="sxs-lookup"><span data-stu-id="7a93a-144">**Project -&gt; Add New Item…**</span></span>
+-   <span data-ttu-id="7a93a-145">左側のメニューから **データ** を選択し、ADO.NET をクリックし**Entity Data Model**</span><span class="sxs-lookup"><span data-stu-id="7a93a-145">Select **Data** from the left menu and then **ADO.NET Entity Data Model**</span></span>
+-   <span data-ttu-id="7a93a-146">名前として「 **Bのログインモデル**」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-146">Enter **BloggingModel** as the name and click **OK**</span></span>
+-   <span data-ttu-id="7a93a-147">**Entity Data Model ウィザード**が起動します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-147">This launches the **Entity Data Model Wizard**</span></span>
+-   <span data-ttu-id="7a93a-148">**[データベースから生成]** を選択し、 **[次へ]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-148">Select **Generate from Database** and click **Next**</span></span>
 
-    ![ウィザードの手順 1](~/ef6/media/wizardstep1.png)
+    ![ウィザードの手順 1.](~/ef6/media/wizardstep1.png)
 
--   <span data-ttu-id="24a9f-150">最初のセクションで作成したデータベース接続を選択して、入力**BloggingContext**をクリックして、接続文字列の名前として **[次へ]**</span><span class="sxs-lookup"><span data-stu-id="24a9f-150">Select the connection to the database you created in the first section, enter **BloggingContext** as the name of the connection string and click **Next**</span></span>
+-   <span data-ttu-id="7a93a-150">最初のセクションで作成したデータベースへの接続を選択し、接続文字列の名前として「 **Bのログインコンテキスト**」と入力して、 **[次へ]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-150">Select the connection to the database you created in the first section, enter **BloggingContext** as the name of the connection string and click **Next**</span></span>
 
-    ![ウィザードの手順 2](~/ef6/media/wizardstep2.png)
+    ![ウィザードの手順 2.](~/ef6/media/wizardstep2.png)
 
--   <span data-ttu-id="24a9f-152">すべてのテーブルをインポートし、[完了] をクリックします。 'テーブル' の横にあるチェック ボックスをクリックします。</span><span class="sxs-lookup"><span data-stu-id="24a9f-152">Click the checkbox next to ‘Tables’ to import all tables and click ‘Finish’</span></span>
+-   <span data-ttu-id="7a93a-152">[テーブル] の横にあるチェックボックスをオンにしてすべてのテーブルをインポートし、[完了] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-152">Click the checkbox next to ‘Tables’ to import all tables and click ‘Finish’</span></span>
 
-    ![ウィザードの手順 3](~/ef6/media/wizardstep3.png)
+    ![ウィザードの手順 3.](~/ef6/media/wizardstep3.png)
 
- 
+ 
 
-<span data-ttu-id="24a9f-154">リバース エンジニア リング プロセスが完了すると、新しいモデルがプロジェクトに追加しを開いて、Entity Framework デザイナーで表示することです。</span><span class="sxs-lookup"><span data-stu-id="24a9f-154">Once the reverse engineer process completes the new model is added to your project and opened up for you to view in the Entity Framework Designer.</span></span> <span data-ttu-id="24a9f-155">App.config ファイルが、データベースの接続詳細を含むプロジェクトにも追加されました。</span><span class="sxs-lookup"><span data-stu-id="24a9f-155">An App.config file has also been added to your project with the connection details for the database.</span></span>
+<span data-ttu-id="7a93a-154">リバースエンジニアリングプロセスが完了すると、新しいモデルがプロジェクトに追加され、Entity Framework Designer で表示できるように開かれます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-154">Once the reverse engineer process completes the new model is added to your project and opened up for you to view in the Entity Framework Designer.</span></span> <span data-ttu-id="7a93a-155">App.config ファイルも、データベースの接続の詳細と共にプロジェクトに追加されています。</span><span class="sxs-lookup"><span data-stu-id="7a93a-155">An App.config file has also been added to your project with the connection details for the database.</span></span>
 
-![初期モデルします。](~/ef6/media/modelinitial.png)
+![モデルの初期](~/ef6/media/modelinitial.png)
 
-### <a name="additional-steps-in-visual-studio-2010"></a><span data-ttu-id="24a9f-157">Visual Studio 2010 で追加の手順</span><span class="sxs-lookup"><span data-stu-id="24a9f-157">Additional Steps in Visual Studio 2010</span></span>
+### <a name="additional-steps-in-visual-studio-2010"></a><span data-ttu-id="7a93a-157">Visual Studio 2010 の追加手順</span><span class="sxs-lookup"><span data-stu-id="7a93a-157">Additional Steps in Visual Studio 2010</span></span>
 
-<span data-ttu-id="24a9f-158">Visual Studio 2010 で作業している場合は、いくつか追加の手順を次の Entity Framework の最新バージョンにアップグレードする必要があります。</span><span class="sxs-lookup"><span data-stu-id="24a9f-158">If you are working in Visual Studio 2010 there are some additional steps you need to follow to upgrade to the latest version of Entity Framework.</span></span> <span data-ttu-id="24a9f-159">それにアクセスできる最新のバグ修正と強化された API へのアクセスを簡単に使用されるため、アップグレードすることが重要です。</span><span class="sxs-lookup"><span data-stu-id="24a9f-159">Upgrading is important because it gives you access to an improved API surface, that is much easier to use, as well as the latest bug fixes.</span></span>
+<span data-ttu-id="7a93a-158">Visual Studio 2010 で作業している場合、Entity Framework の最新バージョンにアップグレードするには、いくつかの追加の手順に従う必要があります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-158">If you are working in Visual Studio 2010 there are some additional steps you need to follow to upgrade to the latest version of Entity Framework.</span></span> <span data-ttu-id="7a93a-159">アップグレードは、強化された API サーフェイスにアクセスできるようにするために重要です。これは、より使いやすく、最新のバグ修正にも使用できます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-159">Upgrading is important because it gives you access to an improved API surface, that is much easier to use, as well as the latest bug fixes.</span></span>
 
-<span data-ttu-id="24a9f-160">まず、NuGet から最新バージョンの Entity Framework を取得する必要があります。</span><span class="sxs-lookup"><span data-stu-id="24a9f-160">First up, we need to get the latest version of Entity Framework from NuGet.</span></span>
+<span data-ttu-id="7a93a-160">まず、NuGet から最新バージョンの Entity Framework を取得する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-160">First up, we need to get the latest version of Entity Framework from NuGet.</span></span>
 
--   <span data-ttu-id="24a9f-161">**プロジェクト:&gt; NuGet パッケージを管理しています.** 
-    *していない場合、 **NuGet パッケージの管理.** オプションをインストールする必要があります、 [NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*</span><span class="sxs-lookup"><span data-stu-id="24a9f-161">**Project –&gt; Manage NuGet Packages…**
+-   <span data-ttu-id="7a93a-161">**プロジェクト-&gt; NuGet パッケージの管理...** 
+     ***[nuget パッケージの管理...]** オプションがない場合は、[最新バージョンの nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があり*ます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-161">**Project –&gt; Manage NuGet Packages…**
 *If you don’t have the **Manage NuGet Packages…** option you should install the [latest version of NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)*</span></span>
--   <span data-ttu-id="24a9f-162">選択、**オンライン** タブ</span><span class="sxs-lookup"><span data-stu-id="24a9f-162">Select the **Online** tab</span></span>
--   <span data-ttu-id="24a9f-163">選択、 **EntityFramework**パッケージ</span><span class="sxs-lookup"><span data-stu-id="24a9f-163">Select the **EntityFramework** package</span></span>
--   <span data-ttu-id="24a9f-164">クリックして**インストール**</span><span class="sxs-lookup"><span data-stu-id="24a9f-164">Click **Install**</span></span>
+-   <span data-ttu-id="7a93a-162">**[オンライン]** タブを選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-162">Select the **Online** tab</span></span>
+-   <span data-ttu-id="7a93a-163">**Entityframework**パッケージを選択します</span><span class="sxs-lookup"><span data-stu-id="7a93a-163">Select the **EntityFramework** package</span></span>
+-   <span data-ttu-id="7a93a-164">**[インストール]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-164">Click **Install**</span></span>
 
-<span data-ttu-id="24a9f-165">次に、Entity Framework の以降のバージョンで導入された DbContext API を使用するコードを生成するには、このモデルを交換する必要があります。</span><span class="sxs-lookup"><span data-stu-id="24a9f-165">Next, we need to swap our model to generate code that makes use of the DbContext API, which was introduced in later versions of Entity Framework.</span></span>
+<span data-ttu-id="7a93a-165">次に、モデルをスワップして、新しいバージョンの Entity Framework で導入された DbContext API を使用するコードを生成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-165">Next, we need to swap our model to generate code that makes use of the DbContext API, which was introduced in later versions of Entity Framework.</span></span>
 
--   <span data-ttu-id="24a9f-166">EF Designer でのモデルの空いている場所を右クリックして**コード生成項目の追加.**</span><span class="sxs-lookup"><span data-stu-id="24a9f-166">Right-click on an empty spot of your model in the EF Designer and select **Add Code Generation Item…**</span></span>
--   <span data-ttu-id="24a9f-167">選択**オンライン テンプレート**、左側のメニューと検索から**DbContext**</span><span class="sxs-lookup"><span data-stu-id="24a9f-167">Select **Online Templates** from the left menu and search for **DbContext**</span></span>
--   <span data-ttu-id="24a9f-168">EF の選択**5.x C 用 DbContext ジェネレーター\#**、入力**BloggingModel**名をクリックします**追加**</span><span class="sxs-lookup"><span data-stu-id="24a9f-168">Select the EF **5.x DbContext Generator for C\#**, enter **BloggingModel** as the name and click **Add**</span></span>
+-   <span data-ttu-id="7a93a-166">EF デザイナーでモデルの空の場所を右クリックし、 **[コード生成項目の追加...]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-166">Right-click on an empty spot of your model in the EF Designer and select **Add Code Generation Item…**</span></span>
+-   <span data-ttu-id="7a93a-167">左側のメニューから **[オンラインテンプレート]** を選択し、 **dbcontext**を検索します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-167">Select **Online Templates** from the left menu and search for **DbContext**</span></span>
+-   <span data-ttu-id="7a93a-168">**C @ no__t の EF 5.X DbContext ジェネレーター**を選択し、名前として「 **b model** 」と入力して、 **[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-168">Select the EF **5.x DbContext Generator for C\#**, enter **BloggingModel** as the name and click **Add**</span></span>
 
     ![DbContext テンプレート](~/ef6/media/dbcontexttemplate.png)
 
- 
+ 
 
-## <a name="4-reading--writing-data"></a><span data-ttu-id="24a9f-170">4.読み取りとデータの書き込み</span><span class="sxs-lookup"><span data-stu-id="24a9f-170">4. Reading & Writing Data</span></span>
+## <a name="4-reading--writing-data"></a><span data-ttu-id="7a93a-170">4。データの読み取り & 書き込み</span><span class="sxs-lookup"><span data-stu-id="7a93a-170">4. Reading & Writing Data</span></span>
 
-<span data-ttu-id="24a9f-171">使用して一部のデータにアクセスするには、モデルができました。</span><span class="sxs-lookup"><span data-stu-id="24a9f-171">Now that we have a model it’s time to use it to access some data.</span></span> <span data-ttu-id="24a9f-172">クラスは、ここでを使用するデータにアクセスされている自動的に生成される EDMX ファイルに基づいて。</span><span class="sxs-lookup"><span data-stu-id="24a9f-172">The classes we are going to use to access data are being automatically generated for you based on the EDMX file.</span></span>
+<span data-ttu-id="7a93a-171">モデルを作成したので、これを使用していくつかのデータにアクセスします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-171">Now that we have a model it’s time to use it to access some data.</span></span> <span data-ttu-id="7a93a-172">データへのアクセスに使用するクラスは、EDMX ファイルに基づいて自動的に生成されます。</span><span class="sxs-lookup"><span data-stu-id="7a93a-172">The classes we are going to use to access data are being automatically generated for you based on the EDMX file.</span></span>
 
-<span data-ttu-id="24a9f-173">*このスクリーン ショットは Visual Studio 2012、Visual Studio 2010 を使用している場合、BloggingModel.tt、BloggingModel.Context.tt ファイル、プロジェクトの下に直接ではなく EDMX ファイルの下で入れ子になった。*</span><span class="sxs-lookup"><span data-stu-id="24a9f-173">*This screen shot is from Visual Studio 2012, if you are using Visual Studio 2010 the BloggingModel.tt and BloggingModel.Context.tt files will be directly under your project rather than nested under the EDMX file.*</span></span>
+<span data-ttu-id="7a93a-173">*このスクリーンショットは Visual Studio 2012 からのものです。 Visual Studio 2010 を使用している場合は、BloggingModel.tt ファイルと BloggingModel.Context.tt ファイルは、EDMX ファイルの下に入れ子になっているのではなく、プロジェクトの直下に配置されます。*</span><span class="sxs-lookup"><span data-stu-id="7a93a-173">*This screen shot is from Visual Studio 2012, if you are using Visual Studio 2010 the BloggingModel.tt and BloggingModel.Context.tt files will be directly under your project rather than nested under the EDMX file.*</span></span>
 
 ![生成されたクラス DF](~/ef6/media/generatedclassesdf.png)
 
- 
+ 
 
-<span data-ttu-id="24a9f-175">次に示すように、Program.cs の Main メソッドを実装します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-175">Implement the Main method in Program.cs as shown below.</span></span> <span data-ttu-id="24a9f-176">このコードは、コンテキストの新しいインスタンスを作成、し、それを使用して、新しいブログを挿入します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-176">This code creates a new instance of our context and then uses it to insert a new Blog.</span></span> <span data-ttu-id="24a9f-177">タイトルでアルファベット順では、データベースからすべてのブログを取得するのに LINQ クエリを使用します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-177">Then it uses a LINQ query to retrieve all Blogs from the database ordered alphabetically by Title.</span></span>
+<span data-ttu-id="7a93a-175">次に示すように、Program.cs に Main メソッドを実装します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-175">Implement the Main method in Program.cs as shown below.</span></span> <span data-ttu-id="7a93a-176">このコードは、コンテキストの新しいインスタンスを作成し、それを使用して新しいブログを挿入します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-176">This code creates a new instance of our context and then uses it to insert a new Blog.</span></span> <span data-ttu-id="7a93a-177">次に、LINQ クエリを使用して、データベースのすべてのブログをタイトル別にアルファベット順に並べ替えて取得します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-177">Then it uses a LINQ query to retrieve all Blogs from the database ordered alphabetically by Title.</span></span>
 
 ``` csharp
 class Program
@@ -185,24 +185,24 @@ class Program
 }
 ```
 
-<span data-ttu-id="24a9f-178">アプリケーションを実行し、テストを実行できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="24a9f-178">You can now run the application and test it out.</span></span>
+<span data-ttu-id="7a93a-178">これで、アプリケーションを実行してテストできるようになりました。</span><span class="sxs-lookup"><span data-stu-id="7a93a-178">You can now run the application and test it out.</span></span>
 
-```
+```console
 Enter a name for a new Blog: ADO.NET Blog
 All blogs in the database:
 ADO.NET Blog
 Press any key to exit...
 ```
- 
+ 
 
-## <a name="5-dealing-with-database-changes"></a><span data-ttu-id="24a9f-179">5.データベースの変更を処理します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-179">5. Dealing with Database Changes</span></span>
+## <a name="5-dealing-with-database-changes"></a><span data-ttu-id="7a93a-179">5。データベースの変更に対処する</span><span class="sxs-lookup"><span data-stu-id="7a93a-179">5. Dealing with Database Changes</span></span>
 
-<span data-ttu-id="24a9f-180">ここもそれらの変更を反映するように、モデルを更新する必要があります、これらの変更を行った場合、データベース スキーマをいくつか変更します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-180">Now it’s time to make some changes to our database schema, when we make these changes we also need to update our model to reflect those changes.</span></span>
+<span data-ttu-id="7a93a-180">次に、データベーススキーマをいくつか変更します。これらの変更を行うときは、これらの変更を反映するようにモデルを更新する必要もあります。</span><span class="sxs-lookup"><span data-stu-id="7a93a-180">Now it’s time to make some changes to our database schema, when we make these changes we also need to update our model to reflect those changes.</span></span>
 
-<span data-ttu-id="24a9f-181">最初の手順は、データベース スキーマを一部変更するのには。</span><span class="sxs-lookup"><span data-stu-id="24a9f-181">The first step is to make some changes to the database schema.</span></span> <span data-ttu-id="24a9f-182">ユーザー テーブルのスキーマを追加しようとしています。</span><span class="sxs-lookup"><span data-stu-id="24a9f-182">We’re going to add a Users table to the schema.</span></span>
+<span data-ttu-id="7a93a-181">最初の手順では、データベーススキーマにいくつかの変更を行います。</span><span class="sxs-lookup"><span data-stu-id="7a93a-181">The first step is to make some changes to the database schema.</span></span> <span data-ttu-id="7a93a-182">ここでは、ユーザーテーブルをスキーマに追加します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-182">We’re going to add a Users table to the schema.</span></span>
 
--   <span data-ttu-id="24a9f-183">右クリックし、 **DatabaseFirst.Blogging**サーバー エクスプ ローラーでデータベースし、選択**新しいクエリ**</span><span class="sxs-lookup"><span data-stu-id="24a9f-183">Right-click on the **DatabaseFirst.Blogging** database in Server Explorer and select **New Query**</span></span>
--   <span data-ttu-id="24a9f-184">新しいクエリに、次の SQL をコピーし、クエリを選択します右クリックし、 **Execute**</span><span class="sxs-lookup"><span data-stu-id="24a9f-184">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
+-   <span data-ttu-id="7a93a-183">サーバーエクスプローラーで**Databasefirst. ブログ**データベースを右クリックし、 **[新しいクエリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-183">Right-click on the **DatabaseFirst.Blogging** database in Server Explorer and select **New Query**</span></span>
+-   <span data-ttu-id="7a93a-184">次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[実行]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-184">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
 
 ``` SQL
 CREATE TABLE [dbo].[Users]
@@ -212,22 +212,22 @@ CREATE TABLE [dbo].[Users]
 )
 ```
 
-<span data-ttu-id="24a9f-185">これで、スキーマを更新すると、それらの変更、モデルの更新に時間を勧めします。</span><span class="sxs-lookup"><span data-stu-id="24a9f-185">Now that the schema is updated, it’s time to update the model with those changes.</span></span>
+<span data-ttu-id="7a93a-185">スキーマが更新されたので、これらの変更によってモデルを更新します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-185">Now that the schema is updated, it’s time to update the model with those changes.</span></span>
 
--   <span data-ttu-id="24a9f-186">EF デザイナーでモデルおよび選択 'からモデルを更新しています... データベース' の空いている場所を右クリックし、この更新プログラム ウィザードが起動</span><span class="sxs-lookup"><span data-stu-id="24a9f-186">Right-click on an empty spot of your model in the EF Designer and select ‘Update Model from Database…’, this will launch the Update Wizard</span></span>
--   <span data-ttu-id="24a9f-187">テーブルの横のボックスの更新ウィザードのチェックの追加 タブで、スキーマから新しいテーブルを追加することを示します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-187">On the Add tab of the Update Wizard check the box next to Tables, this indicates that we want to add any new tables from the schema.</span></span>
-    <span data-ttu-id="24a9f-188">*[更新] タブでは、モデルの変更、更新中にチェックされる、既存のテーブルを示します。削除のタブは、スキーマから削除されているし、更新プログラムの一部として、モデルから削除もテーブルを表示します。これら 2 つのタブ上の情報は自動的に検出し、は情報提供だけを目的としており、設定を変更することはできません。*</span><span class="sxs-lookup"><span data-stu-id="24a9f-188">*The Refresh tab shows any existing tables in the model that will be checked for changes during the update. The Delete tabs show any tables that have been removed from the schema and will also be removed from the model as part of the update. The information on these two tabs is automatically detected and is provided for informational purposes only, you cannot change any settings.*</span></span>
+-   <span data-ttu-id="7a93a-186">EF デザイナーでモデルの空の場所を右クリックし、[データベースからモデルを更新...] を選択すると、更新ウィザードが起動します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-186">Right-click on an empty spot of your model in the EF Designer and select ‘Update Model from Database…’, this will launch the Update Wizard</span></span>
+-   <span data-ttu-id="7a93a-187">更新ウィザードの [追加] タブで、[テーブル] の横にあるチェックボックスをオンにします。これは、スキーマから新しいテーブルを追加することを示します。</span><span class="sxs-lookup"><span data-stu-id="7a93a-187">On the Add tab of the Update Wizard check the box next to Tables, this indicates that we want to add any new tables from the schema.</span></span>
+    <span data-ttu-id="7a93a-188">*The タブには、更新中に変更がチェックされる、モデル内の既存のテーブルが表示されます。[削除] タブには、スキーマから削除されたテーブルが表示され、更新の一部としてモデルからも削除されます。これら2つのタブの情報は自動的に検出され、情報提供のみを目的として提供されます。*</span><span class="sxs-lookup"><span data-stu-id="7a93a-188">*The Refresh tab shows any existing tables in the model that will be checked for changes during the update. The Delete tabs show any tables that have been removed from the schema and will also be removed from the model as part of the update. The information on these two tabs is automatically detected and is provided for informational purposes only, you cannot change any settings.*</span></span>
 
-    ![ウィザードを更新します。](~/ef6/media/refreshwizard.png)
+    ![更新ウィザード](~/ef6/media/refreshwizard.png)
 
--   <span data-ttu-id="24a9f-190">更新ウィザードで [完了] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="24a9f-190">Click Finish on the Update Wizard</span></span>
+-   <span data-ttu-id="7a93a-190">更新ウィザードで [完了] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7a93a-190">Click Finish on the Update Wizard</span></span>
 
- 
+ 
 
-<span data-ttu-id="24a9f-191">モデルが更新され、データベースに追加するユーザー テーブルにマップする新しいユーザー エンティティを含めます。</span><span class="sxs-lookup"><span data-stu-id="24a9f-191">The model is now updated to include a new User entity that maps to the Users table we added to the database.</span></span>
+<span data-ttu-id="7a93a-191">これで、モデルが更新され、データベースに追加したユーザーテーブルにマップされる新しいユーザーエンティティが追加されました。</span><span class="sxs-lookup"><span data-stu-id="7a93a-191">The model is now updated to include a new User entity that maps to the Users table we added to the database.</span></span>
 
-![モデルが更新されました](~/ef6/media/modelupdated.png)
+![更新されたモデル](~/ef6/media/modelupdated.png)
 
-## <a name="summary"></a><span data-ttu-id="24a9f-193">まとめ</span><span class="sxs-lookup"><span data-stu-id="24a9f-193">Summary</span></span>
+## <a name="summary"></a><span data-ttu-id="7a93a-193">まとめ</span><span class="sxs-lookup"><span data-stu-id="7a93a-193">Summary</span></span>
 
-<span data-ttu-id="24a9f-194">このチュートリアルでは、Database First の開発を見たのでですることができます、既存のデータベースに基づく EF Designer でモデルを作成します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-194">In this walkthrough we looked at Database First development, which allowed us to create a model in the EF Designer based on an existing database.</span></span> <span data-ttu-id="24a9f-195">そのモデルを使用して、データベースからいくつかのデータを読み書きします。</span><span class="sxs-lookup"><span data-stu-id="24a9f-195">We then used that model to read and write some data from the database.</span></span> <span data-ttu-id="24a9f-196">最後に、データベース スキーマに加えられた変更を反映するようにモデルを更新します。</span><span class="sxs-lookup"><span data-stu-id="24a9f-196">Finally, we updated the model to reflect changes we made to the database schema.</span></span>
+<span data-ttu-id="7a93a-194">このチュートリアルでは Database First 開発について説明しました。これにより、既存のデータベースに基づいて EF デザイナーでモデルを作成できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="7a93a-194">In this walkthrough we looked at Database First development, which allowed us to create a model in the EF Designer based on an existing database.</span></span> <span data-ttu-id="7a93a-195">次に、そのモデルを使用して、データベースのデータの読み取りと書き込みを行います。</span><span class="sxs-lookup"><span data-stu-id="7a93a-195">We then used that model to read and write some data from the database.</span></span> <span data-ttu-id="7a93a-196">最後に、データベーススキーマに加えられた変更を反映するようにモデルを更新しました。</span><span class="sxs-lookup"><span data-stu-id="7a93a-196">Finally, we updated the model to reflect changes we made to the database schema.</span></span>

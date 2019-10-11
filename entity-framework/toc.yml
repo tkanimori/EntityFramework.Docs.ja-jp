@@ -175,8 +175,6 @@
           items:
             - name: 概要
               href: core/querying/index.md
-            - name: 基本のクエリ
-              href: core/querying/basic.md
             - name: 関連データの読み込み
               href: core/querying/related-data.md
             - name: クライアントとサーバーの評価
@@ -188,7 +186,7 @@
             - name: 非同期クエリ
               href: core/querying/async.md
             - name: クエリのしくみ
-              href: core/querying/overview.md
+              href: core/querying/how-query-works.md
             - name: グローバル クエリ フィルター
               href: core/querying/filters.md
             - name: クエリのタグ
