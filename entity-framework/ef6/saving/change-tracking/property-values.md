@@ -1,30 +1,30 @@
 ---
-title: プロパティ値 - EF6 の使用
+title: プロパティ値の操作-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
-ms.openlocfilehash: afde503bb4ed15fcf83a57053541cd5da8c89835
-ms.sourcegitcommit: 50521b4a2f71139e6a7210a69ac73da582ef46cf
+ms.openlocfilehash: d8a18182754980d79b71df3f227b30c4ce40366f
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/27/2019
-ms.locfileid: "67416669"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182142"
 ---
-# <a name="working-with-property-values"></a>プロパティ値の使用
-ほとんどの場合 Entity Framework は、状態、元の値と、エンティティ インスタンスのプロパティの現在の値を追跡の考慮されます。 ただし、表示または EF がプロパティに関する情報を操作する場合の切断されたシナリオ - などがあります。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
+# <a name="working-with-property-values"></a>プロパティ値の操作
+ほとんどの場合 Entity Framework は、エンティティインスタンスのプロパティの状態、元の値、および現在の値の追跡を行います。 ただし、接続が切断されたシナリオなど、EF がプロパティについての情報を表示または操作する場合もあります。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
 
-Entity Framework は、追跡対象エンティティの各プロパティの 2 つの値を追跡します。 現在の値は、その名前が示すエンティティのプロパティの現在の値です。 元の値には、プロパティがエンティティをデータベースからクエリを実行またはコンテキストにアタッチしたときに、値です。  
+Entity Framework は、追跡対象のエンティティの各プロパティの2つの値を追跡します。 現在の値は、名前が示すように、エンティティ内のプロパティの現在の値です。 元の値は、エンティティがデータベースから照会されたとき、またはコンテキストにアタッチされたときにプロパティに保持されていた値です。  
 
-プロパティの値を操作するための 2 つの一般的なメカニズムがあります。  
+プロパティ値を操作するには、次の2つの一般的なメカニズムがあります。  
 
-- プロパティ メソッドを使用して厳密に型指定された方法では、1 つのプロパティの値を取得できます。  
-- DbPropertyValues オブジェクトには、エンティティのすべてのプロパティの値を読み取ることができます。 DbPropertyValues し、読み取り、設定のプロパティの値を許可するディクショナリに似たオブジェクトとしては機能します。 DbPropertyValues の別のオブジェクトの値とは、エンティティまたは単純なデータ転送オブジェクト (DTO) の別のコピーなど、他のオブジェクトの値から、DbPropertyValues オブジェクト内の値を設定できます。  
+- 1つのプロパティの値は、プロパティメソッドを使用して厳密に型指定された方法で取得できます。  
+- エンティティのすべてのプロパティの値は、DbPropertyValues オブジェクトに読み取ることができます。 DbPropertyValues は、プロパティ値を読み取って設定できるようにするために、ディクショナリに似たオブジェクトとして機能します。 DbPropertyValues オブジェクトの値は、別の DbPropertyValues オブジェクトの値、またはエンティティの別のコピーや単純なデータ転送オブジェクト (DTO) などの他のオブジェクトの値から設定できます。  
 
-以下のセクションでは、上記のメカニズムの両方を使用しての例を紹介します。  
+以下のセクションでは、上記の両方のメカニズムを使用する例を示します。  
 
-## <a name="getting-and-setting-the-current-or-original-value-of-an-individual-property"></a>取得と個々 のプロパティの現在または元の値の設定  
+## <a name="getting-and-setting-the-current-or-original-value-of-an-individual-property"></a>個々のプロパティの現在の値または元の値を取得および設定する  
 
-次の例では、プロパティの現在の値を読み取り、新しい値を設定する方法を示します。  
+次の例では、プロパティの現在の値を読み取って、新しい値を設定する方法を示しています。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -45,17 +45,17 @@ using (var context = new BloggingContext())
 }
 ```  
 
-CurrentValue プロパティではなく OriginalValue プロパティを使用して、参照したり、元の値を設定します。  
+元の値の読み取りまたは設定を行うには、CurrentValue プロパティの代わりに OriginalValue プロパティを使用します。  
 
-プロパティ名を指定する文字列を使用すると、「オブジェクト」として返される値を入力することに注意してください。 その一方で、ラムダ式を使用する場合は、返される値は厳密に型指定します。  
+文字列を使用してプロパティ名を指定した場合、戻り値は "object" として入力されることに注意してください。 一方、ラムダ式が使用されている場合、戻り値は厳密に型指定されます。  
 
-このようなプロパティ値を設定しても、新しい値が古い値と異なる場合は変更と、プロパティをマークのみされます。  
+このようにプロパティ値を設定した場合、新しい値が古い値と異なる場合にのみ、プロパティが変更済みとしてマークされます。  
 
-この方法でプロパティ値が設定されている場合 AutoDetectChanges がになっている場合でも、変更が自動的に検出します。  
+このようにプロパティ値が設定されている場合、自動検出の変更がオフになっていても、変更は自動的に検出されます。  
 
-## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>取得と、マップされていないプロパティの現在の値の設定  
+## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>マップされていないプロパティの現在の値の取得と設定  
 
-データベースにマップされていないプロパティの現在の値が読み込むこともできます。 マップされていないプロパティの例には、ブログ、RssLink プロパティ可能性があります。 この値は、BlogId に基づいて計算して、そのため、データベースに格納する必要があります。 例えば:  
+データベースにマップされていないプロパティの現在の値も読み取ることができます。 マップされていないプロパティの例としては、ブログの .Rsslink プロパティがあります。 この値は、ブログ Id に基づいて計算される場合があるため、データベースに格納する必要はありません。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -69,9 +69,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-現在の値は、プロパティ setter を公開している場合にも設定できます。  
+プロパティが setter を公開している場合は、現在の値を設定することもできます。  
 
-マップされていないプロパティの Entity Framework の検証を実行するときに、マップされていないプロパティの値を読み取ることは便利です。 同様の理由には、現在の値を読み取りし、いない現在追跡されているコンテキストによってエンティティのプロパティを設定することができます。 例えば:  
+マップされていないプロパティの値の読み取りは、マップされていないプロパティの Entity Framework 検証を実行する場合に便利です。 同じ理由から、現在の値は、コンテキストによって現在追跡されていないエンティティのプロパティに対して読み取りおよび設定できます。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -87,11 +87,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-元の値がマップされていないプロパティやいないコンテキストによって追跡されているエンティティのプロパティには使用できないことに注意してください。  
+マップされていないプロパティや、コンテキストによって追跡されていないエンティティのプロパティには、元の値を使用できないことに注意してください。  
 
-## <a name="checking-whether-a-property-is-marked-as-modified"></a>プロパティが変更済みとしてマークされているかどうかをチェックします。  
+## <a name="checking-whether-a-property-is-marked-as-modified"></a>プロパティが変更済みとしてマークされているかどうかを確認する  
 
-次の例では、個々 のプロパティが変更済みとしてマークされているかどうかをチェックする方法を示します。  
+次の例は、個々のプロパティが変更済みとしてマークされているかどうかを確認する方法を示しています。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -105,11 +105,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-変更されたプロパティの値は、SaveChanges が呼び出されたときに更新プログラムとして、データベースに送信されます。  
+変更されたプロパティの値は、SaveChanges が呼び出されたときにデータベースに更新として送信されます。  
 
-##  <a name="marking-a-property-as-modified"></a>プロパティ変更済みとしてマークします。  
+##  <a name="marking-a-property-as-modified"></a>プロパティを変更済みとしてマークする  
 
-次の例では、変更済みとしてマークする個々 のプロパティを強制する方法を示します。  
+次の例は、個々のプロパティを強制的に変更済みとしてマークする方法を示しています。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -123,13 +123,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-変更の強制を更新するのには、プロパティの現在の値が元の値と同じ場合でも、SaveChanges が呼び出されたときに、プロパティのデータベースに送信プロパティをマークします。  
+プロパティを変更済みとしてマークすると、プロパティの現在の値が元の値と同じであっても SaveChanges が呼び出されたときに、そのプロパティのデータベースに更新が送信されます。  
 
-現在では、後は変更済みとしてマークされていない変更する個々 のプロパティをリセットすることはできません。 これは将来のリリースでサポートする予定です。  
+現在、個々のプロパティが変更済みとしてマークされた後で変更されないようにリセットすることはできません。 これは、将来のリリースでサポートする予定です。  
 
-## <a name="reading-current-original-and-database-values-for-all-properties-of-an-entity"></a>現在、元のデータベース エンティティのすべてのプロパティの値の読み取り  
+## <a name="reading-current-original-and-database-values-for-all-properties-of-an-entity"></a>エンティティのすべてのプロパティの現在の値、元の値、およびデータベースの値の読み取り  
 
-次の例では、現在の値、元の値、およびエンティティのマップされたプロパティのすべてのデータベースの実際の値を読み取る方法を示します。  
+次の例では、エンティティのマップされたすべてのプロパティについて、現在の値、元の値、およびデータベース内の実際の値を読み取る方法を示しています。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -163,11 +163,11 @@ public static void PrintValues(DbPropertyValues values)
 }
 ```  
 
-現在の値は、現在のエンティティのプロパティが含まれている値です。 元の値は、エンティティが照会されたときに、データベースから読み取られた値です。 データベースの値は、データベースに現在格納されている値です。 別のユーザーによって、データベースを加え、同時実行を編集するときなどに、エンティティのクエリが実行されましたので、データベースの値が変更された可能性がありますがある場合は、データベースの値を取得すると便利です。  
+現在の値は、エンティティのプロパティに現在格納されている値です。 元の値は、エンティティが照会されたときにデータベースから読み取られた値です。 データベースの値は、現在データベースに格納されている値です。 データベースの値を取得すると、データベースに対する同時編集が別のユーザーによって行われた場合など、エンティティがクエリされた後にデータベース内の値が変更された可能性があります。  
 
-## <a name="setting-current-or-original-values-from-another-object"></a>別のオブジェクトから現在または元の値の設定  
+## <a name="setting-current-or-original-values-from-another-object"></a>別のオブジェクトからの現在または元の値の設定  
 
-別のオブジェクトから値をコピーして、追跡対象エンティティの現在または元の値を更新できます。 例:  
+追跡対象エンティティの現在の値または元の値は、別のオブジェクトから値をコピーすることによって更新できます。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -196,9 +196,9 @@ public class BlogDto
 }
 ```  
 
-上記のコードを実行しているが表示されます。  
+上記のコードを実行すると、次の出力が出力されます。  
 
-```  
+```console
 Current values:
 Property Id has value 1
 Property Name has value My Cool Blog
@@ -208,13 +208,13 @@ Property Id has value 1
 Property Name has value My Boring Blog
 ```  
 
-エンティティをサービスの呼び出しまたは n 層アプリケーションでクライアントから取得した値に更新する場合は、この方法は使用こともあります。 名前に一致するエンティティのプロパティがある限り、エンティティと同じ型であるために使用するオブジェクトがないことに注意してください。 上記の例では、BlogDTO のインスタンスが元の値を更新するために使用します。  
+この手法は、サービス呼び出しまたは n 層アプリケーションのクライアントから取得した値を使用してエンティティを更新するときに使用されることがあります。 使用されるオブジェクトは、エンティティと同じ型である必要はありません。ただし、エンティティの名前と名前が一致するプロパティがある場合に限ります。 上記の例では、ブログ Dto のインスタンスを使用して、元の値を更新しています。  
 
-変更済みとに、その他のオブジェクトからコピーするときに異なる値に設定されているプロパティのみをマークすることに注意してください。  
+他のオブジェクトからコピーしたときに異なる値に設定されているプロパティのみが、変更済みとしてマークされることに注意してください。  
 
-## <a name="setting-current-or-original-values-from-a-dictionary"></a>ディクショナリの現在または元の値の設定  
+## <a name="setting-current-or-original-values-from-a-dictionary"></a>ディクショナリからの現在または元の値の設定  
 
-追跡対象エンティティの現在または元の値は、ディクショナリまたはその他のいくつかのデータ構造体から値をコピーすることで更新できます。 例:  
+追跡対象エンティティの現在の値または元の値は、ディクショナリまたはその他のデータ構造から値をコピーすることによって更新できます。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -238,11 +238,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-CurrentValues プロパティの代わりに行っていましたプロパティを使用して、元の値を設定します。  
+元の値を設定するには、CurrentValues プロパティの代わりに OriginalValues プロパティを使用します。  
 
-## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>プロパティを使用してディクショナリから現在または元の値の設定  
+## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>プロパティを使用してディクショナリから現在または元の値を設定する  
 
-CurrentValues または上記のように行っていましたを使用する代わりにでは、各プロパティの値を設定するプロパティのメソッドを使用します。 これは、複雑なプロパティの値を設定する必要がある場合ことをお勧めします。 例えば:  
+前に示したように CurrentValues または OriginalValues を使用する代わりに、プロパティメソッドを使用して各プロパティの値を設定することもできます。 これは、複合プロパティの値を設定する必要がある場合に適しています。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -266,11 +266,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-複雑なプロパティを上記の例ではアクセス ドット形式の名前を使用します。 複雑なプロパティにアクセスするには、その他の方法は、複雑なプロパティについて具体的には、このトピックの後半の 2 つのセクションを参照してください。  
+上記の例では、ドット形式の名前を使用して複雑なプロパティにアクセスしています。 複合プロパティにアクセスするその他の方法については、このトピックで後述する「複雑なプロパティについて」の2つのセクションを参照してください。  
 
-## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>現在、元のパスまたはデータベースの値を格納している複製されたオブジェクトを作成します。  
+## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>現在、元、またはデータベースの値を含む複製されたオブジェクトの作成  
 
-CurrentValues、行っていましたから返された DbPropertyValues オブジェクトまたはでは、エンティティの複製の作成に使用できます。 この複製を作成するために使用した DbPropertyValues オブジェクトからプロパティ値が含まれます。 例:  
+CurrentValues、OriginalValues、または GetDatabaseValues から返された DbPropertyValues オブジェクトを使用して、エンティティの複製を作成できます。 この複製には、作成に使用された DbPropertyValues オブジェクトのプロパティ値が含まれます。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -281,13 +281,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-返されるオブジェクトがエンティティでないし、コンテキストによって追跡されていませんことに注意してください。 また、返されたオブジェクトには、リレーションシップのセットを他のオブジェクトにはありません。  
+返されるオブジェクトはエンティティではなく、コンテキストによって追跡されていないことに注意してください。 返されたオブジェクトには、他のオブジェクトに設定されたリレーションシップもありません。  
 
-複製されたオブジェクトは、特に、特定の種類のオブジェクトへのデータ バインディングを含む UI が使用されている、データベースの同時実行更新に関連する問題を解決するために役立ちます。  
+複製されたオブジェクトは、データベースに対する同時更新に関連する問題を解決するのに役立ちます。特に、特定の型のオブジェクトへのデータバインドを含む UI が使用されている場合に役立ちます。  
 
-## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>取得と複雑なプロパティの現在または元の値の設定  
+## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>複合プロパティの現在の値または元の値の取得と設定  
 
-全体の複雑なオブジェクトの値には、読み取りとプリミティブ プロパティのことができ、同様、プロパティ メソッドを使用してセットを指定できます。 さらに複雑なオブジェクトと、そのオブジェクトまたは入れ子になったオブジェクトもの読み取りや設定のプロパティにドリルダウンすることができます。 次にいくつかの例を示します。  
+複合オブジェクト全体の値は、プリミティブプロパティの場合と同様に、プロパティメソッドを使用して読み取って設定できます。 さらに、複合オブジェクトをドリルダウンして、そのオブジェクトのプロパティの読み取りや設定を行うことも、入れ子になったオブジェクトを使用することもできます。 次にいくつかの例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -334,13 +334,13 @@ using (var context = new BloggingContext())
 }
 ```  
 
-CurrentValue プロパティではなく OriginalValue プロパティを使用して、元の値取得または設定します。  
+元の値を取得または設定するには、CurrentValue プロパティの代わりに OriginalValue プロパティを使用します。  
 
-プロパティまたは ComplexProperty メソッドのいずれかを複合プロパティへのアクセスに使用できることに注意してください。 ただし、追加のプロパティを持つ複雑なオブジェクトにドリル ダウンするまたは ComplexProperty を呼び出す場合は、ComplexProperty メソッドを使用する必要があります。  
+複合プロパティにアクセスするには、プロパティまたは ComplexProperty メソッドのいずれかを使用することに注意してください。 ただし、追加のプロパティまたは ComplexProperty 呼び出しを使用して複合オブジェクトをドリルダウンする場合は、ComplexProperty メソッドを使用する必要があります。  
 
-## <a name="using-dbpropertyvalues-to-access-complex-properties"></a>DbPropertyValues を使用して複雑なプロパティにアクセスするには  
+## <a name="using-dbpropertyvalues-to-access-complex-properties"></a>DbPropertyValues を使用した複合プロパティへのアクセス  
 
-ときに、現在のすべてを取得する CurrentValues、行っていました、またはでを使用することもエンティティには、データベースの値、複雑なプロパティの値は、入れ子になった DbPropertyValues オブジェクトとして返されます。 これらのオブジェクトが入れ子になったし、複雑なオブジェクトの値を取得するために使用します。 たとえば、次のメソッドは、任意の複雑なプロパティと入れ子になった複雑なプロパティの値を含むすべてのプロパティの値が印刷されます。  
+CurrentValues、OriginalValues、または GetDatabaseValues を使用してエンティティの現在、元、またはすべての値を取得すると、複合プロパティの値が入れ子になった DbPropertyValues オブジェクトとして返されます。 これらの入れ子になったオブジェクトを使用して、複合オブジェクトの値を取得できます。 たとえば、次のメソッドは、すべてのプロパティの値を出力します。これには、複合プロパティと入れ子になった複合プロパティの値が含まれます。  
 
 ``` csharp
 public static void WritePropertyValues(string parentPropertyName, DbPropertyValues propertyValues)
@@ -362,7 +362,7 @@ public static void WritePropertyValues(string parentPropertyName, DbPropertyValu
 }
 ```  
 
-メソッドを現在のプロパティ値をすべて出力が次のように呼び出されます。  
+現在のすべてのプロパティ値を出力するには、次のようにメソッドを呼び出します。  
 
 ``` csharp
 using (var context = new BloggingContext())

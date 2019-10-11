@@ -3,12 +3,12 @@ title: モデルの作成 - EF6
 author: divega
 ms.date: 07/05/2018
 ms.assetid: 4890228E-CEA1-4595-B8AD-CA81253F8767
-ms.openlocfilehash: c02cdf0550116b703fb6436f8b0c6b064b5d1408
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: bd9843a93121f53518a307c9d2d43b68ae03369c
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283577"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182464"
 ---
 # <a name="creating-a-model"></a>モデルの作成
 
@@ -32,7 +32,7 @@ EF モデルは、アプリケーションのクラスとプロパティがデ�
 
 この短いビデオでその違いと、最適なものを見つける方法を説明します。
 
-**提供**: [Rowan Miller](http://romiller.com/)
+**発表者**: [Rowan Miller](https://romiller.com/)
 
 ![Which Workflow Thumb](../media/whichworkflow-thumb.png) [WMV](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.wmv) | [MP4](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_mp4video_ChoseYourWorkflow.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/8/8F81F4CD-3678-4229-8D79-0C63FFA3C595/HDI_ITPro_Technet_winvideo_ChoseYourWorkflow.zip)
 

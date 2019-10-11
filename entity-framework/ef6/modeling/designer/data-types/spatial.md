@@ -1,93 +1,93 @@
 ---
-title: 空間の EF デザイナー - EF6
+title: 空間-EF デザイナー-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 06baa6e1-d680-4a95-845b-81305c87a962
-ms.openlocfilehash: 67cc6c007a4477b650e7c4875de8fac36a9ba2be
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: a9c54fbc14dd02ce5d4d91449a0d5f9e72f7f0f7
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283759"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182499"
 ---
-# <a name="spatial---ef-designer"></a>空間の EF デザイナー
+# <a name="spatial---ef-designer"></a>空間-EF デザイナー
 > [!NOTE]
-> **EF5 以降のみ**-機能、Api、Entity Framework 5 で導入されたなどのこのページで説明します。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
+> **EF5**以降: このページで説明した機能、api などは、Entity Framework 5 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
 
-ビデオ、およびステップ バイ ステップ チュートリアルでは、Entity Framework デザイナーで空間型をマップする方法を示します。 LINQ クエリを使用して、2 つの場所間の距離を検索する方法も示します。
+ビデオとステップバイステップのチュートリアルでは、空間型を Entity Framework Designer にマップする方法について説明します。 また、LINQ クエリを使用して2つの場所の間の距離を検索する方法も示します。
 
-このチュートリアルで、新しいデータベースを作成する最初のモデル使用しますが、EF デザイナーはでも使用できます、 [Database First](~/ef6/modeling/designer/workflows/database-first.md)ワークフローに既存のデータベースにマップします。
+このチュートリアルでは Model First を使用して新しいデータベースを作成しますが、既存のデータベースにマップするには、EF Designer を[Database First](~/ef6/modeling/designer/workflows/database-first.md)ワークフローと共に使用することもできます。
 
-空間型のサポートは、Entity Framework 5 で導入されました。 空間型、列挙型、およびテーブル値関数などの新機能を使用する .NET Framework 4.5 をターゲットする必要がありますに注意してください。 Visual Studio 2012 では、既定では .NET 4.5 を対象とします。
+空間型のサポートは Entity Framework 5 で導入されました。 空間型、列挙型、テーブル値関数などの新機能を使用するには、.NET Framework 4.5 をターゲットにする必要があることに注意してください。 既定では、Visual Studio 2012 は .NET 4.5 を対象としています。
 
-空間データ型を使用するには、空間をサポートする Entity Framework プロバイダーを使用することも必要があります。 参照してください[空間型のプロバイダー サポート](~/ef6/fundamentals/providers/spatial-support.md)詳細についてはします。
+空間データ型を使用するには、空間をサポートする Entity Framework プロバイダーも使用する必要があります。 詳細については、「[プロバイダーによる空間型のサポート](~/ef6/fundamentals/providers/spatial-support.md)」を参照してください。
 
-2 つのメインの空間データの種類があります: geography および geometry します。 Geography データ型の楕円体データを格納する (たとえば、GPS の緯度と経度座標)。 Geometry データ型は、ユークリッド (平面) 座標系を表します。
+主な空間データ型には、geography と geometry の2つがあります。 Geography データ型には、楕円体データ (GPS の緯度や経度の座標など) が格納されます。 Geometry データ型は、ユークリッド (平面) 座標系を表します。
 
 ## <a name="watch-the-video"></a>ビデオを見る
-このビデオでは、Entity Framework デザイナーで空間型をマップする方法を示します。 LINQ クエリを使用して、2 つの場所間の距離を検索する方法も示します。
+このビデオでは、空間型を Entity Framework Designer にマップする方法について説明します。 また、LINQ クエリを使用して2つの場所の間の距離を検索する方法も示します。
 
-**によって提示される**: Julia Kornich
+**表示者**:ジュリアつい
 
-**ビデオ**: [WMV](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
+**ビデオ**:[WMV](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.wmv) | [MP4](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-mp4video-spatialwithdesigner.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/E/C/9/EC9E6547-8983-4C1F-A919-D33210E4B213/HDI-ITPro-MSDN-winvideo-spatialwithdesigner.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
-このチュートリアルを完了にインストールされている Visual Studio 2012、Ultimate、Premium、Professional、または Web Express edition を使用する必要があります。
+このチュートリアルを完了するには、Visual Studio 2012、Ultimate、Premium、Professional、または Web Express エディションがインストールされている必要があります。
 
-## <a name="set-up-the-project"></a>プロジェクトを設定します。
+## <a name="set-up-the-project"></a>プロジェクトを設定する
 
 1.  Visual Studio 2012 を開く
-2.  **ファイル**メニューで、**新規**、 をクリックし、**プロジェクト**
-3.  左側のウィンドウで次のようにクリックします**Visual C\#** を選び、**コンソール**テンプレート。
-4.  入力**SpatialEFDesigner**をクリックして、プロジェクトの名前として**OK**
+2.  **[ファイル]** メニューの **[新規作成]** をポイントし、 **[プロジェクト]** をクリックします。
+3.  左側のウィンドウで、 **[Visual C @ no__t-1]** をクリックし、**コンソール**テンプレートを選択します。
+4.  プロジェクトの名前として「 **SpatialEFDesigner** 」と入力し、[ **OK]** をクリックします。
 
-## <a name="create-a-new-model-using-the-ef-designer"></a>EF デザイナーを使用して、新しいモデルを作成します。
+## <a name="create-a-new-model-using-the-ef-designer"></a>EF デザイナーを使用して新しいモデルを作成する
 
-1.  ソリューション エクスプ ローラーでプロジェクト名を右クリックし、[**追加**、] をクリックし、**新しい項目**
-2.  選択**データ**選択し、左側のメニューから**ADO.NET Entity Data Model**テンプレート ペイン
-3.  入力**UniversityModel.edmx**のファイル名、およびクリック**追加**
-4.  Entity Data Model ウィザード ページで、次のように選択します**空のモデル**モデルのコンテンツの選択 ダイアログ ボックス。
-5.  クリックして**完了**
+1.  ソリューションエクスプローラーでプロジェクト名を右クリックし、 **[追加]** をポイントして、 **[新しい項目]** をクリックします。
+2.  左側のメニューから **[データ]** を選択し、テンプレート ペインで  **[ADO.NET Entity Data Model]** を選択します。
+3.  ファイル名として「UniversityModel」と入力し、 **[追加]** をクリックし**ます。**
+4.  Entity Data Model ウィザードページで、モデルのコンテンツの選択 ダイアログボックスの **空のモデル** を選択します。
+5.  **[完了]** をクリック
 
-モデルを編集するため、デザイン サーフェイスを提供するエンティティ デザイナーが表示されます。
+モデルを編集するためのデザイン画面を提供する Entity Designer が表示されます。
 
 ウィザードは、次のアクションを実行します。
 
--   概念モデル、ストレージ モデル、およびそれらの間のマッピングを定義する EnumTestModel.edmx ファイルを生成します。 生成されたメタデータ ファイルがアセンブリに埋め込まを取得するために、出力アセンブリに埋め込むに .edmx ファイルの Metadata Artifact Processing プロパティを設定します。
--   次のアセンブリへの参照を追加します: EntityFramework、System.ComponentModel.DataAnnotations、System.Data.Entity します。
--   UniversityModel.tt と UniversityModel.Context.tt ファイルを作成し、.edmx ファイルで追加します。 これらの T4 テンプレート ファイルは、DbContext 派生型と .edmx モデル内のエンティティにマップされる POCO 型を定義するコードを生成します。
+-   概念モデル、ストレージモデル、およびそれらの間のマッピングを定義する EnumTestModel .edmx ファイルを生成します。 生成されたメタデータファイルがアセンブリに埋め込まれるように、出力アセンブリに埋め込む .edmx ファイルのメタデータ成果物の処理プロパティを設定します。
+-   次のアセンブリへの参照を追加します。EntityFramework、System.componentmodel、および system.object... エンティティ。
+-   UniversityModel.tt ファイルと UniversityModel.Context.tt ファイルを作成し、.edmx ファイルの下に追加します。 これらの T4 テンプレートファイルによって、.edmx モデル内のエンティティにマップされる DbContext の派生型と POCO 型を定義するコードが生成されます。
 
-## <a name="add-a-new-entity-type"></a>新しいエンティティ型を追加します。
+## <a name="add-a-new-entity-type"></a>新しいエンティティ型の追加
 
-1.  デザイン画面の空の領域を右クリックして**追加 -&gt;エンティティ**、新しいエンティティのダイアログ ボックスが表示されます
-2.  指定**大学**型の名前を指定し、指定**UniversityID**キー プロパティの名前と型をそのまま使用**Int32**
+1.  デザイン画面の空の領域を右クリックし、[**追加-&gt; エンティティ**] を選択すると、[新しいエンティティ] ダイアログボックスが表示されます。
+2.  型名として「**大学**」を指定し、キープロパティ名として「 **UniversityID** 」を指定し、型を**Int32**にします。
 3.  **[OK]** をクリックします。
-4.  エンティティを右クリックして **- 新しい追加&gt;スカラー プロパティ**
-5.  新しいプロパティの名前を変更**名**
-6.  もう 1 つのスカラー プロパティを追加し、名前を変更する**場所**プロパティ ウィンドウを開き、新しいプロパティの型を変更**Geography**
-7.  モデルを保存し、プロジェクトをビルド
+4.  エンティティを右クリックし、[ **Add New-&gt; スカラー] プロパティ**を選択します。
+5.  新しいプロパティの名前を**Name**に変更します。
+6.  別のスカラープロパティを追加し、その名前を「 **Location** 」に変更して、プロパティウィンドウを開き、新しいプロパティの型を**Geography**に変更します。
+7.  モデルを保存してプロジェクトをビルドする
     > [!NOTE]
-    > ビルドすると、マップされていないエンティティとアソシエーションに関する警告がエラー一覧に表示されます。 エラーが解消されますモデルからデータベースを生成するように選択した後にあるために、これらの警告を無視できます。
+    > ビルドすると、マップされていないエンティティとアソシエーションに関する警告がエラー一覧に表示されることがあります。 モデルからデータベースを生成することを選択した後、エラーが解消されるため、これらの警告は無視してかまいません。
 
-## <a name="generate-database-from-model"></a>モデルからデータベースを生成します。
+## <a name="generate-database-from-model"></a>モデルからデータベースを生成
 
-モデルに基づいているデータベースを生成できます。
+これで、モデルに基づくデータベースを生成できます。
 
-1.  エンティティ デザイナー サーフェスと選択を空の領域を右クリックして**モデルからのデータベースの生成**
-2.  データベースの生成ウィザードのデータ接続ダイアログ ボックスが選択の表示 をクリックして、**新しい接続**ボタンを指定する **(localdb)\\mssqllocaldb**サーバー名および**大学**、データベースとクリック**OK**
-3.  新しいデータベースを作成するかどうかたずねるダイアログがポップアップ表示をクリックします**はい**します。
-4.  をクリックして**次**概要、および DDL の定義が含まれていないの設定 ダイアログ ボックス注に表示されますが、データベースを作成するには、生成された DDL をデータベースの作成ウィザードがデータ定義言語 (DDL) を生成し、列挙型にマップされるテーブル
-5.  クリックして**完了**完了 をクリックしても、DDL スクリプトは実行されません。
-6.  データベースの作成ウィザードは、次: 開きます、 **UniversityModel.edmx.sql** T-SQL エディターの生成で EDMX のストアのスキーマとマッピング セクションでは App.config ファイルに追加の接続文字列情報をファイル
-7.  T-SQL エディターでマウスの右ボタンをクリックし、選択**Execute**サーバー ダイアログへの接続が表示されたら、手順 2. の接続情報を入力し、クリックして**接続**
-8.  生成されたスキーマを表示するには、SQL Server オブジェクト エクスプ ローラーでデータベース名を右クリックして**更新**
+1.  Entity Designer 画面の空の領域を右クリックし、 **[モデルからデータベースを生成]** を選択します。
+2.  データベース生成ウィザードの データ接続の選択 ダイアログボックスが表示されたら、**新しい接続** ボタンをクリックして、データベースのサーバー名と**大学**に **(localdb) \\mssqllocaldb**を指定し、OK をクリックします。
+3.  新しいデータベースを作成するかどうかを確認するダイアログボックスが表示されたら、 **[はい]** をクリックします。
+4.  **次へ** をクリックすると、データベースの作成ウィザードによって、生成された ddl がデータベースを作成するためのデータ定義言語 (ddl) が生成されます。 概要と設定 ダイアログボックスに、ddl にマップされたテーブルの定義が含まれていないことに注意してください。列挙型
+5.  **[完了]** をクリックすると、DDL スクリプトは実行されません。
+6.  データベースの作成ウィザードでは、次のことを行います。T-sql エディターで**UniversityModel**を開くと、ストアスキーマが生成され、edmx ファイルのマッピングセクションによって、接続文字列情報が app.config ファイルに追加されます。
+7.  T-sql エディターでマウスの右ボタンをクリック**し、[サーバーへの接続**] ダイアログボックスが表示されたら、手順2の接続情報を入力して **[接続]** をクリックします。
+8.  生成されたスキーマを表示するには、SQL Server オブジェクトエクスプローラーでデータベース名を右クリックし、[最新の状態に**更新**] を選択します。
 
-## <a name="persist-and-retrieve-data"></a>永続化およびデータの取得
+## <a name="persist-and-retrieve-data"></a>データの永続化と取得
 
-Main メソッドが定義されている Program.cs ファイルを開きます。 Main 関数には、次のコードを追加します。
+Main メソッドが定義されている Program.cs ファイルを開きます。 Main 関数に次のコードを追加します。
 
-コードでは、コンテキストに新しい大学の 2 つのオブジェクトを追加します。 空間プロパティは、DbGeography.FromText メソッドを使用して初期化されます。 地理的ポイント WellKnownText がメソッドに渡されるとして表されます。 コードは、データを保存します。 次に、LINQ クエリでその場所が指定した場所に最も近い大学オブジェクトを返す構成および実行します。
+このコードでは、2つの新しい大学オブジェクトをコンテキストに追加します。 空間プロパティは、FromText メソッドを使用して初期化されます。 WellKnownText として表される geography ポイントがメソッドに渡されます。 次に、データを保存します。 次に、指定した場所に最も近い大学オブジェクトを返す LINQ クエリを構築して実行します。
 
 ``` csharp
 using (var context = new UniversityModelContainer())
@@ -120,12 +120,12 @@ using (var context = new UniversityModelContainer())
 
 アプリケーションをコンパイルして実行します。 このプログラムの出力は、次のようになります。
 
-```
+```console
 The closest University to you is: School of Fine Art.
 ```
 
-データベースにデータを表示するには、SQL Server オブジェクト エクスプ ローラーでデータベース名を右クリックして**更新**します。 マウスの右ボタンをクリックし、テーブルをクリックし、**ビュー データ**します。
+データベースのデータを表示するには、SQL Server オブジェクトエクスプローラーでデータベース名を右クリックし、[最新の情報に**更新**] を選択します。 次に、テーブルのマウスの右ボタンをクリックし、 **[データの表示]** を選択します。
 
 ## <a name="summary"></a>まとめ
 
-このチュートリアルでは、Entity Framework デザイナーを使用して空間型をマップする方法とコードで空間型を使用する方法について説明しました。 
+このチュートリアルでは、Entity Framework Designer を使用して空間型をマップする方法と、コードで空間型を使用する方法について説明しました。 

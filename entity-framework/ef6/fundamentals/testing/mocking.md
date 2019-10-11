@@ -1,51 +1,51 @@
 ---
-title: モック作成フレームワークの EF6 でのテスト
+title: モックフレームワークを使用したテスト-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bd66a638-d245-44d4-8e71-b9c6cb335cc7
-ms.openlocfilehash: 3d39b41018beb70b72105dfb2fe4d61afc0b0525
-ms.sourcegitcommit: eb8359b7ab3b0a1a08522faf67b703a00ecdcefd
+ms.openlocfilehash: 790e077c5b30c4a68a96b3c1a99b40893b2bbe55
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/21/2019
-ms.locfileid: "58319206"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181571"
 ---
-# <a name="testing-with-a-mocking-framework"></a>モック作成フレームワークとテスト
+# <a name="testing-with-a-mocking-framework"></a>モックフレームワークを使用したテスト
 > [!NOTE]
 > **EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。  
 
-アプリケーションのテストを記述する場合、データベースに達するを回避することが望ましいは多くの場合です。  Entity Framework からの使用によると、メモリ内のデータを使用するコンテキストを作成して – – テストで定義されている動作では、これを実現することができます。  
+アプリケーションのテストを作成するときは、多くの場合、データベースにヒットしないようにすることをお勧めします。  Entity Framework では、インメモリデータを使用するコンテキスト (テストで定義された動作) を作成することによってこれを実現できます。  
 
 ## <a name="options-for-creating-test-doubles"></a>テスト代替を作成するためのオプション  
 
-コンテキストのメモリ内のバージョンを作成するために使用できる 2 つのさまざまな方法はあります。  
+インメモリバージョンのコンテキストを作成するには、2つの異なる方法を使用できます。  
 
-- **独自のテスト代替を作成する**– この方法では、コンテキストと DbSets の独自のインメモリ実装を記述します。 これにより、多数の制御、クラスの動作が記述して、コードの妥当な量を所有している必要があります。  
-- **モック作成フレームワークを使用して、テスト代替を作成する**– (Moq) などのモック作成フレームワークを使用するコンテキストとセットの実行時に動的に作成されたインメモリ実装があることができます。  
+- **独自のテスト double を作成**する–この方法では、独自のコンテキストと dbsets のインメモリ実装を記述します。 これにより、クラスの動作を細かく制御できますが、適切な量のコードを記述して所有することができます。  
+- **モックフレームワークを使用したテスト代替の作成**–モックフレームワーク (moq など) を使用すると、コンテキストのインメモリ実装と、実行時に動的に作成される設定を使用できます。  
 
-この記事ではモック作成フレームワークを使用してを処理します。 独自のテスト代替を作成するため、[、独自のテスト代替によるテスト](writing-test-doubles.md)を参照してください。  
+この記事では、モックフレームワークの使用について説明します。 独自のテスト double を作成する場合は、「テスト[を独自](writing-test-doubles.md)に作成する double」を参照してください。  
 
-モック作成フレームワークで EF を使用する方法を紹介するには、Moq を使用して行います。 Moq を取得する最も簡単な方法は、インストールには、 [NuGet からパッケージを Moq](http://nuget.org/packages/Moq/)します。  
+モックフレームワークで EF を使用する方法を示すために、Moq を使用します。 Moq を取得する最も簡単な方法は、 [NuGet から moq パッケージ](https://nuget.org/packages/Moq/)をインストールすることです。  
 
-## <a name="testing-with-pre-ef6-versions"></a>EF6 以前のバージョンでのテスト  
+## <a name="testing-with-pre-ef6-versions"></a>EF6 バージョンでのテスト  
 
-この記事で示されているシナリオでは、EF6 で DbSet に加えられたいくつかの変更に依存します。 EF5 と以前のバージョンをテストするため、[偽のコンテキストでのテスト](http://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/)を参照してください。  
+この記事に示されているシナリオは、EF6 で DbSet に加えられたいくつかの変更に依存しています。 EF5 以前のバージョンでのテストについて[は、「偽のコンテキストを使用したテスト](https://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/)」を参照してください。  
 
-## <a name="limitations-of-ef-in-memory-test-doubles"></a>EF のメモリ内のテスト代替の制限事項  
+## <a name="limitations-of-ef-in-memory-test-doubles"></a>EF のメモリ内テストの2倍の制限事項  
 
-メモリ内のテスト代替は、単体テスト、アプリケーションの EF を使用するビットのレベルのカバレッジを提供する優れた方法を指定できます。 ただし、これを行うときは、メモリ内のデータに対してクエリを実行するのに LINQ to Objects を使用しています。 これは、データベースに対して実行される SQL クエリに変換する EF の LINQ プロバイダー (LINQ to Entities) を使用するよりもの異なる動作になることができます。  
+メモリ内テストの double は、EF を使用するアプリケーションのビットの単体テストレベルを提供するのに適した方法です。 ただし、これを行う場合は、LINQ to Objects を使用してインメモリデータに対してクエリを実行します。 これにより、EF の LINQ プロバイダー (LINQ to Entities) を使用して、データベースに対して実行される SQL にクエリを変換する場合と動作が異なる場合があります。  
 
-このような相違点の 1 つの例では、関連するデータを読み込んでいます。 一連のブログを作成する場合、そのそれぞれが関連する投稿をし、各ブログのため常に、関連する投稿に読み込まれるメモリ内のデータを使用する場合。 ただし、データベースに対して実行する場合は、Include メソッドを使用する場合は、データを読み込むのみされます。  
+このような違いの一例として、関連データの読み込みがあります。 それぞれが関連する投稿を持つ一連のブログを作成した場合、メモリ内データを使用すると、関連する投稿は常に各ブログに読み込まれます。 ただし、データベースに対して実行する場合は、Include メソッドを使用した場合にのみデータが読み込まれます。  
 
-このため、常に一定レベルのエンド ツー エンドの (単体テスト) だけでなく、アプリケーションがデータベースに対して正しく動作させるテストを含めることをお勧めします。  
+このため、アプリケーションがデータベースに対して正しく動作するようにするには、(単体テストに加えて) 何らかのレベルのエンドツーエンドテストを常に含めることをお勧めします。  
 
-## <a name="following-along-with-this-article"></a>この記事と併せてに従ってください。  
+## <a name="following-along-with-this-article"></a>この記事では次のことを行います。  
 
-この記事では、希望する場合は、作業を進めるに Visual Studio にコピーできます。 完全なコード リストを提供します。 作成する最も簡単な**単体テスト プロジェクト**必要がありますターゲットに **.NET Framework 4.5** async を使用して、次のセクションを完了します。  
+この記事では、必要に応じて実行するために Visual Studio にコピーできる完全なコードリストを示します。 **単体テストプロジェクト**を作成するのが最も簡単です。 async を使用するセクションを完了するには、 **.NET Framework 4.5**を対象にする必要があります。  
 
 ## <a name="the-ef-model"></a>EF モデル  
 
-テストをサービスでは、EF の使用により、モデル、BloggingContext とブログや投稿クラスから成ります。 このコードが EF デザイナーによって生成されたか、Code First モデルがあります。  
+テストするサービスでは、Bの出力コンテキストとブログクラスおよび Post クラスで構成された EF モデルが使用されています。 このコードは、EF デザイナーによって生成されたか、Code First モデルである可能性があります。  
 
 ``` csharp
 using System.Collections.Generic;
@@ -80,11 +80,11 @@ namespace TestingDemo
 }
 ```  
 
-### <a name="virtual-dbset-properties-with-ef-designer"></a>EF デザイナーを使用した仮想の DbSet プロパティ  
+### <a name="virtual-dbset-properties-with-ef-designer"></a>EF デザイナーを使用した仮想 DbSet プロパティ  
 
-コンテキストの DbSet プロパティは、仮想化がマークされるに注意してください。 これで、モック作成フレームワークとモック実装でこれらのプロパティのオーバーライドをコンテキストから派生させる。  
+コンテキストの DbSet プロパティは virtual とマークされていることに注意してください。 これにより、モックフレームワークをコンテキストから派生させ、モック実装でこれらのプロパティをオーバーライドできます。  
 
-Code First を使用している場合するクラスを直接編集できます。 EF デザイナーを使用している場合が、コンテキストを生成する T4 テンプレートを編集する必要があります。 開き、 \<model_name\>します。Edmx ファイルの下に入れ子になっている.context.tt ファイルは、コードの次のフラグメントを検索しに示すように仮想キーワードを追加します。  
+Code First を使用している場合は、クラスを直接編集できます。 EF デザイナーを使用している場合は、コンテキストを生成する T4 テンプレートを編集する必要があります。 @No__t-0model_name @ no__t-1 を開きます。Edmx ファイルの下に入れ子になっている Context.tt ファイル。次のコードのフラグメントを検索し、次に示すように仮想キーワードを追加します。  
 
 ``` csharp
 public string DbSet(EntitySet entitySet)
@@ -98,9 +98,9 @@ public string DbSet(EntitySet entitySet)
 }
 ```  
 
-## <a name="service-to-be-tested"></a>サービスをテストするには  
+## <a name="service-to-be-tested"></a>テストするサービス  
 
-ここでは BlogService のいくつかのテストを記述するのには、インメモリ テスト代替によるテストを示します。 サービスが新しいブログ (AddBlog) を作成できると、名前 (GetAllBlogs) によって順序付けられたすべてのブログを返します。 GetAllBlogs、だけでなく名前 (GetAllBlogsAsync) 順でのすべてのブログを非同期的に取得する方法も示します。  
+インメモリテストの2倍のテストを実行するために、ブログサービスに対していくつかのテストを記述します。 このサービスは、新しいブログ (AddBlog) を作成し、名前で並べ替えられたすべてのブログ (GetAllBlogs) を返すことができます。 GetAllBlogs だけでなく、名前で並べ替えられたすべてのブログを非同期に取得するメソッドも用意されています (GetAllBlogsAsync)。  
 
 ``` csharp
 using System.Collections.Generic;
@@ -148,9 +148,9 @@ namespace TestingDemo
 }
 ```  
 
-## <a name="testing-non-query-scenarios"></a>非クエリのシナリオのテスト  
+## <a name="testing-non-query-scenarios"></a>クエリ以外のシナリオのテスト  
 
-非クエリ メソッドのテストを開始するために必要なことです。 次のテストでは、Moq を使用して、コンテキストを作成します。 DbSet を作成し、\<ブログ\>つながり、コンテキストのブログのプロパティから返されるとします。 次に、コンテキストを使用して、– AddBlog メソッドを使用して新しいブログの作成に使用される、新しい BlogService を作成します。 最後に、テストは、サービスが新しいブログの追加し、コンテキストで SaveChanges を呼び出したことを確認します。  
+クエリ以外のメソッドのテストを開始するために必要な操作はこれだけです。 次のテストでは、Moq を使用してコンテキストを作成します。 次に、DbSet @ no__t-0Blog @ no__t-1 を作成し、コンテキストのブログプロパティから返されるように配線します。 次に、コンテキストを使用して新しいブログサービスを作成します。このサービスは、AddBlog メソッドを使用して新しいブログを作成するために使用されます。 最後に、このテストでは、サービスが新しいブログを追加し、コンテキストに SaveChanges という名前を追加したことを確認します。  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -180,11 +180,11 @@ namespace TestingDemo
 }
 ```  
 
-## <a name="testing-query-scenarios"></a>クエリのシナリオのテスト  
+## <a name="testing-query-scenarios"></a>クエリシナリオのテスト  
 
-Double、DbSet のテストに対してクエリを実行できるようにするためには、IQueryable の実装をセットアップする必要があります。 最初の手順がいくつかのメモリ内データを作成するには – 一覧を使用している\<ブログ\>します。 次に、作成コンテキストと DBSet\<ブログ\>し、linq to Objects プロバイダーの一覧で動作する委任がだけ –、DbSet の IQueryable 実装をワイヤ\<T\>します。  
+DbSet テスト double に対してクエリを実行できるようにするには、IQueryable の実装を設定する必要があります。 最初の手順では、メモリ内のデータをいくつか作成します。 @ no__t-0Blog @ no__t-1 というリストを使用します。 次に、コンテキストと DBSet @ no__t-0Blog @ no__t を作成し、DbSet の IQueryable 実装を接続します。これらは、List @ no__t-2T @ no__t で動作する LINQ to Objects プロバイダーに委任するだけです。  
 
-名前によって GetAllBlogs から戻るデータが順序付けすることを確認および作成、テスト代替に基づいて BlogService できます。  
+次に、テスト double に基づいてブログサービスを作成し、GetAllBlogs から返されるデータが名前で並べ替えられるようにします。  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -229,17 +229,17 @@ namespace TestingDemo
 }
 ```  
 
-### <a name="testing-with-async-queries"></a>非同期クエリでのテスト
+### <a name="testing-with-async-queries"></a>非同期クエリを使用したテスト
 
-Entity Framework 6 では、非同期的にクエリの実行に使用できる拡張メソッドのセットが導入されました。 これらのメソッドの例には、ToListAsync、firstasync へ、ForEachAsync などが含まれます。  
+Entity Framework 6 では、非同期的にクエリを実行するために使用できる一連の拡張メソッドが導入されました。 これらのメソッドの例には、ToListAsync、FirstAsync、ForEachAsync などがあります。  
 
-Entity Framework のクエリは、LINQ の利用、ために、拡張メソッドは、IQueryable と IEnumerable に定義されます。 ただし、Entity Framework で使用するだけで設計されるため、Entity Framework クエリが LINQ クエリで使用しようとする場合、次のエラーを受け取る可能性があります。
+Entity Framework クエリでは LINQ が使用されるため、拡張メソッドは IQueryable と IEnumerable で定義されます。 ただし、これらは Entity Framework と共に使用するように設計されているため、Entity Framework クエリではない LINQ クエリで使用しようとすると、次のエラーが発生することがあります。
 
-> IDbAsyncEnumerable ソース IQueryable を実装していない{0}します。 Entity Framework の非同期操作の IDbAsyncEnumerable を実装するソースのみを使用できます。 詳細についてを参照してください[ http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068)します。  
+> ソース IQueryable は IDbAsyncEnumerable @ no__t-0 を実装していません。 Entity Framework 非同期操作に使用できるのは、IDbAsyncEnumerable を実装するソースだけです。 詳細については[、 http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068)を参照してください。  
 
-非同期メソッドは、に対して EF クエリを実行している場合にのみサポート、ながらに対するメモリ内の実行、DbSet の double をテストするときに、単体テストで使用したい場合があります。  
+非同期メソッドは、EF クエリに対して実行する場合にのみサポートされますが、DbSet のメモリ内テスト double に対して実行するときに、単体テストで使用することもできます。  
 
-非同期メソッドを使用するためには、非同期クエリを処理する、インメモリ DbAsyncQueryProvider を作成する必要があります。 Moq を使用してクエリ プロバイダーをセットアップすることができます中、は、コードでテスト ダブル実装を作成するはるかに簡単です。 この実装のコードは次のとおりです。  
+非同期メソッドを使用するには、インメモリ DbAsyncQueryProvider を作成して非同期クエリを処理する必要があります。 Moq を使用してクエリプロバイダーを設定することもできますが、コードでテストの二重実装を作成する方がはるかに簡単です。 この実装のコードは次のとおりです。  
 
 ``` csharp
 using System.Collections.Generic;
@@ -349,7 +349,7 @@ namespace TestingDemo
 }
 ```  
 
-非同期のクエリ プロバイダーが作成できた、新しい GetAllBlogsAsync メソッドの単体テストを記述できます。  
+これで、非同期クエリプロバイダーが作成されました。ここでは、新しい GetAllBlogsAsync メソッドの単体テストを記述できます。  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;

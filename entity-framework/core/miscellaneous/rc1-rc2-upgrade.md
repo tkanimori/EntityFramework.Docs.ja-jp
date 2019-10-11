@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 6d75b229-cc79-4d08-88cd-3a1c1b24d88f
 uid: core/miscellaneous/rc1-rc2-upgrade
-ms.openlocfilehash: 5300fe459ec2b8ab9bb573c7284b009249071d65
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 887b7cd539b9c0f5a680398f5039757420228710
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306462"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181289"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a>EF Core 1.0 RC1 から 1.0 RC2 へのアップグレード
 
@@ -17,7 +17,7 @@ ms.locfileid: "68306462"
 
 ## <a name="package-names-and-versions"></a>パッケージ名とバージョン
 
-RC1 と RC2 の間では、"Entity Framework 7" から "Entity Framework Core" に変更されました。 この投稿の変更の理由の詳細については、 [Scott サバイバル selman を](http://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx)参照してください。 この変更により、パッケージ名はから`EntityFramework.*`に`Microsoft.EntityFrameworkCore.*`変わり、バージョンはから`7.0.0-rc1-final` ( `1.0.0-rc2-final`または`1.0.0-preview1-final`ツール) に変更されました。
+RC1 と RC2 の間では、"Entity Framework 7" から "Entity Framework Core" に変更されました。 この投稿の変更の理由の詳細については、 [Scott サバイバル selman を](https://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx)参照してください。 この変更により、パッケージ名は `EntityFramework.*` から `Microsoft.EntityFrameworkCore.*` に変更され、バージョンは `7.0.0-rc1-final` から `1.0.0-rc2-final` (またはツールの場合は @no__t 4) に変更されました。
 
 **RC1 パッケージを完全に削除し、RC2 をインストールする必要があります。** いくつかの一般的なパッケージのマッピングを次に示します。
 
@@ -25,7 +25,7 @@ RC1 と RC2 の間では、"Entity Framework 7" から "Entity Framework Core" �
 |:----------------------------------------------------------|:---------------------------------------------------------------------|
 | EntityFramework. Microsoft Sqlserver 7.0.0-rc1-final | Microsoft EntityFrameworkCore. SqlServer 1.0.0-rc2-final      |
 | EntityFramework-rc1-final | Microsoft EntityFrameworkCore. Sqlite 1.0.0-rc2-final      |
-| EntityFramework7.Npgsql                   3.1.0-rc1-3     | NpgSql. EntityFrameworkCore. Postgres<to be advised>      |
+| EntityFramework7.Npgsql                   3.1.0-rc1-3     | NpgSql. EntityFrameworkCore. Postgres <to be advised>      |
 | EntityFramework. SqlServerCompact35 7.0.0-rc1-final | EntityFrameworkCore. SqlServerCompact35 1.0.0-rc2-final      |
 | EntityFramework. SqlServerCompact40 7.0.0-rc1-final | EntityFrameworkCore. SqlServerCompact40 1.0.0-rc2-final      |
 | EntityFramework.InMemory                  7.0.0-rc1-final | Microsoft EntityFrameworkCore. InMemory-rc2-final      |
@@ -35,13 +35,13 @@ RC1 と RC2 の間では、"Entity Framework 7" から "Entity Framework Core" �
 
 ## <a name="namespaces"></a>名前空間
 
-パッケージ名と共に、名前空間`Microsoft.Data.Entity.*`は`Microsoft.EntityFrameworkCore.*`からに変更されました。 この変更は、の`using Microsoft.Data.Entity` `using Microsoft.EntityFrameworkCore`検索と置換を使用して処理できます。
+名前空間は、パッケージ名と共に、`Microsoft.Data.Entity.*` から `Microsoft.EntityFrameworkCore.*` に変更されました。 この変更は、`using Microsoft.Data.Entity` の検索/置換を `using Microsoft.EntityFrameworkCore` で処理できます。
 
 ## <a name="table-naming-convention-changes"></a>テーブルの名前付け規則の変更
 
-RC2 では、クラス名だけではなく、マップ先のテーブル`DbSet<TEntity>`名として指定されたエンティティのプロパティ名を使用しました。 この変更の詳細については[、関連する発表](https://github.com/aspnet/Announcements/issues/167)に関する問題を参照してください。
+RC2 では、クラス名だけではなく、マップ先のテーブル名として特定のエンティティの `DbSet<TEntity>` プロパティの名前を使用しました。 この変更の詳細については[、関連する発表](https://github.com/aspnet/Announcements/issues/167)に関する問題を参照してください。
 
-既存の rc1 アプリケーションでは、rc1 の名前付け方法を維持するため`OnModelCreating`に、メソッドの先頭に次のコードを追加することをお勧めします。
+既存の RC1 アプリケーションの場合は、RC1 の名前付け方法を維持するために、`OnModelCreating` メソッドの先頭に次のコードを追加することをお勧めします。
 
 ``` csharp
 foreach (var entity in modelBuilder.Model.GetEntityTypes())
@@ -54,7 +54,7 @@ foreach (var entity in modelBuilder.Model.GetEntityTypes())
 
 ## <a name="adddbcontext--startupcs-changes-aspnet-core-projects-only"></a>AddDbContext/Startup.cs Changes (ASP.NET Core プロジェクトのみ)
 
-RC1 では、アプリケーションサービスプロバイダー `Startup.ConfigureServices(...)`に Entity Framework サービスを追加する必要がありました。
+RC1 では、アプリケーションサービスプロバイダーに Entity Framework サービスを追加する必要がありました-`Startup.ConfigureServices(...)`:
 
 ``` csharp
 services.AddEntityFramework()
@@ -63,7 +63,7 @@ services.AddEntityFramework()
     options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 ```
 
-RC2 では`AddEntityFramework()`、 `AddSqlServer()`、などの呼び出しを削除できます。
+RC2 では、`AddEntityFramework()`、`AddSqlServer()` などへの呼び出しを削除できます。
 
 ``` csharp
 services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,15 +81,15 @@ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 
 ## <a name="passing-in-an-iserviceprovider"></a>IServiceProvider を渡す
 
-をコンテキスト`IServiceProvider`に渡す RC1 コードがある場合、これは別のコンストラクターパラメーターで`DbContextOptions`はなく、に移動されました。 サービス`DbContextOptionsBuilder.UseInternalServiceProvider(...)`プロバイダーを設定するには、を使用します。
+@No__t-0 をコンテキストに渡す RC1 コードがある場合、これは別のコンストラクターパラメーターではなく `DbContextOptions` に移動されました。 サービスプロバイダーを設定するには、`DbContextOptionsBuilder.UseInternalServiceProvider(...)` を使用します。
 
-### <a name="testing"></a>テスト
+### <a name="testing"></a>Testing (テスト)
 
 これを行う最も一般的なシナリオは、テスト時に InMemory データベースのスコープを制御することでした。 RC2 を使用した例については、更新された[テスト](testing/index.md)に関する記事をご覧ください。
 
 ### <a name="resolving-internal-services-from-application-service-provider-aspnet-core-projects-only"></a>アプリケーションサービスプロバイダーからの内部サービスの解決 (ASP.NET Core プロジェクトのみ)
 
-ASP.NET Core アプリケーションがあり、EF でアプリケーションサービスプロバイダーから内部サービスを解決する必要がある場合は、次のよう`AddDbContext`に構成できるのオーバーロードがあります。
+ASP.NET Core アプリケーションがあり、EF でアプリケーションサービスプロバイダーから内部サービスを解決する必要がある場合は、次のように構成できる @no__t 0 のオーバーロードがあります。
 
 ``` csharp
 services.AddEntityFrameworkSqlServer()
@@ -103,9 +103,9 @@ services.AddEntityFrameworkSqlServer()
 
 ## <a name="dnx-commands--net-cli-aspnet-core-projects-only"></a>DNX コマンド = > .NET CLI (ASP.NET Core プロジェクトのみ)
 
-ASP.NET 5 プロジェクト用の`dnx ef`コマンドを以前に使用したことがある場合`dotnet ef`は、コマンドに移動しました。 同じコマンド構文が引き続き適用されます。 構文情報に`dotnet ef --help`はを使用できます。
+ASP.NET 5 プロジェクトに対して `dnx ef` コマンドを以前に使用していた場合、これらのコマンドは `dotnet ef` コマンドに移動されました。 同じコマンド構文が引き続き適用されます。 構文情報には `dotnet ef --help` を使用できます。
 
-コマンドの登録方法は RC2 で変更されています。 DNX は .NET CLI に置き換えられているためです。 コマンドがの`tools`セクションに登録される`project.json`ようになりました。
+コマンドの登録方法は RC2 で変更されています。 DNX は .NET CLI に置き換えられているためです。 コマンドが `project.json` の @no__t 0 セクションに登録されるようになりました。
 
 ``` json
 "tools": {
@@ -120,7 +120,7 @@ ASP.NET 5 プロジェクト用の`dnx ef`コマンドを以前に使用した�
 ```
 
 > [!TIP]  
-> Visual Studio を使用する場合は、パッケージマネージャーコンソールを使用して ASP.NET Core プロジェクトに対して EF コマンドを実行できるようになりました (これは RC1 ではサポートされていません)。 このためには、 `tools` 「」の`project.json` 「」セクションにコマンドを登録する必要があります。
+> Visual Studio を使用する場合は、パッケージマネージャーコンソールを使用して ASP.NET Core プロジェクトに対して EF コマンドを実行できるようになりました (これは RC1 ではサポートされていません)。 この操作を行うには、`project.json` の @no__t 0 セクションにコマンドを登録する必要があります。
 
 ## <a name="package-manager-commands-require-powershell-5"></a>パッケージマネージャーのコマンドには PowerShell 5 が必要です
 

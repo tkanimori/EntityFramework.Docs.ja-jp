@@ -1,85 +1,85 @@
 ---
-title: Entity Framework 6 へのアップグレード
+title: Entity Framework 6-EF6 へのアップグレード
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
-ms.openlocfilehash: 711f1940080de27bd23cb8f641a5c7f2711dd65b
-ms.sourcegitcommit: a6082a2caee62029f101eb1000656966195cd6ee
+ms.openlocfilehash: 4395a9c117a6cf38e7fc08f11ee689d6fffa6fed
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/10/2018
-ms.locfileid: "53182008"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182097"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Entity Framework 6 へのアップグレード
 
-以前のバージョンの EF コードは、.NET Framework の一部として出荷されるコア ライブラリ (主に system.data.entity.dll 内) と NuGet パッケージに付属して帯域外の (OOB) ライブラリ (主に EntityFramework.dll) の間で分割が。 EF6 では、コア ライブラリからコードを取得し、OOB ライブラリを組み込みます。 これはオープン ソースに EF を許可するために必要と .NET Framework からのさまざまなペースで進化できるようにします。 この結果は、アプリケーションが移動された型に対して再構築する必要があることです。
+以前のバージョンの EF では、コードは、NuGet パッケージに付属している .NET Framework および帯域外 (OOB) ライブラリ (主に EntityFramework .dll) の一部として出荷されたコアライブラリ (主に system.object) 間で分割されました。 EF6 はコアライブラリからコードを取得し、OOB ライブラリに組み込みます。 これは、EF をオープンソースにして、.NET Framework とは異なるペースで進化できるようにするために必要でした。 その結果、移動された型に対してアプリケーションを再構築する必要があります。
 
-これは、EF 4.1 以降を発送済みとしての DbContext を使用しているアプリケーションの簡単なはずです。 ObjectContext を使用するアプリケーションの必要なもう少し作業がまだは難しくはありません。
+これは、EF 4.1 以降に付属している DbContext を使用するアプリケーションでは簡単です。 ObjectContext を使用するアプリケーションには、もう少し作業が必要ですが、それでも難しいことはありません。
 
-既存のアプリケーションを EF6 にアップグレードするために必要のある事柄のチェックリストを次に示します。
+既存のアプリケーションを EF6 にアップグレードするために必要な作業のチェックリストを次に示します。
 
-## <a name="1-install-the-ef6-nuget-package"></a>1.EF6 の NuGet パッケージをインストールします。
+## <a name="1-install-the-ef6-nuget-package"></a>1. EF6 NuGet パッケージをインストールする
 
-新しい Entity Framework 6 のランタイムをアップグレードする必要があります。
+新しい Entity Framework 6 ランタイムにアップグレードする必要があります。
 
-1. クリックし、プロジェクトを右クリックして**NuGet パッケージの管理.**  
-2. 下、**オンライン** タブを選択**EntityFramework**クリック**インストール**  
+1. プロジェクトを右クリックし、 **[NuGet パッケージの管理...]** を選択します。  
+2. **[オンライン]** タブで **[entityframework]** を選択し、 **[インストール]** をクリックします。  
    > [!NOTE]
-   > 以前のバージョンの EntityFramework NuGet パッケージがインストールされている場合は、EF6 にアップグレードこのされます。
+   > 以前のバージョンの EntityFramework NuGet パッケージがインストールされている場合は、EF6 にアップグレードされます。
 
-または、パッケージ マネージャー コンソールから、次のコマンドを実行できます。
+または、パッケージマネージャーコンソールから次のコマンドを実行します。
 
 ``` powershell
 Install-Package EntityFramework
 ```
 
-## <a name="2-ensure-that-assembly-references-to-systemdataentitydll-are-removed"></a>2.System.Data.Entity.dll へのアセンブリ参照を削除することを確認します。
+## <a name="2-ensure-that-assembly-references-to-systemdataentitydll-are-removed"></a>2. System.object へのアセンブリ参照が削除されていることを確認します。
 
-EF6 の NuGet パッケージをインストールする必要があります自動的に削除 System.Data.Entity へのプロジェクトから参照できます。
+EF6 NuGet パッケージをインストールすると、プロジェクトからへの参照が自動的に削除されます。
 
-## <a name="3-swap-any-ef-designer-edmx-models-to-use-ef-6x-code-generation"></a>3.EF 6.x のコード生成を使用するすべての EF デザイナー (EDMX) モデルをスワップします。
+## <a name="3-swap-any-ef-designer-edmx-models-to-use-ef-6x-code-generation"></a>3.Ef 6.x コード生成を使用するように EF Designer (EDMX) モデルをスワップする
 
-EF Designer で作成されたモデルがあれば、EF6 の互換性のあるコードを生成するコード生成テンプレートを更新する必要があります。
+EF デザイナーで作成されたモデルがある場合は、コード生成テンプレートを更新して、EF6 互換コードを生成する必要があります。
 
 > [!NOTE]
-> 現在は EF 6.x DbContext ジェネレーター テンプレートのみ Visual Studio 2012 および 2013 を使用できます。
+> 現在、Visual Studio 2012 および2013で使用できる EF 6.x DbContext ジェネレーターテンプレートのみがあります。
 
-1. 既存のコード生成テンプレートを削除します。 これらのファイルの名前は通常 **\<edmx_file_name\>.tt**と **\<edmx_file_name\>します。Context.tt**ソリューション エクスプ ローラーで、edmx ファイルの下に入れ子にするとします。 キーを押して、ソリューション エクスプ ローラーで、テンプレートを選択することができます、 **Del**それらを削除するキー。  
+1. 既存のコード生成テンプレートを削除します。 これらのファイルには、通常 **\<edmx_file_name\>.tt**と **\<edmx_file_name @ no__t-5 という名前が付けられます。Context.tt**は、ソリューションエクスプローラーの edmx ファイルの下に入れ子になっています。 ソリューションエクスプローラーでテンプレートを選択し、 **del**キーを押して削除することができます。  
    > [!NOTE]
-   > Web サイト プロジェクトで、テンプレートはことはありません、edmx ファイルの下で入れ子になったがソリューション エクスプ ローラーで一緒に表示します。  
+   > Web サイトプロジェクトでは、テンプレートは edmx ファイルの下に入れ子になっていませんが、ソリューションエクスプローラーに並べられています。  
 
    > [!NOTE]
-   > VB.NET プロジェクトでは、' すべてのファイル ' 入れ子になったテンプレート ファイルを参照できるを有効にする必要があります。
-2. 適切な EF 6.x のコード生成テンプレートを追加します。 デザイン画面を選択しますを右クリックが EF デザイナーでモデルを開く**コード生成項目の追加.**
-    - (推奨)、DbContext API を使用しているかどうかは**EF 6.x DbContext ジェネレーター**で使用できるが、**データ** タブ。  
+   > VB.NET プロジェクトでは、[すべてのファイルを表示] を有効にして、入れ子になったテンプレートファイルを表示できるようにする必要があります。
+2. 適切な EF 6.x コード生成テンプレートを追加します。 EF デザイナーでモデルを開き、デザイン画面を右クリックして、 **[コード生成項目の追加...]** を選択します。
+    - DbContext API (推奨) を使用している場合は、 **[データ]** タブで**EF 6.X の dbcontext ジェネレーター**を使用できます。  
       > [!NOTE]
-      > Visual Studio 2012 を使用している場合は、このテンプレートを使用して EF 6 ツールをインストールする必要があります。 参照してください[Entity Framework の取得](~/ef6/fundamentals/install.md)詳細についてはします。  
+      > Visual Studio 2012 を使用している場合は、このテンプレートを使用するために EF 6 ツールをインストールする必要があります。 詳細については、「 [Get Entity Framework](~/ef6/fundamentals/install.md) 」を参照してください。  
 
-    - ObjectContext API を使用しているかどうかは、選択する必要があります、**オンライン**タブし、検索**EF 6.x EntityObject ジェネレーター**します。  
-3. コード生成テンプレートをすべてのカスタマイズを適用した場合は、更新されたテンプレートに再適用する必要があります。
+    - ObjectContext API を使用している場合は、 **[オンライン]** タブを選択し、 **EF 6.X の entityobject Generator**を検索する必要があります。  
+3. コード生成テンプレートにカスタマイズを適用した場合は、更新されたテンプレートに再適用する必要があります。
 
-## <a name="4-update-namespaces-for-any-core-ef-types-being-used"></a>4.使用されている任意の中核となる EF 型の名前空間を更新します。
+## <a name="4-update-namespaces-for-any-core-ef-types-being-used"></a>4。使用されているすべてのコア EF 型の名前空間を更新する
 
-DbContext とコードの最初の型の名前空間は変更されていません。 つまり、EF 4.1 を使用する多くのアプリケーションまたは後で何も変更する必要はありません。
+DbContext および Code First 型の名前空間は変更されていません。 これは、EF 4.1 以降を使用する多くのアプリケーションでは、何も変更する必要がないことを意味します。
 
-System.data.entity.dll 内に含まれていた ObjectContext などの型は、新しい名前空間に移動されました。 つまり、更新する必要があります、*を使用して*または*インポート*EF6 に対してビルドするためのディレクティブ。
+以前に system.object に含まれていた ObjectContext などの型は、新しい名前空間に移動されました。 つまり、EF6 に対してビルドするには、 *using*ディレクティブまたは*Import*ディレクティブを更新する必要があります。
 
-名前空間の変更の一般的な規則は、System.Data.* で任意の型が System.Data.Entity.Core.* に移動されます。 つまり、挿入**Entity.Core します。** System.Data 後。 例:
+名前空間の変更に関する一般的な規則は、system.string 内のすべての型が、system.string に移動されることです。 言い換えると、" **Entity. Core** " を挿入するだけです。 System. Data の後。 以下に例を示します。
 
-- System.Data.EntityException = > System.Data します。**Entity.Core**します。EntityException  
-- System.Data.Objects.ObjectContext = > System.Data します。**Entity.Core**します。Objects.ObjectContext  
-- System.Data.Objects.DataClasses.RelationshipManager = > System.Data します。**Entity.Core**します。Objects.DataClasses.RelationshipManager  
+- System.string. EntityException = > system.string。**Entity. Core**。EntityException  
+- System.string は、system.string を > します。**Entity. Core**。オブジェクト。 ObjectContext  
+- RelationshipManager = > system.string のデータを持つことができます。**Entity. Core**。オブジェクト. RelationshipManager  
 
-これらの種類が、 *Core*名前空間 DbContext ベースのほとんどのアプリケーションを直接使用されていないためです。 System.data.entity.dll 内の一部であった一部の種類は引き続き使用一般的と直接 DbContext ベースのアプリケーションとためありませんに移動されました、 *Core*名前空間。 これらの数値は、次のとおりです。
+これらの型は、ほとんどの DbContext ベースのアプリケーションでは直接使用されないため、*コア*名前空間にあります。 System.object の一部であった型の中には、DbContext ベースのアプリケーションで一般的に使用されているものもあります。そのため、*コア*名前空間に移動されていません。 これらの数値は、次のとおりです。
 
-- System.Data.EntityState = > System.Data します。**エンティティ**します。EntityState  
-- System.Data.Objects.DataClasses.EdmFunctionAttribute = > System.Data します。**Entity.DbFunctionAttribute**  
+- EntityState = > system.string をします。**エンティティ**。EntityState  
+- System.string. EdmFunctionAttribute = > system.string......**Entity. DbFunctionAttribute**  
   > [!NOTE]
-  > このクラスの名前が変更されました古い名前のクラスは引き続き存在して、動作しますが、ここで不使用とマークします。  
-- System.Data.Objects.EntityFunctions = > System.Data します。**Entity.DbFunctions**  
+  > このクラスは名前が変更されました。古い名前のクラスは引き続き存在し、動作しますが、現在は不使用とマークされています。  
+- System.string. EntityFunctions = > system.string です。**Entity DbFunctions**  
   > [!NOTE]
-  > このクラスの名前が変更されました古い名前のクラスは引き続き存在して、動作しますが、現在不使用とマークされ)。  
-- System.Data.Spatial から移動空間のクラス (たとえば、DbGeography、DbGeometry) = > System.Data します。**エンティティ**します。空間
+  > このクラスは名前が変更されました。古い名前のクラスは引き続き存在し、動作しますが、現在は不使用とマークされています)。  
+- 空間クラス (例: DbGeography, Dbgeography) は、system.string > から移動しています。**エンティティ**。許容
 
 > [!NOTE]
-> System.Data 名前空間の一部の型は System.Data.dll EF アセンブリではないです。 これらの型に移動していないと、そのため、名前空間は変更されません。
+> System.string 名前空間の一部の型は、EF アセンブリではない system.string に含まれています。 これらの型は移動されていないため、名前空間は変更されません。

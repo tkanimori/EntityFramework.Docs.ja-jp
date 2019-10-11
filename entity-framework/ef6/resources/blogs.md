@@ -1,35 +1,35 @@
 ---
-title: Entity Framework のブログ - EF6
+title: ブログの Entity Framework-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: f8fcfb34-35de-4e82-b419-8f99fd2eb92a
-ms.openlocfilehash: 49cf475a68967583410a3a4b442f974f41cdcaa4
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 6900ce3d139f4ae017edc764d55a7b746561a226
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490096"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182409"
 ---
-# <a name="entity-framework-blogs"></a>Entity Framework のブログ
-製品ドキュメント、だけでなくそれらのブログは Entity Framework での有用な情報源になります。
+# <a name="entity-framework-blogs"></a>Entity Framework ブログ
+これらのブログは、製品ドキュメントだけでなく、Entity Framework に関する有益な情報源となることがあります。
 
 ## <a name="ef-team-blogs"></a>EF チームのブログ
 
-- [.NET ブログ - タグ: Entity Framework](https://blogs.msdn.microsoft.com/dotnet/tag/entity-framework/)
-- [ADO.NET のブログ (使用) ではないです。](https://blogs.msdn.microsoft.com/adonet/)
-- [(使用) ではない EF デザイン ブログ](https://blogs.msdn.microsoft.com/efdesign/)
+- @no__t 0.NET のブログ-タグ:Entity Framework @ no__t-0
+- [ADO.NET ブログ (使用されなくなった)](https://blogs.msdn.microsoft.com/adonet/)
+- [EF Design ブログ (使用されなくなった)](https://blogs.msdn.microsoft.com/efdesign/)
 
-## <a name="current-and-former-ef-team-bloggers"></a>現在と以前の EF チームのブログ
+## <a name="current-and-former-ef-team-bloggers"></a>現在と以前の EF チームブロガー
 
-- [Arthur Vickers](https://blog.oneunicorn.com/tag/entity-framework/)
-- [Brice Lambson](http://www.bricelam.net/)
-- [Diego Vega](https://blogs.msdn.microsoft.com/diego/)
-- [Rowan Miller](https://romiller.com/category/entity-framework/)
+- [Arthur ヴィッカース](https://blog.oneunicorn.com/tag/entity-framework/)
+- [Brice Lambson](https://www.bricelam.net/)
+- [ディエゴヴェガ](https://blogs.msdn.microsoft.com/diego/)
+- [Rowan 明美](https://romiller.com/category/entity-framework/)
 - [Pawel Kadluczka](https://blog.3d-logic.com/category/entity-framework/)
 - [Alex James](https://blogs.msdn.microsoft.com/alexj/tag/entity-framework/)
 - [Zlatko Michailov](https://blogs.msdn.microsoft.com/esql/tag/entity-framework/)
 
-## <a name="ef-community-bloggers"></a>EF のコミュニティ ブログ
+## <a name="ef-community-bloggers"></a>EF Community ブロガー
 
-- [Julie Lerman](http://thedatafarm.com/blog/)  
+- [ジュリー Lerman](https://thedatafarm.com/blog/)  
 - [Shawn Wildermuth](https://wildermuth.com/Tag/%20Entity%20Framework)  

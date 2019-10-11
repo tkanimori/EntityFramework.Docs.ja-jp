@@ -1,15 +1,15 @@
 ---
-title: Entiy Framework Core のインストール
+title: Entiy Framework Core のインストール - EF Core
 author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 7bdedf563b7d919ba334db79af73c3eed3ba4129
-ms.sourcegitcommit: 2caec1e63f2ce1d9439ef6193df5a77da2fedd0f
+ms.openlocfilehash: b4ae13ae1b22bb78c2c0407c0b3da64ee12ff2c1
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/26/2019
-ms.locfileid: "71317578"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181210"
 ---
 # <a name="installing-entity-framework-core"></a>Entiy Framework Core のインストール
 
@@ -128,8 +128,7 @@ ASP.NET Core アプリの場合は、このパッケージが自動的に組み�
   * データベース プロバイダーのデザイン時パッケージ (たとえば `Microsoft.EntityFrameworkCore.SqlServer.Design`) は、EF Core 2.0 からは不要になり、サポートもされなくなりましたが、他のパッケージをアップグレードするときに自動で削除されることはありません。
 
   * .NET CLI ツールがバージョン 2.1 以降の .NET SDK に含まれているので、そのパッケージへの参照は次の方法でプロジェクト ファイルから削除できます。
-
-    ```
+    ```xml
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     ```
 

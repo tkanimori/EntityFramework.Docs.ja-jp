@@ -1,21 +1,21 @@
 ---
-title: ローカル データ - EF6
+title: ローカルデータ-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2eda668b-1e5d-487d-9a8c-0e3beef03fcb
-ms.openlocfilehash: 400b9e1337edac1b9fa4f0ec9e1384ca58aa2fbc
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: efd646348d8a18bbeed2d0a0e708d4d36eb26eac
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490455"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182427"
 ---
 # <a name="local-data"></a>ローカル データ
-DbSet に対して直接、LINQ クエリを実行しているは常にクエリを送信、データベースが現在のインメモリ DbSet.Local プロパティを使用しているデータにアクセスすることができます。 EF を追跡する追加情報は、DbContext.Entry および DbContext.ChangeTracker.Entries メソッドを使用してエンティティについてアクセスすることもできます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
+DbSet に対して LINQ クエリを直接実行すると、常にクエリがデータベースに送信されますが、現在、DbSet. Local プロパティを使用してメモリ内にあるデータにアクセスできます。 また、DbContext. Entry メソッドと DbContext. ChangeTracker メソッドを使用して、エンティティに関する追加情報 EF が追跡している情報にアクセスすることもできます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
 
-## <a name="using-local-to-look-at-local-data"></a>ローカルを使用してローカル データを確認するには  
+## <a name="using-local-to-look-at-local-data"></a>ローカルデータの参照にローカルを使用する  
 
-DbSet のローカルのプロパティは、現在のコンテキストによって追跡されているし、削除済みとしてマークされていない、一連のエンティティにシンプルなアクセスを提供します。 データベースに送信されるクエリが、ローカル プロパティにアクセスします。 クエリの実行後、通常、使用はことを意味これです。 クエリの実行コンテキストは、結果を追跡するために、Load 拡張メソッドを使用できます。 例えば:  
+DbSet のローカルプロパティは、現在コンテキストによって追跡されていて、削除済みとしてマークされていないセットのエンティティへの単純なアクセスを提供します。 ローカルプロパティにアクセスしても、クエリがデータベースに送信されることはありません。 これは、通常、クエリが既に実行された後に使用されることを意味します。 読み込み拡張メソッドを使用してクエリを実行し、コンテキストが結果を追跡できるようにすることができます。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -53,9 +53,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-2 つのブログ - 'ADO.NET Blog' の 1 の BlogId で' The Visual Studio Blog' の 2 の BlogId でのデータベースがある場合は、次の出力を予定でした。  
+ブログ Id が1で、ブログ id が2である ' ADO.NET Blog ' というデータベースに2つのブログがある場合、次の出力が予想される可能性があります。  
 
-```  
+```console
 In Local:
 Found 0: My New Blog with state Added
 Found 2: The Visual Studio Blog with state Unchanged
@@ -65,21 +65,21 @@ Found 1: ADO.NET Blog with state Deleted
 Found 2: The Visual Studio Blog with state Unchanged
 ```  
 
-これは、3 つの点を示しています。  
+これは、3つの点を示しています。  
 
-- 新しいブログ 'マイ ブログの新しい' は、データベースに保存されていない場合でも、ローカル コレクションに含まれます。 このブログは、データベースの表示、エンティティの実際のキーがまだ生成するために、ゼロの主キーを持ちます。  
-- コンテキストがまだ追跡されている場合でも、ADO.NET ブログはローカル コレクションに含まれていません。 これは、ため、削除済みとしてマークする DbSet から削除したためです。  
-- DbSet を使用してクエリを実行する (ADO.NET のブログ) を削除対象としてマークするブログが結果に含めるし、データベースに保存されていない新しいブログ (マイ新しいブログ) は、結果に含まれていません。 DbSet がデータベースに対してクエリを実行して、常に返される結果が、データベースの新機能を反映するためです。  
+- 新しいブログ「My New Blog」は、データベースにまだ保存されていない場合でも、ローカルコレクションに含まれています。 このブログでは、エンティティの実際のキーがデータベースによって生成されていないため、主キーが0になっています。  
+- コンテキストによって追跡されているにもかかわらず、' ADO.NET Blog ' はローカルコレクションに含まれていません。 これは、DbSet から削除されたため、削除済みとしてマークされているためです。  
+- DbSet を使用してクエリを実行すると、削除のマークが付いているブログ (ADO.NET Blog) が結果に含まれ、データベースに保存されていない新しいブログ (My New Blog) は結果に含まれません。 これは、DbSet がデータベースに対してクエリを実行し、返される結果には常にデータベースの内容が反映されるためです。  
 
-## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>ローカルを使用して追加し、コンテキストからエンティティを削除するには  
+## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>ローカルを使用してコンテキストのエンティティを追加および削除する  
 
-DbSet にローカル プロパティを返します、 [ObservableCollection](https://msdn.microsoft.com/library/ms668604.aspx)コンテキストの内容との同期に保持されるようにフックするイベントです。 これは、エンティティの追加またはローカル コレクションや、DbSet のいずれかから削除されることを意味します。 また、新しいエンティティをコンテキストに読み込むクエリはこれらのエンティティで更新されているローカル コレクションになります。 例えば:  
+DbSet の Local プロパティは、コンテキストのコンテンツと同期したままになるように、イベントがフックされた[system.collections.objectmodel.observablecollection](https://msdn.microsoft.com/library/ms668604.aspx)を返します。 これは、ローカルコレクションまたは DbSet からエンティティを追加または削除できることを意味します。 また、新しいエンティティをコンテキストに取り込むクエリによって、そのエンティティでローカルコレクションが更新されることも意味します。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
 {
     // Load some posts from the database into the context
-    context.Posts.Where(p => p.Tags.Contains("entity-framework").Load();  
+    context.Posts.Where(p => p.Tags.Contains("entity-framework")).Load();  
 
     // Get the local collection and make some changes to it
     var localPosts = context.Posts.Local;
@@ -119,9 +119,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-' Entity framework' と 'asp.net' 出力のタグ付けされたいくつか投稿ことが前提と次のように見えます。  
+' Entity-framework ' と ' asp.net ' にタグ付けされたいくつかの投稿があると仮定した場合、出力は次のようになります。  
 
-```  
+```console
 In Local after entity-framework query:
 Found 3: EF Designer Basics with state Unchanged
 Found 5: EF Code First Basics with state Unchanged
@@ -135,27 +135,27 @@ Found 0: What's New in EF with state Added
 Found 4: ASP.NET Beginners Guide with state Unchanged
 ```  
 
-これは、3 つの点を示しています。  
+これは、3つの点を示しています。  
 
-- 'New in EF は' 新しい投稿追加されたローカル コレクションが Added 状態でコンテキストによって追跡になります。 そのため挿入のデータベースに SaveChanges が呼び出されるとします。  
-- ローカル コレクション (EF 初心者向けガイド) から削除された投稿は、コンテキストで削除済みとしてマークされているようになりました。 削除されます、データベースから SaveChanges が呼び出されるとします。  
-- 2 番目のクエリを使用して、コンテキストに読み込まれるその他の投稿 (ASP.NET の初心者向けガイド) は、ローカル コレクションに自動的に追加されます。  
+- ローカルコレクションに追加された新しい post ' EF の新機能 ' は、追加された状態のコンテキストによって追跡されます。 そのため、SaveChanges が呼び出されると、データベースに挿入されます。  
+- ローカルコレクションから削除された投稿 (EF 初心者ガイド) は、コンテキストで削除済みとしてマークされるようになりました。 そのため、SaveChanges が呼び出されると、データベースから削除されます。  
+- 2番目のクエリを使用してコンテキストに読み込まれた追加の post (ASP.NET 初心者ガイド) は、自動的にローカルコレクションに追加されます。  
 
-ローカルに関する注意事項を 1 つの最後には、ObservableCollection パフォーマンスは多数のエンティティに適していないためです。 そのためのコンテキストで何千ものエンティティを扱う場合ある可能性がありますいないローカルを使用することをお勧めします。  
+ローカルに関する最後の注意点としては、System.collections.objectmodel.observablecollection のパフォーマンスは、大量のエンティティには適していません。 そのため、コンテキスト内で数千のエンティティを扱う場合は、ローカルを使用することをお勧めしません。  
 
-## <a name="using-local-for-wpf-data-binding"></a>WPF データ バインディングのローカルを使用します。  
+## <a name="using-local-for-wpf-data-binding"></a>WPF データバインディングにローカルを使用する  
 
-DbSet にローカル プロパティは、ObservableCollection のインスタンスであるため、WPF アプリケーションでのデータ バインディングを直接使用できます。 つまり、自動的には、前のセクションで説明されている同期コンテキストの内容を維持し、コンテキストの内容は自動的に同期して最新します。 データベース クエリが、ローカルにバインドするものにするデータを使用してローカル コレクションを事前に設定する必要に注意してください。  
+DbSet のローカルプロパティは、System.collections.objectmodel.observablecollection のインスタンスであるため、WPF アプリケーションのデータバインディングに直接使用できます。 前のセクションで説明したように、これはコンテキストのコンテンツと自動的に同期されることを意味し、コンテキストの内容は自動的に同期されます。 ローカルコレクションにバインドするデータを事前に設定する必要があることに注意してください。これは、Local がデータベースクエリを発生させないためです。  
 
-これは適切な場所の完全な WPF データ バインド サンプルではありませんが、主な要素は。  
+これは、完全な WPF データバインディングサンプルでは適切な場所ではありませんが、主な要素は次のとおりです。  
 
-- バインディング ソースのセットアップ  
-- セットのローカル プロパティにバインドします。  
-- データベースにクエリを使用してローカルに設定します。  
+- バインディングソースの設定  
+- Set のローカルプロパティにバインドする  
+- データベースにクエリを使用してローカルにデータを設定します。  
 
-## <a name="wpf-binding-to-navigation-properties"></a>ナビゲーション プロパティを WPF のバインド  
+## <a name="wpf-binding-to-navigation-properties"></a>WPF のナビゲーションプロパティへのバインド  
 
-実行している場合マスター/詳細データをバインドすることがあります、エンティティのいずれかのナビゲーション プロパティに詳細ビューをバインドするとします。 この作業を行う簡単な方法では、ナビゲーション プロパティの ObservableCollection を使用します。 例えば:  
+マスター/詳細データのバインドを行う場合は、いずれかのエンティティのナビゲーションプロパティに詳細ビューをバインドすることができます。 この作業を行う簡単な方法は、ナビゲーションプロパティに System.collections.objectmodel.observablecollection を使用することです。 以下に例を示します。  
 
 ``` csharp
 public class Blog
@@ -173,9 +173,9 @@ public class Blog
 }
 ```  
 
-## <a name="using-local-to-clean-up-entities-in-savechanges"></a>ローカルを使用して、SaveChanges 内のエンティティをクリーンアップするには  
+## <a name="using-local-to-clean-up-entities-in-savechanges"></a>ローカルを使用して SaveChanges でエンティティをクリーンアップする  
 
-エンティティのナビゲーション プロパティから削除ほとんどの場合、コンテキストで削除済みとして自動的にマークされません。 たとえば、Blog.Posts コレクションから投稿する Post オブジェクトを削除する場合は自動的に削除されません SaveChanges が呼び出されるとします。 削除する必要がある場合は、これらの未解決のエンティティを見つけて、SaveChanges を呼び出す前に、またはオーバーライドの SaveChanges の一部として削除済みとしてマークする必要があります。 例えば:  
+ほとんどの場合、ナビゲーションプロパティから削除されたエンティティは、コンテキストで削除済みとして自動的にマークされません。 たとえば、Post オブジェクトを Blog コレクションから削除した場合、SaveChanges が呼び出されても、その投稿は自動的には削除されません。 削除する必要がある場合は、SaveChanges を呼び出す前、またはオーバーライドされた SaveChanges の一部として、これらのぶら下がりエンティティを検索し、削除済みとしてマークする必要があります。 以下に例を示します。  
 
 ``` csharp
 public override int SaveChanges()
@@ -192,23 +192,23 @@ public override int SaveChanges()
 }
 ```  
 
-上記のコードでは、ローカルのコレクションを使用して、すべての投稿とをブログの参照を持たない場合削除済みとしてマークを見つけます。 それ以外の場合、削除によってコレクションが変更されるため、ToList 呼び出しが必要ですが列挙されているときに呼び出します。 他のほとんどの状況では、ToList をまずを使用せずローカル プロパティを直接照会できます。  
+上記のコードでは、ローカルコレクションを使用してすべての投稿を検索し、ブログ参照が削除済みとして含まれていないをマークします。 それ以外の場合は、列挙中に削除呼び出しによってコレクションが変更されるため、ToList 呼び出しが必要です。 その他のほとんどの状況では、ToList first を使用せずに、ローカルプロパティに対して直接クエリを実行できます。  
 
-## <a name="using-local-and-tobindinglist-for-windows-forms-data-binding"></a>ローカルおよび ToBindingList の Windows フォーム データ バインディングの使用  
+## <a name="using-local-and-tobindinglist-for-windows-forms-data-binding"></a>Windows フォームデータバインディングにローカルと ToBindingList を使用する  
 
-Windows フォームは、ObservableCollection を直接使用する完全な忠実度のデータ バインディングをサポートしていません。 ただし、前のセクションで説明されているすべての利点を得るため、データ バインディングの DbSet ローカル プロパティを使用できます。 これを作成する ToBindingList 拡張メソッドによって実現されますが、 [IBindingList](https://msdn.microsoft.com/library/system.componentmodel.ibindinglist.aspx)実装、ローカルの ObservableCollection によってバックアップされています。  
+Windows フォームは、System.collections.objectmodel.observablecollection を直接使用した忠実度の高いデータバインディングをサポートしていません。 ただし、前のセクションで説明したすべての利点を取得するには、データバインディングに対して DbSet ローカルプロパティを使用することもできます。 これは、ローカルの System.collections.objectmodel.observablecollection によってサポートされる[IBindingList](https://msdn.microsoft.com/library/system.componentmodel.ibindinglist.aspx)実装を作成する ToBindingList 拡張メソッドを使用して実現されます。  
 
-これは適切な場所の完全な Windows フォーム データ バインド サンプルではありませんが、主な要素は。  
+これは、完全 Windows フォームデータバインディングサンプルには適していませんが、主な要素は次のとおりです。  
 
-- オブジェクトのバインディング ソースをセットアップします。  
-- Local.ToBindingList() を使用して、セットのローカル プロパティにバインドします。  
-- データベースにクエリを使用してローカルを設定します。  
+- オブジェクトのバインドソースの設定  
+- ToBindingList () を使用して、セットのローカルプロパティにバインドします。  
+- データベースにクエリを使用してローカルにデータを設定する  
 
-## <a name="getting-detailed-information-about-tracked-entities"></a>追跡対象のエンティティに関する詳細な情報の取得  
+## <a name="getting-detailed-information-about-tracked-entities"></a>追跡対象エンティティに関する詳細情報の取得  
 
-このシリーズの例の多くは、エンティティの対象の DbEntityEntry インスタンスを返すエントリ メソッドを使用します。 このエントリのオブジェクトは、エンティティなど、現在の状態に関する情報を収集すると、関連エンティティの明示的な読み込みなどのエンティティに対して操作を実行するための出発点として機能します。  
+このシリーズの多くの例では、Entry メソッドを使用して、エンティティの DbEntityEntry インスタンスを返しています。 このエントリオブジェクトは、現在の状態などのエンティティに関する情報を収集するための開始点として機能します。また、関連エンティティの明示的な読み込みなど、エンティティに対する操作の実行にも使用されます。  
 
-エントリ メソッドでは、コンテキストによって追跡されている多くまたはすべてのエンティティの対象の DbEntityEntry オブジェクトを返します。 これにより、情報を収集または 1 つのエントリだけではなく、多数のエンティティに対して操作を実行することができます。 例えば:  
+Entries メソッドは、コンテキストによって追跡されている多数またはすべてのエンティティに対して DbEntityEntry オブジェクトを返します。 これにより、情報を収集したり、1つのエントリだけではなく、多くのエンティティに対して操作を実行したりすることができます。 以下に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -265,7 +265,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-例では、作成者、閲覧者のクラスが導入されています - IPerson インターフェイスを実装してこれらのクラスの両方がわかります。  
+例に著者とリーダークラスが導入されていることがわかります。これらのクラスはどちらも IPerson インターフェイスを実装しています。  
 
 ``` csharp
 public class Author : IPerson
@@ -288,17 +288,17 @@ public interface IPerson
 }
 ```  
 
-データベースに、次のデータがあると仮定します。
+データベースに次のデータが含まれているとします。
 
-BlogId ブログ = 1、名前 = ' ADO.NET ブログ '  
-BlogId ブログ = 2、名前 = 'Visual Studio ブログ'  
-BlogId ブログ = 3 および名 = '.NET Framework ブログ'  
-著者 Id で作成者 = 1、名前 = ' Joe Bloggs'  
-使用した ReaderId リーダー = 1、名前 = ' John Doe'  
+Blog Id = 1、Name = ' ADO.NET Blog ' のブログ  
+ブログ Id = 2、名前 = ' Visual Studio ブログ '  
+ブログ Id = 3、名前 = ' .NET Framework ブログ '  
+AuthorId = 1、Name = ' Joe ブログ Gs ' を使用した作成者  
+ReaderId = 1、Name = ' John Doe ' のリーダー  
 
-コードの実行からの出力は次のようになります。  
+コードを実行した場合の出力は次のようになります。  
 
-```  
+```console
 All tracked entities:
 Found entity of type Blog with state Modified
 Found entity of type Blog with state Deleted
@@ -322,10 +322,10 @@ Found Person Joe Bloggs
 Found Person Jane Doe
 ```  
 
-これらの例は、いくつかの点を示しています。  
+次の例は、いくつかの点を示しています。  
 
-- エントリ メソッドでは、削除済みを含む、すべての状態でエンティティのエントリを返します。 これと比較を除くローカル エンティティを削除します。  
-- エントリの非ジェネリック メソッドを使用する場合は、すべてのエンティティ型のエントリが返されます。 エントリのジェネリック メソッドを使用する場合エントリはジェネリック型のインスタンスであるエンティティに対してのみ返されます。 これは、上のすべてのブログのエントリを取得に使用されました。 でも、IPerson を実装するすべてのエンティティのエントリの取得に使用されていました。 これは、実際のエンティティ型をジェネリック型がないことを示します。  
-- オブジェクトに LINQ を使用して、返される結果をフィルター処理できます。 これは、上記変更される場合に限り、任意の型のエンティティを検索に使用されました。  
+- Entries メソッドは、Deleted を含むすべての状態のエンティティのエントリを返します。 これをローカルと比較して、削除されたエンティティを除外します。  
+- 非ジェネリックエントリメソッドを使用すると、すべてのエンティティ型のエントリが返されます。 汎用エントリメソッドが使用されている場合、エントリは、ジェネリック型のインスタンスであるエンティティに対してのみ返されます。 これは、すべてのブログのエントリを取得するために上記で使用されていました。 また、IPerson を実装するすべてのエンティティのエントリを取得するためにも使用されていました。 これは、ジェネリック型が実際のエンティティ型である必要がないことを示しています。  
+- LINQ to Objects は、返される結果をフィルター処理するために使用できます。 これは、変更されている限り、任意の型のエンティティを検索するために上記で使用されていました。  
 
-対象の DbEntityEntry インスタンスが常に null 以外のエンティティを含めることことに注意してください。 リレーションシップ エントリとスタブ エントリは表されませんとして対象の DbEntityEntry インスタンスのため、これらのフィルター処理する必要はありません。
+DbEntityEntry インスタンスには、常に null 以外のエンティティが含まれていることに注意してください。 リレーションシップエントリとスタブエントリは DbEntityEntry インスタンスとしては表されないため、これらをフィルター処理する必要はありません。

@@ -1,15 +1,15 @@
 ---
-title: Entity Framework 6 の概要
+title: Entity Framework 6 の概要 - EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
-ms.openlocfilehash: fcd514eebbf09e50403b95c88db04c33520011e9
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 9561a7c4b645896cb4e248cb094c6954ed4bcdf1
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71198055"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181425"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) は、機能開発および安定化に何年もの時間が費やされてきた、十分に検証された .NET 用のオブジェクト リレーショナル マッパー (O/RM) です。

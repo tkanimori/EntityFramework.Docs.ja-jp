@@ -1,23 +1,23 @@
 ---
-title: SQLite データベース プロバイダー - 制限事項 - EF Core
+title: SQLite データベースプロバイダー-制限事項-EF Core
 author: rowanmiller
 ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: eaa7d5b1496172e4f3821433a1cd098ee7e8b737
-ms.sourcegitcommit: 9bd64a1a71b7f7aeb044aeecc7c4785b57db1ec9
+ms.openlocfilehash: 2f80dc195265787318ac4925dd937da45ffad011
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/26/2019
-ms.locfileid: "67394799"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72179767"
 ---
-# <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core データベース プロバイダーの制限事項
+# <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core データベースプロバイダーの制限事項
 
-SQLite プロバイダーでは、いくつかの移行の制限があります。 これらの制限事項のほとんどは、基になる SQLite データベース エンジンの制限事項の結果し、EF に固有ではありません。
+SQLite プロバイダーには、多くの移行に関する制限があります。 これらの制限事項のほとんどは、基になる SQLite データベースエンジンの制限の結果であり、EF に固有のものではありません。
 
 ## <a name="modeling-limitations"></a>モデリングの制限事項
 
-(Entity Framework のリレーショナル データベース プロバイダーによって共有)、一般的なリレーショナル ライブラリは、モデリングの概念はほとんどのリレーショナル データベース エンジンに共通の Api を定義します。 これらの概念のいくつかは、SQLite プロバイダーによってサポートされていません。
+一般的なリレーショナルライブラリ (Entity Framework リレーショナルデータベースプロバイダーによって共有されます) は、ほとんどのリレーショナルデータベースエンジンに共通のモデリング概念用の Api を定義します。 これらの概念のいくつかは、SQLite プロバイダーでサポートされていません。
 
 * スキーマ
 * シーケンス
@@ -25,16 +25,16 @@ SQLite プロバイダーでは、いくつかの移行の制限があります�
 
 ## <a name="query-limitations"></a>クエリの制限事項
 
-SQLite は、次のデータ型をネイティブにサポートしていません。 EF Core が、これらの型と等しいかどうかのクエリの値を読み書きできます (`where e.Property == value`) もサポートされています。 ただし、比較のようなその他の操作と、順序付けすると、クライアントで評価が必要です。
+SQLite では、次のデータ型はネイティブでサポートされていません。 EF Core は、これらの型の値の読み取りと書き込みが可能であり、等値 (`where e.Property == value`) のクエリもサポートされています。 ただし、比較や順序付けなどの操作では、クライアントでの評価が必要になります。
 
 * DateTimeOffset
-* Decimal (10 進数型)
+* 10 進数
 * TimeSpan
 * UInt64
 
-代わりに`DateTimeOffset`DateTime 値を使用することをお勧めします。 複数のタイム ゾーンを処理する際は、値を保存し、し、適切なタイム ゾーンに変換する前に UTC に変換するをお勧めします。
+@No__t-0 の代わりに、DateTime 値を使用することをお勧めします。 複数のタイムゾーンを処理する場合は、保存してから適切なタイムゾーンに変換する前に、値を UTC に変換することをお勧めします。
 
-`Decimal`型には、精度の高いレベルが用意されています。 有効桁数のレベルを必要としない場合をお勧め代わりに double を使用します。 使用することができます、[値コンバーター](../../modeling/value-conversions.md)クラスでの 10 進数の使用を続行します。
+@No__t-0 型では、高レベルの精度が提供されます。 ただし、このレベルの精度が不要な場合は、代わりに double を使用することをお勧めします。 [値コンバーター](../../modeling/value-conversions.md)を使用して、クラスで10進数の使用を続けることができます。
 
 ``` csharp
 modelBuilder.Entity<MyEntity>()
@@ -42,38 +42,38 @@ modelBuilder.Entity<MyEntity>()
     .HasConversion<double>();
 ```
 
-## <a name="migrations-limitations"></a>移行の制限事項
+## <a name="migrations-limitations"></a>移行に関する制限事項
 
-SQLite データベース エンジンは、多数の他のリレーショナル データベースの大部分でサポートされているスキーマの操作をサポートしていません。 サポートされていない操作のいずれかの SQLite データベースに適用しようとしたかどうか、`NotSupportedException`がスローされます。
+SQLite データベースエンジンでは、他の多くのリレーショナルデータベースでサポートされているいくつかのスキーマ操作はサポートされていません。 サポートされていない操作の1つを SQLite データベースに適用しようとすると、`NotSupportedException` がスローされます。
 
-| 操作            | サポートされていますか。 | バージョンが必要です。 |
+| 操作            | さ? | バージョンが必要です |
 |:---------------------|:-----------|:-----------------|
-| AddColumn            | ✔          | 1              |
+| Table.addcolumn            | ✔          | 1.0              |
 | AddForeignKey        | ✗          |                  |
 | AddPrimaryKey        | ✗          |                  |
 | AddUniqueConstraint  | ✗          |                  |
 | AlterColumn          | ✗          |                  |
-| CreateIndex          | ✔          | 1              |
-| CreateTable          | ✔          | 1              |
+| CreateIndex          | ✔          | 1.0              |
+| CreateTable          | ✔          | 1.0              |
 | DropColumn           | ✗          |                  |
 | DropForeignKey       | ✗          |                  |
-| DropIndex            | ✔          | 1              |
+| DropIndex            | ✔          | 1.0              |
 | DropPrimaryKey       | ✗          |                  |
-| DropTable            | ✔          | 1              |
+| DropTable            | ✔          | 1.0              |
 | DropUniqueConstraint | ✗          |                  |
 | RenameColumn         | ✔          | 2.2.2            |
 | RenameIndex          | ✔          | 2.1              |
-| RenameTable          | ✔          | 1              |
-| EnsureSchema         | ✔ (操作なし)  | 2.0              |
-| DropSchema           | ✔ (操作なし)  | 2.0              |
-| 挿入               | ✔          | 2.0              |
+| RenameTable          | ✔          | 1.0              |
+| EnsureSchema         | ✔ (非 op)  | 2.0              |
+| DropSchema           | ✔ (非 op)  | 2.0              |
+| Insert               | ✔          | 2.0              |
 | 更新               | ✔          | 2.0              |
 | 削除               | ✔          | 2.0              |
 
 ## <a name="migrations-limitations-workaround"></a>移行の制限の回避策
 
-回避策をいくつかは、移行テーブルを実行するコードを手動で記述してこれらの制限の再構築します。 テーブルのリビルドには、既存のテーブルの名前変更、新しいテーブルの作成、新しいテーブルへのデータのコピー、および古いテーブルの削除が必要です。 使用する必要があります、`Sql(string)`メソッドを次の手順の一部を実行します。
+これらの制限の一部を回避するには、移行でコードを手動で記述して、テーブルの再構築を実行します。 テーブルのリビルドには、既存のテーブルの名前変更、新しいテーブルの作成、新しいテーブルへのデータのコピー、および古いテーブルの削除が必要です。 これらの手順の一部を実行するには、`Sql(string)` メソッドを使用する必要があります。
 
-参照してください[その他の種類のテーブル スキーマ変更を行う](http://sqlite.org/lang_altertable.html#otheralter)詳細については、SQLite ドキュメント。
+詳細については、SQLite のドキュメントで[他の種類のテーブルスキーマ変更を行う](https://sqlite.org/lang_altertable.html#otheralter)方法に関するドキュメントを参照してください。
 
-将来的に、EF がサポートこれらの操作の一部裏では、テーブルの再構築のアプローチを使用しています。 できます[当社の GitHub プロジェクトでこの機能を追跡](https://github.com/aspnet/EntityFrameworkCore/issues/329)します。
+今後、EF では、これらの操作の一部を、テーブルの再構築方法を使用してサポートすることができます。 [この機能は、GitHub プロジェクトで追跡](https://github.com/aspnet/EntityFrameworkCore/issues/329)できます。

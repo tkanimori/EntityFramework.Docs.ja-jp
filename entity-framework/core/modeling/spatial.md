@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 026df735473e31f1c1463c1fbc6f46c4fd6dfd4f
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: cced53edadb890e4e86753ec2628218ffc4d1d5b
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921734"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181389"
 ---
 # <a name="spatial-data"></a>空間データ
 
@@ -32,7 +32,7 @@ Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore](https://
 
 ## <a name="reverse-engineering"></a>リバースエンジニアリング
 
-空間 NuGet パッケージでは、空間プロパティを使用してモデルの[リバースエンジニアリング](../managing-schemas/scaffolding.md)を行うこともできます`Scaffold-DbContext`が`dotnet ef dbcontext scaffold`、またはを実行する***前***にパッケージをインストールする必要があります。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
+空間 NuGet パッケージによって、空間プロパティを持つ[リバースエンジニアリング](../managing-schemas/scaffolding.md)モデルも有効になりますが、`Scaffold-DbContext` または `dotnet ef dbcontext scaffold` を実行する***前***にパッケージをインストールする必要があります。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
 ## <a name="nettopologysuite-nts"></a>NetTopologySuite (NTS)
 
@@ -46,9 +46,9 @@ optionsBuilder.UseSqlServer(
     x => x.UseNetTopologySuite());
 ```
 
-空間データ型はいくつかあります。 使用する種類は、許可する図形の種類によって異なります。 ここでは、モデルのプロパティに使用できる NTS 型の階層を示します。 これらは名前空間内`NetTopologySuite.Geometries`にあります。
+空間データ型はいくつかあります。 使用する種類は、許可する図形の種類によって異なります。 ここでは、モデルのプロパティに使用できる NTS 型の階層を示します。 これらは @no__t 0 の名前空間内にあります。
 
-* geometry
+* Geometry
   * ポイント
   * LineString
   * 多角形
@@ -62,7 +62,7 @@ optionsBuilder.UseSqlServer(
 
 基本 Geometry 型を使用すると、プロパティによって任意の型の図形を指定できます。
 
-次のエンティティクラスは、 [Wide World のインポーターサンプルデータベース](http://go.microsoft.com/fwlink/?LinkID=800630)のテーブルにマップするために使用できます。
+次のエンティティクラスは、 [Wide World のインポーターサンプルデータベース](https://go.microsoft.com/fwlink/?LinkID=800630)のテーブルにマップするために使用できます。
 
 ``` csharp
 [Table("Cities", Schema = "Application"))]
@@ -101,7 +101,7 @@ var currentLocation = geometryFactory.CreatePoint(-122.121512, 47.6739882);
 
 ### <a name="longitude-and-latitude"></a>経度と緯度
 
-NTS 内の座標は、X 値と Y 値で表現されます。 経度と緯度を表すには、経度には X、緯度には Y を使用します。 これは、通常 、これらの`latitude, longitude`値が表示されるのとは逆の形式であることに注意してください。
+NTS 内の座標は、X 値と Y 値で表現されます。 経度と緯度を表すには、経度には X、緯度には Y を使用します。 これは、通常、これらの値が表示される `latitude, longitude` 形式とは**逆**になっていることに注意してください。
 
 ### <a name="srid-ignored-during-client-operations"></a>クライアント操作中に SRID が無視されました
 
@@ -213,15 +213,15 @@ SQL Server を使用している場合は、注意が必要な点がいくつか
 
 ### <a name="geography-or-geometry"></a>Geography または geometry
 
-既定では、空間プロパティは SQL Server `geography`の列にマップされます。 を使用`geometry`するには、モデルの[列の型を構成](xref:core/modeling/relational/data-types)します。
+既定では、空間プロパティは SQL Server 内の @no__t 0 列にマップされます。 @No__t-0 を使用するには、モデルの[列の型を構成](xref:core/modeling/relational/data-types)します。
 
 ### <a name="geography-polygon-rings"></a>Geography polygon リング
 
-列の`geography`型を使用する場合、SQL Server によって、外部リング (またはシェル) と内部リング (または穴) に追加の要件が課されます。 外部リングの方向を反時計回りにし、内部リングを時計回りにする必要があります。 NTS は、データベースに値を送信する前にこのことを検証します。
+@No__t-0 列の型を使用する場合、SQL Server によって、外部リング (またはシェル) と内部リング (または穴) に追加の要件が課されます。 外部リングの方向を反時計回りにし、内部リングを時計回りにする必要があります。 NTS は、データベースに値を送信する前にこのことを検証します。
 
 ### <a name="fullglobe"></a>FullGlobe
 
-SQL Server には、列の`geography`型を使用するときに全地球を表す非標準の geometry 型があります。 また、地球全体に基づくポリゴンを表す方法も用意されています (外部リングは不要)。 これらのいずれも、NTS ではサポートされていません。
+SQL Server には、@no__t 0 の列の型を使用する場合、全地球を表す非標準の geometry 型があります。 また、地球全体に基づくポリゴンを表す方法も用意されています (外部リングは不要)。 これらのいずれも、NTS ではサポートされていません。
 
 > [!WARNING]
 > NTS では、これに基づく FullGlobe と多角形はサポートされていません。
@@ -244,14 +244,14 @@ brew install libspatialite
 
 ### <a name="configuring-srid"></a>SRID の構成
 
-SpatiaLite では、列ごとに SRID を指定する必要があります。 既定の SRID は`0`です。 ForSqliteHasSrid メソッドを使用して、別の SRID を指定します。
+SpatiaLite では、列ごとに SRID を指定する必要があります。 既定の SRID は `0` です。 ForSqliteHasSrid メソッドを使用して、別の SRID を指定します。
 
 ``` csharp
 modelBuilder.Entity<City>().Property(c => c.Location)
     .ForSqliteHasSrid(4326);
 ```
 
-### <a name="dimension"></a>ディメンション
+### <a name="dimension"></a>[ディメンション]
 
 SRID と同様に、列のディメンション (または座標) も列の一部として指定されます。 既定の座標は X と Y です。 ForSqliteHasDimension メソッドを使用して、追加の座標 (Z および M) を有効にします。
 
@@ -331,5 +331,5 @@ NumInteriorRings | ✔ | ✔ | ✔ | ✔
 
 * [SQL Server の空間データ](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
 * [SpatiaLite ホームページ](https://www.gaia-gis.it/fossil/libspatialite)
-* [Npgsql 空間のドキュメント](http://www.npgsql.org/efcore/mapping/nts.html)
-* [PostGIS のドキュメント](http://postgis.net/documentation/)
+* [Npgsql 空間のドキュメント](https://www.npgsql.org/efcore/mapping/nts.html)
+* [PostGIS のドキュメント](https://postgis.net/documentation/)

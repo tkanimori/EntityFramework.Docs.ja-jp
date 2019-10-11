@@ -3,12 +3,12 @@ title: Entity Framework プロバイダー - EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
-ms.openlocfilehash: f6e34d1273bd1004ce9d1610ce3613068088eb5e
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: bf07296503e4bb5d1e13f5f6f29e7118cbbde61d
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668740"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181682"
 ---
 # <a name="entity-framework-6-providers"></a>Entity Framework 6 プロバイダー
 > [!NOTE]
@@ -21,15 +21,15 @@ Entity Framework は現在、オープンソース ライセンスで開発さ�
 以下のプロバイダーは、EF6 用に再構築されていることを認識されています。
 
 *   **Microsoft SQL Server プロバイダー**
-    *   [Entity Framework オープン ソース コード ベース](http://github.com/aspnet/EntityFramework6)から構築されました。
-    *   [EntityFramework NuGet パッケージ](http://nuget.org/packages/EntityFramework)の一部として出荷されます。
+    *   [Entity Framework オープン ソース コード ベース](https://github.com/aspnet/EntityFramework6)から構築されました。
+    *   [EntityFramework NuGet パッケージ](https://nuget.org/packages/EntityFramework)の一部として出荷されます。
 *   **Microsoft SQL Server Compact Edition プロバイダー**
-    *   [Entity Framework オープン ソース コード ベース](http://github.com/aspnet/EntityFramework6)から構築されました。
-    *   [EntityFramework.SqlServerCompact NuGet パッケージ](http://nuget.org/packages/EntityFramework.SqlServerCompact)に付属しています。
-*   [**Devart dotConnect データ プロバイダー**](http://www.devart.com/dotconnect/)
-    *   Oracle、MySQL、PostgreSQL、SQLite、Salesforce、DB2、SQL Server などのを含むさまざまなデータベース用のサードパーティ プロバイダーが [Devart](http://www.devart.com/) から提供されています。
-*   [**CData Software プロバイダー**](http://www.cdata.com/ado/)
-    *   Salesforce、Azure Table Storage、MySql、その他多くのさまざまなデータ ストア用のサードパーティ プロバイダーが [CData Software](http://www.cdata.com/ado/) から提供されています。
+    *   [Entity Framework オープン ソース コード ベース](https://github.com/aspnet/EntityFramework6)から構築されました。
+    *   [EntityFramework.SqlServerCompact NuGet パッケージ](https://nuget.org/packages/EntityFramework.SqlServerCompact)に付属しています。
+*   [**Devart dotConnect データ プロバイダー**](https://www.devart.com/dotconnect/)
+    *   Oracle、MySQL、PostgreSQL、SQLite、Salesforce、DB2、SQL Server などのを含むさまざまなデータベース用のサードパーティ プロバイダーが [Devart](https://www.devart.com/) から提供されています。
+*   [**CData Software プロバイダー**](https://www.cdata.com/ado/)
+    *   Salesforce、Azure Table Storage、MySql、その他多くのさまざまなデータ ストア用のサードパーティ プロバイダーが [CData Software](https://www.cdata.com/ado/) から提供されています。
 *   **Firebird プロバイダー**
     *   [NuGet パッケージ](https://www.nuget.org/packages/EntityFramework.Firebird/)として入手できます。
 *   **Visual Fox Pro プロバイダー**
@@ -68,7 +68,7 @@ app.config または web.config での EF プロバイダーの登録には、�
 
 ### <a name="code-based-registration"></a>コード ベースの登録
 
-Entity Framework 6 以降では、EF のアプリケーション全体の構成をコードで指定できます。 詳細については、「_[Entity Framework - コード ベースの構成](https://msdn.microsoft.com/data/jj680699)_」を参照してください。 コード ベースの構成を使用して、EF プロバイダーを登録する通常の方法では、System.Data.Entity.DbConfiguration から派生する新しいクラスを作成し、DbContext クラスと同じアセンブリ内にそれを配置します。 その後で、DbConfiguration クラスが、そのコンストラクターでプロバイダーを登録する必要があります。 たとえば、SQL Compact プロバイダーを登録するための DbConfiguration クラスは次のようになります。
+Entity Framework 6 以降では、EF のアプリケーション全体の構成をコードで指定できます。 詳細については、「 _[Entity Framework - コード ベースの構成](https://msdn.microsoft.com/data/jj680699)_ 」を参照してください。 コード ベースの構成を使用して、EF プロバイダーを登録する通常の方法では、System.Data.Entity.DbConfiguration から派生する新しいクラスを作成し、DbContext クラスと同じアセンブリ内にそれを配置します。 その後で、DbConfiguration クラスが、そのコンストラクターでプロバイダーを登録する必要があります。 たとえば、SQL Compact プロバイダーを登録するための DbConfiguration クラスは次のようになります。
 
 ``` csharp
     public class MyConfiguration : DbConfiguration

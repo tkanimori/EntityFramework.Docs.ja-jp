@@ -1,37 +1,37 @@
 ---
-title: EF Core ツール リファレンス (パッケージ マネージャー コンソール) - EF Core
+title: EF Core ツールリファレンス (パッケージマネージャーコンソール)-EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: cb05e3fb66adf96f8a6778711a76520d0be24c71
-ms.sourcegitcommit: 645785187ae23ddf7d7b0642c7a4da5ffb0c7f30
+ms.openlocfilehash: 45370a82131da9db8b724fe395d41b1e3641fcf8
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/25/2019
-ms.locfileid: "58419771"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181329"
 ---
-# <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core ツールのリファレンス - Visual Studio でパッケージ マネージャー コンソール
+# <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core ツールリファレンス-Visual Studio のパッケージマネージャーコンソール
 
-Entity Framework Core のパッケージ マネージャー コンソール (PMC) ツールでは、デザイン時開発タスクを実行します。 たとえば、作成[移行](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0#introduction-to-migrations)移行を適用し、既存のデータベースに基づくモデルのコードを生成します。 コマンドは、Visual Studio を使用して内部で実行、[パッケージ マネージャー コンソール](/nuget/tools/package-manager-console)します。 これらのツールは、.NET Framework プロジェクトと .NET Core プロジェクトの両方に使えます。
+Entity Framework Core 用のパッケージマネージャーコンソール (PMC) ツールは、デザイン時の開発タスクを実行します。 たとえば、既存のデータベースに基づいて、[移行](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0)を作成し、移行を適用し、モデルのコードを生成します。 コマンドは、Visual Studio 内で[パッケージマネージャーコンソール](/nuget/tools/package-manager-console)を使用して実行されます。 これらのツールは、.NET Framework プロジェクトと .NET Core プロジェクトの両方に使えます。
 
-Visual Studio を使用していないかどうか、お勧め、 [EF Core コマンド ライン ツール](dotnet.md)代わりにします。 CLI ツールは、クロス プラットフォームと、コマンド プロンプト内で実行されます。
+Visual Studio を使用していない場合は、代わりに[EF Core コマンドラインツール](dotnet.md)を使用することをお勧めします。 CLI ツールはクロスプラットフォームで、コマンドプロンプト内で実行されます。
 
 ## <a name="installing-the-tools"></a>ツールのインストール
 
-インストールして、ツールを更新する手順は、ASP.NET Core 2.1 以降と以前のバージョンまたはその他のプロジェクトの種類によって異なります。
+ツールのインストールと更新の手順は、ASP.NET Core 2.1 以降のバージョンまたはその他のプロジェクトの種類によって異なります。
 
-### <a name="aspnet-core-version-21-and-later"></a>ASP.NET Core 2.1 以降のバージョン
+### <a name="aspnet-core-version-21-and-later"></a>ASP.NET Core バージョン2.1 以降
 
-ユーザーがためにで、ツールは、ASP.NET Core 2.1 以降のプロジェクトに自動的に含め、`Microsoft.EntityFrameworkCore.Tools`にパッケージが含まれる、 [Microsoft.AspNetCore.App メタパッケージ](/aspnet/core/fundamentals/metapackage-app)します。
+@No__t 0 のパッケージは[AspNetCore メタパッケージ](/aspnet/core/fundamentals/metapackage-app)に含まれているため、ツールは ASP.NET Core 2.1 以降のプロジェクトに自動的に含まれます。
 
-そのため、ツールをインストールすることが何もする必要はありませんを行うこと。
-* 新しいプロジェクトのツールを使用する前にパッケージを復元します。
-* 新しいバージョンにツールを更新するパッケージをインストールします。
+そのため、ツールをインストールするために何もする必要はありませんが、次の操作を行う必要があります。
+* 新しいプロジェクトでツールを使用する前に、パッケージを復元します。
+* パッケージをインストールして、ツールを新しいバージョンに更新します。
 
-ツールの最新バージョンを取得していることを確認するには、次の手順を実行することお勧めします。
+最新バージョンのツールを入手するには、次の手順も実行することをお勧めします。
 
-* 編集、 *.csproj*ファイルを開き、最新バージョンを指定する行を追加、 [Microsoft.EntityFrameworkCore.Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/)パッケージ。 たとえば、 *.csproj*ファイルを含めることができます、`ItemGroup`次のようにします。
+* *.Csproj*ファイルを編集し、最新バージョンの[Microsoft Entityframeworkcore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/)パッケージを指定する行を追加します。 たとえば、.csproj ファイルには、次のような `ItemGroup` が含ま*れ*ている可能性があります。
 
   ```xml
   <ItemGroup>
@@ -41,38 +41,38 @@ Visual Studio を使用していないかどうか、お勧め、 [EF Core コ�
   </ItemGroup>
   ```
 
-次の例のようなメッセージが表示された場合は、ツールを更新します。
+次の例のようなメッセージが表示されたら、ツールを更新します。
 
-> EF Core ツールのバージョン '2.1.1-rtm-30846' は、'2.1.3-rtm-32065' ランタイムのより古いです。 最新の機能とバグ修正するためのツールを更新します。
+> EF Core ツールバージョン ' 2.1.1-30846 ' は、ランタイム ' 2.1.3-32065 ' より古いバージョンです。 最新の機能とバグ修正のためにツールを更新します。
 
-ツールの更新。
+ツールを更新するには:
 * 最新の .NET Core SDK をインストールします。
 * Visual Studio を最新バージョンに更新します。
-* 編集、 *.csproj*ファイルの最新のツール パッケージにパッケージ参照が含まれるように前述のようにします。
+* .Csproj ファイルを編集して、前に示したように、最新のツールパッケージへのパッケージ参照が含まれるようにし*ます*。
 
-### <a name="other-versions-and-project-types"></a>他のバージョンおよびプロジェクトの種類
+### <a name="other-versions-and-project-types"></a>その他のバージョンとプロジェクトの種類
 
-次のコマンドを実行して、パッケージ マネージャー コンソールのツールをインストール**パッケージ マネージャー コンソール**:
+パッケージマネージャーコンソールで次のコマンドを実行して、パッケージマネージャーコンソールツールをインストールし**ます。**
 
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Tools
 ```
 
-次のコマンドを実行してツールを更新する**パッケージ マネージャー コンソール**します。
+**パッケージマネージャーコンソール**で次のコマンドを実行して、ツールを更新します。
 
 ``` powershell
 Update-Package Microsoft.EntityFrameworkCore.Tools
 ```
 
-### <a name="verify-the-installation"></a>インストールを確認します。
+### <a name="verify-the-installation"></a>インストールを確認する
 
-このコマンドを実行して、ツールがインストールされていることを確認します。
+次のコマンドを実行して、ツールがインストールされていることを確認します。
 
 ``` powershell
 Get-Help about_EntityFrameworkCore
 ```
 
-出力は、(、しないことがわかるツールを使用しているのバージョン) を次のようになります。
+出力は次のようになります (使用しているツールのバージョンはわかりません)。
 
 ```console
 
@@ -92,53 +92,53 @@ SHORT DESCRIPTION
 <A list of available commands follows, omitted here.>
 ```
 
-## <a name="using-the-tools"></a>ツールを使用します。
+## <a name="using-the-tools"></a>ツールの使用
 
-前に、ツールを使用します。
-* ターゲットとスタートアップ プロジェクトの違いを理解します。
-* .NET Standard クラス ライブラリで、ツールを使用する方法について説明します。
-* ASP.NET Core プロジェクトでは、環境を設定します。
+ツールを使用する前に:
+* ターゲットプロジェクトとスタートアッププロジェクトの違いを理解します。
+* .NET Standard クラスライブラリでツールを使用する方法について説明します。
+* ASP.NET Core プロジェクトの場合は、環境を設定します。
 
-### <a name="target-and-startup-project"></a>ターゲットとスタートアップ プロジェクト
+### <a name="target-and-startup-project"></a>ターゲットプロジェクトとスタートアッププロジェクト
 
-コマンドを参照してください、*プロジェクト*と*スタートアップ プロジェクト*します。
+これらのコマンドは、*プロジェクト*と*スタートアッププロジェクト*を参照します。
 
-* *プロジェクト*とも呼ばれますが、*ターゲット プロジェクト*コマンドが追加または、ファイルを削除であるためです。 既定では、**既定のプロジェクト**で選択した**パッケージ マネージャー コンソール**ターゲット プロジェクトです。 ターゲット プロジェクトとして使用して、別のプロジェクトを指定することができます、 <nobr> `--project` </nobr>オプション。
+* *プロジェクト*は*ターゲットプロジェクト*とも呼ばれます。これは、コマンドによってファイルが追加または削除されるためです。 既定では、**パッケージマネージャーコンソール**で選択された**既定のプロジェクト**はターゲットプロジェクトです。 <nobr>@No__t-1</nobr>オプションを使用して、別のプロジェクトをターゲットプロジェクトとして指定できます。
 
-* *スタートアップ プロジェクト*ツールをビルドして実行されます。 ツールは、データベース接続文字列と、モデルの構成など、プロジェクトに関する情報を取得するデザイン時にアプリケーション コードを実行する必要があります。 既定では、**スタートアップ プロジェクト**で**ソリューション エクスプ ローラー**はスタートアップ プロジェクトです。 使用して、別のプロジェクトをスタートアップ プロジェクトとして指定できます、 <nobr> `--startup-project` </nobr>オプション。
+* *スタートアッププロジェクト*は、ツールをビルドして実行するためのものです。 このツールでは、デザイン時にアプリケーションコードを実行して、プロジェクトに関する情報 (データベース接続文字列やモデルの構成など) を取得する必要があります。 既定では、**ソリューションエクスプローラー**の**スタートアッププロジェクト**はスタートアッププロジェクトです。 <nobr>@No__t-1</nobr>オプションを使用して、別のプロジェクトをスタートアッププロジェクトとして指定できます。
 
-スタートアップ プロジェクトとターゲット プロジェクトは、同じプロジェクトでは多くの場合です。 個別のプロジェクトが、一般的なシナリオは。
+多くの場合、スタートアッププロジェクトとターゲットプロジェクトは同じプロジェクトです。 個別のプロジェクトである一般的なシナリオは、次のような場合です。
 
-* EF Core コンテキストとエンティティ クラスは、.NET Core クラス ライブラリでは。
-* .NET Core コンソール アプリまたは web アプリは、クラス ライブラリを参照します。
+* EF Core コンテキストとエンティティクラスは、.NET Core クラスライブラリにあります。
+* .NET Core コンソールアプリまたは web アプリはクラスライブラリを参照します。
 
-することも[EF Core コンテキストから別のクラス ライブラリにコードを移行配置](xref:core/managing-schemas/migrations/projects)します。
+また、[移行コードを EF Core コンテキストとは別のクラスライブラリに配置](xref:core/managing-schemas/migrations/projects)することもできます。
 
-### <a name="other-target-frameworks"></a>その他のターゲット フレームワーク
+### <a name="other-target-frameworks"></a>その他のターゲットフレームワーク
 
-パッケージ マネージャー コンソール ツールは、.NET Core または .NET Framework プロジェクトで動作します。 .NET Standard クラス ライブラリで、EF Core モデルを必要とするアプリケーションは、.NET Core または .NET Framework プロジェクトがあります。 たとえば、これは、Xamarin とユニバーサル Windows プラットフォーム アプリの場合は true。 このような場合は、のみを目的が、ツールのスタートアップ プロジェクトとして機能するには、.NET Core または .NET Framework コンソール アプリケーション プロジェクトを作成できます。 プロジェクトは、実際のコードなしでダミー プロジェクト&mdash;ターゲット ツールを提供する必要があるだけです。
+パッケージマネージャーコンソールツールは、.NET Core または .NET Framework プロジェクトで使用できます。 .NET Standard クラスライブラリに EF Core モデルがあるアプリには、.NET Core または .NET Framework プロジェクトがない可能性があります。 たとえば、これは Xamarin とユニバーサル Windows プラットフォームアプリに当てはまります。 このような場合は、ツールのスタートアッププロジェクトとして機能することだけを目的とした .NET Core または .NET Framework コンソールアプリプロジェクトを作成できます。 プロジェクトは、実際のコード @no__t ないダミープロジェクトにすることができます。0は、ツールのターゲットを指定する場合にのみ必要です。
 
-必要なダミー プロジェクトはなぜですか。 前述のように、ツールは、デザイン時にアプリケーション コードを実行する必要があります。 そのためには、.NET Core または .NET Framework のランタイムを使用して、必要があります。 EF Core モデルは、.NET Core または .NET Framework を対象とするプロジェクトでは、EF Core ツールは、プロジェクトからランタイムを借用します。 EF Core モデルが .NET Standard クラス ライブラリの場合、インストールできません。 .NET Standard は、実際の .NET 実装ではありません。一連の .NET 実装をサポートする必要がある Api の仕様です。 したがって .NET Standard はアプリケーション コードを実行する EF Core ツールのための十分です。 スタートアップ プロジェクトとして使用するように作成するダミーのプロジェクトでは、ツールが、.NET Standard クラス ライブラリを読み込むことができます、具体的なターゲット プラットフォームを提供します。
+ダミープロジェクトが必要な理由 前述のように、ツールはデザイン時にアプリケーションコードを実行する必要があります。 そのためには、.NET Core または .NET Framework ランタイムを使用する必要があります。 EF Core モデルが .NET Core または .NET Framework を対象とするプロジェクト内にある場合、EF Core ツールはプロジェクトからランタイムを借用します。 EF Core モデルが .NET Standard クラスライブラリ内にある場合は、これを行うことはできません。 .NET Standard は実際の .NET 実装ではありません。これは、.NET 実装がサポートする必要のある一連の Api の仕様です。 したがって、EF Core ツールでアプリケーションコードを実行するために .NET Standard は十分ではありません。 スタートアッププロジェクトとして使用するために作成するダミープロジェクトは、ツールが .NET Standard クラスライブラリを読み込むことができる具象ターゲットプラットフォームを提供します。
 
 ### <a name="aspnet-core-environment"></a>ASP.NET Core 環境
 
-ASP.NET Core プロジェクト用の環境を指定するには、次のように設定します。 **env:ASPNETCORE_ENVIRONMENT**コマンドを実行する前にします。
+ASP.NET Core プロジェクトの環境を指定するには、コマンドを実行する前に**env: ASPNETCORE_ENVIRONMENT**を設定します。
 
 ## <a name="common-parameters"></a>共通パラメーター
 
-次の表は、EF Core のコマンドのすべてに共通するパラメーターを示しています。
+次の表に、すべての EF Core コマンドに共通のパラメーターを示します。
 
 | パラメーター                 | 説明                                                                                                                                                                                                          |
 |:--------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| -Context \<String>        | 使用する `DbContext` クラス。 クラス名のみ、または名前空間を持つ完全修飾します。  このパラメーターを省略した場合、EF Core は、コンテキスト クラスを検索します。 複数のコンテキスト クラスがある場合は、このパラメーターが必要です。 |
-| -Project \<String>        | ターゲットのプロジェクトです。 このパラメーターを省略した場合、**既定のプロジェクト**の**パッケージ マネージャー コンソール**がターゲット プロジェクトとして使用されます。                                                                             |
-| -StartupProject \<String> | スタートアップ プロジェクトです。 このパラメーターを省略した場合、**スタートアップ プロジェクト**で**ソリューションのプロパティ**ターゲット プロジェクトとして使用されます。                                                                                 |
-| -Verbose                  | 詳細な出力を表示します。                                                                                                                                                                                                 |
+| -Context \<String>        | 使用する `DbContext` クラス。 クラス名のみ、または名前空間で完全修飾されています。  このパラメーターを省略した場合、EF Core によってコンテキストクラスが検索されます。 複数のコンテキストクラスがある場合は、このパラメーターが必要です。 |
+| -Project \<String>        | ターゲットプロジェクト。 このパラメーターを省略すると、**パッケージマネージャーコンソール**の**既定のプロジェクト**がターゲットプロジェクトとして使用されます。                                                                             |
+| -StartupProject \<String> | スタートアッププロジェクト。 このパラメーターを省略すると、**ソリューションのプロパティ**の**スタートアッププロジェクト**がターゲットプロジェクトとして使用されます。                                                                                 |
+| -Verbose                  | 詳細出力を表示します。                                                                                                                                                                                                 |
 
-コマンドに関するヘルプ情報を表示するには、PowerShell を使用して`Get-Help`コマンド。
+コマンドに関するヘルプ情報を表示するには、PowerShell の `Get-Help` コマンドを使用します。
 
 > [!TIP]
-> コンテキスト、プロジェクト、およびスタートアップ プロジェクトのパラメーターでは、タブ拡張をサポートします。
+> Context、Project、および StartupProject の各パラメーターでは、タブの展開がサポートされています。
 
 ## <a name="add-migration"></a>Add-Migration
 
@@ -159,39 +159,39 @@ ASP.NET Core プロジェクト用の環境を指定するには、次のよう�
 
 | パラメーター | 説明                                              |
 |:----------|:---------------------------------------------------------|
-| -WhatIf   | 表示するデータベースが削除されます。 は削除しないでください。 |
+| -WhatIf   | 削除するデータベースを表示しますが、削除はしません。 |
 
 ## <a name="get-dbcontext"></a>Get-DbContext
 
-に関する情報を取得します、`DbContext`型。
+@No__t 0 の型に関する情報を取得します。
 
 ## <a name="remove-migration"></a>Remove-Migration
 
-最後の移行 (ロールバックの移行の実行されたコードの変更) を削除します。
+最後の移行を削除します (移行のために実行されたコード変更をロールバックします)。
 
 パラメーター:
 
 | パラメーター | 説明                                                                     |
 |:----------|:--------------------------------------------------------------------------------|
-| -Force    | 移行を元に戻す (ロールバックをデータベースに適用された変更)。 |
+| -Force    | 移行を元に戻します (データベースに適用された変更をロールバックします)。 |
 
-## <a name="scaffold-dbcontext"></a>Scaffold-dbcontext
+## <a name="scaffold-dbcontext"></a>スキャフォールディング-DbContext
 
-コードを生成、`DbContext`とデータベースのエンティティ型。 順序で`Scaffold-DbContext`エンティティ型を生成するには、データベース テーブルが主キーをいる必要があります。
+データベースの @no__t 0 およびエンティティ型のコードを生成します。 @No__t 0 でエンティティ型を生成するには、データベーステーブルに主キーが必要です。
 
 パラメーター:
 
 | パラメーター                          | 説明                                                                                                                                                                                                                                                             |
 |:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>の接続\<文字列 ></nobr> | データベースへの接続文字列。 ASP.NET Core 2.x プロジェクトの値を指定できます*名 =\<接続文字列の名前 >* します。 その場合は、名前は、プロジェクトに設定されている構成ソースから取得されます。 位置指定パラメーターは、これが必要です。 |
-| <nobr>プロバイダー\<文字列 ></nobr>   | 使用するプロバイダー。 たとえば、NuGet パッケージの名前は、この通常:`Microsoft.EntityFrameworkCore.SqlServer`します。 位置指定パラメーターは、これが必要です。                                                                                           |
+| <nobr>-接続 \< 文字列 ></nobr> | データベースへの接続文字列。 ASP.NET Core 2.x プロジェクトの場合、*接続文字列 > の名前 = \<* を指定できます。 その場合、プロジェクト用に設定されている構成ソースから名前を取得します。 位置指定パラメーターは、これが必要です。 |
+| <nobr>-プロバイダー \< 文字列 ></nobr>   | 使用するプロバイダー。 通常、これは NuGet パッケージの名前です。たとえば、`Microsoft.EntityFrameworkCore.SqlServer` です。 位置指定パラメーターは、これが必要です。                                                                                           |
 | -OutputDir\<String>               | ファイルを配置するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。                                                                                                                                                                                             |
 | -ContextDir\<String>              | 格納するディレクトリ、`DbContext`ファイルします。 パスでは、プロジェクト ディレクトリに対して相対的です。                                                                                                                                                                              |
-| -Context \<String>                 | 名前、`DbContext`クラスを生成します。                                                                                                                                                                                                                          |
-| -Schemas \<String[]>               | エンティティ型を生成するテーブルのスキーマです。 このパラメーターを省略すると、すべてのスキーマが含まれます。                                                                                                                                                             |
+| -Context \<String>                 | 生成する `DbContext` クラスの名前。                                                                                                                                                                                                                          |
+| -Schemas \<String[]>               | エンティティ型を生成するテーブルのスキーマ。 このパラメーターを省略すると、すべてのスキーマが含まれます。                                                                                                                                                             |
 | -Tables \<String[]>                | エンティティ型を生成するテーブル。 このパラメーターを省略すると、すべてのテーブルが含まれます。                                                                                                                                                                         |
-| -DataAnnotations                   | 属性を使用すると、可能な限り、モデルを構成できます。 このパラメーターを省略した場合は、fluent API のみが使用されます。                                                                                                                                                      |
-| -UseDatabaseNames                  | データベースに表示されているとおりに、テーブルおよび列名を使用します。 このパラメーターを省略すると、データベース名は、C# 名前表記規則をより厳密に準拠するように変更されます。                                                                                       |
+| -DataAnnotations                   | 属性を使用してモデルを構成します (可能な場合)。 このパラメーターを省略した場合は、fluent API のみが使用されます。                                                                                                                                                      |
+| -UseDatabaseNames                  | テーブル名と列名は、データベースに表示されるとおりに使用します。 このパラメーターを省略した場合、データベース名は、名前のスタイルC#規則により厳密に準拠するように変更されます。                                                                                       |
 | -Force                             | 既存のファイルを上書きします。                                                                                                                                                                                                                                               |
 
 例:
@@ -200,7 +200,7 @@ ASP.NET Core プロジェクト用の環境を指定するには、次のよう�
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 ```
 
-選択したテーブルのみをスキャフォールディングし、指定した名前の別のフォルダーにコンテキストを作成する例:
+選択したテーブルのみをスキャフォールディングし、指定した名前の別のフォルダーにコンテキストを作成する例を次に示します。
 
 ```powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Blog","Post" -ContextDir Context -Context BlogContext
@@ -208,7 +208,7 @@ Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Conn
 
 ## <a name="script-migration"></a>Script-Migration
 
-すべての変更を 1 つの選択された移行から別の選択された移行に適用される SQL スクリプトを生成します。
+選択した移行のすべての変更を、選択した別の移行に適用する SQL スクリプトを生成します。
 
 パラメーター:
 
@@ -220,15 +220,15 @@ Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Conn
 | -Output\<String>        | 結果を書き込むファイル。 たとえば、アプリのランタイム ファイルが作成されると、同じフォルダーに生成された名前でファイルを作成するこのパラメーターを省略すると、: */obj/Debug/netcoreapp2.1/ghbkztfz.sql/* します。 |
 
 > [!TIP]
-> および出力パラメーターは、タブ拡張をサポートします。
+> To、From、および Output パラメーターでは、タブの拡張がサポートされています。
 
-次の例では、移行の名前を使用して、InitialCreate 移行用のスクリプトを作成します。
+次の例では、移行名を使用して、InitialCreate 移行用のスクリプトを作成します。
 
 ```powershell
 Script-Migration -To InitialCreate
 ```
 
-次の例では、移行 ID を使用して、InitialCreate 移行後のすべての移行スクリプトを作成します
+次の例では、移行 ID を使用して、InitialCreate 移行後のすべての移行用のスクリプトを作成します。
 
 ```powershell
 Script-Migration -From 20180904195021_InitialCreate
@@ -236,14 +236,14 @@ Script-Migration -From 20180904195021_InitialCreate
 
 ## <a name="update-database"></a>Update-Database
 
-最後に移行したり、指定された移行は、データベースを更新します。
+最後に移行したデータベース、または指定した移行にデータベースを更新します。
 
 | パラメーター                           | 説明                                                                                                                                                                                                                                                     |
 |:------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>*-Migration*\<String></nobr> | Target の移行。 移行は名前または ID で識別される可能性があります。 数値 0 は特殊なケースでは意味*最初の移行の前に*と、すべての移行を元に戻されます。 移行が指定されていない場合のコマンドは、既定最後の移行になります。 |
+| <nobr> *-Migration*\<String></nobr> | Target の移行。 移行は名前または ID で識別される可能性があります。 数値 0 は特殊なケースでは意味*最初の移行の前に*と、すべての移行を元に戻されます。 移行が指定されていない場合のコマンドは、既定最後の移行になります。 |
 
 > [!TIP]
-> 移行のパラメーターは、タブ拡張をサポートします。
+> 移行パラメーターでは、タブの拡張がサポートされています。
 
 次の例では、すべての移行を元に戻します。
 
@@ -251,7 +251,7 @@ Script-Migration -From 20180904195021_InitialCreate
 Update-Database -Migration 0
 ```
 
-次の例では、指定された移行するデータベースを更新します。 最初の移行の名前を使用し、2 つ目は移行 ID を使用します。
+次の例では、指定された移行にデータベースを更新します。 最初のは移行名を使用し、2番目のは移行 ID を使用します。
 
 ```powershell
 Update-Database -Migration InitialCreate

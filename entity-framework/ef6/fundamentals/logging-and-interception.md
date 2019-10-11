@@ -3,12 +3,12 @@ title: データベース操作のログ記録とインターセプト-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: be32ed114269543ac36b256a202e0494d466e4f7
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 35b0284a5ad8b2b732f074589bd458d243312575
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306529"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181669"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>データベース操作のログ記録と受信
 > [!NOTE]
@@ -100,7 +100,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 Log プロパティが設定されると、次のすべてがログに記録されます。  
 
-- SQL では、さまざまな種類のコマンドを使用できます。 例えば:  
+- SQL では、さまざまな種類のコマンドを使用できます。 以下に例を示します。  
     - クエリ (通常の LINQ クエリ、eSQL クエリ、SqlQuery などのメソッドからの生のクエリを含む)  
     - SaveChanges の一部として生成された挿入、更新、および削除  
     - 遅延読み込みによって生成されたクエリなどのクエリを読み込むリレーションシップ  
@@ -171,7 +171,7 @@ SELECT * from ThisTableIsMissing
 
 タスクが取り消された非同期コマンドの場合、結果は例外で失敗する可能性があります。これは、基になる ADO.NET プロバイダーが取り消しを試行したときに頻繁に実行されるためです。 これが行われず、タスクが正常に取り消されると、出力は次のようになります。  
 
-```  
+```console
 update Blogs set Title = 'No' where Id = -1
 -- Executing asynchronously at 5/13/2013 10:21:10 AM
 -- Canceled in 1 ms
@@ -227,7 +227,7 @@ public class OneLineFormatter : DatabaseLogFormatter
 
 ### <a name="setting-the-databaselogformatter"></a>DatabaseLogFormatter の設定  
 
-新しい DatabaseLogFormatter クラスを作成したら、EF に登録する必要があります。 これは、コードベースの構成を使用して行います。 簡単に言うと、これは、Dbconfiguration クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成し、この新しいクラスのコンストラクターで SetDatabaseLogFormatter を呼び出すことを意味します。 例えば:  
+新しい DatabaseLogFormatter クラスを作成したら、EF に登録する必要があります。 これは、コードベースの構成を使用して行います。 簡単に言うと、これは、Dbconfiguration クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成し、この新しいクラスのコンストラクターで SetDatabaseLogFormatter を呼び出すことを意味します。 以下に例を示します。  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration
@@ -244,7 +244,7 @@ public class MyDbConfiguration : DbConfiguration
 
 この新しい DatabaseLogFormatter は、いつでもデータベース .Log が設定されるようになりました。 そのため、パート1のコードを実行すると、次の出力が生成されるようになります。  
 
-```  
+```console
 Context 'BlogContext' is executing command 'SELECT TOP (1) [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title]FROM [dbo].[Blogs] AS [Extent1]WHERE (N'One Unicorn' = [Extent1].[Title]) AND ([Extent1].[Title] IS NOT NULL)'
 Context 'BlogContext' is executing command 'SELECT [Extent1].[Id] AS [Id], [Extent1].[Title] AS [Title], [Extent1].[BlogId] AS [BlogId]FROM [dbo].[Posts] AS [Extent1]WHERE [Extent1].[BlogId] = @EntityKeyValue1'
 Context 'BlogContext' is executing command 'update [dbo].[Posts]set [Title] = @0where ([Id] = @1)'
@@ -261,11 +261,11 @@ Context 'BlogContext' is executing command 'insert [dbo].[Posts]([Title], [BlogI
 
 ### <a name="the-interception-context"></a>インターセプトコンテキスト  
 
-任意のインターセプターインターフェイスで定義されているメソッドを見ると、すべての呼び出しには DbInterceptionContext 型のオブジェクト、または DbCommandInterceptionContext\<\>などの派生型のオブジェクトが指定されていることがわかります。 このオブジェクトには、EF が行っているアクションに関するコンテキスト情報が含まれています。 たとえば、アクションが DbContext の代わりに実行されている場合、DbContext は DbInterceptionContext に含まれます。 同様に、非同期に実行されるコマンドの場合、IsAsync フラグは DbCommandInterceptionContext に設定されます。  
+任意のインターセプターインターフェイスで定義されているメソッドを見ると、すべての呼び出しには DbInterceptionContext 型のオブジェクト、または DbCommandInterceptionContext @ no__t-0 @ no__t-1 などの派生型のオブジェクトが指定されていることがわかります。 このオブジェクトには、EF が行っているアクションに関するコンテキスト情報が含まれています。 たとえば、アクションが DbContext の代わりに実行されている場合、DbContext は DbInterceptionContext に含まれます。 同様に、非同期に実行されるコマンドの場合、IsAsync フラグは DbCommandInterceptionContext に設定されます。  
 
 ### <a name="result-handling"></a>結果の処理  
 
-\< DbCommandInterceptionContext\>クラスには、Result、originalresult、Exception、および originalresult というプロパティが含まれています。 これらのプロパティは、操作が実行される前に呼び出されるインターセプトメソッド (つまり...) の呼び出しに対して null または0に設定されます。メソッドを実行しています。 操作が実行され、成功した場合、Result と OriginalResult は操作の結果に設定されます。 これらの値は、操作が実行された後に呼び出されるインターセプトメソッド (つまり...実行されたメソッド。 同様に、操作がをスローした場合、Exception プロパティと OriginalException プロパティが設定されます。  
+DbCommandInterceptionContext @ no__t-0 @ no__t クラスには、Result、OriginalResult、Exception、および Originalresult というプロパティが含まれています。 これらのプロパティは、操作が実行される前に呼び出されるインターセプトメソッド (つまり...) の呼び出しに対して null または0に設定されます。メソッドを実行しています。 操作が実行され、成功した場合、Result と OriginalResult は操作の結果に設定されます。 これらの値は、操作が実行された後に呼び出されるインターセプトメソッド (つまり...実行されたメソッド。 同様に、操作がをスローした場合、Exception プロパティと OriginalException プロパティが設定されます。  
 
 #### <a name="suppressing-execution"></a>実行の抑制  
 
@@ -289,7 +289,7 @@ OriginalResult プロパティと Originalresult プロパティは読み取り�
 
 ### <a name="registering-interceptors"></a>インターセプターの登録  
 
-1つ以上のインターセプトインターフェイスを実装するクラスが作成されたら、DbInterception クラスを使用して EF に登録できます。 例えば:  
+1つ以上のインターセプトインターフェイスを実装するクラスが作成されたら、DbInterception クラスを使用して EF に登録できます。 以下に例を示します。  
 
 ``` csharp
 DbInterception.Add(new NLogCommandInterceptor());
@@ -299,7 +299,7 @@ DbInterception.Add(new NLogCommandInterceptor());
 
 ### <a name="example-logging-to-nlog"></a>例:NLog へのログ記録  
 
-ここでは、IDbCommandInterceptor と[Nlog](http://nlog-project.org/)を使用して、次のことを行う例について説明します。  
+ここでは、IDbCommandInterceptor と[Nlog](https://nlog-project.org/)を使用して、次のことを行う例について説明します。  
 
 - 非同期的に実行されていないコマンドに対して警告をログに記録します。  
 - 実行時にスローされるすべてのコマンドに対してエラーをログに記録します。  

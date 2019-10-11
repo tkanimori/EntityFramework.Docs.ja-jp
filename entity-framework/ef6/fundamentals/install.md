@@ -1,63 +1,63 @@
 ---
-title: Entity Framework の EF6 を取得します。
+title: Entity Framework の取得-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
-ms.openlocfilehash: 7f840a4f9e437ec12f699184339e386976e1528b
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: 2bdec6a9be228fbe934d0f46aa1bfafdfb2c971c
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490657"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181740"
 ---
-# <a name="get-entity-framework"></a>Entity Framework を入手します。
-Entity Framework は、Visual Studio と EF のランタイムの EF ツールの構成されます。
+# <a name="get-entity-framework"></a>Entity Framework を取得する
+Entity Framework は、EF Tools for Visual Studio と EF Runtime で構成されています。
 
-## <a name="ef-tools-for-visual-studio"></a>EF の Tools for Visual Studio
+## <a name="ef-tools-for-visual-studio"></a>EF Tools for Visual Studio
 
-Entity Framework Tools for Visual Studio は EF Designer、EF モデル ウィザードは、最初に、データベースに必要なし、最初のワークフロー モデルします。 すべての最新バージョンの Visual Studio では、EF ツールが含まれます。 項目を確認する必要がありますが、Visual Studio のカスタム インストールを実行する場合、それを含むワークロードを選択するか、または個々 のコンポーネントとして選択して、"Entity Framework 6 Tools"が選択されます。
+Visual Studio の Entity Framework Tools には、EF デザイナーと EF モデルウィザードが含まれており、データベースの最初のワークフローとモデルの最初のワークフローに必要です。 EF ツールは、すべての最新バージョンの Visual Studio に含まれています。 Visual Studio のカスタムインストールを実行する場合は、項目を含むワークロードを選択するか、個々のコンポーネントとして選択することで、項目 "Entity Framework 6 ツール" が選択されていることを確認する必要があります。
 
-一部が Visual Studio の以前のバージョンには、更新された EF ツールは、ダウンロードとして入手できます。 参照してください[バージョンの Visual Studio](~/ef6/what-is-new/visual-studio.md) Visual Studio のバージョンの EF ツールの最新バージョンを取得する方法のガイダンスについて。
+以前のバージョンの Visual Studio では、更新された EF ツールはダウンロードとして入手できます。 お使いのバージョンの Visual Studio で使用できる EF ツールの最新バージョンを入手する方法については、「 [Visual studio のバージョン](~/ef6/what-is-new/visual-studio.md)」を参照してください。
 
 ## <a name="ef-runtime"></a>EF ランタイム
 
-最新バージョンの Entity Framework は、 [EntityFramework NuGet パッケージ](http://nuget.org/packages/EntityFramework/)します。 使い慣れた NuGet パッケージ マネージャーを使用しない場合は、ぜひを読み取る、 [NuGet の概要](https://docs.microsoft.com/nuget/consume-packages/overview-and-workflow)します。
+Entity Framework の最新バージョンは、 [Entityframework NuGet パッケージ](https://nuget.org/packages/EntityFramework/)として入手できます。 NuGet パッケージマネージャーに慣れていない場合は、「 [nuget の概要」](https://docs.microsoft.com/nuget/consume-packages/overview-and-workflow)をお読みになることをお勧めします。
 
-### <a name="installing-the-ef-nuget-package"></a>EF の NuGet パッケージをインストールします。
+### <a name="installing-the-ef-nuget-package"></a>EF NuGet パッケージのインストール
 
-右クリックし、EntityFramework パッケージをインストールすることができます、**参照**、プロジェクトのフォルダーを選択して**NuGet パッケージの管理.**
+EntityFramework パッケージをインストールするには、プロジェクトの **[参照]** フォルダーを右クリックし、 **[NuGet パッケージの管理...]** を選択します。
 
-![NuGet パッケージを管理します。](~/ef6/media/managenugetpackages.png)
+![NuGet パッケージの管理](~/ef6/media/managenugetpackages.png)
 
-### <a name="installing-from-package-manager-console"></a>パッケージ マネージャー コンソールからインストールします。
+### <a name="installing-from-package-manager-console"></a>パッケージマネージャーコンソールからのインストール
 
-または、EntityFramework をインストールで、次のコマンドを実行して、[パッケージ マネージャー コンソール](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)します。
+または、[パッケージマネージャーコンソール](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)で次のコマンドを実行して、entityframework をインストールすることもできます。
 
 ``` powershell
 Install-Package EntityFramework
 ```
 
-## <a name="installing-a-specific-version-of-ef"></a>EF の特定のバージョンをインストールします。
+## <a name="installing-a-specific-version-of-ef"></a>特定のバージョンの EF のインストール
 
-新しいバージョンの EF ランタイムは EF 4.1 以降からとしてリリースされていますが、 [EntityFramework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/)します。 これらのバージョンの Visual studio の次のコマンドを実行して .NET Framework ベースのプロジェクトに追加できます[パッケージ マネージャー コンソール](http://docs.nuget.org/docs/start-here/using-the-package-manager-console):
+EF 4.1 以降では、新しいバージョンの EF runtime が[Entityframework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/)としてリリースされました。 これらのバージョンはいずれも、Visual Studio の[パッケージマネージャーコンソール](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)で次のコマンドを実行して、.NET Framework ベースのプロジェクトに追加できます。
 
 ``` powershell
 Install-Package EntityFramework -Version <number>
 ```
 
-なお`<number>`をインストールする EF の特定のバージョンを表します。 たとえば、6.2.0、EF 6.2 の番号のバージョンです。   
+@No__t-0 は、インストールする EF の特定のバージョンを表していることに注意してください。 たとえば、6.2.0 は EF 6.2 の number のバージョンです。   
 
-4.1 の前に EF のランタイムでは、.NET Framework の一部であったし、個別にインストールすることはできません。
+4\.1 より前の EF runtime は .NET Framework に含まれており、個別にインストールすることはできません。
 
-### <a name="installing-the-latest-preview"></a>最新のプレビューをインストールします。
+### <a name="installing-the-latest-preview"></a>最新のプレビューのインストール
 
-上記のメソッドが、最新バージョンを与える Entity Framework のリリースを完全にサポートします。 プレリリース バージョンの Entity Framework をぜひお試しし、についてフィードバックを提供する利用可能なことは少なくありません。
+上記の方法では、Entity Framework の完全にサポートされた最新のリリースが提供されます。 多くの場合、プレリリース版の Entity Framework 利用可能であり、お客様にご意見をお寄せください。
 
-選択 EntityFramework の最新のプレビューをインストールする**プレリリース版を含む**NuGet パッケージの管理 ウィンドウでします。 プレリリース バージョンが利用できない場合は、最新を自動的に取得が完全にサポートされているバージョンの Entity Framework。
+EntityFramework の最新のプレビューをインストールするには、NuGet パッケージの管理 ウィンドウで **プレリリースを含める** を選択します。 使用可能なプレリリースバージョンがない場合は、最新の完全サポートバージョンの Entity Framework が自動的に取得されます。
 
 ![プレリリースを含める](~/ef6/media/includeprerelease.png)
 
-また、次のコマンドを実行することができます、[パッケージ マネージャー コンソール](http://docs.nuget.org/docs/start-here/using-the-package-manager-console)します。
+または、[パッケージマネージャーコンソール](https://docs.nuget.org/docs/start-here/using-the-package-manager-console)で次のコマンドを実行します。
 
 ``` powershell
 Install-Package EntityFramework -Pre

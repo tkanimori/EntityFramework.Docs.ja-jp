@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: d93be5c2b727d8fbaddd103f8f367c699ae80a7c
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 588dee012039ce5ecc83f0ecf263a4ea6ca38c29
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921654"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181985"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 
@@ -63,7 +63,7 @@ using (var context = new BloggingContext())
 ```
 
 > [!NOTE]  
-> 追跡なしのクエリでは、実行しているクエリ内で ID の解決を行います。 結果セットに同じエンティティが複数回含まれている場合、結果セット内での各同時実行に対して、エンティティ クラスの同じインスタンスが返されます。 ただし、既に返されたエンティティの追跡を継続するために、弱参照が使用されます。 同じ ID の前の結果が範囲外になっている場合は、ガベージ コレクションが実行され、新しいエンティティ インスタンスを取得できます。 詳細については、「[クエリのしくみ](overview.md)」を参照してください。
+> 追跡なしのクエリでは、実行しているクエリ内で ID の解決を行います。 結果セットに同じエンティティが複数回含まれている場合、結果セット内での各同時実行に対して、エンティティ クラスの同じインスタンスが返されます。 ただし、既に返されたエンティティの追跡を継続するために、弱参照が使用されます。 同じ ID の前の結果が範囲外になっている場合は、ガベージ コレクションが実行され、新しいエンティティ インスタンスを取得できます。 詳細については、「[クエリのしくみ](xref:core/querying/how-query-works)」を参照してください。
 
 ## <a name="tracking-and-projections"></a>追跡と予測
 

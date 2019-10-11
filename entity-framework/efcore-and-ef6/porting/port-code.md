@@ -1,37 +1,37 @@
 ---
-title: EF6 から EF Core への移植 - コード ベースのモデルの移植
+title: EF6 から EF Core に移植してコードベースのモデルを移植する-EF
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 2dce1a50-7d84-4856-abf6-2763dd9be99d
 uid: efcore-and-ef6/porting/port-code
-ms.openlocfilehash: 2484b681d71ae8711b1b3a59bc274a0b2e403294
-ms.sourcegitcommit: dadee5905ada9ecdbae28363a682950383ce3e10
+ms.openlocfilehash: 0a99eac2091c07d8bcf7d4e5e4bdc2afcaeee810
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/27/2018
-ms.locfileid: "42997050"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181215"
 ---
-# <a name="porting-an-ef6-code-based-model-to-ef-core"></a>EF Core に EF6 コードに基づくモデルの移植
+# <a name="porting-an-ef6-code-based-model-to-ef-core"></a>EF6 コードベースモデルを EF Core に移植する
 
-すべての警告を読んだし、ポートに準備ができたら、し、ここではいくつかのガイドラインを参照してください。
+すべての注意事項を読んだ後に移植する準備ができたら、次のガイドラインを参考にしてください。
 
-## <a name="install-ef-core-nuget-packages"></a>EF Core NuGet パッケージをインストールします。
+## <a name="install-ef-core-nuget-packages"></a>NuGet パッケージのインストール EF Core
 
-EF Core を使用するには、使用するデータベース プロバイダーの NuGet パッケージをインストールします。 たとえば、SQL Server を対象とするときにインストール`Microsoft.EntityFrameworkCore.SqlServer`します。 参照してください[データベース プロバイダー](../../core/providers/index.md)詳細についてはします。
+EF Core を使用するには、使用するデータベースプロバイダーの NuGet パッケージをインストールします。 たとえば、SQL Server を対象とする場合は、`Microsoft.EntityFrameworkCore.SqlServer` をインストールします。 詳細については、「[データベースプロバイダー](../../core/providers/index.md) 」を参照してください。
 
-移行を使用する予定のかどうかは、インストールする必要があります、`Microsoft.EntityFrameworkCore.Tools`パッケージ。
+移行の使用を計画している場合は、@no__t 0 のパッケージもインストールする必要があります。
 
-これを EF6 の NuGet パッケージ (EntityFramework) をインストールすると、そのままに EF Core と EF6 が同じアプリケーションで並列で使用できます。 ただし、アプリケーションの領域で EF6 を使用する場合は、パッケージをアンインストールし、役立つの注意が必要なコードのコンパイル エラーが発生します。
+EF6 NuGet パッケージ (EntityFramework) はインストールされたままにしておくことをお勧めします。これは EF Core と EF6 を同じアプリケーションでサイドバイサイドで使用できるようにするためです。 ただし、アプリケーションの任意の領域で EF6 を使用するつもりがない場合は、パッケージをアンインストールすることで、注意が必要なコードの一部でコンパイルエラーが発生することがあります。
 
-## <a name="swap-namespaces"></a>名前空間をスワップします。
+## <a name="swap-namespaces"></a>名前空間の入れ替え
 
-EF6 で使用するほとんどの Api は、`System.Data.Entity`名前空間 (および関連するサブ名前空間)。 最初のコード変更をスワップするには、`Microsoft.EntityFrameworkCore`名前空間。 通常、派生コンテキストのコード ファイルを起動し、作業するそこが発生したコンパイル エラーに対処します。
+EF6 で使用する Api のほとんどは、`System.Data.Entity` 名前空間 (および関連するサブ名前空間) にあります。 最初のコード変更では、@no__t 0 の名前空間にスワップします。 通常は、派生コンテキストコードファイルから開始し、そこから作業を行い、コンパイルエラーが発生したときに対処します。
 
 ## <a name="context-configuration-connection-etc"></a>コンテキストの構成 (接続など)
 
-」の説明に従って[ように EF Core は作業アプリケーションの](ensure-requirements.md)、EF Core が少ないマジックの周囲に接続するデータベースを検出します。 オーバーライドする必要があります、`OnConfiguring`メソッドを派生コンテキストと、データベースへの接続をセットアップするには、データベース プロバイダーの特定の API を使用します。
+「アプリケーションで[EF Core が機能することを確認](ensure-requirements.md)する」で説明されているように、EF Core は、接続先のデータベースを検出するマジックがあまりありません。 派生コンテキストで `OnConfiguring` メソッドをオーバーライドし、データベースプロバイダー固有の API を使用してデータベースへの接続を設定する必要があります。
 
-ほとんどの EF6 アプリケーションでは、アプリケーションの接続文字列を格納`App/Web.config`ファイル。 EF Core でのこの接続文字列を使用して読み取りを`ConfigurationManager`API。 参照を追加する必要があります、`System.Configuration`この API を使用できるフレームワーク アセンブリ。
+ほとんどの EF6 アプリケーションは、接続文字列をアプリケーション `App/Web.config` ファイルに格納します。 EF Core では、`ConfigurationManager` API を使用してこの接続文字列を読み取ります。 この API を使用できるようにするには、`System.Configuration` framework アセンブリに参照を追加する必要がある場合があります。
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -46,16 +46,16 @@ public class BloggingContext : DbContext
 }
 ```
 
-## <a name="update-your-code"></a>コードを更新します
+## <a name="update-your-code"></a>コードを更新する
 
-この時点では、コンパイル エラーをアドレス指定と確認の動作の変更とするかどうかは影響を確認するコードの問題になります。
+この時点で、コンパイルエラーに対処し、コードを見直して、動作の変更が影響を受けるかどうかを確認します。
 
 ## <a name="existing-migrations"></a>既存の移行
 
-既存の EF6 の移行を EF Core に移植可能な方法が本当にありません。
+既存の EF6 移行を EF Core に移植する方法は実際にはありません。
 
-可能であれば、EF6 からすべての以前の移行をデータベースに適用されているし、開始からスキーマを移行するポイントの EF Core を使用しが想定することをお勧めします。 これを行うには、使用して、`Add-Migration`モデルが EF Core に移植したら、移行を追加するコマンド。 すべてのコードを削除し、`Up`と`Down`スキャフォールディングの移行の方法です。 次の移行は、その最初の移行がスキャフォールディングされるときに、モデルに比較されます。
+可能であれば、EF6 からの以前の移行がすべてデータベースに適用されていることを前提にしてから、EF Core を使用してその時点からスキーマの移行を開始することをお勧めします。 これを行うには、モデルが EF Core に移植された後に、`Add-Migration` コマンドを使用して移行を追加します。 次に、スキャフォールディング移行の `Up` および `Down` メソッドからすべてのコードを削除します。 その後の移行では、最初の移行がスキャフォールディングされたときにモデルと比較されます。
 
-## <a name="test-the-port"></a>ポートをテストします。
+## <a name="test-the-port"></a>ポートをテストする
 
-アプリケーションをコンパイルするためにだけしないわけでは EF Core に移植が正常にします。 None、動作の変更と、アプリケーションが悪影響を受けることを確認するアプリケーションのすべての領域をテストする必要があります。
+アプリケーションがコンパイルされるので、は EF Core に正常に移植されるという意味ではありません。 アプリケーションのすべての領域をテストして、動作の変更がアプリケーションに悪影響を与えないことを確認する必要があります。

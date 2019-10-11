@@ -3,12 +3,12 @@ title: 過去のリリースの Entity Framework-EF6
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-ms.openlocfilehash: 3ee433ac0932f89841b5cc42fb864eefb9419ef2
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 478dec6b2401efd554e84a231fe78e71dcbf5771
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149276"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72182117"
 ---
 # <a name="past-releases-of-entity-framework"></a>過去のリリースの Entity Framework
 
@@ -88,7 +88,7 @@ EF 6.1.0 runtime は2014年3月に NuGet にリリースされました。
 
 - **ツールの統合**により、新しい EF モデルを一貫した方法で作成できます。 この機能[は、ADO.NET Entity Data Model ウィザードを拡張して](~/ef6/modeling/code-first/workflows/existing-database.md)、既存のデータベースからのリバースエンジニアリングを含む Code First モデルの作成をサポートします。 これらの機能は、以前は EF パワーツールのベータ品質で使用できました。
 - **[トランザクションのコミットエラーの処理](~/ef6/fundamentals/connection-resiliency/commit-failures.md)** では、トランザクション操作をインターセプトする新しく導入された機能を使用する CommitFailureHandler が提供されます。 CommitFailureHandler を使用すると、トランザクションのコミット中に、接続エラーからの自動復旧を行うことができます。
-- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** を使用すると、Code First モデルの`[Index]`プロパティ (またはプロパティ) に属性を配置することで、インデックスを指定できます。 Code First によって、データベースに対応するインデックスが作成されます。
+- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** では、Code First モデルのプロパティ (またはプロパティ) に @no__t 2 属性を配置することで、インデックスを指定できます。 Code First によって、データベースに対応するインデックスが作成されます。
 - **パブリックマッピング API は**、プロパティおよび型をデータベース内の列およびテーブルにマップする方法について、EF が使用する情報にアクセスできるようにします。 過去のリリースでは、この API は内部的でした。
 - **[アプリ/web.config ファイルを使用してインターセプターを構成する機能](~/ef6/fundamentals/configuring/config-file.md)** を使用すると、アプリケーションを再コンパイルしなくてもインターセプターを追加できます。
 - System.string は、すべてのデータベース操作をファイルに簡単に記録できるようにする新しいインターセプターとなって**います。** 以前の機能と組み合わせて使用すると、配置された[アプリケーションのデータベース操作のログ記録](~/ef6/fundamentals/configuring/config-file.md)を簡単に切り替えることができ、再コンパイルする必要はありません。
@@ -125,7 +125,7 @@ Code First または EF デザイナーで作成されたモデルでは、次�
 - **.Net 4.0 での列挙型、空間、およびパフォーマンスの向上**-.NET Framework に含まれていたコアコンポーネントを EF NuGet パッケージに移動することで、enum サポート、空間データ型、.net 4.0 での EF5 のパフォーマンス向上を実現できるようになりました。
 - **列挙型のパフォーマンスが向上しました。 LINQ クエリでが含まれています。**
 - 特に大規模なモデルでの**ウォームアップ時間の向上 (ビュー生成)** 。
-- **プラグ可能&amp;な複数形化単数サービス**。
+- **プラグ可能な複数形化 &amp; 単数サービス**。
 - エンティティクラスの**Equals または GetHashCode のカスタム実装**がサポートされるようになりました。
 - **Dbset. AddRange/removerange**よって、セットから複数のエンティティを追加または削除するための最適化された方法が提供されます。
 - **Dbchangetracker. HasChanges**を使用すると、データベースに保存されている保留中の変更があるかどうかを簡単かつ効率的に確認できます。
@@ -138,9 +138,9 @@ Code First または EF デザイナーで作成されたモデルでは、次�
 - **[べき等移行スクリプト](~/ef6/modeling/code-first/migrations/index.md)** を使用すると、最新バージョンまでの任意のバージョンのデータベースをアップグレードできる SQL スクリプトを生成できます。
 - **[構成可能な移行履歴テーブル](~/ef6/modeling/code-first/migrations/history-customization.md)** を使用すると、移行履歴テーブルの定義をカスタマイズできます。 これは、適切なデータ型を必要とするデータベースプロバイダーや、移行履歴テーブルが正常に機能するように指定するために特に便利です。
 - 1つのデータベースに**複数のコンテキスト**がある場合、移行を使用する場合、またはデータベースを自動的に作成 Code First 場合に、データベースごとに1つの Code First モデルの以前の制限が削除されます。
-- **[Dbmodelbuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** は、Code First モデルの既定のデータベーススキーマを1か所で構成できる新しい Code First API です。 以前は、Code First の既定のスキーマは dbo &quot;&quot;にハードコーディングされており、テーブルが属しているスキーマを構成する唯一の方法は ToTable API を使用していました。
+- **[Dbmodelbuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** は、Code First モデルの既定のデータベーススキーマを1か所で構成できる新しい Code First API です。 以前は、Code First の既定のスキーマは &quot;dbo @ no__t-1 にハードコーディングされており、テーブルが属していたスキーマを構成する唯一の方法は ToTable API を介していました。
 - **AddFromAssembly メソッド**を使用すると、CODE FIRST Fluent API で構成クラスを使用している場合に、アセンブリで定義されているすべての構成クラスを簡単に追加できます。
-- **[カスタム移行操作](http://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** を使用すると、コードベースの移行で使用する操作を追加できます。
+- **[カスタム移行操作](https://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** を使用すると、コードベースの移行で使用する操作を追加できます。
 - Code First を使用して作成されたデータベースの**既定のトランザクション分離レベルは、READ_COMMITTED_SNAPSHOT に変更**されます。これにより、スケーラビリティが向上し、デッドロックが減少します。
 - **エンティティ型と複合型を nestedinside クラスにすることができるようになりました**。 |
 

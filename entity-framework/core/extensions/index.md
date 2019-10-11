@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 43b98c1f09a89f7e5451e28cbf2f78a2cb1040e5
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.openlocfilehash: 0c9671eb77181d85cd493341cd1abf842d13fb0e
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921775"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181268"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -54,7 +54,7 @@ CatFactory は SQL Server データベースからの DbContext のクラス、�
 
 Entity Framework Core Generator (efg) は既存のデータベースから EF Core モデルを生成できる .NET Core の CLI ツールで、`dotnet ef dbcontext scaffold` と非常に似ていますが、リージョンの置換やマッピング ファイルの解析による安全なコードの[再生成](https://efg.loresoft.com/en/latest/regeneration/)もサポートしています。 このツールは、ビュー モデル、検証、およびオブジェクト マッパー コードの生成をサポートしています。 
 
-[チュートリアル](http://www.loresoft.com/Generate-ASP-NET-Web-API)
+[チュートリアル](https://www.loresoft.com/Generate-ASP-NET-Web-API)
 [ドキュメント](https://efg.loresoft.com/en/latest/)
 
 ## <a name="extensions"></a>拡張機能

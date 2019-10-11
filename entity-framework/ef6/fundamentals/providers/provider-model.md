@@ -1,80 +1,80 @@
 ---
-title: Entity Framework 6 のプロバイダー モデル - EF6
+title: Entity Framework 6 プロバイダーモデル-EF6
 author: divega
 ms.date: 06/27/2018
 ms.assetid: 066832F0-D51B-4655-8BE7-C983C557E0E4
-ms.openlocfilehash: 8cbf6f87e0936f374c3d8a0c15a0e1d9c828f764
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.openlocfilehash: 8bda3f51e8934f2add862c30e60f1185f068c515
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668753"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181610"
 ---
-# <a name="the-entity-framework-6-provider-model"></a>Entity Framework 6 のプロバイダー モデル
+# <a name="the-entity-framework-6-provider-model"></a>Entity Framework 6 プロバイダーモデル
 
-Entity Framework プロバイダー モデルでは、さまざまな種類のデータベース サーバーで使用する Entity Framework を使用します。 たとえば、EF に EF に Microsoft SQL Server Compact Edition に対して使用を許可する別のプロバイダーにプラグインできるときに、Microsoft SQL Server に対して使用を許可する 1 つのプロバイダーを接続することができます。 認識しています EF6 のプロバイダーが見つかりません、 [Entity Framework プロバイダー](~/ef6/fundamentals/providers/index.md)ページ。
+Entity Framework プロバイダーモデルでは、さまざまな種類のデータベースサーバーで Entity Framework を使用できます。 たとえば、1つのプロバイダーを接続して Microsoft SQL Server に対して EF を使用できるようにし、別のプロバイダーを接続して Microsoft SQL Server Compact のエディションに対して EF を使用できるようにすることができます。 EF6 のプロバイダーは Entity Framework、[[プロバイダー](~/ef6/fundamentals/providers/index.md) ] ページで確認できます。
 
-特定の変更は、EF がオープン ソース ライセンスに基づいてリリースする EF を許可するプロバイダーと対話する方法に必要でした。 これらの変更は、プロバイダーの登録のための新しいメカニズムと EF6 のアセンブリに対して EF プロバイダーの再構築が必要です。
+EF がプロバイダーと対話してオープンソースライセンスで EF を解放できるようにする方法には、特定の変更が必要でした。 これらの変更には、プロバイダーを登録するための新しいメカニズムと共に、EF6 アセンブリに対して EF プロバイダーを再構築する必要があります。
 
-## <a name="rebuilding"></a>再構築
+## <a name="rebuilding"></a>すれ
 
-EF6 では、.NET Framework の一部であった以前中核のコードが帯域外の (OOB) のアセンブリとしてようになりました配送されます。 EF6 に対してアプリケーションを構築する方法の詳細についてで確認できます、 [EF6 のアプリケーションの更新](~/ef6/what-is-new/upgrading-to-ef6.md)ページ。 プロバイダーは、次の手順を使用して再構築する必要があります。
+EF6 では、以前は .NET Framework の一部であったコアコードは帯域外 (OOB) アセンブリとして出荷されるようになりました。 EF6 に対してアプリケーションをビルドする方法の詳細については、 [EF6 用のアプリケーションの更新](~/ef6/what-is-new/upgrading-to-ef6.md)に関するページを参照してください。 プロバイダーは、次の手順を使用して再構築する必要もあります。
 
 ## <a name="provider-types-overview"></a>プロバイダーの種類の概要
 
-EF プロバイダーは、実際に、これらのサービス (の基本クラス) から拡張または (インターフェイス) を実装する CLR 型で定義されているプロバイダーに固有のサービスのコレクションです。 これらのサービスの 2 つは、基本的なと EF で機能するために必要です。 他のユーザーは省略可能ですし、のみ、特定の機能が必要な場合やこれらのサービスの既定の実装は機能しません、特定のデータベース サーバーを対象となる場合は、実装する必要があります。
+EF プロバイダーは、実際には、これらのサービスが (基底クラスの) から拡張するか、(インターフェイスの) を実装する CLR 型によって定義される、プロバイダー固有のサービスのコレクションです。 これらのサービスのうち2つは基本的なものであり、EF がまったく機能するために必要です。 それ以外は省略可能であり、特定の機能が必要な場合にのみ実装する必要があります。また、対象となる特定のデータベースサーバーでこれらのサービスの既定の実装が機能しない場合は、実装する必要があります。
 
 ## <a name="fundamental-provider-types"></a>基本的なプロバイダーの種類
 
 ### <a name="dbproviderfactory"></a>DbProviderFactory
 
-派生した型に依存して EF [System.Data.Common.DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx)低レベルのデータベースのすべてのアクセスを実行するためです。 DbProviderFactory が EF の一部ではありませんが、ADO.NET プロバイダーのエントリ ポイントを提供する .NET Framework のクラスまたはアプリケーションによって直接 EF、他の O/RMs によって接続、コマンド、パラメーターのインスタンスを取得して使用する代わりには、他のプロバイダーで ADO.NET の抽象化に依存しない方法です。 DbProviderFactory の詳細が記載されて、 [ADO.NET に関する MSDN ドキュメント](https://msdn.microsoft.com/library/a6cd7c08.aspx)します。
+EF は、すべての下位レベルのデータベースアクセスを実行するために[DbProviderFactory](https://msdn.microsoft.com/library/system.data.common.dbproviderfactory.aspx)から派生した型を持つかどうかに依存します。 DbProviderFactory は実際には EF の一部ではありませんが、代わりに EF、他の O/RMs、またはアプリケーションが直接使用して接続、コマンド、パラメーターのインスタンスを取得することができる ADO.NET プロバイダーのエントリポイントを提供する .NET Framework のクラスです。プロバイダーに依存しない方法での他の ADO.NET の抽象化。 DbProviderFactory の詳細については、 [ADO.NET の MSDN ドキュメント](https://msdn.microsoft.com/library/a6cd7c08.aspx)を参照してください。
 
 ### <a name="dbproviderservices"></a>DbProviderServices
 
-EF は、EF によって既に ADO.NET プロバイダーによって提供される機能の上に必要な追加機能を提供するため DbProviderServices から派生した型があることに依存します。 以前のバージョンの EF で DbProviderServices クラスは、.NET Framework の一部であったし、System.Data.Common 名前空間が見つかりました。 このクラスを EF6 以降、EntityFramework.dll の一部になったし、System.Data.Entity.Core.Common 名前空間にあります。
+EF は、ADO.NET プロバイダーによって既に提供されている機能の上に EF が必要とする追加機能を提供するために、DbProviderServices から派生した型を持つかどうかに依存します。 以前のバージョンの EF では、DbProviderServices クラスは .NET Framework の一部であり、名前空間にありました。 EF6 以降では、このクラスは EntityFramework .dll に含まれるようになりました。これは、Common 名前空間にあります。
 
-DbProviderServices の実装の基本的な機能の詳細についてはのあります[MSDN](https://msdn.microsoft.com/library/ee789835.aspx)します。 ただし、この情報の書き込みの時点では更新されないこと EF6 の概念のほとんどは現在も有効です。 DbProviderServices の SQL Server と SQL Server Compact の実装にチェックインしても、[オープン ソース コードベース](https://github.com/aspnet/EntityFramework6/)おり、その他の実装のための便利な参考として使用できます。
+DbProviderServices 実装の基本的な機能の詳細については、 [MSDN](https://msdn.microsoft.com/library/ee789835.aspx)を参照してください。 ただし、この情報を書き込む時点では、ほとんどの概念はまだ有効ですが、EF6 の場合は更新されません。 DbProviderServices の SQL Server および SQL Server Compact の実装は、[オープンソースのコードベース](https://github.com/aspnet/EntityFramework6/)にもチェックインされ、他の実装に役立つ参照として使用できます。
 
-以前のバージョンの EF で DbProviderServices の実装を使用する ADO.NET プロバイダーから直接入手されました。 これは、IServiceProvider を DbProviderFactory をキャストして、GetService メソッドを呼び出すことで行われました。 これは、EF のプロバイダーを DbProviderFactory に密結合します。 この結合では、.NET Framework 外に移動される EF がブロックされているし、この密結合を EF6 のために削除されましたが、アプリケーションの構成ファイルで直接、またはコード ベースで DbProviderServices の実装が登録されましたさらに詳しく記載されている構成、_登録 DbProviderServices_以下のセクション。
+以前のバージョンの EF では、使用する DbProviderServices 実装は ADO.NET プロバイダーから直接取得されました。 これは、DbProviderFactory を IServiceProvider にキャストし、GetService メソッドを呼び出すことによって行われました。 これにより、EF プロバイダーと DbProviderFactory が密に結合されています。 この結合によって、EF が .NET Framework から移動されませんでした。したがって、この密結合は削除され、DbProviderServices の実装はアプリケーションの構成ファイルまたはコードベースで直接登録されるようになりました。詳細については、後述の「 _DbProviderServices の登録_」を参照してください。
 
 ## <a name="additional-services"></a>その他のサービス
 
-上記で説明した基本的なサービスだけでなくも多くの他のサービスが EF によって使用される常に、または場合によってプロバイダーに固有であります。 DbProviderServices の実装が、これらのサービスの既定のプロバイダーに固有の実装を指定することができます。 アプリケーションはこれらのサービスの実装をオーバーライドしたり、DbProviderServices の一種で、既定値が提供されない場合に、実装を提供できます。 これはで詳しく説明されている、_追加サービスを解決する_以下のセクション。
+上で説明した基本的なサービスに加えて、EF によって使用される他の多くのサービスも、常に、またはプロバイダー固有のものです。 これらのサービスの既定のプロバイダー固有の実装は、DbProviderServices 実装によって提供できます。 アプリケーションでは、これらのサービスの実装をオーバーライドしたり、DbProviderServices 型が既定値を提供しない場合の実装を提供したりすることもできます。 詳細については、後述する「その_他のサービスの解決_」を参照してください。
 
-プロバイダーは、プロバイダーを対象にする必要があります追加サービスの種類は、以下に示します。 詳細については、各サービスの種類は、API のドキュメントに記載されています。
+プロバイダーが関心を持つ可能性のある追加のサービスの種類を以下に示します。 これらのサービスの種類の詳細については、API のドキュメントを参照してください。
 
 ### <a name="idbexecutionstrategy"></a>IDbExecutionStrategy
 
-これは、オプションのサービスにより、クエリとコマンドは、データベースに対して実行されたときに再試行する場合やその他の動作を実装するプロバイダーです。 実装が指定されていない場合 EF は単にコマンドを実行し、スローされた例外を伝達します。 SQL Server のこのサービスは、SQL Azure などのクラウド ベースのデータベース サーバーに対して実行したときに特に便利ですが、再試行ポリシーを提供する使用されます。
+これは、プロバイダーがデータベースに対してクエリやコマンドを実行するときに再試行などの動作を実装できるようにするオプションのサービスです。 実装が指定されていない場合、EF は単にコマンドを実行し、スローされた例外をすべて伝達します。 SQL Server は、このサービスを使用して再試行ポリシーを提供します。これは、SQL Azure などのクラウドベースのデータベースサーバーに対して実行する場合に特に便利です。
 
 ### <a name="idbconnectionfactory"></a>IDbConnectionFactory
 
-これは、プロバイダーにデータベース名のみが指定されると、規約によって DbConnection オブジェクトを作成することができる省略可能なサービスです。 このサービス DbProviderServices の実装、EF 4.1 以降に存在していたことができますも明示的に設定する構成ファイルまたはコードによって解決できることに注意してください。 プロバイダーは、既定のプロバイダーとして登録されている場合は、このサービスを解決する機会のみを取得 (を参照してください_既定プロバイダー_以下)、既定の接続ファクトリが設定されていない別の場所。
+これは、プロバイダーがデータベース名だけを指定した場合に規約によって DbConnection オブジェクトを作成できるようにするオプションのサービスです。 このサービスは、DbProviderServices 実装によって解決される場合がありますが、EF 4.1 以降に存在しています。また、構成ファイルまたはコードで明示的に設定することもできます。 プロバイダーは、既定のプロバイダーとして登録されている場合にのみ、このサービスを解決できるようになります (以下_の既定のプロバイダー_を参照してください)。既定の接続ファクトリが別の場所に設定されていない場合は、
 
 ### <a name="dbspatialservices"></a>DbSpatialServices
 
-これは、geography および geometry 空間型のサポートを追加するプロバイダーを許可するオプションのサービスです。 このサービスの実装は、空間型で EF を使用するアプリケーションの順序で指定する必要があります。 DbSptialServices には、2 つの方法での確認が表示されます。 DbProviderInfo オブジェクトを使用して最初に、プロバイダー固有の空間サービスが要求された (不変式が含まれていますとマニフェスト トークン) としてキー。 第 2 に、DbSpatialServices 要求できるキーを持たない。 これは、解決するには、"グローバル空間"に使用されるプロバイダー スタンドアロン DbGeography または DbGeometry の種類を作成するときに使用されます。
+これは、プロバイダーが geography および geometry 空間型のサポートを追加できるようにするオプションのサービスです。 アプリケーションで空間型の EF を使用するには、このサービスの実装を指定する必要があります。 DbSptialServices は2つの方法で要求されます。 最初に、キーとして DbProviderInfo オブジェクト (不変名とマニフェストトークンを含む) を使用して、プロバイダー固有の空間サービスを要求します。 2つ目は、キーなしで DbSpatialServices を要求できることです。 これは、スタンドアロンの DbGeography 型または Dbgeography 型を作成するときに使用される "グローバル空間プロバイダー" を解決するために使用されます。
 
 ### <a name="migrationsqlgenerator"></a>MigrationSqlGenerator
 
-これは、Code First での作成とデータベース スキーマの変更に使用する SQL の生成に使用される、EF の移行を許可するオプションのサービスです。 移行をサポートするために実装が必要です。 実装が指定されている場合に、または使用データベース初期化子または Database.Create メソッドを使用してデータベースを作成するとき。
+これは、Code First によってデータベーススキーマを作成および変更する際に使用される SQL の生成に EF の移行を使用できるようにするオプションのサービスです。 移行をサポートするためには、の実装が必要です。 実装が指定されている場合は、データベース初期化子またはデータベースの Create メソッドを使用してデータベースを作成するときにも使用されます。
 
-### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection、文字列、HistoryContextFactory >
+### <a name="funcdbconnection-string-historycontextfactory"></a>Func < DbConnection、string、History Contextfactory >
 
-これは省略可能なサービスであり、プロバイダーに HistoryContext のマッピングを構成できるように、 `__MigrationHistory` EF の移行で使用されるテーブル。 HistoryContext コードの最初の DbContext であり、名前のテーブルと列マッピングの指定などを変更する通常の fluent API を使用して構成できます。 すべてのプロバイダー、EF によって返されるこのサービスの既定の実装は、そのプロバイダーによってすべて既定のテーブルと列のマッピングがサポートされている場合、特定のデータベース サーバーの動作可能性があります。 このような場合はこのサービスの実装を提供する、プロバイダーは必要ありません。
+これは、プロバイダーが、EF の移行で使用される `__MigrationHistory` テーブルへの履歴コンテキストのマッピングを構成できるようにするオプションのサービスです。 履歴コンテキストは Code First DbContext であり、テーブルの名前や列マッピングの仕様などを変更するために通常の fluent API を使用して構成できます。 すべての既定のテーブルと列のマッピングがそのプロバイダーでサポートされている場合、すべてのプロバイダーに対して EF によって返されたこのサービスの既定の実装は、特定のデータベースサーバーで機能する可能性があります。 このような場合、プロバイダーはこのサービスの実装を提供する必要はありません。
 
 ### <a name="idbproviderfactoryresolver"></a>IDbProviderFactoryResolver
 
-これは、指定した DbConnection オブジェクトから正しい DbProviderFactory を取得するためのオプションのサービスです。 すべてのプロバイダー、EF によって返されるこのサービスの既定の実装の目的は、すべてのプロバイダーを使用します。 ただし、.NET 4 で実行するときに、DbProviderFactory が公開されていない場合に 1 つからその DbConnections します。 そのため、EF はいくつかのヒューリスティックを使用して、検索、検索する登録済みのプロバイダー。 一部のプロバイダーは、これらのヒューリスティックの失敗をこのような状況で、プロバイダーが新しい実装を提供します。 ことができます。
+これは、指定された DbConnection オブジェクトから正しい DbProviderFactory を取得するためのオプションのサービスです。 すべてのプロバイダーに対して EF によって返されたこのサービスの既定の実装は、すべてのプロバイダーに対して機能することを目的としています。 ただし、.NET 4 で実行されている場合、DbProviderFactory には、DbConnections によってパブリックにアクセスすることはできません。 そのため、EF はいくつかのヒューリスティックを使用して、登録されたプロバイダーを検索し、一致するものを検索します。 一部のプロバイダーでは、これらのヒューリスティックが失敗し、そのような状況ではプロバイダーが新しい実装を提供する必要があります。
 
-## <a name="registering-dbproviderservices"></a>DbProviderServices の登録
+## <a name="registering-dbproviderservices"></a>DbProviderServices を登録しています
 
-DbProviderServices の実装を使用するは、アプリケーションの構成ファイル (app.config または web.config) またはコード ベースの構成を使用して登録できます。 いずれの場合も、登録は、キーとして、プロバイダーの「固定名」を使用します。 これにより、複数のプロバイダーを登録し、1 つのアプリケーションで使用できます。 EF の登録のために使用不変名は、インバリアント ADO.NET プロバイダーの登録と接続文字列に使用される名前と同じです。 たとえば、SQL Server 固定名"System.Data.SqlClient"が使用されます。
+使用する DbProviderServices 実装は、アプリケーションの構成ファイル (app.config または web.config) で、またはコードベースの構成を使用して登録できます。 どちらの場合も、登録ではプロバイダーの "不変名" がキーとして使用されます。 これにより、複数のプロバイダーを1つのアプリケーションで登録して使用することができます。 EF の登録に使用される不変名は、ADO.NET プロバイダーの登録と接続文字列に使用される不変名と同じです。 たとえば、SQL Server では、不変名 "system.string" が使用されます。
 
 ### <a name="config-file-registration"></a>構成ファイルの登録
 
-使用する DbProviderServices の種類は、アプリケーションの構成ファイルの entityFramework セクションのプロバイダーの一覧で、provider 要素として登録されます。 例:
+使用する DbProviderServices 型は、アプリケーションの構成ファイルの entityFramework セクションのプロバイダーの一覧にプロバイダー要素として登録されます。 以下に例を示します。
 
 ``` xml
 <entityFramework>
@@ -84,11 +84,11 @@ DbProviderServices の実装を使用するは、アプリケーションの構�
 </entityFramework>
 ```
 
-_型_文字列を使用する DbProviderServices の実装のアセンブリ修飾型名を指定する必要があります。
+_型_の文字列は、使用する DbProviderServices 実装のアセンブリ修飾型名である必要があります。
 
 ### <a name="code-based-registration"></a>コード ベースの登録
 
-以降では、EF6 プロバイダー登録することもコードを使用します。 これにより、アプリケーションの構成ファイルに変更を加えずに使用される、EF のプロバイダー。 コード ベースの構成を使用するアプリケーション クラスを作成する DbConfiguration」の説明に従って、[コード ベースの構成ドキュメント](https://msdn.com/data/jj680699)します。 DbConfiguration クラスのコンストラクターでは、EF のプロバイダーを登録する SetProviderServices を呼び出す必要がありますから。 例:
+EF6 プロバイダー以降では、コードを使用して登録することもできます。 これにより、アプリケーションの構成ファイルを変更することなく、EF プロバイダーを使用できるようになります。 コードベースの構成を使用するには、[コードベースの構成のドキュメント](https://msdn.com/data/jj680699)で説明されているように、アプリケーションで dbconfiguration クラスを作成する必要があります。 DbConfiguration クラスのコンストラクターは、SetProviderServices を呼び出して EF プロバイダーを登録する必要があります。 以下に例を示します。
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -100,11 +100,11 @@ public class MyConfiguration : DbConfiguration
 }
 ```
 
-## <a name="resolving-additional-services"></a>その他のサービスを解決します。
+## <a name="resolving-additional-services"></a>その他のサービスの解決
 
-上記のとおり、_プロバイダーの型の概要_セクション、DbProviderServices クラスが追加サービスを解決することもできます。 DbProviderServices が IDbDependencyResolver を実装し、登録されている各 DbProviderServices タイプが「既定のリゾルバー」として追加するため、可能です。 IDbDpendencyResolver メカニズムがで詳しく説明されている[依存関係の解決](~/ef6/fundamentals/configuring/dependency-resolution.md)します。 ただし、プロバイダーの追加サービスを解決するには、この仕様でのすべての概念を理解する必要はありません。
+「プロバイダーの種類の_概要_」セクションで前述したように、DbProviderServices クラスを使用して追加のサービスを解決することもできます。 DbProviderServices が IDbDependencyResolver を実装し、登録されている各 DbProviderServices 型が "既定の競合回避モジュール" として追加されるため、これが可能です。 IDbDpendencyResolver メカニズムの詳細については、「[依存関係の解決](~/ef6/fundamentals/configuring/dependency-resolution.md)」を参照してください。 ただし、プロバイダーのその他のサービスを解決するために、この仕様のすべての概念を理解する必要はありません。
 
-その他のサービスを解決するのには、プロバイダーの最も一般的な方法を DbProviderServices クラスのコンストラクター内の各サービスの DbProviderServices.AddDependencyResolver を呼び出します。 たとえば、SqlProviderServices (SQL Server 用の EF プロバイダー) では、初期化のための次のようなコードがあります。
+プロバイダーが追加のサービスを解決するための最も一般的な方法は、DbProviderServices クラスのコンストラクター内の各サービスに対して DbProviderServices を呼び出すことです。 たとえば、SqlProviderServices (SQL Server 用の EF プロバイダー) では、初期化のために次のようなコードが使用されます。
 
 ``` csharp
 private SqlProviderServices()
@@ -129,12 +129,12 @@ private SqlProviderServices()
 }
 ```
 
-このコンストラクターは、次のヘルパー クラスを使用します。
+このコンストラクターは、次のヘルパークラスを使用します。
 
-*   SingletonDependencyResolver: 単一のサービスを解決する簡単な方法を提供する、同じインスタンスが返されるたびにその GetService が呼び出されるサービスは、します。 一時的なサービスは、オンデマンドで一時的なインスタンスを作成するために使用するシングルトン ファクトリとして多くの場合、登録されます。
-*   ExecutionStrategyResolver: リゾルバーを返す IExecutionStrategy 実装に固有です。
+*   SingletonDependencyResolver: シングルトンサービス、つまり、GetService が呼び出されるたびに同じインスタンスが返されるサービスを解決するための簡単な方法を提供します。 一時的なサービスは、必要に応じて一時的なインスタンスを作成するために使用されるシングルトンファクトリとして登録されることがよくあります。
+*   ExecutionStrategyResolver: IExecutionStrategy 実装を返すための競合回避モジュール。
 
-DbProviderServices.AddDependencyResolver を使用する代わりに、DbProviderServices.GetService をオーバーライドし、その他のサービスを直接解決することはも。 EF には、特定の種類、および場合によっては、指定されたキーの定義、サービスが必要がある場合、このメソッドが呼び出すされます。 場合、またはサービスを返すことのオプトアウトする場合は null を返すし、問題を解決する別のクラスを許可する代わりに、メソッドは、サービスを返す必要があります。 既定の接続ファクトリを解決するのには GetService 内のコード例このようなもの。
+DbProviderServices を使用する代わりに、DbProviderServices GetService をオーバーライドし、追加のサービスを直接解決することもできます。 このメソッドは、EF が特定の型で定義されたサービス (場合によっては特定のキー) を必要とするときに呼び出されます。 このメソッドは、可能であればサービスを返すか、または null を返してサービスを返し、別のクラスで解決することを許可する必要があります。 たとえば、既定の接続ファクトリを解決するには、GetService のコードが次のようになります。
 
 ``` csharp
 public override object GetService(Type type, object key)
@@ -149,19 +149,19 @@ public override object GetService(Type type, object key)
 
 ### <a name="registration-order"></a>登録順序
 
-アプリケーションの構成ファイルで複数の DbProviderServices の実装が登録されている場合は、記載されている順序でセカンダリ競合回避モジュールとして追加されます。 競合回避モジュールは、常に、これには、一覧の最後に、プロバイダーが、他のユーザーの前に依存関係を解決するチャンスを取得することを意味セカンダリ競合回避モジュールのチェーンの先頭に追加されます。 (最初は、逆ほとんど感じられることが、一覧から、各プロバイダーを取得し、既存のプロバイダーの上に積み重ねを想像している場合に理にかなって)。
+アプリケーションの構成ファイルに複数の DbProviderServices 実装が登録されている場合は、一覧に示されている順序でセカンダリリゾルバーとして追加されます。 リゾルバーは常にセカンダリリゾルバーチェーンの最上位に追加されるため、一覧の最後にあるプロバイダーは、他の依存関係を解決する機会を得ることになります。 (この方法は、最初は少し直感的にわかりにくいかもしれませんが、一覧から各プロバイダーを取得し、既存のプロバイダーの上に積み重ねることを想像する場合は意味があります)。
 
-この順序は、通常は関係ありませんプロバイダー サービスのほとんどはプロバイダー固有とプロバイダー固定名によってキー付きであるため。 ただし、サービスが付いていませんプロバイダーの不変名またはいくつか他のプロバイダーに固有のキーで、サービスが解決されますこの順序に基づきます。 たとえばに設定されていない場合に明示的に異なる場所にそれ以外の場合、し、既定の接続ファクトリはチェーンの最上位のプロバイダーから提供されます。
+ほとんどのプロバイダーサービスはプロバイダー固有であり、プロバイダーの不変名によってキーが指定されているため、この順序付けは通常は問題になりません。 ただし、プロバイダーの不変名またはその他のプロバイダー固有のキーでキー付けされていないサービスでは、この順序に基づいてサービスが解決されます。 たとえば、別の場所で明示的に設定されていない場合、既定の接続ファクトリはチェーン内の最上位のプロバイダーから取得されます。
 
 ## <a name="additional-config-file-registrations"></a>追加の構成ファイルの登録
 
-アプリケーションの構成ファイルで直接の説明に従って追加のプロバイダーのサービスの一部を明示的に登録することになります。 DbProviderServices の実装の GetService メソッドによって返されるものではなく、構成ファイル内にある登録が完了したらこのが使用されます。
+上記で説明した追加のプロバイダーサービスの一部は、アプリケーションの構成ファイルに明示的に登録することができます。 この操作を実行すると、DbProviderServices 実装の GetService メソッドによって返されるものの代わりに、構成ファイルでの登録が使用されます。
 
-### <a name="registering-the-default-connection-factory"></a>既定の接続ファクトリを登録します。
+### <a name="registering-the-default-connection-factory"></a>既定の接続ファクトリを登録しています
 
-構成ファイルで SQL Express 接続ファクトリ、または LocalDb 接続ファクトリを登録する自動的に EntityFramework NuGet パッケージを EF5 で起動します。
+EF5 以降では、EntityFramework NuGet パッケージによって、SQL Express 接続ファクトリまたは LocalDb 接続ファクトリが構成ファイルに自動的に登録されます。
 
-例:
+以下に例を示します。
 
 ``` xml
 <entityFramework>
@@ -169,48 +169,48 @@ public override object GetService(Type type, object key)
 </entityFramework>
 ```
 
-_型_IDbConnectionFactory を実装する必要があります既定の接続ファクトリのアセンブリ修飾型名です。
+この_型_は、既定の接続ファクトリのアセンブリ修飾型名であり、IDbConnectionFactory を実装する必要があります。
 
-プロバイダーの NuGet パッケージがインストールされている場合は、この方法で、既定の接続ファクトリを設定することをお勧めします。 参照してください_プロバイダー用の NuGet パッケージ_以下。
+プロバイダーの NuGet パッケージをインストールするときに、この方法で既定の接続ファクトリを設定することをお勧めします。 以下_のプロバイダーの NuGet パッケージを_参照してください。
 
-## <a name="additional-ef6-provider-changes"></a>EF6 プロバイダーの追加の変更
+## <a name="additional-ef6-provider-changes"></a>その他の EF6 プロバイダーの変更
 
-### <a name="spatial-provider-changes"></a>空間のプロバイダーの変更
+### <a name="spatial-provider-changes"></a>空間プロバイダーの変更
 
-空間型をサポートするプロバイダーでは、DbSpatialDataReader から派生したクラスに対して追加のメソッドを実装する必要があります。
+空間型をサポートするプロバイダーは、DbSpatialDataReader から派生したクラスにいくつかの追加のメソッドを実装する必要があります。
 
 *   `public abstract bool IsGeographyColumn(int ordinal)`
 *   `public abstract bool IsGeometryColumn(int ordinal)`
 
-既定の実装が同期メソッドに委任し、そのため実行されなかった非同期的に、オーバーライドする推奨される既存のメソッドの非同期バージョンを新しいはもあります。
+また、同期メソッドへの既定の実装デリゲートとしてオーバーライドすることをお勧めする既存のメソッドの新しい非同期バージョンもあります。したがって、非同期的に実行することはできません。
 
 *   `public virtual Task<DbGeography> GetGeographyAsync(int ordinal, CancellationToken cancellationToken)`
 *   `public virtual Task<DbGeometry> GetGeometryAsync(int ordinal, CancellationToken cancellationToken)`
 
-### <a name="native-support-for-enumerablecontains"></a>Enumerable.Contains のネイティブ サポート
+### <a name="native-support-for-enumerablecontains"></a>列挙可能なネイティブサポート。 Contains
 
-EF6 では、新しい式の型での LINQ クエリ Enumerable.Contains の使用に関するパフォーマンス問題に対処に追加された、DbInExpression について説明します。 DbProviderManifest クラスには、新しい仮想メソッドは、プロバイダーが新しい式の型を処理するかどうか、EF によって呼び出され、SupportsInExpression があります。 既存のプロバイダーの実装と互換性のため、メソッドは false を返します。 この機能強化のメリットを EF6 プロバイダーは、DbInExpression を処理し、true を返す SupportsInExpression をオーバーライドするコードを追加できます。 DbExpressionBuilder.In メソッドを呼び出して DbInExpression のインスタンスを作成できます。 DbInExpression インスタンスは、通常、テーブルの列との一致をテストする DbConstantExpression の一覧を表す、dbexpression オブジェクトで構成されます。
+EF6 には、列挙型の使用に関するパフォーマンスの問題に対処するために追加された新しい式の種類 DbInExpression が導入されています。は LINQ クエリ内に含まれています。 DbProviderManifest クラスには、新しい仮想メソッドである SupportsInExpression があります。これは、プロバイダーが新しい式の型を処理するかどうかを判断するために EF によって呼び出されます。 既存のプロバイダー実装との互換性のために、メソッドは false を返します。 この改善点を活用するために、EF6 プロバイダーは DbInExpression を処理するコードを追加し、SupportsInExpression をオーバーライドして true を返すことができます。 DbInExpression のインスタンスは、DbExpressionBuilder.In メソッドを呼び出すことによって作成できます。 DbInExpression インスタンスは、通常テーブル列を表す DbExpression と、一致するかをテストするための DbConstantExpression のリストで構成されます。
 
 ## <a name="nuget-packages-for-providers"></a>プロバイダーの NuGet パッケージ
 
-EF6、プロバイダーを使用できるようにする方法の 1 つでは、NuGet パッケージとしてリリースします。 NuGet パッケージを使用すると、次の利点があります。
+EF6 プロバイダーを利用できるようにする方法の1つは、NuGet パッケージとしてリリースすることです。 NuGet パッケージを使用すると、次のような利点があります。
 
-*   使いやすい NuGet プロバイダーの登録をアプリケーションの構成ファイルに追加するには
-*   規則によって行われる接続は、登録済みのプロバイダーを使用するために、既定の接続ファクトリを設定する構成ファイルに追加の変更を行んだことができます。
-*   NuGet を処理できるように、EF6 のプロバイダーは、新しい EF パッケージがリリースされた後でもの作業を続行する必要があります、バインド リダイレクトを追加します。
+*   NuGet を使用すると、プロバイダーの登録をアプリケーションの構成ファイルに簡単に追加できます。
+*   規則によって行われる接続が登録済みのプロバイダーを使用するように、構成ファイルに追加の変更を加えて、既定の接続ファクトリを設定することができます。
+*   新しい EF パッケージがリリースされた後も EF6 プロバイダーが引き続き機能するように、NuGet はバインドリダイレクトの追加を処理します。
 
-この例は、EntityFramework.SqlServerCompact パッケージに含まれている、[オープン ソース コードベース](http://github.com/aspnet/entityframework6)します。 このパッケージは、EF プロバイダー NuGet パッケージを作成するための適切なテンプレートを提供します。
+この例として、[オープンソースのコードベース](https://github.com/aspnet/entityframework6)に含まれている entityframework パッケージがあります。 このパッケージには、EF プロバイダーの NuGet パッケージを作成するための適切なテンプレートが用意されています。
 
 ### <a name="powershell-commands"></a>PowerShell コマンド
 
-EntityFramework NuGet パッケージがインストールされている場合は、プロバイダーのパッケージの非常に便利な 2 つのコマンドを含む PowerShell モジュールを登録します。
+EntityFramework NuGet パッケージをインストールすると、プロバイダーパッケージに非常に便利な2つのコマンドを含む PowerShell モジュールが登録されます。
 
-*   追加 EFProvider がターゲット プロジェクトの構成ファイルでプロバイダーの新しいエンティティを追加、登録されているプロバイダーの一覧の最後にあることを確認します。
-*   追加 EFDefaultConnectionFactory いずれか、追加、またはターゲット プロジェクトの構成ファイルで defaultConnectionFactory 登録更新します。
+*   [追加] を使用すると、ターゲットプロジェクトの構成ファイルにプロバイダーの新しいエンティティが追加され、登録されているプロバイダーの一覧の末尾にあることが確認されます。
+*   追加-EFDefaultConnectionFactory は、ターゲットプロジェクトの構成ファイルで defaultConnectionFactory の登録を追加または更新します。
 
-構成ファイルを entityFramework セクションを追加し、必要な場合は、プロバイダーのコレクションを追加する 2 つのコマンドを処理します。
+これらのコマンドはいずれも、entityFramework セクションを構成ファイルに追加し、必要に応じてプロバイダーコレクションを追加します。
 
-これらのコマンドは、install.ps1 NuGet スクリプトから呼び出すことが目的です。 たとえば、install.ps1 SQL Compact プロバイダーの次のようにします。
+これらのコマンドは、install. ps1 NuGet スクリプトから呼び出されることを意図しています。 たとえば、SQL Compact プロバイダーの場合、ps1 は次のようになります。
 
 ``` powershell
 param($installPath, $toolsPath, $package, $project)
@@ -218,15 +218,15 @@ Add-EFDefaultConnectionFactory $project 'System.Data.Entity.Infrastructure.SqlCe
 Add-EFProvider $project 'System.Data.SqlServerCe.4.0' 'System.Data.Entity.SqlServerCompact.SqlCeProviderServices, EntityFramework.SqlServerCompact'</pre>
 ```
 
-これらのコマンドの詳細については、パッケージ マネージャー コンソール ウィンドウで、get-help を使用して取得できます。
+これらのコマンドの詳細については、パッケージマネージャーコンソールウィンドウの get-help を使用して取得できます。
 
 ## <a name="wrapping-providers"></a>プロバイダーのラップ
 
-折り返しプロバイダーは、既存のプロファイルやトレース機能などの他の機能と拡張プロバイダーをラップする EF または ADO.NET プロバイダーです。 通常の方法でプロバイダーのラップを登録できますが、詳細は、プロバイダーに関連するサービスの解像度をインターセプトすることで実行時に折り返しプロバイダーをセットアップすると便利です。 これを行うには、静的イベント OnLockingConfiguration DbConfiguration クラスを使用できます。
+ラッピングプロバイダーは、既存のプロバイダーをラップして、プロファイリングやトレースなどの他の機能と共に拡張する EF や ADO.NET プロバイダーです。 ラッププロバイダーは通常の方法で登録できますが、多くの場合、プロバイダー関連のサービスの解決をインターセプトして、実行時にラッピングプロバイダーを設定する方が便利です。 これを行うには、DbConfiguration クラスの静的イベント Onロック構成を使用できます。
 
-OnLockingConfiguration は使用がロックされる前に、EF がからのアプリ ドメインのすべての EF 構成の取得場所を決定した後に呼び出されます。 アプリの起動時に (前に EF を使用すると)、アプリが登録このイベントのイベント ハンドラー。 (構成ファイルにこのハンドラーを登録するためのサポートの追加を検討していますが、これはまだサポートされていません)。イベント ハンドラーは ReplaceService への呼び出しをラップする必要があるすべてのサービスにください。  
+Onlocked Configuration は、EF によって、アプリケーションドメインのすべての EF 構成がから取得され、使用のためにロックされる前に呼び出された後に呼び出されます。 アプリの起動時 (EF が使用される前) に、アプリはこのイベントのイベントハンドラーを登録する必要があります。 (ここでは、このハンドラーを構成ファイルに登録するためのサポートを追加することを検討していますが、これはまだサポートされていません)。その後、イベントハンドラーは、ラップする必要があるすべてのサービスに対して、交換用 Eservice を呼び出す必要があります。  
 
-たとえば、IDbConnectionFactory と DbProviderService をラップするには、次のようにハンドラーを登録するか。
+たとえば、IDbConnectionFactory と DbProviderService をラップするには、次のようなハンドラーを登録する必要があります。
 
 ``` csharp
 DbConfiguration.OnLockingConfiguration +=
@@ -240,26 +240,26 @@ DbConfiguration.OnLockingConfiguration +=
     };
 ```
 
-解決され、サービスの解決に使用されたキーと共に折り返す必要があるようになりましたが、サービスは、ハンドラーに渡されます。 ハンドラーはこのサービスをラップし、返されたサービスをラップされたバージョンに置き換えます。
+解決済みで、サービスを解決するために使用されたキーと共にラップされる必要があるサービスは、ハンドラーに渡されます。 ハンドラーはこのサービスをラップし、返されたサービスをラップされたバージョンに置き換えることができます。
 
-## <a name="resolving-a-dbproviderfactory-with-ef"></a>Ef の DbProviderFactory を解決します。
+## <a name="resolving-a-dbproviderfactory-with-ef"></a>EF を使用した DbProviderFactory の解決
 
-DbProviderFactory は」の説明に従って、EF で必要な基本的なプロバイダーの種類の 1 つ、_プロバイダーの型の概要_前のセクション。 既に述べたように、型ではない、EF と登録は通常、EF の構成の一部はありませんが代わりに、machine.config ファイルまたはアプリケーションの構成ファイルにおける通常の ADO.NET プロバイダーの登録。
+DbProviderFactory は、前の「_プロバイダーの種類の概要_」で説明されているように、EF で必要とされる基本的なプロバイダーの種類の1つです。 既に説明したように、これは EF 型ではなく、通常は EF 構成には含まれませんが、machine.config ファイルやアプリケーションの構成ファイルでは通常の ADO.NET プロバイダーの登録です。
 
-この EF に関係なく引き続き使用の標準の依存関係の解決メカニズムの DbProviderFactory を探すときに使用します。 既定のリゾルバー構成ファイルで、通常の ADO.NET の登録を使用して、これは通常、透過的です。 メカニズムを使用する通常の依存関係の解決のため、IDbDependencyResolver を通常の ADO.NET の登録が行われていない場合でも、DbProviderFactory を解決するのには使用できることを意味します。
+ただし、この EF では、使用する DbProviderFactory を検索するときに通常の依存関係の解決メカニズムが使用されます。 既定の競合回避モジュールでは、構成ファイルで通常の ADO.NET 登録が使用されるため、これは通常は透過的です。 ただし、通常の依存関係の解決メカニズムが使用されているため、通常の ADO.NET 登録が完了していない場合でも、IDbDependencyResolver を使用して DbProviderFactory を解決できることを意味します。
 
-この方法で DbProviderFactory を解決するには、いくつかの意味合いがあります。
+この方法で DbProviderFactory を解決すると、いくつかの影響があります。
 
-*   コード ベースの構成を使用するアプリケーションは、適切な DbProviderFactory を登録するには、その DbConfiguration クラスの呼び出しを追加できます。 これはしたくない (またはできません) をアプリケーションに特に便利だことをまったくの任意のファイル ベースの構成を使用します。
-*   サービスがラップすることができますか」の説明に従って、ReplaceService を使用して置き換える、_プロバイダーのラップ_前のセクション
-*   理論上は、DbProviderServices の実装の DbProviderFactory を解決する可能性があります。
+*   コードベースの構成を使用するアプリケーションでは、DbConfiguration クラスに呼び出しを追加して、適切な DbProviderFactory を登録できます。 これは、ファイルベースの構成をまったく使用しない (または利用できない) アプリケーションに特に役立ちます。
+*   前の「_プロバイダーのラップ_」セクションで説明されているように、サービスは置き換えることができます。
+*   理論的には、DbProviderServices の実装によって DbProviderFactory が解決する可能性があります。
 
-これらのいずれかの方法について注意する重要な点は、EF によって DbProviderFactory の参照のみが影響します。 その他の EF 以外のコードでは、通常の方法で登録する ADO.NET プロバイダーに期待もと、登録が見つからない場合に失敗する可能性があります。 このため、通常の ADO.NET の方法で登録する DbProviderFactory の通常お勧めします。
+これらのいずれかを実行する際に注意する必要がある重要な点は、EF による DbProviderFactory の参照のみに影響することです。 EF 以外の他のコードでは、ADO.NET プロバイダーが通常の方法で登録されることを期待している場合があります。登録が見つからない場合は、失敗する可能性があります。 このため、通常は DbProviderFactory を通常の ADO.NET 方法で登録する方が適しています。
 
 ### <a name="related-services"></a>関連サービス
 
-DbProviderFactory を解決するのには EF を使用する場合、IProviderInvariantName と IDbProviderFactoryResolver サービスも解決される必要があります。
+EF を使用して DbProviderFactory を解決する場合は、IProviderInvariantName および IDbProviderFactoryResolver サービスも解決する必要があります。
 
-IProviderInvariantName は、特定の種類の DbProviderFactory のプロバイダーの不変名を判断するために使用するサービスです。 このサービスの既定の実装では、ADO.NET プロバイダーの登録を使用します。 つまり、DbProviderFactory が EF によって解決されるため、ADO.NET プロバイダーでは通常の方法で登録されていない場合もあるこのサービスを解決するために必要です。 このサービスの競合回避モジュールが DbConfiguration.SetProviderFactory メソッドを使用する場合を自動的に追加されたことに注意してください。
+IProviderInvariantName は、特定の種類の DbProviderFactory に対してプロバイダーの不変名を決定するために使用されるサービスです。 このサービスの既定の実装では、ADO.NET プロバイダーの登録が使用されます。 これは、DbProviderFactory が EF によって解決されているために ADO.NET プロバイダーが通常の方法で登録されていない場合にも、このサービスを解決する必要があることを意味します。 DbConfiguration. SetProviderFactory メソッドを使用すると、このサービスのリゾルバーが自動的に追加されることに注意してください。
 
-」の説明に従って、_プロバイダーの型の概要_上記セクションで、IDbProviderFactoryResolver は指定した DbConnection オブジェクトから正しい DbProviderFactory を取得するために使用します。 .NET 4 で実行されている場合は、このサービスの既定の実装では、ADO.NET プロバイダーの登録を使用します。 つまり、DbProviderFactory が EF によって解決されるため、ADO.NET プロバイダーでは通常の方法で登録されていない場合もあるこのサービスを解決するために必要です。
+前の「_プロバイダーの種類の概要_」で説明したように、IDbProviderFactoryResolver は、指定された DbConnection オブジェクトから正しい DbProviderFactory を取得するために使用されます。 .NET 4 で実行する場合のこのサービスの既定の実装では、ADO.NET プロバイダーの登録を使用します。 これは、DbProviderFactory が EF によって解決されているために ADO.NET プロバイダーが通常の方法で登録されていない場合にも、このサービスを解決する必要があることを意味します。
