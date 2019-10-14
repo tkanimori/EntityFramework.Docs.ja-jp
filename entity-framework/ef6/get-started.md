@@ -3,70 +3,70 @@ title: Entity Framework 6 - EF6 の概要
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
-ms.openlocfilehash: c25bf16bd2c39530d54b286b7743ceb83c941e4d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: bf54879ea94e597dfeac3e4bd70571dad290dd9e
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489291"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181396"
 ---
-# <a name="get-started-with-entity-framework-6"></a><span data-ttu-id="6f757-102">Entity Framework 6 の概要</span><span class="sxs-lookup"><span data-stu-id="6f757-102">Get started with Entity Framework 6</span></span>
+# <a name="get-started-with-entity-framework-6"></a><span data-ttu-id="4fa28-102">Entity Framework 6 の概要</span><span class="sxs-lookup"><span data-stu-id="4fa28-102">Get started with Entity Framework 6</span></span>
 
-<span data-ttu-id="6f757-103">このガイドには、選択したドキュメント記事への一連のリンクと、すぐに使用を開始するためのチュートリアルとビデオが含まれています。</span><span class="sxs-lookup"><span data-stu-id="6f757-103">This guide contains a collection of links to selected documentation articles, walkthroughs and videos that can help you get started quickly.</span></span>
+<span data-ttu-id="4fa28-103">このガイドには、選択したドキュメント記事への一連のリンクと、すぐに使用を開始するためのチュートリアルとビデオが含まれています。</span><span class="sxs-lookup"><span data-stu-id="4fa28-103">This guide contains a collection of links to selected documentation articles, walkthroughs and videos that can help you get started quickly.</span></span>
 
-## <a name="fundamentals"></a><span data-ttu-id="6f757-104">Fundamentals</span><span class="sxs-lookup"><span data-stu-id="6f757-104">Fundamentals</span></span>
+## <a name="fundamentals"></a><span data-ttu-id="4fa28-104">基礎</span><span class="sxs-lookup"><span data-stu-id="4fa28-104">Fundamentals</span></span>
 
-* [<span data-ttu-id="6f757-105">Entity Framework を取得する</span><span class="sxs-lookup"><span data-stu-id="6f757-105">Get Entity Framework</span></span>](~/ef6/fundamentals/install.md)
+* [<span data-ttu-id="4fa28-105">Entity Framework を取得する</span><span class="sxs-lookup"><span data-stu-id="4fa28-105">Get Entity Framework</span></span>](~/ef6/fundamentals/install.md)
 
-  <span data-ttu-id="6f757-106">ここでは、お使いのアプリケーションに Entity Framework を追加し、EF デザイナーを使用する場合は、Visual Studio にそれを確実にインストールする方法を学習します。</span><span class="sxs-lookup"><span data-stu-id="6f757-106">Here you will learn how to add Entity Framework to your applications and, if you want to use the EF Designer, make sure you get it installed in Visual Studio.</span></span>
+  <span data-ttu-id="4fa28-106">ここでは、お使いのアプリケーションに Entity Framework を追加し、EF デザイナーを使用する場合は、Visual Studio にそれを確実にインストールする方法を学習します。</span><span class="sxs-lookup"><span data-stu-id="4fa28-106">Here you will learn how to add Entity Framework to your applications and, if you want to use the EF Designer, make sure you get it installed in Visual Studio.</span></span>
 
-* [<span data-ttu-id="6f757-107">モデルの作成: Code First、EF デザイナー、EF ワークフロー</span><span class="sxs-lookup"><span data-stu-id="6f757-107">Creating a Model: Code First, the EF Designer, and the EF Workflows</span></span>](~/ef6/modeling/index.md)
+* [<span data-ttu-id="4fa28-107">モデルの作成:Code First、EF Designer、および EF ワークフロー</span><span class="sxs-lookup"><span data-stu-id="4fa28-107">Creating a Model: Code First, the EF Designer, and the EF Workflows</span></span>](~/ef6/modeling/index.md)
 
-  <span data-ttu-id="6f757-108">お使いの EF モデルに、コードの記述と、ボックスや線の描画のどちらを指定したいですか?</span><span class="sxs-lookup"><span data-stu-id="6f757-108">Do you prefer to specify your EF model writing code or drawing boxes and lines?</span></span>
-<span data-ttu-id="6f757-109">EF を使用して、オブジェクトを既存のデータベースにマップしますか? または EF を使用して自分のオブジェクトに合わせたデータベースを作成したいですか?</span><span class="sxs-lookup"><span data-stu-id="6f757-109">Are you going to use EF to map your objects to an existing database or would you like EF to create a database tailored for your objects?</span></span>
-<span data-ttu-id="6f757-110">ここでは、EF6 を使用する 2 つの異なるアプローチ、EF デザイナーと Code First について学習します。</span><span class="sxs-lookup"><span data-stu-id="6f757-110">Here your learn about two different approaches to use EF6: EF Designer and Code First.</span></span>
-<span data-ttu-id="6f757-111">説明に従って、違いに関するビデオをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="6f757-111">Make sure you follow the discussion and watch the video about the difference.</span></span>
+  <span data-ttu-id="4fa28-108">お使いの EF モデルに、コードの記述と、ボックスや線の描画のどちらを指定したいですか?</span><span class="sxs-lookup"><span data-stu-id="4fa28-108">Do you prefer to specify your EF model writing code or drawing boxes and lines?</span></span>
+<span data-ttu-id="4fa28-109">EF を使用して、オブジェクトを既存のデータベースにマップしますか? または EF を使用して自分のオブジェクトに合わせたデータベースを作成したいですか?</span><span class="sxs-lookup"><span data-stu-id="4fa28-109">Are you going to use EF to map your objects to an existing database or would you like EF to create a database tailored for your objects?</span></span>
+<span data-ttu-id="4fa28-110">ここでは、EF6 を使用する次の 2 つの異なる方法について学習します: EF Designer と Code First。</span><span class="sxs-lookup"><span data-stu-id="4fa28-110">Here your learn about two different approaches to use EF6: EF Designer and Code First.</span></span>
+<span data-ttu-id="4fa28-111">説明に従って、違いに関するビデオをご覧ください。</span><span class="sxs-lookup"><span data-stu-id="4fa28-111">Make sure you follow the discussion and watch the video about the difference.</span></span>
 
-* [<span data-ttu-id="6f757-112">DbContext の操作</span><span class="sxs-lookup"><span data-stu-id="6f757-112">Working with DbContext</span></span>](~/ef6/fundamentals/working-with-dbcontext.md)
+* [<span data-ttu-id="4fa28-112">DbContext の操作</span><span class="sxs-lookup"><span data-stu-id="4fa28-112">Working with DbContext</span></span>](~/ef6/fundamentals/working-with-dbcontext.md)
 
-  <span data-ttu-id="6f757-113">DbContext は、使用方法を学習する必要のある最も重要な最初の EF 型です。</span><span class="sxs-lookup"><span data-stu-id="6f757-113">DbContext is the first and most important EF type that you need to learn how to use.</span></span> <span data-ttu-id="6f757-114">これは、データベース クエリのスタート パッドとして機能し、オブジェクトへの変更を追跡して、永続化してデータベースに戻せるようにします。</span><span class="sxs-lookup"><span data-stu-id="6f757-114">It serves as the launchpad for database queries and keeps track of changes you make to objects so that they can be persisted back to the database.</span></span>
+  <span data-ttu-id="4fa28-113">DbContext は、使用方法を学習する必要のある最も重要な最初の EF 型です。</span><span class="sxs-lookup"><span data-stu-id="4fa28-113">DbContext is the first and most important EF type that you need to learn how to use.</span></span> <span data-ttu-id="4fa28-114">これは、データベース クエリのスタート パッドとして機能し、オブジェクトへの変更を追跡して、永続化してデータベースに戻せるようにします。</span><span class="sxs-lookup"><span data-stu-id="4fa28-114">It serves as the launchpad for database queries and keeps track of changes you make to objects so that they can be persisted back to the database.</span></span>
 
-* [<span data-ttu-id="6f757-115">質問する</span><span class="sxs-lookup"><span data-stu-id="6f757-115">Ask a Question</span></span>](~/ef6/resources/get-help.md)
+* [<span data-ttu-id="4fa28-115">質問する</span><span class="sxs-lookup"><span data-stu-id="4fa28-115">Ask a Question</span></span>](~/ef6/resources/get-help.md)
 
-  <span data-ttu-id="6f757-116">専門家のサポートを受け、コミュニティに自分の回答を投稿する方法について説明しています。</span><span class="sxs-lookup"><span data-stu-id="6f757-116">Find out how to get help from the experts and contribute your own answers to the community.</span></span>
+  <span data-ttu-id="4fa28-116">専門家のサポートを受け、コミュニティに自分の回答を投稿する方法について説明しています。</span><span class="sxs-lookup"><span data-stu-id="4fa28-116">Find out how to get help from the experts and contribute your own answers to the community.</span></span>
 
-* [<span data-ttu-id="6f757-117">寄稿</span><span class="sxs-lookup"><span data-stu-id="6f757-117">Contribute</span></span>](http://github.com/aspnet/EntityFramework6/)
+* [<span data-ttu-id="4fa28-117">寄稿</span><span class="sxs-lookup"><span data-stu-id="4fa28-117">Contribute</span></span>](https://github.com/aspnet/EntityFramework6/)
 
-  <span data-ttu-id="6f757-118">Entity Framework 6 では、オープン開発モデルを使用します。</span><span class="sxs-lookup"><span data-stu-id="6f757-118">Entity Framework 6 uses an open development model.</span></span> <span data-ttu-id="6f757-119">弊社の GitHub リポジトリにアクセスすることで、EF の機能向上にご協力いただける方法を紹介しています。</span><span class="sxs-lookup"><span data-stu-id="6f757-119">Find out how you can help make EF even better by visiting our GitHub repository.</span></span>
+  <span data-ttu-id="4fa28-118">Entity Framework 6 では、オープン開発モデルを使用します。</span><span class="sxs-lookup"><span data-stu-id="4fa28-118">Entity Framework 6 uses an open development model.</span></span> <span data-ttu-id="4fa28-119">弊社の GitHub リポジトリにアクセスすることで、EF の機能向上にご協力いただける方法を紹介しています。</span><span class="sxs-lookup"><span data-stu-id="4fa28-119">Find out how you can help make EF even better by visiting our GitHub repository.</span></span>
 
-## <a name="code-first-resources"></a><span data-ttu-id="6f757-120">Code First リソース</span><span class="sxs-lookup"><span data-stu-id="6f757-120">Code First resources</span></span>
+## <a name="code-first-resources"></a><span data-ttu-id="4fa28-120">Code First リソース</span><span class="sxs-lookup"><span data-stu-id="4fa28-120">Code First resources</span></span>
 
-  - [<span data-ttu-id="6f757-121">既存のデータベース ワークフローへの Code First</span><span class="sxs-lookup"><span data-stu-id="6f757-121">Code First to an Existing Database Workflow</span></span>](~/ef6/modeling/code-first/workflows/existing-database.md)
-  - [<span data-ttu-id="6f757-122">新しいデータベース ワークフローへの Code First</span><span class="sxs-lookup"><span data-stu-id="6f757-122">Code First to a New Database Workflow</span></span>](~/ef6/modeling/code-first/workflows/new-database.md)
-  - [<span data-ttu-id="6f757-123">Code First を使用した列挙型のマッピング</span><span class="sxs-lookup"><span data-stu-id="6f757-123">Mapping Enums Using Code First</span></span>](~/ef6/modeling/code-first/data-types/enums.md)
-  - [<span data-ttu-id="6f757-124">Code First を使用した空間型のマッピング</span><span class="sxs-lookup"><span data-stu-id="6f757-124">Mapping Spatial Types Using Code First</span></span>](~/ef6/modeling/code-first/data-types/spatial.md)
-  - [<span data-ttu-id="6f757-125">カスタム Code First 規約の記述</span><span class="sxs-lookup"><span data-stu-id="6f757-125">Writing Custom Code First Conventions</span></span>](~/ef6/modeling/code-first/conventions/custom.md)
-  - [<span data-ttu-id="6f757-126">Visual Basic での Code First の Fluent 構成の使用</span><span class="sxs-lookup"><span data-stu-id="6f757-126">Using Code First Fluent Configuration with Visual Basic</span></span>](~/ef6/modeling/code-first/fluent/vb.md)
-  - [<span data-ttu-id="6f757-127">Code First Migrations</span><span class="sxs-lookup"><span data-stu-id="6f757-127">Code First Migrations</span></span>](~/ef6/modeling/code-first/migrations/index.md)
-  - [<span data-ttu-id="6f757-128">チーム環境での Code First Migrations</span><span class="sxs-lookup"><span data-stu-id="6f757-128">Code First Migrations in Team Environments</span></span>](~/ef6/modeling/code-first/migrations/teams.md)
-  - <span data-ttu-id="6f757-129">[自動の Code First Migrations](~/ef6/modeling/code-first/migrations/automatic.md) (これは推奨されなくなりました)</span><span class="sxs-lookup"><span data-stu-id="6f757-129">[Automatic Code First Migrations](~/ef6/modeling/code-first/migrations/automatic.md) (This is no longer recommended)</span></span>
+  - [<span data-ttu-id="4fa28-121">既存のデータベース ワークフローへの Code First</span><span class="sxs-lookup"><span data-stu-id="4fa28-121">Code First to an Existing Database Workflow</span></span>](~/ef6/modeling/code-first/workflows/existing-database.md)
+  - [<span data-ttu-id="4fa28-122">新しいデータベース ワークフローへの Code First</span><span class="sxs-lookup"><span data-stu-id="4fa28-122">Code First to a New Database Workflow</span></span>](~/ef6/modeling/code-first/workflows/new-database.md)
+  - [<span data-ttu-id="4fa28-123">Code First を使用した列挙型のマッピング</span><span class="sxs-lookup"><span data-stu-id="4fa28-123">Mapping Enums Using Code First</span></span>](~/ef6/modeling/code-first/data-types/enums.md)
+  - [<span data-ttu-id="4fa28-124">Code First を使用した空間型のマッピング</span><span class="sxs-lookup"><span data-stu-id="4fa28-124">Mapping Spatial Types Using Code First</span></span>](~/ef6/modeling/code-first/data-types/spatial.md)
+  - [<span data-ttu-id="4fa28-125">カスタム Code First 規約の記述</span><span class="sxs-lookup"><span data-stu-id="4fa28-125">Writing Custom Code First Conventions</span></span>](~/ef6/modeling/code-first/conventions/custom.md)
+  - [<span data-ttu-id="4fa28-126">Visual Basic での Code First の Fluent 構成の使用</span><span class="sxs-lookup"><span data-stu-id="4fa28-126">Using Code First Fluent Configuration with Visual Basic</span></span>](~/ef6/modeling/code-first/fluent/vb.md)
+  - [<span data-ttu-id="4fa28-127">Code First Migrations</span><span class="sxs-lookup"><span data-stu-id="4fa28-127">Code First Migrations</span></span>](~/ef6/modeling/code-first/migrations/index.md)
+  - [<span data-ttu-id="4fa28-128">チーム環境での Code First Migrations</span><span class="sxs-lookup"><span data-stu-id="4fa28-128">Code First Migrations in Team Environments</span></span>](~/ef6/modeling/code-first/migrations/teams.md)
+  - <span data-ttu-id="4fa28-129">[自動の Code First Migrations](~/ef6/modeling/code-first/migrations/automatic.md) (これは推奨されなくなりました)</span><span class="sxs-lookup"><span data-stu-id="4fa28-129">[Automatic Code First Migrations](~/ef6/modeling/code-first/migrations/automatic.md) (This is no longer recommended)</span></span>
 
-## <a name="ef-designer-resources"></a><span data-ttu-id="6f757-130">EF Designer リソース</span><span class="sxs-lookup"><span data-stu-id="6f757-130">EF Designer resources</span></span>
-  - [<span data-ttu-id="6f757-131">Database First ワークフロー</span><span class="sxs-lookup"><span data-stu-id="6f757-131">Database First Workflow</span></span>](~/ef6/modeling/designer/workflows/database-first.md)
-  - [<span data-ttu-id="6f757-132">Model First ワークフロー</span><span class="sxs-lookup"><span data-stu-id="6f757-132">Model First Workflow</span></span>](~/ef6/modeling/designer/workflows/model-first.md)
-  - [<span data-ttu-id="6f757-133">列挙型のマッピング</span><span class="sxs-lookup"><span data-stu-id="6f757-133">Mapping Enums</span></span>](~/ef6/modeling/designer/data-types/enums.md)
-  - [<span data-ttu-id="6f757-134">空間型のマッピング</span><span class="sxs-lookup"><span data-stu-id="6f757-134">Mapping Spatial Types</span></span>](~/ef6/modeling/designer/data-types/spatial.md)
-  - [<span data-ttu-id="6f757-135">Table-Per Hierarchy 継承のマッピング</span><span class="sxs-lookup"><span data-stu-id="6f757-135">Table-Per Hierarchy Inheritance Mapping</span></span>](~/ef6/modeling/designer/inheritance/tph.md)
-  - [<span data-ttu-id="6f757-136">Table-Per Type 継承のマッピング</span><span class="sxs-lookup"><span data-stu-id="6f757-136">Table-Per Type Inheritance Mapping</span></span>](~/ef6/modeling/designer/inheritance/tpt.md)
-  - [<span data-ttu-id="6f757-137">更新のためのストアド プロシージャ マッピング</span><span class="sxs-lookup"><span data-stu-id="6f757-137">Stored Procedure Mapping for Updates</span></span>](~/ef6/modeling/designer/stored-procedures/cud.md)
-  - [<span data-ttu-id="6f757-138">クエリのためのストアド プロシージャ マッピング</span><span class="sxs-lookup"><span data-stu-id="6f757-138">Stored Procedure Mapping for Query</span></span>](~/ef6/modeling/designer/stored-procedures/query.md)
-  - [<span data-ttu-id="6f757-139">エンティティ分割</span><span class="sxs-lookup"><span data-stu-id="6f757-139">Entity Splitting</span></span>](~/ef6/modeling/designer/entity-splitting.md)
-  - [<span data-ttu-id="6f757-140">テーブル分割</span><span class="sxs-lookup"><span data-stu-id="6f757-140">Table Splitting</span></span>](~/ef6/modeling/designer/table-splitting.md)
-  - <span data-ttu-id="6f757-141">[定義クエリ](~/ef6/modeling/designer/advanced/defining-query.md) (詳細)</span><span class="sxs-lookup"><span data-stu-id="6f757-141">[Defining Query](~/ef6/modeling/designer/advanced/defining-query.md) (Advanced)</span></span>
-  - <span data-ttu-id="6f757-142">[テーブル値関数](~/ef6/modeling/designer/advanced/tvfs.md) (詳細)</span><span class="sxs-lookup"><span data-stu-id="6f757-142">[Table-Valued Functions](~/ef6/modeling/designer/advanced/tvfs.md) (Advanced)</span></span>
+## <a name="ef-designer-resources"></a><span data-ttu-id="4fa28-130">EF Designer リソース</span><span class="sxs-lookup"><span data-stu-id="4fa28-130">EF Designer resources</span></span>
+  - [<span data-ttu-id="4fa28-131">Database First ワークフロー</span><span class="sxs-lookup"><span data-stu-id="4fa28-131">Database First Workflow</span></span>](~/ef6/modeling/designer/workflows/database-first.md)
+  - [<span data-ttu-id="4fa28-132">Model First ワークフロー</span><span class="sxs-lookup"><span data-stu-id="4fa28-132">Model First Workflow</span></span>](~/ef6/modeling/designer/workflows/model-first.md)
+  - [<span data-ttu-id="4fa28-133">列挙型のマッピング</span><span class="sxs-lookup"><span data-stu-id="4fa28-133">Mapping Enums</span></span>](~/ef6/modeling/designer/data-types/enums.md)
+  - [<span data-ttu-id="4fa28-134">空間型のマッピング</span><span class="sxs-lookup"><span data-stu-id="4fa28-134">Mapping Spatial Types</span></span>](~/ef6/modeling/designer/data-types/spatial.md)
+  - [<span data-ttu-id="4fa28-135">Table-Per Hierarchy 継承のマッピング</span><span class="sxs-lookup"><span data-stu-id="4fa28-135">Table-Per Hierarchy Inheritance Mapping</span></span>](~/ef6/modeling/designer/inheritance/tph.md)
+  - [<span data-ttu-id="4fa28-136">Table-Per Type 継承のマッピング</span><span class="sxs-lookup"><span data-stu-id="4fa28-136">Table-Per Type Inheritance Mapping</span></span>](~/ef6/modeling/designer/inheritance/tpt.md)
+  - [<span data-ttu-id="4fa28-137">更新のためのストアド プロシージャ マッピング</span><span class="sxs-lookup"><span data-stu-id="4fa28-137">Stored Procedure Mapping for Updates</span></span>](~/ef6/modeling/designer/stored-procedures/cud.md)
+  - [<span data-ttu-id="4fa28-138">クエリのためのストアド プロシージャ マッピング</span><span class="sxs-lookup"><span data-stu-id="4fa28-138">Stored Procedure Mapping for Query</span></span>](~/ef6/modeling/designer/stored-procedures/query.md)
+  - [<span data-ttu-id="4fa28-139">エンティティ分割</span><span class="sxs-lookup"><span data-stu-id="4fa28-139">Entity Splitting</span></span>](~/ef6/modeling/designer/entity-splitting.md)
+  - [<span data-ttu-id="4fa28-140">テーブル分割</span><span class="sxs-lookup"><span data-stu-id="4fa28-140">Table Splitting</span></span>](~/ef6/modeling/designer/table-splitting.md)
+  - <span data-ttu-id="4fa28-141">[定義クエリ](~/ef6/modeling/designer/advanced/defining-query.md) (詳細)</span><span class="sxs-lookup"><span data-stu-id="4fa28-141">[Defining Query](~/ef6/modeling/designer/advanced/defining-query.md) (Advanced)</span></span>
+  - <span data-ttu-id="4fa28-142">[テーブル値関数](~/ef6/modeling/designer/advanced/tvfs.md) (詳細)</span><span class="sxs-lookup"><span data-stu-id="4fa28-142">[Table-Valued Functions](~/ef6/modeling/designer/advanced/tvfs.md) (Advanced)</span></span>
 
-## <a name="other-resources"></a><span data-ttu-id="6f757-143">その他のリソース</span><span class="sxs-lookup"><span data-stu-id="6f757-143">Other resources</span></span>
-  - [<span data-ttu-id="6f757-144">非同期クエリと保存</span><span class="sxs-lookup"><span data-stu-id="6f757-144">Async Query and Save</span></span>](~/ef6/fundamentals/async.md)
-  - [<span data-ttu-id="6f757-145">WinForms とのデータバインド</span><span class="sxs-lookup"><span data-stu-id="6f757-145">Databinding with WinForms</span></span>](~/ef6/fundamentals/databinding/winforms.md)
-  - [<span data-ttu-id="6f757-146">WPF とのデータバインド</span><span class="sxs-lookup"><span data-stu-id="6f757-146">Databinding with WPF</span></span>](~/ef6/fundamentals/databinding/wpf.md)
-  - <span data-ttu-id="6f757-147">[自己追跡エンティティを使用した接続解除シナリオ](~/ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md) (これは推奨されなくなりました)</span><span class="sxs-lookup"><span data-stu-id="6f757-147">[Disconnected scenarios with Self-Tracking Entities](~/ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md) (This is no longer recommended)</span></span>
+## <a name="other-resources"></a><span data-ttu-id="4fa28-143">その他のリソース</span><span class="sxs-lookup"><span data-stu-id="4fa28-143">Other resources</span></span>
+  - [<span data-ttu-id="4fa28-144">非同期クエリと保存</span><span class="sxs-lookup"><span data-stu-id="4fa28-144">Async Query and Save</span></span>](~/ef6/fundamentals/async.md)
+  - [<span data-ttu-id="4fa28-145">WinForms とのデータバインド</span><span class="sxs-lookup"><span data-stu-id="4fa28-145">Databinding with WinForms</span></span>](~/ef6/fundamentals/databinding/winforms.md)
+  - [<span data-ttu-id="4fa28-146">WPF とのデータバインド</span><span class="sxs-lookup"><span data-stu-id="4fa28-146">Databinding with WPF</span></span>](~/ef6/fundamentals/databinding/wpf.md)
+  - <span data-ttu-id="4fa28-147">[自己追跡エンティティを使用した接続解除シナリオ](~/ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md) (これは推奨されなくなりました)</span><span class="sxs-lookup"><span data-stu-id="4fa28-147">[Disconnected scenarios with Self-Tracking Entities](~/ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough.md) (This is no longer recommended)</span></span>
