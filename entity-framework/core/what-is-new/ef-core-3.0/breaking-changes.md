@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 0dd4c5c4aa1a5d241fb48abf1372a678d0f7a7a3
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: f7f04efa8fb8ebc1eb06f256b8ccbd3110af47ab
+ms.sourcegitcommit: 705e898b4684e639a57c787fb45c932a27650c2d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813619"
+ms.lasthandoff: 10/03/2019
+ms.locfileid: "71934882"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
 以下の API と動作変更により、3.0.0 へのアップグレード時に、既存のアプリケーションが中断される可能性があります。
@@ -27,6 +27,7 @@ ms.locfileid: "71813619"
 | [クエリ型がエンティティ型と統合される](#qt) | High      |
 | [Entity Framework Core が ASP.NET Core 共有フレームワークの一部ではなくなった](#no-longer) | Medium      |
 | [既定で連鎖削除がすぐに行われるようになった](#cascade) | Medium      |
+| [関連エンティティの一括読み込みが 1 つのクエリで行われるようになった](#eager-loading-single-query) | Medium      |
 | [DeleteBehavior.Restrict のセマンティクスがクリーンになった](#deletebehavior) | Medium      |
 | [所有型のリレーションシップ用の構成 API が変更された](#config) | Medium      |
 | [各プロパティで独立したメモリ内整数キー生成が使用される](#each) | Medium      |
@@ -34,6 +35,7 @@ ms.locfileid: "71813619"
 | [メタデータ API の変更](#metadata-api-changes) | Medium      |
 | [プロバイダー固有のメタデータ API の変更](#provider) | Medium      |
 | [UseRowNumberForPaging が削除された](#urn) | Medium      |
+| [FromSql メソッドをストアド プロシージャと共に使用して構成することができない](#fromsqlsproc) | Medium      |
 | [FromSql メソッドはクエリのルートでのみ指定できる](#fromsql) | Low      |
 | [~~クエリの実行がデバッグ レベルでログに記録される~~ 元に戻されます](#qe) | Low      |
 | [一時キーの値がエンティティ インスタンスに設定されなくなった](#tkv) | Low      |
@@ -77,12 +79,12 @@ ms.locfileid: "71813619"
 
 **以前の動作**
 
-3.0 より前では、EF Core では、SQL またはパラメーターに対するクエリの一部だった式を変換できない場合、クライアントで自動的に式が評価されていました。
+3\.0 より前では、EF Core では、SQL またはパラメーターに対するクエリの一部だった式を変換できない場合、クライアントで自動的に式が評価されていました。
 既定では、コストの高い式のクライアント評価でのみ警告がトリガーされました。
 
 **新しい動作**
 
-3.0 以降では、クライアントで評価される最上位のプロジェクション (クエリの最後の `Select()` 呼び出し) の式のみが EF Core で許可されます。
+3\.0 以降では、クライアントで評価される最上位のプロジェクション (クエリの最後の `Select()` 呼び出し) の式のみが EF Core で許可されます。
 クエリの他の部分の式を SQL やパラメーターに変換できない場合、例外がスローされます。
 
 **理由**
@@ -106,11 +108,11 @@ ms.locfileid: "71813619"
 
 **以前の動作**
 
-3.0 以前の EF Core の場合は、.NET Standard 2.0 がターゲットとされ、その標準をサポートするすべてのプラットフォーム (.NET Framework を含む) 上で実行されていました。
+3\.0 以前の EF Core の場合は、.NET Standard 2.0 がターゲットとされ、その標準をサポートするすべてのプラットフォーム (.NET Framework を含む) 上で実行されていました。
 
 **新しい動作**
 
-3.0 以降の EF Core の場合は、.NET Standard 2.1 がターゲットとされ、この標準をサポートするすべてのプラットフォームで実行されます。 これには、.NET Framework は含まれません。
+3\.0 以降の EF Core の場合は、.NET Standard 2.1 がターゲットとされ、この標準をサポートするすべてのプラットフォームで実行されます。 これには、.NET Framework は含まれません。
 
 **理由**
 
@@ -131,7 +133,7 @@ ASP.NET Core 3.0 より前では、パッケージ参照を `Microsoft.AspNetCor
 
 **新しい動作**
 
-3.0 以降では、ASP.NET Core 共有フレームワークには、EF Core も、いずれの EF Core データ プロバイダーも含まれません。
+3\.0 以降では、ASP.NET Core 共有フレームワークには、EF Core も、いずれの EF Core データ プロバイダーも含まれません。
 
 **理由**
 
@@ -151,11 +153,11 @@ ASP.NET Core 3.0 アプリケーションまたはその他のサポートされ
 
 **以前の動作**
 
-3.0 より前は `dotnet ef` ツールが .NET Core SDK に含まれており、追加の手順を必要とせずに、任意のプロジェクトのコマンド ラインから簡単に使用できました。 
+3\.0 より前は `dotnet ef` ツールが .NET Core SDK に含まれており、追加の手順を必要とせずに、任意のプロジェクトのコマンド ラインから簡単に使用できました。 
 
 **新しい動作**
 
-3.0 以降は .NET SDK に `dotnet ef` ツールが含まれないため、これを使用するにはローカルまたはグローバルなツールとして明示的にインストールする必要があります。 
+3\.0 以降は .NET SDK に `dotnet ef` ツールが含まれないため、これを使用するにはローカルまたはグローバルなツールとして明示的にインストールする必要があります。 
 
 **理由**
 
@@ -209,6 +211,35 @@ context.Products.FromSqlInterpolated(
 **軽減策**
 
 新しいメソッド名を使用するように切り替えます。
+
+<a name="fromsqlsproc"></a>
+### <a name="fromsql-method-when-used-with-stored-procedure-cannot-be-composed"></a>FromSql メソッドをストアド プロシージャと共に使用して構成することができない
+
+[問題 #15392 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15392)
+
+**以前の動作**
+
+3\.0 EF Core より前では、FromSql メソッドにより、渡された SQL を構成できるかどうかの検出が試行されていました。 SQL がストアド プロシージャのように非コンポーザブルである場合、クライアント評価が行われていました。 次のクエリは、サーバー上でストアド プロシージャを実行し、クライアント側で FirstOrDefault を実行することで機能していました。
+
+```C#
+context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").FirstOrDefault();
+```
+
+**新しい動作**
+
+EF Core 3.0 以降では、SQL の解析は試行されません。 そのため、FromSqlRaw/FromSqlInterpolated の後に構成する場合、EF Core では、サブ クエリを実行することで SQL が構成されます。 したがって、構成でストアド プロシージャを使用している場合は、無効な SQL 構文の例外が発生します。
+
+**理由**
+
+EF Core 3.0 では、自動クライアント評価はサポートされていません。これは、[ここ](#linq-queries-are-no-longer-evaluated-on-the-client)で説明するように、エラーが発生しやすいためです。
+
+**対応策**
+
+FromSqlRaw/FromSqlInterpolated でストアド プロシージャを使用している場合は、それを構成できないことがわかっているので、サーバー側での構成を回避するために、FromSql メソッド呼び出しの直後に __AsEnumerable/AsAsyncEnumerable__ を追加します。
+
+```C#
+context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").AsEnumerable().FirstOrDefault();
+```
 
 <a name="fromsql"></a>
 
@@ -285,7 +316,7 @@ EF Core 3.0 より前では、後で実際の値がデータベースによっ�
 
 **新しい動作**
 
-3.0 以降では、EF Core で、エンティティの追跡情報の一部として一時キーの値が格納され、キー プロパティ自体はそのままになります。
+3\.0 以降では、EF Core で、エンティティの追跡情報の一部として一時キーの値が格納され、キー プロパティ自体はそのままになります。
 
 **理由**
 
@@ -346,11 +377,11 @@ public string Id { get; set; }
 
 **以前の動作**
 
-3.0 より前では、EF Core で適用された連鎖操作 (必要なプリンシパルが削除されたか、必要なプリンシパルへのリレーションシップが切断されたときに依存エンティティを削除する) は、SaveChanges が呼び出されるまで行われませんでした。
+3\.0 より前では、EF Core で適用された連鎖操作 (必要なプリンシパルが削除されたか、必要なプリンシパルへのリレーションシップが切断されたときに依存エンティティを削除する) は、SaveChanges が呼び出されるまで行われませんでした。
 
 **新しい動作**
 
-3.0 以降では、EF Core で、トリガー条件が検出されるとすぐに連鎖操作が適用されます。
+3\.0 以降では、EF Core で、トリガー条件が検出されるとすぐに連鎖操作が適用されます。
 たとえば、プリンシパル エンティティを削除するために `context.Remove()` を呼び出すと、すべての追跡対象の関連する必要な依存関係もすぐに `Deleted` に設定されます。
 
 **理由**
@@ -366,6 +397,29 @@ public string Id { get; set; }
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
+<a name="eager-loading-single-query"></a>
+### <a name="eager-loading-of-related-entities-now-happens-in-a-single-query"></a>関連エンティティの一括読み込みが 1 つのクエリで行われるようになった
+
+[問題 #18022 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/18022)
+
+**以前の動作**
+
+3\.0 より前では、`Include` 演算子を使用してコレクション ナビゲーションを一括で読み込むと、関連するエンティティ型ごとに 1 つずつ、リレーショナル データベースで複数のクエリが生成されていました。
+
+**新しい動作**
+
+3\.0 以降の EF Core では、リレーショナル データベースで結合を使用した単一のクエリが生成されます。
+
+**理由**
+
+単一の LINQ クエリを実装するために複数のクエリを実行すると、多くの問題が発生していました。これらの問題には、複数のデータベース ラウンドトリップが必要になった際のパフォーマンスの低下や、各クエリによってデータベースの異なる状態が観察された際のデータの一貫性の問題などが含まれます。
+
+**軽減策**
+
+技術的に、これは破壊的変更ではありませんが、コレクション ナビゲーションで単一のクエリに多数の `Include` 演算子が含まれている場合、アプリケーションのパフォーマンスに大きな影響を及ぼす可能性があります。 詳細情報、およびより効率的な方法でクエリを再記述する方法については、[こちらのコメントを参照してください](https://github.com/aspnet/EntityFrameworkCore/issues/18022#issuecomment-537219137)。
+
+**
+
 <a name="deletebehavior"></a>
 ### <a name="deletebehaviorrestrict-has-cleaner-semantics"></a>DeleteBehavior.Restrict のセマンティクスがクリーンになりました
 
@@ -373,11 +427,11 @@ context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 
 **以前の動作**
 
-3.0 以前は、`DeleteBehavior.Restrict` により `Restrict` セマンティクスでデータベースに外部キーが作成されましたが、内部の修正がどのように変更されたのかがはっきりしませんでした。
+3\.0 以前は、`DeleteBehavior.Restrict` により `Restrict` セマンティクスでデータベースに外部キーが作成されましたが、内部の修正がどのように変更されたのかがはっきりしませんでした。
 
 **新しい動作**
 
-3.0 以降では、`DeleteBehavior.Restrict` により `Restrict` セマンティクスで外部キーが作成されます。つまり、カスケードがありません。EF 内部修正には影響を出さず、制約違反で例外がスローされます。
+3\.0 以降では、`DeleteBehavior.Restrict` により `Restrict` セマンティクスで外部キーが作成されます。つまり、カスケードがありません。EF 内部修正には影響を出さず、制約違反で例外がスローされます。
 
 **理由**
 
@@ -773,7 +827,7 @@ EF Core 3.0 以降では、各整数キー プロパティで、メモリ内デ�
 
 **以前の動作**
 
-3.0 より前では、プロパティのバッキング フィールドがわかっていた場合でも、EF Core では引き続き、既定でプロパティの getter および setter メソッドを使用して、プロパティ値の読み取りと書き込みが行われました。
+3\.0 より前では、プロパティのバッキング フィールドがわかっていた場合でも、EF Core では引き続き、既定でプロパティの getter および setter メソッドを使用して、プロパティ値の読み取りと書き込みが行われました。
 ただし、バッキング フィールドが直接設定されることがわかっている場合のクエリの実行は例外です。
 
 **新しい動作**
@@ -787,7 +841,7 @@ EF Core 3.0 以降では、プロパティのバッキング フィールドが�
 
 **軽減策**
 
-3.0 より前の動作は、`ModelBuilder` のプロパティ アクセス モードの構成を通じて復元できます。
+3\.0 より前の動作は、`ModelBuilder` のプロパティ アクセス モードの構成を通じて復元できます。
 次に例を示します。
 
 ```C#
@@ -915,7 +969,7 @@ EF Core 3.0 以降では、`DbContext.Entry` の呼び出しで、特定のエ�
 
 **軽減策**
 
-3.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChgangeTracker.DetectChanges()` を呼び出します。
+3\.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChgangeTracker.DetectChanges()` を呼び出します。
 
 ### <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>文字列とバイト配列のキーが既定でクライアントによって生成されない
 
@@ -936,7 +990,7 @@ EF Core 3.0 以降では、キー値が設定されていないことを示す�
 
 **軽減策**
 
-3.0 より前の動作は、他の null 以外の値が設定されていない場合に、キー プロパティで生成された値を使用するように明示的に指定することで取得できます。
+3\.0 より前の動作は、他の null 以外の値が設定されていない場合に、キー プロパティで生成された値を使用するように明示的に指定することで取得できます。
 たとえば、fluent API を使用する場合は、次のようになります。
 
 ```C#
@@ -1421,7 +1475,7 @@ EF Core 3.0 以降では、EF によって生成できるのは、それ以降�
 
 **理由**
 
-2.0 から 3.0 までのリリースを通して、これらのメソッドに追加または変更を行う必要が複数回発生しました。
+2\.0 から 3.0 までのリリースを通して、これらのメソッドに追加または変更を行う必要が複数回発生しました。
 それらを抜き出して新しい抽象基底クラスに含めることで、既存の拡張機能を損なうことなく、簡単にこのような変更を加えられるようになります。
 
 **軽減策**

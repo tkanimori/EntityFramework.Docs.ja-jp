@@ -3,28 +3,28 @@ title: Entity Framework 6 - EF6 の概要
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
-ms.openlocfilehash: c25bf16bd2c39530d54b286b7743ceb83c941e4d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.openlocfilehash: bf54879ea94e597dfeac3e4bd70571dad290dd9e
+ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489291"
+ms.lasthandoff: 10/09/2019
+ms.locfileid: "72181396"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Entity Framework 6 の概要
 
 このガイドには、選択したドキュメント記事への一連のリンクと、すぐに使用を開始するためのチュートリアルとビデオが含まれています。
 
-## <a name="fundamentals"></a>Fundamentals
+## <a name="fundamentals"></a>基礎
 
 * [Entity Framework を取得する](~/ef6/fundamentals/install.md)
 
   ここでは、お使いのアプリケーションに Entity Framework を追加し、EF デザイナーを使用する場合は、Visual Studio にそれを確実にインストールする方法を学習します。
 
-* [モデルの作成: Code First、EF デザイナー、EF ワークフロー](~/ef6/modeling/index.md)
+* [モデルの作成:Code First、EF Designer、および EF ワークフロー](~/ef6/modeling/index.md)
 
   お使いの EF モデルに、コードの記述と、ボックスや線の描画のどちらを指定したいですか?
 EF を使用して、オブジェクトを既存のデータベースにマップしますか? または EF を使用して自分のオブジェクトに合わせたデータベースを作成したいですか?
-ここでは、EF6 を使用する 2 つの異なるアプローチ、EF デザイナーと Code First について学習します。
+ここでは、EF6 を使用する次の 2 つの異なる方法について学習します: EF Designer と Code First。
 説明に従って、違いに関するビデオをご覧ください。
 
 * [DbContext の操作](~/ef6/fundamentals/working-with-dbcontext.md)
@@ -35,7 +35,7 @@ EF を使用して、オブジェクトを既存のデータベースにマッ�
 
   専門家のサポートを受け、コミュニティに自分の回答を投稿する方法について説明しています。
 
-* [寄稿](http://github.com/aspnet/EntityFramework6/)
+* [寄稿](https://github.com/aspnet/EntityFramework6/)
 
   Entity Framework 6 では、オープン開発モデルを使用します。 弊社の GitHub リポジトリにアクセスすることで、EF の機能向上にご協力いただける方法を紹介しています。
 
