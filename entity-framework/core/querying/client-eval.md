@@ -4,12 +4,12 @@ author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 3d70324f0b57a0ea9b165b5140a2154001c326f4
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 5cfb05041f04246712fb699f58b407f70a75ce92
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181911"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445969"
 ---
 # <a name="client-vs-server-evaluation"></a>クライアントとサーバーの評価
 
@@ -18,10 +18,10 @@ ms.locfileid: "72181911"
 > [!NOTE]
 > バージョン 3.0 より前では、Entity Framework Core で、クエリ内の任意の場所でのクライアント評価がサポートされていました。 詳細については、[以前のバージョンに関するセクション](#previous-versions)を参照してください。
 
-## <a name="client-evaluation-in-the-top-level-projection"></a>最上位レベルのプロジェクションでのクライアント評価
-
 > [!TIP]
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
+
+## <a name="client-evaluation-in-the-top-level-projection"></a>最上位レベルのプロジェクションでのクライアント評価
 
 次の例では、SQL Server データベースから返される、ブログの URL を標準化するために、ヘルパー メソッドが使用されています。 SQL Server プロバイダーではこのメソッドの実装方法が把握されないため、SQL に変換することはできません。 クエリの他の側面はすべてデータベースで評価されますが、このメソッド経由で返された `URL` の受け渡しはクライアント上で行われます。
 

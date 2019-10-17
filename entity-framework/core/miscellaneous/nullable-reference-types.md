@@ -4,18 +4,18 @@ author: roji
 ms.date: 09/09/2019
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: ab35e63a6eeb2f02ed07a715fd65855b4d30eaf5
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: 055f492214596506ce2c28485ade359d175c4ac2
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813451"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445901"
 ---
 # <a name="working-with-nullable-reference-types"></a>Null 許容の参照型の使用
 
 C#8では、null 値を[許容する参照型](/dotnet/csharp/tutorials/nullable-reference-types)と呼ばれる新しい機能が導入されました。これにより、参照型に注釈を付け、null を含むかどうかを示すことができます。 この機能を初めて使用する場合は、 C#ドキュメントを読むことをお勧めします。
 
-このページでは、null 許容型の参照型をサポートする EF Core について説明し、それらを操作するためのベストプラクティスについて説明します。
+このページでは、null 許容の参照型に対する EF Core のサポートについて説明し、それらを操作するためのベストプラクティスについて説明します。
 
 ## <a name="required-and-optional-properties"></a>必須および省略可能なプロパティ
 
@@ -26,7 +26,7 @@ C#8では、null 値を[許容する参照型](/dotnet/csharp/tutorials/nullable
 
 ## <a name="dbcontext-and-dbset"></a>DbContext と Dbcontext
 
-Null 値を許容する参照型がC#有効になっている場合、初期化されていない null 以外のプロパティについては、コンパイラによって警告が出力されます。 その結果、コンテキストで null 値を許容`DbSet`しないを定義する一般的な方法では、警告が生成されるようになりました。 ただし、EF Core は常に`DbSet` dbcontext 派生型のすべてのプロパティを初期化するので、コンパイラがこれを認識しない場合でも、常に null になることはありません。 したがって、 `DbSet`プロパティを null 非許容にすることをお勧めします。 null チェックを行わずにプロパティにアクセスできるようにします。また、null ではない演算子 (!) を使用して明示的に null に設定することにより、コンパイラの警告をサイレント状態にすることができます。
+Null 値を許容する参照型がC#有効になっている場合、初期化されていない null 以外のプロパティについては、コンパイラによって警告が出力されます。 その結果、コンテキストで null 非許容の `DbSet` を定義する一般的な方法では、警告が生成されるようになりました。 ただし、EF Core は常に DbContext 派生型のすべての `DbSet` プロパティを初期化するので、コンパイラがこれを認識しない場合でも、必ず null になることは保証されません。 したがって、@no__t 0 のプロパティを null 非許容にすることをお勧めします。 null チェックを行わずにアクセスできるようにします。また、null 非対応演算子 (!) を使用して明示的に null に設定することにより、コンパイラの警告をサイレント状態にすることができます。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/NullableReferenceTypesContext.cs?name=Context&highlight=3-4)]
 
@@ -65,4 +65,4 @@ Terser として、null に対応していない演算子 (!) のヘルプを使
 
 ## <a name="scaffolding"></a>スキャフォールディング
 
-[現在C# 、次の8つの null 許容参照型機能は、](/dotnet/csharp/tutorials/nullable-reference-types)リバースエンジニアリングではサポートされていません。EF Core は、 C#機能がオフであることを前提としたコードを常に生成します。 たとえば、null 値が許容されるテキスト列は、プロパティが`string`必須か`string?`どうかを構成するために使用される Fluent API またはデータ注釈を使用してではなく、型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、null 値を許容C#する注釈に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)問題によって追跡されます。
+[現在C# 、次の8つの null 許容型機能](/dotnet/csharp/tutorials/nullable-reference-types)はリバースエンジニアリングではC#サポートされていません。 EF Core は、機能がオフであると想定しているコードを常に生成します。 たとえば、null 値が許容されるテキスト列は、プロパティが必要かどうかを構成するために使用される Fluent API またはデータ注釈を使用して、@no__t ではなく `string` 型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、null 値を許容C#する注釈に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)問題によって追跡されます。

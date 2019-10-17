@@ -3,12 +3,12 @@ title: 独自のテストの倍精度のテスト (EF6)
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: 4631206ae26d364e92c932857fa1970804a7a335
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 3d8933fb5e17f8c01f3971495a1fcdb5b8cfab57
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181412"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72446028"
 ---
 # <a name="testing-with-your-own-test-doubles"></a>独自のテストの倍精度でテストする
 > [!NOTE]
@@ -157,9 +157,9 @@ namespace TestingDemo
         }
     }
 }
-```  
+```
 
-<a name="creating-the-in-memory-test-doubles"/> # # メモリ内テストの double を作成する  
+## <a name="creating-the-in-memory-test-doubles"></a>メモリ内テストの倍精度浮動小数点数の作成  
 
 実際の EF モデルとそれを使用できるサービスが用意できたので、テストに使用できるメモリ内テストの double を作成します。 ここでは、コンテキストに対して TestContext test double を作成しました。 テストの double では、実行するテストをサポートするために必要な動作を選択します。 この例では、SaveChanges が呼び出された回数をキャプチャするだけですが、テストするシナリオを検証するために必要なロジックを含めることができます。  
 
