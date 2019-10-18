@@ -64,6 +64,6 @@ EF Core データベース プロバイダーはリレーショナル データ�
 InMemory データベースを使用するテスト クラスの例を次に示します。 各テスト メソッドでは、一意のデータベース名、つまり各メソッドが、独自の InMemory データベースを指定します。
 
 >[!TIP]
-> 使用する、`.UseInMemoryDatabase()`参照、NuGet パッケージの拡張メソッドで[Microsoft.EntityFrameworkCore.InMemory](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory/)します。
+> `.UseInMemoryDatabase()` 拡張メソッドを使用するには、NuGet パッケージの [Microsoft.EntityFrameworkCore.InMemory](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory/) を参照してください。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/InMemory/BlogServiceTests.cs)]

@@ -49,6 +49,6 @@ SQLite は、SQLite を使用して、実際のデータベース操作のオー
 このプロバイダーでのテストにキーをメモリ内データベースのスコープを制御、SQLite を使用してコンテキストを通知する機能があります。 データベースのスコープは、接続の開閉によって制御されます。 データベースは、接続が開かれている期間に制限されます。 通常、クリーンなデータベースは、各テスト メソッドにします。
 
 >[!TIP]
-> 使用する`SqliteConnection()`と`.UseSqlite()`参照、NuGet パッケージの拡張メソッドで[Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/)します。
+> `SqliteConnection()` と `.UseSqlite()` 拡張メソッドを使用するには、NuGet パッケージの [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/) を参照してください。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/SQLite/BlogServiceTests.cs)]
