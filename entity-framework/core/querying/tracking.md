@@ -1,100 +1,80 @@
 ---
 title: 追跡と追跡なしのクエリ - EF Core
-author: rowanmiller
-ms.date: 10/27/2016
+author: smitpatel
+ms.date: 10/10/2019
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: 588dee012039ce5ecc83f0ecf263a4ea6ca38c29
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 66988f936ab75e17620398c8f21e4a32bbc950bd
+ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181985"
+ms.lasthandoff: 10/16/2019
+ms.locfileid: "72445957"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 
-Entity Framework Core が、変更追跡のエンティティ インスタンスに関する情報を保持するかどうかは、追跡の動作によって制御されます。 エンティティが追跡されている場合、エンティティ内で検出された変更はすべて、`SaveChanges()` の間にデータベースに対して永続化されます。 また、Entity Framework Core は、追跡クエリから取得されたエンティティと、DbContext インスタンスに以前に読み込まれたエンティティ間のナビゲーション プロパティを修正します。
+Entity Framework Core によってその変更トラッカー内のエンティティ インスタンスに関する情報が保持されるかどうかは、追跡動作によって制御されます。 エンティティが追跡されている場合、エンティティ内で検出された変更はすべて、`SaveChanges()` の間にデータベースに対して永続化されます。 また、EF Core により、追跡クエリの結果内のエンティティ、および変更トラッカーに含まれるエンティティの間のナビゲーション プロパティも修正されます。
+
+> [!NOTE]
+> [キーなしエンティティ型](xref:core/modeling/keyless-entity-types)は追跡されません。 この記事でエンティティ型に関する言及がある場合は、必ずキーが定義されているエンティティ型を参照しています。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="tracking-queries"></a>追跡クエリ
 
-既定では、エンティティ型を返すクエリは、追跡を行います。 つまり、それらのエンティティ インスタンスに変更を加えて、`SaveChanges()` によって永続化された変更を保持できます。
+既定では、エンティティ型を返すクエリは、追跡を行います。 つまり、それらのエンティティ インスタンスに変更を加え、`SaveChanges()` によってその変更を永続化させることができます。 次の例では、ブログ評価に対する変更が検出され、`SaveChanges()` の間にデータベースに対して永続化されています。
 
-次の例では、ブログ評価に対する変更が検出され、`SaveChanges()` の間にデータベースに対して永続化されています。
-
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs.SingleOrDefault(b => b.BlogId == 1);
-    blog.Rating = 5;
-    context.SaveChanges();
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#Tracking)]
 
 ## <a name="no-tracking-queries"></a>追跡なしのクエリ
 
-追跡なしのクエリは、読み取り専用のシナリオで結果が使用される場合に役立ちます。 変更追跡の情報を設定する必要がないので、これらのクエリは、より迅速に実行されます。
+追跡なしのクエリは、読み取り専用のシナリオで結果が使用される場合に役立ちます。 これらは、変更の追跡情報を設定する必要がないため、より高速に実行できます。 データベースから取得されたエンティティを更新する必要がない場合は、追跡なしのクエリを使用することをお勧めします。 個別のクエリをスワップして、追跡なしにできます。
 
-次のように、追跡なしになるように個々のクエリをスワップできます。
-
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=4)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blogs = context.Blogs
-        .AsNoTracking()
-        .ToList();
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#NoTracking)]
 
 また、コンテキスト インスタンスのレベルで、既定の追跡動作を変更できます。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=3)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    context.ChangeTracker.QueryTrackingBehavior = QueryTrackingBehavior.NoTracking;
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ContextDefaultTrackingBehavior)]
 
-    var blogs = context.Blogs.ToList();
-}
-```
+## <a name="identity-resolution"></a>識別子の解決
 
-> [!NOTE]  
-> 追跡なしのクエリでは、実行しているクエリ内で ID の解決を行います。 結果セットに同じエンティティが複数回含まれている場合、結果セット内での各同時実行に対して、エンティティ クラスの同じインスタンスが返されます。 ただし、既に返されたエンティティの追跡を継続するために、弱参照が使用されます。 同じ ID の前の結果が範囲外になっている場合は、ガベージ コレクションが実行され、新しいエンティティ インスタンスを取得できます。 詳細については、「[クエリのしくみ](xref:core/querying/how-query-works)」を参照してください。
+追跡クエリでは変更トラッカーが使用されます。そのため、EF Core では追跡クエリで ID 解決が実行されます。 エンティティを具体化するとき、それが既に追跡されている場合は、EF Core によって変更トラッカーから同じエンティティ インスタンスが返されます。 結果に同じエンティティが複数回含まれている場合は、そのたびに同じインスタンスが返されます。 追跡なしのクエリでは変更トラッカーが使用されず、ID 解決は実行されません。 そのため、同じエンティティが結果に複数回含まれている場合でも、エンティティの新しいインスタンスが返されます。 この動作は、EF Core 3.0 以前のバージョンでは異なります (「[以前のバージョン](#previous-versions)」を参照)。
 
-## <a name="tracking-and-projections"></a>追跡と予測
+## <a name="tracking-and-custom-projections"></a>追跡とカスタム プロジェクション
 
-クエリの結果の型がエンティティ型ではない場合でも、結果にエンティティ型が含まれていれば、既定で引き続き追跡されます。 次のクエリでは、匿名の型が返され、結果セット内で `Blog` のインスタンスが追跡されます。
+クエリの結果の型がエンティティ型ではない場合でも、EF Core では既定で、結果に含まれているエンティティ型が引き続き追跡されます。 次のクエリでは、匿名の型が返され、結果セット内で `Blog` のインスタンスが追跡されます。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs?highlight=7)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs
-        .Select(b =>
-            new
-            {
-                Blog = b,
-                Posts = b.Posts.Count()
-            });
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection1)]
 
-結果セットにエンティティ型が含まれていない場合、追跡なしのクエリが実行されます。 次のクエリでは、エンティティからいくつかの値を持つ (ただし、実際のエンティティ型のインスタンスはない) 匿名の型が返され 、追跡は行われていません。
+結果セットに LINQ の合成に由来するエンティティ型が含まれていた場合は、EF Core によってそれらが追跡されます。
 
-<!-- [!code-csharp[Main](samples/core/Querying/Tracking/Sample.cs)] -->
-``` csharp
-using (var context = new BloggingContext())
-{
-    var blog = context.Blogs
-        .Select(b =>
-            new
-            {
-                Id = b.BlogId,
-                Url = b.Url
-            });
-}
-```
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection2)]
+
+結果セットにいかなるエンティティ型も含まれていなかった場合は、追跡なしが実行されます。 次のクエリでは、エンティティの値の一部を含む (ただし実際のエンティティ型のインスタンスは含まない) 匿名型が返されます。 クエリから生じた追跡対象のエンティティはありません。
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection3)]
+
+ EF Core では、最上位レベルのプロジェクションでクライアント評価を行うことができます。 クライアント評価のために、EF Core によりエンティティ インスタンスが具体化された場合、それは追跡されます。 ここでは、`blog` エンティティがクライアント メソッド `StandardizeURL` に渡されているため、EF Core によって blog インスタンスも追跡されます。
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientMethod)]
+
+EF Core では、結果に含まれているキーなしのエンティティ インスタンスは追跡されません。 ただし、キーを持つその他のすべてのエンティティ型のインスタンスは、上記のルールに従って、EF Core によって追跡されます。
+
+上記のルールの一部は、EF Core 3.0 以前では異なった動作をします。 詳細については、「[以前のバージョン](#previous-versions)」をご覧ください。
+
+## <a name="previous-versions"></a>以前のバージョン
+
+バージョン 3.0 より前の EF Core では、追跡の実行方法にいくつかの違いがありました。 注意すべき違いは次のとおりです。
+
+- 「[クライアントとサーバーの評価](xref:core/querying/client-eval)」ページで説明されているように、バージョン 3.0 より前の EF Core では、クエリのあらゆる部分でのクライアント評価がサポートされていました。 クライアント評価によってエンティティの具体化が発生し、それは結果に含まれていませんでした。 そのため、EF Core では、追跡対象を検出するために、その結果が分析されていました。この設計には、次のようないくつかの相違点があります。
+  - プロジェクションでのクライアント評価は、具体化を発生させましたが、具体化されたエンティティ インスタンスは返されず、追跡されませんでした。 次の例では、`blog` エンティティが追跡されませんでした。
+    [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#ClientProjection)]
+
+  - 場合によっては、EF Core では LINQ の合成に由来するオブジェクトが追跡されませんでした。 次の例では、`Post` が追跡されませんでした。
+    [!code-csharp[Main](../../../samples/core/Querying/Tracking/Sample.cs#CustomProjection2)]
+
+- クエリ結果にキーなしエンティティ型が含まれていた場合は、常にクエリ全体が追跡なしになりました。 つまり、結果に含まれている、キーを持つエンティティ型も追跡されませんでした。
+- EF Core により、追跡なしのクエリで ID 解決が実行されました。 既に返されているエンティティを追跡するために、弱参照が使用されました。 そのため、結果セットに同じエンティティが複数回含まれていた場合は、そのたびに同じインスタンスが返されました。 同じ ID を持つ前の結果がスコープから外れ、ガベージ コレクションが行われても、EF Core により新しいインスタンスが返されました。
