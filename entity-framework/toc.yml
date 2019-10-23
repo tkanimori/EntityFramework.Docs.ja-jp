@@ -47,7 +47,7 @@
                   href: core/miscellaneous/rc2-rtm-upgrade.md
                 - name: 1.x から 2.0
                   href: core/miscellaneous/1x-2x-upgrade.md
-        - name: 開始するには
+        - name: はじめに
           items:
             - name: EF Core のチュートリアル
               href: core/get-started/index.md
@@ -175,22 +175,24 @@
           items:
             - name: 概要
               href: core/querying/index.md
-            - name: 関連データの読み込み
-              href: core/querying/related-data.md
             - name: クライアントとサーバーの評価
               href: core/querying/client-eval.md
             - name: 追跡と追跡なし
               href: core/querying/tracking.md
-            - name: 生 SQL クエリ
-              href: core/querying/raw-sql.md
+            - name: 複雑なクエリ演算子
+              href: core/querying/complex-query-operators.md
+            - name: 関連データの読み込み
+              href: core/querying/related-data.md
             - name: 非同期クエリ
               href: core/querying/async.md
-            - name: クエリのしくみ
-              href: core/querying/how-query-works.md
+            - name: 生 SQL クエリ
+              href: core/querying/raw-sql.md
             - name: グローバル クエリ フィルター
               href: core/querying/filters.md
             - name: クエリのタグ
               href: core/querying/tags.md
+            - name: クエリのしくみ
+              href: core/querying/how-query-works.md
         - name: データの保存
           items:
             - name: 概要
@@ -273,7 +275,7 @@
               href: ef6/what-is-new/upgrading-to-ef6.md
             - name: Visual Studio のリリース
               href: ef6/what-is-new/visual-studio.md
-        - name: 開始するには
+        - name: はじめに
           href: ef6/get-started.md
         - name: 基礎
           items:
