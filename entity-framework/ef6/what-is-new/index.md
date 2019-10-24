@@ -4,12 +4,12 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: c49f4cba0066d1e218f11c3959d96f9cafa913f4
-ms.sourcegitcommit: 7bc43f21e7bdd64926314ea949aae689f1911956
+ms.openlocfilehash: 9daae787d0cec0ca536413e6263bb363ba76ff2c
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/25/2019
-ms.locfileid: "71266783"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812137"
 ---
 # <a name="whats-new-in-ef6"></a>EF6 の新機能
 
@@ -25,9 +25,9 @@ EF 6.3.0 ランタイムは、NuGet で 2019 年 9 月にリリースされま�
   - EntityFramework パッケージでは、.NET Framework 4.x に加え .NET Standard 2.1 をターゲットとするようになりました。
   - これは、EF 6.3 がクロスプラットフォームで、Linux や macOS などの Windows 以外のオペレーティングシステムでサポートされることを意味します。
   - 移行コマンドは、アウト プロセスの実行と SDK 形式のプロジェクトで動作するように書き替えられています。
-- SQL Server HierarchyId のサポート
-- Roslyn と NuGet PackageReference との互換性の向上
-- アセンブリからの移行を有効化、追加、スクリプト作成、および適用する `ef6.exe` ユーティリティが追加されました。 これにより `migrate.exe` が置き換えられます
+- SQL Server HierarchyId のサポート。
+- Roslyn と NuGet PackageReference との互換性の向上。
+- アセンブリからの移行を有効化、追加、スクリプト作成、および適用する `ef6.exe` ユーティリティが追加されました。 これにより `migrate.exe` が置き換えられます。
 
 ### <a name="ef-designer-support"></a>EF デザイナーのサポート
 
