@@ -1,25 +1,26 @@
 ---
-title: カスタムの移行履歴テーブル - EF Core
+title: カスタム移行履歴テーブル-EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/07/2017
-ms.openlocfilehash: 1a253972a8f4e410421ec8a77c079e588d368819
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+uid: core/managing-schemas/migrations/history-table
+ms.openlocfilehash: 0db393ff3101564f8d8081d0a57b264c2c459df7
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488817"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812075"
 ---
-<a name="custom-migrations-history-table"></a>カスタムの移行履歴テーブル
-===============================
-既定では、EF Core の追跡でという名前のテーブルに記録して、移行をデータベースに適用されている`__EFMigrationsHistory`します。 さまざまな理由から、ニーズに合うように、このテーブルをカスタマイズします。
+# <a name="custom-migrations-history-table"></a>カスタム移行履歴テーブル
+
+既定では、EF Core は、データベースに適用されている移行を `__EFMigrationsHistory`という名前のテーブルに記録することによって追跡します。 さまざまな理由から、ニーズに合わせてこのテーブルをカスタマイズすることもできます。
 
 > [!IMPORTANT]
-> 移行履歴テーブルをカスタマイズする場合は*後*移行を適用する必要があります、データベースの既存のテーブルを更新します。
+> 移行の適用*後*に移行履歴テーブルをカスタマイズする場合は、データベース内の既存のテーブルを更新する必要があります。
 
-<a name="schema-and-table-name"></a>スキーマとテーブル名
-----------------------
-スキーマと名前を使用してテーブルを変更することができます、`MigrationsHistoryTable()`メソッド`OnConfiguring()`(または`ConfigureServices()`の ASP.NET core)。 SQL Server EF Core プロバイダーを使用する例を示します。
+## <a name="schema-and-table-name"></a>スキーマとテーブル名
+
+スキーマとテーブル名を変更するには、`OnConfiguring()` の `MigrationsHistoryTable()` 方法 (または ASP.NET Core で `ConfigureServices()`) を使用します。 SQL Server EF Core プロバイダーを使用した例を次に示します。
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -28,9 +29,9 @@ protected override void OnConfiguring(DbContextOptionsBuilder options)
         x => x.MigrationsHistoryTable("__MyMigrationsHistory", "mySchema"));
 ```
 
-<a name="other-changes"></a>その他の変更
--------------
-表に、その他の側面を構成するには、オーバーライドおよびプロバイダーに固有の置換`IHistoryRepository`サービス。 MigrationId 列名を変更する例を次に示します*Id* SQL サーバーにします。
+## <a name="other-changes"></a>その他の変更
+
+テーブルの追加の側面を構成するには、プロバイダー固有の `IHistoryRepository` サービスをオーバーライドして置き換えます。 SQL Server の MigrationId 列名を*Id*に変更する例を次に示します。
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -40,7 +41,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder options)
 ```
 
 > [!WARNING]
-> `SqlServerHistoryRepository` 内部の名前空間内で、将来のリリースで変更可能性があります。
+> `SqlServerHistoryRepository` は内部の名前空間内にあり、今後のリリースで変更される可能性があります。
 
 ``` csharp
 class MyHistoryRepository : SqlServerHistoryRepository

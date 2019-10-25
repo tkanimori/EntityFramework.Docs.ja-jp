@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: a7fb19f9c86d1768967d172c006eb5d894254e0c
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: c660107619470a726fe13ad8eee2850749e6dcd9
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71196930"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812083"
 ---
 # <a name="inheritance-relational-database"></a>継承 (リレーショナル データベース)
 
@@ -99,7 +99,8 @@ modelBuilder.Entity<Blog>()
     .HasMaxLength(200);
 ```
 
-識別子は、エンティティ内の実際の CLR プロパティにマップすることもできます。 次に例を示します。
+識別子は、エンティティ内の実際の CLR プロパティにマップすることもできます。 (例:
+
 ```C#
 class MyContext : DbContext
 {
@@ -126,6 +127,7 @@ public class RssBlog : Blog
 ```
 
 これらの2つの要素を組み合わせて、識別子を実際のプロパティにマップして構成することができます。
+
 ```C#
 modelBuilder.Entity<Blog>(b =>
 {

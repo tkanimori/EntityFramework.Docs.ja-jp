@@ -3,24 +3,24 @@ title: 検証-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: 4162c2eb60109459c799da7cf4c1a9c8e84548b6
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 2c5e6f1b3f60862124bafcac42e8859a7591f8e6
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182124"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812151"
 ---
 # <a name="data-validation"></a>データの検証
 > [!NOTE]
 > **Ef 4.1 以降のみ**-このページで説明した機能、api などは、Entity Framework 4.1 で導入されました。 以前のバージョンを使用している場合、情報の一部またはすべてが適用されない
 
-このページの内容は、最初にジュリー Lerman ([https://thedatafarm.com](http://thedatafarm.com)) によって作成された記事から適用されます。
+このページの内容は、最初にジュリー Lerman ([https://thedatafarm.com](https://thedatafarm.com)) によって作成された記事から適用されます。
 
 Entity Framework には、クライアント側の検証のためにユーザーインターフェイスに渡すことができる、またはサーバー側の検証に使用する、さまざまな検証機能が用意されています。 Code first を使用する場合は、注釈または fluent API 構成を使用して検証を指定できます。 追加の検証 (さらに複雑) は、コードで指定できます。また、モデルが code first、model first、database first のいずれから susan されているかにかかわらず機能します。
 
 ## <a name="the-model"></a>モデル
 
-ここでは、単純なクラスのペアによる検証について説明します。ブログと投稿。
+ここでは、簡単なクラスのペア (ブログと Post) で検証について説明します。
 
 ``` csharp
 public class Blog
@@ -45,7 +45,7 @@ public class Post
 
 ## <a name="data-annotations"></a>データの注釈
 
-Code First は、code First クラスを構成する1つの手段として、@no__t 0 アセンブリの注釈を使用します。 これらの注釈の中には、`Required`、`MaxLength`、`MinLength` などの規則を提供する注釈があります。 多くの .NET クライアントアプリケーションでは、これらの注釈も認識しています。たとえば、ASP.NET MVC です。 これらの注釈を使用して、クライアント側とサーバー側の両方の検証を実現できます。 たとえば、"ブログのタイトル" プロパティを強制的に必須のプロパティにすることができます。
+Code First は、code First クラスを構成する1つの手段として、`System.ComponentModel.DataAnnotations` アセンブリの注釈を使用します。 これらの注釈の中には、`Required`、`MaxLength`、`MinLength`などの規則を提供する注釈があります。 多くの .NET クライアントアプリケーションでは、これらの注釈も認識しています。たとえば、ASP.NET MVC です。 これらの注釈を使用して、クライアント側とサーバー側の両方の検証を実現できます。 たとえば、"ブログのタイトル" プロパティを強制的に必須のプロパティにすることができます。
 
 ``` csharp
 [Required]
@@ -54,11 +54,11 @@ public string Title { get; set; }
 
 アプリケーションで追加のコードやマークアップの変更を加えなくても、既存の MVC アプリケーションは、プロパティと注釈の名前を使用してメッセージを動的に構築しながら、クライアント側の検証を実行します。
 
-![図 1](~/ef6/media/figure01.png)
+![図1](~/ef6/media/figure01.png)
 
 この Create view のポストバックメソッドでは、新しいブログをデータベースに保存するために Entity Framework が使用されますが、アプリケーションがそのコードに到達する前に MVC のクライアント側の検証がトリガーされます。
 
-ただし、クライアント側の検証は箇条書きではありません。 ユーザーはブラウザーの機能に影響を与える可能性がありますが、さらに悪いことに、ハッカーは UI 検証を回避するために trickery を使用することがあります。 ただし、Entity Framework は @no__t 0 の注釈も認識し、検証します。
+ただし、クライアント側の検証は箇条書きではありません。 ユーザーはブラウザーの機能に影響を与える可能性がありますが、さらに悪いことに、ハッカーは UI 検証を回避するために trickery を使用することがあります。 ただし、Entity Framework は `Required` 注釈も認識し、検証します。
 
 これをテストする簡単な方法は、MVC のクライアント側の検証機能を無効にすることです。 これは、MVC アプリケーションの web.config ファイルで行うことができます。 AppSettings セクションには、ClientValidationEnabled のキーがあります。 このキーを false に設定すると、UI が検証を実行できなくなります。
 
@@ -69,11 +69,11 @@ public string Title { get; set; }
 </appSettings>
 ```
 
-クライアント側の検証が無効になっている場合でも、アプリケーションで同じ応答が返されます。 "タイトルフィールドが必要です" というエラーメッセージが以前と同様に表示されます。 ただし、これを除き、サーバー側の検証の結果になります。 Entity Framework は、@no__t 0 の注釈に対して検証を実行し (データベースに送信するための `INSERT` コマンドを構築する前に面倒)、メッセージを表示する MVC にエラーを返します。
+クライアント側の検証が無効になっている場合でも、アプリケーションで同じ応答が返されます。 "タイトルフィールドが必要です" というエラーメッセージが以前と同様に表示されます。 ただし、これを除き、サーバー側の検証の結果になります。 Entity Framework は `Required` 注釈に対して検証を実行し (データベースに送信する `INSERT` コマンドを作成する前に面倒)、メッセージを表示する MVC にエラーを返します。
 
 ## <a name="fluent-api"></a>Fluent API
 
-注釈ではなく code first の fluent API を使用して、同じクライアント側 & サーバー側検証を取得できます。 @No__t-0 を使用するのではなく、MaxLength 検証を使用してこれを示します。
+注釈ではなく code first の fluent API を使用して、同じクライアント側 & サーバー側検証を取得できます。 `Required`を使用するのではなく、MaxLength 検証を使用してこれを示します。
 
 Fluent API 構成は code first で適用され、クラスからモデルを構築します。 DbContext クラスの OnModelCreating メソッドをオーバーライドすることによって、構成を挿入できます。 次に示すのは、ブログ Gername プロパティが10文字以内であることを指定する構成です。
 
@@ -122,11 +122,11 @@ public ActionResult Edit(int id, Blog blog)
 
 ## <a name="ivalidatableobject"></a>IValidatableObject
 
-`IValidatableObject` は `System.ComponentModel.DataAnnotations` に存在するインターフェイスです。 Entity Framework API には含まれていませんが、Entity Framework クラスでサーバー側の検証に使用することもできます。 `IValidatableObject` は、SaveChanges 中に Entity Framework が呼び出す @no__t 1 のメソッドを提供します。または、クラスを検証するときにいつでも呼び出すことができます。
+`IValidatableObject` は `System.ComponentModel.DataAnnotations`内に存在するインターフェイスです。 Entity Framework API には含まれていませんが、Entity Framework クラスでサーバー側の検証に使用することもできます。 `IValidatableObject` には、SaveChanges 中に Entity Framework が呼び出す `Validate` メソッドが用意されています。また、クラスを検証するときは、いつでも呼び出すことができます。
 
-@No__t-0 や `MaxLength` などの構成では、1つのフィールドに対して検証が実行されます。 @No__t-0 メソッドでは、2つのフィールドの比較など、さらに複雑なロジックを使用できます。
+`Required` や `MaxLength` などの構成では、1つのフィールドに対して検証が実行されます。 `Validate` メソッドでは、2つのフィールドの比較など、さらに複雑なロジックを使用できます。
 
-次の例では、`Blog` クラスが @no__t を実装するように拡張されており、`Title` と @no__t が一致しないという規則を提供しています。
+次の例では、`IValidatableObject` を実装するように `Blog` クラスが拡張されており、`Title` と `BloggerName` が一致しないという規則を提供しています。
 
 ``` csharp
 public class Blog : IValidatableObject
@@ -152,19 +152,19 @@ public class Blog : IValidatableObject
 }
 ```
 
-@No__t 0 のコンストラクターは、エラーメッセージを表す `string` と、検証に関連付けられているメンバー名を表す `string`s の配列を受け取ります。 この検証では、`Title` と `BloggerName` の両方がチェックされるため、両方のプロパティ名が返されます。
+`ValidationResult` コンストラクターは、エラーメッセージを表す `string` と、検証に関連付けられているメンバー名を表す `string`の配列を受け取ります。 この検証では `Title` と `BloggerName`の両方がチェックされるため、両方のプロパティ名が返されます。
 
-Fluent API によって提供される検証とは異なり、この検証結果はビューによって認識されます。また、前にエラーを追加するために使用した例外ハンドラー `ModelState` は不要です。 @No__t-0 に両方のプロパティ名を設定したため、MVC HtmlHelpers には、両方のプロパティのエラーメッセージが表示されます。
+Fluent API によって提供される検証とは異なり、この検証結果はビューによって認識されます。また、前にエラーを追加するために使用した例外ハンドラー `ModelState` は不要です。 `ValidationResult`で両方のプロパティ名を設定したため、MVC HtmlHelpers には、両方のプロパティのエラーメッセージが表示されます。
 
-![図 2](~/ef6/media/figure02.png)
+![図2](~/ef6/media/figure02.png)
 
 ## <a name="dbcontextvalidateentity"></a>DbContext. ValidateEntity
 
-`DbContext` には、`ValidateEntity` というオーバーライド可能なメソッドがあります。 @No__t-0 を呼び出すと、Entity Framework は、`Unchanged` ではない状態を持つキャッシュ内の各エンティティに対してこのメソッドを呼び出します。 ここに検証ロジックを直接配置することも、このメソッドを使用して前のセクションで追加した @no__t 0 のメソッドを呼び出すこともできます。
+`DbContext` には、`ValidateEntity`と呼ばれるオーバーライド可能なメソッドがあります。 `SaveChanges`を呼び出すと、Entity Framework は、状態が `Unchanged`ではないキャッシュ内の各エンティティに対してこのメソッドを呼び出します。 ここに検証ロジックを直接配置することも、このメソッドを使用して前のセクションで追加した `Blog.Validate` メソッドを呼び出すこともできます。
 
-次に、新しい `Post`s を検証して、投稿タイトルが既に使用されていないことを確認する @no__t 0 のオーバーライドの例を示します。 まず、エンティティが post であるかどうか、およびその状態が追加されているかどうかを確認します。 その場合は、データベースを調べて、同じタイトルの投稿が既に存在するかどうかを確認します。 既存の投稿が既に存在する場合は、新しい `DbEntityValidationResult` が作成されます。
+新しい `Post`を検証して、投稿タイトルが既に使用されていないことを確認する `ValidateEntity` オーバーライドの例を次に示します。 まず、エンティティが post であるかどうか、およびその状態が追加されているかどうかを確認します。 その場合は、データベースを調べて、同じタイトルの投稿が既に存在するかどうかを確認します。 既存の投稿が既に存在する場合は、新しい `DbEntityValidationResult` が作成されます。
 
-`DbEntityValidationResult` は、1つのエンティティに対して `DbEntityEntry` と `ICollection<DbValidationErrors>` を格納します。 このメソッドの開始時に、@no__t 0 がインスタンス化され、検出されたすべてのエラーが `ValidationErrors` コレクションに追加されます。
+`DbEntityValidationResult` は、1つのエンティティの `DbEntityEntry` と `ICollection<DbValidationErrors>` を格納します。 このメソッドの開始時に、`DbEntityValidationResult` がインスタンス化され、検出されたエラーが `ValidationErrors` コレクションに追加されます。
 
 ``` csharp
 protected override DbEntityValidationResult ValidateEntity (
@@ -198,11 +198,11 @@ protected override DbEntityValidationResult ValidateEntity (
 
 ## <a name="explicitly-triggering-validation"></a>明示的な検証のトリガー
 
-@No__t-0 を呼び出すと、この記事で説明されているすべての検証がトリガーされます。 ただし、`SaveChanges` に依存する必要はありません。 アプリケーション内の他の場所でも検証することをお勧めします。
+`SaveChanges` を呼び出すと、この記事で説明されているすべての検証がトリガーされます。 ただし、`SaveChanges`に依存する必要はありません。 アプリケーション内の他の場所でも検証することをお勧めします。
 
-`DbContext.GetValidationErrors` は、注釈または Fluent API によって定義されたすべての検証、`IValidatableObject` で作成された検証 (たとえば、`Blog.Validate`)、および `DbContext.ValidateEntity` メソッドで実行された検証をトリガーします。
+`DbContext.GetValidationErrors` によって、すべての検証がトリガーされます。これには、注釈や Fluent API によって定義された検証、`IValidatableObject` で作成された検証 (`Blog.Validate`など)、および `DbContext.ValidateEntity` メソッドで実行された検証が含まれます。
 
-次のコードは、`DbContext` の現在のインスタンスで `GetValidationErrors` を呼び出します。 `ValidationErrors` は、エンティティ型で `DbEntityValidationResult` にグループ化されます。 このコードでは、最初にメソッドによって返された @no__t 0 を反復処理してから、内の各 `DbValidationError` を使用します。
+次のコードは、`DbContext`の現在のインスタンスで `GetValidationErrors` を呼び出します。 `ValidationErrors` は、エンティティ型で `DbEntityValidationResult`にグループ化されます。 このコードは、最初にメソッドによって返された `DbEntityValidationResult`を使用し、次に内部の各 `DbValidationError` を反復処理します。
 
 ``` csharp
 foreach (var validationResult in db.GetValidationErrors())
@@ -223,8 +223,8 @@ Entity Framework 検証を使用する場合は、次の点を考慮する必要
 
 - 遅延読み込みは検証中に無効になります
 - EF は、マップされていないプロパティ (データベース内の列にマップされていないプロパティ) のデータ注釈を検証します。
-- 検証は @no__t 0 の間に変更が検出された後に実行されます。 検証中に変更を行う場合は、変更トラッカーに通知する必要があります。
-- `DbUnexpectedValidationException` は、検証中にエラーが発生した場合にスローされます。
+- 検証は、`SaveChanges`中に変更が検出された後に実行されます。 検証中に変更を行う場合は、変更トラッカーに通知する必要があります。
+- 検証中にエラーが発生すると `DbUnexpectedValidationException` がスローされる
 - クラスにデータ注釈がない場合や、EF デザイナーを使用してモデルを作成した場合でも、モデルに含まれている Entity Framework ファセット (最大長、必須など) によって検証が行われます。
 - 優先順位の規則:
   - Fluent API 呼び出しは、対応するデータ注釈をオーバーライドします
@@ -233,10 +233,10 @@ Entity Framework 検証を使用する場合は、次の点を考慮する必要
   - 型の検証は、プロパティの検証が成功した場合にのみ発生します
 - プロパティが複雑な場合、その検証にも次の内容が含まれます。
   - 複合型プロパティのプロパティレベルの検証
-  - 複合型の `IValidatableObject` 検証を含む複合型の型レベルの検証
+  - 複合型の `IValidatableObject` 検証を含む、複合型の型レベルの検証
 
 ## <a name="summary"></a>まとめ
 
 Entity Framework の検証 API は、MVC でのクライアント側の検証に非常に適していますが、クライアント側の検証に依存する必要はありません。 Entity Framework は、code first Fluent API で適用した DataAnnotations または構成のサーバー側での検証を処理します。
 
-また、`IValidatableObject` インターフェイスを使用するか `DbContext.ValidateEntity` 方法をタップするかどうかにかかわらず、動作をカスタマイズするための拡張ポイントがいくつか表示されています。 また、Code First、Model First または Database First のワークフローを使用して概念モデルを記述するかどうかにかかわらず、`DbContext` を通じて、これらの最後の2つの方法を使用できます。
+また、`IValidatableObject` インターフェイスを使用するか、`DbContext.ValidateEntity` 方法をタップするかにかかわらず、動作をカスタマイズするための拡張ポイントがいくつか表示されています。 また、Code First、Model First または Database First のワークフローを使用して概念モデルを記述するかどうかにかかわらず、`DbContext`を通じて、これらの最後の2つの方法を利用できます。

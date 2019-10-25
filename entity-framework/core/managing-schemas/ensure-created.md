@@ -3,12 +3,13 @@ title: Api の作成と削除-EF Core
 author: bricelam
 ms.author: bricelam
 ms.date: 11/07/2018
-ms.openlocfilehash: 88c1403d2fae740ad78bb7c41d404b0dd91e86ae
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+uid: core/managing-schemas/ensure-created
+ms.openlocfilehash: 32ac6cd043df73cd041780ec4c8805675adc5ab1
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813441"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72811789"
 ---
 # <a name="create-and-drop-apis"></a>Create API と Drop API
 

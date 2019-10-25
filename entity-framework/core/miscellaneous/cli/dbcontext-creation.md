@@ -4,24 +4,24 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/16/2019
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: f83d4b16227d114a1cac1514667484a908fea4ac
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: c36dae150085b1ab509288f6fabfdd8ed7201ca8
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197578"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812022"
 ---
-<a name="design-time-dbcontext-creation"></a>デザイン時 DbContext 作成
-==============================
-一部の EF Core ツールコマンド (たとえば、[移行][1]コマンド) では、アプリケーションのエンティティ`DbContext`型に関する詳細情報を収集し、データベーススキーマにマップする方法に基づいて、デザイン時に派生インスタンスを作成する必要があります。 ほとんどの場合、作成されるは実行`DbContext`時[に構成][2]するのと同様の方法で構成することをお勧めします。
+# <a name="design-time-dbcontext-creation"></a>デザイン時 DbContext 作成
 
-ツールでは、さまざまな方法で`DbContext`を作成します。
+一部の EF Core ツールコマンド (たとえば、[移行][1]コマンド) では、アプリケーションのエンティティ型に関する詳細情報を収集し、データベーススキーマにマップする方法について、派生 `DbContext` インスタンスをデザイン時に作成する必要があります。 ほとんどの場合、作成した `DbContext` は、[実行時に構成][2]するのと同様の方法で構成することをお勧めします。
 
-<a name="from-application-services"></a>アプリケーションサービスから
--------------------------
+ツールで `DbContext`を作成するには、さまざまな方法があります。
+
+## <a name="from-application-services"></a>アプリケーションサービスから
+
 スタートアッププロジェクトで[ASP.NET Core Web ホスト][3]または[.Net Core 汎用ホスト][4]が使用されている場合、ツールはアプリケーションのサービスプロバイダーから dbcontext オブジェクトを取得しようとします。
 
-ツールは、まず`Program.CreateHostBuilder()`を呼び出し、を呼び出し`Build()`て、 `Services`プロパティにアクセスすることで、サービスプロバイダーを取得しようとします。
+ツールは、まず `Program.CreateHostBuilder()`を呼び出し、`Build()`を呼び出して、`Services` プロパティにアクセスすることで、サービスプロバイダーを取得しようとします。
 
 ``` csharp
 public class Program
@@ -54,15 +54,15 @@ public class ApplicationDbContext : DbContext
 > [!NOTE]
 > 新しい ASP.NET Core アプリケーションを作成すると、このフックが既定で含まれます。
 
-自身`DbContext`とそのコンストラクター内の依存関係は、アプリケーションのサービスプロバイダーにサービスとして登録する必要があります。 これは[、の`DbContext` `DbContextOptions<TContext>`インスタンスを引数][5]と[ `AddDbContext<TContext>` ][6]して受け取り、メソッドを使用して、にコンストラクターを設定することによって簡単に実現できます。
+`DbContext` 自体とそのコンストラクター内のすべての依存関係は、アプリケーションのサービスプロバイダーにサービスとして登録する必要があります。 これは、`DbContextOptions<TContext>` のインスタンスを引数として受け取り、 [`AddDbContext<TContext>` メソッド][6]を使用して[、`DbContext` にコンストラクターを配置する][5]ことで簡単に実現できます。
 
-<a name="using-a-constructor-with-no-parameters"></a>パラメーターのないコンストラクターを使用する
---------------------------------------
-Dbcontext をアプリケーションサービスプロバイダーから取得できない場合、ツールはプロジェクト内で派生`DbContext`型を検索します。 次に、パラメーターのないコンストラクターを使用してインスタンスを作成しようとします。 `DbContext`が[メソッド`OnConfiguring`][7]を使用して構成されている場合、これは既定のコンストラクターになることがあります。
+## <a name="using-a-constructor-with-no-parameters"></a>パラメーターのないコンストラクターを使用する
 
-<a name="from-a-design-time-factory"></a>デザイン時のファクトリから
---------------------------
-また、 `IDesignTimeDbContextFactory<TContext>`インターフェイスを実装することで、dbcontext を作成する方法をツールに指示することもできます。このインターフェイスを実装しているクラスが、派生`DbContext`プロジェクトまたはアプリケーションのスタートアッププロジェクトと同じプロジェクトに存在する場合、これらのツールは dbcontext を作成する他の方法をバイパスし、代わりにデザイン時のファクトリを使用します。
+DbContext をアプリケーションサービスプロバイダーから取得できない場合、ツールはプロジェクト内で派生 `DbContext` 型を検索します。 次に、パラメーターのないコンストラクターを使用してインスタンスを作成しようとします。 `DbContext` が[`OnConfiguring`][7]メソッドを使用して構成されている場合、これは既定のコンストラクターになることがあります。
+
+## <a name="from-a-design-time-factory"></a>デザイン時のファクトリから
+
+また、`IDesignTimeDbContextFactory<TContext>` インターフェイスを実装することにより、DbContext を作成する方法を指定することもできます。このインターフェイスを実装するクラスが、派生した `DbContext` と同じプロジェクトまたはアプリケーションのスタートアッププロジェクトに存在する場合、ツールはその他をバイパスします。DbContext を作成し、代わりにデザイン時のファクトリを使用する方法。
 
 ``` csharp
 using Microsoft.EntityFrameworkCore;
@@ -85,9 +85,9 @@ namespace MyProject
 ```
 
 > [!NOTE]
-> パラメーター `args`は現在使用されていません。 ツールからデザイン時引数を指定する機能の追跡には[問題][8]があります。
+> `args` パラメーターは現在使用されていません。 ツールからデザイン時引数を指定する機能の追跡には[問題][8]があります。
 
-デザイン時のファクトリは、実行時とは異なるデザイン時に dbcontext を別の方法で構成する必要がある場合、 `DbContext`コンストラクターが di に登録されていない場合、di を使用していない場合、または理由は、ASP.NET Core アプリケーションの`BuildWebHost` `Main`クラスにメソッドを使用しないことです。
+デザイン時のファクトリは、実行時とは異なるデザイン時に DbContext を別の方法で構成する必要がある場合、`DbContext` コンストラクターが DI に登録されていない場合、DI を使用していない場合、または何らかの理由で何らかの理由でそのような場合に特に役立ちます。ASP.NET Core アプリケーションの `Main` クラスに `BuildWebHost` メソッドを使用しないことをお勧めします。
 
   [1]: xref:core/managing-schemas/migrations/index
   [2]: xref:core/miscellaneous/configuring-dbcontext
