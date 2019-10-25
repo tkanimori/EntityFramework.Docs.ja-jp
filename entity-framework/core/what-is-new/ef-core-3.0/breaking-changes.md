@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 690c7828cfe5019f4e7ae904c92430fab4726cb9
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: b2e3881e3454377dab7851cba999ed6b891def4e
+ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72446015"
+ms.lasthandoff: 10/23/2019
+ms.locfileid: "72812126"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
 以下の API と動作変更により、3.0.0 へのアップグレード時に、既存のアプリケーションが中断される可能性があります。
@@ -69,6 +69,7 @@ ms.locfileid: "72446015"
 | [Microsoft.EntityFrameworkCore.Design が DevelopmentDependency パッケージになった](#dip) | Low      |
 | [SQLitePCL.raw がバージョン 2.0.0 に更新された](#SQLitePCL) | Low      |
 | [NetTopologySuite がバージョン 2.0.0 に更新された](#NetTopologySuite) | Low      |
+| [System.Data.SqlClient ではなく Microsoft.Data.SqlClient が使用される](#SqlClient) | Low      |
 | [複数のあいまいな自己参照リレーションシップを構成する必要がある](#mersa) | Low      |
 | [DbFunction.Schema が null または空の文字列である場合、モデルの既定のスキーマに構成される](#udf-empty-string) | Low      |
 
@@ -1626,6 +1627,29 @@ SQLitePCL.raw バージョン 2.0.0 には、いくつかの破壊的変更が�
 **軽減策**
 
 NetTopologySuite バージョン 2.0.0 には、いくつかの破壊的変更が含まれています。 詳細については、[リリース ノート](https://www.nuget.org/packages/NetTopologySuite/2.0.0-pre001)をご覧ください。
+
+<a name="SqlClient"></a>
+
+### <a name="microsoftdatasqlclient-is-used-instead-of-systemdatasqlclient"></a>System.Data.SqlClient ではなく Microsoft.Data.SqlClient が使用される
+
+[問題 #15636 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15636)
+
+**以前の動作**
+
+Microsoft.EntityFrameworkCore.SqlServer は、以前は System.Data.SqlClient に依存していました。
+
+**新しい動作**
+
+Microsoft.Data.SqlClient に依存するようにパッケージを更新しました。
+
+**理由**
+
+Microsoft.Data.SqlClient は今後の SQL Server の主力データ アクセス ドライバーであり、System.Data.SqlClient は開発の中心ではなくなりました。
+Always Encrypted などの重要な機能は、Microsoft.Data.SqlClient でのみ使用できます。
+
+**軽減策**
+
+コードが System.Data.SqlClient に直接依存している場合は、代わりに Microsoft.Data.SqlClient を参照するように変更する必要があります。2 つのパッケージは非常に高度な API 互換性を維持しているため、これは単純なパッケージと名前空間の変更のみである必要があります。
 
 <a name="mersa"></a>
 
