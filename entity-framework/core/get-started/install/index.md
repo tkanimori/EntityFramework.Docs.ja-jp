@@ -4,18 +4,18 @@ author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: b4ae13ae1b22bb78c2c0407c0b3da64ee12ff2c1
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: aeb3ed1af8725ed6f92e0c0ba022a89b651bff80
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181210"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655598"
 ---
 # <a name="installing-entity-framework-core"></a>Entiy Framework Core のインストール
 
 ## <a name="prerequisites"></a>必須コンポーネント
 
-* EF Core とは、[.NET Standard 2.1](/dotnet/standard/net-standard) のライブラリです。 したがって、EF Core の動作には .NET Standard 2.1 をサポートする .NET 実装が必要です。 EF Core は他の .NET Standard 2.1 ライブラリから参照することもできます。 
+* EF Core とは、[.NET Standard 2.1](/dotnet/standard/net-standard) のライブラリです。 したがって、EF Core の動作には .NET Standard 2.1 をサポートする .NET 実装が必要です。 EF Core は他の .NET Standard 2.1 ライブラリから参照することもできます。
 
 * たとえば、.NET Core をターゲットとするアプリを EF Core を使用して開発することができます。 .NET Core アプリを構築するには、[.NET Core SDK](https://dotnet.microsoft.com/download) が必要です。 必要に応じて、[Visual Studio](https://visualstudio.microsoft.com/vs)、[Visual Studio for Mac](https://visualstudio.microsoft.com/vs/mac)、[Visual Studio Code](https://code.visualstudio.com) などの開発環境を使用することもできます。 詳しくは、「[.NET Core の概要](/dotnet/core/get-started)」をご覧ください。
 
@@ -64,6 +64,7 @@ NuGet パッケージをインストールまたは更新するには、.NET Cor
   ``` PowerShell  
   Install-Package Microsoft.EntityFrameworkCore.SqlServer
   ```
+
 * プロバイダーを更新するには、`Update-Package` コマンドを使用します。
 
 * 特定のバージョンを指定するには、`-Version` 修飾子を使用します。 たとえば、EF Core 2.2.0 のパッケージをインストールするには、コマンドの末尾に `-Version 2.2.0` を追加します。
@@ -76,7 +77,7 @@ EF Core 関連のタスクをプロジェクト内で実行するためのツー
 
 2 つのツールのセットを使用できます。
 
-* [.NET Core コマンド ライン インターフェイス (CLI) ツール](xref:core/miscellaneous/cli/dotnet)は、Windows、Linux、macOS で使用できます。 これらのコマンドは `dotnet ef` で始まります。 
+* [.NET Core コマンド ライン インターフェイス (CLI) ツール](xref:core/miscellaneous/cli/dotnet)は、Windows、Linux、macOS で使用できます。 これらのコマンドは `dotnet ef` で始まります。
 
 * [パッケージ マネージャー コンソール (PMC) ツール](xref:core/miscellaneous/cli/powershell)は、Windows 上の Visual Studio の中で動作します。 これらのコマンドは `Add-Migration`、`Update-Database` のように動詞で始まります。
 
@@ -94,28 +95,28 @@ EF Core 関連のタスクをプロジェクト内で実行するためのツー
 
 `dotnet ef` のコマンドは現在のバージョンの .NET Core SDK に含まれていますが、このコマンドを特定のプロジェクトで使用できるようにするには、次の方法で `Microsoft.EntityFrameworkCore.Design` パッケージをインストールする必要があります。
 
-``` Console 
-dotnet add package Microsoft.EntityFrameworkCore.Design 
-``` 
+``` Console
+dotnet add package Microsoft.EntityFrameworkCore.Design
+```
 
 ASP.NET Core アプリの場合は、このパッケージが自動的に組み込まれます。
 
-> [!IMPORTANT]      
+> [!IMPORTANT]
 > ランタイム パッケージのメジャー バージョンと一致するバージョンのツール パッケージを常に使用してください。
 
 ### <a name="get-the-package-manager-console-tools"></a>パッケージ マネージャー コンソール ツールを入手する
 
 EF Core 用のパッケージ マネージャー コンソール ツールを入手するには、`Microsoft.EntityFrameworkCore.Tools` パッケージをインストールします。 たとえば、Visual Studio で次のようにします。
 
-``` PowerShell  
+``` PowerShell
 Install-Package Microsoft.EntityFrameworkCore.Tools
-``` 
+```
 
 ASP.NET Core アプリの場合は、このパッケージが自動的に組み込まれます。
 
 ## <a name="upgrading-to-the-latest-ef-core"></a>最新の EF Core にアップグレードする
 
-* 新しいバージョンの EF Core がリリースされると、EF Core プロジェクトの一部であるプロバイダー (Microsoft.EntityFrameworkCore.SqlServer、Microsoft.EntityFrameworkCore.Sqlite、Microsoft.EntityFrameworkCore.InMemory など) の新しいバージョンもリリースされます。 新しいバージョンのプロバイダーにアップグレードするだけで、すべての機能強化を入手できます。 
+* 新しいバージョンの EF Core がリリースされると、EF Core プロジェクトの一部であるプロバイダー (Microsoft.EntityFrameworkCore.SqlServer、Microsoft.EntityFrameworkCore.Sqlite、Microsoft.EntityFrameworkCore.InMemory など) の新しいバージョンもリリースされます。 新しいバージョンのプロバイダーにアップグレードするだけで、すべての機能強化を入手できます。
 
 * EF Core は、SQL Server やインメモリのプロバイダーとともに現在のバージョンの ASP.NET Core に含まれています。 既存の ASP.NET Core アプリケーションを新しいバージョンの EF Core に合わせてアップグレードするには、必ず ASP.NET Core のバージョンをアップグレードします。
 
@@ -128,7 +129,7 @@ ASP.NET Core アプリの場合は、このパッケージが自動的に組み�
   * データベース プロバイダーのデザイン時パッケージ (たとえば `Microsoft.EntityFrameworkCore.SqlServer.Design`) は、EF Core 2.0 からは不要になり、サポートもされなくなりましたが、他のパッケージをアップグレードするときに自動で削除されることはありません。
 
   * .NET CLI ツールがバージョン 2.1 以降の .NET SDK に含まれているので、そのパッケージへの参照は次の方法でプロジェクト ファイルから削除できます。
-    ```xml
+
+    ``` xml
     <DotNetCliToolReference Include="Microsoft.EntityFrameworkCore.Tools.DotNet" Version="2.0.0" />
     ```
-

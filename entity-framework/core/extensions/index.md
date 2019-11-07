@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 01/07/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 0c9671eb77181d85cd493341cd1abf842d13fb0e
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: e70011b42818e4df1ec5b9b88d7adb9d36bb26f1
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181268"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654797"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -28,7 +28,7 @@ LLBLGen Pro は、Entity Framework と Entity Framework Core のサポートを�
 
 ### <a name="devart-entity-developer"></a>Devart Entity Developer
 
-Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な ORM デザインです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。 
+Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な ORM デザインです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。
 
 [Web サイト](https://www.devart.com/entitydeveloper/)
 
@@ -52,7 +52,7 @@ CatFactory は SQL Server データベースからの DbContext のクラス、�
 
 ### <a name="loresofts-entity-framework-core-generator"></a>LoreSoft の Entity Framework Core Generator
 
-Entity Framework Core Generator (efg) は既存のデータベースから EF Core モデルを生成できる .NET Core の CLI ツールで、`dotnet ef dbcontext scaffold` と非常に似ていますが、リージョンの置換やマッピング ファイルの解析による安全なコードの[再生成](https://efg.loresoft.com/en/latest/regeneration/)もサポートしています。 このツールは、ビュー モデル、検証、およびオブジェクト マッパー コードの生成をサポートしています。 
+Entity Framework Core Generator (efg) は既存のデータベースから EF Core モデルを生成できる .NET Core の CLI ツールで、`dotnet ef dbcontext scaffold` と非常に似ていますが、リージョンの置換やマッピング ファイルの解析による安全なコードの[再生成](https://efg.loresoft.com/en/latest/regeneration/)もサポートしています。 このツールは、ビュー モデル、検証、およびオブジェクト マッパー コードの生成をサポートしています。
 
 [チュートリアル](https://www.loresoft.com/Generate-ASP-NET-Web-API)
 [ドキュメント](https://efg.loresoft.com/en/latest/)
@@ -86,7 +86,7 @@ EF Core との非同期サポートが含まれる System.Linq.Dynamic の .NET 
 
 ### <a name="entityframeworkcoretypedoriginalvalues"></a>EntityFrameworkCore.TypedOriginalValues
 
-このライブラリにより、エンティティ プロパティの元の値に対し、厳密に型指定されたアクセスができるようになります。 
+このライブラリにより、エンティティ プロパティの元の値に対し、厳密に型指定されたアクセスができるようになります。
 
 [GitHub リポジトリ](https://github.com/NickStrupat/EntityFramework.TypedOriginalValues/)
 

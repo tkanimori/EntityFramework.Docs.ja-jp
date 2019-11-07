@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: e9c4013d17a2d41772822f77b3ceba15702ffc48
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: bf9aa32dd731b60d2985a9fe8bebd703af4af03b
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812057"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655573"
 ---
 # <a name="migrations"></a>移行
 
@@ -39,13 +39,19 @@ ms.locfileid: "72812057"
 
 [最初のモデルを定義](xref:core/modeling/index)したら、次にデータベースを作成します。 最初の移行を追加するには、次のコマンドを実行します。
 
-``` powershell
-Add-Migration InitialCreate
-```
+## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ``` Console
 dotnet ef migrations add InitialCreate
 ```
+
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+
+``` powershell
+Add-Migration InitialCreate
+```
+
+***
 
 **[移行]** ディレクトリの下で 3 つのファイルがプロジェクトに追加されます。
 
@@ -62,25 +68,37 @@ dotnet ef migrations add InitialCreate
 
 次に、移行をデータベースに適用し、スキーマを作成します。
 
-``` powershell
-Update-Database
-```
+## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ``` Console
 dotnet ef database update
 ```
 
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+
+``` powershell
+Update-Database
+```
+
+***
+
 ## <a name="customize-migration-code"></a>移行コードをカスタマイズする
 
 EF Core モデルの変更後、データベース スキーマは同期していない状態になります。それを最新の状態にするには、別の移行を追加します。 移行名は、バージョン管理システムのコミット メッセージのように使用できます。 たとえば、変更するのがレビュー用の新しいエンティティ クラスである場合、*AddProductReviews* などの名前を選択します。
+
+## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+
+``` Console
+dotnet ef migrations add AddProductReviews
+```
+
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration AddProductReviews
 ```
 
-``` Console
-dotnet ef migrations add AddProductReviews
-```
+***
 
 移行が (それのためにコードが生成され) スキャフォールディングされたら、コードが正しいか確認し、それを正しく適用するために必要な任意の操作を追加、削除または変更します。
 
@@ -129,13 +147,19 @@ migrationBuilder.DropColumn(
 
 適切なコマンドを利用し、データベースに移行を適用します。
 
-``` powershell
-Update-Database
-```
+## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ``` Console
 dotnet ef database update
 ```
+
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+
+``` powershell
+Update-Database
+```
+
+***
 
 ### <a name="empty-migrations"></a>空の移行
 
@@ -151,13 +175,19 @@ dotnet ef database update
 
 移行の追加後、適用する前に EF Core モデルの追加変更が必要なことに気付く場合があります。 最後の移行を削除するには、このコマンドを使用します。
 
-``` powershell
-Remove-Migration
-```
+## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ``` Console
 dotnet ef migrations remove
 ```
+
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+
+``` powershell
+Remove-Migration
+```
+
+***
 
 移行の削除後、追加のモデル変更を行い、もう一度追加できます。
 
@@ -165,25 +195,37 @@ dotnet ef migrations remove
 
 移行をデータベースに既に適用しているが、元に戻す必要がある場合、同じコマンドを使用して移行を適用できますが、ロールバックする移行の名前を指定します。
 
-``` powershell
-Update-Database LastGoodMigration
-```
+## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ``` Console
 dotnet ef database update LastGoodMigration
 ```
 
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+
+``` powershell
+Update-Database LastGoodMigration
+```
+
+***
+
 ## <a name="generate-sql-scripts"></a>SQL スクリプトを生成する
 
 移行をデバッグするか、それを実稼働データベースに展開するとき、SQL スクリプトを生成すると便利です。 このスクリプトはさらに見直して正しいかどうかを確認し、実稼働データベースのニーズに合わせて調整できます。 このスクリプトは、展開テクノロジとの連動でも利用できます。 基本コマンドは次のとおりです。
+
+## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+
+``` Console
+dotnet ef migrations script
+```
+
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Script-Migration
 ```
 
-``` Console
-dotnet ef migrations script
-```
+***
 
 このコマンドにはいくつかのオプションがあります。
 
