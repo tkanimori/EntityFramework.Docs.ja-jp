@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 3f1993c2-cdf5-425b-bac2-a2665a20322b
 uid: core/saving/explicit-values-generated-properties
-ms.openlocfilehash: d6aa9a0a9ce34e09a39026ad7ea9195b6777858c
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: ea469b9b7199cc767b2d0da1a5999026f938d087
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197861"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656258"
 ---
 # <a name="setting-explicit-values-for-generated-properties"></a>生成されるプロパティに明示的な値を設定する
 
@@ -33,6 +33,7 @@ ms.locfileid: "71197861"
 [!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#EmploymentStarted)]
 
 次のコードでは、データベースに 2 名の従業員を挿入しています。
+
 * 1 人目の従業員では、`Employee.EmploymentStarted` プロパティに割り当てられている値がないため、`DateTime` には CLR 既定値が設定されたままです。
 * 2 人目の従業員では、`1-Jan-2000` という明示的な値を設定しました。
 
@@ -80,6 +81,7 @@ ms.locfileid: "71197861"
 [!code-sql[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
 
 次のコードでは、データベース内の 2 人の従業員の給与を引き上げています。
+
 * 1 人目の従業員では、`Employee.LastPayRaise` プロパティに割り当てられている値がないため、null に設定されたままです。
 * 2 人目の従業員では、1 週間前 (給与引き上げの日付へ戻る) の明示的な値を設定します。
 

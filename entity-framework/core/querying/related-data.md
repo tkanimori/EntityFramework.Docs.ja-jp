@@ -4,16 +4,17 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 4e4ba21cd099daab4db8a8f358800fde26980c14
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: bfabe8fd5b0a64edd5d97baff3beab9d712f1c20
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813586"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654629"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
 Entity Framework Core を使用すると、モデル内でナビゲーション プロパティを使用して関連エンティティを読み込むことができます。 関連データの読み込みに使用される共通の O/RM パターンが 3 つあります。
+
 * **一括読み込み**。初期クエリの一部としてデータベースから関連データが読み込まれることを意味します。
 * **明示的読み込み**。後でデータベースから明示的に関連データが読み込まれることを意味します。
 * **遅延読み込み**。ナビゲーション プロパティにアクセスしたときに、データベースから透過的に関連データが読み込まれることを意味します。
@@ -57,7 +58,7 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 
 ### <a name="include-on-derived-types"></a>派生型に対するインクルード
 
-`Include` と `ThenInclude` を使用して、派生型にのみ定義されているナビゲーションの関連データを含めることができます。 
+`Include` と `ThenInclude` を使用して、派生型にのみ定義されているナビゲーションの関連データを含めることができます。
 
 次のモデルがあるとします。
 
@@ -95,17 +96,20 @@ public class School
 
 生徒である全ユーザーの `School` ナビゲーションの内容を一括して読み込むには、いくつかのパターンを使用できます。
 
-- キャストを使用する
+* キャストを使用する
+
   ```csharp
   context.People.Include(person => ((Student)person).School).ToList()
   ```
 
-- `as` 演算子を使用する
+* `as` 演算子を使用する
+
   ```csharp
   context.People.Include(person => (person as Student).School).ToList()
   ```
 
-- 型 `string` のパラメーターを受け取る `Include` のオーバーロードを使用する
+* 型 `string` のパラメーターを受け取る `Include` のオーバーロードを使用する
+
   ```csharp
   context.People.Include("School").ToList()
   ```
@@ -140,6 +144,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         .UseLazyLoadingProxies()
         .UseSqlServer(myConnectionString);
 ```
+
 または、AddDbContext を使用する場合:
 
 ```csharp

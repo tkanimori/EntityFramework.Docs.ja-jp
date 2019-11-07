@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: ff12c4e7ace1f1b9e503cb2353bcdd53efd87cce
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 952cb891d145a47666f1d506ec00f066be9f245d
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197896"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654749"
 ---
 # <a name="using-transactions"></a>トランザクションの使用
 
@@ -99,9 +99,9 @@ public class BloggingContext : DbContext
 
 ### <a name="limitations-of-systemtransactions"></a>System.Transactions の制限  
 
-1. EF Core は、System.Transactions に対するサポートの実装をデータベース プロバイダーに依存しています。 .NET Framework の ADO.NET プロバイダーの間では、サポートは非常に一般的ですが、この API は .NET Core 最近追加されたため、広い範囲でサポートされているとは言えません。 プロバイダーが System.Transactions のサポートを実装していない場合、これらの API への呼び出しは、完全に無視される可能があります。 SqlClient for .NET Core では、2.1 以降、それをサポートします。 SqlClient for .NET Core 2.0 では、この機能を使用しようとすると、例外がスローされます。 
+1. EF Core は、System.Transactions に対するサポートの実装をデータベース プロバイダーに依存しています。 .NET Framework の ADO.NET プロバイダーの間では、サポートは非常に一般的ですが、この API は .NET Core 最近追加されたため、広い範囲でサポートされているとは言えません。 プロバイダーが System.Transactions のサポートを実装していない場合、これらの API への呼び出しは、完全に無視される可能があります。 SqlClient for .NET Core では、2.1 以降、それをサポートします。 SqlClient for .NET Core 2.0 では、この機能を使用しようとすると、例外がスローされます。
 
    > [!IMPORTANT]  
-   > この API に依存してトランザクションを管理する前に、お使いのプロバイダーで API が正常に動作することをテストすることをお勧めします。 そうでない場合は、データベース プロバイダーの保守管理者に連絡することが推奨されます。 
+   > この API に依存してトランザクションを管理する前に、お使いのプロバイダーで API が正常に動作することをテストすることをお勧めします。 そうでない場合は、データベース プロバイダーの保守管理者に連絡することが推奨されます。
 
-2. バージョン 2.1 の時点では、.NET Core での System.Transactions の実装には、分散トランザクションのサポートは含まれていません。したがって、`TransactionScope` または `CommittableTransaction` を使用して複数のリソース マネージャー間でトランザクションを調整することはできません。 
+2. バージョン 2.1 の時点では、.NET Core での System.Transactions の実装には、分散トランザクションのサポートは含まれていません。したがって、`TransactionScope` または `CommittableTransaction` を使用して複数のリソース マネージャー間でトランザクションを調整することはできません。

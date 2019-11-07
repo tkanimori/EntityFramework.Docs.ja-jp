@@ -5,12 +5,12 @@ ms.author: avickers
 ms.date: 10/27/2016
 ms.assetid: 2533b195-d357-4056-b0e0-8698971bc3b0
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: 070f2ad396ec21858096c29413ac80bdf8547328
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 88c3fa8ea5b8246a932f5cf21e674bc7cc71c0ea
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197803"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656271"
 ---
 # <a name="disconnected-entities"></a>接続解除エンティティ
 
@@ -18,11 +18,13 @@ DbContext インスタンスでは、データベースから返されるエン�
 
 しかし、エンティティが 1 つのコンテキスト インスタンスを使って照会され、別のインスタンスを使って保存される場合があります。 これは、エンティティの照会、クライアントへの送信、変更、要求内でのサーバーへの返送、および保存が行われる Web アプリケーションなどの "接続解除" シナリオで、頻繁に発生します。 この場合、2 番目のコンテキスト インスタンスでは、エンティティが新しいか (挿入する必要がある) または既存か (更新する必要があるか) を把握する必要があります。
 
-> [!TIP]  
+<!-- markdownlint-disable MD028 -->
+> [!TIP]
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Disconnected/)は GitHub で確認できます。
 
 > [!TIP]
 > EF Core では、指定されたプライマリ キー値を持つ任意のエンティティの 1 つのインスタンスしか追跡できません。 これを回避する最善の方法は、各作業単位に一時的なコンテキストを使用して、最初は空のコンテキストにエンティティをアタッチし、それらのエンティティを保存してから、コンテキストが消去および破棄されるようにすることです。
+<!-- markdownlint-enable MD028 -->
 
 ## <a name="identifying-new-entities"></a>新しいエンティティの識別
 
@@ -50,8 +52,9 @@ DbContext インスタンスでは、データベースから返されるエン�
 ### <a name="with-other-keys"></a>他のキーを利用する
 
 キー値が自動生成されない場合、他のいくつかのメカニズムが、新しいエンティティの識別に利用されます。 これを行うための一般的な方法として、次の 2 つがあります。
- * エンティティに対してクエリを実行する
- * クライアントからフラグを渡す
+
+* エンティティに対してクエリを実行する
+* クライアントからフラグを渡す
 
 エンティティに対してクエリを実行するには、単純に Find メソッドを使用します。
 
@@ -79,6 +82,7 @@ Update メソッドは通常、挿入ではなく、更新用のエンティテ�
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertOrUpdateSingleEntityWithFind)]
 
 この場合の手順は、次のようになります。
+
 * Find で null が返された場合、データベースがこの ID のブログを既に含んでいるわけではないため、Add を呼び出して挿入用にマークします。
 * Find がエンティティを返した場合は、エンティティがデータベースに存在しており、コンテキストは既存のエンティティを追跡するようになります。
   * SetValues を使用して、このエンティティ上のすべてのプロパティの値を、クライアントから受信したプロパティに設定します。
@@ -127,7 +131,7 @@ Update は、設定されたキー値がない場合は、グラフ、ブログ�
 
 エンティティの不在は、エンティティが削除されていることを意味することがよくあるため、削除は慎重に扱う必要があります。 これに対処する方法の 1 つは、エンティティが実際に削除されるのではなく、削除としてマークされるように、"論理的な削除" を使用することです。 これで、削除は更新と同様になります。 論理的な削除は、[クエリ フィルター](xref:core/querying/filters)を使用して実装できます。
 
-実際の削除では、一般的なパターンとしてクエリ パターンの拡張機能を使用して、本質的なグラフの差分特定を行います。次に例を示します。
+実際の削除では、一般的なパターンとしてクエリ パターンの拡張機能を使用して、本質的なグラフの差分特定を行います。 次に例を示します。
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#InsertUpdateOrDeleteGraphWithFind)]
 

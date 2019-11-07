@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: af86383bad52c87d2874fa4f8eb247a656601312
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 51c8b6f4517a3f87821ed1e4e2d60549e06ed39d
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182006"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656064"
 ---
 # <a name="cascade-delete"></a>連鎖削除
 
@@ -18,9 +18,11 @@ ms.locfileid: "72182006"
 EF Core は複数の削除動作を実装しており、個々のリレーションシップの削除動作を構成できます。 また、EF Core は[リレーションシップの必要性](../modeling/relationships.md#required-and-optional-relationships)に基づいて、各リレーションシップに対して有用な既定の削除動作を自動的に構成する規則も実装しています。
 
 ## <a name="delete-behaviors"></a>削除動作
+
 削除動作は、*DeleteBehavior* 列挙子型で定義されます。また、*OnDelete* fluent API に渡して、プリンシパル/親エンティティの削除または依存/子エンティティとのリレーションシップの切断が、依存/子エンティティに副作用を及ぼすかどうかを制御することができます。
 
 プリンシパル/親エンティティが削除されたとき、またはその子とのリレーションシップが切断されたときに EF が実行する可能性があるアクションは次の 3 つです。
+
 * 子/依存が削除される可能性があります
 * 子の外部キー (FK) 値が null に設定される可能性があります
 * 子は変更されません
@@ -33,6 +35,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 次の表に示すように、削除動作は 4 つあります。
 
 ### <a name="optional-relationships"></a>省略可能なリレーションシップ
+
 省略可能なリレーションシップ (Null 許容の外部キー) の場合、null の外部キー値を保存することが_できます_。その結果、次のような影響があります。
 
 | 動作名               | メモリ内の依存/子への影響    | データベース内の依存/子への影響  |
@@ -43,6 +46,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 | **Restrict**                | なし                                   | なし                                   |
 
 ### <a name="required-relationships"></a>必須リレーションシップ
+
 必須のリレーションシップ (Null 許容ではない外部キー) の場合、null の外部キー値を保存することが_できません_。その結果、次のような影響があります。
 
 | 動作名         | メモリ内の依存/子への影響 | データベース内の依存/子への影響 |
@@ -55,6 +59,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 上記の表の "*なし*" は制約違反を引き起こす可能性があります。 たとえば、プリンシパル/子エンティティが削除されても、依存/子の外部キーを変更するアクションが実行されない場合、データベースは外部制約違反のために SaveChanges をスローする可能性があります。
 
 高レベルでは:
+
 * 親なしでは存在できないエンティティがあり、EF で子を自動的に削除したい場合は、*Cascade* を使用します。
   * 通常、親なしでは存在できないエンティティは、必須のリレーションシップを使用します。この場合、*Cascade* が既定です。
 * エンティティが親を持つ場合と持たない場合があり、EF で外部キーを自動機に null にする場合は、*ClientSetNull* を使用します。
@@ -107,7 +112,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>必須のリレーションシップがある DeleteBehavior.ClientSetNull または DeleteBehavior.SetNull
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -130,7 +135,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>省略可能なリレーションシップがある DeleteBehavior.ClientSetNull または DeleteBehavior.SetNull
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -160,7 +165,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>必須または省略可能なリレーションシップがある DeleteBehavior.Restrict
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -189,7 +194,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ### <a name="deletebehaviorcascade-with-required-or-optional-relationship"></a>必須または省略可能なリレーションシップがある DeleteBehavior.Cascade
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -217,7 +222,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-required-relationship"></a>必須のリレーションシップがある DeleteBehavior.ClientSetNull または DeleteBehavior.SetNull
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -240,7 +245,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ### <a name="deletebehaviorclientsetnull-or-deletebehaviorsetnull-with-optional-relationship"></a>省略可能なリレーションシップがある DeleteBehavior.ClientSetNull または DeleteBehavior.SetNull
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.
@@ -268,7 +273,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ### <a name="deletebehaviorrestrict-with-required-or-optional-relationship"></a>必須または省略可能なリレーションシップがある DeleteBehavior.Restrict
 
-```console
+``` output
   After loading entities:
     Blog '1' is in state Unchanged with 2 posts referenced.
       Post '1' is in state Unchanged with FK '1' and reference to blog '1'.

@@ -3,12 +3,12 @@ title: コンカレンシーの競合の処理 - EF Core
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: 4d6ff24e58caa0b228e9c1e4313beda78d1025fc
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: b72fa472698e76e18f155cf96b738b0e193eee0f
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197835"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654613"
 ---
 # <a name="handling-concurrency-conflicts"></a>コンカレンシーの競合の処理
 
@@ -56,11 +56,9 @@ WHERE [PersonId] = @p0 AND [LastName] = @p2;
 
 **コンカレンシーの競合を解決するために使用可能な 3 つの設定値を次に示します。**
 
-* **現在の値**は、アプリケーションがデータベースへの書き込みを試行している値です。
-
-* **元の値**は、何らかの編集が行われる前に、データベースから取得された元の値です。
-
-* **データベース値**は、データベースに現在格納されている値です。
+- **現在の値**は、アプリケーションがデータベースへの書き込みを試行している値です。
+- **元の値**は、何らかの編集が行われる前に、データベースから取得された元の値です。
+- **データベース値**は、データベースに現在格納されている値です。
 
 コンカレンシーの競合を処理する一般的な方法は、次のとおりです。
 

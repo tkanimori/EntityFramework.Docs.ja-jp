@@ -4,25 +4,26 @@ author: divega
 ms.date: 11/14/2018
 ms.assetid: 998C04F3-676A-4FCF-8450-CFB0457B4198
 uid: core/what-is-new/ef-core-2.2
-ms.openlocfilehash: 5fcf7c6dfb4d8cb7928ef974af6deb52df7c63eb
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: fb9de799753bebd7b4092cd8f4af74703dee3e45
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181371"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656196"
 ---
 # <a name="new-features-in-ef-core-22"></a>EF Core 2.2 の新機能
 
 ## <a name="spatial-data-support"></a>空間データのサポート
 
 オブジェクトの物理的な場所と形状を表現するために、空間データを使用できます。
-多くのデータベースでは、空間データの格納、インデックス付け、照会をネイティブで実行できます。 一般的なシナリオとしては、特定の距離内にあるオブジェクトにクエリを実行する場合や、特定の場所が多角形に含まれるかどうかテストする場合などがあります。
+多くのデータベースでは、空間データの格納、インデックス付け、照会をネイティブで実行できます。
+一般的なシナリオとしては、特定の距離内にあるオブジェクトにクエリを実行する場合や、特定の場所が多角形に含まれるかどうかテストする場合などがあります。
 EF Core 2.2 では、[NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) (NTS) ライブラリからの型を使用して、さまざまなデータベースの空間データを操作できるようになりました。
 
 空間データのサポートは、一連のプロバイダー固有の拡張機能パッケージとして実装されています。
 これらの各パッケージには、NTS 型用のマッピングとメソッド、および対応するデータベースの空間型と関数が用意されています。
 現在、このようなプロバイダーの拡張機能は [SQL Server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite/)、[SQLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite/)、([Npgsql プロジェクト](https://www.npgsql.org/)の) [PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite/) で使用できます。
-空間型は、追加の拡張機能なしで、[EF Core のメモリ内プロバイダー](https://docs.microsoft.com/en-us/ef/core/providers/in-memory/)と共に直接使用できます。
+空間型は、追加の拡張機能なしで、[EF Core のメモリ内プロバイダー](xref:core/providers/in-memory/index)と共に直接使用できます。
 
 プロバイダーの拡張機能をインストールすると、サポートされている型のプロパティをエンティティに追加できます。 次に例を示します。
 
@@ -40,7 +41,7 @@ namespace MyApp
     public Point Location { get; set; }
   }
 }
-``` 
+```
 
 その後、空間データを含むエンティティを保持できます。
 
@@ -56,6 +57,7 @@ using (var context = new MyDbContext())
     context.SaveChanges();
 }
 ```
+
 さらに、空間のデータと操作に基づくデータベース クエリを実行できます。
 
 ``` csharp
@@ -65,7 +67,7 @@ using (var context = new MyDbContext())
       select f).Take(5).ToList();
 ```
 
-この機能について詳しくは、[空間型に関するドキュメント](xref:core/modeling/spatial)をご覧ください。 
+この機能について詳しくは、[空間型に関するドキュメント](xref:core/modeling/spatial)をご覧ください。
 
 ## <a name="collections-of-owned-entities"></a>所有エンティティのコレクション
 
@@ -74,7 +76,8 @@ EF Core 2.2 では、所有権を表す機能が一対多の関連付けに拡�
 所有権は、エンティティの使用方法を制限するのに役立ちます。
 
 たとえば、所有エンティティは:
-- その他のエンティティ型のナビゲーション プロパティにのみ現れます。 
+
+- その他のエンティティ型のナビゲーション プロパティにのみ現れます。
 - 自動的に読み込まれ、DbContext とその所有者によってのみ追跡されます。
 
 リレーショナル データベースでは、所有されているコレクションは通常の一対多の関連付けと同じように、所有者から個別のテーブルにマッピングされます。
@@ -112,4 +115,4 @@ FROM [Friends] AS [f]
 ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 ```
 
-詳細については、[クエリのタグに関するドキュメント](xref:core/querying/tags)をご覧ください。 
+詳細については、[クエリのタグに関するドキュメント](xref:core/querying/tags)をご覧ください。

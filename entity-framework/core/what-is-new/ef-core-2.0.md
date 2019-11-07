@@ -4,16 +4,17 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 781578d9de05895cdbc777aa53c3f6d6f9777869
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 72393e96c195af1df5a169025ca2ce7a7acb16bb
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149050"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656223"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
 
 ## <a name="net-standard-20"></a>.NET Standard 2.0
+
 EF Core が .NET Standard 2.0 対応になりました。つまり、.NET Core 2.0、.NET Framework 4.6.1、および .NET Standard 2.0 を実装するその他のライブラリで使えるようになりました。
 サポート対象の詳細については、「[Supported .NET Implementations](../platforms/index.md)」 (サポートされている .NET 実装) を参照してください。
 
@@ -32,6 +33,7 @@ modelBuilder.Entity<Product>()
 modelBuilder.Entity<Product>().ToTable("Products");
 modelBuilder.Entity<ProductDetails>().ToTable("Products");
 ```
+
 この機能の詳細については、[テーブル分割](xref:core/modeling/table-splitting)に関するページを参照してください。
 
 ### <a name="owned-types"></a>所有されている型
@@ -65,6 +67,7 @@ public class StreetAddress
     public string City { get; set; }
 }
 ```
+
 この機能に関する詳細は、[所有エンティティ型のセクション](xref:core/modeling/owned-entities)をご覧ください。
 
 ### <a name="model-level-query-filters"></a>モデルレベルのクエリ フィルター
@@ -92,6 +95,7 @@ public class BloggingContext : DbContext
     }
 }
 ```
+
 エンティティ型 `Post` のインスタンスに対してマルチテナントと論理削除を実行するモデルレベル フィルターを定義します。 DbContext インスタンス レベル プロパティ `TenantId` の使用に注目してください。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているコンテキスト インスタンス) の値を使用します。
 
 フィルターは、IgnoreQueryFilters() 演算子を利用し、個々の LINQ クエリに対して無効にできます。
@@ -298,9 +302,11 @@ public class MyPluralizer : IPluralizer
 ## <a name="others"></a>Others
 
 ### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>ADO.NET SQLite プロバイダーを SQLitePCL.raw に移動
+
 これにより、Microsoft.Data.Sqlite で、さまざまプラットフォームでネイティブ SQLite バイナリを配信するためのソリューションがより堅牢になります。
 
 ### <a name="only-one-provider-per-model"></a>モデルごとにプロバイダーは 1 つ
+
 プロバイダーがモデルと対話するしくみが大幅に増強され、規則、注釈、fluent API がさまざまプロバイダーと連動するしくみが単純になりました。
 
 EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、*一般的なリレーショナル メタデータ コンセプト*へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。

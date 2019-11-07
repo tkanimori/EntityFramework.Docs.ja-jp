@@ -4,14 +4,15 @@ author: divega
 ms.date: 02/19/2019
 ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: b2e3881e3454377dab7851cba999ed6b891def4e
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: f02825f5303959997dca6e14e4efe64020b3cb22
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812126"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655876"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
+
 以下の API と動作変更により、3.0.0 へのアップグレード時に、既存のアプリケーションが中断される可能性があります。
 データベース プロバイダーにのみ影響することが予想される変更については、[プロバイダーの変更](xref:core/providers/provider-log)に関するページに記載されています。
 
