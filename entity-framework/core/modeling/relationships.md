@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0ff736a3-f1b0-4b58-a49c-4a7094bd6935
 uid: core/modeling/relationships
-ms.openlocfilehash: 1e9c62bec47263ef452c7ac425a0bb446f9371d8
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 1e59ce9e19c12aa5564bc8467dcfcb3be8ee8996
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197656"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655669"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -38,21 +38,21 @@ ms.locfileid: "71197656"
 
   * **逆ナビゲーションプロパティ:** この用語は、特定のナビゲーションプロパティを説明するときに、リレーションシップのもう一方の端のナビゲーションプロパティを参照します。
 
-次のコードリストは、との間`Blog`の一対多リレーションシップを示しています。`Post`
+次のコードリストは、`Blog` との間の一対多リレーションシップを示してい `Post`
 
-* `Post`は依存エンティティです。
+* `Post` が依存エンティティである
 
-* `Blog`プリンシパルエンティティ
+* `Blog` はプリンシパルエンティティです。
 
-* `Post.BlogId`は外部キーです。
+* `Post.BlogId` は外部キーです。
 
-* `Blog.BlogId`は主キー (この場合は、代替キーではなく主キー) です。
+* `Blog.BlogId` がプリンシパルキー (この場合は、代替キーではなく主キー) です。
 
-* `Post.Blog`参照ナビゲーションプロパティです
+* `Post.Blog` は参照ナビゲーションプロパティです
 
-* `Blog.Posts`コレクションナビゲーションプロパティです
+* `Blog.Posts` はコレクションナビゲーションプロパティです。
 
-* `Post.Blog`はの`Blog.Posts`逆ナビゲーションプロパティです (逆も同様)。
+* `Post.Blog` は `Blog.Posts` の逆ナビゲーションプロパティ (およびその逆) です。
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs#Entities)]
 
@@ -69,7 +69,7 @@ ms.locfileid: "71197656"
 
 * 2つの型の間にナビゲーションプロパティのペアが見つかった場合、それらは同じリレーションシップの逆ナビゲーションプロパティとして構成されます。
 
-* 依存エンティティに、、または`<primary key property name>` `<principal entity name><primary key property name>`という`<navigation property name><primary key property name>`名前のプロパティが含まれている場合は、外部キーとして構成されます。
+* 依存エンティティに `<primary key property name>`、`<navigation property name><primary key property name>`、または `<principal entity name><primary key property name>` という名前のプロパティが含まれている場合は、外部キーとして構成されます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs?name=Entities&highlight=6,15,16)]
 
@@ -78,7 +78,7 @@ ms.locfileid: "71197656"
 
 ### <a name="no-foreign-key-property"></a>外部キープロパティがありません
 
-依存エンティティクラスで外部キープロパティを定義することをお勧めしますが、必須ではありません。 外部キープロパティが見つからない場合は、名前`<navigation property name><principal key property name>`を使用して shadow 外部キープロパティが導入されます (詳細については、「 [shadow Properties](shadow-properties.md) 」を参照してください)。
+依存エンティティクラスで外部キープロパティを定義することをお勧めしますが、必須ではありません。 外部キープロパティが見つからない場合は、`<navigation property name><principal key property name>` という名前のシャドウ外部キープロパティが導入されます (詳細については、「[シャドウプロパティ](shadow-properties.md)」を参照してください)。
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/NoForeignKey.cs?name=Entities&highlight=6,15)]
 
@@ -98,7 +98,7 @@ ms.locfileid: "71197656"
 
 ## <a name="data-annotations"></a>データの注釈
 
-リレーションシップの構成に使用できるデータ注釈には、 `[ForeignKey]`と`[InverseProperty]`の2つがあります。 これらは、 `System.ComponentModel.DataAnnotations.Schema`名前空間で使用できます。
+リレーションシップの構成に使用できるデータ注釈には、`[ForeignKey]` と `[InverseProperty]`の2つがあります。 これらは、`System.ComponentModel.DataAnnotations.Schema` 名前空間で使用できます。
 
 ### <a name="foreignkey"></a>[ForeignKey]
 
@@ -107,7 +107,7 @@ ms.locfileid: "71197656"
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?highlight=30)]
 
 > [!TIP]  
-> 注釈`[ForeignKey]`は、リレーションシップのいずれかのナビゲーションプロパティに配置できます。 依存エンティティクラスのナビゲーションプロパティに移動する必要はありません。
+> `[ForeignKey]` 注釈は、リレーションシップのいずれかのナビゲーションプロパティに配置できます。 依存エンティティクラスのナビゲーションプロパティに移動する必要はありません。
 
 ### <a name="inverseproperty"></a>[InverseProperty]
 
@@ -117,13 +117,13 @@ ms.locfileid: "71197656"
 
 ## <a name="fluent-api"></a>Fluent API
 
-Fluent API でリレーションシップを構成するには、まず、リレーションシップを構成するナビゲーションプロパティを特定します。 `HasOne`また`HasMany`はは、構成を開始するエンティティ型のナビゲーションプロパティを識別します。 次に、または`WithOne` `WithMany`への呼び出しを連結して、逆のナビゲーションを識別します。 `HasOne`/`WithOne`は、参照ナビゲーションプロパティに使用`HasMany`され、 / `WithMany`コレクションナビゲーションプロパティに使用されます。
+Fluent API でリレーションシップを構成するには、まず、リレーションシップを構成するナビゲーションプロパティを特定します。 `HasOne` または `HasMany` によって、構成を開始するエンティティ型のナビゲーションプロパティが識別されます。 次に、`WithOne` または `WithMany` への呼び出しを連結して、逆のナビゲーションを識別します。 `HasOne`/`WithOne` は参照ナビゲーションプロパティに使用され、`HasMany`/`WithMany` コレクションのナビゲーションプロパティに使用されます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?highlight=14-16)]
 
 ### <a name="single-navigation-property"></a>単一ナビゲーションプロパティ
 
-ナビゲーションプロパティが1つしかない場合は、と`WithOne` `WithMany`のパラメーターなしのオーバーロードがあります。 これは、リレーションシップのもう一方の端には概念的に参照またはコレクションが存在するが、エンティティクラスにはナビゲーションプロパティが含まれていないことを示します。
+ナビゲーションプロパティが1つしかない場合は、`WithOne` と `WithMany`のパラメーターなしのオーバーロードがあります。 これは、リレーションシップのもう一方の端には概念的に参照またはコレクションが存在するが、エンティティクラスにはナビゲーションプロパティが含まれていないことを示します。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneNavigation.cs?highlight=14-16)]
 
@@ -137,7 +137,7 @@ Fluent API を使用して、特定のリレーションシップの外部キー
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?highlight=20)]
 
-の`HasForeignKey(...)`文字列オーバーロードを使用して、shadow プロパティを外部キーとして構成できます (詳細については、「 [shadow Properties](shadow-properties.md) 」を参照してください)。 次に示すように、外部キーとして使用する前に、シャドウプロパティをモデルに明示的に追加することをお勧めします。
+`HasForeignKey(...)` の文字列オーバーロードを使用して、shadow プロパティを外部キーとして構成できます (詳細については、「 [Shadow Properties](shadow-properties.md) 」を参照してください)。 次に示すように、外部キーとして使用する前に、シャドウプロパティをモデルに明示的に追加することをお勧めします。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ShadowForeignKey.cs#Sample)]
 
@@ -151,83 +151,11 @@ Fluent API を使用して、特定のリレーションシップの外部キー
 
 外部キーで主キー以外のプロパティを参照する場合は、Fluent API を使用してリレーションシップのプリンシパルキープロパティを構成できます。 プリンシパルキーとして構成したプロパティは、代替キーとして自動的に設定されます (詳細については、「[代替キー](alternate-keys.md) 」を参照してください)。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Car> Cars { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<RecordOfSale>()
-            .HasOne(s => s.Car)
-            .WithMany(c => c.SaleHistory)
-            .HasForeignKey(s => s.CarLicensePlate)
-            .HasPrincipalKey(c => c.LicensePlate);
-    }
-}
-
-public class Car
-{
-    public int CarId { get; set; }
-    public string LicensePlate { get; set; }
-    public string Make { get; set; }
-    public string Model { get; set; }
-
-    public List<RecordOfSale> SaleHistory { get; set; }
-}
-
-public class RecordOfSale
-{
-    public int RecordOfSaleId { get; set; }
-    public DateTime DateSold { get; set; }
-    public decimal Price { get; set; }
-
-    public string CarLicensePlate { get; set; }
-    public Car Car { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?name=PrincipalKey&highlight=11)]
 
 次のコードリストは、複合プリンシパルキーを構成する方法を示しています。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Car> Cars { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<RecordOfSale>()
-            .HasOne(s => s.Car)
-            .WithMany(c => c.SaleHistory)
-            .HasForeignKey(s => new { s.CarState, s.CarLicensePlate })
-            .HasPrincipalKey(c => new { c.State, c.LicensePlate });
-    }
-}
-
-public class Car
-{
-    public int CarId { get; set; }
-    public string State { get; set; }
-    public string LicensePlate { get; set; }
-    public string Make { get; set; }
-    public string Model { get; set; }
-
-    public List<RecordOfSale> SaleHistory { get; set; }
-}
-
-public class RecordOfSale
-{
-    public int RecordOfSaleId { get; set; }
-    public DateTime DateSold { get; set; }
-    public decimal Price { get; set; }
-
-    public string CarState { get; set; }
-    public string CarLicensePlate { get; set; }
-    public Car Car { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=Composite&highlight=11)]
 
 > [!WARNING]  
 > プリンシパルキープロパティを指定する順序は、外部キーに指定されている順序と一致している必要があります。
@@ -236,39 +164,7 @@ public class RecordOfSale
 
 Fluent API を使用して、リレーションシップが必須か省略可能かを構成できます。 これは最終的に、外部キープロパティが必須か省略可能かを制御します。 これは、シャドウ状態の外部キーを使用している場合に最も役立ちます。 エンティティクラスに外部キープロパティがある場合、リレーションシップの requiredness は、外部キープロパティが必須か省略可能かに基づいて決定されます (詳細については、[必須プロパティと省略可能なプロパティ](required-optional.md)を参照してください)。
 
-<!-- [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<Post> Posts { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Post>()
-            .HasOne(p => p.Blog)
-            .WithMany(b => b.Posts)
-            .IsRequired();
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public List<Post> Posts { get; set; }
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public Blog Blog { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?name=Required&highlight=11)]
 
 ### <a name="cascade-delete"></a>連鎖削除
 
@@ -276,40 +172,7 @@ Fluent API を使用して、特定のリレーションシップに対して連
 
 各オプションの詳細については、「データの保存」セクションの「[連鎖削除](../saving/cascade-delete.md)」を参照してください。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/CascadeDelete.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<Post> Posts { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Post>()
-            .HasOne(p => p.Blog)
-            .WithMany(b => b.Posts)
-            .OnDelete(DeleteBehavior.Cascade);
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public List<Post> Posts { get; set; }
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public int? BlogId { get; set; }
-    public Blog Blog { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CascadeDelete.cs?name=CascadeDelete&highlight=11)]
 
 ## <a name="other-relationship-patterns"></a>その他のリレーションシップパターン
 
@@ -317,119 +180,19 @@ public class Post
 
 一対一のリレーションシップには、両側の参照ナビゲーションプロパティがあります。 これらは一対多のリレーションシップと同じ規則に従いますが、依存関係が各プリンシパルに関連付けられるように、外部キープロパティに一意のインデックスが導入されます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/Relationships/OneToOne.cs?highlight=6,15,16)] -->
-``` csharp
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public BlogImage BlogImage { get; set; }
-}
-
-public class BlogImage
-{
-    public int BlogImageId { get; set; }
-    public byte[] Image { get; set; }
-    public string Caption { get; set; }
-
-    public int BlogId { get; set; }
-    public Blog Blog { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/OneToOne.cs?name=Property&highlight=6,15,16)]
 
 > [!NOTE]  
 > EF は、外部キープロパティを検出する機能に基づいて、依存するエンティティの1つを選択します。 依存関係として間違ったエンティティが選択されている場合は、Fluent API を使用してこれを修正できます。
 
-Fluent API との関係を構成する場合は、メソッド`HasOne`と`WithOne`メソッドを使用します。
+Fluent API との関係を構成する場合は、`HasOne` メソッドと `WithOne` メソッドを使用します。
 
-外部キーを構成するときは、依存エンティティ型を指定する必要があります。以下`HasForeignKey`の一覧で、に提供されているジェネリックパラメーターに注意してください。 一対多のリレーションシップでは、参照ナビゲーションを持つエンティティが依存しており、コレクションを持つエンティティがプリンシパルであることが明らかです。 ただし、これは一対一のリレーションシップではないため、明示的に定義する必要があります。
+外部キーを構成するときに、依存エンティティ型を指定する必要があります。次の一覧で `HasForeignKey` に提供されているジェネリックパラメーターに注意してください。 一対多のリレーションシップでは、参照ナビゲーションを持つエンティティが依存しており、コレクションを持つエンティティがプリンシパルであることが明らかです。 ただし、これは一対一のリレーションシップではないため、明示的に定義する必要があります。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?highlight=11)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<BlogImage> BlogImages { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Blog>()
-            .HasOne(p => p.BlogImage)
-            .WithOne(i => i.Blog)
-            .HasForeignKey<BlogImage>(b => b.BlogForeignKey);
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public BlogImage BlogImage { get; set; }
-}
-
-public class BlogImage
-{
-    public int BlogImageId { get; set; }
-    public byte[] Image { get; set; }
-    public string Caption { get; set; }
-
-    public int BlogForeignKey { get; set; }
-    public Blog Blog { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?name=OneToOne&highlight=11)]
 
 ### <a name="many-to-many"></a>多対多
 
 結合テーブルを表すエンティティクラスのない多対多リレーションシップは、まだサポートされていません。 ただし、結合テーブルのエンティティクラスを含め、2つの個別の一対多リレーションシップをマップすることで、多対多リレーションシップを表すことができます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?highlight=11,12,13,14,16,17,18,19,39,40,41,42,43,44,45,46)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Post> Posts { get; set; }
-    public DbSet<Tag> Tags { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<PostTag>()
-            .HasKey(pt => new { pt.PostId, pt.TagId });
-
-        modelBuilder.Entity<PostTag>()
-            .HasOne(pt => pt.Post)
-            .WithMany(p => p.PostTags)
-            .HasForeignKey(pt => pt.PostId);
-
-        modelBuilder.Entity<PostTag>()
-            .HasOne(pt => pt.Tag)
-            .WithMany(t => t.PostTags)
-            .HasForeignKey(pt => pt.TagId);
-    }
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public List<PostTag> PostTags { get; set; }
-}
-
-public class Tag
-{
-    public string TagId { get; set; }
-
-    public List<PostTag> PostTags { get; set; }
-}
-
-public class PostTag
-{
-    public int PostId { get; set; }
-    public Post Post { get; set; }
-
-    public string TagId { get; set; }
-    public Tag Tag { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?name=ManyToMany&highlight=11,12,13,14,16,17,18,19,39,40,41,42,43,44,45,46)]

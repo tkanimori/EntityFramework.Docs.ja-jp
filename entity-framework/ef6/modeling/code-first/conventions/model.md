@@ -1,32 +1,32 @@
 ---
-title: モデルに基づく規則 - EF6
+title: モデルベースの規則-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
-ms.openlocfilehash: 80b722730b4ca6c9d00a8611b6c9027e8bc9fe61
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.openlocfilehash: c873e9a216bd9bd1934f2149ae6af602072f3608
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283708"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656165"
 ---
-# <a name="model-based-conventions"></a>モデルに基づく規則
+# <a name="model-based-conventions"></a>モデルベースの規則
 > [!NOTE]
 > **EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。  
 
-モデル ベースの規則は、規則ベースのモデルの構成の高度な方法です。 ほとんどのシナリオ、[カスタム Code First 規約 API DbModelBuilder で](~/ef6/modeling/code-first/conventions/custom.md)使用する必要があります。 モデル ベースの規則を使用する前に、規則の DbModelBuilder API の理解をお勧めします。  
+モデルベースの規則は、規則ベースのモデル構成の高度な手法です。 ほとんどのシナリオでは、 [DbModelBuilder のカスタム Code First 規約 API](~/ef6/modeling/code-first/conventions/custom.md)を使用する必要があります。 モデルベースの規約を使用する前に、DbModelBuilder API に関する規則について理解しておくことをお勧めします。  
 
-モデル ベースの規則は、プロパティとは、標準の規則を構成できないテーブルに影響する規則の作成を許可します。 これらの例は、階層モデルごとにテーブル内の列の識別子および独立アソシエーションの列です。  
+モデルベースの規則を使用すると、標準規則では構成できないプロパティやテーブルに影響する規則を作成できます。 これらの例は、テーブルの階層モデルごとの識別子列と、独立した関連付け列です。  
 
-## <a name="creating-a-convention"></a>規則を作成します。   
+## <a name="creating-a-convention"></a>規則の作成   
 
-モデル ベースの規則を作成する最初の手順は、パイプラインで、規則は、モデルに適用する必要がある場合に選択します。 モデルの規則、(C 領域) の概念とストア (S 領域) の 2 種類があります。 C 領域の規則は、S 領域の規則が、データベースを表すモデルのバージョンに適用されますが、アプリケーションがビルドをどのように自動的に生成された列などのコントロールの名前はモデルに適用されます。  
+モデルベースの規則を作成する最初の手順として、パイプラインでは、モデルに適用する必要がある規則を選択します。 モデル規則には、概念 (C 空間) とストア (S スペース) の2種類があります。 C 空間規則はアプリケーションがビルドするモデルに適用されますが、S 空間規則は、データベースを表すモデルのバージョンに適用され、自動生成された列の名前付けなどの処理を制御します。  
 
-モデルの規則は、IConceptualModelConvention または IStoreModelConvention から拡張するクラスです。  これらのインターフェイスが両方のまま使用することができるジェネリック型では、MetadataItem、規則が適用されるデータ型をフィルター処理するために使用を入力します。  
+モデル規則は、IConceptualModelConvention または IStoreModelConvention から拡張するクラスです。  これらのインターフェイスは両方とも、規則が適用されるデータ型をフィルター処理するために使用される MetadataItem 型のジェネリック型を受け入れます。  
 
 ## <a name="adding-a-convention"></a>規則の追加   
 
-モデルの規則は、通常の規則クラスと同じ方法で追加されます。 **OnModelCreating**メソッドでは、モデルの規則の一覧に、規則を追加します。  
+モデル規則は、通常の規則クラスと同じ方法で追加されます。 **Onmodelcreating**メソッドで、規則をモデルの規則の一覧に追加します。  
 
 ``` csharp
 using System.Data.Entity;
@@ -46,7 +46,7 @@ public class BlogContext : DbContext
 }
 ```  
 
-Conventions.AddBefore を使用して別の規則に関連する規則を追加することも\<\>または Conventions.AddAfter\< \>メソッド。 Entity Framework が適用される規則に関する詳細については、ノートのセクションを参照してください。  
+規則は、規則を使用して別の規則に関連して追加することもできます。 AddBefore\<\> または規則です。 Addbefore\<\> メソッド。 Entity Framework 適用される規則の詳細については、「メモ」を参照してください。  
 
 ``` csharp
 protected override void OnModelCreating(DbModelBuilder modelBuilder)
@@ -57,9 +57,9 @@ protected override void OnModelCreating(DbModelBuilder modelBuilder)
 
 ## <a name="example-discriminator-model-convention"></a>例: 識別子モデル規則  
 
-EF によって生成された列の名前は、何か他の規則は、Api を使用して行うことはできませんの例です。  これは、状況が唯一の選択肢は、モデルの規則を使用します。  
+EF によって生成される列の名前を変更する方法の例としては、他の規則の Api では実行できないものがあります。  これは、モデル規則の使用が唯一のオプションである状況です。  
 
-モデル ベースの規則を使用して生成された列を構成する方法の例では、識別子列の名前は、方法をカスタマイズします。  "EntityType"を「識別子」をという名前のモデルの各列の名前を変更する規則に基づく単純なモデルの例を次に示します。  これには、開発者は、「識別子」を単にという列が含まれます。 「識別子」列は生成された列であるためこれ S 領域で実行する必要があります。  
+モデルベースの規則を使用して生成された列を構成する方法の例として、識別子列の名前付け方法をカスタマイズすることがあります。  "識別子" という名前のモデル内のすべての列の名前を "EntityType" に変更する単純なモデルベースの規則の例を次に示します。  これには、開発者が "識別子" という単純な列が含まれます。 "識別子" 列は、生成された列であるため、S スペースで実行する必要があります。  
 
 ``` csharp
 using System.Data.Entity;
@@ -79,11 +79,11 @@ class DiscriminatorRenamingConvention : IStoreModelConvention<EdmProperty>
 }
 ```  
 
-## <a name="example-general-ia-renaming-convention"></a>例: 一般的な IA の規則の名前を変更します。   
+## <a name="example-general-ia-renaming-convention"></a>例: 一般的な IA 名前変更規則   
 
-別のより複雑なアクションに基づくモデル規則の例では、独立した関連付け (IAs)、名前をする方法を構成します。  これは、モデルの規則が IAs が EF によって生成されるため、適用し、DbModelBuilder API にアクセスできるモデルではない状況です。  
+もう1つの複雑なモデルベースの規則の例として、独立した関連付け (IAs) の名前付け方法を構成します。  これは、IAs が EF によって生成され、DbModelBuilder API がアクセスできるモデルに存在しないため、モデルの規則が適用される状況です。  
 
-EF では、IA を生成するときに、EntityType_KeyName という名前の列を作成します。 たとえば、キー列を含む顧客をという名前のアソシエーションの customerid Customer_CustomerId という名前の列が生成されます。 次の規則ストリップ、'\_'、指定された列名からの文字  
+EF が IA を生成すると、EntityType_KeyName という名前の列が作成されます。 たとえば、CustomerId という名前のキー列を持つ Customer という名前のアソシエーションでは、Customer_CustomerId という名前の列が生成されます。 次の規則は、IA 用に生成された列名から '\_' 文字を除去します。  
 
 ``` csharp
 using System.Data.Entity;
@@ -132,7 +132,7 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 
     private void NormalizeForeignKeyProperties(ReadOnlyMetadataCollection<EdmProperty> properties)
     {
-        for (int i = 0; i \< properties.Count; ++i)
+        for (int i = 0; i < properties.Count; ++i)
         {
             int underscoreIndex = properties[i].Name.IndexOf('_');
             if (underscoreIndex > 0)
@@ -144,9 +144,9 @@ public class ForeignKeyNamingConvention : IStoreModelConvention<AssociationType>
 }
 ```  
 
-## <a name="extending-existing-conventions"></a>既存の規則を拡張します。   
+## <a name="extending-existing-conventions"></a>既存の規則の拡張   
 
-Entity Framework は、既にモデルに適用される規則のいずれかのような規則を記述する必要がある場合は、最初から修正することを回避するには、その規則を常に拡張できます。  この例では、カスタムの規則に一致する既存の Id を置き換えます。   キーの規則をオーバーライドする追加のメリットは、既に検出または明示的に構成されているキーが存在しない場合にのみ、オーバーライドされたメソッドが呼び出さことです。 規則の一覧は、ここで用意されている Entity Framework によって使用: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)します。  
+Entity Framework 既にモデルに適用されている規則と同様の規則を作成する必要がある場合は、その規則を常に拡張して、最初から書き換える必要がないようにすることができます。  この例としては、既存の Id 一致規則をカスタムの規則に置き換えることが挙げられます。   キーの規則をオーバーライドする利点は、オーバーライドされたメソッドが、既に検出されていないか、明示的に構成されている場合にのみ呼び出されることです。 Entity Framework によって使用される規則の一覧については、「 [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)」を参照してください。  
 
 ``` csharp
 using System.Data.Entity;
@@ -191,7 +191,7 @@ public class CustomKeyDiscoveryConvention : KeyDiscoveryConvention
 }
 ```  
 
-既存のキーの規則の前に、新しい規則を追加する必要があります。 CustomKeyDiscoveryConvention を追加した後、IdKeyDiscoveryConvention を削除できます。  既存の IdKeyDiscoveryConvention この規則が優先順位は Id の検出規則を最初が、「キー」プロパティが見つからない場合は実行されるので、削除していない場合は、"id"の規則が実行されます。  各規則は、前の規則が何か、一致する列名を更新する場合、たとえば、ように (動作しないことで個別にではなくおよびすべてまとめて結合している)、前の規則によって更新としてにモデルを認識しているために、この動作がわかりますカスタムの規則 (前に、その名前でなかった場合に関心のある) し、その目的は、その列に適用されます。  
+次に、既存のキー規則の前に新しい規則を追加する必要があります。 CustomKeyDiscoveryConvention を追加した後、IdKeyDiscoveryConvention を削除できます。  既存の IdKeyDiscoveryConvention を削除しなかった場合、この規則は最初に実行されるため、Id 検出規則よりも優先されますが、"key" プロパティが見つからない場合は、"id" 規則が実行されます。  この動作が見られるのは、規則ごとにモデルが前の規則によって更新されていることを示しているためです。たとえば、前の規則では、次のいずれかに一致するように列名が更新されたとします。(名前が関心のない前に) カスタム規則に関心がある場合は、その列に適用されます。  
 
 ``` csharp
 public class BlogContext : DbContext
@@ -207,6 +207,6 @@ public class BlogContext : DbContext
 }
 ```  
 
-## <a name="notes"></a>メモ  
+## <a name="notes"></a>ノート  
 
-Entity Framework によって現在適用されている規則の一覧については、MSDN のドキュメント: [ http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)します。  この一覧は、ソース コードから直接取得されます。  Entity Framework 6 のソース コードは 使用可能な[GitHub](https://github.com/aspnet/entityframework6/)と Entity Framework によって使用される規則の多くは、適切な規則に基づくカスタム モデルの開始点。  
+Entity Framework によって現在適用されている規則の一覧については、MSDN のドキュメント「 [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)」を参照してください。  このリストは、ソースコードから直接プルされます。  Entity Framework 6 のソースコードは[GitHub](https://github.com/aspnet/entityframework6/)で入手でき、Entity Framework によって使用される規則の多くは、カスタムモデルベースの規則の出発点として適しています。  

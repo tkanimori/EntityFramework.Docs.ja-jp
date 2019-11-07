@@ -4,44 +4,26 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 912ffef7-86a0-4cdc-a776-55f907459d20
 uid: core/modeling/keys
-ms.openlocfilehash: 8b32bf6417890a954c933a5973a2c90c609beeca
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 66c64c389294e8e109a614a2bea8311932660dea
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197273"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655943"
 ---
 # <a name="keys-primary"></a>キー (主)
 
-キーは、各エンティティインスタンスのプライマリ一意識別子として機能します。 リレーショナルデータベースを使用する場合、これは*主キー*の概念にマップされます。 また、主キーではない一意の識別子を構成することもできます (詳細については、「[代替キー](alternate-keys.md) 」を参照してください)。 
+キーは、各エンティティインスタンスのプライマリ一意識別子として機能します。 リレーショナルデータベースを使用する場合、これは*主キー*の概念にマップされます。 また、主キーではない一意の識別子を構成することもできます (詳細については、「[代替キー](alternate-keys.md) 」を参照してください)。
 
 次のいずれかの方法を使用して、主キーの設定/作成を行うことができます。
 
 ## <a name="conventions"></a>規約
 
-慣例により、または`Id` `<type name>Id`という名前のプロパティは、エンティティのキーとして構成されます。
+慣例により、`Id` または `<type name>Id` という名前のプロパティは、エンティティのキーとして構成されます。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/KeyId.cs?highlight=3)] -->
-``` csharp
-class Car
-{
-    public string Id { get; set; }
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/KeyId.cs?name=KeyId&highlight=3)]
 
-    public string Make { get; set; }
-    public string Model { get; set; }
-}
-```
-
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/KeyTypeNameId.cs?highlight=3)] -->
-``` csharp
-class Car
-{
-    public string CarId { get; set; }
-
-    public string Make { get; set; }
-    public string Model { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/KeyTypeNameId.cs?name=KeyIdhighlight=3)]
 
 ## <a name="data-annotations"></a>データの注釈
 

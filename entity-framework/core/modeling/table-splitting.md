@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 04/10/2019
 ms.assetid: 0EC2CCE1-BD55-45D8-9EA9-20634987F094
 uid: core/modeling/table-splitting
-ms.openlocfilehash: 684fcfbb66debfd1b89e23c8aaf0a32909378c6b
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: a3a2e5842a6c6b4b490084d205a0d44bb46c17ee
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149186"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656040"
 ---
 # <a name="table-splitting"></a>テーブル分割
 
@@ -25,22 +25,22 @@ EF Core を使用すると、複数のエンティティを1つの行にマッ�
 
 テーブル分割の一般的なシナリオでは、テーブル内の列のサブセットのみを使用して、パフォーマンスまたはカプセル化を向上させることができます。
 
-この例`Order`では、の`DetailedOrder`サブセットを表します。
+この例では `Order` `DetailedOrder`のサブセットを表します。
 
 [!code-csharp[Order](../../../samples/core/Modeling/TableSplitting/Order.cs?name=Order)]
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/TableSplitting/DetailedOrder.cs?name=DetailedOrder)]
 
-必要な構成に加えて、を`Property(o => o.Status).HasColumnName("Status")`呼び出して`DetailedOrder.Status` 、と`Order.Status`同じ列にマップします。
+必要な構成に加えて、`Property(o => o.Status).HasColumnName("Status")` を呼び出して、`DetailedOrder.Status` を `Order.Status`と同じ列にマップします。
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting&highlight=3)]
 
 > [!TIP]
 > 詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting)を参照してください。
 
-## <a name="usage"></a>使用法
+## <a name="usage"></a>使用方法
 
-テーブル分割を使用したエンティティの保存とクエリは、他のエンティティと同じ方法で実行されます。 EF Core 3.0 以降では、依存エンティティ参照をに`null`することができます。 依存エンティティ`NULL`によって使用されるすべての列がデータベースである場合は、クエリの実行時にインスタンスが作成されません。 また、すべてのプロパティが省略可能であり、がに`null`設定されている場合もありますが、これは想定されていない可能性があります。
+テーブル分割を使用したエンティティの保存とクエリは、他のエンティティと同じ方法で実行されます。 EF Core 3.0 以降では、依存エンティティ参照を `null`できます。 依存エンティティによって使用されているすべての列がデータベースで `NULL` 場合は、クエリの実行時にインスタンスが作成されません。 また、すべてのプロパティは省略可能であり、`null`に設定されますが、これは想定されていない可能性があります。
 
 [!code-csharp[Usage](../../../samples/core/Modeling/TableSplitting/Program.cs?name=Usage)]
 

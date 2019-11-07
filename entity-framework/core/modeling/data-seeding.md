@@ -1,93 +1,97 @@
 ---
-title: データのシード処理 - EF Core
+title: データシード処理-EF Core
 author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 1c450b142573368d043430f55a3144b6696a8691
-ms.sourcegitcommit: b4a5ed177b86bf7f81602106dab6b4acc18dfc18
+ms.openlocfilehash: 0b11b6b3104b74e09c60c9c455e22f164df493c7
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/15/2019
-ms.locfileid: "54316635"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655762"
 ---
 # <a name="data-seeding"></a>データのシード処理
 
-データのシード処理は、データの初期セットでのデータベースの設定のプロセスです。
+データシード処理とは、データベースに初期データセットを設定するプロセスのことです。
 
-いくつかの方法を EF Core でこれを実現できます。
-* モデルのシード データ
-* 手動移行のカスタマイズ
-* カスタムの初期化ロジック
+EF Core では、次のいくつかの方法で実現できます。
 
-## <a name="model-seed-data"></a>モデルのシード データ
+* モデルシードデータ
+* 手動による移行のカスタマイズ
+* カスタム初期化ロジック
+
+## <a name="model-seed-data"></a>モデルシードデータ
 
 > [!NOTE]
 > これは EF Core 2.1 の新機能です。
 
-異なり、EF Core での EF6 でデータをシード処理関連付けることができますモデル構成の一部としてエンティティ型。 EF Core し[移行](xref:core/managing-schemas/migrations/index)どのような挿入、更新または削除、モデルの新しいバージョンにデータベースのアップグレード時に適用される操作の必要性を自動的に計算できます。
+EF6 とは異なり、EF Core では、シード処理データをモデル構成の一部としてエンティティ型に関連付けることができます。 その後、EF Core の[移行](xref:core/managing-schemas/migrations/index)では、データベースを新しいバージョンのモデルにアップグレードするときに、挿入、更新、または削除操作をどのように適用する必要があるかを自動的に計算できます。
 
 > [!NOTE]
-> 移行では、目的の状態にシード データを取得するは、どのような操作を実行するかを決定するときにモデルの変更のみ考慮されます。 したがって移行の外部で実行するデータに対する変更は失われるまたはエラーが発生する可能性があります。
+> 移行では、シードデータを目的の状態に取得するために実行する操作を決定する際に、モデルの変更のみを考慮します。 そのため、移行の外部で実行されたデータの変更が失われたり、エラーが発生したりする可能性があります。
 
-たとえば、シード データに設定されます、`Blog`で`OnModelCreating`:
+例として、次のように `OnModelCreating`の `Blog` のシードデータを構成します。
 
 [!code-csharp[BlogSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=BlogSeed)]
 
-リレーションシップの外部キーの値を持つエンティティを追加するを指定する必要があります。
+リレーションシップを持つエンティティを追加するには、外部キー値を指定する必要があります。
 
 [!code-csharp[PostSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=PostSeed)]
 
-エンティティ型に任意のプロパティがある場合は、シャドウ状態では、値を提供する匿名のクラスを使用できます。
+エンティティ型のプロパティが shadow 状態の場合、匿名クラスを使用して値を指定できます。
 
 [!code-csharp[AnonymousPostSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=AnonymousPostSeed)]
 
-所有エンティティの型は、同様の方法でシード処理できます。
+所有されているエンティティ型は、同様の方法でシード処理できます。
 
 [!code-csharp[OwnedTypeSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=OwnedTypeSeed)]
 
-参照してください、[完全なサンプル プロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DataSeeding)詳細なコンテキスト。
+詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DataSeeding)を参照してください。
 
-データがモデルに追加されたら[移行](xref:core/managing-schemas/migrations/index)変更を適用するために使用する必要があります。
+データがモデルに追加されたら、[移行](xref:core/managing-schemas/migrations/index)を使用して変更を適用する必要があります。
 
 > [!TIP]
-> 自動化された展開の一部として移行を適用する必要がある場合は、 [SQL スクリプトを作成する](xref:core/managing-schemas/migrations/index#generate-sql-scripts)を実行する前にプレビューを表示できます。
+> 自動デプロイの一部として移行を適用する必要がある場合は、実行前にプレビューできる[SQL スクリプトを作成](xref:core/managing-schemas/migrations/index#generate-sql-scripts)できます。
 
-使用する代わりに、`context.Database.EnsureCreated()`テスト データベースの例を使用するか、メモリ内プロバイダーまたは関係以外の任意のデータベースを使用して、シード データを含む新しいデータベースを作成します。 されている場合、データベースが既に存在する`EnsureCreated()`どちらも、データベース内のスキーマとシード データが更新されます。 リレーショナル データベースに対して呼び出すべきではない`EnsureCreated()`Migrations を使用する場合。
+または、`context.Database.EnsureCreated()` を使用して、テストデータベースなどのシードデータを含む新しいデータベースを作成したり、メモリ内のプロバイダーや非リレーションシップデータベースを使用したりすることもできます。 データベースが既に存在する場合、`EnsureCreated()` によってデータベースのスキーマとシードデータが更新されないことに注意してください。 リレーショナルデータベースの場合、移行を使用する予定がある場合は `EnsureCreated()` を呼び出さないでください。
 
-### <a name="limitations-of-model-seed-data"></a>モデルのシード データの制限事項
+### <a name="limitations-of-model-seed-data"></a>モデルシードデータの制限事項
 
-この種類のシード データは移行によって管理され、データベースに既にあるデータを更新するスクリプトは、データベースに接続しなくても生成する必要があります。 これで、いくつかの制限が課せられます。
-* 主キーの値は、通常、データベースによって生成される場合でも指定する必要があります。 これは、移行の間のデータの変更を検出するために使用されます。
-* 以前の主キーが何らかの方法で変更された場合、シードされたデータは削除されます。
+この種類のシードデータは、移行によって管理されます。また、データベースに既に存在するデータを更新するためのスクリプトは、データベースに接続せずに生成する必要があります。 これにはいくつかの制限があります。
 
-したがってこの機能は、静的なデータ移行の外部で変更するのには想定されていませんが、データベースでは、郵便番号などの他の要素に依存しないに最も適しています。
+* 主キーの値は、通常、データベースによって生成される場合でも指定する必要があります。 移行間のデータ変更を検出するために使用されます。
+* 以前にシードされたデータは、主キーが何らかの方法で変更されると削除されます。
 
-自分のシナリオでは、次のいずれかが含まれる場合は、最後のセクションで説明されているカスタムの初期化ロジックを使用することをお勧めします。
-* テスト用の一時的なデータ
+したがって、この機能は、移行の外部で変更されることが想定されておらず、データベース内の他のもの (郵便番号など) に依存しない静的データに対して最も役立ちます。
+
+シナリオに以下のいずれかが含まれている場合は、前のセクションで説明したカスタム初期化ロジックを使用することをお勧めします。
+
+* テスト用の一時データ
 * データベースの状態に依存するデータ
-* キーの値を id として代替キーを使用してエンティティを含む、データベースが生成する必要があるデータ
-* カスタム変換を必要とするデータ (によって処理されない[値変換](xref:core/modeling/value-conversions))、いくつかのパスワード ハッシュなど
-* ASP.NET Core Id のロールとユーザーの作成などの外部 API の呼び出しを必要とするデータ
+* Id として代替キーを使用するエンティティを含む、データベースによって生成されるキー値を必要とするデータ
+* 一部のパスワードのハッシュなど、カスタム変換を必要とする ([値の変換](xref:core/modeling/value-conversions)によって処理されない) データ
+* ASP.NET Core Id ロールやユーザーの作成など、外部 API の呼び出しを必要とするデータ
 
-## <a name="manual-migration-customization"></a>手動移行のカスタマイズ
+## <a name="manual-migration-customization"></a>手動による移行のカスタマイズ
 
-移行が追加されたときの変更で指定されたデータに`HasData`への呼び出しに変換される`InsertData()`、 `UpdateData()`、および`DeleteData()`します。 いくつかの制限を回避する方法の 1 つ`HasData`は、手動でこれらの呼び出しを追加するまたは[カスタム操作](xref:core/managing-schemas/migrations/operations)移行に代わりにします。
+移行が追加されると、`HasData` で指定されたデータへの変更が `InsertData()`、`UpdateData()`、および `DeleteData()`への呼び出しに変換されます。 `HasData` の制限事項を回避する方法の1つとして、これらの呼び出しや[カスタム操作](xref:core/managing-schemas/migrations/operations)を移行に手動で追加することが挙げられます。
 
 [!code-csharp[CustomInsert](../../../samples/core/Modeling/DataSeeding/Migrations/20181102235626_Initial.cs?name=CustomInsert)]
 
-## <a name="custom-initialization-logic"></a>カスタムの初期化ロジック
+## <a name="custom-initialization-logic"></a>カスタム初期化ロジック
 
-データのシード処理を実行する簡単で強力な方法は使用する[ `DbContext.SaveChanges()` ](xref:core/saving/index)ロジックは、メイン アプリケーションの前に実行を開始します。
+データシード処理を実行する簡単で強力な方法は、メインアプリケーションロジックの実行が開始される前に[`DbContext.SaveChanges()`](xref:core/saving/index)を使用することです。
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataSeeding/Program.cs?name=CustomSeeding)]
 
 > [!WARNING]
-> シード処理のコードは、通常のアプリの実行の一部をしないでように複数のインスタンスを実行しているし、データベース スキーマを変更する権限のあるアプリも必要になりますと同時実行の問題が発生します。
+> シード処理コードは、複数のインスタンスが実行されている場合は同時実行の問題が発生する可能性があり、アプリケーションにデータベーススキーマを変更するアクセス許可も必要になるため、通常のアプリの実行には含めないでください。
 
-配置の制約に応じて、さまざまな方法で初期化コードを実行できます。
-* 初期化のアプリのローカル実行
-* 初期化ルーチンを呼び出すと無効化または初期化アプリの削除は、メイン アプリケーションの初期化のアプリを展開します。
+配置の制約に応じて、初期化コードをさまざまな方法で実行できます。
 
-これを使用して、通常は自動化できます[発行プロファイル](https://docs.microsoft.com/en-us/aspnet/core/host-and-deploy/visual-studio-publish-profiles)します。
+* 初期化アプリをローカルで実行する
+* メインアプリで初期化アプリをデプロイし、初期化ルーチンを呼び出し、初期化アプリを無効化または削除します。
+
+これは通常、[発行プロファイル](/aspnet/core/host-and-deploy/visual-studio-publish-profiles)を使用して自動化できます。

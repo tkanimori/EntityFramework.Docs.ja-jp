@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/teams
-ms.openlocfilehash: e6a1b86761a201cbcae34cced7e64f11df37a420
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 6c17c56277821159962884aef72d46c624442e20
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811988"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655541"
 ---
 # <a name="migrations-in-team-environments"></a>チーム環境での移行
 
@@ -19,11 +19,13 @@ ms.locfileid: "72811988"
 
 チームメイトからの移行をマージすると、モデルスナップショットファイルで競合が発生する可能性があります。 両方の変更が関連付けられていない場合、マージは簡単で、2つの移行を共存させることができます。 たとえば、次のような customer エンティティ型構成では、マージの競合が発生する可能性があります。
 
-    <<<<<<< Mine
-    b.Property<bool>("Deactivated");
-    =======
-    b.Property<int>("LoyaltyPoints");
-    >>>>>>> Theirs
+``` output
+<<<<<<< Mine
+b.Property<bool>("Deactivated");
+=======
+b.Property<int>("LoyaltyPoints");
+>>>>>>> Theirs
+```
 
 これらの両方のプロパティが最終的なモデルに存在する必要があるため、両方のプロパティを追加してマージを完了します。 多くの場合、このような変更は、バージョン管理システムによって自動的にマージされることがあります。
 
@@ -38,11 +40,13 @@ b.Property<int>("LoyaltyPoints");
 
 モデルスナップショットモデルをマージするときに、実際の競合が発生することがあります。 たとえば、自分とチームメイトが、それぞれ同じプロパティの名前を変更したとします。
 
-    <<<<<<< Mine
-    b.Property<string>("Username");
-    =======
-    b.Property<string>("Alias");
-    >>>>>>> Theirs
+``` output
+<<<<<<< Mine
+b.Property<string>("Username");
+=======
+b.Property<string>("Alias");
+>>>>>>> Theirs
+```
 
 この種類の競合が発生した場合は、移行を再作成して解決します。 この場合は、以下の手順に従ってください。
 

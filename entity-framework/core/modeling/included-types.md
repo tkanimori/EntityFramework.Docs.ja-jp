@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: cbe6935e-2679-4b77-8914-a8d772240cf1
 uid: core/modeling/included-types
-ms.openlocfilehash: ca83b1c432bdf4853dba81e12ec4a739bc8218dc
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 1249e71c02e58afe7fe06b3fdcf523dfa0c9b17c
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197377"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655741"
 ---
 # <a name="including--excluding-types"></a>種類を含める/除外する
 
@@ -17,52 +17,17 @@ ms.locfileid: "71197377"
 
 ## <a name="conventions"></a>規約
 
-慣例により、コンテキストのプロパティで`DbSet`公開される型は、モデルに含まれます。 さらに、 `OnModelCreating`メソッドに記述されている型も含まれています。 最後に、検出された型のナビゲーションプロパティを再帰的に調べることによって検出された型も、モデルに含まれます。
+慣例により、コンテキストの `DbSet` プロパティで公開される型は、モデルに含まれます。 さらに、`OnModelCreating` メソッドに記述されている型も含まれます。 最後に、検出された型のナビゲーションプロパティを再帰的に調べることによって検出された型も、モデルに含まれます。
 
 **たとえば、次のコードでは、3種類すべてが検出されています。**
 
-* `Blog`コンテキストの`DbSet`プロパティで公開されているため
+* コンテキストの `DbSet` プロパティで公開されているため `Blog`
 
-* `Post`ナビゲーションプロパティを使用し`Blog.Posts`て検出されるため、
+* `Blog.Posts` ナビゲーションプロパティを使用して検出されるため `Post`
 
-* `AuditEntry`これは、「」で説明されています。`OnModelCreating`
+* `AuditEntry` は `OnModelCreating` に記載されています。
 
-<!-- [!code-csharp[Main](samples/core/Modeling/Conventions/IncludedTypes.cs?highlight=3,7,16)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<AuditEntry>();
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-
-    public List<Post> Posts { get; set; }
-}
-
-public class Post
-{
-    public int PostId { get; set; }
-    public string Title { get; set; }
-    public string Content { get; set; }
-
-    public Blog Blog { get; set; }
-}
-
-public class AuditEntry
-{
-    public int AuditEntryId { get; set; }
-    public string Username { get; set; }
-    public string Action { get; set; }
-}
-```
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/IncludedTypes.cs?name=IncludedTypes&highlight=3,7,16)]
 
 ## <a name="data-annotations"></a>データの注釈
 

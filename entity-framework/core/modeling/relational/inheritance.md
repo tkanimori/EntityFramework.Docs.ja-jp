@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: c660107619470a726fe13ad8eee2850749e6dcd9
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 381d1878007bb78b359eb49649f4356f1e5eb04a
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812083"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655633"
 ---
 # <a name="inheritance-relational-database"></a>継承 (リレーショナル データベース)
 
@@ -29,25 +29,7 @@ EF Core は、継承された複数の型がモデルに明示的に含まれて
 
 単純な継承シナリオと、TPH パターンを使用してリレーショナルデータベーステーブルに格納されているデータを示す例を次に示します。 *識別子*列には、各行に格納されている*ブログ*の種類が示されます。
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/Conventions/InheritanceDbSets.cs)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-    public DbSet<RssBlog> RssBlogs { get; set; }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-}
-
-public class RssBlog : Blog
-{
-    public string RssUrl { get; set; }
-}
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/Conventions/InheritanceDbSets.cs#Model)]
 
 ![イメージ](_static/inheritance-tph-data.png)
 
@@ -62,32 +44,7 @@ public class RssBlog : Blog
 
 Fluent API を使用して、識別子列の名前と型、および階層内の各型を識別するために使用される値を構成できます。
 
-<!-- [!code-csharp[Main](samples/core/relational/Modeling/FluentAPI/InheritanceTPHDiscriminator.cs?highlight=7,8,9,10)] -->
-``` csharp
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
-
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Blog>()
-            .HasDiscriminator<string>("blog_type")
-            .HasValue<Blog>("blog_base")
-            .HasValue<RssBlog>("blog_rss");
-    }
-}
-
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-}
-
-public class RssBlog : Blog
-{
-    public string RssUrl { get; set; }
-}
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/InheritanceTPHDiscriminator.cs#Inheritance)]
 
 ## <a name="configuring-the-discriminator-property"></a>識別子プロパティの構成
 

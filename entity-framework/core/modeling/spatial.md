@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: cced53edadb890e4e86753ec2628218ffc4d1d5b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 335d4f3a601624f7c994b7dcacefe4ef6798beb3
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181389"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73655612"
 ---
 # <a name="spatial-data"></a>空間データ
 
@@ -32,7 +32,7 @@ Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore](https://
 
 ## <a name="reverse-engineering"></a>リバースエンジニアリング
 
-空間 NuGet パッケージによって、空間プロパティを持つ[リバースエンジニアリング](../managing-schemas/scaffolding.md)モデルも有効になりますが、`Scaffold-DbContext` または `dotnet ef dbcontext scaffold` を実行する***前***にパッケージをインストールする必要があります。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
+空間 NuGet パッケージでは、空間プロパティでモデルの[リバースエンジニアリング](../managing-schemas/scaffolding.md)を行うこともできますが、`Scaffold-DbContext` または `dotnet ef dbcontext scaffold`を実行する***前***にパッケージをインストールする必要があります。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
 ## <a name="nettopologysuite-nts"></a>NetTopologySuite (NTS)
 
@@ -46,7 +46,7 @@ optionsBuilder.UseSqlServer(
     x => x.UseNetTopologySuite());
 ```
 
-空間データ型はいくつかあります。 使用する種類は、許可する図形の種類によって異なります。 ここでは、モデルのプロパティに使用できる NTS 型の階層を示します。 これらは @no__t 0 の名前空間内にあります。
+空間データ型はいくつかあります。 使用する種類は、許可する図形の種類によって異なります。 ここでは、モデルのプロパティに使用できる NTS 型の階層を示します。 これらは `NetTopologySuite.Geometries` 名前空間内にあります。
 
 * Geometry
   * ポイント
@@ -213,15 +213,15 @@ SQL Server を使用している場合は、注意が必要な点がいくつか
 
 ### <a name="geography-or-geometry"></a>Geography または geometry
 
-既定では、空間プロパティは SQL Server 内の @no__t 0 列にマップされます。 @No__t-0 を使用するには、モデルの[列の型を構成](xref:core/modeling/relational/data-types)します。
+既定では、空間プロパティは SQL Server の `geography` 列にマップされます。 `geometry`を使用するには、モデルの[列の型を構成](xref:core/modeling/relational/data-types)します。
 
 ### <a name="geography-polygon-rings"></a>Geography polygon リング
 
-@No__t-0 列の型を使用する場合、SQL Server によって、外部リング (またはシェル) と内部リング (または穴) に追加の要件が課されます。 外部リングの方向を反時計回りにし、内部リングを時計回りにする必要があります。 NTS は、データベースに値を送信する前にこのことを検証します。
+`geography` 列の型を使用する場合、SQL Server によって、外部リング (またはシェル) と内部リング (または穴) に追加の要件が課されます。 外部リングの方向を反時計回りにし、内部リングを時計回りにする必要があります。 NTS は、データベースに値を送信する前にこのことを検証します。
 
 ### <a name="fullglobe"></a>FullGlobe
 
-SQL Server には、@no__t 0 の列の型を使用する場合、全地球を表す非標準の geometry 型があります。 また、地球全体に基づくポリゴンを表す方法も用意されています (外部リングは不要)。 これらのいずれも、NTS ではサポートされていません。
+`geography` 列の型を使用する場合、SQL Server には、全地球を表す非標準の geometry 型があります。 また、地球全体に基づくポリゴンを表す方法も用意されています (外部リングは不要)。 これらのいずれも、NTS ではサポートされていません。
 
 > [!WARNING]
 > NTS では、これに基づく FullGlobe と多角形はサポートされていません。
@@ -244,14 +244,14 @@ brew install libspatialite
 
 ### <a name="configuring-srid"></a>SRID の構成
 
-SpatiaLite では、列ごとに SRID を指定する必要があります。 既定の SRID は `0` です。 ForSqliteHasSrid メソッドを使用して、別の SRID を指定します。
+SpatiaLite では、列ごとに SRID を指定する必要があります。 既定の SRID は `0`です。 ForSqliteHasSrid メソッドを使用して、別の SRID を指定します。
 
 ``` csharp
 modelBuilder.Entity<City>().Property(c => c.Location)
     .ForSqliteHasSrid(4326);
 ```
 
-### <a name="dimension"></a>[ディメンション]
+### <a name="dimension"></a>ディメンション
 
 SRID と同様に、列のディメンション (または座標) も列の一部として指定されます。 既定の座標は X と Y です。 ForSqliteHasDimension メソッドを使用して、追加の座標 (Z および M) を有効にします。
 
@@ -271,7 +271,7 @@ Geometry. AsBinary () | ✔ | ✔ | ✔ | ✔
 Geometry. AsText () | ✔ | ✔ | ✔ | ✔
 Geometry. 境界 | ✔ | | ✔ | ✔
 Geometry. Buffer (double) | ✔ | ✔ | ✔ | ✔
-Geometry. Buffer (double, int) | | | ✔
+Geometry. Buffer (double, int) | | | ✔ | ✔
 Geometry. 重心 | ✔ | | ✔ | ✔
 Geometry. Contains (Geometry) | ✔ | ✔ | ✔ | ✔
 ConvexHull () | ✔ | ✔ | ✔ | ✔
@@ -287,17 +287,17 @@ EqualsExact (Geometry) | | | | ✔
 EqualsTopologically (Geometry) | ✔ | ✔ | ✔ | ✔
 GeometryType | ✔ | ✔ | ✔ | ✔
 GetGeometryN (int) | ✔ | | ✔ | ✔
-InteriorPoint | ✔ | | ✔
+InteriorPoint | ✔ | | ✔ | ✔
 Geometry. 積集合 (Geometry) | ✔ | ✔ | ✔ | ✔
 Geometry. 交差 (Geometry) | ✔ | ✔ | ✔ | ✔
 IsEmpty | ✔ | ✔ | ✔ | ✔
 Geometry. IsSimple | ✔ | | ✔ | ✔
 Geometry. IsValid | ✔ | ✔ | ✔ | ✔
-Geometry. Iswithin Distance (Geometry, double) | ✔ | | ✔
+Geometry. Iswithin Distance (Geometry, double) | ✔ | | ✔ | ✔
 Geometry. Length | ✔ | ✔ | ✔ | ✔
 Geometry. NumGeometries | ✔ | ✔ | ✔ | ✔
 Geometry. NumPoints | ✔ | ✔ | ✔ | ✔
-OgcGeometryType | ✔ | ✔ | ✔
+OgcGeometryType | ✔ | ✔ | ✔ | ✔
 Geometry. 重なり (Geometry) | ✔ | ✔ | ✔ | ✔
 Geometry. PointOnSurface | ✔ | | ✔ | ✔
 Geometry. 関連付け (Geometry, string) | ✔ | | ✔ | ✔
@@ -307,7 +307,7 @@ Geometry. SymmetricDifference (Geometry) | ✔ | ✔ | ✔ | ✔
 Geometry. ToBinary () | ✔ | ✔ | ✔ | ✔
 Geometry. ToText () | ✔ | ✔ | ✔ | ✔
 Geometry (Geometry) | ✔ | | ✔ | ✔
-Geometry. Union () | | | ✔
+Geometry. Union () | | | ✔ | ✔
 Geometry. 共用体 (Geometry) | ✔ | ✔ | ✔ | ✔
 Geometry. 内 (Geometry) | ✔ | ✔ | ✔ | ✔
 GeometryCollection | ✔ | ✔ | ✔ | ✔

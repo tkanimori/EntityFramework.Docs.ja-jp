@@ -1,81 +1,82 @@
 ---
-title: Entity Framework の用語集 EF6
+title: Entity Framework 用語集-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
-ms.openlocfilehash: 4e42e5870879524b814cecdc361e688d36f0180f
-ms.sourcegitcommit: 6c4e06bc62d98442530e93a44725e38e59483d42
+uid: ef6/resources/glossary
+ms.openlocfilehash: df0da4a68b3d2c882d9673417ee5fe335eccae2b
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/18/2019
-ms.locfileid: "58131384"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656154"
 ---
-# <a name="entity-framework-glossary"></a>Entity Framework の用語集
+# <a name="entity-framework-glossary"></a>Entity Framework 用語集
 ## <a name="code-first"></a>Code First
-コードを使用して Entity Framework モデルを作成します。 既存のデータベースまたは新しいデータベースを対象モデルにできます。
+コードを使用して Entity Framework モデルを作成する。 モデルでは、既存のデータベースまたは新しいデータベースを対象にすることができます。
 
 ## <a name="context"></a>コンテキスト
-クエリを実行し、データを保存することができます、データベースとのセッションを表すクラス。 コンテキストは、DbContext または ObjectContext クラスから派生します。
+データベースとのセッションを表すクラス。これにより、データのクエリと保存を行うことができます。 コンテキストは、DbContext または ObjectContext クラスから派生します。
 
-## <a name="convention-code-first"></a>規則 (1 つ目のコード)
-Entity Framework を使用して、クラスからのモデルの形状を推測するルール。
+## <a name="convention-code-first"></a>規則 (Code First)
+クラスからモデルの形状を推論するために Entity Framework 使用する規則。
 
-## <a name="database-first"></a>最初のデータベースします。
-既存のデータベースを対象とする EF デザイナーを使用して、Entity Framework モデルを作成します。
+## <a name="database-first"></a>Database First
+EF デザイナーを使用して、既存のデータベースを対象とする Entity Framework モデルを作成します。
 
 ## <a name="eager-loading"></a>一括読み込み
-1 つの型のエンティティのクエリ関連エンティティも読み込むクエリの一部として関連のデータの読み込みのパターン。
+ある種類のエンティティに対するクエリもクエリの一部として関連エンティティを読み込む、関連データを読み込むパターン。
 
 ## <a name="ef-designer"></a>EF デザイナー
-ボックスや線を使用して Entity Framework モデルを作成するための Visual Studio でのビジュアル デザイナーです。
+ボックスと行を使用して Entity Framework モデルを作成できる Visual Studio のビジュアルデザイナー。
 
 ## <a name="entity"></a>エンティティ
 顧客、製品、注文などのアプリケーション データを表すクラスまたはオブジェクト。
 
 ## <a name="entity-data-model"></a>エンティティ データ モデル
-エンティティおよびそれらの関係を記述するモデル。 EF では、EDM を使用して、対象となる概念モデルを記述する開発者プログラム。 EDM は、Dr で導入されたエンティティ リレーションシップ モデルに基づいています。Peter Chen します。 EDM は、もともとマイクロソフトの開発者およびサーバー テクノロジのスイート全体で common data model になることの主な目的に開発されました。 EDM は、OData プロトコルの一部としても使用されます。
+エンティティとその間のリレーションシップを記述するモデル。 EF では、EDM を使用して、開発者がプログラムを実行する概念モデルを記述します。 EDM は、Dr. Peter Chen によって導入されたエンティティリレーションシップモデルに基づいて構築されます。 EDM は、Microsoft の開発者およびサーバーテクノロジのスイート全体で共通のデータモデルになるという主な目標を使用して開発されました。 EDM は、OData プロトコルの一部としても使用されます。
 
 ## <a name="explicit-loading"></a>明示的読み込み
-関連オブジェクトが、API を呼び出すことによって読み込まれる関連のデータの読み込みのパターン。
+API を呼び出すことによって関連オブジェクトが読み込まれる場合に関連するデータを読み込むパターン。
 
 ## <a name="fluent-api"></a>Fluent API
 Code First モデルを構成するために使用できる API。
 
 ## <a name="foreign-key-association"></a>外部キーの関連付け
-依存エンティティのクラスで、外部キーを表すプロパティが含まれている、エンティティ間の関連付け。 たとえば、製品には、CategoryId プロパティが含まれています。
+外部キーを表すプロパティが依存エンティティのクラスに含まれるエンティティ間のアソシエーション。 たとえば、Product には CategoryId プロパティが含まれています。
 
-## <a name="identifying-relationship"></a>リレーションシップを識別します。
+## <a name="identifying-relationship"></a>リレーションシップの識別
 プリンシパル エンティティの主キーが依存エンティティの主キーの一部であるリレーションシップ。 このようなリレーションシップでは、プリンシパル エンティティが存在しないと、依存エンティティは存在できません。
 
-## <a name="independent-association"></a>独立アソシエーション
-エンティティ間のアソシエーションの依存エンティティ クラスの外部キーを表すプロパティが存在しません。 たとえば、Product クラスには、カテゴリが CategoryId プロパティへのリレーションシップが含まれています。 Entity Framework では、2 つのアソシエーション end のエンティティの状態とは無関係にアソシエーションの状態を追跡します。
+## <a name="independent-association"></a>独立関連付け
+依存エンティティのクラスの外部キーを表すプロパティがないエンティティ間のアソシエーション。 たとえば、Product クラスには Category へのリレーションシップが含まれていますが、CategoryId プロパティはありません。 Entity Framework は、2つのアソシエーション end のエンティティの状態に関係なく、関連付けの状態を追跡します。
 
 ## <a name="lazy-loading"></a>遅延読み込み
-ナビゲーション プロパティのアクセス時に関連するオブジェクトが読み込ま自動的に関連データの読み込みのパターン。
+ナビゲーションプロパティにアクセスしたときに関連オブジェクトが自動的に読み込まれる関連データの読み込みパターン。
 
-## <a name="model-first"></a>まずモデルします。
-EF デザイナーを使用して、Entity Framework モデルを作成しに使用される新しいデータベースを作成します。
+## <a name="model-first"></a>Model First
+EF デザイナーを使用して Entity Framework モデルを作成し、その後、新しいデータベースを作成するために使用します。
 
 ## <a name="navigation-property"></a>ナビゲーション プロパティ
-別のエンティティを参照するエンティティのプロパティ。 たとえば、製品にはカテゴリのナビゲーション プロパティが含まれていて、カテゴリには、製品のナビゲーション プロパティが含まれています。
+別のエンティティを参照するエンティティのプロパティ。 たとえば、Product に Category ナビゲーションプロパティが含まれていて、Category に Products ナビゲーションプロパティが含まれているとします。
 
 ## <a name="poco"></a>POCO
-Plain-old CLR オブジェクトの頭字語です。 任意のフレームワークでの依存関係がないシンプルなユーザー クラスです。 で、EF EntityObject から派生していない、任意のインターフェイスを実装または EF で定義されているすべての属性を格納するエンティティ クラスのコンテキスト。 「永続化に依存しない」に、永続化フレームワークから分離するこのようなエンティティ クラスともいいます。  
+Plain Old CLR Object の頭字語。 任意のフレームワークとの依存関係を持たない単純なユーザークラス。 EF のコンテキストでは、EntityObject から派生していないエンティティクラスは、任意のインターフェイスを実装するか、EF で定義されているすべての属性を保持します。 永続化フレームワークから切り離されたこのようなエンティティクラスは、"永続化に依存しない" とも呼ばれます。  
 
-## <a name="relationship-inverse"></a>リレーションシップの逆関数
-たとえば、製品、リレーションシップの反対側の端。カテゴリとカテゴリ。製品です。
+## <a name="relationship-inverse"></a>リレーションシップの逆
+リレーションシップの反対側 (product など)。カテゴリとカテゴリ。梱包.
 
 ## <a name="self-tracking-entity"></a>自己追跡エンティティ
-N 層開発を支援するコード生成テンプレートから構築されるエンティティ。
+N 層の開発に役立つコード生成テンプレートから構築されたエンティティ。
 
-## <a name="table-per-concrete-type-tpc"></a>テーブル-ごとの具象型 (TPC)
-階層内の各非抽象型が別のデータベース内のテーブルに割り当てられている継承のマッピング方法です。
+## <a name="table-per-concrete-type-tpc"></a>具象型ごとのテーブル (TPC)
+階層内の各非抽象型がデータベース内の別のテーブルにマップされる継承をマッピングする方法。
 
-## <a name="table-per-hierarchy-tph"></a>-Table-per-hierarchy (TPH)
-階層内のすべての型が、データベースの同じテーブルに割り当てられている継承のマッピング方法です。 列が行ごとの種類を識別するために使用される識別子が関連付けられています。
+## <a name="table-per-hierarchy-tph"></a>階層ごとのテーブル (TPH)
+階層内のすべての型がデータベース内の同じテーブルにマップされる継承をマッピングする方法。 識別子列は、各行が関連付けられている型を識別するために使用されます。
 
-## <a name="table-per-type-tpt"></a>テーブルあたり型 (TPT)
-階層内のすべての型の共通プロパティは、データベースで同じテーブルにマップされますが、各種類に固有のプロパティを別のテーブルにマップする継承のマッピング方法です。
+## <a name="table-per-type-tpt"></a>型ごとのテーブル (TPT)
+階層内のすべての型の共通プロパティがデータベース内の同じテーブルにマップされる継承をマッピングする方法。ただし、それぞれの型に固有のプロパティは、別のテーブルにマップされます。
 
-## <a name="type-discovery"></a>型の探索
-Entity Framework モデルの一部となる型を識別するプロセス。
+## <a name="type-discovery"></a>種類の検出
+Entity Framework モデルに含める必要がある型を識別するプロセス。

@@ -3,12 +3,13 @@ title: 過去のリリースの Entity Framework-EF6
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
-ms.openlocfilehash: 478dec6b2401efd554e84a231fe78e71dcbf5771
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+uid: ef6/what-is-new/past-releases
+ms.openlocfilehash: fada7740453cd9a55a1d0069236efcecbd9aa314
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182117"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656137"
 ---
 # <a name="past-releases-of-entity-framework"></a>過去のリリースの Entity Framework
 
@@ -50,15 +51,15 @@ EF 6.2 ランタイムに影響を与える、特に重要な変更の簡単な�
 - Migrate.exe で -script オプションがサポート [#240](https://github.com/aspnet/EntityFramework6/issues/240)
 - EF6 で SQL Server のシーケンスで生成されたキーの値が使用可能に [#165](https://github.com/aspnet/EntityFramework6/issues/165)
 - SQL Azure の実行方法に関する一時的なエラーのリストの更新 [#83](https://github.com/aspnet/EntityFramework6/issues/83)
-- バグ:クエリまたは SQL コマンドの再試行が "The SqlParameter is already contained by another SqlParameterCollection" (この SqlParameter は別の SqlParameterCollection に既に含まれています) で失敗する [#81](https://github.com/aspnet/EntityFramework6/issues/81)
-- バグ:DbQuery.ToString() の評価がデバッガーで頻繁にタイムアウトになる [#73](https://github.com/aspnet/EntityFramework6/issues/73)
+- バグ: クエリまたは SQL コマンドの再試行が "The SqlParameter is already contained by another SqlParameterCollection" (この SqlParameter は別の SqlParameterCollection に既に含まれています) で失敗する [#81](https://github.com/aspnet/EntityFramework6/issues/81)
+- バグ: DbQuery.ToString() の評価がデバッガーで頻繁にタイムアウトになる [#73](https://github.com/aspnet/EntityFramework6/issues/73)
 
 ## <a name="ef-613"></a>EF EF6.1.3
 EF ef6.1.3 runtime は2015年10月に NuGet にリリースされました。
 このリリースには、6.1.2 リリースで報告される優先度の高い欠陥と回帰に対する修正のみが含まれています。
 次のような修正が行われます。
 
-- クエリ:EF 6.1.2 の回帰:1:1 リレーションシップと "let" 句に対して、OUTER APPLY により複雑なクエリが導入されました
+- クエリ: EF 6.1.2: OUTER APPLY では、1:1 リレーションシップと "let" 句に対してより複雑なクエリが導入されました。
 - 継承されたクラスの基底クラスプロパティを非表示にすると TPT の問題が発生する
 - DbMigration。テキストに "進む" という単語が含まれていると、Sql が失敗する
 - UnionAll と Intersect のフラット化サポートの互換性フラグを作成する
@@ -79,7 +80,7 @@ EF 6.1.2 runtime は、2014年12月に NuGet にリリースされました。
 ## <a name="ef-611"></a>EF 6.1.1
 EF 6.1.1 runtime は、2014年6月に NuGet にリリースされました。
 このバージョンには、多数の担当者が遭遇した問題の修正が含まれています。 その他:
-- デザイナEF6 デザイナーで EF5 edmx を10進精度で開くときのエラー
+- デザイナー: EF6 デザイナーで EF5 edmx を10進精度で開くときにエラーが発生する
 - LocalDB の既定のインスタンス検出ロジックが SQL Server 2014 で動作しない
 
 ## <a name="ef-610"></a>EF 6.1.0
@@ -88,7 +89,7 @@ EF 6.1.0 runtime は2014年3月に NuGet にリリースされました。
 
 - **ツールの統合**により、新しい EF モデルを一貫した方法で作成できます。 この機能[は、ADO.NET Entity Data Model ウィザードを拡張して](~/ef6/modeling/code-first/workflows/existing-database.md)、既存のデータベースからのリバースエンジニアリングを含む Code First モデルの作成をサポートします。 これらの機能は、以前は EF パワーツールのベータ品質で使用できました。
 - **[トランザクションのコミットエラーの処理](~/ef6/fundamentals/connection-resiliency/commit-failures.md)** では、トランザクション操作をインターセプトする新しく導入された機能を使用する CommitFailureHandler が提供されます。 CommitFailureHandler を使用すると、トランザクションのコミット中に、接続エラーからの自動復旧を行うことができます。
-- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** では、Code First モデルのプロパティ (またはプロパティ) に @no__t 2 属性を配置することで、インデックスを指定できます。 Code First によって、データベースに対応するインデックスが作成されます。
+- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** を使用すると、Code First モデルのプロパティ (またはプロパティ) に `[Index]` 属性を配置することで、インデックスを指定できます。 Code First によって、データベースに対応するインデックスが作成されます。
 - **パブリックマッピング API は**、プロパティおよび型をデータベース内の列およびテーブルにマップする方法について、EF が使用する情報にアクセスできるようにします。 過去のリリースでは、この API は内部的でした。
 - **[アプリ/web.config ファイルを使用してインターセプターを構成する機能](~/ef6/fundamentals/configuring/config-file.md)** を使用すると、アプリケーションを再コンパイルしなくてもインターセプターを追加できます。
 - System.string は、すべてのデータベース操作をファイルに簡単に記録できるようにする新しいインターセプターとなって**います。** 以前の機能と組み合わせて使用すると、配置された[アプリケーションのデータベース操作のログ記録](~/ef6/fundamentals/configuring/config-file.md)を簡単に切り替えることができ、再コンパイルする必要はありません。
@@ -138,11 +139,11 @@ Code First または EF デザイナーで作成されたモデルでは、次�
 - **[べき等移行スクリプト](~/ef6/modeling/code-first/migrations/index.md)** を使用すると、最新バージョンまでの任意のバージョンのデータベースをアップグレードできる SQL スクリプトを生成できます。
 - **[構成可能な移行履歴テーブル](~/ef6/modeling/code-first/migrations/history-customization.md)** を使用すると、移行履歴テーブルの定義をカスタマイズできます。 これは、適切なデータ型を必要とするデータベースプロバイダーや、移行履歴テーブルが正常に機能するように指定するために特に便利です。
 - 1つのデータベースに**複数のコンテキスト**がある場合、移行を使用する場合、またはデータベースを自動的に作成 Code First 場合に、データベースごとに1つの Code First モデルの以前の制限が削除されます。
-- **[Dbmodelbuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** は、Code First モデルの既定のデータベーススキーマを1か所で構成できる新しい Code First API です。 以前は、Code First の既定のスキーマは &quot;dbo @ no__t-1 にハードコーディングされており、テーブルが属していたスキーマを構成する唯一の方法は ToTable API を介していました。
+- **[Dbmodelbuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** は、Code First モデルの既定のデータベーススキーマを1か所で構成できる新しい Code First API です。 以前は、Code First の既定のスキーマは &quot;dbo&quot; にハードコーディングされており、テーブルが属していたスキーマを構成する唯一の方法は ToTable API を使用していました。
 - **AddFromAssembly メソッド**を使用すると、CODE FIRST Fluent API で構成クラスを使用している場合に、アセンブリで定義されているすべての構成クラスを簡単に追加できます。
 - **[カスタム移行操作](https://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** を使用すると、コードベースの移行で使用する操作を追加できます。
 - Code First を使用して作成されたデータベースの**既定のトランザクション分離レベルは、READ_COMMITTED_SNAPSHOT に変更**されます。これにより、スケーラビリティが向上し、デッドロックが減少します。
-- **エンティティ型と複合型を nestedinside クラスにすることができるようになりました**。 |
+- **エンティティ型と複合型を nestedinside クラスにすることができるようになりました**。
 
 ## <a name="ef-50"></a>EF 5.0
 EF 5.0.0 runtime は、2012年8月に NuGet にリリースされました。
@@ -235,7 +236,7 @@ EF 4.2.0 ランタイムは、2011年11月に NuGet にリリースされまし�
 このリリースには、EF 4.1.1 リリースのバグ修正が含まれています。
 このリリースにはバグ修正が含まれているだけなので、EF 4.1.2 patch リリースになっている可能性がありますが、4.2 に移行して、4.1 リリースで使用していた日付ベースのパッチバージョン番号からの移動を許可し、s の[セマンティック](https://semver.org)バージョンを採用しています。emantic のバージョン管理。
 
-Ef 4.2 リリース専用にまとめたコンテンツの一覧を次に示します。 ef 4.1 用に提供されているコンテンツは EF 4.2 にも引き続き適用されます。
+Ef 4.2 リリース専用にまとめたコンテンツの一覧を次に示します。 ef 4.1 用に提供されているコンテンツは、ef 4.2 にも引き続き適用されます。
 
 -   [EF 4.2 リリースの投稿](https://blogs.msdn.com/b/adonet/archive/2011/11/01/ef-4-2-released.aspx)
 -   [Code First チュートリアル](https://blogs.msdn.com/b/adonet/archive/2011/09/28/ef-4-2-code-first-walkthrough.aspx)
