@@ -1,16 +1,16 @@
 ---
 title: Azure Cosmos DB プロバイダー - EF Core
+description: Azure Cosmos DB SQL API と共に Entity Framework Core を使えるようにするデータベース プロバイダーに関するドキュメントです
 author: AndriySvyryd
 ms.author: ansvyryd
-ms.date: 09/12/2019
-ms.assetid: 28264681-4486-4891-888c-be5e4ade24f1
+ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 96686256bb93f5828bb21fed167eb57812806390
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: 6cac695288d9ba84968b7fab6361f55e9b51be67
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813545"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656091"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダー
 
@@ -19,19 +19,22 @@ ms.locfileid: "71813545"
 
 このデータベース プロバイダーにより、Azure Cosmos DB と共に Entity Framework Core を使用できます。 このプロバイダーは、[Entity Framework Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore)の一部として保守管理されています。
 
-このセクションを読む前に、[Azure Cosmos DB のドキュメント](https://docs.microsoft.com/en-us/azure/cosmos-db/introduction)を理解することを強くお勧めします。
+このセクションを読む前に、[Azure Cosmos DB のドキュメント](/azure/cosmos-db/introduction)を理解することを強くお勧めします。
+
+>[!NOTE]
+> このプロバイダーは、Azure Cosmos DB の SQL API でのみ機能します。
 
 ## <a name="install"></a>インストール
 
 [Microsoft.EntityFrameworkCore.Cosmos NuGet パッケージ](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Cosmos/)をインストールします。
 
-# <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ``` console
 dotnet add package Microsoft.EntityFrameworkCore.Cosmos
 ```
 
-# <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Install-Package Microsoft.EntityFrameworkCore.Cosmos
@@ -39,17 +42,17 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 
 ***
 
-## <a name="get-started"></a>開始するには
+## <a name="get-started"></a>作業開始
 
 > [!TIP]  
 > この記事の[サンプルは GitHub](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Cosmos) で確認できます。
 
-他のプロバイダーと同様に、最初の手順は `UseCosmos` を呼び出すことです。
+他のプロバイダーと同様に、最初の手順は [UseCosmos](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosDbContextOptionsExtensions.UseCosmos) を呼び出すことです。
 
 [!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Configuration)]
 
 > [!WARNING]
-> ここでは、わかりやすくするためにエンドポイントとキーをハードコーディングしていますが、運用アプリでは、これらは[安全に保存](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager)する必要があります。
+> ここでは、わかりやすくするためにエンドポイントとキーをハードコーディングしていますが、運用アプリでは、これらは[安全に保存](/aspnet/core/security/app-secrets#secret-manager)する必要があります。
 
 この例では、`Order` は、[所有されている型](../../modeling/owned-entities.md) `StreetAddress`への参照を持つ単純なエンティティです。
 
@@ -62,23 +65,40 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 [!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
 
 > [!IMPORTANT]
-> 必要なコレクションの作成と、モデルに存在する場合の[シード データ](../../modeling/data-seeding.md)の挿入には、`EnsureCreated` を呼び出す必要があります。 ただし、`EnsureCreated` は、パフォーマンスの問題を引き起こす可能性があるため、通常の操作ではなく、配置時にのみ呼び出す必要があります。
+> 必須のコンテナーを作成し、モデル内に[シード データ](../../modeling/data-seeding.md)が存在する場合は挿入するようにするためには、[EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) を呼び出す必要があります。 ただし、`EnsureCreatedAsync` は、パフォーマンスの問題を引き起こす可能性があるため、通常の操作ではなく、配置時にのみ呼び出す必要があります。
 
 ## <a name="cosmos-specific-model-customization"></a>Cosmos 固有のモデルのカスタマイズ
 
-既定では、すべてのエンティティ型は、(この場合は `"OrderContext"` の) 派生コンテキストに基づいて命名された同じコンテナーにマップされます。 既定のコンテナー名を変更するには、次のように `HasDefaultContainer` を使用します。
+既定では、すべてのエンティティ型は、(この場合は `"OrderContext"` の) 派生コンテキストに基づいて命名された同じコンテナーにマップされます。 既定のコンテナー名を変更するには、[HasDefaultContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosModelBuilderExtensions.HasDefaultContainer) を使います。
 
 [!code-csharp[DefaultContainer](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=DefaultContainer)]
 
-エンティティ型を別のコンテナーにマップするには、次のように `ToContainer` を使用します。
+エンティティ型を別のコンテナーにマップするには、[ToContainer](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToContainer) を使います。
 
 [!code-csharp[Container](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Container)]
 
 EF Core では、派生エンティティ型がない場合でも、特定の項目が表すエンティティ型の識別に識別子の値が追加されます。 識別子の名前と値は[変更できます](../../modeling/inheritance.md)。
 
+他のエンティティ型が同じコンテナーに格納されることがない場合は、[HasNoDiscriminator](/dotnet/api/Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder.HasNoDiscriminator) を呼び出すことで、その識別子を削除できます。
+
+[!code-csharp[NoDiscriminator](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=NoDiscriminator)]
+
+### <a name="partition-keys"></a>パーティション キー
+
+既定では、EF Core ではパーティション キーが `"__partitionKey"` に設定されたコンテナーが作成されます。項目を挿入する際に、それに対して値が指定されることはありません。 しかし、Azure Cosmos のパフォーマンス機能を十分に活用するには、[慎重に選んだパーティション キー](/azure/cosmos-db/partition-data)を使用する必要があります。 これを構成するには、[HasPartitionKey](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.HasPartitionKey) を呼び出します。
+
+[!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PartitionKey)]
+
+>[!NOTE]
+>パーティション キーのプロパティは、それが[文字列に変換される](xref:core/modeling/value-conversions)限り、任意の型にすることができます。
+
+一度構成したら、パーティション キーのプロパティは常に null 以外の値を持つ必要があります。 クエリを発行するときに、条件を追加して単一パーティションにすることができます。
+
+[!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=PartitionKey)]
+
 ## <a name="embedded-entities"></a>埋め込みエンティティ
 
-Cosmos 所有エンティティは、所有者と同じアイテムに埋め込まれます。 プロパティ名を変更するには、次のように `ToJsonProperty` を使用します。
+Cosmos 所有エンティティは、所有者と同じアイテムに埋め込まれます。 プロパティ名を変更するには、[ToJsonProperty](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToJsonProperty) を使います。
 
 [!code-csharp[PropertyNames](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PropertyNames)]
 
@@ -87,12 +107,11 @@ Cosmos 所有エンティティは、所有者と同じアイテムに埋め込�
 ``` json
 {
     "Id": 1,
-    "Discriminator": "Order",
+    "PartitionKey": "1",
     "TrackingNumber": null,
-    "id": "Order|1",
+    "id": "1",
     "Address": {
         "ShipsToCity": "London",
-        "Discriminator": "StreetAddress",
         "ShipsToStreet": "221 B Baker St"
     },
     "_rid": "6QEKAM+BOOABAAAAAAAAAA==",
@@ -121,12 +140,10 @@ Cosmos 所有エンティティは、所有者と同じアイテムに埋め込�
     "ShippingCenters": [
         {
             "City": "Phoenix",
-            "Discriminator": "StreetAddress",
             "Street": "500 S 48th Street"
         },
         {
             "City": "Anaheim",
-            "Discriminator": "StreetAddress",
             "Street": "5650 Dolly Ave"
         }
     ],
@@ -158,18 +175,18 @@ EF Core には、追跡対象のすべてのエンティティに対して、内
 ``` json
 {
     "Id": 1,
-    "Discriminator": "Order",
-    "TrackingNumber": null,
-    "id": "Order|1",
-    "Address": {
-        "ShipsToCity": "London",
-        "Discriminator": "StreetAddress",
-        "ShipsToStreet": "3 Abbey Road"
-    },
-    "_rid": "6QEKAM+BOOABAAAAAAAAAA==",
-    "_self": "dbs/6QEKAA==/colls/6QEKAM+BOOA=/docs/6QEKAM+BOOABAAAAAAAAAA==/",
-    "_etag": "\"00000000-0000-0000-683c-8f7ac48f01d5\"",
+    "Discriminator": "Distributor",
+    "id": "Distributor|1",
+    "ShippingCenters": [
+        {
+            "City": "Phoenix",
+            "Street": "500 S 48th Street"
+        }
+    ],
+    "_rid": "JBwtAN8oNYEBAAAAAAAAAA==",
+    "_self": "dbs/JBwtAA==/colls/JBwtAN8oNYE=/docs/JBwtAN8oNYEBAAAAAAAAAA==/",
+    "_etag": "\"00000000-0000-0000-9377-d7a1ae7c01d5\"",
     "_attachments": "attachments/",
-    "_ts": 1568163739
+    "_ts": 1572917100
 }
 ```

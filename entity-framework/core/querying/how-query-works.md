@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 09/26/2018
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 uid: core/querying/how-query-works
-ms.openlocfilehash: bc085755f39b1288f092a8b2df892c1bf82a89f1
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: ba0d68469530e6272ffbb51946d7856122a261c7
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72186240"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656238"
 ---
 # <a name="how-queries-work"></a>クエリのしくみ
 
@@ -33,13 +33,14 @@ Entity Framework Core では統合言語クエリ (LINQ) を使用し、デー�
       * 既にある場合、既存のエンティティが返されます<sup>(1)</sup>。
       * ない場合、新しいエンティティが作成されて、返されます。
 
-<sup>(1)</sup> 既に返されたエンティティの追跡を継続するために、追跡なしクエリでは弱参照を使用します。 同じ ID の前の結果が範囲外になっている場合は、ガベージ コレクションが実行され、新しいエンティティ インスタンスを取得できます。
+<sup>(1)</sup> 既に返されたエンティティの追跡を継続するために、追跡なしクエリでは弱参照が使用されます。 同じ ID の前の結果が範囲外になっている場合は、ガベージ コレクションが実行され、新しいエンティティ インスタンスを取得できます。
 
 ## <a name="when-queries-are-executed"></a>クエリの実行時
 
 LINQ 演算子を呼び出すと、単純にクエリのメモリ内表現がビルドされます。 クエリは、結果が使用されるときにデータベースに送信されるだけです。
 
 クエリでの結果がデータベースに送信される最も一般的な操作は、次のとおりです。
+
 * `for` ループ内で結果を反復処理する
 * `ToList`、`ToArray`、`Single`、`Count` などの演算子を使用する
 * クエリの結果を UI にデータバインドする

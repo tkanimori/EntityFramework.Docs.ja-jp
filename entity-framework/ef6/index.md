@@ -4,12 +4,12 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 8ae74d63-6bad-4686-b325-bbf9d68f3743
 uid: ef6/index
-ms.openlocfilehash: 9561a7c4b645896cb4e248cb094c6954ed4bcdf1
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 28a13879416a52cbe8035c23013f16390c75c4c9
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181425"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73656179"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) は、機能開発および安定化に何年もの時間が費やされてきた、十分に検証された .NET 用のオブジェクト リレーショナル マッパー (O/RM) です。
@@ -17,11 +17,11 @@ Entity Framework 6 (EF6) は、機能開発および安定化に何年もの時�
 EF6 は、O/RM として、リレーショナルおよびオブジェクト指向の世界のインピーダンス不整合を減らします。開発者はこれにより、アプリケーションのドメインを表す厳密に型指定された .NET オブジェクトを使用した、リレーショナル データベースに格納されたデータをやり取りするアプリケーションを記述でき、通常は記述する必要のあるデータ アクセス "プラミング" コードの大部分を記述する必要がなくなります。
 
 EF6 には、次のような多数の一般的な O/RM 機能が実装されています。
-- どの EF の種類にも依存しない [POCO](~/ef6/resources/glossary.md#poco) エンティティ クラスのマッピング
+- どの EF の種類にも依存しない [POCO](xref:ef6/resources/glossary#poco) エンティティ クラスのマッピング
 - 変更の自動追跡
 - ID 解決および作業単位
 - Eager、lazy および明示的読み込み
-- LINQ (言語統合クエリ) を使用した厳密に型指定されたクエリの変換
+- [LINQ (言語統合クエリ)](https://aka.ms/AA6hsvu) を使用した厳密に型指定されたクエリの変換
 - 次などのサポートを含む、豊富なマッピング機能があります。
   - 一対一、一対多、および多対多のリレーションシップ
   - 継承 (Table-Per-Hierarchy、Table-Per-Type、Table-Per-Concrete-lass)
@@ -31,7 +31,7 @@ EF6 には、次のような多数の一般的な O/RM 機能が実装されて�
 - コードを記述することにより、エンティティ モデルを作成する "Code First" エクスペリエンス。
 - モデルは既存のデータベースから生成し手作業で編集するか、最初から生成して新しいデータベースの作成に使用できます。
 - ASP.NET を含む .NET Framework アプリケーション モデルとの統合および、WPF と WinForms を介したデータ バインド。
-- ADO.NET に基づくデータベース接続、および SQL Server、Oracle、MySQL、SQLite、PostgreSQL、DB2 などへの接続に使用可能な多数のプロバイダー。
+- ADO.NET に基づくデータベース接続、および SQL Server、Oracle、MySQL、SQLite、PostgreSQL、DB2 などへの接続に使用可能な多数の[プロバイダー](xref:ef6/fundamentals/providers/index)。
 
 ## <a name="should-i-use-ef6-or-ef-core"></a>EF6 または EF Core のどちらを使用すべきか
 
@@ -40,11 +40,11 @@ EF Core は完全に書き直されたもので、EF6 にはない機能が多�
 機能セットが要件に合う場合は、新しいアプリケーション内で EF Core を使用することを検討してください。
 「[EF Core と EF6 を比較する](xref:efcore-and-ef6/index)」ではこの選択についてより詳しく検証しています。
 
-## <a name="get-startedef6get-startedmd"></a>[開始するには](~/ef6/get-started.md)
+## <a name="get-startedxrefef6get-started"></a>[開始するには](xref:ef6/get-started)
 
-EntityFramework NuGet パッケージをプロジェクトに追加するか、Entity Framework Tools for Visual Studio をインストールします。 次いでビデオを見たり、チュートリアルやより高度なドキュメントを読み、EF6 を最大限に活用できるようにします。
+EntityFramework NuGet パッケージをプロジェクトに追加するか、[Entity Framework Tools for Visual Studio](https://aka.ms/AA6i8c5) をインストールします。 次いでビデオを見たり、チュートリアルやより高度なドキュメントを読み、EF6 を最大限に活用できるようにします。
 
 ## <a name="past-entity-framework-versions"></a>過去の Entity Framework のバージョン
 
 これは、Entity Framework 6 の最新バージョン用のドキュメントですが、ほとんどが過去のリリースにも当てはまります。
-EF のすべてのリリース一覧およびそれらによって導入された機能については、「[What's New](~/ef6/what-is-new/index.md)」 (新機能) と「[Past Releases](~/ef6/what-is-new/past-releases.md)」 (以前のリリース) を参照してください。
+EF のすべてのリリース一覧およびそれらによって導入された機能については、「[What's New](xref:ef6/what-is-new/index)」 (新機能) と「[Past Releases](xref:ef6/what-is-new/past-releases)」 (以前のリリース) を参照してください。

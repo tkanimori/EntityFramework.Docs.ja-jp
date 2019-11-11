@@ -4,19 +4,20 @@ author: divega
 ms.date: 11/14/2018
 ms.assetid: 73C7A627-C8E9-452D-9CD5-AFCC8FEFE395
 uid: core/querying/tags
-ms.openlocfilehash: 3a4d516cab5836c659e42d825c4f1bf89355d671
-ms.sourcegitcommit: b3c2b34d5f006ee3b41d6668f16fe7dcad1b4317
+ms.openlocfilehash: e8415b237df45ce652dcd152013f4f12a992aed7
+ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/15/2018
-ms.locfileid: "51688755"
+ms.lasthandoff: 11/06/2019
+ms.locfileid: "73654833"
 ---
 # <a name="query-tags"></a>クエリのタグ
+
 > [!NOTE]
 > これは EF Core 2.2 の新機能です。
 
 この機能は、コード内の LINQ クエリを、ログでキャプチャされる生成済みの SQL クエリと関連付けるのに役立ちます。
-新しい `TagWith()` メソッドを使用して LINQ クエリに注釈を付けます。 
+新しい `TagWith()` メソッドを使用して LINQ クエリに注釈を付けます。
 
 ``` csharp
   var nearestFriends =
@@ -49,7 +50,7 @@ IQueryable<T> Limit<T>(IQueryable<T> source, int limit) =>
     source.TagWith("Limit").Take(limit);
 ```
 
-次のクエリ:   
+次のクエリ:
 
 ``` csharp
 var results = Limit(GetNearestFriends(myLocation), 25).ToList();
@@ -68,7 +69,7 @@ ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 ```
 
 クエリのタグとして複数行の文字列を使用することも可能です。
-例:
+次に例を示します。
 
 ``` csharp
 var results = Limit(GetNearestFriends(myLocation), 25).TagWith(
@@ -92,5 +93,6 @@ ORDER BY [f].[Location].STDistance(@__myLocation_0) DESC
 ```
 
 ## <a name="known-limitations"></a>既知の制限事項
-**クエリのタグはパラ―メーター化できません:** EF Core では、LINQ クエリ内のクエリのタグが常に、生成される SQL に含まれる文字列リテラルとして扱われます。
+
+**クエリのタグは、パラメーター化できません:** EF Core では、LINQ クエリ内のクエリのタグが常に、生成される SQL に含まれる文字列リテラルとして扱われます。
 コンパイルされたクエリがパラメーターとしてクエリのタグを受け取ることはできません。
