@@ -17,7 +17,7 @@ ms.locfileid: "72181289"
 
 ## <a name="package-names-and-versions"></a>パッケージ名とバージョン
 
-RC1 と RC2 の間では、"Entity Framework 7" から "Entity Framework Core" に変更されました。 この投稿の変更の理由の詳細については、 [Scott サバイバル selman を](https://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx)参照してください。 この変更により、パッケージ名は `EntityFramework.*` から `Microsoft.EntityFrameworkCore.*` に変更され、バージョンは `7.0.0-rc1-final` から `1.0.0-rc2-final` (またはツールの場合は @no__t 4) に変更されました。
+RC1 と RC2 の間では、"Entity Framework 7" から "Entity Framework Core" に変更されました。 この投稿の変更の理由の詳細については、 [Scott サバイバル selman を](https://www.hanselman.com/blog/ASPNET5IsDeadIntroducingASPNETCore10AndNETCore10.aspx)参照してください。 この変更により、パッケージ名は `EntityFramework.*` から `Microsoft.EntityFrameworkCore.*` に変更され、バージョンは `7.0.0-rc1-final` から `1.0.0-rc2-final` (またはツールの `1.0.0-preview1-final`) に変わりました。
 
 **RC1 パッケージを完全に削除し、RC2 をインストールする必要があります。** いくつかの一般的なパッケージのマッピングを次に示します。
 
@@ -35,7 +35,7 @@ RC1 と RC2 の間では、"Entity Framework 7" から "Entity Framework Core" �
 
 ## <a name="namespaces"></a>名前空間
 
-名前空間は、パッケージ名と共に、`Microsoft.Data.Entity.*` から `Microsoft.EntityFrameworkCore.*` に変更されました。 この変更は、`using Microsoft.Data.Entity` の検索/置換を `using Microsoft.EntityFrameworkCore` で処理できます。
+パッケージ名と共に、名前空間は `Microsoft.Data.Entity.*` から `Microsoft.EntityFrameworkCore.*`に変更されました。 この変更は、`using Microsoft.EntityFrameworkCore`での `using Microsoft.Data.Entity` の検索と置換によって処理できます。
 
 ## <a name="table-naming-convention-changes"></a>テーブルの名前付け規則の変更
 
@@ -54,7 +54,7 @@ foreach (var entity in modelBuilder.Model.GetEntityTypes())
 
 ## <a name="adddbcontext--startupcs-changes-aspnet-core-projects-only"></a>AddDbContext/Startup.cs Changes (ASP.NET Core プロジェクトのみ)
 
-RC1 では、アプリケーションサービスプロバイダーに Entity Framework サービスを追加する必要がありました-`Startup.ConfigureServices(...)`:
+RC1 では、アプリケーションサービスプロバイダーに Entity Framework サービスを追加する必要がありました。 `Startup.ConfigureServices(...)`は次のとおりです。
 
 ``` csharp
 services.AddEntityFramework()
@@ -63,7 +63,7 @@ services.AddEntityFramework()
     options.UseSqlServer(Configuration["ConnectionStrings:DefaultConnection"]));
 ```
 
-RC2 では、`AddEntityFramework()`、`AddSqlServer()` などへの呼び出しを削除できます。
+RC2 では、`AddEntityFramework()`、`AddSqlServer()`などの呼び出しを削除できます。
 
 ``` csharp
 services.AddDbContext<ApplicationDbContext>(options =>
@@ -81,7 +81,7 @@ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 
 ## <a name="passing-in-an-iserviceprovider"></a>IServiceProvider を渡す
 
-@No__t-0 をコンテキストに渡す RC1 コードがある場合、これは別のコンストラクターパラメーターではなく `DbContextOptions` に移動されました。 サービスプロバイダーを設定するには、`DbContextOptionsBuilder.UseInternalServiceProvider(...)` を使用します。
+`IServiceProvider` をコンテキストに渡す RC1 コードがある場合、これは別のコンストラクターパラメーターではなく `DbContextOptions`に移動されました。 サービスプロバイダーを設定するには、`DbContextOptionsBuilder.UseInternalServiceProvider(...)` を使用します。
 
 ### <a name="testing"></a>Testing (テスト)
 
@@ -89,7 +89,7 @@ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 
 ### <a name="resolving-internal-services-from-application-service-provider-aspnet-core-projects-only"></a>アプリケーションサービスプロバイダーからの内部サービスの解決 (ASP.NET Core プロジェクトのみ)
 
-ASP.NET Core アプリケーションがあり、EF でアプリケーションサービスプロバイダーから内部サービスを解決する必要がある場合は、次のように構成できる @no__t 0 のオーバーロードがあります。
+ASP.NET Core アプリケーションがあり、EF でアプリケーションサービスプロバイダーから内部サービスを解決する必要がある場合は、次のように構成できる `AddDbContext` のオーバーロードがあります。
 
 ``` csharp
 services.AddEntityFrameworkSqlServer()
@@ -103,9 +103,9 @@ services.AddEntityFrameworkSqlServer()
 
 ## <a name="dnx-commands--net-cli-aspnet-core-projects-only"></a>DNX コマンド = > .NET CLI (ASP.NET Core プロジェクトのみ)
 
-ASP.NET 5 プロジェクトに対して `dnx ef` コマンドを以前に使用していた場合、これらのコマンドは `dotnet ef` コマンドに移動されました。 同じコマンド構文が引き続き適用されます。 構文情報には `dotnet ef --help` を使用できます。
+以前に ASP.NET 5 プロジェクト用の `dnx ef` コマンドを使用していた場合、これらのコマンドは `dotnet ef` コマンドに移動されました。 同じコマンド構文が引き続き適用されます。 構文情報には `dotnet ef --help` を使用できます。
 
-コマンドの登録方法は RC2 で変更されています。 DNX は .NET CLI に置き換えられているためです。 コマンドが `project.json` の @no__t 0 セクションに登録されるようになりました。
+コマンドの登録方法は RC2 で変更されています。 DNX は .NET CLI に置き換えられているためです。 コマンドが `project.json`の `tools` セクションに登録されるようになりました。
 
 ``` json
 "tools": {
@@ -120,7 +120,7 @@ ASP.NET 5 プロジェクトに対して `dnx ef` コマンドを以前に使用
 ```
 
 > [!TIP]  
-> Visual Studio を使用する場合は、パッケージマネージャーコンソールを使用して ASP.NET Core プロジェクトに対して EF コマンドを実行できるようになりました (これは RC1 ではサポートされていません)。 この操作を行うには、`project.json` の @no__t 0 セクションにコマンドを登録する必要があります。
+> Visual Studio を使用する場合は、パッケージマネージャーコンソールを使用して ASP.NET Core プロジェクトに対して EF コマンドを実行できるようになりました (これは RC1 ではサポートされていません)。 この操作を行うには、`project.json` の `tools` セクションにコマンドを登録する必要があります。
 
 ## <a name="package-manager-commands-require-powershell-5"></a>パッケージマネージャーのコマンドには PowerShell 5 が必要です
 
@@ -144,7 +144,7 @@ Package Remotion.Linq 2.0.2 is not compatible with netcoreapp1.0 (.NETCoreApp,Ve
   - portable-net45+win8+wp8+wpa81 (.NETPortable,Version=v0.0,Profile=Profile259)
 ```
 
-この回避策は、ポータブルプロファイル "net451 + win8" を手動でインポートすることです。 これにより、NuGet は、これに一致するこのバイナリを .NET Standard と互換性のあるフレームワークとして処理します。 "Net451 + win8" は、.NET Standard と互換性が 100% ではありませんが、PCL から .NET Standard への移行に十分対応しています。 EF の依存関係が最終的に .NET Standard にアップグレードされると、インポートを削除できます。
+この回避策は、ポータブルプロファイル "net451 + win8" を手動でインポートすることです。 これにより、NuGet は、これに一致するこのバイナリを .NET Standard と互換性のあるフレームワークとして処理します。 "Net451 + win8" は、.NET Standard と互換性が100% ではありませんが、PCL から .NET Standard への移行に十分対応しています。 EF の依存関係が最終的に .NET Standard にアップグレードされると、インポートを削除できます。
 
 配列構文では、複数のフレームワークを "インポート" に追加できます。 その他のインポートは、プロジェクトにライブラリを追加する場合に必要になることがあります。
 

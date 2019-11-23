@@ -27,9 +27,9 @@ ms.locfileid: "72182650"
 ## <a name="watch-the-video"></a>ビデオを見る
 このビデオでは、空間型を Entity Framework Code First にマップする方法について説明します。 また、LINQ クエリを使用して2つの場所の間の距離を検索する方法も示します。
 
-**表示者**:ジュリアつい
+**表示者**: ジュリアつい
 
-**ビデオ**:[WMV](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
+**ビデオ**: [wmv](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.wmv) | [MP4](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-mp4video-spatialwithcodefirst.m4v) | [wmv (ZIP)](https://download.microsoft.com/download/9/1/3/913EA17E-6F97-41D8-A4FE-805A0D83D26A/HDI-ITPro-MSDN-winvideo-spatialwithcodefirst.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
@@ -39,7 +39,7 @@ ms.locfileid: "72182650"
 
 1.  Visual Studio 2012 を開く
 2.  **[ファイル]** メニューの **[新規作成]** をポイントし、 **[プロジェクト]** をクリックします。
-3.  左側のウィンドウで、 **[Visual C @ no__t-1]** をクリックし、**コンソール**テンプレートを選択します。
+3.  左側のウィンドウで、[ **Visual C\#** ] をクリックし、**コンソール**テンプレートを選択します。
 4.  プロジェクトの名前として「 **SpatialCodeFirst** 」と入力し、[ **OK]** をクリックします。
 
 ## <a name="define-a-new-model-using-code-first"></a>Code First を使用して新しいモデルを定義する
@@ -67,7 +67,7 @@ public class University
 
 ## <a name="define-the-dbcontext-derived-type"></a>DbContext の派生型を定義する
 
-エンティティを定義するだけでなく、DbContext から派生し、Dbcontext @ no__t-0TEntity @ no__t プロパティを公開するクラスを定義する必要があります。 DbSet @ no__t-0TEntity @ no__t-1 プロパティを使用すると、モデルに含める型をコンテキストに認識させることができます。
+エンティティを定義するだけでなく、DbContext から派生するクラスを定義し、Dbcontext&lt;TEntity&gt; プロパティを公開する必要があります。 DbSet&lt;TEntity&gt; プロパティを使用すると、モデルに含める型をコンテキストに認識させることができます。
 
 DbContext の派生型のインスタンスは、実行時にエンティティオブジェクトを管理します。これには、データベースからのデータを使用したオブジェクトの読み込み、変更の追跡、およびデータベースへのデータの永続化が含まれます。
 
@@ -144,12 +144,12 @@ The closest University to you is: School of Fine Art.
 
 データベースとデータを表示するには、次の手順を実行します。
 
-1.  Visual Studio 2012 のメインメニューで、@no__t の**表示**-1 @ no__t-2 **SQL Server オブジェクトエクスプローラー** を選択します。
+1.  Visual Studio 2012 のメインメニューで、[ **View** -&gt; **SQL Server オブジェクトエクスプローラー**] を選択します。
 2.  LocalDB がサーバーの一覧にない場合は、 **SQL Server**で右マウスボタンをクリックし、[追加] を選択**SQL Server**既定の**Windows 認証**を使用して localdb インスタンスに接続します。
 3.  LocalDB ノードを展開します。
 4.  **[データベース]** フォルダーを展開して新しいデータベースを表示し、 **[大学]** テーブルを参照します。
 5.  データを表示するには、テーブルを右クリックし、 **[データの表示]** を選択します。
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 このチュートリアルでは、Entity Framework Code First で空間型を使用する方法について説明しました。 

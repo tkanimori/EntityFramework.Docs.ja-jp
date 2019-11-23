@@ -33,18 +33,18 @@ ms.locfileid: "72182097"
 Install-Package EntityFramework
 ```
 
-## <a name="2-ensure-that-assembly-references-to-systemdataentitydll-are-removed"></a>2. System.object へのアセンブリ参照が削除されていることを確認します。
+## <a name="2-ensure-that-assembly-references-to-systemdataentitydll-are-removed"></a>2. system.object へのアセンブリ参照が削除されていることを確認します。
 
 EF6 NuGet パッケージをインストールすると、プロジェクトからへの参照が自動的に削除されます。
 
-## <a name="3-swap-any-ef-designer-edmx-models-to-use-ef-6x-code-generation"></a>3.Ef 6.x コード生成を使用するように EF Designer (EDMX) モデルをスワップする
+## <a name="3-swap-any-ef-designer-edmx-models-to-use-ef-6x-code-generation"></a>3. ef Designer (EDMX) モデルをスワップして EF 6.x コード生成を使用する
 
 EF デザイナーで作成されたモデルがある場合は、コード生成テンプレートを更新して、EF6 互換コードを生成する必要があります。
 
 > [!NOTE]
 > 現在、Visual Studio 2012 および2013で使用できる EF 6.x DbContext ジェネレーターテンプレートのみがあります。
 
-1. 既存のコード生成テンプレートを削除します。 これらのファイルには、通常 **\<edmx_file_name\>.tt**と **\<edmx_file_name @ no__t-5 という名前が付けられます。Context.tt**は、ソリューションエクスプローラーの edmx ファイルの下に入れ子になっています。 ソリューションエクスプローラーでテンプレートを選択し、 **del**キーを押して削除することができます。  
+1. 既存のコード生成テンプレートを削除します。 これらのファイルは、通常、 **\>edmx_file_name\<** と\<edmx_file_name\>に名前が付けられます **。Context.tt**は、ソリューションエクスプローラーの edmx ファイルの下に入れ子になっています。 ソリューションエクスプローラーでテンプレートを選択し、 **del**キーを押して削除することができます。  
    > [!NOTE]
    > Web サイトプロジェクトでは、テンプレートは edmx ファイルの下に入れ子になっていませんが、ソリューションエクスプローラーに並べられています。  
 
@@ -58,19 +58,19 @@ EF デザイナーで作成されたモデルがある場合は、コード生�
     - ObjectContext API を使用している場合は、 **[オンライン]** タブを選択し、 **EF 6.X の entityobject Generator**を検索する必要があります。  
 3. コード生成テンプレートにカスタマイズを適用した場合は、更新されたテンプレートに再適用する必要があります。
 
-## <a name="4-update-namespaces-for-any-core-ef-types-being-used"></a>4。使用されているすべてのコア EF 型の名前空間を更新する
+## <a name="4-update-namespaces-for-any-core-ef-types-being-used"></a>4. 使用されているすべてのコア EF 型の名前空間を更新する
 
 DbContext および Code First 型の名前空間は変更されていません。 これは、EF 4.1 以降を使用する多くのアプリケーションでは、何も変更する必要がないことを意味します。
 
 以前に system.object に含まれていた ObjectContext などの型は、新しい名前空間に移動されました。 つまり、EF6 に対してビルドするには、 *using*ディレクティブまたは*Import*ディレクティブを更新する必要があります。
 
-名前空間の変更に関する一般的な規則は、system.string 内のすべての型が、system.string に移動されることです。 言い換えると、" **Entity. Core** " を挿入するだけです。 System. Data の後。 以下に例を示します。
+名前空間の変更に関する一般的な規則は、system.string 内のすべての型が、system.string に移動されることです。 言い換えると、" **Entity. Core** " を挿入するだけです。 System. Data の後。 例 :
 
 - System.string. EntityException = > system.string。**Entity. Core**。EntityException  
 - System.string は、system.string を > します。**Entity. Core**。オブジェクト。 ObjectContext  
 - RelationshipManager = > system.string のデータを持つことができます。**Entity. Core**。オブジェクト. RelationshipManager  
 
-これらの型は、ほとんどの DbContext ベースのアプリケーションでは直接使用されないため、*コア*名前空間にあります。 System.object の一部であった型の中には、DbContext ベースのアプリケーションで一般的に使用されているものもあります。そのため、*コア*名前空間に移動されていません。 これらの数値は、次のとおりです。
+これらの型は、ほとんどの DbContext ベースのアプリケーションでは直接使用されないため、*コア*名前空間にあります。 System.object の一部であった型の中には、DbContext ベースのアプリケーションで一般的に使用されているものもあります。そのため、*コア*名前空間に移動されていません。 これらの設定は、次のとおりです。
 
 - EntityState = > system.string をします。**エンティティ**。EntityState  
 - System.string. EdmFunctionAttribute = > system.string......**Entity. DbFunctionAttribute**  

@@ -84,7 +84,7 @@ namespace TestingDemo
 
 コンテキストの DbSet プロパティは virtual とマークされていることに注意してください。 これにより、モックフレームワークをコンテキストから派生させ、モック実装でこれらのプロパティをオーバーライドできます。  
 
-Code First を使用している場合は、クラスを直接編集できます。 EF デザイナーを使用している場合は、コンテキストを生成する T4 テンプレートを編集する必要があります。 @No__t-0model_name @ no__t-1 を開きます。Edmx ファイルの下に入れ子になっている Context.tt ファイル。次のコードのフラグメントを検索し、次に示すように仮想キーワードを追加します。  
+Code First を使用している場合は、クラスを直接編集できます。 EF デザイナーを使用している場合は、コンテキストを生成する T4 テンプレートを編集する必要があります。 \<model_name\>を開きます。Edmx ファイルの下に入れ子になっている Context.tt ファイル。次のコードのフラグメントを検索し、次に示すように仮想キーワードを追加します。  
 
 ``` csharp
 public string DbSet(EntitySet entitySet)
@@ -150,7 +150,7 @@ namespace TestingDemo
 
 ## <a name="testing-non-query-scenarios"></a>クエリ以外のシナリオのテスト  
 
-クエリ以外のメソッドのテストを開始するために必要な操作はこれだけです。 次のテストでは、Moq を使用してコンテキストを作成します。 次に、DbSet @ no__t-0Blog @ no__t-1 を作成し、コンテキストのブログプロパティから返されるように配線します。 次に、コンテキストを使用して新しいブログサービスを作成します。このサービスは、AddBlog メソッドを使用して新しいブログを作成するために使用されます。 最後に、このテストでは、サービスが新しいブログを追加し、コンテキストに SaveChanges という名前を追加したことを確認します。  
+クエリ以外のメソッドのテストを開始するために必要な操作はこれだけです。 次のテストでは、Moq を使用してコンテキストを作成します。 次に、DbSet\<ブログ\> を作成し、コンテキストの [ブログ] プロパティから返されるように配線します。 次に、コンテキストを使用して新しいブログサービスを作成します。このサービスは、AddBlog メソッドを使用して新しいブログを作成するために使用されます。 最後に、このテストでは、サービスが新しいブログを追加し、コンテキストに SaveChanges という名前を追加したことを確認します。  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;
@@ -182,7 +182,7 @@ namespace TestingDemo
 
 ## <a name="testing-query-scenarios"></a>クエリシナリオのテスト  
 
-DbSet テスト double に対してクエリを実行できるようにするには、IQueryable の実装を設定する必要があります。 最初の手順では、メモリ内のデータをいくつか作成します。 @ no__t-0Blog @ no__t-1 というリストを使用します。 次に、コンテキストと DBSet @ no__t-0Blog @ no__t を作成し、DbSet の IQueryable 実装を接続します。これらは、List @ no__t-2T @ no__t で動作する LINQ to Objects プロバイダーに委任するだけです。  
+DbSet テスト double に対してクエリを実行できるようにするには、IQueryable の実装を設定する必要があります。 最初の手順では、メモリ内のデータをいくつか作成します。ブログ\>\<リストを使用しています。 次に、コンテキストと DBSet\<ブログ\> 作成し、DbSet の IQueryable 実装を接続します。これらは、List\<T\>で動作する LINQ to Objects プロバイダーに委任するだけです。  
 
 次に、テスト double に基づいてブログサービスを作成し、GetAllBlogs から返されるデータが名前で並べ替えられるようにします。  
 
@@ -235,7 +235,7 @@ Entity Framework 6 では、非同期的にクエリを実行するために使�
 
 Entity Framework クエリでは LINQ が使用されるため、拡張メソッドは IQueryable と IEnumerable で定義されます。 ただし、これらは Entity Framework と共に使用するように設計されているため、Entity Framework クエリではない LINQ クエリで使用しようとすると、次のエラーが発生することがあります。
 
-> ソース IQueryable は IDbAsyncEnumerable @ no__t-0 を実装していません。 Entity Framework 非同期操作に使用できるのは、IDbAsyncEnumerable を実装するソースだけです。 詳細については[、 http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068)を参照してください。  
+> ソース IQueryable は、IDbAsyncEnumerable{0}を実装していません。 Entity Framework 非同期操作に使用できるのは、IDbAsyncEnumerable を実装するソースだけです。 詳細については、「 [http://go.microsoft.com/fwlink/?LinkId=287068](https://go.microsoft.com/fwlink/?LinkId=287068)」を参照してください。  
 
 非同期メソッドは、EF クエリに対して実行する場合にのみサポートされますが、DbSet のメモリ内テスト double に対して実行するときに、単体テストで使用することもできます。  
 

@@ -56,4 +56,4 @@ SQL Server 空間サポートは、下位レベルの SQL Server 固有の型 Sq
 
 Visual Studio をインストールすると、多くの場合、SQL Server のバージョンもインストールされます。これには、Microsoft の SqlServer. .dll のインストールが含まれます。  
 
-空間型を使用するコンピューターに SQL Server がインストールされていない場合、または空間型が SQL Server のインストールから除外されている場合は、手動でインストールする必要があります。 これらの型は、Microsoft SQL Server Feature Pack の一部である @no__t 0 を使用してインストールできます。 空間の種類は SQL Server バージョンによって異なります。そのため、Microsoft ダウンロードセンターで["SQL Server Feature Pack" を検索](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack)し、使用する SQL Server のバージョンに対応するオプションを選択してダウンロードすることをお勧めします。
+空間型を使用するコンピューターに SQL Server がインストールされていない場合、または空間型が SQL Server のインストールから除外されている場合は、手動でインストールする必要があります。 これらの型は、Microsoft SQL Server Feature Pack の一部である `SQLSysClrTypes.msi`を使用してインストールできます。 空間の種類は SQL Server バージョンによって異なります。そのため、Microsoft ダウンロードセンターで["SQL Server Feature Pack" を検索](https://www.microsoft.com/search/result.aspx?q=sql+server+feature+pack)し、使用する SQL Server のバージョンに対応するオプションを選択してダウンロードすることをお勧めします。

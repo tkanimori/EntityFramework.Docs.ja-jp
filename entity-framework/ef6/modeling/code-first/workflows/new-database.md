@@ -11,14 +11,14 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182567"
 ---
 # <a name="code-first-to-a-new-database"></a>新しいデータベースへの Code First
-このビデオとステップバイステップのチュートリアルでは、新しいデータベースを対象とした Code First 開発の概要について説明します。 このシナリオには、存在しないデータベースのターゲット設定、Code First 作成されるデータベース、または Code First が新しいテーブルを追加する空のデータベースが対象となります。 Code First では、C @ no__t-0 または VB.Net クラスを使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。
+このビデオとステップバイステップのチュートリアルでは、新しいデータベースを対象とした Code First 開発の概要について説明します。 このシナリオには、存在しないデータベースのターゲット設定、Code First 作成されるデータベース、または Code First が新しいテーブルを追加する空のデータベースが対象となります。 Code First では、C\# または VB.Net クラスを使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。
 
 ## <a name="watch-the-video"></a>ビデオを見る
 このビデオでは、新しいデータベースを対象とした Code First 開発の概要について説明します。 このシナリオには、存在しないデータベースのターゲット設定、Code First 作成されるデータベース、または Code First が新しいテーブルを追加する空のデータベースが対象となります。 Code First では、または VB.Net クラスC#を使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。
 
-**表示者**:[Rowan 明美](https://romiller.com/)
+**提供**: [Rowan Miller](https://romiller.com/)
 
-**ビデオ**:[WMV](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
+**ビデオ**: [wmv](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.wmv) | [MP4](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-mp4Video-CodeFirstNewDatabase.m4v) | [wmv (ZIP)](https://download.microsoft.com/download/B/A/5/BA57BADE-D558-4693-8F82-29E64E4084AB/HDI-ITPro-MSDN-winvideo-CodeFirstNewDatabase.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
@@ -30,13 +30,13 @@ Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudi
 
 単純にするために、Code First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。
 
--   Visual Studio を開く
--   **ファイル-&gt; 新規-@no__t プロジェクト...**
+-   Visual Studio を開きます
+-   **ファイル&gt; 新規&gt; プロジェクト...**
 -   左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。
 -   名前として「 **Codefirstnewconnectionstring** 」と入力します。
 -   **[OK]** を選択します。
 
-## <a name="2-create-the-model"></a>2. モデルの作成
+## <a name="2-create-the-model"></a>2. モデルを作成する
 
 クラスを使用して、非常に単純なモデルを定義してみましょう。 これらは Program.cs ファイルで定義するだけですが、実際のアプリケーションでは、クラスを別々のファイルに分割し、場合によっては別のプロジェクトに分割します。
 
@@ -64,14 +64,14 @@ public class Post
 
 2つのナビゲーションプロパティ (ブログ、投稿、ブログ) が作成されていることがわかります。 これにより、Entity Framework の遅延読み込み機能が有効になります。 遅延読み込みとは、これらのプロパティにアクセスしようとしたときに、それらのプロパティの内容がデータベースから自動的に読み込まれることを意味します。
 
-## <a name="3-create-a-context"></a>3.コンテキストを作成する
+## <a name="3-create-a-context"></a>3. コンテキストを作成する
 
-次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。 ここでは、0TEntity から派生し、モデル内の各クラスの型指定された Dbcontext @ no__t-1 を公開するコンテキストを定義します。
+次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。 ここでは、TEntity から派生し、モデル内のクラスごとに型指定された Dbcontext&lt;&gt; を公開するコンテキストを定義します。
 
 ここでは、Entity Framework の型の使用を開始しているため、EntityFramework NuGet パッケージを追加する必要があります。
 
--   **プロジェクト-&gt; NuGet パッケージの管理...**
-    メモ: **NuGet パッケージの管理...** オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります
+-   **プロジェクト–&gt; NuGet パッケージの管理...**
+    注:  **NuGet パッケージの管理...** オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります
 -   **[オンライン]** タブを選択します。
 -   **Entityframework**パッケージを選択します
 -   **[インストール]** をクリックします。
@@ -139,7 +139,7 @@ namespace CodeFirstNewDatabaseSample
 
 これは、データの格納と取得を開始するために必要なすべてのコードです。 当然ながら、背後にはかなりの時間がかかりますが、それについては後で説明しますが、実際にはそれを実際に見てみましょう。
 
-## <a name="4-reading--writing-data"></a>4。データの読み取り & 書き込み
+## <a name="4-reading--writing-data"></a>4. データの読み取り & 書き込み
 
 次に示すように、Program.cs に Main メソッドを実装します。 このコードは、コンテキストの新しいインスタンスを作成し、それを使用して新しいブログを挿入します。 次に、LINQ クエリを使用して、データベースのすべてのブログをタイトル別にアルファベット順に並べ替えて取得します。
 
@@ -195,11 +195,11 @@ Press any key to exit...
 これらは既定の規則であり、Code First 使用するデータベースを変更するにはさまざまな方法があります。詳細については、「 **DbContext がモデルとデータベースの接続を検出する方法**」を参照してください。
 このデータベースに接続するには、Visual Studio のサーバーエクスプローラーを使用します。
 
--   **ビュー-&gt; サーバーエクスプローラー**
+-   **ビュー&gt; サーバーエクスプローラー**
 -   **[データ接続]** を右クリックし、 **[接続の追加]** を選択します。
 -   サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして Microsoft SQL Server を選択する必要があります。
 
-    ![データソースの選択](~/ef6/media/selectdatasource.png)
+    ![データ ソースの選択](~/ef6/media/selectdatasource.png)
 
 -   インストールされているものに応じて、LocalDB または SQL Express に接続します。
 
@@ -209,7 +209,7 @@ Code First 作成されたスキーマを調査できるようになりました
 
 DbContext は、定義した Dbcontext プロパティを参照して、モデルに含めるクラスを処理しました。 次に、Code First 規則の既定のセットを使用して、テーブル名と列名の決定、データ型の確認、主キーの検索などを行います。 このチュートリアルの後半では、これらの規則をオーバーライドする方法について説明します。
 
-## <a name="5-dealing-with-model-changes"></a>5。モデルの変更の処理
+## <a name="5-dealing-with-model-changes"></a>5. モデルの変更を処理する
 
 次に、モデルに何らかの変更を加えてみましょう。これらの変更を行うときは、データベーススキーマも更新する必要があります。 これを行うには、Code First Migrations、または短い間の移行と呼ばれる機能を使用します。
 
@@ -217,11 +217,11 @@ DbContext は、定義した Dbcontext プロパティを参照して、モデ�
 
 最初の手順では、BCode First Migrations コンテキストのを有効にします。
 
--   **ツール-&gt; ライブラリパッケージマネージャー-@no__t パッケージマネージャーコンソール**
+-   **ツール-&gt; ライブラリパッケージマネージャー-&gt; パッケージマネージャーコンソール**
 -   パッケージ マネージャー コンソールで **Enable-Migrations** コマンドを実行します
 -   次の2つの項目を含む新しい [移行] フォルダーがプロジェクトに追加されました。
     -   **Configuration.cs** –このファイルには、b コンテキストの移行に使用する設定が含まれています。 このチュートリアルでは何も変更する必要はありませんが、ここでは、シードデータを指定したり、他のデータベースのプロバイダーを登録したり、移行が生成される名前空間を変更したりできます。
-    -   **&lt;timestamp @ no__t-2\_InitialCreate.cs** –これは最初の移行です。これは、データベースに既に適用されている変更を表します。この変更は、ブログおよび post テーブルを含む空のデータベースにするためのものです。 これらのテーブルは Code First によって自動的に作成されるようになっていますが、移行に移行された移行を選択しました。 Code First は、この移行が既に適用されているローカルデータベースにも記録されています。 ファイル名のタイムスタンプは、順序付けの目的で使用されます。
+    -   **&lt;タイムスタンプ&gt;\_InitialCreate.cs** –これは最初の移行です。これは、データベースに既に適用されている変更を表します。この変更は、ブログおよび投稿テーブルを含む空のデータベースにするためのものです。 これらのテーブルは Code First によって自動的に作成されるようになっていますが、移行に移行された移行を選択しました。 Code First は、この移行が既に適用されているローカルデータベースにも記録されています。 ファイル名のタイムスタンプは、順序付けの目的で使用されます。
 
     次に、モデルに変更を加え、ブログクラスに Url プロパティを追加します。
 
@@ -262,13 +262,13 @@ namespace CodeFirstNewDatabaseSample.Migrations
 ```
 
 -   パッケージマネージャーコンソールで、**データベースの更新**コマンドを実行します。 このコマンドを実行すると、保留中の移行がデータベースに適用されます。 InitialCreate 移行は既に適用されているので、移行によって新しい AddUrl 移行が適用されます。
-    ヒント:データベースに対して実行される SQL を確認するには、 **-Verbose**スイッチを使用して、データベースに対して実行される SQL を確認します。
+    ヒント: データベースに対して実行されている SQL を表示するには、 **-Verbose**スイッチを使用して、データベースに対して実行される SQL を確認します。
 
 これで、新しい Url 列がデータベースのブログテーブルに追加されました。
 
 ![Url を含むスキーマ](~/ef6/media/schemawithurl.png)
 
-## <a name="6-data-annotations"></a>6。データの注釈
+## <a name="6-data-annotations"></a>6. データ注釈
 
 ここまでで、EF では既定の規則を使用してモデルを検出できるようになりましたが、クラスが規則に従わず、さらに構成を実行できるようにする必要があります。 これには2つのオプションがあります。このセクションのデータ注釈については、次のセクションの fluent API を参照してください。
 
@@ -334,13 +334,13 @@ EF でサポートされている注釈の完全な一覧は次のとおりで�
 -   [DatabaseGeneratedAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.databasegeneratedattribute)
 -   [NotMappedAttribute](https://msdn.microsoft.com/library/system.componentmodel.dataannotations.schema.notmappedattribute)
 
-## <a name="7-fluent-api"></a>7.Fluent API
+## <a name="7-fluent-api"></a>7. Fluent API
 
 前のセクションでは、データ注釈を使用して、規則によって検出された内容を補完またはオーバーライドする方法を説明しました。 モデルを構成するもう1つの方法は、Code First fluent API を使用することです。
 
 ほとんどのモデル構成は、単純なデータ注釈を使用して実行できます。 Fluent API は、データ注釈では実現できない高度な構成に加えて、データ注釈が実行できるすべてのものを網羅したモデル構成を指定するより高度な方法です。 データ注釈と fluent API を一緒に使用することができます。
 
-Fluent API にアクセスするには、DbContext で OnModelCreating メソッドをオーバーライドします。 たとえば、ユーザー DisplayName が格納されている列の名前を変更して、@ no__t-0name と表示させます。
+Fluent API にアクセスするには、DbContext で OnModelCreating メソッドをオーバーライドします。 \_名を表示するために、ユーザー DisplayName が格納されている列の名前を変更したいとします。
 
 -   次のコードを使用して、BloggingContext で OnModelCreating メソッドをオーバーライドします。
 
@@ -363,10 +363,10 @@ public class BloggingContext : DbContext
 -   スキャフォールディングを使用**して移行を実行し、** これらの変更をデータベースに適用します。
 -   新しい移行をデータベースに適用するには、**データベースの更新**コマンドを実行します。
 
-DisplayName 列の名前が変更され、@ no__t-0name と表示されるようになりました。
+DisplayName 列の名前が変更され、\_名が表示されるようになりました。
 
 ![表示名が変更されたスキーマ](~/ef6/media/schemawithdisplaynamerenamed.png)
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 このチュートリアルでは、新しいデータベースを使用した Code First 開発について説明しました。 クラスを使用してモデルを定義した後、そのモデルを使用してデータベースを作成し、データを格納および取得します。 データベースを作成した後は、モデルの進化に従ってスキーマを変更するために Code First Migrations を使用しました。 また、データ注釈と Fluent API を使用してモデルを構成する方法についても説明しました。

@@ -24,9 +24,9 @@ Tvf はストアドプロシージャとよく似ていますが、1つの重要
 
 ## <a name="watch-the-video"></a>ビデオを見る
 
-**表示者**:ジュリアつい
+**表示者**: ジュリアつい
 
-[WMV](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
+[Wmv](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [wmv (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
@@ -38,15 +38,15 @@ Tvf はストアドプロシージャとよく似ていますが、1つの重要
 
 ## <a name="set-up-the-project"></a>プロジェクトを設定する
 
-1.  Visual Studio を開く
+1.  Visual Studio を開きます
 2.  **[ファイル]** メニューの **[新規作成]** をポイントし、 **[プロジェクト]** をクリックします。
-3.  左側のウィンドウで、 **[Visual C @ no__t-1]** をクリックし、**コンソール**テンプレートを選択します。
+3.  左側のウィンドウで、[ **Visual C\#** ] をクリックし、**コンソール**テンプレートを選択します。
 4.  プロジェクトの名前として「 **TVF** 」と入力し、[ **OK]** をクリックします。
 
 ## <a name="add-a-tvf-to-the-database"></a>TVF をデータベースに追加する
 
--   [**表示-&gt;** ] を選択し SQL Server オブジェクトエクスプローラー
--   LocalDB がサーバーの一覧にない場合は、次のようになります。**SQL Server**を右クリックして **[追加]** を選択 SQL Server、既定の**Windows 認証**を使用して LocalDB サーバーに接続します。
+-   [**ビュー-&gt; の**選択] SQL Server オブジェクトエクスプローラー
+-   LocalDB がサーバーの一覧にない場合: **SQL Server**を右クリックし、[追加] を選択**SQL Server**既定の**Windows 認証**を使用して localdb サーバーに接続する
 -   LocalDB ノードを展開します。
 -   [データベース] ノードで、School データベースノードを右クリックし、[ **新しいクエリ**] を選択します。
 -   T-sql エディターで、次の TVF 定義を貼り付けます。
@@ -78,12 +78,12 @@ RETURN
 2.  左側のメニューから **[データ]** を選択し、 **[テンプレート]** ペインで **[ADO.NET Entity Data Model]** を選択します。
 3.  ファイル名として「TVFModel」と入力し、 **[追加]** をクリックし**ます。**
 4.  [モデルのコンテンツの選択] ダイアログボックスで、[ **データベースから生成**] を選択し、[ **次へ**] をクリックします。
-5.  [ **新しい接続**] をクリックし @no__t て、[サーバー名] テキストボックスに「 **School** for と入力し、データベース名として「 **2mssqllocaldb** 」と入力し、[ **OK]** をクリックします。
-6.  [データベースオブジェクトの選択] ダイアログボックスの [ **テーブル** ] ノードで、 **Person**、 **StudentGrade**、および **Course** tables を選択します。
-7.   **ストアドプロシージャと関数** Node メモの下にある **GetStudentGradesForCourse**関数を選択します。 Visual Studio 2012 以降では、Entity Designer を使用して、ストアドプロシージャと関数を一括インポートできます。
+5.  [ **新しい接続**] をクリックして、[サーバー名] テキストボックスに「mssqllocaldb」と入力し、データベース名として「 **School** を入力します。 [ **OK]** をクリックします **\\。**
+6.  [データベースオブジェクトの選択] ダイアログボックスの [ **テーブル** ] ノードで、 **Person**、 **StudentGrade**、および **Course** の各テーブルを選択します。
+7.  [ **ストアドプロシージャと関数** ] ノードの下にある **GetStudentGradesForCourse**関数を選択します。これは Visual Studio 2012 以降、Entity Designer では、ストアドプロシージャと関数を一括インポートできます。
 8.  [ **完了**] をクリック
 9.  モデルを編集するためのデザイン画面を提供する Entity Designer が表示されます。 [ **データベースオブジェクトの選択** ] ダイアログボックスで選択したすべてのオブジェクトがモデルに追加されます。
-10. 既定では、インポートされた各ストアドプロシージャまたは関数の結果構造は、自動的にエンティティモデルの新しい複合型になります。 しかし、GetStudentGradesForCourse 関数の結果を StudentGrade エンティティにマップする必要があります。デザインサーフェイスを右クリックし、モデルブラウザーで [ **モデルブラウザー** ] を選択します。次に、[ **関数**インポート] を選択し、[関数インポートの編集] ダイアログボックスで **GetStudentGradesForCourse**関数をダブルクリックして、[ **エンティティ**] を選択します。 and **StudentGrade**を選択します
+10. 既定では、インポートされた各ストアドプロシージャまたは関数の結果構造は、自動的にエンティティモデルの新しい複合型になります。 ただし、GetStudentGradesForCourse 関数の結果を StudentGrade エンティティにマップする必要があります。デザイン画面を右クリックし、モデルブラウザーで  **モデルブラウザー**  を選択し、 **関数**インポート を選択します。次に、関数インポートの編集 ダイアログボックスで **GetStudentGradesForCourse**関数をダブルクリックし、 **エンティティ** を選択して  **StudentGrade**  を選択します。
 
 ## <a name="persist-and-retrieve-data"></a>データの永続化と取得
 
@@ -124,6 +124,6 @@ Couse: Microeconomics, Student: Arturo Anand
 Couse: Microeconomics, Student: Carson Bryant
 ```
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 このチュートリアルでは、Entity Framework Designer を使用してテーブル値関数 (Tvf) をマップする方法について説明しました。 また、LINQ クエリから TVF を呼び出す方法についても説明します。

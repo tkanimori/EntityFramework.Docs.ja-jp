@@ -16,9 +16,9 @@ ms.locfileid: "72182449"
 ## <a name="watch-the-video"></a>ビデオを見る
 このビデオでは、Entity Framework を使用した Database First 開発の概要について説明します。 Database First を使用すると、既存のデータベースからモデルをリバースエンジニアリングできます。 モデルは EDMX ファイル (.edmx 拡張子) に格納されており、Entity Framework Designer で表示および編集できます。 アプリケーションで対話するクラスは、EDMX ファイルから自動的に生成されます。
 
-**表示者**:[Rowan 明美](https://romiller.com/)
+**提供**: [Rowan Miller](https://romiller.com/)
 
-**ビデオ**:[WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
+**ビデオ**: [wmv](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [wmv (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
@@ -41,12 +41,12 @@ Visual Studio と共にインストールされるデータベースサーバー
 
 では、データベースを生成してみましょう。
 
--   Visual Studio を開く
--   **ビュー-&gt; サーバーエクスプローラー**
--   [データ接続] を右クリックし **、&gt; [接続の追加**] をクリックします。
+-   Visual Studio を開きます
+-   **ビュー&gt; サーバーエクスプローラー**
+-   **[データ接続]** を右クリックし&gt; [接続の追加] をクリックします。
 -   サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして Microsoft SQL Server を選択する必要があります。
 
-    ![データソースの選択](~/ef6/media/selectdatasource.png)
+    ![データ ソースの選択](~/ef6/media/selectdatasource.png)
 
 -   インストールされているものに応じて LocalDB または SQL Express に接続し、データベース名として「Databasefirst」と入力し**ます。**
 
@@ -83,19 +83,19 @@ CREATE TABLE [dbo].[Posts] (
 
 単純にするために、Database First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。
 
--   Visual Studio を開く
--   **ファイル-&gt; 新規-@no__t プロジェクト...**
+-   Visual Studio を開きます
+-   **ファイル&gt; 新規&gt; プロジェクト...**
 -   左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。
 -   名前として「 **Databasefirstsample** 」と入力します。
 -   **[OK]** を選択します。
 
  
 
-## <a name="3-reverse-engineer-model"></a>3.リバースエンジニアリングモデル
+## <a name="3-reverse-engineer-model"></a>3. モデルのリバースエンジニアリング
 
 ここでは、Visual Studio の一部として含まれている Entity Framework Designer を使用して、モデルを作成します。
 
--   **プロジェクト-&gt; 新しい項目の追加...**
+-   **プロジェクト-新しい項目の追加&gt;...**
 -   左側のメニューから **データ** を選択し、ADO.NET をクリックし**Entity Data Model**
 -   名前として「 **Bのログインモデル**」と入力し、[ **OK]** をクリックします。
 -   **Entity Data Model ウィザード**が起動します。
@@ -123,7 +123,7 @@ Visual Studio 2010 で作業している場合、Entity Framework の最新バ�
 
 まず、NuGet から最新バージョンの Entity Framework を取得する必要があります。
 
--   **プロジェクト-&gt; NuGet パッケージの管理...** 
+-   **プロジェクト–&gt; NuGet パッケージの管理...** 
      ***[nuget パッケージの管理...]** オプションがない場合は、[最新バージョンの nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があり*ます。
 -   **[オンライン]** タブを選択します。
 -   **Entityframework**パッケージを選択します
@@ -133,13 +133,13 @@ Visual Studio 2010 で作業している場合、Entity Framework の最新バ�
 
 -   EF デザイナーでモデルの空の場所を右クリックし、 **[コード生成項目の追加...]** を選択します。
 -   左側のメニューから **[オンラインテンプレート]** を選択し、 **dbcontext**を検索します。
--   **C @ no__t の EF 5.X DbContext ジェネレーター**を選択し、名前として「 **b model** 」と入力して、 **[追加]** をクリックします。
+-   **C\#の EF 5.X DbContext ジェネレーター**を選択し、名前として「 **bを**使用したモデル」と入力して **[追加]** をクリックします。
 
     ![DbContext テンプレート](~/ef6/media/dbcontexttemplate.png)
 
  
 
-## <a name="4-reading--writing-data"></a>4。データの読み取り & 書き込み
+## <a name="4-reading--writing-data"></a>4. データの読み取り & 書き込み
 
 モデルを作成したので、これを使用していくつかのデータにアクセスします。 データへのアクセスに使用するクラスは、EDMX ファイルに基づいて自動的に生成されます。
 
@@ -194,7 +194,7 @@ Press any key to exit...
 ```
  
 
-## <a name="5-dealing-with-database-changes"></a>5。データベースの変更に対処する
+## <a name="5-dealing-with-database-changes"></a>5. データベースの変更に対処する
 
 次に、データベーススキーマをいくつか変更します。これらの変更を行うときは、これらの変更を反映するようにモデルを更新する必要もあります。
 
@@ -215,7 +215,7 @@ CREATE TABLE [dbo].[Users]
 
 -   EF デザイナーでモデルの空の場所を右クリックし、[データベースからモデルを更新...] を選択すると、更新ウィザードが起動します。
 -   更新ウィザードの [追加] タブで、[テーブル] の横にあるチェックボックスをオンにします。これは、スキーマから新しいテーブルを追加することを示します。
-    *The タブには、更新中に変更がチェックされる、モデル内の既存のテーブルが表示されます。[削除] タブには、スキーマから削除されたテーブルが表示され、更新の一部としてモデルからも削除されます。これら2つのタブの情報は自動的に検出され、情報提供のみを目的として提供されます。*
+    *[更新] タブには、更新中に変更がチェックされる、モデル内の既存のテーブルが表示されます。[削除] タブには、スキーマから削除されたテーブルが表示され、更新の一部としてモデルからも削除されます。これら2つのタブの情報は自動的に検出され、情報提供のみを目的として提供されます。設定を変更することはできません。*
 
     ![更新ウィザード](~/ef6/media/refreshwizard.png)
 
@@ -227,6 +227,6 @@ CREATE TABLE [dbo].[Users]
 
 ![更新されたモデル](~/ef6/media/modelupdated.png)
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 このチュートリアルでは Database First 開発について説明しました。これにより、既存のデータベースに基づいて EF デザイナーでモデルを作成できるようになりました。 次に、そのモデルを使用して、データベースのデータの読み取りと書き込みを行います。 最後に、データベーススキーマに加えられた変更を反映するようにモデルを更新しました。

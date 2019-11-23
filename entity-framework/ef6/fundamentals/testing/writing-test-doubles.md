@@ -102,7 +102,7 @@ namespace TestingDemo
 
 このコンテキストでは、Ibのコンテキストインターフェイスが実装されていることに注意してください。  
 
-Code First を使用している場合は、コンテキストを直接編集して、インターフェイスを実装できます。 EF デザイナーを使用している場合は、コンテキストを生成する T4 テンプレートを編集する必要があります。 @No__t-0model_name @ no__t-1 を開きます。Edmx ファイルの下に入れ子になっている Context.tt ファイルで、次のコードのフラグメントを検索し、次に示すようにインターフェイスにを追加します。  
+Code First を使用している場合は、コンテキストを直接編集して、インターフェイスを実装できます。 EF デザイナーを使用している場合は、コンテキストを生成する T4 テンプレートを編集する必要があります。 \<model_name\>を開きます。Edmx ファイルの下に入れ子になっている Context.tt ファイルで、次のコードのフラグメントを検索し、次に示すようにインターフェイスにを追加します。  
 
 ``` csharp  
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IBloggingContext

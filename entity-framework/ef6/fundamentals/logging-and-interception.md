@@ -100,7 +100,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 Log プロパティが設定されると、次のすべてがログに記録されます。  
 
-- SQL では、さまざまな種類のコマンドを使用できます。 以下に例を示します。  
+- SQL では、さまざまな種類のコマンドを使用できます。 例 :  
     - クエリ (通常の LINQ クエリ、eSQL クエリ、SqlQuery などのメソッドからの生のクエリを含む)  
     - SaveChanges の一部として生成された挿入、更新、および削除  
     - 遅延読み込みによって生成されたクエリなどのクエリを読み込むリレーションシップ  
@@ -227,7 +227,7 @@ public class OneLineFormatter : DatabaseLogFormatter
 
 ### <a name="setting-the-databaselogformatter"></a>DatabaseLogFormatter の設定  
 
-新しい DatabaseLogFormatter クラスを作成したら、EF に登録する必要があります。 これは、コードベースの構成を使用して行います。 簡単に言うと、これは、Dbconfiguration クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成し、この新しいクラスのコンストラクターで SetDatabaseLogFormatter を呼び出すことを意味します。 以下に例を示します。  
+新しい DatabaseLogFormatter クラスを作成したら、EF に登録する必要があります。 これは、コードベースの構成を使用して行います。 簡単に言うと、これは、Dbconfiguration クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成し、この新しいクラスのコンストラクターで SetDatabaseLogFormatter を呼び出すことを意味します。 例 :  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration
@@ -261,11 +261,11 @@ Context 'BlogContext' is executing command 'insert [dbo].[Posts]([Title], [BlogI
 
 ### <a name="the-interception-context"></a>インターセプトコンテキスト  
 
-任意のインターセプターインターフェイスで定義されているメソッドを見ると、すべての呼び出しには DbInterceptionContext 型のオブジェクト、または DbCommandInterceptionContext @ no__t-0 @ no__t-1 などの派生型のオブジェクトが指定されていることがわかります。 このオブジェクトには、EF が行っているアクションに関するコンテキスト情報が含まれています。 たとえば、アクションが DbContext の代わりに実行されている場合、DbContext は DbInterceptionContext に含まれます。 同様に、非同期に実行されるコマンドの場合、IsAsync フラグは DbCommandInterceptionContext に設定されます。  
+任意のインターセプターインターフェイスで定義されているメソッドを見ると、すべての呼び出しには DbInterceptionContext 型のオブジェクト、または DbCommandInterceptionContext\<\>など、このクラスから派生した型のオブジェクトが指定されていることがわかります。 このオブジェクトには、EF が行っているアクションに関するコンテキスト情報が含まれています。 たとえば、アクションが DbContext の代わりに実行されている場合、DbContext は DbInterceptionContext に含まれます。 同様に、非同期に実行されるコマンドの場合、IsAsync フラグは DbCommandInterceptionContext に設定されます。  
 
 ### <a name="result-handling"></a>結果の処理  
 
-DbCommandInterceptionContext @ no__t-0 @ no__t クラスには、Result、OriginalResult、Exception、および Originalresult というプロパティが含まれています。 これらのプロパティは、操作が実行される前に呼び出されるインターセプトメソッド (つまり...) の呼び出しに対して null または0に設定されます。メソッドを実行しています。 操作が実行され、成功した場合、Result と OriginalResult は操作の結果に設定されます。 これらの値は、操作が実行された後に呼び出されるインターセプトメソッド (つまり...実行されたメソッド。 同様に、操作がをスローした場合、Exception プロパティと OriginalException プロパティが設定されます。  
+DbCommandInterceptionContext\<\> クラスには、Result、OriginalResult、Exception、および Originalresult というプロパティが含まれています。 これらのプロパティは、操作が実行される前に呼び出されるインターセプトメソッド (つまり...) の呼び出しに対して null または0に設定されます。メソッドを実行しています。 操作が実行され、成功した場合、Result と OriginalResult は操作の結果に設定されます。 これらの値は、操作が実行された後に呼び出されるインターセプトメソッド (つまり...実行されたメソッド。 同様に、操作がをスローした場合、Exception プロパティと OriginalException プロパティが設定されます。  
 
 #### <a name="suppressing-execution"></a>実行の抑制  
 
@@ -289,7 +289,7 @@ OriginalResult プロパティと Originalresult プロパティは読み取り�
 
 ### <a name="registering-interceptors"></a>インターセプターの登録  
 
-1つ以上のインターセプトインターフェイスを実装するクラスが作成されたら、DbInterception クラスを使用して EF に登録できます。 以下に例を示します。  
+1つ以上のインターセプトインターフェイスを実装するクラスが作成されたら、DbInterception クラスを使用して EF に登録できます。 例 :  
 
 ``` csharp
 DbInterception.Add(new NLogCommandInterceptor());
@@ -297,7 +297,7 @@ DbInterception.Add(new NLogCommandInterceptor());
 
 インターセプターは、DbConfiguration コードベースの構成メカニズムを使用して、アプリドメインレベルで登録することもできます。  
 
-### <a name="example-logging-to-nlog"></a>例:NLog へのログ記録  
+### <a name="example-logging-to-nlog"></a>例: NLog へのログ記録  
 
 ここでは、IDbCommandInterceptor と[Nlog](https://nlog-project.org/)を使用して、次のことを行う例について説明します。  
 

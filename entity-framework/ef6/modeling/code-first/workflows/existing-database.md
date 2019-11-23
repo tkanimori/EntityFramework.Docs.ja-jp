@@ -11,7 +11,7 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182616"
 ---
 # <a name="code-first-to-an-existing-database"></a>既存のデータベースへの Code First
-このビデオとステップバイステップのチュートリアルでは、既存のデータベースを対象とした Code First 開発の概要について説明します。 Code First では、C @ no__t-0 または VB.Net クラスを使用してモデルを定義できます。 必要に応じて、クラスとプロパティの属性、または fluent API を使用して、追加の構成を行うことができます。
+このビデオとステップバイステップのチュートリアルでは、既存のデータベースを対象とした Code First 開発の概要について説明します。 Code First では、C\# または VB.Net クラスを使用してモデルを定義できます。 必要に応じて、クラスとプロパティの属性、または fluent API を使用して、追加の構成を行うことができます。
 
 ## <a name="watch-the-video"></a>ビデオを見る
 このビデオは、 [Channel 9 で利用できるようになりました](https://channel9.msdn.com/blogs/ef/code-first-to-existing-database-ef6-1-onwards-)。
@@ -28,12 +28,12 @@ ms.locfileid: "72182616"
 
 では、データベースを生成してみましょう。
 
--   Visual Studio を開く
--   **ビュー-&gt; サーバーエクスプローラー**
--   [データ接続] を右クリックし **、&gt; [接続の追加**] をクリックします。
+-   Visual Studio を開きます
+-   **ビュー&gt; サーバーエクスプローラー**
+-   **[データ接続]** を右クリックし&gt; [接続の追加] をクリックします。
 -   **サーバーエクスプローラー**からデータベースに接続していない場合は、データソースとして**Microsoft SQL Server**を選択する必要があります。
 
-    ![データソースの選択](~/ef6/media/selectdatasource.png)
+    ![データ ソースの選択](~/ef6/media/selectdatasource.png)
 
 -   LocalDB インスタンスに接続し、データベース名として「**ブログ**」と入力します。
 
@@ -74,19 +74,19 @@ VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 
 単純にするために、Code First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。
 
--   Visual Studio を開く
--   **ファイル-&gt; 新規-@no__t プロジェクト...**
+-   Visual Studio を開きます
+-   **ファイル&gt; 新規&gt; プロジェクト...**
 -   左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。
 -   名前として「 **Codefirstexistingを**入力してください」と入力します。
 -   **[OK]** を選択します。
 
  
 
-## <a name="3-reverse-engineer-model"></a>3.リバースエンジニアリングモデル
+## <a name="3-reverse-engineer-model"></a>3. モデルのリバースエンジニアリング
 
 ここでは、データベースにマップする初期コードを生成するために、Visual Studio の Entity Framework Tools を使用します。 これらのツールはコードを生成するだけで、必要に応じて手動で入力することもできます。
 
--   **プロジェクト-&gt; 新しい項目の追加...**
+-   **プロジェクト-新しい項目の追加&gt;...**
 -   左側のメニューから **データ** を選択し、ADO.NET をクリックし**Entity Data Model**
 -   名前として「 **Bのログインコンテキスト**」と入力し、[ **OK]** をクリックします。
 -   **Entity Data Model ウィザード**が起動します。
@@ -104,7 +104,7 @@ VALUES ('.NET Framework Blog', 'http://blogs.msdn.com/dotnet/')
 
 リバースエンジニアリングのプロセスが完了し、いくつかの項目がプロジェクトに追加されたら、追加された内容を見てみましょう。
 
-### <a name="configuration-file"></a>構成ファイル
+### <a name="configuration-file"></a>［構成ファイル］
 
 App.config ファイルがプロジェクトに追加されました。このファイルには、既存のデータベースへの接続文字列が含まれています。
 
@@ -117,12 +117,12 @@ App.config ファイルがプロジェクトに追加されました。このフ
 </connectionStrings>
 ```
 
-構成ファイルの他の設定も確認できます。これらは、データベースを作成する場所 Code First を示す既定の EF 設定です。 @no__t既存のデータベースにマップしているため、この設定はアプリケーションでは無視されます。 *
+*構成ファイルには他にもいくつかの設定があります。これらは既定の EF 設定であり、データベースを作成する場所を Code First に指示します。既存のデータベースにマップしているため、この設定はアプリケーションでは無視されます。*
 
 ### <a name="derived-context"></a>派生コンテキスト
 
 **B.log コンテキスト**クラスがプロジェクトに追加されました。 コンテキストは、データベースとのセッションを表します。これにより、データのクエリと保存が可能になります。
-このコンテキストは、モデル内の型ごとに**Dbset @ no__t-1TEntity @ no__t**を公開します。 また、既定のコンストラクターは、 **name =** 構文を使用して基本コンストラクターを呼び出すことにも注意してください。 これは、このコンテキストに使用する接続文字列を構成ファイルから読み込む必要があることを Code First に伝えます。
+このコンテキストは、モデル内の各型の**Dbset&lt;TEntity&gt;** を公開します。 また、既定のコンストラクターは、 **name =** 構文を使用して基本コンストラクターを呼び出すことにも注意してください。 これは、このコンテキストに使用する接続文字列を構成ファイルから読み込む必要があることを Code First に伝えます。
 
 ``` csharp
 public partial class BloggingContext : DbContext
@@ -141,11 +141,11 @@ public partial class BloggingContext : DbContext
     }
 ```
 
-@no__t、構成ファイルで接続文字列を使用する場合は、常に**name =** 構文を使用する必要があります。これにより、接続文字列が存在しない場合は、規則に従って新しいデータベースを作成するのではなく、Entity Framework がスローされます。 *
+*構成ファイルで接続文字列を使用する場合は、常に**name =** 構文を使用する必要があります。これにより、接続文字列が存在しない場合は、規則に従って新しいデータベースを作成するのではなく、Entity Framework がスローされます。*
 
 ### <a name="model-classes"></a>モデルクラス
 
-最後に、**ブログ**と**Post**クラスもプロジェクトに追加されています。 これらは、モデルを構成するドメインクラスです。 クラスに適用されるデータ注釈が表示され、Code First の規則が既存のデータベースの構造と一致しない構成を指定します。 たとえば、 **Blog.Name**と**Blog. Url**には、データベースに最大長の**200**があるため、 **stringlength**注釈が表示されます Code First (既定では、データベースプロバイダーでサポートされている最大の長さを使用します)。**nvarchar (max)** in SQL Server)。
+最後に、**ブログ**と**Post**クラスもプロジェクトに追加されています。 これらは、モデルを構成するドメインクラスです。 クラスに適用されるデータ注釈が表示され、Code First の規則が既存のデータベースの構造と一致しない構成を指定します。 たとえば、Blog.Name と最大の最大長が**200**であるため、 **stringlength**注釈がと**Blog. Url**に表示されます Code First (既定では、データベースプロバイダー- **nvarchar (max SQL Server)** でサポートされているの長さを使用します)。
 
 ``` csharp
 public partial class Blog
@@ -167,7 +167,7 @@ public partial class Blog
 }
 ```
 
-## <a name="4-reading--writing-data"></a>4。データの読み取り & 書き込み
+## <a name="4-reading--writing-data"></a>4. データの読み取り & 書き込み
 
 モデルを作成したので、これを使用していくつかのデータにアクセスします。 次に示すように、 **Program.cs**に**Main**メソッドを実装します。 このコードは、コンテキストの新しいインスタンスを作成し、それを使用して新しい**ブログ**を挿入します。 次に、LINQ クエリを使用して、データベースのすべての**ブログ**を**タイトル**別にアルファベット順に並べ替えて取得します。
 
@@ -223,6 +223,6 @@ Press any key to exit...
 
 既存のデータベースで Code First Migrations を使用する場合は、「[既存のデータベースへの Code First Migrations](~/ef6/modeling/code-first/migrations/existing-database.md)」を参照してください。
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 このチュートリアルでは、既存のデータベースを使用した Code First 開発について説明しました。 Entity Framework Tools for Visual Studio を使用して、データベースにマップされた一連のクラスをリバースエンジニアリングし、データの格納と取得に使用しました。

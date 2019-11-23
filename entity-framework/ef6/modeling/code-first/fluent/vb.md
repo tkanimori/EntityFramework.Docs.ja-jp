@@ -11,7 +11,7 @@ ms.lasthandoff: 10/09/2019
 ms.locfileid: "72182669"
 ---
 # <a name="fluent-api-with-vbnet"></a>VB.NET を使用した Fluent API
-Code First では、C @ no__t-0 または VB.NET クラスを使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。 このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。
+Code First では、C\# または VB.NET クラスを使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。 このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。
 
 このページでは、Code First についての基本的な知識があることを前提としています。 Code First の詳細については、次のチュートリアルを参照してください。
 
@@ -28,8 +28,8 @@ Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudi
 
 単純にするために、Code First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。
 
--   Visual Studio を開く
--   **ファイル-&gt; 新規-@no__t プロジェクト...**
+-   Visual Studio を開きます
+-   **ファイル&gt; 新規&gt; プロジェクト...**
 -   左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。
 -   名前として「 **Codefirstvbsample** 」と入力します。
 -   **[OK]** を選択します。
@@ -137,14 +137,14 @@ Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudi
 
 Entity Framework の型の使用を開始しようとしています。 EntityFramework NuGet パッケージを追加する必要があります。
 
--   \* * プロジェクト– &gt; **NuGet パッケージの管理...**
+-   \* * プロジェクト–&gt; **NuGet パッケージの管理...**
 > [!NOTE]
 > **NuGet パッケージの管理...** オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります
 -   **[オンライン]** タブを選択します。
 -   **Entityframework**パッケージを選択します
 -   **[インストール]** をクリックします。
 
-次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。 ここでは、0TEntity から派生し、モデル内の各クラスの型指定された Dbcontext @ no__t-1 を公開するコンテキストを定義します。
+次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。 ここでは、TEntity から派生し、モデル内のクラスごとに型指定された Dbcontext&lt;&gt; を公開するコンテキストを定義します。
 
 -   新しいクラスをプロジェクトに追加し、クラス名として「 **schoolcontext.cs** 」と入力します。
 -   新しいクラスの内容を次のコードに置き換えます。
@@ -171,7 +171,7 @@ Entity Framework の型の使用を開始しようとしています。 EntityFr
 
 ## <a name="configuring-with-the-fluent-api"></a>Fluent API を使用したの構成
 
-このセクションでは、fluent Api を使用して、テーブルマッピングの種類、列マッピングのプロパティ、モデルのテーブル @ no__t-0type 間のリレーションシップを構成する方法について説明します。 Fluent API は**Dbmodelbuilder**型によって公開され、 **Dbcontext**で**onmodelcreating**メソッドをオーバーライドすることによって最も一般的にアクセスされます。
+このセクションでは、fluent Api を使用して、テーブルマッピングの種類、列マッピングのプロパティ、モデル内の\\型のテーブル間のリレーションシップを構成する方法について説明します。 Fluent API は**Dbmodelbuilder**型によって公開され、 **Dbcontext**で**onmodelcreating**メソッドをオーバーライドすることによって最も一般的にアクセスされます。
 
 -   次のコードをコピーし、 **schoolcontext.cs**クラスで定義されている**onmodelcreating**メソッドに追加します。コメントは、各マッピングの内容を説明します。
 
