@@ -10,54 +10,54 @@ ms.contentlocale: ja-JP
 ms.lasthandoff: 10/09/2019
 ms.locfileid: "72181709"
 ---
-# <a name="self-tracking-entities-walkthrough"></a><span data-ttu-id="b35dc-102">自己追跡エンティティのチュートリアル</span><span class="sxs-lookup"><span data-stu-id="b35dc-102">Self-Tracking Entities Walkthrough</span></span>
+# <a name="self-tracking-entities-walkthrough"></a><span data-ttu-id="7ad84-102">自己追跡エンティティのチュートリアル</span><span class="sxs-lookup"><span data-stu-id="7ad84-102">Self-Tracking Entities Walkthrough</span></span>
 > [!IMPORTANT]
-> <span data-ttu-id="b35dc-103">自己追跡エンティティ テンプレートの使用は現在お勧めしていません。</span><span class="sxs-lookup"><span data-stu-id="b35dc-103">We no longer recommend using the self-tracking-entities template.</span></span> <span data-ttu-id="b35dc-104">既存のアプリケーションをサポートするためにのみ引き続き使用できます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-104">It will only continue to be available to support existing applications.</span></span> <span data-ttu-id="b35dc-105">アプリケーションで、エンティティの切断されたグラフを操作する必要がある場合は、代替の方法を検討してください。たとえば、コミュニティによってより積極的に開発された自己追跡エンティティに似たテクノロジである[追跡可能なエンティティ](https://trackableentities.github.io/)を使用するか、または、低レベルの変更追跡 API を使用してカスタム コードを記述してください。</span><span class="sxs-lookup"><span data-stu-id="b35dc-105">If your application requires working with disconnected graphs of entities, consider other alternatives such as [Trackable Entities](https://trackableentities.github.io/), which is a technology similar to Self-Tracking-Entities that is more actively developed by the community, or writing custom code using the low-level change tracking APIs.</span></span>
+> <span data-ttu-id="7ad84-103">自己追跡エンティティ テンプレートの使用は現在お勧めしていません。</span><span class="sxs-lookup"><span data-stu-id="7ad84-103">We no longer recommend using the self-tracking-entities template.</span></span> <span data-ttu-id="7ad84-104">既存のアプリケーションをサポートするためにのみ引き続き使用できます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-104">It will only continue to be available to support existing applications.</span></span> <span data-ttu-id="7ad84-105">アプリケーションで、エンティティの切断されたグラフを操作する必要がある場合は、代替の方法を検討してください。たとえば、コミュニティによってより積極的に開発された自己追跡エンティティに似たテクノロジである[追跡可能なエンティティ](https://trackableentities.github.io/)を使用するか、または、低レベルの変更追跡 API を使用してカスタム コードを記述してください。</span><span class="sxs-lookup"><span data-stu-id="7ad84-105">If your application requires working with disconnected graphs of entities, consider other alternatives such as [Trackable Entities](https://trackableentities.github.io/), which is a technology similar to Self-Tracking-Entities that is more actively developed by the community, or writing custom code using the low-level change tracking APIs.</span></span>
 
-<span data-ttu-id="b35dc-106">このチュートリアルでは、Windows Communication Foundation (WCF) サービスが、エンティティグラフを返す操作を公開するシナリオについて説明します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-106">This walkthrough demonstrates the scenario in which a Windows Communication Foundation (WCF) service exposes an operation that returns an entity graph.</span></span> <span data-ttu-id="b35dc-107">次に、クライアントアプリケーションは、そのグラフを操作し、Entity Framework を使用して更新を検証してデータベースに保存するサービス操作に変更を送信します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-107">Next, a client application manipulates that graph and submits the modifications to a service operation that validates and saves the updates to a database using Entity Framework.</span></span>
+<span data-ttu-id="7ad84-106">このチュートリアルでは、Windows Communication Foundation (WCF) サービスが、エンティティグラフを返す操作を公開するシナリオについて説明します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-106">This walkthrough demonstrates the scenario in which a Windows Communication Foundation (WCF) service exposes an operation that returns an entity graph.</span></span> <span data-ttu-id="7ad84-107">次に、クライアントアプリケーションは、そのグラフを操作し、Entity Framework を使用して更新を検証してデータベースに保存するサービス操作に変更を送信します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-107">Next, a client application manipulates that graph and submits the modifications to a service operation that validates and saves the updates to a database using Entity Framework.</span></span>
 
-<span data-ttu-id="b35dc-108">このチュートリアルを完了する前に、「[自己追跡エンティティ](index.md)」ページを必ずお読みください。</span><span class="sxs-lookup"><span data-stu-id="b35dc-108">Before completing this walkthrough make sure you read the [Self-Tracking Entities](index.md) page.</span></span>
+<span data-ttu-id="7ad84-108">このチュートリアルを完了する前に、「[自己追跡エンティティ](index.md)」ページを必ずお読みください。</span><span class="sxs-lookup"><span data-stu-id="7ad84-108">Before completing this walkthrough make sure you read the [Self-Tracking Entities](index.md) page.</span></span>
 
-<span data-ttu-id="b35dc-109">このチュートリアルでは次の操作を行います。</span><span class="sxs-lookup"><span data-stu-id="b35dc-109">This walkthrough completes the following actions:</span></span>
+<span data-ttu-id="7ad84-109">このチュートリアルでは次の操作を行います。</span><span class="sxs-lookup"><span data-stu-id="7ad84-109">This walkthrough completes the following actions:</span></span>
 
--   <span data-ttu-id="b35dc-110">アクセスするデータベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-110">Creates a database to access.</span></span>
--   <span data-ttu-id="b35dc-111">モデルを含むクラスライブラリを作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-111">Creates a class library that contains the model.</span></span>
--   <span data-ttu-id="b35dc-112">自己追跡エンティティジェネレーターテンプレートにスワップします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-112">Swaps to the Self-Tracking Entity Generator template.</span></span>
--   <span data-ttu-id="b35dc-113">エンティティクラスを別のプロジェクトに移動します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-113">Moves the entity classes to a separate project.</span></span>
--   <span data-ttu-id="b35dc-114">エンティティを照会および保存する操作を公開する WCF サービスを作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-114">Creates a WCF service that exposes operations to query and save entities.</span></span>
--   <span data-ttu-id="b35dc-115">サービスを使用するクライアントアプリケーション (コンソールと WPF) を作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-115">Creates client applications (Console and WPF) that consume the service.</span></span>
+-   <span data-ttu-id="7ad84-110">アクセスするデータベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-110">Creates a database to access.</span></span>
+-   <span data-ttu-id="7ad84-111">モデルを含むクラスライブラリを作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-111">Creates a class library that contains the model.</span></span>
+-   <span data-ttu-id="7ad84-112">自己追跡エンティティジェネレーターテンプレートにスワップします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-112">Swaps to the Self-Tracking Entity Generator template.</span></span>
+-   <span data-ttu-id="7ad84-113">エンティティクラスを別のプロジェクトに移動します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-113">Moves the entity classes to a separate project.</span></span>
+-   <span data-ttu-id="7ad84-114">エンティティを照会および保存する操作を公開する WCF サービスを作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-114">Creates a WCF service that exposes operations to query and save entities.</span></span>
+-   <span data-ttu-id="7ad84-115">サービスを使用するクライアントアプリケーション (コンソールと WPF) を作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-115">Creates client applications (Console and WPF) that consume the service.</span></span>
 
-<span data-ttu-id="b35dc-116">このチュートリアルでは Database First を使用しますが、同じ手法が Model First にも同様に適用されます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-116">We'll use Database First in this walkthrough but the same techniques apply equally to Model First.</span></span>
+<span data-ttu-id="7ad84-116">このチュートリアルでは Database First を使用しますが、同じ手法が Model First にも同様に適用されます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-116">We'll use Database First in this walkthrough but the same techniques apply equally to Model First.</span></span>
 
-## <a name="pre-requisites"></a><span data-ttu-id="b35dc-117">前提条件</span><span class="sxs-lookup"><span data-stu-id="b35dc-117">Pre-Requisites</span></span>
+## <a name="pre-requisites"></a><span data-ttu-id="7ad84-117">前提条件</span><span class="sxs-lookup"><span data-stu-id="7ad84-117">Pre-Requisites</span></span>
 
-<span data-ttu-id="b35dc-118">このチュートリアルを完了するには、Visual Studio の最新バージョンが必要です。</span><span class="sxs-lookup"><span data-stu-id="b35dc-118">To complete this walkthrough you will need a recent version of Visual Studio.</span></span>
+<span data-ttu-id="7ad84-118">このチュートリアルを完了するには、Visual Studio の最新バージョンが必要です。</span><span class="sxs-lookup"><span data-stu-id="7ad84-118">To complete this walkthrough you will need a recent version of Visual Studio.</span></span>
 
-## <a name="create-a-database"></a><span data-ttu-id="b35dc-119">データベースを作成する</span><span class="sxs-lookup"><span data-stu-id="b35dc-119">Create a Database</span></span>
+## <a name="create-a-database"></a><span data-ttu-id="7ad84-119">データベースを作成する</span><span class="sxs-lookup"><span data-stu-id="7ad84-119">Create a Database</span></span>
 
-<span data-ttu-id="b35dc-120">Visual Studio と共にインストールされるデータベースサーバーは、インストールされている Visual Studio のバージョンによって異なります。</span><span class="sxs-lookup"><span data-stu-id="b35dc-120">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you have installed:</span></span>
+<span data-ttu-id="7ad84-120">Visual Studio と共にインストールされるデータベースサーバーは、インストールされている Visual Studio のバージョンによって異なります。</span><span class="sxs-lookup"><span data-stu-id="7ad84-120">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you have installed:</span></span>
 
--   <span data-ttu-id="b35dc-121">Visual Studio 2012 を使用している場合は、LocalDB データベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-121">If you are using Visual Studio 2012 then you'll be creating a LocalDB database.</span></span>
--   <span data-ttu-id="b35dc-122">Visual Studio 2010 を使用している場合は、SQL Express データベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-122">If you are using Visual Studio 2010 you'll be creating a SQL Express database.</span></span>
+-   <span data-ttu-id="7ad84-121">Visual Studio 2012 を使用している場合は、LocalDB データベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-121">If you are using Visual Studio 2012 then you'll be creating a LocalDB database.</span></span>
+-   <span data-ttu-id="7ad84-122">Visual Studio 2010 を使用している場合は、SQL Express データベースを作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-122">If you are using Visual Studio 2010 you'll be creating a SQL Express database.</span></span>
 
-<span data-ttu-id="b35dc-123">では、データベースを生成してみましょう。</span><span class="sxs-lookup"><span data-stu-id="b35dc-123">Let's go ahead and generate the database.</span></span>
+<span data-ttu-id="7ad84-123">では、データベースを生成してみましょう。</span><span class="sxs-lookup"><span data-stu-id="7ad84-123">Let's go ahead and generate the database.</span></span>
 
--   <span data-ttu-id="b35dc-124">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="b35dc-124">Open Visual Studio</span></span>
--   <span data-ttu-id="b35dc-125">**ビュー-&gt; サーバーエクスプローラー**</span><span class="sxs-lookup"><span data-stu-id="b35dc-125">**View -&gt; Server Explorer**</span></span>
--   <span data-ttu-id="b35dc-126">[データ接続] を右クリックし **、&gt; [接続の追加**] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-126">Right click on **Data Connections -&gt; Add Connection…**</span></span>
--   <span data-ttu-id="b35dc-127">サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして**Microsoft SQL Server**を選択する必要があります。</span><span class="sxs-lookup"><span data-stu-id="b35dc-127">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>
--   <span data-ttu-id="b35dc-128">インストールされているものに応じて、LocalDB または SQL Express に接続します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-128">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>
--   <span data-ttu-id="b35dc-129">データベース名として「 **STESample** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-129">Enter **STESample** as the database name</span></span>
--   <span data-ttu-id="b35dc-130">[ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 **[はい]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-130">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>
--   <span data-ttu-id="b35dc-131">新しいデータベースがに表示されるようになりサーバーエクスプローラー</span><span class="sxs-lookup"><span data-stu-id="b35dc-131">The new database will now appear in Server Explorer</span></span>
--   <span data-ttu-id="b35dc-132">Visual Studio 2012 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="b35dc-132">If you are using Visual Studio 2012</span></span>
-    -   <span data-ttu-id="b35dc-133">サーバーエクスプローラーでデータベースを右クリックし、 **[新しいクエリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-133">Right-click on the database in Server Explorer and select **New Query**</span></span>
-    -   <span data-ttu-id="b35dc-134">次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[実行]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-134">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
--   <span data-ttu-id="b35dc-135">Visual Studio 2010 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="b35dc-135">If you are using Visual Studio 2010</span></span>
-    -   <span data-ttu-id="b35dc-136">[**データ-&gt; Transact-sql エディター-@no__t 新しいクエリ接続...** ] を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-136">Select **Data -&gt; Transact SQL Editor -&gt; New Query Connection...**</span></span>
-    -   <span data-ttu-id="b35dc-137">サーバー名として「 **. \\SQLEXPRESS** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-137">Enter **.\\SQLEXPRESS** as the server name and click **OK**</span></span>
-    -   <span data-ttu-id="b35dc-138">クエリエディターの上部にあるドロップダウンから**STESample**データベースを選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-138">Select the **STESample** database from the drop down at the top of the query editor</span></span>
-    -   <span data-ttu-id="b35dc-139">次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[sql の実行]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-139">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>
+-   <span data-ttu-id="7ad84-124">Visual Studio を開きます</span><span class="sxs-lookup"><span data-stu-id="7ad84-124">Open Visual Studio</span></span>
+-   <span data-ttu-id="7ad84-125">**ビュー&gt; サーバーエクスプローラー**</span><span class="sxs-lookup"><span data-stu-id="7ad84-125">**View -&gt; Server Explorer**</span></span>
+-   <span data-ttu-id="7ad84-126">**[データ接続]** を右クリックし&gt; [接続の追加] をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-126">Right click on **Data Connections -&gt; Add Connection…**</span></span>
+-   <span data-ttu-id="7ad84-127">サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして**Microsoft SQL Server**を選択する必要があります。</span><span class="sxs-lookup"><span data-stu-id="7ad84-127">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>
+-   <span data-ttu-id="7ad84-128">インストールされているものに応じて、LocalDB または SQL Express に接続します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-128">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>
+-   <span data-ttu-id="7ad84-129">データベース名として「 **STESample** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-129">Enter **STESample** as the database name</span></span>
+-   <span data-ttu-id="7ad84-130">[ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 **[はい]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-130">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>
+-   <span data-ttu-id="7ad84-131">新しいデータベースがに表示されるようになりサーバーエクスプローラー</span><span class="sxs-lookup"><span data-stu-id="7ad84-131">The new database will now appear in Server Explorer</span></span>
+-   <span data-ttu-id="7ad84-132">Visual Studio 2012 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="7ad84-132">If you are using Visual Studio 2012</span></span>
+    -   <span data-ttu-id="7ad84-133">サーバーエクスプローラーでデータベースを右クリックし、 **[新しいクエリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-133">Right-click on the database in Server Explorer and select **New Query**</span></span>
+    -   <span data-ttu-id="7ad84-134">次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[実行]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-134">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>
+-   <span data-ttu-id="7ad84-135">Visual Studio 2010 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="7ad84-135">If you are using Visual Studio 2010</span></span>
+    -   <span data-ttu-id="7ad84-136">[データ] を選択し **&gt; TRANSACT SQL エディター-&gt; 新しいクエリ接続...**</span><span class="sxs-lookup"><span data-stu-id="7ad84-136">Select **Data -&gt; Transact SQL Editor -&gt; New Query Connection...**</span></span>
+    -   <span data-ttu-id="7ad84-137">「」と入力し、サーバー名として\\SQLEXPRESS を入力し、[ **OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-137">Enter **.\\SQLEXPRESS** as the server name and click **OK**</span></span>
+    -   <span data-ttu-id="7ad84-138">クエリエディターの上部にあるドロップダウンから**STESample**データベースを選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-138">Select the **STESample** database from the drop down at the top of the query editor</span></span>
+    -   <span data-ttu-id="7ad84-139">次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[sql の実行]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-139">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>
 
 ``` SQL
     CREATE TABLE [dbo].[Blogs] (
@@ -83,105 +83,106 @@ ms.locfileid: "72181709"
     INSERT INTO [dbo].[Posts] ([Title], [Content], [BlogId]) VALUES (N'What is New', N'More interesting stuff...', 1)
 ```
 
-## <a name="create-the-model"></a><span data-ttu-id="b35dc-140">モデルの作成</span><span class="sxs-lookup"><span data-stu-id="b35dc-140">Create the Model</span></span>
+## <a name="create-the-model"></a><span data-ttu-id="7ad84-140">モデルの作成</span><span class="sxs-lookup"><span data-stu-id="7ad84-140">Create the Model</span></span>
 
-<span data-ttu-id="b35dc-141">まず、モデルを配置するためのプロジェクトが必要です。</span><span class="sxs-lookup"><span data-stu-id="b35dc-141">First up, we need a project to put the model in.</span></span>
+<span data-ttu-id="7ad84-141">まず、モデルを配置するためのプロジェクトが必要です。</span><span class="sxs-lookup"><span data-stu-id="7ad84-141">First up, we need a project to put the model in.</span></span>
 
--   <span data-ttu-id="b35dc-142">**ファイル-&gt; 新規-@no__t プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="b35dc-142">**File -&gt; New -&gt; Project...**</span></span>
--   <span data-ttu-id="b35dc-143">左側のウィンドウで **[Visual C @ no__t-1]** を選択し、 **[クラスライブラリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-143">Select **Visual C\#** from the left pane and then **Class Library**</span></span>
--   <span data-ttu-id="b35dc-144">名前として「 **STESample** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-144">Enter **STESample** as the name and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-142">**ファイル&gt; 新規&gt; プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="7ad84-142">**File -&gt; New -&gt; Project...**</span></span>
+-   <span data-ttu-id="7ad84-143">左側のウィンドウで [ **Visual C\#** ]、 **[クラスライブラリ]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-143">Select **Visual C\#** from the left pane and then **Class Library**</span></span>
+-   <span data-ttu-id="7ad84-144">名前として「 **STESample** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-144">Enter **STESample** as the name and click **OK**</span></span>
 
-<span data-ttu-id="b35dc-145">次に、EF デザイナーで単純なモデルを作成して、データベースにアクセスします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-145">Now we'll create a simple model in the EF Designer to access our database:</span></span>
+<span data-ttu-id="7ad84-145">次に、EF デザイナーで単純なモデルを作成して、データベースにアクセスします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-145">Now we'll create a simple model in the EF Designer to access our database:</span></span>
 
--   <span data-ttu-id="b35dc-146">**プロジェクト-&gt; 新しい項目の追加...**</span><span class="sxs-lookup"><span data-stu-id="b35dc-146">**Project -&gt; Add New Item...**</span></span>
--   <span data-ttu-id="b35dc-147">左側のウィンドウから **[データ]** を選択し、次に**ADO.NET Entity Data Model**</span><span class="sxs-lookup"><span data-stu-id="b35dc-147">Select **Data** from the left pane and then **ADO.NET Entity Data Model**</span></span>
--   <span data-ttu-id="b35dc-148">名前として「 **Bのログインモデル**」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-148">Enter **BloggingModel** as the name and click **OK**</span></span>
--   <span data-ttu-id="b35dc-149">**[データベースから生成]** を選択し、 **[次へ]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-149">Select **Generate from database** and click **Next**</span></span>
--   <span data-ttu-id="b35dc-150">前のセクションで作成したデータベースの接続情報を入力します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-150">Enter the connection information for the database that you created in the previous section</span></span>
--   <span data-ttu-id="b35dc-151">接続文字列の名前として「 **Bのログインコンテキスト**」と入力し、 **[次へ]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-151">Enter **BloggingContext** as the name for the connection string and click **Next**</span></span>
--   <span data-ttu-id="b35dc-152">**[テーブル]** の横にあるチェックボックスをオンにし、 **[完了]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-152">Check the box next to **Tables** and click **Finish**</span></span>
+-   <span data-ttu-id="7ad84-146">**プロジェクト-新しい項目の追加&gt;...**</span><span class="sxs-lookup"><span data-stu-id="7ad84-146">**Project -&gt; Add New Item...**</span></span>
+-   <span data-ttu-id="7ad84-147">左側のウィンドウから **[データ]** を選択し、次に**ADO.NET Entity Data Model**</span><span class="sxs-lookup"><span data-stu-id="7ad84-147">Select **Data** from the left pane and then **ADO.NET Entity Data Model**</span></span>
+-   <span data-ttu-id="7ad84-148">名前として「 **Bのログインモデル**」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-148">Enter **BloggingModel** as the name and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-149">**[データベースから生成]** を選択し、 **[次へ]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-149">Select **Generate from database** and click **Next**</span></span>
+-   <span data-ttu-id="7ad84-150">前のセクションで作成したデータベースの接続情報を入力します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-150">Enter the connection information for the database that you created in the previous section</span></span>
+-   <span data-ttu-id="7ad84-151">接続文字列の名前として「 **Bのログインコンテキスト**」と入力し、 **[次へ]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-151">Enter **BloggingContext** as the name for the connection string and click **Next**</span></span>
+-   <span data-ttu-id="7ad84-152">**[テーブル]** の横にあるチェックボックスをオンにし、 **[完了]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-152">Check the box next to **Tables** and click **Finish**</span></span>
 
-## <a name="swap-to-ste-code-generation"></a><span data-ttu-id="b35dc-153">貼り付けコード生成にスワップする</span><span class="sxs-lookup"><span data-stu-id="b35dc-153">Swap to STE Code Generation</span></span>
+## <a name="swap-to-ste-code-generation"></a><span data-ttu-id="7ad84-153">貼り付けコード生成にスワップする</span><span class="sxs-lookup"><span data-stu-id="7ad84-153">Swap to STE Code Generation</span></span>
 
-<span data-ttu-id="b35dc-154">ここで、既定のコード生成を無効にし、自己追跡エンティティにスワップする必要があります。</span><span class="sxs-lookup"><span data-stu-id="b35dc-154">Now we need to disable the default code generation and swap to Self-Tracking Entities.</span></span>
+<span data-ttu-id="7ad84-154">ここで、既定のコード生成を無効にし、自己追跡エンティティにスワップする必要があります。</span><span class="sxs-lookup"><span data-stu-id="7ad84-154">Now we need to disable the default code generation and swap to Self-Tracking Entities.</span></span>
 
-### <a name="if-you-are-using-visual-studio-2012"></a><span data-ttu-id="b35dc-155">Visual Studio 2012 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="b35dc-155">If you are using Visual Studio 2012</span></span>
+### <a name="if-you-are-using-visual-studio-2012"></a><span data-ttu-id="7ad84-155">Visual Studio 2012 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="7ad84-155">If you are using Visual Studio 2012</span></span>
 
--   <span data-ttu-id="b35dc-156">**ソリューションエクスプローラー**で **[bBloggingModel.Context.tt]** を展開し、 **BloggingModel.tt**と @no__tを削除します。これに*より、既定のコード生成が無効になります*。</span><span class="sxs-lookup"><span data-stu-id="b35dc-156">Expand **BloggingModel.edmx** in **Solution Explorer** and delete the **BloggingModel.tt** and **BloggingModel.Context.tt**
-    *This will disable the default code generation*</span></span>
--   <span data-ttu-id="b35dc-157">EF デザイナー画面で空の領域を右クリックし、 **[コード生成項目の追加...]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-157">Right-click an empty area on the EF Designer surface and select **Add Code Generation Item...**</span></span>
--   <span data-ttu-id="b35dc-158">左ペインで **[オンライン]** を選択し、**貼り付け Generator**を検索します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-158">Select **Online** from the left pane and search for **STE Generator**</span></span>
--   <span data-ttu-id="b35dc-159">**C @ no__t テンプレートの貼り付け Generator**を選択し、名前として「 **stetemplate** 」と入力して、 **[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-159">Select the **STE Generator for C\#** template, enter **STETemplate** as the name and click **Add**</span></span>
--   <span data-ttu-id="b35dc-160">**STETemplate.tt**ファイルと**STETemplate.Context.tt**ファイルは、b ファイルの下に入れ子になっています。</span><span class="sxs-lookup"><span data-stu-id="b35dc-160">The **STETemplate.tt** and **STETemplate.Context.tt** files are added nested under the BloggingModel.edmx file</span></span>
+-   <span data-ttu-id="7ad84-156">**ソリューションエクスプローラー**で**bBloggingModel.tt**を展開\**し、BloggingModel.Context.tt と
+    \*\* を削除して、*既定のコード生成を無効\*にします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-156">Expand **BloggingModel.edmx** in **Solution Explorer** and delete the **BloggingModel.tt** and **BloggingModel.Context.tt**
+*This will disable the default code generation*</span></span>
+-   <span data-ttu-id="7ad84-157">EF デザイナー画面で空の領域を右クリックし、 **[コード生成項目の追加...]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-157">Right-click an empty area on the EF Designer surface and select **Add Code Generation Item...**</span></span>
+-   <span data-ttu-id="7ad84-158">左ペインで **[オンライン]** を選択し、**貼り付け Generator**を検索します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-158">Select **Online** from the left pane and search for **STE Generator**</span></span>
+-   <span data-ttu-id="7ad84-159">[**貼り付け Generator For C\#** ] テンプレートを選択し、名前として「 **stetemplate** 」と入力して、 **[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-159">Select the **STE Generator for C\#** template, enter **STETemplate** as the name and click **Add**</span></span>
+-   <span data-ttu-id="7ad84-160">**STETemplate.tt**ファイルと**STETemplate.Context.tt**ファイルは、b ファイルの下に入れ子になっています。</span><span class="sxs-lookup"><span data-stu-id="7ad84-160">The **STETemplate.tt** and **STETemplate.Context.tt** files are added nested under the BloggingModel.edmx file</span></span>
 
-### <a name="if-you-are-using-visual-studio-2010"></a><span data-ttu-id="b35dc-161">Visual Studio 2010 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="b35dc-161">If you are using Visual Studio 2010</span></span>
+### <a name="if-you-are-using-visual-studio-2010"></a><span data-ttu-id="7ad84-161">Visual Studio 2010 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="7ad84-161">If you are using Visual Studio 2010</span></span>
 
--   <span data-ttu-id="b35dc-162">EF デザイナー画面で空の領域を右クリックし、 **[コード生成項目の追加...]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-162">Right-click an empty area on the EF Designer surface and select **Add Code Generation Item...**</span></span>
--   <span data-ttu-id="b35dc-163">左ペインで **[コード]** を選択し、 **[ADO.NET エンティティジェネレーター]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-163">Select **Code** from the left pane and then **ADO.NET Self-Tracking Entity Generator**</span></span>
--   <span data-ttu-id="b35dc-164">名前として「 **Stetemplate** 」と入力し、 **[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-164">Enter **STETemplate** as the name and click **Add**</span></span>
--   <span data-ttu-id="b35dc-165">**STETemplate.tt**ファイルと**STETemplate.Context.tt**ファイルがプロジェクトに直接追加されます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-165">The **STETemplate.tt** and **STETemplate.Context.tt** files are added directly to your project</span></span>
+-   <span data-ttu-id="7ad84-162">EF デザイナー画面で空の領域を右クリックし、 **[コード生成項目の追加...]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-162">Right-click an empty area on the EF Designer surface and select **Add Code Generation Item...**</span></span>
+-   <span data-ttu-id="7ad84-163">左ペインで **[コード]** を選択し、 **[ADO.NET エンティティジェネレーター]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-163">Select **Code** from the left pane and then **ADO.NET Self-Tracking Entity Generator**</span></span>
+-   <span data-ttu-id="7ad84-164">名前として「 **Stetemplate** 」と入力し、 **[追加]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-164">Enter **STETemplate** as the name and click **Add**</span></span>
+-   <span data-ttu-id="7ad84-165">**STETemplate.tt**ファイルと**STETemplate.Context.tt**ファイルがプロジェクトに直接追加されます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-165">The **STETemplate.tt** and **STETemplate.Context.tt** files are added directly to your project</span></span>
 
-## <a name="move-entity-types-into-separate-project"></a><span data-ttu-id="b35dc-166">エンティティ型を別のプロジェクトに移動する</span><span class="sxs-lookup"><span data-stu-id="b35dc-166">Move Entity Types into Separate Project</span></span>
+## <a name="move-entity-types-into-separate-project"></a><span data-ttu-id="7ad84-166">エンティティ型を別のプロジェクトに移動する</span><span class="sxs-lookup"><span data-stu-id="7ad84-166">Move Entity Types into Separate Project</span></span>
 
-<span data-ttu-id="b35dc-167">自己追跡エンティティを使用するには、クライアントアプリケーションは、モデルから生成されたエンティティクラスにアクセスする必要があります。</span><span class="sxs-lookup"><span data-stu-id="b35dc-167">To use Self-Tracking Entities our client application needs access to the entity classes generated from our model.</span></span> <span data-ttu-id="b35dc-168">モデル全体をクライアントアプリケーションに公開する必要がないため、エンティティクラスを別のプロジェクトに移動します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-168">Because we don't want to expose the whole model to the client application we're going to move the entity classes into a separate project.</span></span>
+<span data-ttu-id="7ad84-167">自己追跡エンティティを使用するには、クライアントアプリケーションは、モデルから生成されたエンティティクラスにアクセスする必要があります。</span><span class="sxs-lookup"><span data-stu-id="7ad84-167">To use Self-Tracking Entities our client application needs access to the entity classes generated from our model.</span></span> <span data-ttu-id="7ad84-168">モデル全体をクライアントアプリケーションに公開する必要がないため、エンティティクラスを別のプロジェクトに移動します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-168">Because we don't want to expose the whole model to the client application we're going to move the entity classes into a separate project.</span></span>
 
-<span data-ttu-id="b35dc-169">最初の手順では、既存のプロジェクトでのエンティティクラスの生成を停止します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-169">The first step is to stop generating entity classes in the existing project:</span></span>
+<span data-ttu-id="7ad84-169">最初の手順では、既存のプロジェクトでのエンティティクラスの生成を停止します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-169">The first step is to stop generating entity classes in the existing project:</span></span>
 
--   <span data-ttu-id="b35dc-170">**ソリューションエクスプローラー**の **[STETemplate.tt]** を右クリックし、 **[プロパティ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-170">Right-click on **STETemplate.tt** in **Solution Explorer** and select **Properties**</span></span>
--   <span data-ttu-id="b35dc-171">**[プロパティ]** ウィンドウで、 **CustomTool**プロパティから**texttemplatingfilegenerator**をクリアします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-171">In the **Properties** window clear **TextTemplatingFileGenerator** from the **CustomTool** property</span></span>
--   <span data-ttu-id="b35dc-172">**ソリューションエクスプローラー**の **[STETemplate.tt]** を展開し、その下に入れ子になっているすべてのファイルを削除します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-172">Expand **STETemplate.tt** in **Solution Explorer** and delete all files nested under it</span></span>
+-   <span data-ttu-id="7ad84-170">**ソリューションエクスプローラー**の **[STETemplate.tt]** を右クリックし、 **[プロパティ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-170">Right-click on **STETemplate.tt** in **Solution Explorer** and select **Properties**</span></span>
+-   <span data-ttu-id="7ad84-171">**[プロパティ]** ウィンドウで、 **CustomTool**プロパティから**texttemplatingfilegenerator**をクリアします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-171">In the **Properties** window clear **TextTemplatingFileGenerator** from the **CustomTool** property</span></span>
+-   <span data-ttu-id="7ad84-172">**ソリューションエクスプローラー**の **[STETemplate.tt]** を展開し、その下に入れ子になっているすべてのファイルを削除します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-172">Expand **STETemplate.tt** in **Solution Explorer** and delete all files nested under it</span></span>
 
-<span data-ttu-id="b35dc-173">次に、新しいプロジェクトを追加し、そこにエンティティクラスを生成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-173">Next, we are going to add a new project and generate the entity classes in it</span></span>
+<span data-ttu-id="7ad84-173">次に、新しいプロジェクトを追加し、そこにエンティティクラスを生成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-173">Next, we are going to add a new project and generate the entity classes in it</span></span>
 
--   <span data-ttu-id="b35dc-174">**ファイル-&gt; &gt; プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="b35dc-174">**File -&gt; Add -&gt; Project...**</span></span>
--   <span data-ttu-id="b35dc-175">左側のウィンドウで **[Visual C @ no__t-1]** を選択し、 **[クラスライブラリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-175">Select **Visual C\#** from the left pane and then **Class Library**</span></span>
--   <span data-ttu-id="b35dc-176">名前として「STESample」と入力し、[ **OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-176">Enter **STESample.Entities** as the name and click **OK**</span></span>
--   <span data-ttu-id="b35dc-177">**プロジェクト-&gt; 既存の項目の追加...**</span><span class="sxs-lookup"><span data-stu-id="b35dc-177">**Project -&gt; Add Existing Item...**</span></span>
--   <span data-ttu-id="b35dc-178">**STESample**プロジェクトフォルダーに移動します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-178">Navigate to the **STESample** project folder</span></span>
--   <span data-ttu-id="b35dc-179">すべてのファイルを表示する場合に選択し**ます (\*. \*)**</span><span class="sxs-lookup"><span data-stu-id="b35dc-179">Select to view **All Files (\*.\*)**</span></span>
--   <span data-ttu-id="b35dc-180">**STETemplate.tt**ファイルを選択します</span><span class="sxs-lookup"><span data-stu-id="b35dc-180">Select the **STETemplate.tt** file</span></span>
--   <span data-ttu-id="b35dc-181">**[追加]** ボタンの横にあるドロップダウン矢印をクリックし、 **[リンクとして追加]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-181">Click on the drop down arrow next to the **Add** button and select **Add As Link**</span></span>
+-   <span data-ttu-id="7ad84-174">**ファイル&gt; の&gt; プロジェクトの追加...**</span><span class="sxs-lookup"><span data-stu-id="7ad84-174">**File -&gt; Add -&gt; Project...**</span></span>
+-   <span data-ttu-id="7ad84-175">左側のウィンドウで [ **Visual C\#** ]、 **[クラスライブラリ]** の順に選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-175">Select **Visual C\#** from the left pane and then **Class Library**</span></span>
+-   <span data-ttu-id="7ad84-176">名前として「STESample」と入力し、[ **OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-176">Enter **STESample.Entities** as the name and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-177">**プロジェクト-&gt; 既存の項目の追加...**</span><span class="sxs-lookup"><span data-stu-id="7ad84-177">**Project -&gt; Add Existing Item...**</span></span>
+-   <span data-ttu-id="7ad84-178">**STESample**プロジェクトフォルダーに移動します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-178">Navigate to the **STESample** project folder</span></span>
+-   <span data-ttu-id="7ad84-179">すべてのファイルを表示する場合に選択し**ます (\*\*)**</span><span class="sxs-lookup"><span data-stu-id="7ad84-179">Select to view **All Files (\*.\*)**</span></span>
+-   <span data-ttu-id="7ad84-180">**STETemplate.tt**ファイルを選択します</span><span class="sxs-lookup"><span data-stu-id="7ad84-180">Select the **STETemplate.tt** file</span></span>
+-   <span data-ttu-id="7ad84-181">**[追加]** ボタンの横にあるドロップダウン矢印をクリックし、 **[リンクとして追加]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-181">Click on the drop down arrow next to the **Add** button and select **Add As Link**</span></span>
 
     ![リンクテンプレートの追加](~/ef6/media/addlinkedtemplate.png)
 
-<span data-ttu-id="b35dc-183">また、エンティティクラスがコンテキストと同じ名前空間で生成されるようにします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-183">We're also going to make sure the entity classes get generated in the same namespace as the context.</span></span> <span data-ttu-id="b35dc-184">これにより、アプリケーション全体で追加する必要があるステートメントの数が減ります。</span><span class="sxs-lookup"><span data-stu-id="b35dc-184">This just reduces the number of using statements we need to add throughout our application.</span></span>
+<span data-ttu-id="7ad84-183">また、エンティティクラスがコンテキストと同じ名前空間で生成されるようにします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-183">We're also going to make sure the entity classes get generated in the same namespace as the context.</span></span> <span data-ttu-id="7ad84-184">これにより、アプリケーション全体で追加する必要があるステートメントの数が減ります。</span><span class="sxs-lookup"><span data-stu-id="7ad84-184">This just reduces the number of using statements we need to add throughout our application.</span></span>
 
--   <span data-ttu-id="b35dc-185">**ソリューションエクスプローラー**のリンクされた**STETemplate.tt**を右クリックし、 **[プロパティ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-185">Right-click on the linked **STETemplate.tt** in **Solution Explorer** and select **Properties**</span></span>
--   <span data-ttu-id="b35dc-186">**[プロパティ]** ウィンドウで、 **[カスタムツールの名前空間]** を**STESample**に設定します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-186">In the **Properties** window set **Custom Tool Namespace** to **STESample**</span></span>
+-   <span data-ttu-id="7ad84-185">**ソリューションエクスプローラー**のリンクされた**STETemplate.tt**を右クリックし、 **[プロパティ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-185">Right-click on the linked **STETemplate.tt** in **Solution Explorer** and select **Properties**</span></span>
+-   <span data-ttu-id="7ad84-186">**[プロパティ]** ウィンドウで、 **[カスタムツールの名前空間]** を**STESample**に設定します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-186">In the **Properties** window set **Custom Tool Namespace** to **STESample**</span></span>
 
-<span data-ttu-id="b35dc-187">貼り付けテンプレートによって生成されるコードは、コンパイルする**ために、system.string への**参照を必要とします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-187">The code generated by the STE template will need a reference to **System.Runtime.Serialization** in order to compile.</span></span> <span data-ttu-id="b35dc-188">このライブラリは、シリアル化可能なエンティティ型で使用される WCF **DataContract**および**DataMember**属性に必要です。</span><span class="sxs-lookup"><span data-stu-id="b35dc-188">This library is needed for the WCF **DataContract** and **DataMember** attributes that are used on the serializable entity types.</span></span>
+<span data-ttu-id="7ad84-187">貼り付けテンプレートによって生成されるコードは、コンパイルする**ために、system.string への**参照を必要とします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-187">The code generated by the STE template will need a reference to **System.Runtime.Serialization** in order to compile.</span></span> <span data-ttu-id="7ad84-188">このライブラリは、シリアル化可能なエンティティ型で使用される WCF **DataContract**および**DataMember**属性に必要です。</span><span class="sxs-lookup"><span data-stu-id="7ad84-188">This library is needed for the WCF **DataContract** and **DataMember** attributes that are used on the serializable entity types.</span></span>
 
--   <span data-ttu-id="b35dc-189">**ソリューションエクスプローラー**で**STESample**プロジェクトを右クリックし、[参照の**追加**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-189">Right click on the **STESample.Entities** project in **Solution Explorer** and select **Add Reference...**</span></span>
-    -   <span data-ttu-id="b35dc-190">Visual Studio 2012-system.string の横にあるチェックボックスをオンにし、 **OK** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-190">In Visual Studio 2012 - check the box next to **System.Runtime.Serialization** and click **OK**</span></span>
-    -   <span data-ttu-id="b35dc-191">Visual Studio 2010-system.string を選択し、 **OK** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-191">In Visual Studio 2010 - select **System.Runtime.Serialization** and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-189">**ソリューションエクスプローラー**で**STESample**プロジェクトを右クリックし、[参照の**追加**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-189">Right click on the **STESample.Entities** project in **Solution Explorer** and select **Add Reference...**</span></span>
+    -   <span data-ttu-id="7ad84-190">Visual Studio 2012-system.string の横にあるチェックボックスをオンにし、 **OK** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-190">In Visual Studio 2012 - check the box next to **System.Runtime.Serialization** and click **OK**</span></span>
+    -   <span data-ttu-id="7ad84-191">Visual Studio 2010-system.string を選択し、 **OK** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-191">In Visual Studio 2010 - select **System.Runtime.Serialization** and click **OK**</span></span>
 
-<span data-ttu-id="b35dc-192">最後に、コンテキストが含まれているプロジェクトには、エンティティ型への参照が必要です。</span><span class="sxs-lookup"><span data-stu-id="b35dc-192">Finally, the project with our context in it will need a reference to the entity types.</span></span>
+<span data-ttu-id="7ad84-192">最後に、コンテキストが含まれているプロジェクトには、エンティティ型への参照が必要です。</span><span class="sxs-lookup"><span data-stu-id="7ad84-192">Finally, the project with our context in it will need a reference to the entity types.</span></span>
 
--   <span data-ttu-id="b35dc-193">**ソリューションエクスプローラー**で**STESample**プロジェクトを右クリックし、 **[参照の追加]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-193">Right click on the **STESample** project in **Solution Explorer** and select **Add Reference...**</span></span>
-    -   <span data-ttu-id="b35dc-194">Visual Studio 2012-左側のウィンドウから **[ソリューション]** を選択し、STESample の横にあるチェックボックスをオンにして、 **[OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-194">In Visual Studio 2012 - select **Solution** from the left pane, check the box next to **STESample.Entities** and click **OK**</span></span>
-    -   <span data-ttu-id="b35dc-195">Visual Studio 2010- **[プロジェクト]** タブを選択し、STESample を選択して **[OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-195">In Visual Studio 2010 - select the **Projects** tab, select **STESample.Entities** and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-193">**ソリューションエクスプローラー**で**STESample**プロジェクトを右クリックし、 **[参照の追加]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-193">Right click on the **STESample** project in **Solution Explorer** and select **Add Reference...**</span></span>
+    -   <span data-ttu-id="7ad84-194">Visual Studio 2012-左側のウィンドウから **[ソリューション]** を選択し、STESample の横にあるチェックボックスをオンにして、 **[OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-194">In Visual Studio 2012 - select **Solution** from the left pane, check the box next to **STESample.Entities** and click **OK**</span></span>
+    -   <span data-ttu-id="7ad84-195">Visual Studio 2010- **[プロジェクト]** タブを選択し、STESample を選択して **[OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-195">In Visual Studio 2010 - select the **Projects** tab, select **STESample.Entities** and click **OK**</span></span>
 
 >[!NOTE]
-> <span data-ttu-id="b35dc-196">エンティティ型を別のプロジェクトに移動するもう1つのオプションは、テンプレートファイルを既定の場所からリンクするのではなく、移動することです。</span><span class="sxs-lookup"><span data-stu-id="b35dc-196">Another option for moving the entity types to a separate project is to move the template file, rather than linking it from its default location.</span></span> <span data-ttu-id="b35dc-197">これを行う場合は、テンプレートの**inputFile**変数を更新して、.edmx ファイルへの相対パスを指定する必要があります (この例では **...\\Bのモデル .edmx**)。</span><span class="sxs-lookup"><span data-stu-id="b35dc-197">If you do this, you will need to update the **inputFile** variable in the template to provide the relative path to the edmx file (in this example that would be **..\\BloggingModel.edmx**).</span></span>
+> <span data-ttu-id="7ad84-196">エンティティ型を別のプロジェクトに移動するもう1つのオプションは、テンプレートファイルを既定の場所からリンクするのではなく、移動することです。</span><span class="sxs-lookup"><span data-stu-id="7ad84-196">Another option for moving the entity types to a separate project is to move the template file, rather than linking it from its default location.</span></span> <span data-ttu-id="7ad84-197">これを行う場合は、テンプレートの**inputFile**変数を更新して、edmx ファイルへの相対パスを指定する必要があります (この例では、 **..\\b**)。</span><span class="sxs-lookup"><span data-stu-id="7ad84-197">If you do this, you will need to update the **inputFile** variable in the template to provide the relative path to the edmx file (in this example that would be **..\\BloggingModel.edmx**).</span></span>
 
-## <a name="create-a-wcf-service"></a><span data-ttu-id="b35dc-198">WCF サービスを作成する</span><span class="sxs-lookup"><span data-stu-id="b35dc-198">Create a WCF Service</span></span>
+## <a name="create-a-wcf-service"></a><span data-ttu-id="7ad84-198">WCF サービスを作成する</span><span class="sxs-lookup"><span data-stu-id="7ad84-198">Create a WCF Service</span></span>
 
-<span data-ttu-id="b35dc-199">ここで、データを公開する WCF サービスを追加します。まず、プロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-199">Now it's time to add a WCF Service to expose our data, we'll start by creating the project.</span></span>
+<span data-ttu-id="7ad84-199">ここで、データを公開する WCF サービスを追加します。まず、プロジェクトを作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-199">Now it's time to add a WCF Service to expose our data, we'll start by creating the project.</span></span>
 
--   <span data-ttu-id="b35dc-200">**ファイル-&gt; &gt; プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="b35dc-200">**File -&gt; Add -&gt; Project...**</span></span>
--   <span data-ttu-id="b35dc-201">左側のウィンドウで **[Visual C @ no__t-1]** を選択し、 **[WCF サービスアプリケーション]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-201">Select **Visual C\#** from the left pane and then **WCF Service Application**</span></span>
--   <span data-ttu-id="b35dc-202">名前として「STESample」と入力し、[ **OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-202">Enter **STESample.Service** as the name and click **OK**</span></span>
--   <span data-ttu-id="b35dc-203">System.string アセンブリへの参照を追加**します。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-203">Add a reference to the **System.Data.Entity** assembly</span></span>
--   <span data-ttu-id="b35dc-204">**STESample**プロジェクトおよび**STESample**プロジェクトへの参照を追加する</span><span class="sxs-lookup"><span data-stu-id="b35dc-204">Add a reference to the **STESample** and **STESample.Entities** projects</span></span>
+-   <span data-ttu-id="7ad84-200">**ファイル&gt; の&gt; プロジェクトの追加...**</span><span class="sxs-lookup"><span data-stu-id="7ad84-200">**File -&gt; Add -&gt; Project...**</span></span>
+-   <span data-ttu-id="7ad84-201">左側のウィンドウで [ **Visual C\#** ] を選択し、 **[WCF サービスアプリケーション]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-201">Select **Visual C\#** from the left pane and then **WCF Service Application**</span></span>
+-   <span data-ttu-id="7ad84-202">名前として「STESample」と入力し、[ **OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-202">Enter **STESample.Service** as the name and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-203">System.string アセンブリへの参照を追加**します。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-203">Add a reference to the **System.Data.Entity** assembly</span></span>
+-   <span data-ttu-id="7ad84-204">**STESample**プロジェクトおよび**STESample**プロジェクトへの参照を追加する</span><span class="sxs-lookup"><span data-stu-id="7ad84-204">Add a reference to the **STESample** and **STESample.Entities** projects</span></span>
 
-<span data-ttu-id="b35dc-205">EF 接続文字列をこのプロジェクトにコピーして、実行時に検出されるようにする必要があります。</span><span class="sxs-lookup"><span data-stu-id="b35dc-205">We need to copy the EF connection string to this project so that it is found at runtime.</span></span>
+<span data-ttu-id="7ad84-205">EF 接続文字列をこのプロジェクトにコピーして、実行時に検出されるようにする必要があります。</span><span class="sxs-lookup"><span data-stu-id="7ad84-205">We need to copy the EF connection string to this project so that it is found at runtime.</span></span>
 
--   <span data-ttu-id="b35dc-206"> **STESample **プロジェクトの app.config ファイルを開き、 **connectionStrings**要素をコピーし**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-206">Open the **App.Config** file for the **STESample **project and copy the **connectionStrings** element</span></span>
--   <span data-ttu-id="b35dc-207">**ConnectionStrings**要素を、STESample プロジェクトの**web.config ファイル**の**configuration**要素の子要素として貼り付け**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-207">Paste the **connectionStrings** element as a child element of the **configuration** element of the **Web.Config** file in the **STESample.Service** project</span></span>
+-   <span data-ttu-id="7ad84-206"> **STESample **プロジェクトの app.config ファイルを開き、 **connectionStrings**要素をコピーし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-206">Open the **App.Config** file for the **STESample **project and copy the **connectionStrings** element</span></span>
+-   <span data-ttu-id="7ad84-207">**ConnectionStrings**要素を、STESample プロジェクトの**web.config ファイル**の**configuration**要素の子要素として貼り付け**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-207">Paste the **connectionStrings** element as a child element of the **configuration** element of the **Web.Config** file in the **STESample.Service** project</span></span>
 
-<span data-ttu-id="b35dc-208">次に、実際のサービスを実装します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-208">Now it's time to implement the actual service.</span></span>
+<span data-ttu-id="7ad84-208">次に、実際のサービスを実装します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-208">Now it's time to implement the actual service.</span></span>
 
--   <span data-ttu-id="b35dc-209">**IService1.cs**を開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-209">Open **IService1.cs** and replace the contents with the following code</span></span>
+-   <span data-ttu-id="7ad84-209">**IService1.cs**を開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-209">Open **IService1.cs** and replace the contents with the following code</span></span>
 
 ``` csharp
     using System.Collections.Generic;
@@ -201,7 +202,7 @@ ms.locfileid: "72181709"
     }
 ```
 
--   <span data-ttu-id="b35dc-210">Service1 を開き、内容を次のコードに置き換え**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-210">Open **Service1.svc** and replace the contents with the following code</span></span>
+-   <span data-ttu-id="7ad84-210">Service1 を開き、内容を次のコードに置き換え**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-210">Open **Service1.svc** and replace the contents with the following code</span></span>
 
 ``` csharp
     using System;
@@ -254,24 +255,24 @@ ms.locfileid: "72181709"
     }
 ```
 
-## <a name="consume-the-service-from-a-console-application"></a><span data-ttu-id="b35dc-211">コンソールアプリケーションからサービスを使用する</span><span class="sxs-lookup"><span data-stu-id="b35dc-211">Consume the Service from a Console Application</span></span>
+## <a name="consume-the-service-from-a-console-application"></a><span data-ttu-id="7ad84-211">コンソールアプリケーションからサービスを使用する</span><span class="sxs-lookup"><span data-stu-id="7ad84-211">Consume the Service from a Console Application</span></span>
 
-<span data-ttu-id="b35dc-212">ここでは、サービスを使用するコンソールアプリケーションを作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-212">Let's create a console application that uses our service.</span></span>
+<span data-ttu-id="7ad84-212">ここでは、サービスを使用するコンソールアプリケーションを作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-212">Let's create a console application that uses our service.</span></span>
 
--   <span data-ttu-id="b35dc-213">**ファイル-&gt; 新規-@no__t プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="b35dc-213">**File -&gt; New -&gt; Project...**</span></span>
--   <span data-ttu-id="b35dc-214">左側のウィンドウで **[Visual C @ no__t-1]** を選択し、 **[コンソールアプリケーション]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-214">Select **Visual C\#** from the left pane and then **Console Application**</span></span>
--   <span data-ttu-id="b35dc-215">名前として「STESample」と入力し、[ **OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-215">Enter **STESample.ConsoleTest** as the name and click **OK**</span></span>
--   <span data-ttu-id="b35dc-216">**STESample**プロジェクトへの参照を追加する</span><span class="sxs-lookup"><span data-stu-id="b35dc-216">Add a reference to the **STESample.Entities** project</span></span>
+-   <span data-ttu-id="7ad84-213">**ファイル&gt; 新規&gt; プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="7ad84-213">**File -&gt; New -&gt; Project...**</span></span>
+-   <span data-ttu-id="7ad84-214">左側のウィンドウで [ **Visual C\#** ] を選択し、 **[コンソールアプリケーション]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-214">Select **Visual C\#** from the left pane and then **Console Application**</span></span>
+-   <span data-ttu-id="7ad84-215">名前として「STESample」と入力し、[ **OK]** をクリックし**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-215">Enter **STESample.ConsoleTest** as the name and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-216">**STESample**プロジェクトへの参照を追加する</span><span class="sxs-lookup"><span data-stu-id="7ad84-216">Add a reference to the **STESample.Entities** project</span></span>
 
-<span data-ttu-id="b35dc-217">WCF サービスへのサービス参照が必要です</span><span class="sxs-lookup"><span data-stu-id="b35dc-217">We need a service reference to our WCF service</span></span>
+<span data-ttu-id="7ad84-217">WCF サービスへのサービス参照が必要です</span><span class="sxs-lookup"><span data-stu-id="7ad84-217">We need a service reference to our WCF service</span></span>
 
--   <span data-ttu-id="b35dc-218">**ソリューションエクスプローラー**で [ **STESample] テスト**プロジェクトを右クリックし、 **[サービス参照の追加]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-218">Right-click the **STESample.ConsoleTest** project in **Solution Explorer** and select **Add Service Reference...**</span></span>
--   <span data-ttu-id="b35dc-219">**[検出]** をクリック</span><span class="sxs-lookup"><span data-stu-id="b35dc-219">Click **Discover**</span></span>
--   <span data-ttu-id="b35dc-220">名前空間として「 **B、Service** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-220">Enter **BloggingService** as the namespace and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-218">**ソリューションエクスプローラー**で [ **STESample] テスト**プロジェクトを右クリックし、 **[サービス参照の追加]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-218">Right-click the **STESample.ConsoleTest** project in **Solution Explorer** and select **Add Service Reference...**</span></span>
+-   <span data-ttu-id="7ad84-219">**[検出]** をクリック</span><span class="sxs-lookup"><span data-stu-id="7ad84-219">Click **Discover**</span></span>
+-   <span data-ttu-id="7ad84-220">名前空間として「 **B、Service** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-220">Enter **BloggingService** as the namespace and click **OK**</span></span>
 
-<span data-ttu-id="b35dc-221">これで、サービスを使用するコードを記述できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="b35dc-221">Now we can write some code to consume the service.</span></span>
+<span data-ttu-id="7ad84-221">これで、サービスを使用するコードを記述できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="7ad84-221">Now we can write some code to consume the service.</span></span>
 
--   <span data-ttu-id="b35dc-222">**Program.cs**を開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-222">Open **Program.cs** and replace the contents with the following code.</span></span>
+-   <span data-ttu-id="7ad84-222">**Program.cs**を開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-222">Open **Program.cs** and replace the contents with the following code.</span></span>
 
 ``` csharp
     using STESample.ConsoleTest.BloggingService;
@@ -398,11 +399,11 @@ ms.locfileid: "72181709"
     }
 ```
 
-<span data-ttu-id="b35dc-223">アプリケーションを実行して動作を確認できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="b35dc-223">You can now run the application to see it in action.</span></span>
+<span data-ttu-id="7ad84-223">アプリケーションを実行して動作を確認できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="7ad84-223">You can now run the application to see it in action.</span></span>
 
--   <span data-ttu-id="b35dc-224">**ソリューションエクスプローラー**で STESample テストプロジェクトを右クリックし、[デバッグ] **、[@no__t]、[新しいインスタンスを開始**] の順に選択し**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-224">Right-click the **STESample.ConsoleTest** project in **Solution Explorer** and select **Debug -&gt; Start new instance**</span></span>
+-   <span data-ttu-id="7ad84-224">**ソリューションエクスプローラー**で STESample テストプロジェクトを右クリックし、[デバッグ] **&gt; [新しいインスタンスを開始**] を選択し**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-224">Right-click the **STESample.ConsoleTest** project in **Solution Explorer** and select **Debug -&gt; Start new instance**</span></span>
 
-<span data-ttu-id="b35dc-225">アプリケーションの実行時に、次の出力が表示されます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-225">You'll see the following output when the application executes.</span></span>
+<span data-ttu-id="7ad84-225">アプリケーションの実行時に、次の出力が表示されます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-225">You'll see the following output when the application executes.</span></span>
 
 ```console
 Initial Data:
@@ -434,24 +435,24 @@ ADO.NET Blog
 Press any key to exit...
 ```
 
-## <a name="consume-the-service-from-a-wpf-application"></a><span data-ttu-id="b35dc-226">WPF アプリケーションからサービスを使用する</span><span class="sxs-lookup"><span data-stu-id="b35dc-226">Consume the Service from a WPF Application</span></span>
+## <a name="consume-the-service-from-a-wpf-application"></a><span data-ttu-id="7ad84-226">WPF アプリケーションからサービスを使用する</span><span class="sxs-lookup"><span data-stu-id="7ad84-226">Consume the Service from a WPF Application</span></span>
 
-<span data-ttu-id="b35dc-227">ここでは、サービスを使用する WPF アプリケーションを作成します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-227">Let's create a WPF application that uses our service.</span></span>
+<span data-ttu-id="7ad84-227">ここでは、サービスを使用する WPF アプリケーションを作成します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-227">Let's create a WPF application that uses our service.</span></span>
 
--   <span data-ttu-id="b35dc-228">**ファイル-&gt; 新規-@no__t プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="b35dc-228">**File -&gt; New -&gt; Project...**</span></span>
--   <span data-ttu-id="b35dc-229">左側のウィンドウで **[Visual C @ no__t-1]** を選択し、 **[WPF アプリケーション]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-229">Select **Visual C\#** from the left pane and then **WPF Application**</span></span>
--   <span data-ttu-id="b35dc-230">名前として「 **STESample. WPFTest** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-230">Enter **STESample.WPFTest** as the name and click **OK**</span></span>
--   <span data-ttu-id="b35dc-231">**STESample**プロジェクトへの参照を追加する</span><span class="sxs-lookup"><span data-stu-id="b35dc-231">Add a reference to the **STESample.Entities** project</span></span>
+-   <span data-ttu-id="7ad84-228">**ファイル&gt; 新規&gt; プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="7ad84-228">**File -&gt; New -&gt; Project...**</span></span>
+-   <span data-ttu-id="7ad84-229">左側のウィンドウで [ **Visual C\#** ] を選択し、 **[WPF アプリケーション]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-229">Select **Visual C\#** from the left pane and then **WPF Application**</span></span>
+-   <span data-ttu-id="7ad84-230">名前として「 **STESample. WPFTest** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-230">Enter **STESample.WPFTest** as the name and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-231">**STESample**プロジェクトへの参照を追加する</span><span class="sxs-lookup"><span data-stu-id="7ad84-231">Add a reference to the **STESample.Entities** project</span></span>
 
-<span data-ttu-id="b35dc-232">WCF サービスへのサービス参照が必要です</span><span class="sxs-lookup"><span data-stu-id="b35dc-232">We need a service reference to our WCF service</span></span>
+<span data-ttu-id="7ad84-232">WCF サービスへのサービス参照が必要です</span><span class="sxs-lookup"><span data-stu-id="7ad84-232">We need a service reference to our WCF service</span></span>
 
--   <span data-ttu-id="b35dc-233">**ソリューションエクスプローラー**で**STESample**プロジェクトを右クリックし、 **[サービス参照の追加]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="b35dc-233">Right-click the **STESample.WPFTest** project in **Solution Explorer** and select **Add Service Reference...**</span></span>
--   <span data-ttu-id="b35dc-234">**[検出]** をクリック</span><span class="sxs-lookup"><span data-stu-id="b35dc-234">Click **Discover**</span></span>
--   <span data-ttu-id="b35dc-235">名前空間として「 **B、Service** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="b35dc-235">Enter **BloggingService** as the namespace and click **OK**</span></span>
+-   <span data-ttu-id="7ad84-233">**ソリューションエクスプローラー**で**STESample**プロジェクトを右クリックし、 **[サービス参照の追加]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="7ad84-233">Right-click the **STESample.WPFTest** project in **Solution Explorer** and select **Add Service Reference...**</span></span>
+-   <span data-ttu-id="7ad84-234">**[検出]** をクリック</span><span class="sxs-lookup"><span data-stu-id="7ad84-234">Click **Discover**</span></span>
+-   <span data-ttu-id="7ad84-235">名前空間として「 **B、Service** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="7ad84-235">Enter **BloggingService** as the namespace and click **OK**</span></span>
 
-<span data-ttu-id="b35dc-236">これで、サービスを使用するコードを記述できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="b35dc-236">Now we can write some code to consume the service.</span></span>
+<span data-ttu-id="7ad84-236">これで、サービスを使用するコードを記述できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="7ad84-236">Now we can write some code to consume the service.</span></span>
 
--   <span data-ttu-id="b35dc-237">**Mainwindow.xaml**を開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-237">Open **MainWindow.xaml** and replace the contents with the following code.</span></span>
+-   <span data-ttu-id="7ad84-237">**Mainwindow.xaml**を開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-237">Open **MainWindow.xaml** and replace the contents with the following code.</span></span>
 
 ``` xaml
     <Window
@@ -495,7 +496,7 @@ Press any key to exit...
     </Window>
 ```
 
--   <span data-ttu-id="b35dc-238">Mainwindow.xaml (**MainWindow.xaml.cs**) の分離コードを開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-238">Open the code behind for MainWindow (**MainWindow.xaml.cs**) and replace the contents with the following code</span></span>
+-   <span data-ttu-id="7ad84-238">Mainwindow.xaml (**MainWindow.xaml.cs**) の分離コードを開き、内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-238">Open the code behind for MainWindow (**MainWindow.xaml.cs**) and replace the contents with the following code</span></span>
 
 ``` csharp
     using STESample.WPFTest.BloggingService;
@@ -547,9 +548,9 @@ Press any key to exit...
     }
 ```
 
-<span data-ttu-id="b35dc-239">アプリケーションを実行して動作を確認できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="b35dc-239">You can now run the application to see it in action.</span></span>
+<span data-ttu-id="7ad84-239">アプリケーションを実行して動作を確認できるようになりました。</span><span class="sxs-lookup"><span data-stu-id="7ad84-239">You can now run the application to see it in action.</span></span>
 
--   <span data-ttu-id="b35dc-240">**ソリューションエクスプローラー**で STESample プロジェクトを右クリックし、[デバッグ] **、[@no__t]、[新しいインスタンスを開始**] の順に選択し**ます。**</span><span class="sxs-lookup"><span data-stu-id="b35dc-240">Right-click the **STESample.WPFTest** project in **Solution Explorer** and select **Debug -&gt; Start new instance**</span></span>
--   <span data-ttu-id="b35dc-241">画面を使用してデータを操作し、 **[保存]** ボタンを使用してサービスで保存することができます。</span><span class="sxs-lookup"><span data-stu-id="b35dc-241">You can manipulate the data using the screen and save it via the service using the **Save** button</span></span>
+-   <span data-ttu-id="7ad84-240">**ソリューションエクスプローラー**で STESample プロジェクトを右クリックし、[デバッグ] **&gt; [新しいインスタンスを開始**] を選択し**ます。**</span><span class="sxs-lookup"><span data-stu-id="7ad84-240">Right-click the **STESample.WPFTest** project in **Solution Explorer** and select **Debug -&gt; Start new instance**</span></span>
+-   <span data-ttu-id="7ad84-241">画面を使用してデータを操作し、 **[保存]** ボタンを使用してサービスで保存することができます。</span><span class="sxs-lookup"><span data-stu-id="7ad84-241">You can manipulate the data using the screen and save it via the service using the **Save** button</span></span>
 
 ![WPF メインウィンドウ](~/ef6/media/wpf.png)
