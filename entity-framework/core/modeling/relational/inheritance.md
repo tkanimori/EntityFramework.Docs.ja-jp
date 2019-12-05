@@ -1,15 +1,16 @@
 ---
 title: 継承 (リレーショナルデータベース)-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 9a7c5488-aaf4-4b40-b1ff-f435ff30f6ec
+description: Entity Framework Core を使用してリレーショナルデータベースでエンティティ型の継承を構成する方法
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/06/2019
 uid: core/modeling/relational/inheritance
-ms.openlocfilehash: 381d1878007bb78b359eb49649f4356f1e5eb04a
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 30e25aa2968ceab03404baddb46e0ae59fc3ea6b
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655633"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824746"
 ---
 # <a name="inheritance-relational-database"></a>継承 (リレーショナル データベース)
 
@@ -23,7 +24,7 @@ EF モデルの継承は、エンティティクラスの継承がデータベ�
 
 ## <a name="conventions"></a>規約
 
-慣例により、継承は、階層単位 (TPH) のパターンを使用してマップされます。 TPH は、1つのテーブルを使用して、階層内のすべての型のデータを格納します。 識別子列は、各行が表す型を識別するために使用されます。
+既定では、継承は、階層単位 (TPH) パターンを使用してマップされます。 TPH は、1つのテーブルを使用して、階層内のすべての型のデータを格納します。 識別子列は、各行が表す型を識別するために使用されます。
 
 EF Core は、継承された複数の型がモデルに明示的に含まれている場合にのみ継承を設定します (詳細については、「[継承](../inheritance.md)」を参照してください)。
 
@@ -50,48 +51,14 @@ Fluent API を使用して、識別子列の名前と型、および階層内の
 
 上の例では、識別子は、階層の基本エンティティの[shadow プロパティ](xref:core/modeling/shadow-properties)として作成されます。 モデルのプロパティであるため、他のプロパティと同様に構成できます。 たとえば、既定の規則に従った識別子を使用する場合の最大長を設定するには、次のようにします。
 
-```C#
-modelBuilder.Entity<Blog>()
-    .Property("Discriminator")
-    .HasMaxLength(200);
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/DefaultDiscriminator.cs#DiscriminatorConfiguration)]
 
-識別子は、エンティティ内の実際の CLR プロパティにマップすることもできます。 (例:
+識別子は、エンティティ内の .NET プロパティにマップして構成することもできます。 例:
 
-```C#
-class MyContext : DbContext
-{
-    public DbSet<Blog> Blogs { get; set; }
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/NonShadowDiscriminator.cs#NonShadowDiscriminator)]
 
-    protected override void OnModelCreating(ModelBuilder modelBuilder)
-    {
-        modelBuilder.Entity<Blog>()
-            .HasDiscriminator<string>("BlogType");
-    }
-}
+## <a name="shared-columns"></a>共有列
 
-public class Blog
-{
-    public int BlogId { get; set; }
-    public string Url { get; set; }
-    public string BlogType { get; set; }
-}
+2つの兄弟エンティティ型に同じ名前のプロパティがある場合、既定では2つの異なる列にマップされます。 ただし、互換性がある場合は、同じ列にマップできます。
 
-public class RssBlog : Blog
-{
-    public string RssUrl { get; set; }
-}
-```
-
-これらの2つの要素を組み合わせて、識別子を実際のプロパティにマップして構成することができます。
-
-```C#
-modelBuilder.Entity<Blog>(b =>
-{
-    b.HasDiscriminator<string>("BlogType");
-
-    b.Property(e => e.BlogType)
-        .HasMaxLength(200)
-        .HasColumnName("blog_type");
-});
-```
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/SharedTPHColumns.cs#SharedTPHColumns)]

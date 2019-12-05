@@ -1,15 +1,15 @@
 ---
 title: モデルの作成と構成 - EF Core
 author: rowanmiller
-ms.date: 10/27/2016
+ms.date: 11/05/2019
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
 uid: core/modeling/index
-ms.openlocfilehash: 5b886226b16b5b1a1f01e6040e58d92ae8678d29
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 58be4a45473c6292790da341e360b3340de27be7
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197308"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824686"
 ---
 # <a name="creating-and-configuring-a-model"></a>モデルの作成と構成
 

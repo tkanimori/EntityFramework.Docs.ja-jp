@@ -1,15 +1,14 @@
 ---
 title: Foreign Key 制約-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: dbaf4bac-1fd5-46c0-ac57-64d7153bc574
+author: AndriySvyryd
+ms.date: 11/21/2019
 uid: core/modeling/relational/fk-constraints
-ms.openlocfilehash: df739f01a799ec8edad4cf44d8cf50edf292992f
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 2855137adf2ba3c9edaabd15a05f7a209f00f685
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655994"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824580"
 ---
 # <a name="foreign-key-constraints"></a>外部キー制約
 

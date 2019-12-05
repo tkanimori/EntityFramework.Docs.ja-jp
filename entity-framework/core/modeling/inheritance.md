@@ -1,15 +1,16 @@
 ---
 title: 継承-EF Core
-author: rowanmiller
+description: Entity Framework Core を使用してエンティティ型の継承を構成する方法
+author: AndriySvyryd
+ms.author: ansvyryd
 ms.date: 10/27/2016
-ms.assetid: 754be334-dd21-450e-9d22-2591e80012a2
 uid: core/modeling/inheritance
-ms.openlocfilehash: abc1caa4d3839b7cdb52b316bcfc8f648b609b70
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 4d43a432174c92ab7f3f9d78a234aefb0a4a17e8
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655686"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824680"
 ---
 # <a name="inheritance"></a>継承
 
@@ -17,7 +18,7 @@ EF モデルの継承は、エンティティクラスの継承がデータベ�
 
 ## <a name="conventions"></a>規約
 
-慣例により、データベースでの継承の表現方法は、データベースプロバイダーによって決まります。 リレーショナルデータベースプロバイダーでの処理方法については、「[継承 (リレーショナルデータベース)](relational/inheritance.md) 」を参照してください。
+既定では、データベースでの継承の表現方法は、データベースプロバイダーによって決定されます。 リレーショナルデータベースプロバイダーでの処理方法については、「[継承 (リレーショナルデータベース)](relational/inheritance.md) 」を参照してください。
 
 EF では、2つ以上の継承型がモデルに明示的に含まれている場合にのみ継承が設定されます。 EF では、モデルに含まれていない基本型または派生型はスキャンされません。 継承階層の各型に対して*Dbset\<TEntity >* を公開することにより、モデルに型を含めることができます。
 

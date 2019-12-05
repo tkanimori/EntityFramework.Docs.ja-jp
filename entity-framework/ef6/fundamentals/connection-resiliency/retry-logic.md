@@ -1,14 +1,14 @@
 ---
 title: 接続の回復性と再試行ロジック-EF6
-author: divega
-ms.date: 10/23/2016
+author: AndriySvyryd
+ms.date: 11/20/2019
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: a01216c3399ca4a04943563435eacd0047337a5f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.openlocfilehash: 50e65bed32d0cfcf42746da0d632f9e990424b97
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306572"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824840"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>接続の回復性と再試行ロジック
 > [!NOTE]
@@ -124,77 +124,14 @@ using (var db = new BloggingContext())
 
 これは、EF が以前の操作を認識しておらず、再試行する方法が認識されないため、再試行の実行方法を使用する場合はサポートされません。 たとえば、2番目の SaveChanges が失敗した場合、EF は最初の SaveChanges 呼び出しを再試行するために必要な情報を持っていません。  
 
-### <a name="workaround-suspend-execution-strategy"></a>回避策:実行戦略の中断  
+### <a name="solution-manually-call-execution-strategy"></a>解決策: 実行方法を手動で呼び出す  
 
-考えられる回避策の1つは、ユーザーが開始したトランザクションを使用する必要があるコードについて、再試行の実行戦略を中断することです。 これを行う最も簡単な方法は、コードベースの構成クラスに SuspendExecutionStrategy フラグを追加して、フラグが設定されたときに既定の (retying ない) 実行方法を返すように実行戦略のラムダを変更することです。  
-
-``` csharp
-using System.Data.Entity;
-using System.Data.Entity.Infrastructure;
-using System.Data.Entity.SqlServer;
-using System.Runtime.Remoting.Messaging;
-
-namespace Demo
-{
-    public class MyConfiguration : DbConfiguration
-    {
-        public MyConfiguration()
-        {
-            this.SetExecutionStrategy("System.Data.SqlClient", () => SuspendExecutionStrategy
-              ? (IDbExecutionStrategy)new DefaultExecutionStrategy()
-              : new SqlAzureExecutionStrategy());
-        }
-
-        public static bool SuspendExecutionStrategy
-        {
-            get
-            {
-                return (bool?)CallContext.LogicalGetData("SuspendExecutionStrategy") ?? false;
-            }
-            set
-            {
-                CallContext.LogicalSetData("SuspendExecutionStrategy", value);
-            }
-        }
-    }
-}
-```  
-
-CallContext を使用してフラグ値を格納していることに注意してください。 これにより、スレッドローカルストレージと同様の機能が提供されますが、非同期クエリや Entity Framework による保存などの非同期コードと共に安全に使用できます。  
-
-ユーザーが開始したトランザクションを使用するコードのセクションの実行戦略を中断できるようになりました。  
-
-``` csharp
-using (var db = new BloggingContext())
-{
-    MyConfiguration.SuspendExecutionStrategy = true;
-
-    using (var trn = db.Database.BeginTransaction())
-    {
-        db.Blogs.Add(new Blog { Url = "http://msdn.com/data/ef" });
-        db.Blogs.Add(new Blog { Url = "http://blogs.msdn.com/adonet" });
-        db.SaveChanges();
-
-        db.Blogs.Add(new Blog { Url = "http://twitter.com/efmagicunicorns" });
-        db.SaveChanges();
-
-        trn.Commit();
-    }
-
-    MyConfiguration.SuspendExecutionStrategy = false;
-}
-```  
-
-### <a name="workaround-manually-call-execution-strategy"></a>回避策:実行戦略の手動呼び出し  
-
-もう1つの方法として、実行方法を手動で使用して、実行するロジックのセット全体を指定することもできます。これにより、いずれかの操作が失敗した場合にすべての操作を再試行できます。 それでも、前に示した手法を使用して実行戦略を中断する必要があります。これにより、再試行可能なコードブロック内で使用されているすべてのコンテキストが再試行を試行しません。  
+これを解決するには、実行方法を手動で使用し、実行するロジックのセット全体を指定します。これにより、いずれかの操作が失敗した場合にすべての操作を再試行できます。 DbExecutionStrategy から派生した実行戦略が実行されている場合は、SaveChanges で使用される暗黙的な実行戦略が中断されます。  
 
 再試行するコードブロック内にコンテキストを構築する必要があることに注意してください。 これにより、再試行のたびにクリーンな状態で開始されます。  
 
 ``` csharp
 var executionStrategy = new SqlAzureExecutionStrategy();
-
-MyConfiguration.SuspendExecutionStrategy = true;
 
 executionStrategy.Execute(
     () =>
@@ -214,6 +151,4 @@ executionStrategy.Execute(
             }
         }
     });
-
-MyConfiguration.SuspendExecutionStrategy = false;
 ```  

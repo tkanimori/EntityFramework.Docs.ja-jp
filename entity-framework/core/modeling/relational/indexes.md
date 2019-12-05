@@ -1,15 +1,15 @@
 ---
 title: インデックス (リレーショナルデータベース)-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 4581e7ba-5e7f-452c-9937-0aaf790ba10a
+author: AndriySvyryd
+ms.author: ansvyryd
+ms.date: 11/05/2019
 uid: core/modeling/relational/indexes
-ms.openlocfilehash: 7bb74d0bfa6090b597eb988a46f00494e25f233e
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: e14615275f85ee9b6b32d080905465d33963feca
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813634"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824577"
 ---
 # <a name="indexes-relational-database"></a>インデックス (リレーショナルデータベース)
 
@@ -20,7 +20,7 @@ ms.locfileid: "71813634"
 
 ## <a name="conventions"></a>規約
 
-規則により、インデックスに`IX_<type name>_<property name>`はという名前が付けられます。 複合インデックス`<property name>`の場合は、アンダースコアで区切られたプロパティ名のリストになります。
+規則により、インデックスには `IX_<type name>_<property name>`という名前が付けられます。 複合インデックスの場合 `<property name>` は、アンダースコアで区切られたプロパティ名のリストになります。
 
 ## <a name="data-annotations"></a>データの注釈
 
@@ -36,7 +36,7 @@ Fluent API を使用して、インデックスの名前を構成できます。
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexFilter.cs?name=Model&highlight=9)]
 
-SQL Server プロバイダー EF を使用すると、一意インデックスの一部である null 許容型のすべての列に対して ' IS NOT NULL ' フィルターが追加されます。 この規則をオーバーライドするには、 `null`値を指定します。
+SQL Server プロバイダー EF を使用すると、一意のインデックスの一部である null 許容型のすべての列に対して `'IS NOT NULL'` フィルターが追加されます。 この規則をオーバーライドするには、`null` 値を指定します。
 
 [!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexNoFilter.cs?name=Model&highlight=10)]
 
@@ -44,4 +44,4 @@ SQL Server プロバイダー EF を使用すると、一意インデックス�
 
 [付加列を使用](https://docs.microsoft.com/sql/relational-databases/indexes/create-indexes-with-included-columns)してインデックスを構成すると、クエリ内のすべての列がキー列または非キー列としてインデックスに含まれる場合に、クエリのパフォーマンスを大幅に向上させることができます。
 
-[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/ForSqlServerHasIndex.cs?name=Model)]
+[!code-csharp[Main](../../../../samples/core/Modeling/FluentAPI/Relational/IndexInclude.cs?name=Model)]

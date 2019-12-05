@@ -3,19 +3,19 @@ title: VB.NET を使用した Fluent API-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
-ms.openlocfilehash: df3e61fa5e2d24873336511e90231a7d78d32535
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 1c889877b827408919c6170cf997e8805cc607cf
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182669"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824829"
 ---
 # <a name="fluent-api-with-vbnet"></a>VB.NET を使用した Fluent API
 Code First では、C\# または VB.NET クラスを使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。 このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。
 
 このページでは、Code First についての基本的な知識があることを前提としています。 Code First の詳細については、次のチュートリアルを参照してください。
 
--   [新しいデータベースへの Code First](~/ef6/modeling/code-first/workflows/new-database.md)
+-   [新しいデータベースの Code First](~/ef6/modeling/code-first/workflows/new-database.md)
 -   [既存のデータベースへの Code First](~/ef6/modeling/code-first/workflows/existing-database.md)
 
 ## <a name="pre-requisites"></a>前提条件
@@ -28,7 +28,7 @@ Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudi
 
 単純にするために、Code First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。
 
--   Visual Studio を開きます
+-   Visual Studio を開く
 -   **ファイル&gt; 新規&gt; プロジェクト...**
 -   左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。
 -   名前として「 **Codefirstvbsample** 」と入力します。
@@ -42,95 +42,95 @@ Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudi
 -   新しいクラスの内容を次のコードに置き換えます。
 
 ``` vb
-   Public Class Department
-        Public Sub New()
-            Me.Courses = New List(Of Course)()
-        End Sub
+Public Class Department
+    Public Sub New()
+        Me.Courses = New List(Of Course)()
+    End Sub
 
-        ' Primary key
-        Public Property DepartmentID() As Integer
-        Public Property Name() As String
-        Public Property Budget() As Decimal
-        Public Property StartDate() As Date
-        Public Property Administrator() As Integer?
-        Public Overridable Property Courses() As ICollection(Of Course)
-    End Class
+    ' Primary key
+    Public Property DepartmentID() As Integer
+    Public Property Name() As String
+    Public Property Budget() As Decimal
+    Public Property StartDate() As Date
+    Public Property Administrator() As Integer?
+    Public Overridable Property Courses() As ICollection(Of Course)
+End Class
 
-    Public Class Course
-        Public Sub New()
-            Me.Instructors = New HashSet(Of Instructor)()
-        End Sub
+Public Class Course
+    Public Sub New()
+        Me.Instructors = New HashSet(Of Instructor)()
+    End Sub
 
-        ' Primary key
-        Public Property CourseID() As Integer
-        Public Property Title() As String
-        Public Property Credits() As Integer
+    ' Primary key
+    Public Property CourseID() As Integer
+    Public Property Title() As String
+    Public Property Credits() As Integer
 
-        ' Foreign  key that does not follow the Code First convention.
-        ' The fluent API will be used to configure DepartmentID_FK  to be the foreign key for this entity.
-        Public Property DepartmentID_FK() As Integer
+    ' Foreign  key that does not follow the Code First convention.
+    ' The fluent API will be used to configure DepartmentID_FK  to be the foreign key for this entity.
+    Public Property DepartmentID_FK() As Integer
 
-        ' Navigation properties
-         Public Overridable Property Department() As Department
-         Public Overridable Property Instructors() As ICollection(Of Instructor)
-    End Class
+    ' Navigation properties
+    Public Overridable Property Department() As Department
+    Public Overridable Property Instructors() As ICollection(Of Instructor)
+End Class
 
-    Public Class OnlineCourse
-        Inherits Course
+Public Class OnlineCourse
+    Inherits Course
 
-        Public Property URL() As String
-    End Class
+    Public Property URL() As String
+End Class
 
-    Partial Public Class OnsiteCourse
-        Inherits Course
+Partial Public Class OnsiteCourse
+    Inherits Course
 
-        Public Sub New()
-            Details = New OnsiteCourseDetails()
-        End Sub
+    Public Sub New()
+        Details = New OnsiteCourseDetails()
+    End Sub
 
-        Public Property Details() As OnsiteCourseDetails
-     End Class
+    Public Property Details() As OnsiteCourseDetails
+ End Class
 
-    ' Complex type
-    Public Class OnsiteCourseDetails
-        Public Property Time() As Date
-        Public Property Location() As String
-        Public Property Days() As String
-    End Class
+' Complex type
+Public Class OnsiteCourseDetails
+    Public Property Time() As Date
+    Public Property Location() As String
+    Public Property Days() As String
+End Class
 
-    Public Class Person
-        ' Primary key
-        Public Property PersonID() As Integer
-        Public Property LastName() As String
-        Public Property FirstName() As String
-    End Class
+Public Class Person
+    ' Primary key
+    Public Property PersonID() As Integer
+    Public Property LastName() As String
+    Public Property FirstName() As String
+End Class
 
-    Public Class Instructor
-        Inherits Person
+Public Class Instructor
+    Inherits Person
 
-        Public Sub New()
-            Me.Courses = New List(Of Course)()
-        End Sub
+    Public Sub New()
+        Me.Courses = New List(Of Course)()
+    End Sub
 
-        Public Property HireDate() As Date
+    Public Property HireDate() As Date
 
-        ' Navigation properties
-        Private privateCourses As ICollection(Of Course)
-        Public Overridable Property Courses() As ICollection(Of Course)
-        Public Overridable Property OfficeAssignment() As OfficeAssignment
-    End Class
+    ' Navigation properties
+    Private privateCourses As ICollection(Of Course)
+    Public Overridable Property Courses() As ICollection(Of Course)
+    Public Overridable Property OfficeAssignment() As OfficeAssignment
+End Class
 
-    Public Class OfficeAssignment
-        ' Primary key that does not follow the Code First convention.
-        ' The HasKey method is used later to configure the primary key for the entity.
-        Public Property InstructorID() As Integer
+Public Class OfficeAssignment
+    ' Primary key that does not follow the Code First convention.
+    ' The HasKey method is used later to configure the primary key for the entity.
+    Public Property InstructorID() As Integer
 
-        Public Property Location() As String
-        Public Property Timestamp() As Byte()
+    Public Property Location() As String
+    Public Property Timestamp() As Byte()
 
-        ' Navigation property
-        Public Overridable Property Instructor() As Instructor
-    End Class
+    ' Navigation property
+    Public Overridable Property Instructor() As Instructor
+End Class
 ```
 
 ## <a name="define-a-derived-context"></a>派生コンテキストを定義する
@@ -142,31 +142,31 @@ Entity Framework の型の使用を開始しようとしています。 EntityFr
 > **NuGet パッケージの管理...** オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります
 -   **[オンライン]** タブを選択します。
 -   **Entityframework**パッケージを選択します
--   **[インストール]** をクリックします。
+-   **[Install]** (インストール) をクリックします。
 
 次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。 ここでは、TEntity から派生し、モデル内のクラスごとに型指定された Dbcontext&lt;&gt; を公開するコンテキストを定義します。
 
 -   新しいクラスをプロジェクトに追加し、クラス名として「 **schoolcontext.cs** 」と入力します。
 -   新しいクラスの内容を次のコードに置き換えます。
 
-``` vb
-    Imports System.Data.Entity
-    Imports System.Data.Entity.Infrastructure
-    Imports System.Data.Entity.ModelConfiguration.Conventions
-    Imports System.ComponentModel.DataAnnotations
-    Imports System.ComponentModel.DataAnnotations.Schema
+```vb
+Imports System.ComponentModel.DataAnnotations
+Imports System.ComponentModel.DataAnnotations.Schema
+Imports System.Data.Entity
+Imports System.Data.Entity.Infrastructure
+Imports System.Data.Entity.ModelConfiguration.Conventions
 
-    Public Class SchoolContext
-        Inherits DbContext
+Public Class SchoolContext
+    Inherits DbContext
 
-        Public Property OfficeAssignments() As DbSet(Of OfficeAssignment)
-        Public Property Instructors() As DbSet(Of Instructor)
-        Public Property Courses() As DbSet(Of Course)
-        Public Property Departments() As DbSet(Of Department)
+    Public Property OfficeAssignments() As DbSet(Of OfficeAssignment)
+    Public Property Instructors() As DbSet(Of Instructor)
+    Public Property Courses() As DbSet(Of Course)
+    Public Property Departments() As DbSet(Of Department)
 
-        Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)
-        End Sub
-    End Class
+    Protected Overrides Sub OnModelCreating(ByVal modelBuilder As DbModelBuilder)
+    End Sub
+End Class
 ```
 
 ## <a name="configuring-with-the-fluent-api"></a>Fluent API を使用したの構成
@@ -377,7 +377,7 @@ Module Module1
 
     Sub Main()
 
-    Using context As New SchoolContext()
+        Using context As New SchoolContext()
 
             ' Create and save a new Department.
             Console.Write("Enter a name for a new Department: ")

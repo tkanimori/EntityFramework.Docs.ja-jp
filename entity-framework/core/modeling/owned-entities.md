@@ -1,25 +1,25 @@
 ---
-title: 所有されているエンティティ型-EF Core
+title: 所有エンティティ型 - EF Core
+description: Entity Framework Core を使用するときに所有されているエンティティ型または集計を構成する方法
 author: AndriySvyryd
 ms.author: ansvyryd
-ms.date: 02/26/2018
-ms.assetid: 2B0BADCE-E23E-4B28-B8EE-537883E16DF3
+ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: a0665bfa27134b8dc3eba854ff3f7b1af4b69217
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 7b6d1b3bccbfceb85f03a580ba03a45984d29c74
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655937"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824596"
 ---
 # <a name="owned-entity-types"></a>所有されているエンティティ型
 
 > [!NOTE]
 > この機能は EF Core 2.0 で新たに追加されています。
 
-EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、_所有エンティティ型_と呼ばれます。 所有エンティティ型を含むエンティティは、その_所有者_です。
+EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、_所有エンティティ型_と呼ばれます。 所有エンティティ型を含むエンティティはその_所有者_します。
 
-所有されているエンティティは、本質的に所有者の一部であり、存在しない場合は、概念的には[集計](https://martinfowler.com/bliki/DDD_Aggregate.html)に似ています。
+所有されているエンティティは、本質的に所有者の一部であり、存在しない場合は、概念的には[集計](https://martinfowler.com/bliki/DDD_Aggregate.html)に似ています。 つまり、所有されている型は、所有者とのリレーションシップの依存側の定義によって決まります。
 
 ## <a name="explicit-configuration"></a>明示的な構成
 
@@ -74,23 +74,26 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
 > [!NOTE]
-> EF Core 3.0 より前の `WithOwner()` メソッドが存在しないため、この呼び出しを削除する必要があります。
+> EF Core 3.0 より前の `WithOwner()` メソッドが存在しないため、この呼び出しを削除する必要があります。 また、主キーが自動的に検出されないため、常に指定されています。
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>所有型のテーブル分割へのマッピング
 
 リレーショナルデータベースを使用する場合、既定では、参照所有型は、所有者と同じテーブルにマップされます。 そのためには、テーブルを2つの列に分割する必要があります。つまり、所有者のデータを格納するために使用される列と、所有されているエンティティのデータを格納するために使用される列があります。 これは、[テーブル分割](table-splitting.md)と呼ばれる一般的な機能です。
 
-既定では、EF Core は、 _Navigation_OwnedEntityProperty_パターンに従って、所有されているエンティティ型のプロパティのデータベース列に名前を設定します。 そのため、`StreetAddress` のプロパティは、' ShippingAddress_Street ' と ' ShippingAddress_City ' という名前の ' Orders ' テーブルに表示されます。
+既定では、EF Core は、 _Navigation_OwnedEntityProperty_のパターンに従って、所有されているエンティティ型のプロパティのデータベース列に名前を指定します。 そのため、`StreetAddress` のプロパティは、' ShippingAddress_Street ' と ' ShippingAddress_City ' という名前の ' Orders ' テーブルに表示されます。
 
 `HasColumnName` メソッドを使用して、これらの列の名前を変更できます。
 
 [!code-csharp[ColumnNames](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=ColumnNames)]
 
+> [!NOTE]
+> [Ignore](/dotnet/api/microsoft.entityframeworkcore.metadata.builders.ownednavigationbuilder.ignore)などの通常のエンティティ型構成メソッドは、ほとんどの場合、同じ方法で呼び出すことができます。
+
 ## <a name="sharing-the-same-net-type-among-multiple-owned-types"></a>複数の所有型間で同じ .NET 型を共有する
 
-所有されているエンティティ型は、他の所有エンティティ型と同じ .NET 型にすることができます。したがって、.NET 型は所有型を特定するのに十分ではない可能性があります。
+所有エンティティ型できます別の所有エンティティ型と同じ .NET 型したがって .NET 型できない可能性があります所有型を識別するために十分な。
 
-そのような場合は、所有者から所有されているエンティティを指すプロパティが、所有されているエンティティ型の_ナビゲーションを定義_するようになります。 EF Core の観点から見ると、定義のナビゲーションは、.NET 型と共に型の id の一部になります。
+その場合、所有者から所有エンティティを指すプロパティになります、_ナビゲーションを定義する_の所有エンティティ型。 EF Core の観点から見ると、定義のナビゲーションは、.NET 型と共に型の id の一部になります。
 
 たとえば、次のクラスの `ShippingAddress` と `BillingAddress` は両方とも同じ .NET 型 `StreetAddress`ます。
 
@@ -106,7 +109,9 @@ EF Core がこれらのオブジェクトの追跡対象インスタンスを区
 
 [!code-csharp[OrderStatus](../../../samples/core/Modeling/OwnedEntities/OrderStatus.cs?name=OrderStatus)]
 
-入れ子になった所有型に加えて、所有型は標準エンティティを参照できます。所有されているエンティティが依存側にある限り、所有者または別のエンティティのいずれかになります。 この機能は、EF6 の複合型とは別に、所有エンティティ型を設定します。
+所有型に移動するたびに、完全に独立した構成で個別のエンティティ型が定義されます。
+
+入れ子になった所有型に加えて、所有型は標準エンティティを参照できます。所有されているエンティティが依存側にある限り、所有者または別のエンティティのいずれかになります。 この機能は、EF6 の複合型とは別の所有エンティティ型を設定します。
 
 [!code-csharp[OrderDetails](../../../samples/core/Modeling/OwnedEntities/OrderDetails.cs?name=OrderDetails)]
 
@@ -114,15 +119,17 @@ Fluent 呼び出しで `OwnsOne` メソッドをチェーンして、このモ�
 
 [!code-csharp[OwnsOneNested](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneNested)]
 
-所有者を指すナビゲーションプロパティを構成するために使用される `WithOwner` の呼び出しに注意してください。
+所有者を指すナビゲーションプロパティを構成するために使用される `WithOwner` の呼び出しに注意してください。 所有権の関係に含まれていない所有者のエンティティ型へのナビゲーションを構成するには `WithOwner()` を引数なしで呼び出す必要があります。
 
-`OrderDetails` と `StreetAdress`の両方で `OwnedAttribute` を使用して結果を得ることができます。
+`OrderDetails` と `StreetAddress`の両方で `OwnedAttribute` を使用して結果を得ることができます。
 
 ## <a name="storing-owned-types-in-separate-tables"></a>個別のテーブルへの所有型の格納
 
 また、EF6 複合型とは異なり、所有型は所有者とは別のテーブルに格納できます。 所有型を所有者と同じテーブルにマップする規則をオーバーライドするには、単に `ToTable` を呼び出して、別のテーブル名を指定します。 次の例では、`OrderDetails` とその2つのアドレスを `DetailedOrder`から別のテーブルにマップします。
 
 [!code-csharp[OwnsOneTable](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneTable)]
+
+また、`TableAttribute` を使用してこれを行うこともできますが、所有されている型に複数のナビゲーションがある場合は、複数のエンティティ型が同じテーブルにマップされるため、この操作は失敗することに注意してください。
 
 ## <a name="querying-owned-types"></a>所有型のクエリ
 
@@ -141,9 +148,9 @@ Fluent 呼び出しで `OwnsOne` メソッドをチェーンして、このモ�
 
 ### <a name="current-shortcomings"></a>現在の欠点
 
-- 所有エンティティ型を含む継承階層はサポートされていません
+- 所有エンティティ型に継承階層を含めることはできません
 - 所有されているエンティティ型への参照ナビゲーションは、所有者から別のテーブルに明示的にマップされていない限り、null にすることはできません
-- 所有されているエンティティ型のインスタンスを複数の所有者が共有することはできません (これは、所有エンティティ型を使用して実装できない値オブジェクトの既知のシナリオです)
+- (これは、所有エンティティ型を使用して実装することはできません。 値オブジェクトのよく知られているシナリオ) 複数の所有者で所有エンティティ型のインスタンスを共有することはできません。
 
 ### <a name="shortcomings-in-previous-versions"></a>以前のバージョンの欠点
 
