@@ -4,12 +4,12 @@ author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: fca1b532b34e20aeea1968939af96c692d60d738
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.openlocfilehash: d46c4bb9ac6c8f718b4da5ecd82d54710d41935f
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813604"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824490"
 ---
 # <a name="getting-started-with-ef-core"></a>EF Core の概要
 
@@ -38,7 +38,7 @@ ms.locfileid: "71813604"
 
 ## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet new console -o EFGetStarted
 cd EFGetStarted
 ```
@@ -58,7 +58,7 @@ EF Core をインストールするには、対象となる EF Core データベ
 
 ## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 ```
 
@@ -81,7 +81,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 
 ## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-* 以下のコードを使用して、プロジェクト ディレクトリで **Model.cs** を作成します。
+* 以下のコードを使用して、プロジェクト ディレクトリで **Model.cs** を作成します
 
 ## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -105,7 +105,7 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
 
 * 次のコマンドを実行します。
 
-  ``` Console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef
   dotnet add package Microsoft.EntityFrameworkCore.Design
   dotnet ef migrations add InitialCreate
@@ -138,7 +138,7 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
 
 ## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
-``` Console
+```dotnetcli
 dotnet run
 ```
 
