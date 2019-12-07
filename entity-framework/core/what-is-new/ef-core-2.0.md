@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 72393e96c195af1df5a169025ca2ce7a7acb16bb
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 83f6b819409d502dba17a678d44a0746a4a77f4b
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656223"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824881"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
 
@@ -91,12 +91,12 @@ public class BloggingContext : DbContext
     {
         modelBuilder.Entity<Post>().HasQueryFilter(
             p => !p.IsDeleted
-            && p.TenantId == this.TenantId );
+            && p.TenantId == this.TenantId);
     }
 }
 ```
 
-エンティティ型 `Post` のインスタンスに対してマルチテナントと論理削除を実行するモデルレベル フィルターを定義します。 DbContext インスタンス レベル プロパティ `TenantId` の使用に注目してください。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているコンテキスト インスタンス) の値を使用します。
+エンティティ型 `Post` のインスタンスに対してマルチテナントと論理削除を実行するモデルレベル フィルターを定義します。 `DbContext` インスタンス レベル プロパティ `TenantId` の使用に注目してください。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているコンテキスト インスタンス) の値を使用します。
 
 フィルターは、IgnoreQueryFilters() 演算子を利用し、個々の LINQ クエリに対して無効にできます。
 
@@ -119,7 +119,7 @@ public class BloggingContext : DbContext
     [DbFunction]
     public static int PostReadCount(int blogId)
     {
-        throw new Exception();
+        throw new NotImplementedException();
     }
 }
 ```
@@ -135,9 +135,9 @@ var query =
 
 次のことに注意してください。
 
-- 慣例では、SQL の生成時、関数 (この場合はユーザー定義関数) の名前としてメソッドの名前が使用されるが、メソッド登録では名前とスキーマをオーバーライドできる
-- 現在のところ、スカラー関数にのみ対応している
-- データベースにマップされた関数を作成する必要があります。 EF Core の移行では作成が行われません
+- 規則では、SQL の生成時、関数 (この場合はユーザー定義関数) の名前としてメソッドの名前が使用されますが、メソッド登録時に名前とスキーマをオーバーライドできます。
+- 現在のところ、スカラー関数のみがサポートされています。
+- データベースにマップされた関数を作成する必要があります。 EF Core の移行では作成が行われません。
 
 ### <a name="self-contained-type-configuration-for-code-first"></a>Code First の自己完結型構成
 
@@ -146,11 +146,11 @@ EF6 では、*EntityTypeConfiguration* から派生することで、特定の�
 ``` csharp
 class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
-  public void Configure(EntityTypeBuilder<Customer> builder)
-  {
-     builder.HasKey(c => c.AlternateKey);
-     builder.Property(c => c.Name).HasMaxLength(200);
-   }
+    public void Configure(EntityTypeBuilder<Customer> builder)
+    {
+        builder.HasKey(c => c.AlternateKey);
+        builder.Property(c => c.Name).HasMaxLength(200);
+    }
 }
 
 ...
@@ -223,7 +223,7 @@ EF Core では、さまざまメカニズムを利用し、キー値を自動生
 
 ### <a name="string-interpolation-in-fromsql-and-executesqlcommand"></a>FromSql と ExecuteSqlCommand の文字列補間
 
-C# 6 では文字列補間が導入されました。この機能では、C# 式を文字列リテラルに直接埋め込むことができます。実行時、文字列が効率的に構築されます。 EF Core 2.0 では、RAW SQL 文字列を受け取る 2 つのプライマリ API、`FromSql` と `ExecuteSqlCommand` に、補間文字列の特殊なサポートを追加しました。 この新しいサポートにより、'安全な' 方法で C# 文字列補間を使用できます。 すなわち、実行時に SQL を動的に構築するときに起こりうる SQL 挿入のよくある間違いを防ぎます。
+C# 6 では文字列補間が導入されました。この機能では、C# 式を文字列リテラルに直接埋め込むことができます。実行時、文字列が効率的に構築されます。 EF Core 2.0 では、RAW SQL 文字列を受け取る 2 つのプライマリ API、`FromSql` と `ExecuteSqlCommand` に、補間文字列の特殊なサポートを追加しました。 この新しいサポートにより、"安全な" 方法で C# 文字列補間を使用できます。 すなわち、実行時に SQL を動的に構築するときに起こりうる SQL 挿入のよくある間違いを防ぎます。
 
 次に例を示します。
 

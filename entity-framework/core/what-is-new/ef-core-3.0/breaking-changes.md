@@ -1,15 +1,14 @@
 ---
 title: EF Core 3.0 での破壊的変更 - EF Core
-author: divega
-ms.date: 02/19/2019
-ms.assetid: EE2878C9-71F9-4FA5-9BC4-60517C7C9830
+author: ajcvickers
+ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: f02825f5303959997dca6e14e4efe64020b3cb22
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: d614103169837238810fabd0a8889043c851ef14
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655876"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824867"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
 
@@ -42,6 +41,7 @@ ms.locfileid: "73655876"
 | [一時キーの値がエンティティ インスタンスに設定されなくなった](#tkv) | Low      |
 | [プリンシパルとテーブルを共有する依存エンティティが省略可能になった](#de) | Low      |
 | [同時実行トークン列とテーブルを共有するすべてのエンティティをプロパティにマップする必要がある](#aes) | Low      |
+| [所有エンティティは、所有者がいないと、追跡クエリを使用してクエリを実行することができない](#owned-query) | Low      |
 | [マップされていない型から継承されたプロパティが、すべての派生型の 1 つの列にマップされるようになった](#ip) | Low      |
 | [外部キー プロパティの規則がプリンシパル プロパティと同じ名前と一致しなくなった](#fkp) | Low      |
 | [データベース接続は、これ以上使用されない場合、TransactionScope が完了する前に閉じられるようになった](#dbc) | Low      |
@@ -49,6 +49,7 @@ ms.locfileid: "73655876"
 | [複数の互換性があるバッキング フィールドが見つかった場合にスローされる](#throw-if-multiple-compatible-backing-fields-are-found) | Low      |
 | [フィールド専用プロパティの名前はフィールドの名前に一致する必要がある](#field-only-property-names-should-match-the-field-name) | Low      |
 | [AddDbContext/AddDbContextPool で AddLogging および AddMemoryCache を呼び出さなくなった](#adddbc) | Low      |
+| [AddEntityFramework* により、サイズ制限がある IMemoryCache が追加される](#addentityframework-adds-imemorycache-with-a-size-limit) | Low      |
 | [DbContext.Entry でローカルの DetectChanges が実行されるようになった](#dbe) | Low      |
 | [文字列とバイト配列のキーが既定でクライアントによって生成されない](#string-and-byte-array-keys-are-not-client-generated-by-default) | Low      |
 | [ILoggerFactory がスコープ サービスになった](#ilf) | Low      |
@@ -189,7 +190,7 @@ EF Core 3.0 より前のバージョンでは、通常の文字列または SQL 
 EF Core 3.0 以降では、`FromSqlRaw`、`ExecuteSqlRaw`、および `ExecuteSqlRawAsync` を使用して、パラメーターがクエリ文字列とは別に渡される、パラメーター化クエリが作成されます。
 次に例を示します。
 
-```C#
+```csharp
 context.Products.FromSqlRaw(
     "SELECT * FROM Products WHERE Name = {0}",
     product.Name);
@@ -198,7 +199,7 @@ context.Products.FromSqlRaw(
 `FromSqlInterpolated`、`ExecuteSqlInterpolated`、および `ExecuteSqlInterpolatedAsync` を使用して、パラメーターが挿入クエリ文字列の一部として渡されるパラメーター化クエリを作成します。
 次に例を示します。
 
-```C#
+```csharp
 context.Products.FromSqlInterpolated(
     $"SELECT * FROM Products WHERE Name = {product.Name}");
 ```
@@ -223,7 +224,7 @@ context.Products.FromSqlInterpolated(
 
 3\.0 EF Core より前では、FromSql メソッドにより、渡された SQL を構成できるかどうかの検出が試行されていました。 SQL がストアド プロシージャのように非コンポーザブルである場合、クライアント評価が行われていました。 次のクエリは、サーバー上でストアド プロシージャを実行し、クライアント側で FirstOrDefault を実行することで機能していました。
 
-```C#
+```csharp
 context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").FirstOrDefault();
 ```
 
@@ -239,7 +240,7 @@ EF Core 3.0 では、自動クライアント評価はサポートされてい�
 
 FromSqlRaw/FromSqlInterpolated でストアド プロシージャを使用している場合は、それを構成できないことがわかっているので、サーバー側での構成を回避するために、FromSql メソッド呼び出しの直後に __AsEnumerable/AsAsyncEnumerable__ を追加します。
 
-```C#
+```csharp
 context.Products.FromSqlRaw("[dbo].[Ten Most Expensive Products]").AsEnumerable().FirstOrDefault();
 ```
 
@@ -274,7 +275,7 @@ EF Core 3.0 以降、新しい `FromSqlRaw` および `FromSqlInterpolated` メ�
 
 EF Core 3.0 以前の場合は、指定した型と ID を持つエンティティが出現するたびに同じエンティティ インスタンスが使用されます。 これは、追跡クエリの動作と一致します。 次のクエリを例にします。
 
-```C#
+```csharp
 var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
 ```
 指定したカテゴリに関連付けられている各 `Category` に対して同じ `Product` インスタンスが返されます。
@@ -298,7 +299,7 @@ EF Core 3.0 以降では、指定した型と ID を持つエンティティが�
 [問題 #14523 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/14523)
 
 EF Core 3.0 の新しい構成では、あらゆるイベントのログ レベルをアプリケーションによって指定できるため、この変更は元に戻されます。 たとえば、SQL のログ記録を `Debug` に切り替えるには、`OnConfiguring` または `AddDbContext` で明示的にレベルを構成します。
-```C#
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .UseSqlServer(connectionString)
@@ -359,7 +360,7 @@ EF Core 3.0 以降では、エンティティで生成されたキーの値を�
 この問題を解決するには、キー プロパティで生成された値が使用されないように明示的に構成します。
 たとえば、fluent API を使用する場合は、次のようになります。
 
-```C#
+```csharp
 modelBuilder
     .Entity<Blog>()
     .Property(e => e.Id)
@@ -368,7 +369,7 @@ modelBuilder
 
 データ注釈を使用する場合は、次のようになります。
 
-```C#
+```csharp
 [DatabaseGenerated(DatabaseGeneratedOption.None)]
 public string Id { get; set; }
 ```
@@ -395,7 +396,7 @@ public string Id { get; set; }
 `context.ChangedTracker` の設定を使用して、以前の動作を復元することができます。
 次に例を示します。
 
-```C#
+```csharp
 context.ChangeTracker.CascadeDeleteTiming = CascadeTiming.OnSaveChanges;
 context.ChangeTracker.DeleteOrphansTiming = CascadeTiming.OnSaveChanges;
 ```
@@ -488,7 +489,7 @@ EF Core 3.0 より前では、所有リレーションシップの構成は、`O
 EF Core 3.0 以降では、fluent API で、`WithOwner()` を使用して、所有者に対してナビゲーション プロパティが構成されるようになりました。
 次に例を示します。
 
-```C#
+```csharp
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 ```
 
@@ -496,7 +497,7 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details).WithOwner(e => e.Order);
 一方、所有型自体の構成は引き続き、`OwnsOne()/OwnsMany()` 後にチェーンされます。
 次に例を示します。
 
-```C#
+```csharp
 modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
     {
         eb.WithOwner()
@@ -538,7 +539,7 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
 **以前の動作**
 
 次のモデルがあるとします。
-```C#
+```csharp
 public class Order
 {
     public int Id { get; set; }
@@ -573,7 +574,7 @@ EF Core 3.0 以降では、`OrderDetails` なしで `Order` を追加するこ�
 **以前の動作**
 
 次のモデルがあるとします。
-```C#
+```csharp
 public class Order
 {
     public int Id { get; set; }
@@ -608,12 +609,44 @@ EF Core 3.0 以降では、新しい `Version` 値が `OrderDetails` を所有�
 **軽減策**
 
 テーブルを共有するすべてのエンティティには、同時実行トークン列にマップされるプロパティを含める必要があります。 シャドウ状態で作成することができます。
-```C#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<OrderDetails>()
         .Property<byte[]>("Version").IsRowVersion().HasColumnName("Version");
 }
+```
+
+<a name="owned-query"></a>
+
+### <a name="owned-entities-cannot-be-queried-without-the-owner-using-a-tracking-query"></a>所有エンティティは、所有者がいないと、追跡クエリを使用してクエリを実行することができない
+
+[問題 #18876 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/18876)
+
+**以前の動作**
+
+EF Core 3.0 より前のバージョンでは、所有エンティティに対しても他のナビゲーションと同じようにクエリを実行することができました。
+
+```csharp
+context.People.Select(p => p.Address);
+```
+
+**新しい動作**
+
+EF Core 3.0 以降では、追跡クエリで所有者のいない所有エンティティが提示されると、スローされます。
+
+**理由**
+
+所有エンティティは所有者なしでは操作できません。そのため、このようにクエリを実行するほとんどのケースでは、エラーになります。
+
+**軽減策**
+
+所有エンティティを後で変更するように追跡する必要がある場合は、所有者をクエリに含める必要があります。
+
+それ以外の場合は、`AsNoTracking()` の呼び出しを追加します。
+
+```csharp
+context.People.Select(p => p.Address).AsNoTracking();
 ```
 
 <a name="ip"></a>
@@ -625,7 +658,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 **以前の動作**
 
 次のモデルがあるとします。
-```C#
+```csharp
 public abstract class EntityBase
 {
     public int Id { get; set; }
@@ -667,7 +700,7 @@ EF Core 3.0 以降では、`ShippingAddress` に対して 1 つの列だけが�
 
 プロパティは、派生型の個別の列に引き続き明示的にマップすることができます。
 
-```C#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Ignore<OrderBase>();
@@ -688,7 +721,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 **以前の動作**
 
 次のモデルがあるとします。
-```C#
+```csharp
 public class Customer
 {
     public int CustomerId { get; set; }
@@ -710,7 +743,7 @@ EF Core 3.0 以降では、プリンシパル プロパティと同じ名前で�
 プリンシパル プロパティ名と連結されたプリンシパル型名、およびプリンシパル プロパティ名パターンと連結されたナビゲーション名は、引き続き一致します。
 次に例を示します。
 
-```C#
+```csharp
 public class Customer
 {
     public int Id { get; set; }
@@ -724,7 +757,7 @@ public class Order
 }
 ```
 
-```C#
+```csharp
 public class Customer
 {
     public int Id { get; set; }
@@ -757,7 +790,7 @@ public class Order
 
 EF Core 3.0 より前のバージョンでは、コンテキストにより `TransactionScope` 内部で接続が開かれると、現在の `TransactionScope` がアクティブの間、接続が開いたままになります。
 
-```C#
+```csharp
 using (new TransactionScope())
 {
     using (AdventureWorks context = new AdventureWorks())
@@ -766,7 +799,7 @@ using (new TransactionScope())
         context.SaveChanges();
 
         // Old behavior: Connection is still open at this point
-        
+
         var categories = context.ProductCategories().ToList();
     }
 }
@@ -784,7 +817,7 @@ EF Core 3.0 以降では、使用が終了したらすぐに接続が閉じら�
 
 接続を開いたままにする必要がある場合は、`OpenConnection()` を明示的に呼び出して、EF Core が途中で閉じないようにします。
 
-```C#
+```csharp
 using (new TransactionScope())
 {
     using (AdventureWorks context = new AdventureWorks())
@@ -792,7 +825,7 @@ using (new TransactionScope())
         context.Database.OpenConnection();
         context.ProductCategories.Add(new ProductCategory());
         context.SaveChanges();
-        
+
         var categories = context.ProductCategories().ToList();
         context.Database.CloseConnection();
     }
@@ -846,7 +879,7 @@ EF Core 3.0 以降では、プロパティのバッキング フィールドが�
 3\.0 より前の動作は、`ModelBuilder` のプロパティ アクセス モードの構成を通じて復元できます。
 次に例を示します。
 
-```C#
+```csharp
 modelBuilder.UsePropertyAccessMode(PropertyAccessMode.PreferFieldDuringConstruction);
 ```
 
@@ -872,7 +905,7 @@ EF Core 3.0 以降では、複数のフィールドが同じプロパティと�
 あいまいなバッキング フィールドがあるプロパティでは、使用するフィールドを明示的に指定する必要があります。
 たとえば、fluent API を使用する場合、次のようになります。
 
-```C#
+```csharp
 modelBuilder
     .Entity<Blog>()
     .Property(e => e.Id)
@@ -884,14 +917,16 @@ modelBuilder
 **以前の動作**
 
 EF Core 3.0 以前では、プロパティは文字列値により指定できました。 .NET 型でその名前のプロパティが見つからなかった場合、EF Core では、一般的な規則を使ってそれとフィールドの照合が試行されました。
-```C#
+
+```csharp
 private class Blog
 {
     private int _id;
     public string Name { get; set; }
 }
 ```
-```C#
+
+```csharp
 modelBuilder
     .Entity<Blog>()
     .Property("Id");
@@ -901,7 +936,7 @@ modelBuilder
 
 EF Core 3.0 以降では、フィールド専用プロパティはフィールドの名前に厳密に一致する必要があります。
 
-```C#
+```csharp
 modelBuilder
     .Entity<Blog>()
     .Property("_id");
@@ -916,7 +951,7 @@ modelBuilder
 フィールド専用プロパティには、それがマッピングされるフィールドと同じ名前を付ける必要があります。
 EF Core 3.0 以降の今後のリリースでは、プロパティ名とは異なるフィールド名を明示的に構成できるように戻す予定です (問題 [#15307](https://github.com/aspnet/EntityFrameworkCore/issues/15307) を参照)。
 
-```C#
+```csharp
 modelBuilder
     .Entity<Blog>()
     .Property("Id")
@@ -931,7 +966,7 @@ modelBuilder
 
 **以前の動作**
 
-EF Core 3.0 以前では、`AddDbContext` または `AddDbContextPool` を呼び出すと、[AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) および [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) への呼び出しを通じて、D.I を使ってログ記録とメモリ キャッシュ サービスも登録されました。
+EF Core 3.0 より前のバージョンでは、`AddDbContext` または `AddDbContextPool` を呼び出すと、[AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) および [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) への呼び出しを通じて、DI を使ってログ記録とメモリ キャッシュ サービスも登録されました。
 
 **新しい動作**
 
@@ -944,6 +979,28 @@ EF Core 3.0 では、これらのサービスをアプリケーションの DI �
 **軽減策**
 
 ご自身のアプリケーションでこれらのサービスが必要な場合は、[AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) または [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) を使って、DI コンテナーで明示的にそれらを登録します。
+
+### <a name="addentityframework-adds-imemorycache-with-a-size-limit"></a>AddEntityFramework* により、サイズ制限がある IMemoryCache が追加される
+
+[問題 #12905 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12905)
+
+**以前の動作**
+
+EF Core 3.0 より前のバージョンでは、`AddEntityFramework*` メソッドを呼び出すと、サイズ制限のないメモリ キャッシュ サービスも DI に登録されていました。
+
+**新しい動作**
+
+EF Core 3.0 以降では、`AddEntityFramework*` によって IMemoryCache サービスがサイズ制限付きで登録されます。 その後に追加された他のサービスが IMemoryCache に依存している場合は、既定の制限にすぐに達して、例外やパフォーマンスの低下が発生する可能性があります。
+
+**理由**
+
+クエリ キャッシュ ロジックにバグがある場合、またはクエリが動的に生成される場合は、制限なしで IMemoryCache を使用すると、メモリ使用量が制御されなくなる可能性があります。 既定の制限を設定することで、DoS 攻撃の可能性を軽減できます。
+
+**軽減策**
+
+`AddDbContext` または `AddDbContextPool` も呼び出された場合、ほとんどの場合、`AddEntityFramework*` を呼び出す必要はありません。 したがって、最善の軽減策は、`AddEntityFramework*` の呼び出しを削除することです。
+
+ご自身のアプリケーションでこれらのサービスが必要な場合は、[AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) を使用する前に、IMemoryCache の実装を DI コンテナーに明示的に登録します。
 
 <a name="dbe"></a>
 
@@ -995,7 +1052,7 @@ EF Core 3.0 以降では、キー値が設定されていないことを示す�
 3\.0 より前の動作は、他の null 以外の値が設定されていない場合に、キー プロパティで生成された値を使用するように明示的に指定することで取得できます。
 たとえば、fluent API を使用する場合は、次のようになります。
 
-```C#
+```csharp
 modelBuilder
     .Entity<Blog>()
     .Property(e => e.Id)
@@ -1004,7 +1061,7 @@ modelBuilder
 
 データ注釈を使用する場合は、次のようになります。
 
-```C#
+```csharp
 [DatabaseGenerated(DatabaseGeneratedOption.Identity)]
 public string Id { get; set; }
 ```
@@ -1082,7 +1139,7 @@ EF Core 3.0 以降では、この警告はエラーと見なされるように�
 しかし、`DbContextOptionsBuilder` での構成を使用して、エラーを警告に戻す (または無視する) ことがことができます。
 次に例を示します。
 
-```C#
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
     optionsBuilder
@@ -1100,7 +1157,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 EF Core 3.0 以前では、1 つの文字列と共に `HasOne` または `HasMany` が呼び出されるコードは、わかりにくい方法で解釈されていました。
 次に例を示します。
-```C#
+```csharp
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
 
@@ -1123,7 +1180,7 @@ EF Core 3.0 以降では、上記のコードは、前にそれが実行すべ�
 前の動作は、ナビゲーション プロパティ名に対して明示的に `null` を渡すことで実現できます。
 次に例を示します。
 
-```C#
+```csharp
 modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 ```
 
@@ -1513,7 +1570,7 @@ EF Core 3.0 以降では、EF によって生成できるのは、それ以降�
 
 EF Core 3.0 以前は、外部キー制約名が単に "名前" と呼ばれていました。 次に例を示します。
 
-```C#
+```csharp
 var constraintName = myForeignKey.Name;
 ```
 
@@ -1521,7 +1578,7 @@ var constraintName = myForeignKey.Name;
 
 EF Core 3.0 以降は、外部キー制約名が "制約名" と呼ばれるようになりました。 次に例を示します。
 
-```C#
+```csharp
 var constraintName = myForeignKey.ConstraintName;
 ```
 
@@ -1662,7 +1719,7 @@ Always Encrypted などの重要な機能は、Microsoft.Data.SqlClient での�
 
 複数の自己参照型一方向ナビゲーション プロパティと一致する FK を持つエンティティ型が、1 つのリレーションシップとして正しく構成されませんでした。 次に例を示します。
 
-```C#
+```csharp
 public class User 
 {
         public Guid Id { get; set; }
@@ -1685,7 +1742,7 @@ public class User
 
 完全に構成されたリレーションシップを使用します。 次に例を示します。
 
-```C#
+```csharp
 modelBuilder
      .Entity<User>()
      .HasOne(e => e.CreatedBy)
@@ -1706,7 +1763,7 @@ modelBuilder
 
 空の文字列としてスキーマを使用して構成された DbFunction は、スキーマのない組み込み関数として扱われていました。 たとえば、次のコードは `DatePart` CLR 関数を SqlServer の組み込み関数 `DATEPART` にマップします。
 
-```C#
+```csharp
 [DbFunction("DATEPART", Schema = "")]
 public static int? DatePart(string datePartArg, DateTime? date) => throw new Exception();
 
@@ -1724,7 +1781,7 @@ public static int? DatePart(string datePartArg, DateTime? date) => throw new Exc
 
 DbFunction の変換を手動で組み込み関数にマップされるように構成します。
 
-```C#
+```csharp
 modelBuilder
     .HasDbFunction(typeof(MyContext).GetMethod(nameof(MyContext.DatePart)))
     .HasTranslation(args => SqlFunctionExpression.Create("DatePart", args, typeof(int?), null));
