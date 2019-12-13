@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 29434c26a503fabb16b43ee8f0c36136a0b5b745
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 5686d28e6847797130476cd858bd3fb611620140
+ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811965"
+ms.lasthandoff: 12/04/2019
+ms.locfileid: "74824474"
 ---
 # <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core ツールリファレンス-.NET CLI
 
@@ -33,17 +33,17 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 * `dotnet ef` は、グローバルまたはローカルのツールとしてインストールする必要があります。 ほとんどの開発者は、次のコマンドを使用して、`dotnet ef` をグローバルツールとしてインストールします。
 
-  ``` console
+  ```dotnetcli
   dotnet tool install --global dotnet-ef
   ```
 
   `dotnet ef` をローカルツールとして使用することもできます。 ローカルツールとして使用するには、[ツールマニフェストファイル](https://github.com/dotnet/cli/issues/10288)を使用して、ツールの依存関係として宣言するプロジェクトの依存関係を復元します。
 
-* [.NET Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)) をインストールします。 最新バージョンの Visual Studio がインストールされている場合でも、SDK をインストールする必要があります。
+* [.NET Core SDK 3.0](https://dotnet.microsoft.com/download/dotnet-core/3.0)をインストールします。 最新バージョンの Visual Studio がインストールされている場合でも、SDK をインストールする必要があります。
 
 * 最新の `Microsoft.EntityFrameworkCore.Design` パッケージをインストールします。
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
@@ -61,7 +61,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 * 最新の安定した `Microsoft.EntityFrameworkCore.Design` パッケージをインストールします。
 
-  ``` Console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design
   ```
 
@@ -71,11 +71,11 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 * 2\.1.200 SDK バージョンを使用するようにアプリケーションを構成します。そのためには、[グローバルな json](/dotnet/core/tools/global-json)ファイルを変更します。 通常、このファイルはソリューションディレクトリ (プロジェクトの1つ上) に含まれています。
 
-* プロジェクトファイルを編集し、`DotNetCliToolReference` 項目として `Microsoft.EntityFrameworkCore.Tools.DotNet` を追加します。 最新の1.x バージョンを指定します (例: 1.1.6)。 このセクションの最後にあるプロジェクトファイルの例を参照してください。
+* プロジェクトファイルを編集し、`DotNetCliToolReference` 項目として `Microsoft.EntityFrameworkCore.Tools.DotNet` を追加します。 最新の1.x バージョンを指定します。次に例を示します。1.1.6. このセクションの最後にあるプロジェクトファイルの例を参照してください。
 
 * `Microsoft.EntityFrameworkCore.Design` パッケージの最新バージョン1.x をインストールします。次に例を示します。
 
-  ```console
+  ```dotnetcli
   dotnet add package Microsoft.EntityFrameworkCore.Design -v 1.1.6
   ```
 
@@ -105,7 +105,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 次のコマンドを実行して EF Core CLI ツールが正しくインストールされていることを確認します。
 
-  ``` Console
+  ```dotnetcli
   dotnet restore
   dotnet ef
   ```
@@ -157,7 +157,7 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 ## <a name="common-options"></a>共通オプション
 
-|                   | オプション                            | 説明                                                                                                                                                                                                                                                   |
+|                   | OPTION                            | 説明                                                                                                                                                                                                                                                   |
 |:------------------|:----------------------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 |                   | `--json`                          | JSON 出力を表示します。                                                                                                                                                                                                                                             |
 | <nobr>`-c`</nobr> | `--context <DBCONTEXT>`           | 使用する `DbContext` クラス。 クラス名のみ、または名前空間で完全修飾されています。  このオプションを省略した場合、EF Core によってコンテキストクラスが検索されます。 複数のコンテキストクラスがある場合は、このオプションが必要です。                                            |
@@ -171,18 +171,18 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 |                   | `--no-color`                      | 出力を色分けしません。                                                                                                                                                                                                                                        |
 |                   | `--prefix-output`                 | レベルのプレフィックス出力。                                                                                                                                                                                                                                     |
 
-## <a name="dotnet-ef-database-drop"></a>dotnet ef データベースの削除
+## <a name="dotnet-ef-database-drop"></a>dotnet ef database delete
 
 データベースを削除します。
 
 オプション:
 
-|                   | オプション                   | 説明                                              |
+|                   | OPTION                   | 説明                                              |
 |:------------------|:-------------------------|:---------------------------------------------------------|
 | <nobr>`-f`</nobr> | <nobr>`--force`</nobr>   | 確認しないでください。                                           |
 |                   | <nobr>`--dry-run`</nobr> | 削除するデータベースを表示しますが、削除はしません。 |
 
-## <a name="dotnet-ef-database-update"></a>dotnet ef データベースの更新
+## <a name="dotnet-ef-database-update"></a>dotnet ef database update
 
 最後に移行したデータベース、または指定した移行にデータベースを更新します。
 
@@ -190,24 +190,24 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 | 引数      | 説明                                                                                                                                                                                                                                                     |
 |:--------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<MIGRATION>` | ターゲットの移行。 移行は、名前または ID で識別できます。 数値0は、*最初の移行の前に*特別なケースであり、すべての移行が元に戻されます。 移行が指定されていない場合、コマンドは既定で最後の移行になります。 |
+| `<MIGRATION>` | Target の移行。 移行は名前または ID で識別される可能性があります。 数値 0 は特殊なケースでは意味*最初の移行の前に*と、すべての移行を元に戻されます。 移行が指定されていない場合のコマンドは、既定最後の移行になります。 |
 
 次の例では、指定された移行にデータベースを更新します。 最初のは移行名を使用し、2番目のは移行 ID を使用します。
 
-```console
+```dotnetcli
 dotnet ef database update InitialCreate
 dotnet ef database update 20180904195021_InitialCreate
 ```
 
-## <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext 情報
+## <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext info
 
 `DbContext` 型に関する情報を取得します。
 
-## <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext の一覧
+## <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext list
 
 使用できる `DbContext` の種類を一覧表示します。
 
-## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext スキャフォールディング
+## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext scaffold
 
 データベースの `DbContext` およびエンティティ型のコードを生成します。 このコマンドでエンティティ型を生成するには、データベーステーブルに主キーが必要です。
 
@@ -220,30 +220,30 @@ dotnet ef database update 20180904195021_InitialCreate
 
 オプション:
 
-|                 | オプション                                   | 説明                                                                                                                                                                    |
+|                 | OPTION                                   | 説明                                                                                                                                                                    |
 |:----------------|:-----------------------------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-d.ddd...e</nobr> | `--data-annotations`                     | 属性を使用してモデルを構成します (可能な場合)。 このオプションを省略した場合は、fluent API のみが使用されます。                                                                |
+| <nobr>-d</nobr> | `--data-annotations`                     | 属性を使用してモデルを構成します (可能な場合)。 このオプションを省略した場合は、fluent API のみが使用されます。                                                                |
 | `-c`            | `--context <NAME>`                       | 生成する `DbContext` クラスの名前。                                                                                                                                 |
-|                 | `--context-dir <PATH>`                   | `DbContext` クラスファイルを格納するディレクトリ。 パスは、プロジェクトディレクトリに対する相対パスです。 名前空間は、フォルダー名から派生します。                                 |
+|                 | `--context-dir <PATH>`                   | `DbContext` クラスファイルを格納するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。 名前空間は、フォルダー名から派生します。                                 |
 | `-f`            | `--force`                                | 既存のファイルを上書きします。                                                                                                                                                      |
-| `-o`            | `--output-dir <PATH>`                    | エンティティクラスファイルを配置するディレクトリ。 パスは、プロジェクトディレクトリに対する相対パスです。                                                                                       |
+| `-o`            | `--output-dir <PATH>`                    | エンティティクラスファイルを配置するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。                                                                                       |
 |                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | エンティティ型を生成するテーブルのスキーマ。 複数のスキーマを指定するには、それぞれに対して `--schema` を繰り返します。 このオプションを省略した場合、すべてのスキーマが含まれます。          |
 | `-t`            | `--table <TABLE_NAME>`...                | エンティティ型を生成するテーブル。 複数のテーブルを指定するには、`-t` または `--table` をそれぞれ1つずつ繰り返します。 このオプションを省略した場合、すべてのテーブルが含まれます。                |
 |                 | `--use-database-names`                   | テーブル名と列名は、データベースに表示されるとおりに使用します。 このオプションを省略した場合、データベース名は、名前のスタイルC#規則により厳密に準拠するように変更されます。 |
 
 次の例では、すべてのスキーマとテーブルをスキャフォールディングし、新しいファイルを [*モデル*] フォルダーに配置します。
 
-```console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
 ```
 
 次の例では、選択したテーブルのみをスキャフォールディングし、指定した名前の別のフォルダーにコンテキストを作成します。
 
-```console
+```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models -t Blog -t Post --context-dir Context -c BlogContext
 ```
 
-## <a name="dotnet-ef-migrations-add"></a>dotnet ef 移行の追加
+## <a name="dotnet-ef-migrations-add"></a>dotnet ef migrations add
 
 新しい移行を追加します。
 
@@ -255,25 +255,25 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 
 オプション:
 
-|                   | オプション                             | 説明                                                                                                      |
+|                   | OPTION                             | 説明                                                                                                      |
 |:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
-| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | 使用するディレクトリ (およびサブ名前空間)。 パスは、プロジェクトディレクトリに対する相対パスです。 既定値は "移行" です。 |
+| <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | 使用するディレクトリ (およびサブ名前空間)。 パスでは、プロジェクト ディレクトリに対して相対的です。 既定値は「移行」です。 |
 
-## <a name="dotnet-ef-migrations-list"></a>dotnet ef 移行リスト
+## <a name="dotnet-ef-migrations-list"></a>dotnet ef migrations list
 
 使用可能な移行を一覧表示します。
 
-## <a name="dotnet-ef-migrations-remove"></a>dotnet ef 移行の削除
+## <a name="dotnet-ef-migrations-remove"></a>dotnet ef migrations delete
 
 最後の移行を削除します (移行のために実行されたコード変更をロールバックします)。
 
 オプション:
 
-|                   | オプション    | 説明                                                                     |
+|                   | OPTION    | 説明                                                                     |
 |:------------------|:----------|:--------------------------------------------------------------------------------|
 | <nobr>`-f`</nobr> | `--force` | 移行を元に戻します (データベースに適用された変更をロールバックします)。 |
 
-## <a name="dotnet-ef-migrations-script"></a>dotnet ef 移行スクリプト
+## <a name="dotnet-ef-migrations-script"></a>dotnet ef migrations script
 
 移行から SQL スクリプトを生成します。
 
@@ -281,25 +281,25 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 
 | 引数 | 説明                                                                                                                                                   |
 |:---------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<FROM>` | 移行を開始しています。 移行は、名前または ID で識別できます。 数値0は、*最初の移行の前に*特別なケースです。 既定値は0です。 |
-| `<TO>`   | 移行を終了しています。 既定では、最後の移行になります。                                                                                                         |
+| `<FROM>` | 開始の移行。 移行は名前または ID で識別される可能性があります。 数値 0 は特殊なケースでは意味*最初の移行の前に*します。 既定値は 0 です。 |
+| `<TO>`   | 終了の移行。 移行の最後の既定値します。                                                                                                         |
 
 オプション:
 
-|                   | オプション            | 説明                                                        |
+|                   | OPTION            | 説明                                                        |
 |:------------------|:------------------|:-------------------------------------------------------------------|
 | <nobr>`-o`</nobr> | `--output <FILE>` | スクリプトの書き込み先のファイル。                                   |
-| `-i`              | `--idempotent`    | 任意の移行時にデータベースで使用できるスクリプトを生成します。 |
+| `-i`              | `--idempotent`    | すべての移行でのデータベースで使用できるスクリプトを生成します。 |
 
 次の例では、InitialCreate 移行用のスクリプトを作成します。
 
-```console
+```dotnetcli
 dotnet ef migrations script 0 InitialCreate
 ```
 
 次の例では、InitialCreate 移行後にすべての移行用のスクリプトを作成します。
 
-```console
+```dotnetcli
 dotnet ef migrations script 20180904195021_InitialCreate
 ```
 
