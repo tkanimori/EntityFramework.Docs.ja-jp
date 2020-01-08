@@ -4,12 +4,12 @@ author: roji
 ms.date: 09/09/2019
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: 055f492214596506ce2c28485ade359d175c4ac2
-ms.sourcegitcommit: 37d0e0fd1703467918665a64837dc54ad2ec7484
+ms.openlocfilehash: 0d05902566b6b166f1267915d9f698ed29dff588
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/16/2019
-ms.locfileid: "72445901"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502068"
 ---
 # <a name="working-with-nullable-reference-types"></a>Null 許容の参照型の使用
 
@@ -19,7 +19,7 @@ C#8では、null 値を[許容する参照型](/dotnet/csharp/tutorials/nullable
 
 ## <a name="required-and-optional-properties"></a>必須および省略可能なプロパティ
 
-必須およびオプションのプロパティに関する主なドキュメントと、null 許容の参照型との相互作用については、[必須プロパティと省略可能なプロパティ](xref:core/modeling/required-optional)に関するページを参照してください。 まず最初にこのページを読むことをお勧めします。
+必須およびオプションのプロパティに関する主なドキュメントと、null 許容の参照型との相互作用については、[必須プロパティと省略可能なプロパティ](xref:core/modeling/entity-properties#required-and-optional-properties)に関するページを参照してください。 まず最初にこのページを読むことをお勧めします。
 
 > [!NOTE]
 > 既存のプロジェクトで null 値を許容する参照型を有効にする場合は注意してください。以前にオプションとして構成されていた参照型プロパティは、明示的に null 値が指定されていない限り、必須として構成されます。 リレーショナルデータベーススキーマを管理する場合、これにより、データベース列の null 値の許容属性を変更する移行が生成される可能性があります。

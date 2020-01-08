@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 7fa3eae5e2edb7b4c40ed4f99ce4a29f367e622a
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 9c616e157ff1bdb9700f436a7ae2788330fe5d45
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824706"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502033"
 ---
 # <a name="generated-values"></a>生成された値
 
@@ -34,7 +34,7 @@ ms.locfileid: "74824706"
 
 プロパティに値が割り当てられているコンテキストにエンティティを追加すると、EF は新しい値を生成するのではなく、その値を挿入しようとします。 CLR の既定値が割り当てられていない場合、プロパティに値が割り当てられていると見なされます (`string`の場合は`null`、`int`の場合は `0`、`Guid.Empty` の場合は `Guid`など)。 詳細については、「[生成されるプロパティの明示的な値](../saving/explicit-values-generated-properties.md)」を参照してください。
 
-> [!WARNING]  
+> [!WARNING]
 > 追加されたエンティティに対して値が生成される方法は、使用されているデータベースプロバイダーによって異なります。 データベースプロバイダーでは、一部のプロパティの種類に対して値の生成が自動的に設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。
 >
 > たとえば、SQL Server を使用すると、`GUID` のプロパティ (SQL Server シーケンシャル GUID アルゴリズムを使用) に対して値が自動的に生成されます。 ただし、`DateTime` プロパティが追加時に生成されるように指定した場合は、値を生成する方法を設定する必要があります。 これを行う1つの方法として、`GETDATE()`の既定値を構成する方法があります。[既定値](relational/default-values.md)を参照してください。
@@ -52,48 +52,73 @@ ms.locfileid: "74824706"
 >
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.sql)]
 
-## <a name="conventions"></a>規約
+## <a name="value-generated-on-add"></a>追加時に生成される値
 
-既定では、short、int、long、または Guid 型の非複合主キーは、追加時に値を生成するように設定されます。 その他のすべてのプロパティは、値の生成なしで設定されます。
+慣例として、short、int、long、または Guid 型の非複合主キーは、値がアプリケーションによって提供されていない場合、挿入されたエンティティに対して値が生成されるように設定されます。 通常、データベースプロバイダーは必要な構成を行います。たとえば、SQL Server の数値主キーは、ID 列として自動的に設定されます。
 
-## <a name="data-annotations"></a>データの注釈
+挿入されたエンティティに対して値が生成されるようにプロパティを構成するには、次のようにします。
 
-### <a name="no-value-generation-data-annotations"></a>値の生成なし (データ注釈)
+### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-### <a name="value-generated-on-add-data-annotations"></a>加算時に生成される値 (データ注釈)
+### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-> [!WARNING]  
+***
+
+> [!WARNING]
 > これにより、追加されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。 詳細については、「追加」セクション[で生成された値](#value-generated-on-add)を参照してください。
 
-### <a name="value-generated-on-add-or-update-data-annotations"></a>追加または更新 (データ注釈) に対して生成される値
+### <a name="default-values"></a>既定の値
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+リレーショナルデータベースでは、既定値を使用して列を構成できます。その列の値を指定せずに行が挿入されると、既定値が使用されます。
 
-> [!WARNING]  
+プロパティの既定値を構成できます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultValue.cs?name=DefaultValue&highlight=5)]
+
+既定値の計算に使用される SQL フラグメントを指定することもできます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultValueSql.cs?name=DefaultValueSql&highlight=5)]
+
+既定値を指定すると、プロパティは、追加時に生成される値として暗黙的に構成されます。
+
+## <a name="value-generated-on-add-or-update"></a>追加または更新時に生成される値
+
+### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
+
+### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
+
+***
+
+> [!WARNING]
 > これにより、追加または更新されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。 詳細について[は、「追加または更新セクションで生成された値](#value-generated-on-add-or-update)」を参照してください。
 
-## <a name="fluent-api"></a>Fluent API
+### <a name="computed-columns"></a>計算列
 
-Fluent API を使用して、特定のプロパティの値生成パターンを変更できます。
+一部のリレーショナルデータベースでは、データベース内の値を計算するように列を構成できます。通常は、他の列を参照する式を使用します。
 
-### <a name="no-value-generation-fluent-api"></a>値の生成なし (Fluent API)
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=ComputedColumn&highlight=5)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs#Sample)]
+> [!NOTE]
+> 場合によっては、列の値がフェッチされるたび (*仮想*列とも呼ばれます) に計算され、それ以外の場合は、行のすべての更新で計算され、格納されます (*保存さ*れた列*または保存*された列とも呼ばれます)。 これは、データベースプロバイダーによって異なります。
 
-### <a name="value-generated-on-add-fluent-api"></a>追加時に生成された値 (Fluent API)
+## <a name="no-value-generation"></a>値の生成なし
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs#Sample)]
+プロパティの値生成を無効にすることは、通常、規則によって値の生成用に構成される場合に必要です。 たとえば、int 型の主キーがある場合、それは暗黙的に add によって生成される値として設定されます。これは、次の方法で無効にできます。
 
-> [!WARNING]  
-> `ValueGeneratedOnAdd()` は、追加されたエンティティに対して値が生成されることを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することを保証しません。  詳細については、「追加」セクション[で生成された値](#value-generated-on-add)を参照してください。
+### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
 
-### <a name="value-generated-on-add-or-update-fluent-api"></a>追加または更新 (Fluent API) で生成された値
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=3)]
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs#Sample)]
+### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
 
-> [!WARNING]  
-> これにより、追加または更新されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。 詳細について[は、「追加または更新セクションで生成された値](#value-generated-on-add-or-update)」を参照してください。
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=5)]
+
+***

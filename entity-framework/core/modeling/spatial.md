@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 335d4f3a601624f7c994b7dcacefe4ef6798beb3
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 8dae1ab949c77ffa08904b12a5716b729e6913a1
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655612"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502241"
 ---
 # <a name="spatial-data"></a>空間データ
 
@@ -19,7 +19,7 @@ ms.locfileid: "73655612"
 
 空間データは、オブジェクトの物理的な位置と形状を表します。 多くのデータベースでは、この種類のデータをサポートしているため、他のデータと共にインデックスを作成してクエリを実行できます。 一般的なシナリオとしては、ある場所からの特定の距離にあるオブジェクトのクエリ、または特定の場所を含む罫線を持つオブジェクトの選択などがあります。 EF Core では、 [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite)空間ライブラリを使用した空間データ型へのマッピングがサポートされています。
 
-## <a name="installing"></a>インストール
+## <a name="installing"></a>のインストール
 
 EF Core で空間データを使用するには、適切なサポート NuGet パッケージをインストールする必要があります。 どのパッケージをインストールする必要があるかは、使用しているプロバイダーによって異なります。
 
@@ -30,7 +30,7 @@ Microsoft.EntityFrameworkCore.Sqlite    | [NetTopologySuite (Microsoft EntityFra
 Microsoft.EntityFrameworkCore.InMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
 Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
 
-## <a name="reverse-engineering"></a>リバースエンジニアリング
+## <a name="reverse-engineering"></a>リバース エンジニアリング
 
 空間 NuGet パッケージでは、空間プロパティでモデルの[リバースエンジニアリング](../managing-schemas/scaffolding.md)を行うこともできますが、`Scaffold-DbContext` または `dotnet ef dbcontext scaffold`を実行する***前***にパッケージをインストールする必要があります。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
@@ -48,7 +48,7 @@ optionsBuilder.UseSqlServer(
 
 空間データ型はいくつかあります。 使用する種類は、許可する図形の種類によって異なります。 ここでは、モデルのプロパティに使用できる NTS 型の階層を示します。 これらは `NetTopologySuite.Geometries` 名前空間内にあります。
 
-* Geometry
+* ジオメトリ
   * ポイント
   * LineString
   * 多角形
@@ -213,7 +213,7 @@ SQL Server を使用している場合は、注意が必要な点がいくつか
 
 ### <a name="geography-or-geometry"></a>Geography または geometry
 
-既定では、空間プロパティは SQL Server の `geography` 列にマップされます。 `geometry`を使用するには、モデルの[列の型を構成](xref:core/modeling/relational/data-types)します。
+既定では、空間プロパティは SQL Server の `geography` 列にマップされます。 `geometry`を使用するには、モデルの[列の型を構成](xref:core/modeling/entity-properties#column-data-types)します。
 
 ### <a name="geography-polygon-rings"></a>Geography polygon リング
 
@@ -232,7 +232,7 @@ SQLite を使用する場合の追加情報を次に示します。
 
 ### <a name="installing-spatialite"></a>SpatiaLite のインストール
 
-Windows では、ネイティブの mod_spatialite ライブラリは NuGet パッケージの依存関係として配布されます。 他のプラットフォームでは、別のプラットフォームをインストールする必要があります。 通常、これはソフトウェアパッケージマネージャーを使用して行います。 たとえば、MacOS では、APT on Ubuntu と Homebrew を使用できます。
+Windows では、ネイティブ mod_spatialite ライブラリは NuGet パッケージの依存関係として配布されます。 他のプラットフォームでは、別のプラットフォームをインストールする必要があります。 通常、これはソフトウェアパッケージマネージャーを使用して行います。 たとえば、MacOS では、APT on Ubuntu と Homebrew を使用できます。
 
 ``` sh
 # Ubuntu
