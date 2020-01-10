@@ -3,12 +3,12 @@ title: サポートされている .NET 実装 - EF Core
 author: rowanmiller
 ms.date: 08/30/2017
 uid: core/platforms/index
-ms.openlocfilehash: ac3cf3d0a84200bbf4ba7ec18b9115e06d1748f4
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.openlocfilehash: 6450884ea8f1b7bfd12d6b0c722b150b2574c5c3
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149219"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781197"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>EF Core でサポートされている .NET 実装
 
@@ -18,16 +18,16 @@ ms.locfileid: "71149219"
 
 .NET 実装のガイダンスを下の表にまとめました。
 
-| EF Core                       | 1.x    | 2.x        | 3.x             |
-|:------------------------------|:-------|:-----------|:----------------|
-| .NET Standard                 | 1.3    | 2.0        | 2.1             |
-| .NET Core                     | 1    | 2.0        | 3.0             |
-| .NET Framework<sup>(1)</sup>  | 4.5.1  | 4.7.2      | (サポートされていません) |
-| Mono                          | 4.6    | 5.4        | 6.4             |
-| Xamarin.iOS<sup>(2)</sup>     | 10.0   | 10.14      | 12.16           |
-| Xamarin.Android<sup>(2)</sup> | 7.0    | 8.0        | 10.0            |
-| UWP<sup>(3)</sup>             | 10.0   | 10.0.16299 | TBD             |
-| Unity<sup>(4)</sup>           | 2018.1 | 2018.1     | TBD             |
+| EF Core                       | 2.1        | 3.0             | 3.1        |
+|:------------------------------|:-----------|:----------------|:-----------|
+| .NET Standard                 | 2.0        | 2.1             | 2.0        |
+| .NET Core                     | 2.0        | 3.0             | 2.0        |
+| .NET Framework<sup>(1)</sup>  | 4.7.2      | (サポートされていません) | 4.7.2      |
+| Mono                          | 5.4        | 6.4             | 5.4        |
+| Xamarin.iOS<sup>(2)</sup>     | 10.14      | 12.16           | 10.14      |
+| Xamarin.Android<sup>(2)</sup> | 8.0        | 10.0            | 8.0        |
+| UWP<sup>(3)</sup>             | 10.0.16299 | TBD             | 10.0.16299 |
+| Unity<sup>(4)</sup>           | 2018.1     | TBD             | 2018.1     |
 
 <sup>(1)</sup> 下記の「[.NET Framework](#net-framework)」のセクションを参照してください。
 

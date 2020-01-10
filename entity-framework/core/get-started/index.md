@@ -4,12 +4,12 @@ author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: d46c4bb9ac6c8f718b4da5ecd82d54710d41935f
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 8aea40b9caaf454bc06d4991fd403e1ad0ff9b93
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824490"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502020"
 ---
 # <a name="getting-started-with-ef-core"></a>EF Core の概要
 
@@ -23,11 +23,11 @@ ms.locfileid: "74824490"
 
 以下のソフトウェアをインストールします。
 
-## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 * [.NET Core 3.0 SDK](https://www.microsoft.com/net/download/core)
 
-## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 次のワークロードでは、[Visual Studio 2019 バージョン 16.3 以降](https://www.visualstudio.com/downloads/):
   * **.NET Core クロスプラットフォームの開発** ( **[他のツールセット]** の下)
@@ -36,14 +36,14 @@ ms.locfileid: "74824490"
 
 ## <a name="create-a-new-project"></a>新しいプロジェクトを作成する
 
-## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet new console -o EFGetStarted
 cd EFGetStarted
 ```
 
-## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * Visual Studio を開く
 * **[新しいプロジェクトの作成]** をクリックします。
@@ -56,13 +56,13 @@ cd EFGetStarted
 
 EF Core をインストールするには、対象となる EF Core データベース プロバイダーのパッケージをインストールします。 このチュートリアルでは、.NET Core がサポートしているすべてのプラットフォームで実行できるため、SQLite を使用しています。 使用可能なプロバイダーの一覧については、「[Database Providers](../providers/index.md)」 (データベース プロバイダー) をご覧ください。
 
-## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 ```
 
-## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **[ツール] > [NuGet パッケージ マネージャー] > [パッケージ マネージャー コンソール]**
 * 次のコマンドを実行します。
@@ -79,11 +79,11 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 
 モデルを構成するコンテキスト クラスおよびエンティティ クラスを定義します。
 
-## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 * 以下のコードを使用して、プロジェクト ディレクトリで **Model.cs** を作成します
 
-## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * プロジェクト名を右クリックし、 **[追加]、[クラス]** の順に選択します。
 * 名前に「**Model.cs**」を入力して **[追加]** をクリックします。
@@ -101,7 +101,7 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
 
 次の手順では、[移行](xref:core/managing-schemas/migrations/index)を使用し、データベースを作成しています。
 
-## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 * 次のコマンドを実行します。
 
@@ -114,7 +114,7 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
 
   これにより、プロジェクトでコマンドを実行するために必要な [dotnet ef](../miscellaneous/cli/dotnet.md) と設計パッケージがインストールされます。 この `migrations` では、モデルの最初のテーブル セットを作成する移行がスキャフォールディングされます。 `database update` コマンドではデータベースが作成され、それに新しい移行が適用されます。
 
-## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * **パッケージ マネージャー コンソール**で、次のコマンドを実行します。
 
@@ -136,13 +136,13 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
 
 ## <a name="run-the-app"></a>アプリを実行する
 
-## <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
+### <a name="net-core-clitabnetcore-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
 ```dotnetcli
 dotnet run
 ```
 
-## <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
+### <a name="visual-studiotabvisual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 Visual Studio で、.NET Core コンソール アプリの実行時に使用される作業ディレクトリには一貫性がありません。 ([dotnet/project-system#3619](https://github.com/dotnet/project-system/issues/3619) を参照)。これにより、次の例外がスローされます: "*そのようなテーブルはありません:Blogs*"。 作業ディレクトリを更新するには:
 
@@ -153,7 +153,7 @@ Visual Studio で、.NET Core コンソール アプリの実行時に使用さ�
   <StartWorkingDirectory>$(MSBuildProjectDirectory)</StartWorkingDirectory>
   ```
 
-* ファイルを保存します。
+* ファイルを保存する
 
 これで次のように、そのアプリを実行できます。
 
@@ -165,5 +165,5 @@ Visual Studio で、.NET Core コンソール アプリの実行時に使用さ�
 
 * Web アプリでの EF Core の使用には、[ASP.NET Core のチュートリアル](/aspnet/core/data/ef-rp/intro)のページを参照してください
 * [LINQ クエリ式](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)について参照してください
-* [required](xref:core/modeling/required-optional) や [maximum length](xref:core/modeling/max-length) などを指定し、[モデルを構成](xref:core/modeling/index)します
+* [required](xref:core/modeling/entity-properties#required-and-optional-properties) や [maximum length](xref:core/modeling/entity-properties#maximum-length) などを指定し、[モデルを構成](xref:core/modeling/index)します
 * モデルの変更後のデータベース スキーマの更新に、[Migrations](xref:core/managing-schemas/migrations/index) を使用します

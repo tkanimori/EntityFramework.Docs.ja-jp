@@ -3,12 +3,12 @@ title: EF Core 3.0 での破壊的変更 - EF Core
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: d614103169837238810fabd0a8889043c851ef14
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: cac166e9e194e512de7d730d27c061e6deaf5191
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824867"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502228"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
 
@@ -236,7 +236,7 @@ EF Core 3.0 以降では、SQL の解析は試行されません。 そのため
 
 EF Core 3.0 では、自動クライアント評価はサポートされていません。これは、[ここ](#linq-queries-are-no-longer-evaluated-on-the-client)で説明するように、エラーが発生しやすいためです。
 
-**対応策**
+**軽減策**
 
 FromSqlRaw/FromSqlInterpolated でストアド プロシージャを使用している場合は、それを構成できないことがわかっているので、サーバー側での構成を回避するために、FromSql メソッド呼び出しの直後に __AsEnumerable/AsAsyncEnumerable__ を追加します。
 
@@ -273,7 +273,7 @@ EF Core 3.0 以降、新しい `FromSqlRaw` および `FromSqlInterpolated` メ�
 
 **以前の動作**
 
-EF Core 3.0 以前の場合は、指定した型と ID を持つエンティティが出現するたびに同じエンティティ インスタンスが使用されます。 これは、追跡クエリの動作と一致します。 次のクエリを例にします。
+EF Core 3.0 以前の場合は、指定した型と ID を持つエンティティが出現するたびに同じエンティティ インスタンスが使用されます。 これは、追跡クエリの動作と一致します。 たとえば、次のクエリを実行します。
 
 ```csharp
 var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
@@ -393,7 +393,7 @@ public string Id { get; set; }
 
 **軽減策**
 
-`context.ChangedTracker` の設定を使用して、以前の動作を復元することができます。
+`context.ChangeTracker` の設定を使用して、以前の動作を復元することができます。
 次に例を示します。
 
 ```csharp
@@ -1632,7 +1632,7 @@ EF Core 3.0 以降、これは DevelopmentDependency パッケージになりま
 
 **軽減策**
 
-EF Core のデザイン時の動作をオーバーライドするためにこのパッケージを参照する必要がある場合は、プロジェクトの PackageReference 項目メタデータを更新することができます。 このパッケージが Microsoft.EntityFrameworkCore.Tools 経由で推移的に参照されている場合は、パッケージに明示的な PackageReference を追加して、そのメタデータを変更する必要があります。
+EF Core のデザイン時の動作をオーバーライドするためにこのパッケージを参照する必要がある場合は、プロジェクトの PackageReference 項目メタデータを更新することができます。
 
 ``` xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
@@ -1641,6 +1641,8 @@ EF Core のデザイン時の動作をオーバーライドするためにこの
   <!--<IncludeAssets>runtime; build; native; contentfiles; analyzers; buildtransitive</IncludeAssets>-->
 </PackageReference>
 ```
+
+このパッケージが Microsoft.EntityFrameworkCore.Tools 経由で推移的に参照されている場合は、パッケージに明示的な PackageReference を追加して、そのメタデータを変更する必要があります。 このような明示的な参照は、パッケージの型が必要なプロジェクトに追加する必要があります。
 
 <a name="SQLitePCL"></a>
 

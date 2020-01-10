@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a6b9cd22-6803-4c6c-a4d4-21147c0a81cb
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 9fe4905de5bd81fce083d620724b7fad4c6dd11b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 62f7da64bbb6289edd38b877af71fc126e03d0f6
+ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182046"
+ms.lasthandoff: 12/27/2019
+ms.locfileid: "75502290"
 ---
 # <a name="compare-ef-core--ef6"></a>EF Core と EF6 を比較する
 
@@ -30,7 +30,7 @@ EF Core は EF6 のような開発者エクスペリエンスを提供するよ�
 
 ## <a name="feature-comparison"></a>機能の比較
 
-EF Core は、EF6 には実装されない新機能を備えています ([代替キー](xref:core/modeling/alternate-keys)、[バッチ更新プログラム](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements)、[LINQ クエリでのクライアント/データベース評価の混在](xref:core/querying/client-eval)など)。 しかし、EF Core は新しいコード ベースであるため、EF6 に含まれている機能のうち一部がありません。
+EF Core は、EF6 には実装されない新機能を備えています ([代替キー](xref:core/modeling/keys#alternate-keys)、[バッチ更新プログラム](xref:core/what-is-new/ef-core-1.0#relational-batching-of-statements)、[LINQ クエリでのクライアント/データベース評価の混在](xref:core/querying/client-eval)など)。 しかし、EF Core は新しいコード ベースであるため、EF6 に含まれている機能のうち一部がありません。
 
 次の表で、EF Core と EF6 で使用できる機能を比較します。 これは大まかな比較であるため、すべての機能を一覧しているわけではありません。また、同じ機能に関する各種 EF バージョンでの差異についても説明していません。
 
@@ -77,7 +77,7 @@ EF Core 列には、この機能が初めて登場した製品のバージョン
 | **機能**                                           | **EF6**  | **EF Core**                           |
 |:------------------------------------------------------|:---------|:--------------------------------------|
 | LINQ クエリ                                          | はい      | 1.0 (複雑なクエリで進行中) |
-| 読み取り可能な SQL の生成                                | 不十分     | 1                                   |
+| 読み取り可能な SQL の生成                                | 悪い     | 1                                   |
 | GroupBy 変換                                   | はい      | 2.1                                   |
 | 関連データの読み込み:集中評価                           | はい      | 1                                   |
 | 関連データの読み込み:派生型の一括読み込み |          | 2.1                                   |
@@ -86,7 +86,7 @@ EF Core 列には、この機能が初めて登場した製品のバージョン
 | 生 SQL クエリ:エンティティ型                         | はい      | 1                                   |
 | 生 SQL クエリ:キーなしエンティティ型                 | はい      | 2.1                                   |
 | 生 SQL クエリ:LINQ による作成                  |          | 1                                   |
-| 明示的にコンパイルされたクエリ                           | 不十分     | 2.0                                   |
+| 明示的にコンパイルされたクエリ                           | 悪い     | 2.0                                   |
 | テキスト ベースのクエリ言語 (Entity SQL)                | はい      |                                       |
 | await foreach (C# 8.0)                                |          | 3.0                                   |
 
@@ -102,7 +102,7 @@ EF Core 列には、この機能が初めて登場した製品のバージョン
 | トランザクション                                          | はい      | 1                                   |
 | ステートメントのバッチ処理                                |          | 1                                   |
 | ストアド プロシージャ マッピング                              | はい      |                                       |
-| 切断されたグラフの下位 API                     | 不十分     | 1                                   |
+| 切断されたグラフの下位 API                     | 悪い     | 1                                   |
 | 切断されたグラフのエンド ツー エンド                         |          | 1.0 (一部)                         |
 
 ### <a name="other-features"></a>その他の機能
