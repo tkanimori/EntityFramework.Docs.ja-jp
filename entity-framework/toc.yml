@@ -79,18 +79,14 @@
           items:
             - name: 概要
               href: core/modeling/index.md
-            - name: 種類を含める/除外する
-              href: core/modeling/included-types.md
-            - name: プロパティを含める/除外する
-              href: core/modeling/included-properties.md
-            - name: キー (主)
+            - name: エンティティ型
+              href: core/modeling/entity-types.md
+            - name: エンティティのプロパティ
+              href: core/modeling/entity-properties.md
+            - name: キー
               href: core/modeling/keys.md
             - name: 生成された値
               href: core/modeling/generated-properties.md
-            - name: 必須および任意のプロパティ
-              href: core/modeling/required-optional.md
-            - name: 最大長
-              href: core/modeling/max-length.md
             - name: コンカレンシー トークン
               href: core/modeling/concurrency.md
             - name: シャドウ プロパティ
@@ -99,10 +95,10 @@
               href: core/modeling/relationships.md
             - name: Indexes
               href: core/modeling/indexes.md
-            - name: 代替キー
-              href: core/modeling/alternate-keys.md
             - name: 継承
               href: core/modeling/inheritance.md
+            - name: シーケンス
+              href: core/modeling/sequences.md
             - name: バッキング フィールド
               href: core/modeling/backing-field.md
             - name: 値変換
@@ -119,36 +115,13 @@
               href: core/modeling/keyless-entity-types.md
             - name: 同じ DbContext を持つモデル間で切り替える
               href: core/modeling/dynamic-model.md
-            - name: 空間データ (GIS)
+            - name: 空間データ
+              displayName: GIS
               href: core/modeling/spatial.md
             - name: リレーショナル データベース モデリング
               items:
                 - name: 概要
                   href: core/modeling/relational/index.md
-                - name: テーブル マッピング
-                  href: core/modeling/relational/tables.md
-                - name: 列マッピング
-                  href: core/modeling/relational/columns.md
-                - name: データの種類
-                  href: core/modeling/relational/data-types.md
-                - name: 主キー
-                  href: core/modeling/relational/primary-keys.md
-                - name: 既定のスキーマ
-                  href: core/modeling/relational/default-schema.md
-                - name: 計算列
-                  href: core/modeling/relational/computed-columns.md
-                - name: シーケンス
-                  href: core/modeling/relational/sequences.md
-                - name: 既定値
-                  href: core/modeling/relational/default-values.md
-                - name: Indexes
-                  href: core/modeling/relational/indexes.md
-                - name: 外部キー制約
-                  href: core/modeling/relational/fk-constraints.md
-                - name: 代替キー (一意の制約)
-                  href: core/modeling/relational/unique-constraints.md
-                - name: 継承 (リレーショナル データベース)
-                  href: core/modeling/relational/inheritance.md
         - name: データベース スキーマを管理する
           items:
             - name: 概要
@@ -371,7 +344,7 @@
                   items:
                     - name: 列挙体
                       href: ef6/modeling/code-first/data-types/enums.md
-                    - name: Spatial
+                    - name: 空間
                       href: ef6/modeling/code-first/data-types/spatial.md
                 - name: 規約
                   items:
@@ -419,7 +392,7 @@
                       href: ef6/modeling/designer/data-types/complex-types.md
                     - name: 列挙体
                       href: ef6/modeling/designer/data-types/enums.md
-                    - name: Spatial
+                    - name: 空間
                       href: ef6/modeling/designer/data-types/spatial.md
                 - name: マッピングの分割
                   items:
@@ -521,7 +494,7 @@
               items:
                 - name: EF5
                   items:
-                    - name: 中国語 (簡体字)
+                    - name: 簡体字中国語
                       href: ef6/resources/licenses/ef5/chs.md
                     - name: 繁体字中国語
                       href: ef6/resources/licenses/ef5/cht.md
@@ -549,7 +522,7 @@
                           href: ef6/resources/licenses/ef6/prerelease/alpha.md
                         - name: ベータ - リリース候補
                           href: ef6/resources/licenses/ef6/prerelease/beta-rc.md
-                    - name: 中国語 (簡体字)
+                    - name: 簡体字中国語
                       href: ef6/resources/licenses/ef6/chs.md
                     - name: 繁体字中国語
                       href: ef6/resources/licenses/ef6/cht.md

@@ -5,12 +5,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 6bb12583-c39a-454c-8d83-d2a2793ca9ef
 uid: index
-ms.openlocfilehash: 435a99e34fc5be7935dc7c363ece0629fd497299
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 1643e3c9d1b8565155ebc1c04713a40883d03a07
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182047"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781015"
 ---
 <div id="main" class="v2">
     <div class="container">
@@ -216,7 +216,7 @@ ms.locfileid: "72182047"
                                             </div>
                                             <div class="cardText">
                                                 <h3>
-                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">⤤ API リファレンス</a>
+                                                    <a href="https://docs.microsoft.com/dotnet/api/?view=efcore-2.1">API リファレンス</a>
                                                 </h3>
                                                 <p>
                                                     <a href="https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbcontext">DbContext</a>
@@ -258,7 +258,7 @@ ms.locfileid: "72182047"
                                                     </div>
                                                 </div>
                                                 <div class="cardText">
-                                                    <h3>開始するには</h3>
+                                                    <h3>はじめに</h3>
                                                     <p>Entity Framework 6 でデータにアクセスする方法を説明します。</p>
                                                 </div>
                                             </div>
@@ -277,7 +277,7 @@ ms.locfileid: "72182047"
                                                     </div>
                                                 </div>
                                                 <div class="cardText">
-                                                    <h3>⤤ API リファレンス</h3>
+                                                    <h3>API リファレンス</h3>
                                                     <p>名前空間別に整理されている Entity Framework 6 API を参照します。</p>
                                                 </div>
                                             </div>
