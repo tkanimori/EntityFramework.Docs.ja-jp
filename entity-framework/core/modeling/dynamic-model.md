@@ -1,26 +1,34 @@
 ---
 title: 同じ DbContext 型の複数のモデルを交互に EF Core
 author: AndriySvyryd
-ms.date: 12/10/2017
+ms.date: 01/03/2020
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/dynamic-model
-ms.openlocfilehash: 034076b1595894e80b98467354f6c9f139bd7426
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 156d5666cbd9352b274ddc70c99704ca62aeb1fd
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655727"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781132"
 ---
 # <a name="alternating-between-multiple-models-with-the-same-dbcontext-type"></a>同じ DbContext 型の複数のモデルを交互に使用する
 
-`OnModelCreating` 組み込まれているモデルでは、コンテキストのプロパティを使用して、モデルの構築方法を変更できます。 たとえば、特定のプロパティを除外するために使用できます。
+`OnModelCreating` 組み込まれているモデルでは、コンテキストのプロパティを使用して、モデルの構築方法を変更できます。 たとえば、いくつかのプロパティに基づいてエンティティを異なる方法で構成するとします。
 
-[!code-csharp[Main](../../../samples/core/DynamicModel/DynamicContext.cs?name=Class)]
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicContext.cs?name=OnModelCreating)]
+
+しかし、このコードはそのように動作しません。 EF は、モデルを構築して `OnModelCreating` 1 回だけ実行するため、パフォーマンス上の理由から結果がキャッシュされるためです。 ただし、モデルキャッシュメカニズムにフックして、さまざまなモデルを生成するプロパティを EF に認識させることができます。
 
 ## <a name="imodelcachekeyfactory"></a>IModelCacheKeyFactory
 
-ただし、追加の変更なしで上記を実行しようとした場合、`IgnoreIntProperty`の任意の値に対して新しいコンテキストが作成されるたびに同じモデルが得られます。 これは、モデルキャッシュメカニズム EF がを使用して、`OnModelCreating` 一度だけ呼び出してモデルをキャッシュすることによってパフォーマンスを向上させるために発生します。
+EF では、`IModelCacheKeyFactory` を使用してモデルのキャッシュキーを生成します。既定では、EF は、特定のコンテキスト型に対してモデルが同じであると想定しています。したがって、このサービスの既定の実装では、コンテキスト型のみを含むキーが返されます。 同じコンテキスト型からさまざまなモデルを生成するには、`IModelCacheKeyFactory` サービスを正しい実装に置き換える必要があります。生成されたキーは、モデルに影響を与えるすべての変数を考慮して、`Equals` メソッドを使用して他のモデルキーと比較されます。
 
-既定では、EF は特定のコンテキスト型に対してモデルが同じであると想定します。 これを実現するために、`IModelCacheKeyFactory` の既定の実装では、コンテキスト型のみを含むキーが返されます。 これを変更するには、`IModelCacheKeyFactory` サービスを置き換える必要があります。 新しい実装では、モデルに影響を与えるすべての変数を考慮する `Equals` メソッドを使用して、他のモデルキーと比較できるオブジェクトを返す必要があります。
+次の実装では、モデルキャッシュキーを作成するときに `IgnoreIntProperty` が考慮されます。
 
-[!code-csharp[Main](../../../samples/core/DynamicModel/DynamicModelCacheKeyFactory.cs?name=Class)]
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicModelCacheKeyFactory.cs?name=DynamicModel)]
+
+最後に、コンテキストの `OnConfiguring`に新しい `IModelCacheKeyFactory` を登録します。
+
+[!code-csharp[Main](../../../samples/core/Modeling/DynamicModel/DynamicContext.cs?name=OnConfiguring)]
+
+詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DynamicModel)を参照してください。

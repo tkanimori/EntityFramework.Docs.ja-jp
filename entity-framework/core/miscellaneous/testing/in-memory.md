@@ -1,67 +1,67 @@
 ---
-title: InMemory - EF Core でのテスト
+title: InMemory を使用したテスト-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 0d0590f1-1ea3-4d5c-8f44-db17395cd3f3
 uid: core/miscellaneous/testing/in-memory
-ms.openlocfilehash: 8aaea52f22954ef6a2b7d9b9c5627597c61ac644
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: fcd2f99ad06fd30ef9e36fd1e5a6a09fe0a45d07
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562547"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781119"
 ---
 # <a name="testing-with-inmemory"></a>InMemory のテスト
 
-InMemory プロバイダーは、実際のデータベース操作のオーバーヘッドがなく、実際のデータベースへの接続を近似するものを使用してコンポーネントをテストする場合に便利です。
+InMemory プロバイダーは、実際のデータベース操作のオーバーヘッドを発生させることなく、実際のデータベースへの接続を使用してコンポーネントをテストする場合に便利です。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing)は GitHub で確認できます。
 
-## <a name="inmemory-is-not-a-relational-database"></a>InMemory はリレーショナル データベースではありません。
+## <a name="inmemory-is-not-a-relational-database"></a>InMemory はリレーショナルデータベースではありません
 
-EF Core データベース プロバイダーはリレーショナル データベースではありません。 InMemory ように、テスト用の汎用データベースを設計し、リレーショナル データベースを模倣するためのものではありません。
+EF Core データベースプロバイダーは、リレーショナルデータベースである必要はありません。 InMemory は、テスト用の汎用データベースとして設計されており、リレーショナルデータベースを模倣するように設計されていません。
 
-次のとおりのいくつかの例では:
+たとえば、次のような例があります。
 
-* InMemory はリレーショナル データベースの参照整合性制約に違反するデータを保存できます。
-* モデルのプロパティを DefaultValueSql(string) を使用する場合は、これは、リレーショナル データベース API であり、効果はありません InMemory に対して実行したとき。
-* [タイムスタンプや行のバージョンを使用して同時実行](xref:core/modeling/concurrency#timestamprow-version)(`[Timestamp]`または`IsRowVersion`) はサポートされていません。 いいえ[DbUpdateConcurrencyException](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbupdateconcurrencyexception)更新が行われた場合にスローされます古いの同時実行トークンを使用します。
+* InMemory を使用すると、リレーショナルデータベースの参照整合性制約に違反するデータを保存できます。
+* モデルのプロパティに DefaultValueSql (string) を使用した場合、これはリレーショナルデータベース API であり、InMemory に対して実行しても効果はありません。
+* [タイムスタンプ/行バージョン](xref:core/modeling/concurrency#timestamprowversion)(`[Timestamp]` または `IsRowVersion`) による同時実行はサポートされていません。 古い同時実行トークンを使用して更新が行われた場合、 [DbUpdateConcurrencyException](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.dbupdateconcurrencyexception)はスローされません。
 
 > [!TIP]  
-> 多くのテスト目的でのこれらの違いは関係ありません。 ただし、真のリレーショナル データベースのように動作するものをテストする場合は、使用を検討して[SQLite メモリ内モード](sqlite.md)します。
+> 多くのテスト目的では、これらの違いは関係ありません。 ただし、真のリレーショナルデータベースのように動作するものに対してテストする場合は、 [SQLite インメモリモード](sqlite.md)の使用を検討してください。
 
-## <a name="example-testing-scenario"></a>テスト シナリオの例
+## <a name="example-testing-scenario"></a>テストシナリオの例
 
-ブログに関連するいくつかの操作を実行するアプリケーション コードは、次のサービスを検討してください。 内部的には、 `DbContext` SQL Server データベースに接続します。 ように、コードを変更しなくてもこのサービスの効率的なテストを記述またはテストを作成する作業の多くを実行できます InMemory データベースに接続するには、このコンテキストを交換する便利なことが、コンテキストの二重。
+アプリケーションコードがブログに関連するいくつかの操作を実行できるようにするには、次のサービスを検討してください。 内部的には、SQL Server データベースに接続する `DbContext` を使用します。 このコンテキストをスワップして、InMemory データベースに接続すると、コードを変更しなくても、このサービスに対して効率的なテストを作成できるようになります。また、コンテキストのテスト double を作成するために大量の作業を行うこともできます。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
 
-## <a name="get-your-context-ready"></a>コンテキストを準備します。
+## <a name="get-your-context-ready"></a>コンテキストの準備
 
-### <a name="avoid-configuring-two-database-providers"></a>2 つのデータベース プロバイダーを構成しない場合
+### <a name="avoid-configuring-two-database-providers"></a>2つのデータベースプロバイダーの構成を回避する
 
-テストでは、InMemory プロバイダーを使用するコンテキストの外部で構成すること。 オーバーライドすることで、データベース プロバイダーを構成している場合`OnConfiguring`コンテキストでする必要がある 1 つ既に構成されていない場合のみ、データベース プロバイダーを構成することを確認する条件付きコードを追加します。
+テストでは、InMemory プロバイダーを使用するようにコンテキストを外部で構成しようとしています。 コンテキストで `OnConfiguring` をオーバーライドしてデータベースプロバイダーを構成する場合は、データベースプロバイダーがまだ構成されていない場合にのみ構成するように、いくつかの条件付きコードを追加する必要があります。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
 
 > [!TIP]  
-> ASP.NET Core を使用している場合、必要はありませんこのコードは、データベース プロバイダーが既に (Startup.cs) のコンテキスト外で構成されているためです。
+> ASP.NET Core を使用している場合、このコードは必要ありません。これは、データベースプロバイダーがコンテキストの外部 (Startup.cs) で既に構成されているためです。
 
-### <a name="add-a-constructor-for-testing"></a>テストのコンス トラクターを追加します。
+### <a name="add-a-constructor-for-testing"></a>テスト用のコンストラクターを追加する
 
-別のデータベースに対するテストを有効にする最も簡単な方法が変更のコンテキストを受け取るコンス トラクターを公開するには、`DbContextOptions<TContext>`します。
+別のデータベースに対してテストを有効にする最も簡単な方法は、コンテキストを変更して、`DbContextOptions<TContext>`を受け入れるコンストラクターを公開することです。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
 
 > [!TIP]  
-> `DbContextOptions<TContext>` すべてに接続するデータベースなど、その設定のコンテキストに指示します。 これは、コンテキストの OnConfiguring メソッドを使用して構築された同じオブジェクトです。
+> `DbContextOptions<TContext>` は、接続先のデータベースなど、すべての設定をコンテキストに伝えます。 これは、コンテキストで OnConfiguring メソッドを実行して作成されたオブジェクトと同じです。
 
-## <a name="writing-tests"></a>テストの記述
+## <a name="writing-tests"></a>テストの作成
 
-このプロバイダーでのテストにキーをメモリ内データベースのスコープを制御、InMemory プロバイダーを使用してコンテキストを通知する機能があります。 通常、クリーンなデータベースは、各テスト メソッドにします。
+このプロバイダーを使用してテストするための鍵は、InMemory プロバイダーを使用するようにコンテキストに指示し、インメモリデータベースのスコープを制御する機能です。 通常は、各テストメソッドにクリーンなデータベースが必要です。
 
-InMemory データベースを使用するテスト クラスの例を次に示します。 各テスト メソッドでは、一意のデータベース名、つまり各メソッドが、独自の InMemory データベースを指定します。
+次に、InMemory データベースを使用するテストクラスの例を示します。 各テストメソッドには一意のデータベース名が指定されています。つまり、それぞれの方法に独自の InMemory データベースがあります。
 
 >[!TIP]
 > `.UseInMemoryDatabase()` 拡張メソッドを使用するには、NuGet パッケージの [Microsoft.EntityFrameworkCore.InMemory](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.InMemory/) を参照してください。

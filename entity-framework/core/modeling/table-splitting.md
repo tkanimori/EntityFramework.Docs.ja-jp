@@ -3,19 +3,16 @@ title: テーブル分割-EF Core
 description: Entity Framework Core を使用してテーブル分割を構成する方法
 author: AndriySvyryd
 ms.author: ansvyryd
-ms.date: 04/10/2019
+ms.date: 01/03/2020
 uid: core/modeling/table-splitting
-ms.openlocfilehash: 0e48c516de43cdc2b54c56f1a96f5e01f9fbbbc4
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: c38d3ee0efa82f84a1051017ae40c9f3fdd57f1f
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824558"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781171"
 ---
 # <a name="table-splitting"></a>テーブル分割
-
->[!NOTE]
-> この機能は EF Core 2.0 で新たに追加されています。
 
 EF Core を使用すると、複数のエンティティを1つの行にマップできます。 これは、_テーブル分割_または_テーブル共有_と呼ばれます。
 
@@ -33,21 +30,28 @@ EF Core を使用すると、複数のエンティティを1つの行にマッ�
 
 必要な構成に加えて、`Property(o => o.Status).HasColumnName("Status")` を呼び出して、`DetailedOrder.Status` を `Order.Status`と同じ列にマップします。
 
-[!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting&highlight=3)]
+[!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting)]
 
 > [!TIP]
 > 詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting)を参照してください。
 
 ## <a name="usage"></a>使用状況
 
-テーブル分割を使用したエンティティの保存とクエリは、他のエンティティと同じ方法で実行されます。 EF Core 3.0 以降では、依存エンティティ参照を `null`できます。 依存エンティティによって使用されているすべての列がデータベースで `NULL` 場合は、クエリの実行時にインスタンスが作成されません。 また、すべてのプロパティは省略可能であり、`null`に設定されますが、これは想定されていない可能性があります。
+テーブル分割を使用したエンティティの保存とクエリは、他のエンティティと同じ方法で実行されます。
 
 [!code-csharp[Usage](../../../samples/core/Modeling/TableSplitting/Program.cs?name=Usage)]
 
+## <a name="optional-dependent-entity"></a>省略可能な依存エンティティ
+
+> [!NOTE]
+> この機能は EF Core 3.0 で導入されました。
+
+依存エンティティによって使用されているすべての列がデータベースで `NULL` されている場合は、クエリの実行時にインスタンスが作成されません。 これにより、オプションの依存エンティティをモデル化できます。この場合、プリンシパルのリレーションシッププロパティは null になります。 これは、依存しているすべてのプロパティは省略可能であり、`null`に設定されていますが、これは想定されていない可能性があることに注意してください。
+
 ## <a name="concurrency-tokens"></a>同時実行トークン
 
-テーブルを共有するいずれかのエンティティ型が同時実行トークンを持っている場合は、同じテーブルにマップされたエンティティの1つだけが更新されたときに、古い同時実行トークンの値を回避するために、他のすべてのエンティティ型に含める必要があります。
+テーブルを共有するいずれかのエンティティ型に同時実行トークンが含まれている場合は、他のすべてのエンティティ型にも含める必要があります。 これは、同じテーブルにマップされたエンティティの1つだけが更新される場合に、古い同時実行トークンの値を回避するために必要です。
 
-コンシューマー側のコードにそれを公開しないようにするには、シャドウ状態で1つ作成することができます。
+コンシューマー側のコードに同時実行トークンが公開されないようにするには、 [shadow プロパティ](xref:core/modeling/shadow-properties)として作成することができます。
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=ConcurrencyToken&highlight=2)]

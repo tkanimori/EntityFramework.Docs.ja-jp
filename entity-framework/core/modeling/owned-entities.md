@@ -5,17 +5,14 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 7b6d1b3bccbfceb85f03a580ba03a45984d29c74
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.openlocfilehash: 30b91b6e66b6c0f516d1ba12485304b52770cbef
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824596"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781236"
 ---
 # <a name="owned-entity-types"></a>所有されているエンティティ型
-
-> [!NOTE]
-> この機能は EF Core 2.0 で新たに追加されています。
 
 EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、_所有エンティティ型_と呼ばれます。 所有エンティティ型を含むエンティティはその_所有者_します。
 
@@ -56,7 +53,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 
 所有されている型のコレクションを構成するには `OnModelCreating`で `OwnsMany` を使用します。
 
-所有型には主キーが必要です。 .NET 型に適切な候補のプロパティがない場合は、EF Core で作成を試みることができます。 ただし、所有型がコレクションによって定義されている場合は、`OwnsOne`の場合と同様に、外部キーと所有インスタンスの主キーの両方として機能する shadow プロパティを作成するだけでは十分ではありません。それぞれに対して所有される型インスタンスが複数存在する可能性があります。所有者であるため、所有者のキーは、所有しているインスタンスごとに一意の id を提供するのに十分ではありません。
+所有型には主キーが必要です。 .NET 型に適切な候補のプロパティがない場合は、EF Core で作成を試みることができます。 ただし、所有型がコレクションによって定義されている場合は、所有しているインスタンスの所有者と主キーの両方として機能する shadow プロパティを作成するだけでは十分ではありません。所有者ごとに所有する型インスタンスが複数存在する可能性があります。したがっ `OwnsOne`て、所有しているインスタンスごとに一意の id
 
 これには、次の2つの最も簡単な解決策があります。
 
