@@ -3,12 +3,12 @@ title: EF Core 3.0 での破壊的変更 - EF Core
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: cac166e9e194e512de7d730d27c061e6deaf5191
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 0626ffe98843fbf5ee0e2de4b269da6c395c07f6
+ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502228"
+ms.lasthandoff: 01/09/2020
+ms.locfileid: "75781223"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
 
@@ -1028,7 +1028,7 @@ EF Core 3.0 以降では、`DbContext.Entry` の呼び出しで、特定のエ�
 
 **軽減策**
 
-3\.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChgangeTracker.DetectChanges()` を呼び出します。
+3\.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChangeTracker.DetectChanges()` を呼び出します。
 
 ### <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>文字列とバイト配列のキーが既定でクライアントによって生成されない
 
