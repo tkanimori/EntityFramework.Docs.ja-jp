@@ -1,82 +1,52 @@
 ---
-title: 新機能 - EF Core
-author: divega
-ms.date: 02/20/2018
+title: EF Core のリリースと計画
+author: ajcvickers
+ms.date: 01/14/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 2ca4915fca515b4bdbfeb77bc7b02f15ce1704b6
-ms.sourcegitcommit: ec196918691f50cd0b21693515b0549f06d9f39c
+ms.openlocfilehash: 8d74c24021fd62c5c5d944eaf3973b344fdb1e9c
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/23/2019
-ms.locfileid: "71197724"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124406"
 ---
-# <a name="whats-new-in-ef-core"></a>EF Core の新機能
+# <a name="ef-core-releases-and-planning"></a>EF Core のリリースと計画
 
-## <a name="recent-releases"></a>最近のリリース
+## <a name="stable-releases"></a>安定版リリース
 
-- **EF Core 3.0** (最新の安定版リリース) 
-  - [新機能](xref:core/what-is-new/ef-core-3.0/index) 
-  - アップグレード時に注意する必要がある[破壊的変更](xref:core/what-is-new/ef-core-3.0/breaking-changes)
-- [EF Core 2.2](xref:core/what-is-new/ef-core-2.2)
-- [EF Core 2.1](xref:core/what-is-new/ef-core-2.1) (最新の長期サポート リリース)
+| 解放 | [対象とする Framework] | サポート期限 | リンク
+|:--------|------------------|-----------------|------
+| [EF Core 3.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.1) | .NET Standard 2.0 | 2022 年 12 月 3 日 (LTS) | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
+| [EF Core 3.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.1) | .NET Standard 2.1 | 2020 年 3 月 3 日 | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/) / [破壊的変更](ef-core-3.0/breaking-changes.md)
+| ~~[EF Core 2.2](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.6)~~ | .NET Standard 2.0 | 2019 年 12 月 23 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-2/)
+| [EF Core 2.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.1.14) | .NET Standard 2.0 | 2021 年 8 月 21 日 (LTS) | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-1/)
+| ~~[EF Core 2.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.0.3)~~ | .NET Standard 2.0 | 2018 年 10 月 1 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-0/)
+| ~~[EF Core 1.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.1.6)~~ | .NET Standard 1.3 | 2019 年 6 月 27 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-1-1/)
+| ~~[EF Core 1.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.0.6)~~ | .NET Standard 1.3 | 2019 年 6 月 27 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/entity-framework-core-1-0-0-available/)
 
-## <a name="product-roadmap"></a>製品ロードマップ
+各 EF Core リリースでサポートされている特定のプラットフォームの詳細については、「[サポートされているプラットフォーム](../platforms/index.md)」を参照してください。
 
-> [!IMPORTANT]
-> 機能セットと今後のリリースのスケジュールは、常に変更される可能性があることに注意してください。また、このページを最新の状態に保持するようにしていますが、最新のプランが反映されていない場合もあります。
+サポートの有効期限と長期的なサポート (LTS) のリリースについては、[.NET のサポート ポリシー](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)を参照してください。
 
-### <a name="future-releases"></a>リリースの予定
+## <a name="guidance-on-updating-to-new-releases"></a>新しいリリースへの更新に関するガイダンス
 
-- **EF Core 3.1**  
-  - アクティブに開発中
-  - [パフォーマンス、品質、安定性に関する多少の改善](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3A3.1.0+sort%3Areactions-desc)が追加されます
-  - 長期サポート (LTS) リリースとして計画されています
-  - 現在、2019 年 12 月にスケジュールされています
-- **EF Core "vNext"**   
-  - .NET 5 と並んで提供される EF Core の次のメジャー リリース
-  - このリリースの計画はまだ開始されておらず、機能は発表されていません。  
+* サポートされているリリースでは、セキュリティおよびその他の重要なバグが修正されています。 常に、特定のリリースの最新のパッチを使用してください。 たとえば、EF Core 2.1 の場合は、2.1.14 を使用します。
+* メジャー バージョンの更新 (たとえば、EF Core 2 から EF Core 3) には、多くの場合、破壊的変更が含まれています。 メジャー バージョン間で更新を行う場合は、完全なテストを行うことをお勧めします。 破壊的変更に対処するためのガイダンスについては、上の破壊的変更に関するリンクをご覧ください。
+* マイナー バージョンの更新には、通常、破壊的変更は含まれていません。 ただし、新しい機能によって回帰が生じる可能性があるため、やはり完全なテストを行うことをお勧めします。
 
-### <a name="schedule"></a>スケジュール
+## <a name="ef-core-50"></a>EF Core 5.0
 
-EF Core のリリース スケジュールは、[.NET Core のリリース スケジュール](https://github.com/dotnet/core/blob/master/roadmap.md)と同期されています。
+EF Core のリリースは、[.NET Core の出荷スケジュール](https://github.com/dotnet/core/blob/master/roadmap.md)に合わせて行われます。 次に予定されている安定版リリースは、2020 年 11 月にスケジュールされている **EF Core 5.0** です。
 
-### <a name="backlog"></a>Backlog
+[EF Core 5.0 の大まかな計画](ef-core-5.0/plan.md)は、[リリース計画プロセス](release-planning.md)のドキュメントに従って作成されています。
 
-問題の追跡ツールの[バックログ マイルストーン](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+milestone%3ABacklog+sort%3Areactions-%2B1-desc)には、いつか取り組む予定の問題や、コミュニティのだれかが対処できると考えられる問題が含まれています。
-これらの問題に関するお客様からのコメントや投票をお待ちしております。
-これらの問題のいずれかに取り組むことを考えている共同作成者は、まずそれに対するアプローチ方法について議論を始めることが推奨されます。
+計画に関するフィードバックは重要です。 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指) することです。 このデータが、次のリリースの計画プロセスに取り込まれます。
 
-特定のバージョンの EF Core において特定の機能に取り組むという保証は、いかなる場合もありません。
-すべてのソフトウェア プロジェクトと同じように、優先順位、リリース スケジュール、および使用可能なリソースは常に変更される可能性があります。
-ただし、特定の時間枠の中で問題を解決する予定の場合は、バックログ マイルストーンではなくリリース マイルストーンにそれを割り当てます。
-[リリースの計画プロセス](#release-planning-process)の一環として、バックログおよびリリース マイルストーン間で定期的に問題を移動させています。
+### <a name="get-it-now"></a>今すぐ入手しましょう
 
-対応する予定がない場合、その問題は閉じられる可能性があります。
-ただし、以前に閉じた問題に関する新情報が得られた場合は、それを再検討する可能性があります。
+EF Core 5.0 のパッケージが、[デイリー ビルド](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md)として**今すぐ入手**できます。 
 
-### <a name="release-planning-process"></a>リリースの計画プロセス
+デイリー ビルドの使用は、イシューを発見し、できるだけ早くフィードバックを提供する優れた方法です。 フィードバックが早く得られるほど、次の公式リリースまでに対処できる可能性が高くなります。 各ビルドのプラットフォームあたり 55,000 以上ものテストを実行することで、デイリー ビルドを良好な状態に保っています。
 
-特定のリリースに含める特定の機能をどのように選ぶかについて、よく質問を受けます。
-バックログは確かに、リリースの計画に自動的に変換されるわけではありません。
-また、ある機能が EF6 に存在する場合、自動的にその機能を EF Core に実装する必要があるというわけでもありません。
-
-リリースを計画するために実行するプロセス全体について詳しく説明することは困難です。
-その大半は、特定の機能、機会、優先度に関する議論であり、プロセス自体もリリースごとに進化します。
-ただし、次の作業内容を決定するときに答えようと試みている共通の質問についてまとめることは可能です。
-
-1. **この機能を使用する開発者の数は? アプリケーション/エクスペリエンスをどの程度向上させますか?** この質問に答えるために、多くのソースからフィードバックを収集します。問題についてのコメントと投票は、これらのソースの 1 つです。
-
-2. **この機能をまだ実装していない場合、ユーザーが使用できる回避策とは?** たとえば、多対多のネイティブ サポートがないことを回避するために、多くの開発者は統合テーブルをマップすることができます。 当然ながら、すべての開発者がこれを実行するわけではありませんが、その多くは実行できます。そしてこれは決定の要因としてカウントされます。
-
-3. **他の機能を実装させるようにするなど、この機能の実装によって EF Core のアーキテクチャは進化しますか?** 他の機能の構成要素として動作する機能は優先される傾向があります。 たとえば、プロパティ バッグ エンティティによって多対多のサポートを進めることができ、エンティティ コンストラクターによって遅延読み込みのサポートが可能になりました。
-
-4. **この機能は拡張ポイントですか?** 拡張ポイントは通常の機能よりも優先される傾向があります。なぜなら、開発者がこれらを使用して、それぞれの独自の動作をフックし、不足している機能を補うことができるためです。
-
-5. **他の製品と組み合わせて使用するときの機能のシナジーとは何ですか?** .NET Core、最新バージョンの Visual Studio、Microsoft Azure など、その他の製品と共に EF Core を使用するエクスペリエンスを可能にする、または大幅に向上させる機能は、優先される傾向があります。
-
-6. **機能に取り組むために利用できるユーザーのスキルは何ですか? これらのリソースを最大限に活用する方法はありますか?** EF チームの各メンバーおよびコミュニティの共同作成者は、異なる領域におけるさまざまなレベルの経験を持っているので、それに応じて計画を立てる必要があります。 GroupBy の変換や多対多など、特定の機能に取り組むために "全員の協力" が欲しくなる場合であっても、それは実用的ではありません。
-
-前述のように、プロセスはリリースごとに進化していきます。
-今後は、コミュニティのメンバーがリリースの計画にインプットを提供する機会を、もっと増やす予定です。
-たとえば、機能やリリースの計画自体の設計案を、簡単に確認できるようにしたいと考えています。
+プレビュー パッケージは、その年の後半に NuGet で配布されます。

@@ -4,12 +4,12 @@ author: roji
 ms.date: 09/09/2019
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: 0d05902566b6b166f1267915d9f698ed29dff588
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: c16a475c363320cd18804a4efe78ccae1ae22f0d
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502068"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124354"
 ---
 # <a name="working-with-nullable-reference-types"></a>Null 許容の参照型の使用
 
@@ -38,9 +38,9 @@ Null 値を許容する参照型がC#有効になっている場合、初期化�
 
 これらのシナリオを処理する方法の1つは、null 許容の[バッキングフィールド](xref:core/modeling/backing-field)を持つ null 非許容プロパティを持つことです。
 
-[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Order.cs?range=12-17)]
+[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Order.cs?range=10-17)]
 
-ナビゲーションプロパティは null 非許容であるため、必要なナビゲーションが構成されます。また、ナビゲーションが適切に読み込まれている限り、依存するにはプロパティを使用してアクセスできます。 ただし、最初に関連エンティティを適切に読み込むことなく、プロパティにアクセスした場合は、API コントラクトが正しく使用されていないため、InvalidOperationException がスローされます。
+ナビゲーションプロパティは null 非許容であるため、必要なナビゲーションが構成されます。また、ナビゲーションが適切に読み込まれている限り、依存するにはプロパティを使用してアクセスできます。 ただし、最初に関連エンティティを適切に読み込むことなく、プロパティにアクセスした場合は、API コントラクトが正しく使用されていないため、InvalidOperationException がスローされます。 EF は、プロパティではなく、常にバッキングフィールドにアクセスするように構成する必要があることに注意してください。これは、設定が解除された場合でも値を読み取ることができるようにするためです。この方法については、[バックアップフィールド](xref:core/modeling/backing-field)に関するドキュメントを参照してください。 `PropertyAccessMode.Field` を指定して、構成が正しいことを確認することを検討してください。
 
 Terser として、null に対応していない演算子 (!) のヘルプを使用して、単純にプロパティを null に初期化することができます。
 
@@ -63,6 +63,7 @@ Terser として、null に対応していない演算子 (!) のヘルプを使
 
 これを頻繁に実行し、問題のエンティティ型が EF Core クエリで主に (または排他的に) 使用されている場合は、ナビゲーションプロパティを null 非許容にし、Fluent API またはデータ注釈を使用してオプションとして構成することを検討してください。 これにより、リレーションシップを省略可能にしたまま、すべてのコンパイラ警告が削除されます。ただし、EF Core の外部でエンティティを走査した場合、プロパティには null 非許容として注釈が付けられますが、null 値を確認することができます。
 
-## <a name="scaffolding"></a>スキャフォールディング
+## <a name="limitations"></a>制限事項
 
-[現在C# 、次の8つの null 許容型機能](/dotnet/csharp/tutorials/nullable-reference-types)はリバースエンジニアリングではC#サポートされていません。 EF Core は、機能がオフであると想定しているコードを常に生成します。 たとえば、null 値が許容されるテキスト列は、プロパティが必要かどうかを構成するために使用される Fluent API またはデータ注釈が `string?`ではなく `string` 型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、null 値を許容C#する注釈に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)問題によって追跡されます。
+* リバースエンジニアリングでは、現在、 [ C# 8 つの null 値を許容する参照型 (nrts)](/dotnet/csharp/tutorials/nullable-reference-types)はサポートされていません。 EF Core は、機能が無効であると仮定するコードを常に生成C#します。 たとえば、null 値が許容されるテキスト列は、プロパティが必要かどうかを構成するために使用される Fluent API またはデータ注釈が `string?`ではなく `string` 型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、null 値を許容C#する注釈に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)問題によって追跡されます。
+* EF Core のパブリック API サーフェイスには、null 値の許容属性 (パブリック API が "無関係") に対してまだ注釈が付けられていないため、NRT 機能が有効になっているときに使用するのが困難な場合があります。 これには、特に、EF Core によって公開される非同期 LINQ 演算子 (たとえば、「」を含む) が含ま[れます。](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_) 5\.0 リリースでは、このことに対処する予定です。

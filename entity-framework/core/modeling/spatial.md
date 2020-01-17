@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 8dae1ab949c77ffa08904b12a5716b729e6913a1
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 5b45f83ca7f02665f52ccfe16b5af506a6046a62
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502241"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124432"
 ---
 # <a name="spatial-data"></a>空間データ
 
@@ -240,6 +240,22 @@ apt-get install libsqlite3-mod-spatialite
 
 # macOS
 brew install libspatialite
+```
+
+残念ながら、新しいバージョンの PROJ (SpatiaLite の依存関係) は EF の既定の[SQLitePCLRaw バンドル](/dotnet/standard/data/sqlite/custom-versions#bundles)と互換性がありません。 この問題を回避するには、システム SQLite ライブラリを使用するカスタム[SQLitePCLRaw プロバイダー](/dotnet/standard/data/sqlite/custom-versions#sqlitepclraw-providers)を作成するか、または SpatiaLite のカスタムビルドをインストールして、PROJ サポートを無効にします。
+
+``` sh
+curl https://www.gaia-gis.it/gaia-sins/libspatialite-4.3.0a.tar.gz | tar -xz
+cd libspatialite-4.3.0a
+
+if [[ `uname -s` == Darwin* ]]; then
+    # Mac OS requires some minor patching
+    sed -i "" "s/shrext_cmds='\`test \\.\$module = .yes && echo .so \\|\\| echo \\.dylib\`'/shrext_cmds='.dylib'/g" configure
+fi
+
+./configure --disable-proj
+make
+make install
 ```
 
 ### <a name="configuring-srid"></a>SRID の構成

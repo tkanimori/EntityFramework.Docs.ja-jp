@@ -4,58 +4,58 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a628795e-64df-4f24-a5e8-76bc261e7ed8
 uid: core/modeling/backing-field
-ms.openlocfilehash: 288440a4494117fe59d27187e24424c4d2fd44ab
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.openlocfilehash: 20cf9dc9b0d556f29680bce588bcbdc4ea48fa74
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72811877"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124380"
 ---
 # <a name="backing-fields"></a>バッキング フィールド
 
-> [!NOTE]  
-> この機能は EF Core 1.1 で新たに追加されています。
+バッキングフィールドを使用すると、EF はプロパティではなくフィールドに対して読み取りや書き込みを行うことができます。 これは、クラス内のカプセル化を使用して、アプリケーションコードによるデータへのアクセスを制限したり、データへのアクセスを制限したりする場合に便利ですが、このような制限や機能強化を使用せずに、データベースに対して値の読み取りや書き込みを行う必要があります。
 
-バッキングフィールドを使用すると、EF はプロパティではなくフィールドに対して読み取りや書き込みを行うことができます。 これは、クラスのカプセル化を使用して、アプリケーションコードによるデータへのアクセスを制限したり、データへのアクセスを制限したりする場合に便利ですが、値は、これらの制限を使用せずに、データベースに対して読み取りや書き込みを行う必要があります。増強.
+## <a name="basic-configuration"></a>基本構成
 
-## <a name="conventions"></a>規約
-
-慣例により、次のフィールドは、特定のプロパティのバッキングフィールドとして検出されます (優先順位順に一覧表示されます)。 フィールドは、モデルに含まれているプロパティに対してのみ検出されます。 モデルに含まれるプロパティの詳細については、「[プロパティを除外 & を含める](included-properties.md)」を参照してください。
+慣例により、次のフィールドは、特定のプロパティのバッキングフィールドとして検出されます (優先順位順に一覧表示されます)。 
 
 * `_<camel-cased property name>`
 * `_<property name>`
 * `m_<camel-cased property name>`
 * `m_<property name>`
 
+次の例では、`Url` プロパティは、バッキングフィールドとして `_url` を持つように構成されています。
+
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/BackingField.cs#Sample)]
 
-バッキングフィールドが構成されている場合、EF は、プロパティ setter を使用するのではなく、データベースからエンティティインスタンスを具体化するときに、そのフィールドに直接書き込みます。 EF が他のタイミングで値の読み取りまたは書き込みを行う必要がある場合は、可能であればプロパティを使用します。 たとえば、EF がプロパティの値を更新する必要がある場合、プロパティ set アクセス操作子が定義されていれば、そのプロパティを使用します。 プロパティが読み取り専用の場合は、フィールドに書き込みます。
+バッキングフィールドは、モデルに含まれているプロパティに対してのみ検出されることに注意してください。 モデルに含まれるプロパティの詳細については、「[プロパティを除外 & を含める](included-properties.md)」を参照してください。
 
-## <a name="data-annotations"></a>データの注釈
+フィールド名が上記の規則に対応していない場合などに、バッキングフィールドを明示的に構成することもできます。
 
-データ注釈を使用してバッキングフィールドを構成することはできません。
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingField.cs?name=BackingField&highlight=5)]
 
-## <a name="fluent-api"></a>Fluent API
+## <a name="field-and-property-access"></a>フィールドアクセスとプロパティアクセス
 
-Fluent API を使用して、プロパティのバッキングフィールドを構成できます。
+既定では、EF は、バッキングフィールドが適切に構成されていることを前提として常に読み取りと書き込みを行います。プロパティは使用されません。 ただし、EF では他のアクセスパターンもサポートされています。 たとえば、次の例では、を具体化するときにのみバッキングフィールドに書き込むように EF に指示し、その他のすべての場合にプロパティを使用します。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingField.cs#Sample)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs?name=BackingFieldAccessMode&highlight=6)]
 
-### <a name="controlling-when-the-field-is-used"></a>フィールドが使用されるタイミングの制御
+サポートされているオプションの完全なセットについては、「 [Propertyaccessmode 列挙型](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode)」を参照してください。
 
-EF がフィールドまたはプロパティを使用するタイミングを構成できます。 サポートされているオプションについては、「 [Propertyaccessmode 列挙型](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode)」を参照してください。
+> [!NOTE]
+> EF Core 3.0 では、既定のプロパティアクセスモードが `PreferFieldDuringConstruction` から `PreferField`に変更されました。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs#Sample)]
+## <a name="field-only-properties"></a>フィールドのみのプロパティ
 
-### <a name="fields-without-a-property"></a>プロパティのないフィールド
+また、エンティティクラスに対応する CLR プロパティを持たない概念プロパティをモデルに作成することもできますが、代わりにフィールドを使用してエンティティにデータを格納します。 これは、データがエンティティの CLR 型ではなく、変更トラッカーに格納される[シャドウプロパティ](shadow-properties.md)とは異なります。 フィールドのみのプロパティは、一般に、エンティティクラスがプロパティの代わりにメソッドを使用して値を取得または設定する場合、またはフィールドがドメインモデル内でまったく公開されない場合 (主キーなど) に使用されます。
 
-また、エンティティクラスに対応する CLR プロパティを持たない概念プロパティをモデルに作成することもできますが、代わりにフィールドを使用してエンティティにデータを格納します。 これは、データが変更トラッカーに格納される[シャドウプロパティ](shadow-properties.md)とは異なります。 これは通常、エンティティクラスがメソッドを使用して値を取得/設定する場合に使用されます。
-
-EF には、`Property(...)` API のフィールド名を指定できます。 指定された名前のプロパティが存在しない場合、EF はフィールドを検索します。
+フィールドのみのプロパティを構成するには、`Property(...)` API で名前を指定します。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldNoProperty.cs#Sample)]
 
-エンティティクラスにプロパティがない場合は、LINQ クエリで `EF.Property(...)` メソッドを使用して、モデルの概念の一部であるプロパティを参照できます。
+EF は、指定された名前を持つ CLR プロパティを見つけようとします。プロパティが見つからない場合は、フィールドを検索します。 プロパティもフィールドも見つからない場合は、代わりに shadow プロパティが設定されます。
+
+LINQ クエリからはフィールドのみのプロパティを参照する必要がありますが、このようなフィールドは通常はプライベートです。 LINQ クエリで `EF.Property(...)` メソッドを使用して、フィールドを参照できます。
 
 ``` csharp
 var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "_validatedUrl"));
