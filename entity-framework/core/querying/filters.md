@@ -3,12 +3,12 @@ title: グローバル クエリ フィルター - EF Core
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: c9bbb8a5889834ea078ddb7e432863b3d0cf2ffe
-ms.sourcegitcommit: 0cc9578fd49802789a00c0044b4e57325476ca2e
+ms.openlocfilehash: f4ee9b77411290249e763f9cb8492eea61803e91
+ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/04/2019
-ms.locfileid: "70271458"
+ms.lasthandoff: 01/16/2020
+ms.locfileid: "76124393"
 ---
 # <a name="global-query-filters"></a>グローバル クエリ フィルター
 
@@ -55,5 +55,4 @@ _HasQueryFilter_ 呼び出しに渡される述語式は、型に対応するい
 
 グローバル クエリ フィルターには、次の制限があります。
 
-* フィルターは、ナビゲーション プロパティへの参照を含むことはできません。
 * フィルターは、継承階層のルート エンティティ型に対してのみ定義できます。
