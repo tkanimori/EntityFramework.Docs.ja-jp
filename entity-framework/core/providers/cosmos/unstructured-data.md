@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/unstructured-data
-ms.openlocfilehash: 0bfccbfd3af6e209967004752b5a3947d644544b
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 69f979d46174ff56310b334f28438ac271f45155
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655513"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888097"
 ---
 # <a name="working-with-unstructured-data-in-ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダーでの非構造化データの操作
 
@@ -55,11 +55,11 @@ EF Core から完全に切り離すには、 [AZURE COSMOS DB SDK の一部](/az
 
 ## <a name="missing-property-values"></a>プロパティ値がありません
 
-前の例では、順序から `"TrackingNumber"` プロパティを削除しました。 Cosmos DB でのインデックス作成がどのように機能するのかによって、プロジェクション以外の場所に存在しないプロパティを参照するクエリは、予期しない結果を返す可能性があります。 (例:
+前の例では、順序から `"TrackingNumber"` プロパティを削除しました。 Cosmos DB でのインデックス作成がどのように機能するのかによって、プロジェクション以外の場所に存在しないプロパティを参照するクエリは、予期しない結果を返す可能性があります。 例:
 
 [!code-csharp[MissingProperties](../../../../samples/core/Cosmos/UnstructuredData/Sample.cs?name=MissingProperties)]
 
 並べ替えられたクエリは実際には結果を返しません。 つまり、ストアを直接操作するときは、常に EF Core によってマップされたプロパティを設定する必要があります。
 
 > [!NOTE]
-> この動作は、Cosmos の将来のバージョンで変更される可能性があります。 たとえば、インデックス作成ポリシーで複合インデックス {Id/を定義している場合は、 ASC、TrackingNumber/? ASC)}、"ORDER BY c.Id ASC, c. 識別子 ASC ' が含まれているクエリは、`"TrackingNumber"` プロパティが欠落している項目__を返します__。
+> この動作は、Cosmos の将来のバージョンで変更される可能性があります。 たとえば、インデックス作成ポリシーで複合インデックス {Id/を定義している場合は、 ASC、TrackingNumber/? ASC)}、"ORDER BY c.Id ASC, c. 識別子 ASC ' を持つクエリでは、`"TrackingNumber"` プロパティがない項目__が返され__ます。
