@@ -21,7 +21,7 @@
           href: core/index.md
         - name: リリースと計画
           items:
-            - name: 概要
+            - name: 現在のリリースと予定されているリリース (ロードマップ)
               href: core/what-is-new/index.md
             - name: リリースの計画プロセス
               href: core/what-is-new/release-planning.md

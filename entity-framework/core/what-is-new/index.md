@@ -1,15 +1,15 @@
 ---
 title: EF Core のリリースと計画
 author: ajcvickers
-ms.date: 01/14/2020
+ms.date: 01/29/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 8d74c24021fd62c5c5d944eaf3973b344fdb1e9c
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.openlocfilehash: 0704b624a50d0736fefbb5633e9e7e657499a703
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76124406"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888076"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core のリリースと計画
 
@@ -35,18 +35,32 @@ ms.locfileid: "76124406"
 * メジャー バージョンの更新 (たとえば、EF Core 2 から EF Core 3) には、多くの場合、破壊的変更が含まれています。 メジャー バージョン間で更新を行う場合は、完全なテストを行うことをお勧めします。 破壊的変更に対処するためのガイダンスについては、上の破壊的変更に関するリンクをご覧ください。
 * マイナー バージョンの更新には、通常、破壊的変更は含まれていません。 ただし、新しい機能によって回帰が生じる可能性があるため、やはり完全なテストを行うことをお勧めします。
 
+## <a name="release-planning-and-schedules"></a>リリース計画とスケジュール
+
+EF Core のリリースは、[.NET Core の出荷スケジュール](https://github.com/dotnet/core/blob/master/roadmap.md)に合わせて行われます。
+
+通常、修正プログラムのリリースは月単位で出荷されますが、長いリード タイムがあります。
+Microsoft では、これを改善するために取り組んでいます。
+
+各リリースで出荷される内容の決定方法の詳細については、「[リリースの計画プロセス](release-planning.md)」を参照してください。
+通常、次のメジャー リリースまたはマイナー リリースよりもさらに詳細な計画を行うことはありません。
+
 ## <a name="ef-core-50"></a>EF Core 5.0
 
-EF Core のリリースは、[.NET Core の出荷スケジュール](https://github.com/dotnet/core/blob/master/roadmap.md)に合わせて行われます。 次に予定されている安定版リリースは、2020 年 11 月にスケジュールされている **EF Core 5.0** です。
+次に予定されている安定版リリースは、2020 年 11 月にスケジュールされている **EF Core 5.0** です。
 
 [EF Core 5.0 の大まかな計画](ef-core-5.0/plan.md)は、[リリース計画プロセス](release-planning.md)のドキュメントに従って作成されています。
 
-計画に関するフィードバックは重要です。 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指) することです。 このデータが、次のリリースの計画プロセスに取り込まれます。
+計画に関するフィードバックは重要です。
+イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指 👍) することです。
+このデータが、次のリリースの計画プロセスに取り込まれます。
 
 ### <a name="get-it-now"></a>今すぐ入手しましょう
 
 EF Core 5.0 のパッケージが、[デイリー ビルド](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md)として**今すぐ入手**できます。 
 
-デイリー ビルドの使用は、イシューを発見し、できるだけ早くフィードバックを提供する優れた方法です。 フィードバックが早く得られるほど、次の公式リリースまでに対処できる可能性が高くなります。 各ビルドのプラットフォームあたり 55,000 以上ものテストを実行することで、デイリー ビルドを良好な状態に保っています。
+デイリー ビルドの使用は、イシューを発見し、できるだけ早くフィードバックを提供する優れた方法です。
+フィードバックが早く得られるほど、次の公式リリースまでに対処できる可能性が高くなります。
+各ビルドのプラットフォームあたり 56,000 以上ものテストを実行することで、デイリー ビルドを良好な状態に保っています。
 
 プレビュー パッケージは、その年の後半に NuGet で配布されます。
