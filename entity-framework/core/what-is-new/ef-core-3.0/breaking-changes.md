@@ -3,12 +3,12 @@ title: EF Core 3.0 での破壊的変更 - EF Core
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 0626ffe98843fbf5ee0e2de4b269da6c395c07f6
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.openlocfilehash: 6e0c17a22b56b206f18e47f678e3e237d5c42375
+ms.sourcegitcommit: b3cf5d2e3cb170b9916795d1d8c88678269639b1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781223"
+ms.lasthandoff: 01/30/2020
+ms.locfileid: "76888110"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
 
@@ -109,6 +109,9 @@ ms.locfileid: "75781223"
 
 [問題 #15498 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15498)
 
+> [!IMPORTANT] 
+> EF Core 3.1 では .NET Standard 2.0 が再度ターゲットにされています。 このため、.NET Framework のサポートが復活します。
+
 **以前の動作**
 
 3\.0 以前の EF Core の場合は、.NET Standard 2.0 がターゲットとされ、その標準をサポートするすべてのプラットフォーム (.NET Framework を含む) 上で実行されていました。
@@ -123,7 +126,7 @@ ms.locfileid: "75781223"
 
 **軽減策**
 
-最新の .NET プラットフォームへの移行を検討してください。 これが不可能な場合は、EF Core 2.1 または EF Core 2.2 を引き続き使用します。どちらも .NET Framework をサポートしています。
+EF Core 3.1 を使用します。
 
 <a name="no-longer"></a>
 ### <a name="entity-framework-core-is-no-longer-part-of-the-aspnet-core-shared-framework"></a>Entity Framework Core が ASP.NET Core 共有フレームワークの一部ではなくなった
