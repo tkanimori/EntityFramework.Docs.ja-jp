@@ -19,9 +19,9 @@
       items:
         - name: 概要
           href: core/index.md
-        - name: リリースと計画
+        - name: リリースと計画 (ロードマップ)
           items:
-            - name: 現在のリリースと予定されているリリース (ロードマップ)
+            - name: 現在のリリースと予定されているリリース
               href: core/what-is-new/index.md
             - name: リリースの計画プロセス
               href: core/what-is-new/release-planning.md
@@ -29,6 +29,8 @@
               items:
                 - name: 大まかな計画
                   href: core/what-is-new/ef-core-5.0/plan.md
+                - name: 新着記事
+                  href: core/what-is-new/ef-core-5.0/whatsnew.md
             - name: EF Core 3.0
               items:
                 - name: 新機能
