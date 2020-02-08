@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するときにエンティティ型
 author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
-ms.openlocfilehash: 6b3e0636bfa266b78baafe1b6e318c9707294560
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
+ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502189"
+ms.lasthandoff: 02/06/2020
+ms.locfileid: "77051408"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -26,9 +26,9 @@ ms.locfileid: "75502189"
 
 * **プリンシパルエンティティ:** これは、主キーと代替キーのプロパティを含むエンティティです。 リレーションシップの "親" と呼ばれることもあります。
 
-* **外部キー:** 関連エンティティのプリンシパルキー値を格納するために使用される、依存エンティティ内のプロパティ。
-
 * **プリンシパルキー:** プリンシパルエンティティを一意に識別するプロパティです。 これは、主キーまたは代替キーの場合があります。
+
+* **外部キー:** 関連エンティティのプリンシパルキー値を格納するために使用される、依存エンティティ内のプロパティ。
 
 * **ナビゲーションプロパティ:** 関連エンティティを参照するプリンシパルエンティティまたは依存エンティティで定義されたプロパティ。
 
@@ -48,9 +48,9 @@ ms.locfileid: "75502189"
 
 * `Blog` はプリンシパルエンティティです。
 
-* `Post.BlogId` は外部キーです。
-
 * `Blog.BlogId` がプリンシパルキー (この場合は、代替キーではなく主キー) です。
+
+* `Post.BlogId` は外部キーです。
 
 * `Post.Blog` は参照ナビゲーションプロパティです
 
@@ -58,7 +58,7 @@ ms.locfileid: "75502189"
 
 * `Post.Blog` は `Blog.Posts` の逆ナビゲーションプロパティ (およびその逆) です。
 
-## <a name="conventions"></a>規約
+## <a name="conventions"></a>規則
 
 既定では、型に対してナビゲーションプロパティが検出されると、リレーションシップが作成されます。 プロパティは、参照先の型が現在のデータベースプロバイダーによってスカラー型としてマップされていない場合、ナビゲーションプロパティと見なされます。
 
