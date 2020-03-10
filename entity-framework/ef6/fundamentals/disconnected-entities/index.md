@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
 ms.openlocfilehash: f1ce44e7b00ec4c60a81ed850ce5c9d866495e1b
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181769"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413367"
 ---
 # <a name="working-with-disconnected-entities"></a>接続解除エンティティの使用
 Entity Framework ベースのアプリケーションでは、追跡しているエンティティに適用された変更はコンテキスト クラスが検出します。 SaveChanges メソッドを呼び出すと、コンテキストによって追跡された変更がデータベースに永続化されます。 n 層アプリケーションを使用する場合、エンティティ オブジェクトはコンテキストから切り離されるときに通常変更され、変更を追跡する方法およびそれらの変更をコンテキストにレポートする方法を決定する必要があります。 このトピックでは、Entity Framework で接続解除エンティティを使用するときに使用できるさまざまなオプションについて説明します。   

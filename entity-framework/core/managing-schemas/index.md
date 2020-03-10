@@ -3,11 +3,11 @@ title: データベース スキーマを管理する - EF Core
 author: bricelam
 ms.date: 10/30/2017
 ms.openlocfilehash: 2da17865cb0192fb3e6e3396e4ca5f31fde9c52a
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655640"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78412737"
 ---
 # <a name="managing-database-schemas"></a>データベース スキーマを管理する
 
