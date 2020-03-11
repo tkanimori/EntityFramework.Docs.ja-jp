@@ -4,42 +4,42 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
 ms.openlocfilehash: 1c889877b827408919c6170cf997e8805cc607cf
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824829"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415749"
 ---
-# <a name="fluent-api-with-vbnet"></a><span data-ttu-id="fc522-102">VB.NET を使用した Fluent API</span><span class="sxs-lookup"><span data-stu-id="fc522-102">Fluent API with VB.NET</span></span>
-<span data-ttu-id="fc522-103">Code First では、C\# または VB.NET クラスを使用してモデルを定義できます。</span><span class="sxs-lookup"><span data-stu-id="fc522-103">Code First allows you to define your model using C\# or VB.NET classes.</span></span> <span data-ttu-id="fc522-104">追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。</span><span class="sxs-lookup"><span data-stu-id="fc522-104">Additional configuration can optionally be performed using attributes on your classes and properties or by using a fluent API.</span></span> <span data-ttu-id="fc522-105">このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="fc522-105">This walkthrough shows how to perform fluent API configuration using VB.NET.</span></span>
+# <a name="fluent-api-with-vbnet"></a><span data-ttu-id="8c2b9-102">VB.NET を使用した Fluent API</span><span class="sxs-lookup"><span data-stu-id="8c2b9-102">Fluent API with VB.NET</span></span>
+<span data-ttu-id="8c2b9-103">Code First では、C\# または VB.NET クラスを使用してモデルを定義できます。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-103">Code First allows you to define your model using C\# or VB.NET classes.</span></span> <span data-ttu-id="8c2b9-104">追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-104">Additional configuration can optionally be performed using attributes on your classes and properties or by using a fluent API.</span></span> <span data-ttu-id="8c2b9-105">このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-105">This walkthrough shows how to perform fluent API configuration using VB.NET.</span></span>
 
-<span data-ttu-id="fc522-106">このページでは、Code First についての基本的な知識があることを前提としています。</span><span class="sxs-lookup"><span data-stu-id="fc522-106">This page assumes you have a basic understanding of Code First.</span></span> <span data-ttu-id="fc522-107">Code First の詳細については、次のチュートリアルを参照してください。</span><span class="sxs-lookup"><span data-stu-id="fc522-107">Check out the following walkthroughs for more information on Code First:</span></span>
+<span data-ttu-id="8c2b9-106">このページでは、Code First についての基本的な知識があることを前提としています。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-106">This page assumes you have a basic understanding of Code First.</span></span> <span data-ttu-id="8c2b9-107">Code First の詳細については、次のチュートリアルを参照してください。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-107">Check out the following walkthroughs for more information on Code First:</span></span>
 
--   [<span data-ttu-id="fc522-108">新しいデータベースの Code First</span><span class="sxs-lookup"><span data-stu-id="fc522-108">Code First to a New Database</span></span>](~/ef6/modeling/code-first/workflows/new-database.md)
--   [<span data-ttu-id="fc522-109">既存のデータベースへの Code First</span><span class="sxs-lookup"><span data-stu-id="fc522-109">Code First to an Existing Database</span></span>](~/ef6/modeling/code-first/workflows/existing-database.md)
+-   [<span data-ttu-id="8c2b9-108">新しいデータベースの Code First</span><span class="sxs-lookup"><span data-stu-id="8c2b9-108">Code First to a New Database</span></span>](~/ef6/modeling/code-first/workflows/new-database.md)
+-   [<span data-ttu-id="8c2b9-109">既存のデータベースへの Code First</span><span class="sxs-lookup"><span data-stu-id="8c2b9-109">Code First to an Existing Database</span></span>](~/ef6/modeling/code-first/workflows/existing-database.md)
 
-## <a name="pre-requisites"></a><span data-ttu-id="fc522-110">前提条件</span><span class="sxs-lookup"><span data-stu-id="fc522-110">Pre-Requisites</span></span>
+## <a name="pre-requisites"></a><span data-ttu-id="8c2b9-110">前提条件</span><span class="sxs-lookup"><span data-stu-id="8c2b9-110">Pre-Requisites</span></span>
 
-<span data-ttu-id="fc522-111">このチュートリアルを完了するには、少なくとも Visual Studio 2010 または Visual Studio 2012 がインストールされている必要があります。</span><span class="sxs-lookup"><span data-stu-id="fc522-111">You will need to have at least Visual Studio 2010 or Visual Studio 2012 installed to complete this walkthrough.</span></span>
+<span data-ttu-id="8c2b9-111">このチュートリアルを完了するには、少なくとも Visual Studio 2010 または Visual Studio 2012 がインストールされている必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-111">You will need to have at least Visual Studio 2010 or Visual Studio 2012 installed to complete this walkthrough.</span></span>
 
-<span data-ttu-id="fc522-112">Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)もインストールする必要があります。</span><span class="sxs-lookup"><span data-stu-id="fc522-112">If you are using Visual Studio 2010, you will also need to have [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installed</span></span>
+<span data-ttu-id="8c2b9-112">Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)もインストールする必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-112">If you are using Visual Studio 2010, you will also need to have [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) installed</span></span>
 
-## <a name="create-the-application"></a><span data-ttu-id="fc522-113">アプリケーションを作成する</span><span class="sxs-lookup"><span data-stu-id="fc522-113">Create the Application</span></span>
+## <a name="create-the-application"></a><span data-ttu-id="8c2b9-113">アプリケーションを作成する</span><span class="sxs-lookup"><span data-stu-id="8c2b9-113">Create the Application</span></span>
 
-<span data-ttu-id="fc522-114">単純にするために、Code First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。</span><span class="sxs-lookup"><span data-stu-id="fc522-114">To keep things simple we’re going to build a basic console application that uses Code First to perform data access.</span></span>
+<span data-ttu-id="8c2b9-114">単純にするために、Code First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-114">To keep things simple we’re going to build a basic console application that uses Code First to perform data access.</span></span>
 
--   <span data-ttu-id="fc522-115">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="fc522-115">Open Visual Studio</span></span>
--   <span data-ttu-id="fc522-116">**ファイル&gt; 新規&gt; プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="fc522-116">**File -&gt; New -&gt; Project…**</span></span>
--   <span data-ttu-id="fc522-117">左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="fc522-117">Select **Windows** from the left menu and **Console Application**</span></span>
--   <span data-ttu-id="fc522-118">名前として「 **Codefirstvbsample** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="fc522-118">Enter **CodeFirstVBSample** as the name</span></span>
--   <span data-ttu-id="fc522-119">**[OK]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="fc522-119">Select **OK**</span></span>
+-   <span data-ttu-id="8c2b9-115">Visual Studio を開きます</span><span class="sxs-lookup"><span data-stu-id="8c2b9-115">Open Visual Studio</span></span>
+-   <span data-ttu-id="8c2b9-116">**ファイル&gt; 新規&gt; プロジェクト...**</span><span class="sxs-lookup"><span data-stu-id="8c2b9-116">**File -&gt; New -&gt; Project…**</span></span>
+-   <span data-ttu-id="8c2b9-117">左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-117">Select **Windows** from the left menu and **Console Application**</span></span>
+-   <span data-ttu-id="8c2b9-118">名前として「 **Codefirstvbsample** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-118">Enter **CodeFirstVBSample** as the name</span></span>
+-   <span data-ttu-id="8c2b9-119">**[OK]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-119">Select **OK**</span></span>
 
-## <a name="define-the-model"></a><span data-ttu-id="fc522-120">モデルを定義する</span><span class="sxs-lookup"><span data-stu-id="fc522-120">Define the Model</span></span>
+## <a name="define-the-model"></a><span data-ttu-id="8c2b9-120">モデルを定義する</span><span class="sxs-lookup"><span data-stu-id="8c2b9-120">Define the Model</span></span>
 
-<span data-ttu-id="fc522-121">この手順では、概念モデルを表す VB.NET POCO エンティティ型を定義します。</span><span class="sxs-lookup"><span data-stu-id="fc522-121">In this step you will define VB.NET POCO entity types that represent the conceptual model.</span></span> <span data-ttu-id="fc522-122">クラスは、基底クラスから派生したり、インターフェイスを実装したりする必要はありません。</span><span class="sxs-lookup"><span data-stu-id="fc522-122">The classes do not need to derive from any base classes or implement any interfaces.</span></span>
+<span data-ttu-id="8c2b9-121">この手順では、概念モデルを表す VB.NET POCO エンティティ型を定義します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-121">In this step you will define VB.NET POCO entity types that represent the conceptual model.</span></span> <span data-ttu-id="8c2b9-122">クラスは、基底クラスから派生したり、インターフェイスを実装したりする必要はありません。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-122">The classes do not need to derive from any base classes or implement any interfaces.</span></span>
 
--   <span data-ttu-id="fc522-123">新しいクラスをプロジェクトに追加し、クラス名として「 **SchoolModel** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="fc522-123">Add a new class to the project, enter **SchoolModel** for the class name</span></span>
--   <span data-ttu-id="fc522-124">新しいクラスの内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="fc522-124">Replace the contents of the new class with the following code</span></span>
+-   <span data-ttu-id="8c2b9-123">新しいクラスをプロジェクトに追加し、クラス名として「 **SchoolModel** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-123">Add a new class to the project, enter **SchoolModel** for the class name</span></span>
+-   <span data-ttu-id="8c2b9-124">新しいクラスの内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-124">Replace the contents of the new class with the following code</span></span>
 
 ``` vb
 Public Class Department
@@ -133,21 +133,21 @@ Public Class OfficeAssignment
 End Class
 ```
 
-## <a name="define-a-derived-context"></a><span data-ttu-id="fc522-125">派生コンテキストを定義する</span><span class="sxs-lookup"><span data-stu-id="fc522-125">Define a Derived Context</span></span>
+## <a name="define-a-derived-context"></a><span data-ttu-id="8c2b9-125">派生コンテキストを定義する</span><span class="sxs-lookup"><span data-stu-id="8c2b9-125">Define a Derived Context</span></span>
 
-<span data-ttu-id="fc522-126">Entity Framework の型の使用を開始しようとしています。 EntityFramework NuGet パッケージを追加する必要があります。</span><span class="sxs-lookup"><span data-stu-id="fc522-126">We’re about to start to using types from the Entity Framework so we need to add the EntityFramework NuGet package.</span></span>
+<span data-ttu-id="8c2b9-126">Entity Framework の型の使用を開始しようとしています。 EntityFramework NuGet パッケージを追加する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-126">We’re about to start to using types from the Entity Framework so we need to add the EntityFramework NuGet package.</span></span>
 
--   <span data-ttu-id="fc522-127">\* \* プロジェクト–&gt; **NuGet パッケージの管理...**</span><span class="sxs-lookup"><span data-stu-id="fc522-127">\*\*Project –&gt; **Manage NuGet Packages…**</span></span>
+-   <span data-ttu-id="8c2b9-127">\* \* プロジェクト–&gt; **NuGet パッケージの管理...**</span><span class="sxs-lookup"><span data-stu-id="8c2b9-127">\*\*Project –&gt; **Manage NuGet Packages…**</span></span>
 > [!NOTE]
-> <span data-ttu-id="fc522-128">**NuGet パッケージの管理...**</span><span class="sxs-lookup"><span data-stu-id="fc522-128">If you don’t have the **Manage NuGet Packages…**</span></span> <span data-ttu-id="fc522-129">オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります</span><span class="sxs-lookup"><span data-stu-id="fc522-129">option you should install the [latest version of NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)</span></span>
--   <span data-ttu-id="fc522-130">**[オンライン]** タブを選択します。</span><span class="sxs-lookup"><span data-stu-id="fc522-130">Select the **Online** tab</span></span>
--   <span data-ttu-id="fc522-131">**Entityframework**パッケージを選択します</span><span class="sxs-lookup"><span data-stu-id="fc522-131">Select the **EntityFramework** package</span></span>
--   <span data-ttu-id="fc522-132">**[Install]** (インストール) をクリックします。</span><span class="sxs-lookup"><span data-stu-id="fc522-132">Click **Install**</span></span>
+> <span data-ttu-id="8c2b9-128">**NuGet パッケージの管理...**</span><span class="sxs-lookup"><span data-stu-id="8c2b9-128">If you don’t have the **Manage NuGet Packages…**</span></span> <span data-ttu-id="8c2b9-129">オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります</span><span class="sxs-lookup"><span data-stu-id="8c2b9-129">option you should install the [latest version of NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)</span></span>
+-   <span data-ttu-id="8c2b9-130">**[オンライン]** タブを選択します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-130">Select the **Online** tab</span></span>
+-   <span data-ttu-id="8c2b9-131">**Entityframework**パッケージを選択します</span><span class="sxs-lookup"><span data-stu-id="8c2b9-131">Select the **EntityFramework** package</span></span>
+-   <span data-ttu-id="8c2b9-132">**[インストール]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-132">Click **Install**</span></span>
 
-<span data-ttu-id="fc522-133">次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。</span><span class="sxs-lookup"><span data-stu-id="fc522-133">Now it’s time to define a derived context, which represents a session with the database, allowing us to query and save data.</span></span> <span data-ttu-id="fc522-134">ここでは、TEntity から派生し、モデル内のクラスごとに型指定された Dbcontext&lt;&gt; を公開するコンテキストを定義します。</span><span class="sxs-lookup"><span data-stu-id="fc522-134">We define a context that derives from System.Data.Entity.DbContext and exposes a typed DbSet&lt;TEntity&gt; for each class in our model.</span></span>
+<span data-ttu-id="8c2b9-133">次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-133">Now it’s time to define a derived context, which represents a session with the database, allowing us to query and save data.</span></span> <span data-ttu-id="8c2b9-134">ここでは、TEntity から派生し、モデル内のクラスごとに型指定された Dbcontext&lt;&gt; を公開するコンテキストを定義します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-134">We define a context that derives from System.Data.Entity.DbContext and exposes a typed DbSet&lt;TEntity&gt; for each class in our model.</span></span>
 
--   <span data-ttu-id="fc522-135">新しいクラスをプロジェクトに追加し、クラス名として「 **schoolcontext.cs** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="fc522-135">Add a new class to the project, enter **SchoolContext** for the class name</span></span>
--   <span data-ttu-id="fc522-136">新しいクラスの内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="fc522-136">Replace the contents of the new class with the following code</span></span>
+-   <span data-ttu-id="8c2b9-135">新しいクラスをプロジェクトに追加し、クラス名として「 **schoolcontext.cs** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-135">Add a new class to the project, enter **SchoolContext** for the class name</span></span>
+-   <span data-ttu-id="8c2b9-136">新しいクラスの内容を次のコードに置き換えます。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-136">Replace the contents of the new class with the following code</span></span>
 
 ```vb
 Imports System.ComponentModel.DataAnnotations
@@ -169,11 +169,11 @@ Public Class SchoolContext
 End Class
 ```
 
-## <a name="configuring-with-the-fluent-api"></a><span data-ttu-id="fc522-137">Fluent API を使用したの構成</span><span class="sxs-lookup"><span data-stu-id="fc522-137">Configuring with the Fluent API</span></span>
+## <a name="configuring-with-the-fluent-api"></a><span data-ttu-id="8c2b9-137">Fluent API を使用したの構成</span><span class="sxs-lookup"><span data-stu-id="8c2b9-137">Configuring with the Fluent API</span></span>
 
-<span data-ttu-id="fc522-138">このセクションでは、fluent Api を使用して、テーブルマッピングの種類、列マッピングのプロパティ、モデル内の\\型のテーブル間のリレーションシップを構成する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="fc522-138">This section demonstrates how to use the fluent APIs to configure types to tables mapping, properties to columns mapping, and relationships between tables\\type in your model.</span></span> <span data-ttu-id="fc522-139">Fluent API は**Dbmodelbuilder**型によって公開され、 **Dbcontext**で**onmodelcreating**メソッドをオーバーライドすることによって最も一般的にアクセスされます。</span><span class="sxs-lookup"><span data-stu-id="fc522-139">The fluent API is exposed through the **DbModelBuilder** type and is most commonly accessed by overriding the **OnModelCreating** method on **DbContext**.</span></span>
+<span data-ttu-id="8c2b9-138">このセクションでは、fluent Api を使用して、テーブルマッピングの種類、列マッピングのプロパティ、モデル内の\\型のテーブル間のリレーションシップを構成する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-138">This section demonstrates how to use the fluent APIs to configure types to tables mapping, properties to columns mapping, and relationships between tables\\type in your model.</span></span> <span data-ttu-id="8c2b9-139">Fluent API は**Dbmodelbuilder**型によって公開され、 **Dbcontext**で**onmodelcreating**メソッドをオーバーライドすることによって最も一般的にアクセスされます。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-139">The fluent API is exposed through the **DbModelBuilder** type and is most commonly accessed by overriding the **OnModelCreating** method on **DbContext**.</span></span>
 
--   <span data-ttu-id="fc522-140">次のコードをコピーし、 **schoolcontext.cs**クラスで定義されている**onmodelcreating**メソッドに追加します。コメントは、各マッピングの内容を説明します。</span><span class="sxs-lookup"><span data-stu-id="fc522-140">Copy the following code and add it to the **OnModelCreating** method defined on the **SchoolContext** class The comments explain what each mapping does</span></span>
+-   <span data-ttu-id="8c2b9-140">次のコードをコピーし、 **schoolcontext.cs**クラスで定義されている**onmodelcreating**メソッドに追加します。コメントは、各マッピングの内容を説明します。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-140">Copy the following code and add it to the **OnModelCreating** method defined on the **SchoolContext** class The comments explain what each mapping does</span></span>
 
 ``` vb
 ' Configure Code First to ignore PluralizingTableName convention
@@ -363,12 +363,12 @@ modelBuilder.Entity(Of Course)().
     WillCascadeOnDelete(False)
 ```
 
-## <a name="using-the-model"></a><span data-ttu-id="fc522-141">モデルの使用</span><span class="sxs-lookup"><span data-stu-id="fc522-141">Using the Model</span></span>
+## <a name="using-the-model"></a><span data-ttu-id="8c2b9-141">モデルの使用</span><span class="sxs-lookup"><span data-stu-id="8c2b9-141">Using the Model</span></span>
 
-<span data-ttu-id="fc522-142">**Schoolcontext.cs**を使用していくつかのデータアクセスを実行し、モデルの動作を確認してみましょう。</span><span class="sxs-lookup"><span data-stu-id="fc522-142">Let's perform some data access using the **SchoolContext** to see out model in action.</span></span>
+<span data-ttu-id="8c2b9-142">**Schoolcontext.cs**を使用していくつかのデータアクセスを実行し、モデルの動作を確認してみましょう。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-142">Let's perform some data access using the **SchoolContext** to see out model in action.</span></span>
 
--   <span data-ttu-id="fc522-143">Main 関数が定義されている module1.vb ファイルを開きます。</span><span class="sxs-lookup"><span data-stu-id="fc522-143">Open the Module1.vb file where the Main function is defined</span></span>
--   <span data-ttu-id="fc522-144">次の Module1 の定義をコピーして貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="fc522-144">Copy and paste the following Module1 definition</span></span>
+-   <span data-ttu-id="8c2b9-143">Main 関数が定義されている module1.vb ファイルを開きます。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-143">Open the Module1.vb file where the Main function is defined</span></span>
+-   <span data-ttu-id="8c2b9-144">次の Module1 の定義をコピーして貼り付けます。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-144">Copy and paste the following Module1 definition</span></span>
 
 ``` vb
 Imports System.Data.Entity
@@ -408,7 +408,7 @@ Module Module1
 End Module
 ```
 
-<span data-ttu-id="fc522-145">これで、アプリケーションを実行してテストできるようになりました。</span><span class="sxs-lookup"><span data-stu-id="fc522-145">You can now run the application and test it out.</span></span>
+<span data-ttu-id="8c2b9-145">これで、アプリケーションを実行してテストできるようになりました。</span><span class="sxs-lookup"><span data-stu-id="8c2b9-145">You can now run the application and test it out.</span></span>
 
 ```console
 Enter a name for a new Department: Computing

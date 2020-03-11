@@ -1,24 +1,24 @@
 ---
-title: 最初のコード挿入、更新、および Delete ストアド プロシージャは、EF6
+title: ストアドプロシージャの挿入、更新、および削除の Code First-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9a7ae7f9-4072-4843-877d-506dd7eef576
 ms.openlocfilehash: bfc56671814aec1965ac054ff901297e5cdbbecb
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489623"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415773"
 ---
-# <a name="code-first-insert-update-and-delete-stored-procedures"></a><span data-ttu-id="6b7fd-102">最初のコード挿入、更新、および Delete ストアド プロシージャ</span><span class="sxs-lookup"><span data-stu-id="6b7fd-102">Code First Insert, Update, and Delete Stored Procedures</span></span>
+# <a name="code-first-insert-update-and-delete-stored-procedures"></a><span data-ttu-id="c061b-102">ストアドプロシージャの挿入、更新、および削除の Code First</span><span class="sxs-lookup"><span data-stu-id="c061b-102">Code First Insert, Update, and Delete Stored Procedures</span></span>
 > [!NOTE]
-> <span data-ttu-id="6b7fd-103">**EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-103">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="6b7fd-104">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-104">If you are using an earlier version, some or all of the information does not apply.</span></span>  
+> <span data-ttu-id="c061b-103">**EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="c061b-103">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="c061b-104">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="c061b-104">If you are using an earlier version, some or all of the information does not apply.</span></span>  
 
-<span data-ttu-id="6b7fd-105">既定では、Code First は構成すべてのエンティティの挿入を実行、更新、およびテーブルに直接アクセスを使用してコマンドを削除します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-105">By default, Code First will configure all entities to perform insert, update and delete commands using direct table access.</span></span> <span data-ttu-id="6b7fd-106">EF6 で起動するストアド プロシージャを使用して、モデルの一部またはすべてのエンティティの Code First モデルを構成できます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-106">Starting in EF6 you can configure your Code First model to use stored procedures for some or all entities in your model.</span></span>  
+<span data-ttu-id="c061b-105">既定では、Code First は、直接テーブルアクセスを使用して insert、update、および delete コマンドを実行するようにすべてのエンティティを構成します。</span><span class="sxs-lookup"><span data-stu-id="c061b-105">By default, Code First will configure all entities to perform insert, update and delete commands using direct table access.</span></span> <span data-ttu-id="c061b-106">EF6 以降では、モデル内の一部またはすべてのエンティティに対してストアドプロシージャを使用するように Code First モデルを構成できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-106">Starting in EF6 you can configure your Code First model to use stored procedures for some or all entities in your model.</span></span>  
 
-## <a name="basic-entity-mapping"></a><span data-ttu-id="6b7fd-107">基本的なエンティティのマッピング</span><span class="sxs-lookup"><span data-stu-id="6b7fd-107">Basic Entity Mapping</span></span>  
+## <a name="basic-entity-mapping"></a><span data-ttu-id="c061b-107">基本エンティティのマッピング</span><span class="sxs-lookup"><span data-stu-id="c061b-107">Basic Entity Mapping</span></span>  
 
-<span data-ttu-id="6b7fd-108">Insert ストアド プロシージャの使用を選択し、更新および Fluent API を使用して削除できます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-108">You can opt into using stored procedures for insert, update and delete using the Fluent API.</span></span>  
+<span data-ttu-id="c061b-108">Fluent API を使用して、挿入、更新、削除のストアドプロシージャを使用することを選択できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-108">You can opt into using stored procedures for insert, update and delete using the Fluent API.</span></span>  
 
 ``` csharp
 modelBuilder
@@ -26,17 +26,17 @@ modelBuilder
   .MapToStoredProcedures();
 ```  
 
-<span data-ttu-id="6b7fd-109">これを行うには、いくつかの規則を使用して、データベースのストアド プロシージャの予想される形状を構築する Code First が発生します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-109">Doing this will cause Code First to use some conventions to build the expected shape of the stored procedures in the database.</span></span>  
+<span data-ttu-id="c061b-109">この操作を行うと、Code First によって、データベース内のストアドプロシージャの想定される構造を構築するために何らかの規則が使用されます。</span><span class="sxs-lookup"><span data-stu-id="c061b-109">Doing this will cause Code First to use some conventions to build the expected shape of the stored procedures in the database.</span></span>  
 
-- <span data-ttu-id="6b7fd-110">3 つのストアド プロシージャの名前付き **\<type_name\>(_i)**、  **\<type_name\>更新 (_u)** と**\<種類名前\>削除 (_d)** (Blog_Insert、Blog_Update および Blog_Delete など)。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-110">Three stored procedures named **\<type_name\>_Insert**, **\<type_name\>_Update** and **\<type_name\>_Delete** (for example, Blog_Insert, Blog_Update and Blog_Delete).</span></span>  
-- <span data-ttu-id="6b7fd-111">パラメーター名は、プロパティ名に対応します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-111">Parameter names correspond to the property names.</span></span>  
+- <span data-ttu-id="c061b-110">\<という名前の3つのストアドプロシージャ**type_name\>_Insert**、 **\<** type_name\>_Update **\<type_name\>** _Delete の Blog_Insert)。</span><span class="sxs-lookup"><span data-stu-id="c061b-110">Three stored procedures named **\<type_name\>_Insert**, **\<type_name\>_Update** and **\<type_name\>_Delete** (for example, Blog_Insert, Blog_Update and Blog_Delete).</span></span>  
+- <span data-ttu-id="c061b-111">パラメーター名はプロパティ名に対応します。</span><span class="sxs-lookup"><span data-stu-id="c061b-111">Parameter names correspond to the property names.</span></span>  
   > [!NOTE]
-  > <span data-ttu-id="6b7fd-112">特定のプロパティの列の名前を変更する HasColumnName() または列の属性を使用する場合、この名前は、プロパティ名の代わりにパラメーターに使用されます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-112">If you use HasColumnName() or the Column attribute to rename the column for a given property then this name is used for parameters instead of the property name.</span></span>  
-- <span data-ttu-id="6b7fd-113">**Insert ストアド プロシージャ**ストア生成としてマークされているものを除く、すべてのプロパティのパラメーターになります (identity または計算)。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-113">**The insert stored procedure** will have a parameter for every property, except for those marked as store generated (identity or computed).</span></span> <span data-ttu-id="6b7fd-114">ストアド プロシージャは、生成されたストアの各プロパティの列を含む結果セットを返す必要があります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-114">The stored procedure should return a result set with a column for each store generated property.</span></span>  
-- <span data-ttu-id="6b7fd-115">**更新ストアド プロシージャ**'Computed' のストア生成パターンが付いているものを除く、すべてのプロパティのパラメーターになります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-115">**The update stored procedure** will have a parameter for every property, except for those marked with a store generated pattern of 'Computed'.</span></span> <span data-ttu-id="6b7fd-116">一部の同時実行トークンは、元の値のパラメーターが必要を参照してください、*同時実行制御トークン*詳細については後述します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-116">Some concurrency tokens require a parameter for the original value, see the *Concurrency Tokens* section below for details.</span></span> <span data-ttu-id="6b7fd-117">ストアド プロシージャは、計算の各プロパティの列を含む結果セットを返す必要があります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-117">The stored procedure should return a result set with a column for each computed property.</span></span>  
-- <span data-ttu-id="6b7fd-118">**ストアド プロシージャを削除**エンティティ (または複数のパラメーター エンティティが複合キーを持つ場合) のキー値のパラメーターが必要です。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-118">**The delete stored procedure** should have a parameter for the key value of the entity (or multiple parameters if the entity has a composite key).</span></span> <span data-ttu-id="6b7fd-119">さらに、delete プロシージャも必要な独立アソシエーションの外部キーのパラメーター (エンティティで宣言されている、対応する外部キー プロパティがないリレーションシップ) 対象のテーブルです。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-119">Additionally, the delete procedure should also have parameters for any independent association foreign keys on the target table (relationships that do not have corresponding foreign key properties declared in the entity).</span></span> <span data-ttu-id="6b7fd-120">一部の同時実行トークンは、元の値のパラメーターが必要を参照してください、*同時実行制御トークン*詳細については後述します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-120">Some concurrency tokens require a parameter for the original value, see the *Concurrency Tokens* section below for details.</span></span>  
+  > <span data-ttu-id="c061b-112">HasColumnName () または Column 属性を使用して特定のプロパティの列の名前を変更する場合、この名前はプロパティ名の代わりにパラメーターに使用されます。</span><span class="sxs-lookup"><span data-stu-id="c061b-112">If you use HasColumnName() or the Column attribute to rename the column for a given property then this name is used for parameters instead of the property name.</span></span>  
+- <span data-ttu-id="c061b-113">**Insert ストアドプロシージャ**には、store generated (id または計算済み) としてマークされているものを除き、すべてのプロパティのパラメーターがあります。</span><span class="sxs-lookup"><span data-stu-id="c061b-113">**The insert stored procedure** will have a parameter for every property, except for those marked as store generated (identity or computed).</span></span> <span data-ttu-id="c061b-114">ストアドプロシージャは、ストアが生成する各プロパティの列を含む結果セットを返す必要があります。</span><span class="sxs-lookup"><span data-stu-id="c061b-114">The stored procedure should return a result set with a column for each store generated property.</span></span>  
+- <span data-ttu-id="c061b-115">**Update ストアドプロシージャ**には、ストアで生成されたパターン ' 計算済み ' でマークされているものを除き、すべてのプロパティのパラメーターがあります。</span><span class="sxs-lookup"><span data-stu-id="c061b-115">**The update stored procedure** will have a parameter for every property, except for those marked with a store generated pattern of 'Computed'.</span></span> <span data-ttu-id="c061b-116">一部の同時実行トークンには、元の値のパラメーターが必要です。詳細については、後述の「*同時実行トークン*」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c061b-116">Some concurrency tokens require a parameter for the original value, see the *Concurrency Tokens* section below for details.</span></span> <span data-ttu-id="c061b-117">ストアドプロシージャは、計算されたプロパティごとに列を含む結果セットを返す必要があります。</span><span class="sxs-lookup"><span data-stu-id="c061b-117">The stored procedure should return a result set with a column for each computed property.</span></span>  
+- <span data-ttu-id="c061b-118">**Delete ストアドプロシージャに**は、エンティティのキー値のパラメーター (または、エンティティに複合キーがある場合は複数のパラメーター) が必要です。</span><span class="sxs-lookup"><span data-stu-id="c061b-118">**The delete stored procedure** should have a parameter for the key value of the entity (or multiple parameters if the entity has a composite key).</span></span> <span data-ttu-id="c061b-119">さらに、delete プロシージャには、ターゲットテーブルのすべての独立した関連付け外部キー (エンティティで宣言された対応する外部キープロパティがないリレーションシップ) のパラメーターも含まれている必要があります。</span><span class="sxs-lookup"><span data-stu-id="c061b-119">Additionally, the delete procedure should also have parameters for any independent association foreign keys on the target table (relationships that do not have corresponding foreign key properties declared in the entity).</span></span> <span data-ttu-id="c061b-120">一部の同時実行トークンには、元の値のパラメーターが必要です。詳細については、後述の「*同時実行トークン*」セクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="c061b-120">Some concurrency tokens require a parameter for the original value, see the *Concurrency Tokens* section below for details.</span></span>  
 
-<span data-ttu-id="6b7fd-121">例として、次のクラスの使用。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-121">Using the following class as an example:</span></span>  
+<span data-ttu-id="c061b-121">例として、次のクラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="c061b-121">Using the following class as an example:</span></span>  
 
 ``` csharp
 public class Blog  
@@ -47,7 +47,7 @@ public class Blog
 }
 ```  
 
-<span data-ttu-id="6b7fd-122">格納されている既定のプロシージャは次のようになります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-122">The default stored procedures would be:</span></span>  
+<span data-ttu-id="c061b-122">既定のストアドプロシージャは次のようになります。</span><span class="sxs-lookup"><span data-stu-id="c061b-122">The default stored procedures would be:</span></span>  
 
 ``` SQL
 CREATE PROCEDURE [dbo].[Blog_Insert]  
@@ -75,11 +75,11 @@ AS
   WHERE BlogId = @BlogId
 ```  
 
-### <a name="overriding-the-defaults"></a><span data-ttu-id="6b7fd-123">既定の設定をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-123">Overriding the Defaults</span></span>  
+### <a name="overriding-the-defaults"></a><span data-ttu-id="c061b-123">既定値のオーバーライド</span><span class="sxs-lookup"><span data-stu-id="c061b-123">Overriding the Defaults</span></span>  
 
-<span data-ttu-id="6b7fd-124">既定で構成された内容の一部またはすべてをオーバーライドすることができます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-124">You can override part or all of what was configured by default.</span></span>  
+<span data-ttu-id="c061b-124">既定で構成されていたものの一部またはすべてを上書きできます。</span><span class="sxs-lookup"><span data-stu-id="c061b-124">You can override part or all of what was configured by default.</span></span>  
 
-<span data-ttu-id="6b7fd-125">1 つまたは複数のストアド プロシージャの名前を変更することができます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-125">You can change the name of one or more stored procedures.</span></span> <span data-ttu-id="6b7fd-126">この例では、更新ストアド プロシージャのみを変更します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-126">This example renames the update stored procedure only.</span></span>  
+<span data-ttu-id="c061b-125">1つ以上のストアドプロシージャの名前を変更できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-125">You can change the name of one or more stored procedures.</span></span> <span data-ttu-id="c061b-126">この例では、update ストアドプロシージャの名前を変更します。</span><span class="sxs-lookup"><span data-stu-id="c061b-126">This example renames the update stored procedure only.</span></span>  
 
 ``` csharp
 modelBuilder  
@@ -88,7 +88,7 @@ modelBuilder
     s.Update(u => u.HasName("modify_blog")));
 ```  
 
-<span data-ttu-id="6b7fd-127">この例では、次の 3 つすべてのストアド プロシージャを変更します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-127">This example renames all three stored procedures.</span></span>  
+<span data-ttu-id="c061b-127">この例では、3つのストアドプロシージャの名前をすべて変更します。</span><span class="sxs-lookup"><span data-stu-id="c061b-127">This example renames all three stored procedures.</span></span>  
 
 ``` csharp
 modelBuilder  
@@ -99,7 +99,7 @@ modelBuilder
      .Insert(i => i.HasName("insert_blog")));
 ```  
 
-<span data-ttu-id="6b7fd-128">これらの例で、呼び出しは、連結しますが、ラムダのブロックの構文を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-128">In these examples the calls are chained together, but you can also use lambda block syntax.</span></span>  
+<span data-ttu-id="c061b-128">これらの例では、呼び出しは連結されていますが、ラムダブロック構文を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="c061b-128">In these examples the calls are chained together, but you can also use lambda block syntax.</span></span>  
 
 ``` csharp
 modelBuilder  
@@ -112,7 +112,7 @@ modelBuilder
     });
 ```  
 
-<span data-ttu-id="6b7fd-129">この例では、BlogId プロパティ更新ストアド プロシージャのパラメーターを変更します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-129">This example renames the parameter for the BlogId property on the update stored procedure.</span></span>  
+<span data-ttu-id="c061b-129">次の例では、update ストアドプロシージャの "ブログ Id" プロパティのパラメーターの名前を変更します。</span><span class="sxs-lookup"><span data-stu-id="c061b-129">This example renames the parameter for the BlogId property on the update stored procedure.</span></span>  
 
 ``` csharp
 modelBuilder  
@@ -121,7 +121,7 @@ modelBuilder
     s.Update(u => u.Parameter(b => b.BlogId, "blog_id")));
 ```  
 
-<span data-ttu-id="6b7fd-130">これらの呼び出しは、すべてのチェーンで構成可能なは。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-130">These calls are all chainable and composable.</span></span> <span data-ttu-id="6b7fd-131">次の 3 つすべてのストアド プロシージャとそのパラメーターの名前を変更する例を示します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-131">Here is an example that renames all three stored procedures and their parameters.</span></span>  
+<span data-ttu-id="c061b-130">これらの呼び出しはすべて chainable とコンポーザブルです。</span><span class="sxs-lookup"><span data-stu-id="c061b-130">These calls are all chainable and composable.</span></span> <span data-ttu-id="c061b-131">次に、3つのストアドプロシージャとそのパラメーターの名前を変更する例を示します。</span><span class="sxs-lookup"><span data-stu-id="c061b-131">Here is an example that renames all three stored procedures and their parameters.</span></span>  
 
 ``` csharp
 modelBuilder  
@@ -138,7 +138,7 @@ modelBuilder
                    .Parameter(b => b.Url, "blog_url")));
 ```  
 
-<span data-ttu-id="6b7fd-132">データベースで生成された値を含む結果セット内の列の名前を変更することもできます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-132">You can also change the name of the columns in the result set that contains database generated values.</span></span>  
+<span data-ttu-id="c061b-132">また、データベースによって生成された値を含む結果セット内の列の名前を変更することもできます。</span><span class="sxs-lookup"><span data-stu-id="c061b-132">You can also change the name of the columns in the result set that contains database generated values.</span></span>  
 
 ``` csharp
 modelBuilder
@@ -160,11 +160,11 @@ BEGIN
 END
 ```  
 
-## <a name="relationships-without-a-foreign-key-in-the-class-independent-associations"></a><span data-ttu-id="6b7fd-133">クラス (独立した関連付け) で外部キーのないリレーションシップ</span><span class="sxs-lookup"><span data-stu-id="6b7fd-133">Relationships Without a Foreign Key in the Class (Independent Associations)</span></span>  
+## <a name="relationships-without-a-foreign-key-in-the-class-independent-associations"></a><span data-ttu-id="c061b-133">クラスに外部キーを持たないリレーションシップ (独立した関連付け)</span><span class="sxs-lookup"><span data-stu-id="c061b-133">Relationships Without a Foreign Key in the Class (Independent Associations)</span></span>  
 
-<span data-ttu-id="6b7fd-134">外部キー プロパティは、クラス定義に含めるときは、他のプロパティと同様に、対応するパラメーターを変更できます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-134">When a foreign key property is included in the class definition, the corresponding parameter can be renamed in the same way as any other property.</span></span> <span data-ttu-id="6b7fd-135">既定のパラメーター名は、リレーションシップ、クラスの外部キー プロパティが存在しますが、ときに **\<navigation_property_name\>_\<primary_key_name\>** します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-135">When a relationship exists without a foreign key property in the class, the default parameter name is **\<navigation_property_name\>_\<primary_key_name\>**.</span></span>  
+<span data-ttu-id="c061b-134">外部キープロパティがクラス定義に含まれている場合、対応するパラメーターの名前を他のプロパティと同じ方法で変更できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-134">When a foreign key property is included in the class definition, the corresponding parameter can be renamed in the same way as any other property.</span></span> <span data-ttu-id="c061b-135">クラスの外部キープロパティを使用せずにリレーションシップが存在する場合、既定のパラメーター名は **\>_\<primary_key_name\>navigation_property_name\<** ます。</span><span class="sxs-lookup"><span data-stu-id="c061b-135">When a relationship exists without a foreign key property in the class, the default parameter name is **\<navigation_property_name\>_\<primary_key_name\>**.</span></span>  
 
-<span data-ttu-id="6b7fd-136">たとえば、次のクラス定義は、挿入や投稿を更新するストアド プロシージャで想定されている Blog_BlogId パラメーターになります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-136">For example, the following class definitions would result in a Blog_BlogId parameter being expected in the stored procedures to insert and update Posts.</span></span>  
+<span data-ttu-id="c061b-136">たとえば、次のクラス定義では、ストアドプロシージャ内で投稿を挿入および更新するために Blog_BlogId パラメーターが想定されています。</span><span class="sxs-lookup"><span data-stu-id="c061b-136">For example, the following class definitions would result in a Blog_BlogId parameter being expected in the stored procedures to insert and update Posts.</span></span>  
 
 ``` csharp
 public class Blog  
@@ -186,9 +186,9 @@ public class Post
 }
 ```  
 
-### <a name="overriding-the-defaults"></a><span data-ttu-id="6b7fd-137">既定の設定をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-137">Overriding the Defaults</span></span>  
+### <a name="overriding-the-defaults"></a><span data-ttu-id="c061b-137">既定値のオーバーライド</span><span class="sxs-lookup"><span data-stu-id="c061b-137">Overriding the Defaults</span></span>  
 
-<span data-ttu-id="6b7fd-138">パラメーターをメソッドに主キーのプロパティへのパスを指定することで、クラスに含まれていない外部キーのパラメーターを変更することができます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-138">You can change parameters for foreign keys that are not included in the class by supplying the path to the primary key property to the Parameter method.</span></span>  
+<span data-ttu-id="c061b-138">プライマリキープロパティへのパスをパラメーターメソッドに指定することで、クラスに含まれていない外部キーのパラメーターを変更できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-138">You can change parameters for foreign keys that are not included in the class by supplying the path to the primary key property to the Parameter method.</span></span>  
 
 ``` csharp
 modelBuilder
@@ -197,7 +197,7 @@ modelBuilder
     s.Insert(i => i.Parameter(p => p.Blog.BlogId, "blog_id")));
 ```  
 
-<span data-ttu-id="6b7fd-139">ナビゲーション プロパティを依存エンティティ (つまり、されていない場合</span><span class="sxs-lookup"><span data-stu-id="6b7fd-139">If you don’t have a navigation property on the dependent entity (i.e</span></span> <span data-ttu-id="6b7fd-140">Post.Blog プロパティが) Association メソッドを使用して、リレーションシップの他方の end を特定し、キーのプロパティのそれぞれに対応するパラメーターを構成できません。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-140">no Post.Blog property) then you can use the Association method to identify the other end of the relationship and then configure the parameters that correspond to each of the key property(s).</span></span>  
+<span data-ttu-id="c061b-139">依存エンティティにナビゲーションプロパティがない場合 (つまり、</span><span class="sxs-lookup"><span data-stu-id="c061b-139">If you don’t have a navigation property on the dependent entity (i.e</span></span> <span data-ttu-id="c061b-140">投稿がありません)。その後、Association メソッドを使用してリレーションシップのもう一方の end を特定し、各キープロパティに対応するパラメーターを構成できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-140">no Post.Blog property) then you can use the Association method to identify the other end of the relationship and then configure the parameters that correspond to each of the key property(s).</span></span>  
 
 ``` csharp
 modelBuilder
@@ -208,17 +208,17 @@ modelBuilder
       c => c.Parameter(b => b.BlogId, "blog_id"))));
 ```  
 
-## <a name="concurrency-tokens"></a><span data-ttu-id="6b7fd-141">同時実行制御トークン</span><span class="sxs-lookup"><span data-stu-id="6b7fd-141">Concurrency Tokens</span></span>  
+## <a name="concurrency-tokens"></a><span data-ttu-id="c061b-141">コンカレンシー トークン</span><span class="sxs-lookup"><span data-stu-id="c061b-141">Concurrency Tokens</span></span>  
 
-<span data-ttu-id="6b7fd-142">Update、delete ストアド プロシージャは、同時実行を処理する必要もあります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-142">Update and delete stored procedures may also need to deal with concurrency:</span></span>  
+<span data-ttu-id="c061b-142">ストアドプロシージャの更新および削除では、同時実行が必要になる場合もあります。</span><span class="sxs-lookup"><span data-stu-id="c061b-142">Update and delete stored procedures may also need to deal with concurrency:</span></span>  
 
-- <span data-ttu-id="6b7fd-143">エンティティに同時実行制御トークンが含まれている場合、ストアド プロシージャは必要に応じて更新/削除された行 (行処理されました) の数を返す出力パラメーターを持つことができます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-143">If the entity contains concurrency tokens, the stored procedure can optionally have an output parameter that returns the number of rows updated/deleted (rows affected).</span></span> <span data-ttu-id="6b7fd-144">RowsAffectedParameter メソッドを使用して、そのようなパラメーターを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-144">Such a parameter must be configured using the RowsAffectedParameter method.</span></span>  
-<span data-ttu-id="6b7fd-145">既定では、EF は、影響を受けた行の数を決定するのに ExecuteNonQuery からの戻り値を使用します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-145">By default EF uses the return value from ExecuteNonQuery to determine how many rows were affected.</span></span> <span data-ttu-id="6b7fd-146">EF の観点から不適切になる ExecuteNonQuery の戻り値のある、ストアド プロシージャのロジックを実行する場合に役立ちます。 影響を受ける行の出力パラメーターを指定する実行の最後にします。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-146">Specifying a rows affected output parameter is useful if you perform any logic in your sproc that would result in the return value of ExecuteNonQuery being incorrect (from EF's perspective) at the end of execution.</span></span>  
-- <span data-ttu-id="6b7fd-147">各同時実行制御トークンがありますがという名前のパラメーターをする **\<property_name\>_Original** (Timestamp_Original など)。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-147">For each concurrency token there will be a parameter named **\<property_name\>_Original** (for example, Timestamp_Original ).</span></span> <span data-ttu-id="6b7fd-148">これは、データベースから照会されたときに、値は – このプロパティの元の値渡されます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-148">This will be passed the original value of this property – the value when queried from the database.</span></span>  
-    - <span data-ttu-id="6b7fd-149">– タイムスタンプ – などのデータベースで計算される同時実行トークンは、元の値のパラメーターを必要のみがあります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-149">Concurrency tokens that are computed by the database – such as timestamps – will only have an original value parameter.</span></span>  
-    - <span data-ttu-id="6b7fd-150">更新処理では、同時実行トークンとして設定されている非計算のプロパティに新しい値のパラメーターがあります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-150">Non-computed properties that are set as concurrency tokens will also have a parameter for the new value in the update procedure.</span></span> <span data-ttu-id="6b7fd-151">これは、既に説明した新しい値の名前付け規則を使用します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-151">This uses the naming conventions already discussed for new values.</span></span> <span data-ttu-id="6b7fd-152">このようなトークンの例を使用する場合、ブログの URL、同時実行トークンとして、この (データベースでのみ更新されるタイムスタンプ トークン) とは異なり、コードで新しい値に更新できるため、新しい値が必要です。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-152">An example of such a token would be using a Blog's URL as a concurrency token, the new value is required because this can be updated to a new value by your code (unlike a Timestamp token which is only updated by the database).</span></span>  
+- <span data-ttu-id="c061b-143">エンティティに同時実行トークンが含まれている場合、ストアドプロシージャには、更新または削除された行数 (影響を受ける行) を返す出力パラメーターをオプションで指定できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-143">If the entity contains concurrency tokens, the stored procedure can optionally have an output parameter that returns the number of rows updated/deleted (rows affected).</span></span> <span data-ttu-id="c061b-144">このようなパラメーターは、RowsAffectedParameter メソッドを使用して構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="c061b-144">Such a parameter must be configured using the RowsAffectedParameter method.</span></span>  
+<span data-ttu-id="c061b-145">既定では、EF は ExecuteNonQuery からの戻り値を使用して、影響を受けた行の数を確認します。</span><span class="sxs-lookup"><span data-stu-id="c061b-145">By default EF uses the return value from ExecuteNonQuery to determine how many rows were affected.</span></span> <span data-ttu-id="c061b-146">影響を受ける行を指定すると、ストアドプロシージャで任意のロジックを実行して、実行の終了時に ExecuteNonQuery の戻り値が誤って (EF の観点から) 不正確になるような場合に便利です。</span><span class="sxs-lookup"><span data-stu-id="c061b-146">Specifying a rows affected output parameter is useful if you perform any logic in your sproc that would result in the return value of ExecuteNonQuery being incorrect (from EF's perspective) at the end of execution.</span></span>  
+- <span data-ttu-id="c061b-147">各同時実行トークンには、 **\<property_name\>_Original**という名前のパラメーターがあります (Timestamp_Original など)。</span><span class="sxs-lookup"><span data-stu-id="c061b-147">For each concurrency token there will be a parameter named **\<property_name\>_Original** (for example, Timestamp_Original ).</span></span> <span data-ttu-id="c061b-148">これには、このプロパティの元の値 (データベースからクエリを実行したときの値) が渡されます。</span><span class="sxs-lookup"><span data-stu-id="c061b-148">This will be passed the original value of this property – the value when queried from the database.</span></span>  
+    - <span data-ttu-id="c061b-149">タイムスタンプなど、データベースによって計算される同時実行トークンには、元の値パラメーターのみが含まれます。</span><span class="sxs-lookup"><span data-stu-id="c061b-149">Concurrency tokens that are computed by the database – such as timestamps – will only have an original value parameter.</span></span>  
+    - <span data-ttu-id="c061b-150">同時実行トークンとして設定された非計算プロパティには、更新プロシージャの新しい値のパラメーターも含まれます。</span><span class="sxs-lookup"><span data-stu-id="c061b-150">Non-computed properties that are set as concurrency tokens will also have a parameter for the new value in the update procedure.</span></span> <span data-ttu-id="c061b-151">これには、新しい値に既に説明した名前付け規則が使用されます。</span><span class="sxs-lookup"><span data-stu-id="c061b-151">This uses the naming conventions already discussed for new values.</span></span> <span data-ttu-id="c061b-152">このようなトークンの例としては、ブログの URL を同時実行トークンとして使用することが挙げられます。この新しい値は、コードによって新しい値に更新できるためです (データベースによってのみ更新されるタイムスタンプトークンとは異なります)。</span><span class="sxs-lookup"><span data-stu-id="c061b-152">An example of such a token would be using a Blog's URL as a concurrency token, the new value is required because this can be updated to a new value by your code (unlike a Timestamp token which is only updated by the database).</span></span>  
 
-<span data-ttu-id="6b7fd-153">これは、例ではクラスし、タイムスタンプの同時実行トークンを使用してストアド プロシージャを更新します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-153">This is an example class and update stored procedure with a timestamp concurrency token.</span></span>  
+<span data-ttu-id="c061b-153">これは、クラスの例であり、timestamp 同時実行トークンを使用してストアドプロシージャを更新します。</span><span class="sxs-lookup"><span data-stu-id="c061b-153">This is an example class and update stored procedure with a timestamp concurrency token.</span></span>  
 
 ``` csharp
 public class Blog  
@@ -243,7 +243,7 @@ AS
   WHERE BlogId = @BlogId AND [Timestamp] = @Timestamp_Original
 ```  
 
-<span data-ttu-id="6b7fd-154">これは、クラスし、非計算の同時実行トークンを使用してストアド プロシージャを更新します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-154">Here is an example class and update stored procedure with non-computed concurrency token.</span></span>  
+<span data-ttu-id="c061b-154">次に、クラスの例と、計算されない同時実行トークンを使用したストアドプロシージャの更新を示します。</span><span class="sxs-lookup"><span data-stu-id="c061b-154">Here is an example class and update stored procedure with non-computed concurrency token.</span></span>  
 
 ``` csharp
 public class Blog  
@@ -267,9 +267,9 @@ AS
   WHERE BlogId = @BlogId AND [Url] = @Url_Original
 ```  
 
-### <a name="overriding-the-defaults"></a><span data-ttu-id="6b7fd-155">既定の設定をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-155">Overriding the Defaults</span></span>  
+### <a name="overriding-the-defaults"></a><span data-ttu-id="c061b-155">既定値のオーバーライド</span><span class="sxs-lookup"><span data-stu-id="c061b-155">Overriding the Defaults</span></span>  
 
-<span data-ttu-id="6b7fd-156">必要に応じて処理行数パラメーターを導入することができます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-156">You can optionally introduce a rows affected parameter.</span></span>  
+<span data-ttu-id="c061b-156">必要に応じて、影響を受ける行を指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="c061b-156">You can optionally introduce a rows affected parameter.</span></span>  
 
 ``` csharp
 modelBuilder  
@@ -278,7 +278,7 @@ modelBuilder
     s.Update(u => u.RowsAffectedParameter("rows_affected")));
 ```  
 
-<span data-ttu-id="6b7fd-157">– 元の値のみが渡されるが – 計算データベース同時実行トークンの元の値パラメーターの名前を変更するのにだけのメカニズムの名前を変更する標準的なパラメーターを使用できます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-157">For database computed concurrency tokens – where only the original value is passed – you can just use the standard parameter renaming mechanism to rename the parameter for the original value.</span></span>  
+<span data-ttu-id="c061b-157">データベースで計算された同時実行トークンの場合–元の値のみが渡されます。標準パラメーターの名前変更メカニズムを使用して、元の値のパラメーターの名前を変更できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-157">For database computed concurrency tokens – where only the original value is passed – you can just use the standard parameter renaming mechanism to rename the parameter for the original value.</span></span>  
 
 ``` csharp
 modelBuilder  
@@ -287,7 +287,7 @@ modelBuilder
     s.Update(u => u.Parameter(b => b.Timestamp, "blog_timestamp")));
 ```  
 
-<span data-ttu-id="6b7fd-158">– 場所両方元と新しい値が渡される – 非計算の同時実行トークンを使用すると、各パラメーターの名前を指定するパラメーターのオーバー ロードを使用できます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-158">For non-computed concurrency tokens – where both the original and new value are passed – you can use an overload of Parameter that allows you to supply a name for each parameter.</span></span>  
+<span data-ttu-id="c061b-158">計算されていない同時実行トークンの場合–元の値と新しい値の両方が渡されます。パラメーターのオーバーロードを使用すると、各パラメーターに名前を指定できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-158">For non-computed concurrency tokens – where both the original and new value are passed – you can use an overload of Parameter that allows you to supply a name for each parameter.</span></span>  
 
 ``` csharp
 modelBuilder
@@ -295,9 +295,9 @@ modelBuilder
  .MapToStoredProcedures(s => s.Update(u => u.Parameter(b => b.Url, "blog_url", "blog_original_url")));
 ```  
 
-## <a name="many-to-many-relationships"></a><span data-ttu-id="6b7fd-159">多対多リレーションシップ</span><span class="sxs-lookup"><span data-stu-id="6b7fd-159">Many to Many Relationships</span></span>  
+## <a name="many-to-many-relationships"></a><span data-ttu-id="c061b-159">多対多リレーションシップ</span><span class="sxs-lookup"><span data-stu-id="c061b-159">Many to Many Relationships</span></span>  
 
-<span data-ttu-id="6b7fd-160">このセクションの例として、次のクラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-160">We’ll use the following classes as an example in this section.</span></span>  
+<span data-ttu-id="c061b-160">このセクションの例として、次のクラスを使用します。</span><span class="sxs-lookup"><span data-stu-id="c061b-160">We’ll use the following classes as an example in this section.</span></span>  
 
 ``` csharp
 public class Post  
@@ -318,7 +318,7 @@ public class Tag
 }
 ```  
 
-<span data-ttu-id="6b7fd-161">多対多の関係は、次の構文を使用したストアド プロシージャにマップすることができます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-161">Many to many relationships can be mapped to stored procedures with the following syntax.</span></span>  
+<span data-ttu-id="c061b-161">多対多リレーションシップは、次の構文を使用してストアドプロシージャにマップできます。</span><span class="sxs-lookup"><span data-stu-id="c061b-161">Many to many relationships can be mapped to stored procedures with the following syntax.</span></span>  
 
 ``` csharp
 modelBuilder  
@@ -328,12 +328,12 @@ modelBuilder
   .MapToStoredProcedures();
 ```  
 
-<span data-ttu-id="6b7fd-162">その他の構成が指定されていない場合、既定では、次のストアド プロシージャの図形が使用されます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-162">If no other configuration is supplied then the following stored procedure shape is used by default.</span></span>  
+<span data-ttu-id="c061b-162">他の構成が指定されていない場合、既定では、次のストアドプロシージャ図形が使用されます。</span><span class="sxs-lookup"><span data-stu-id="c061b-162">If no other configuration is supplied then the following stored procedure shape is used by default.</span></span>  
 
-- <span data-ttu-id="6b7fd-163">2 つのストアド プロシージャの名前付き **\<type_one\>\<type_two\>(_i)** と **\<type_one\>\<type_two\>削除 (_d)** (PostTag_Insert および PostTag_Delete など)。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-163">Two stored procedures named **\<type_one\>\<type_two\>_Insert** and **\<type_one\>\<type_two\>_Delete** (for example, PostTag_Insert and PostTag_Delete).</span></span>  
-- <span data-ttu-id="6b7fd-164">パラメーターは、各型のキー値になります。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-164">The parameters will be the key value(s) for each type.</span></span> <span data-ttu-id="6b7fd-165">各パラメーターの名前**\<type_name\>_\<property_name\>** (Post_PostId および Tag_TagId など)。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-165">The name of each parameter being **\<type_name\>_\<property_name\>** (for example, Post_PostId and Tag_TagId).</span></span>
+- <span data-ttu-id="c061b-163">\<type_one という**名前の 2**つのストアドプロシージャ **\<type_two**\>_Insert\>\<type_one\>\<type_two\>_Delete PostTag_Insert します。</span><span class="sxs-lookup"><span data-stu-id="c061b-163">Two stored procedures named **\<type_one\>\<type_two\>_Insert** and **\<type_one\>\<type_two\>_Delete** (for example, PostTag_Insert and PostTag_Delete).</span></span>  
+- <span data-ttu-id="c061b-164">パラメーターは、各型のキー値になります。</span><span class="sxs-lookup"><span data-stu-id="c061b-164">The parameters will be the key value(s) for each type.</span></span> <span data-ttu-id="c061b-165">Type_name\<れる各パラメーターの名前 **\>_\<property_name**\>(Post_PostId、Tag_TagId など)。</span><span class="sxs-lookup"><span data-stu-id="c061b-165">The name of each parameter being **\<type_name\>_\<property_name\>** (for example, Post_PostId and Tag_TagId).</span></span>
 
-<span data-ttu-id="6b7fd-166">次の例に示しますを挿入し、ストアド プロシージャを更新します。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-166">Here are example insert and update stored procedures.</span></span>  
+<span data-ttu-id="c061b-166">Insert および update ストアドプロシージャの例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="c061b-166">Here are example insert and update stored procedures.</span></span>  
 
 ``` SQL
 CREATE PROCEDURE [dbo].[PostTag_Insert]  
@@ -350,9 +350,9 @@ AS
   WHERE Post_PostId = @Post_PostId AND Tag_TagId = @Tag_TagId
 ```  
 
-### <a name="overriding-the-defaults"></a><span data-ttu-id="6b7fd-167">既定の設定をオーバーライドします。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-167">Overriding the Defaults</span></span>  
+### <a name="overriding-the-defaults"></a><span data-ttu-id="c061b-167">既定値のオーバーライド</span><span class="sxs-lookup"><span data-stu-id="c061b-167">Overriding the Defaults</span></span>  
 
-<span data-ttu-id="6b7fd-168">プロシージャとパラメーターの名前は、エンティティがストアド プロシージャと同様の方法で構成できます。</span><span class="sxs-lookup"><span data-stu-id="6b7fd-168">The procedure and parameter names can be configured in a similar way to entity stored procedures.</span></span>  
+<span data-ttu-id="c061b-168">プロシージャ名とパラメーター名は、エンティティストアドプロシージャと同様の方法で構成できます。</span><span class="sxs-lookup"><span data-stu-id="c061b-168">The procedure and parameter names can be configured in a similar way to entity stored procedures.</span></span>  
 
 ``` csharp
 modelBuilder  
