@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
 ms.openlocfilehash: e5a91af73bab9d45b0f1f4242ce503c6b6f407f6
-ms.sourcegitcommit: 159c2e9afed7745e7512730ffffaf154bcf2ff4a
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/03/2019
-ms.locfileid: "55668701"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413307"
 ---
 # <a name="code-first-migrations"></a>Code First Migrations
 Code First Migrations は、Code First ワークフローを使用している場合に、アプリケーションのデータベース スキーマを進化させるために推奨される方法です。 移行では次を許可するツール セットを提供します。
@@ -96,7 +96,7 @@ Code First Migrations は、Code First ワークフローを使用している�
     public string Url { get; set; }
 ```
 
-もう一度アプリケーションを実行すると、次を示す InvalidOperationException を取得します: *データベースの作成後、'BlogContext' コンテキストの背後にあるモデルが変更されました。Code First Migrations を使用したデータベースの更新を検討してください (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](https://go.microsoft.com/fwlink/?LinkId=238269)*)。*
+もう一度アプリケーションを実行すると、次を示す InvalidOperationException を取得します: *データベースの作成後、'BlogContext' コンテキストの背後にあるモデルが変更されました。Code First Migrations を使用したデータベースの更新を検討してください (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *)。*
 
 例外で示されているように、Code First Migrations の使用を開始します。 最初の手順では、コンテキストの移行を有効にします。
 
@@ -235,7 +235,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
     }
 ```
 
-編集済みの移行の準備ができたので、**Update-Database** を使用してデータベースを最新の状態にします。 今回は、Code First Migrations が実行している SQL を確認できるように、**–Verbose** フラグを指定します。
+編集済みの移行の準備ができたので、**Update-Database** を使用してデータベースを最新の状態にします。 今回は、Code First Migrations が実行している SQL を確認できるように、 **–Verbose** フラグを指定します。
 
 -   パッケージ マネージャー コンソールで **Update-Database –Verbose** コマンドを実行します。
 
@@ -278,7 +278,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
     }
 ```
 
-編集した移行は問題なさそうなので、**Update-Database** を使用してデータベースを最新の状態にします。 このデータベースに対して実行を開始する SQL を確認できるように、**–Verbose** フラグを指定します。
+編集した移行は問題なさそうなので、**Update-Database** を使用してデータベースを最新の状態にします。 このデータベースに対して実行を開始する SQL を確認できるように、 **–Verbose** フラグを指定します。
 
 -   パッケージ マネージャー コンソールで **Update-Database –Verbose** コマンドを実行します。
 
@@ -298,7 +298,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
 
 別の開発者が使用しているマシン上でこれらの変更が必要な場合は、ソース管理への変更を確認したときに同期することができます。 新しい移行が用意できたら、Update-Database コマンドを実行するだけで、変更をローカルに適用できます。 ただし、これらの変更をテスト サーバーにプッシュし、最終的に実稼働環境のサーバーにプッシュする必要がある場合は、DBA にハンドオフできる SQL スクリプトが必要な場合があります。
 
--   **Update-Database** コマンドを実行しますが、今回は **–Script** フラグを指定するため、変更は適用されずにスクリプトに書き込まれます。 スクリプトを生成するソース移行とターゲット移行も指定します。 空のデータベース (**$InitialDatabase**) から最新バージョン (移行 **AddPostAbstract**) に移動するスクリプトが必要です。
+-   **Update-Database** コマンドを実行しますが、今回は **–Script** フラグを指定するため、変更は適用されずにスクリプトに書き込まれます。 スクリプトを生成するソース移行とターゲット移行も指定します。 空のデータベース ( **$InitialDatabase**) から最新バージョン (移行 **AddPostAbstract**) に移動するスクリプトが必要です。
     *ターゲット移行を指定しない場合、Migrations ではターゲットとして最新の移行を使用します。ソース移行を指定しない場合は、Migrations ではデータベースの現在の状態を使用します。*
 -   パッケージ マネージャー コンソールで **Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration:AddPostAbstract** コマンドを実行します
 
@@ -306,7 +306,7 @@ Code First Migrations では、実際に変更を適用するのではなく、�
 
 ### <a name="generating-idempotent-scripts"></a>べき等スクリプトを生成する
 
-EF6 以降、**–SourceMigration $InitialDatabase** を指定した場合、生成されたスクリプトは "べき等" になります。 べき等スクリプトでは、任意のバージョンのデータベースを最新バージョン (または、**–TargetMigration** を使用する場合、指定されたバージョン) にアップグレードできます。 生成されたスクリプトには、**\_\_MigrationsHistory** テーブルを確認し、以前に適用されている変更のみを適用するロジックが含まれます。
+EF6 以降、 **–SourceMigration $InitialDatabase** を指定した場合、生成されたスクリプトは "べき等" になります。 べき等スクリプトでは、任意のバージョンのデータベースを最新バージョン (または、 **–TargetMigration** を使用する場合、指定されたバージョン) にアップグレードできます。 生成されたスクリプトには、 **\_\_MigrationsHistory** テーブルを確認し、以前に適用されている変更のみを適用するロジックが含まれます。
 
 ## <a name="automatically-upgrading-on-application-startup-migratedatabasetolatestversion-initializer"></a>アプリケーションの起動で自動的にアップグレードする (MigrateDatabaseToLatestVersion 初期化子)
 
