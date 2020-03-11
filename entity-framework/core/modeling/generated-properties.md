@@ -6,11 +6,11 @@ ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
 ms.openlocfilehash: 9c616e157ff1bdb9700f436a7ae2788330fe5d45
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502033"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413901"
 ---
 # <a name="generated-values"></a>生成された値
 
@@ -58,11 +58,11 @@ ms.locfileid: "75502033"
 
 挿入されたエンティティに対して値が生成されるようにプロパティを構成するには、次のようにします。
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
@@ -71,7 +71,7 @@ ms.locfileid: "75502033"
 > [!WARNING]
 > これにより、追加されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。 詳細については、「追加」セクション[で生成された値](#value-generated-on-add)を参照してください。
 
-### <a name="default-values"></a>既定の値
+### <a name="default-values"></a>既定値
 
 リレーショナルデータベースでは、既定値を使用して列を構成できます。その列の値を指定せずに行が挿入されると、既定値が使用されます。
 
@@ -87,11 +87,11 @@ ms.locfileid: "75502033"
 
 ## <a name="value-generated-on-add-or-update"></a>追加または更新時に生成される値
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
@@ -113,11 +113,11 @@ ms.locfileid: "75502033"
 
 プロパティの値生成を無効にすることは、通常、規則によって値の生成用に構成される場合に必要です。 たとえば、int 型の主キーがある場合、それは暗黙的に add によって生成される値として設定されます。これは、次の方法で無効にできます。
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=3)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=5)]
 

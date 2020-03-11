@@ -5,12 +5,12 @@ ms.author: ansvyryd
 ms.date: 11/02/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 0b11b6b3104b74e09c60c9c455e22f164df493c7
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 5c056c600f696ad1443ddb7b8c95c4b0ead06d21
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655762"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414573"
 ---
 # <a name="data-seeding"></a>データのシード処理
 
@@ -48,7 +48,7 @@ EF6 とは異なり、EF Core では、シード処理データをモデル構�
 
 [!code-csharp[OwnedTypeSeed](../../../samples/core/Modeling/DataSeeding/DataSeedingContext.cs?name=OwnedTypeSeed)]
 
-詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DataSeeding)を参照してください。
+詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/DataSeeding)を参照してください。
 
 データがモデルに追加されたら、[移行](xref:core/managing-schemas/migrations/index)を使用して変更を適用する必要があります。
 

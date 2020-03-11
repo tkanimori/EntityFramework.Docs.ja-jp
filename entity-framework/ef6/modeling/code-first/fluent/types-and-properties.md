@@ -1,97 +1,97 @@
 ---
-title: Fluent API 構成およびプロパティと型のマッピングで EF6
+title: Fluent API-プロパティと型の構成とマッピング-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
 ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
-ms.sourcegitcommit: 75f8a179ac9a70ad390fc7ab2a6c5e714e701b8b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/27/2018
-ms.locfileid: "52339804"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415755"
 ---
-# <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Fluent API を構成して、プロパティと型のマッピング
-Entity Framework Code First を使用する場合、既定の動作は、POCO クラスを EF に組み込まれた規則のセットを使用してテーブルにマップするのには。 場合によっては、ただし、することはできません、またはこれらの規則に従うし、規則ではどのような以外にエンティティをマップする必要がありますしたくないです。  
+# <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Fluent API-プロパティと型の構成とマッピング
+Entity Framework を使用する場合 Code First 既定の動作では、EF に組み込まれている一連の規則を使用して、POCO クラスをテーブルにマップします。 ただし、これらの規則に従うことができない場合や、規則に従っていないエンティティにエンティティをマップする必要がある場合があります。  
 
-Namely の表記規則以外のものを使用する EF を構成する 2 つの主な方法はあります[注釈](~/ef6/modeling/code-first/data-annotations.md)または EFs fluent API。 注釈では、注釈の使用を実現できないマッピング シナリオがあるため、fluent API の機能のサブセットがのみについて説明します。 この記事では、fluent API を使用してプロパティを構成する方法を示すために設計されています。  
+規則以外のものを使用するように EF を構成するには、次の2つの主な方法があります。つまり、[注釈](~/ef6/modeling/code-first/data-annotations.md)または EFs fluent API です。 注釈には fluent API の機能のサブセットのみが含まれているので、注釈を使用して実現できないマッピングシナリオがあります。 この記事は、fluent API を使用してプロパティを構成する方法を示すことを目的としています。  
 
-Code first fluent API がオーバーライドすることによってアクセスが最もよく、 [OnModelCreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx)メソッドを派生[DbContext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx)します。 次のサンプルは fluent api を使用したさまざまなタスクを実行し、すると、コードをコピーしとで使用できるモデルを表示する場合、モデルに合わせてカスタマイズする方法について説明するように設計-がこの記事の最後に提供されます。  
+Code first fluent API は、派生した[Dbcontext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx)で[onmodelcreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx)メソッドをオーバーライドすることによって最も一般的にアクセスされます。 次のサンプルは、fluent api を使用してさまざまなタスクを実行する方法を示しています。また、モデルに合わせてコードをコピーしてカスタマイズすることもできます。そのまま使用できるモデルを確認する場合は、この記事の最後に記載します。  
 
 ## <a name="model-wide-settings"></a>モデル全体の設定  
 
 ### <a name="default-schema-ef6-onwards"></a>既定のスキーマ (EF6 以降)  
 
-EF6 で始まることができます HasDefaultSchema メソッドを使用 DbModelBuilder のすべてのテーブル、ストアド プロシージャなどを使用するのにデータベース スキーマを指定します。この既定の設定は、別のスキーマを明示的に構成するすべてのオブジェクトのオーバーライドされます。  
+EF6 以降では、DbModelBuilder で HasDefaultSchema メソッドを使用して、すべてのテーブル、ストアドプロシージャなどに使用するデータベーススキーマを指定できます。この既定の設定は、別のスキーマを明示的に構成するすべてのオブジェクトに対してオーバーライドされます。  
 
 ``` csharp
 modelBuilder.HasDefaultSchema("sales");
 ```  
 
-### <a name="custom-conventions-ef6-onwards"></a>カスタムの規則 (EF6 以降)  
+### <a name="custom-conventions-ef6-onwards"></a>カスタム規則 (EF6 以降)  
 
-EF6 Code First に入っているものを補完する、独自の規則を作成することで開始しています。 詳細については、[カスタム コードの最初の規則](~/ef6/modeling/code-first/conventions/custom.md)を参照してください。  
+EF6 以降では、独自の規則を作成して、Code First に含まれる規則を補うことができます。 詳細については、「[カスタム Code First 規則](~/ef6/modeling/code-first/conventions/custom.md)」を参照してください。  
 
 ## <a name="property-mapping"></a>プロパティのマッピング  
 
-[プロパティ](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx)メソッドは、エンティティまたは複合型に属している各プロパティの属性の構成に使用されます。 プロパティ メソッドを使用して、特定のプロパティの構成オブジェクトを取得できます。 構成オブジェクトのオプションが構成されている種類に固有IsUnicode はなどの文字列プロパティでのみ使用できます。  
+[プロパティ](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx)メソッドは、エンティティ型または複合型に属する各プロパティの属性を構成するために使用されます。 プロパティメソッドは、指定されたプロパティの構成オブジェクトを取得するために使用されます。 構成オブジェクトのオプションは、構成されている型に固有です。IsUnicode は、文字列プロパティでのみ使用できます。たとえば、のようになります。  
 
-### <a name="configuring-a-primary-key"></a>主キーを構成します。  
+### <a name="configuring-a-primary-key"></a>主キーの構成  
 
-主キーの Entity Framework の規則は次のとおりです。  
+主キーの Entity Framework 規則は次のとおりです。  
 
-1. クラスは、名前が"ID"または"Id"プロパティを定義します。  
-2. または、クラス名の後に"ID"または"Id"  
+1. クラスは、名前が "ID" または "Id" であるプロパティを定義します。  
+2. または、クラス名の後に "ID" または "Id" が続きます。  
 
-主キーのプロパティを明示的に設定するには、HasKey メソッドを使用することができます。 次の例では、HasKey メソッドを使用して、OfficeAssignment で InstructorID 主キーを構成します。  
+プロパティを主キーとして明示的に設定するには、HasKey メソッドを使用します。 次の例では、HasKey メソッドを使用して、OfficeAssignment 型の InstructorID 主キーを構成しています。  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>().HasKey(t => t.InstructorID);
 ```  
 
-### <a name="configuring-a-composite-primary-key"></a>複合主キーを構成します。  
+### <a name="configuring-a-composite-primary-key"></a>複合主キーの構成  
 
-次の例では、部門の型の複合主キー プロパティ DepartmentID と Name プロパティを構成します。  
+次の例では、DepartmentID プロパティと Name プロパティを、Department 型の複合主キーになるように構成します。  
 
 ``` csharp
 modelBuilder.Entity<Department>().HasKey(t => new { t.DepartmentID, t.Name });
 ```  
 
-### <a name="switching-off-identity-for-numeric-primary-keys"></a>数値の主キーの Id をオフの切り替え  
+### <a name="switching-off-identity-for-numeric-primary-keys"></a>数値主キーの Id をオフにする  
 
-次の例を示す値をデータベースによって生成されませんが System.ComponentModel.DataAnnotations.DatabaseGeneratedOption.None に DepartmentID プロパティを設定します。  
+次の例では、DepartmentID プロパティを System.componentmodel に設定して、値がデータベースによって生成されないことを示します。  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.DepartmentID)
     .HasDatabaseGeneratedOption(DatabaseGeneratedOption.None);
 ```  
 
-### <a name="specifying-the-maximum-length-on-a-property"></a>プロパティの最大長を指定します。  
+### <a name="specifying-the-maximum-length-on-a-property"></a>プロパティの最大長の指定  
 
-次の例では、Name プロパティは 50 文字以内にあります。 50 文字より長い値を行った場合、 [DbEntityValidationException](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx)例外。 Code First にこのモデルからデータベースを作成する場合 50 文字に、[名前] 列の最大長も設定されます。  
+次の例では、Name プロパティは50文字以内である必要があります。 50文字を超える値を指定すると、 [Dbentityvalidationexception](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx)例外が発生します。 Code First がこのモデルからデータベースを作成する場合は、Name 列の最大長も50文字に設定します。  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).HasMaxLength(50);
 ```  
 
-### <a name="configuring-the-property-to-be-required"></a>必要になるプロパティを構成します。  
+### <a name="configuring-the-property-to-be-required"></a>必須のプロパティを構成しています  
 
-次の例では、Name プロパティが必要です。 名前を指定しない場合は、DbEntityValidationException 例外が表示されます。 このモデルからデータベースを作成します Code First 場合は、このプロパティの格納に使用される列が null 非許容に通常は。  
+次の例では、Name プロパティが必要です。 名前を指定しない場合は、DbEntityValidationException 例外が発生します。 Code First がこのモデルからデータベースを作成する場合、通常、このプロパティを格納するために使用される列は null 非許容になります。  
 
 > [!NOTE]
-> 場合によっては、プロパティが必要な場合でも、null 非許容されるデータベース内の列の可能なないられます。 たとえば、TPH 継承の戦略のデータを複数の種類を使用してが格納されている場合、1 つのテーブル。 派生型に必要なプロパティが含まれている場合、列にできない null 非許容のこのプロパティは、階層内のすべての型であるためです。  
+> 場合によっては、プロパティが必要な場合でも、データベース内の列を null 非許容にすることはできません。 たとえば、複数の型に対して TPH 継承戦略データを使用すると、1つのテーブルに格納されます。 派生型に必須のプロパティが含まれている場合、階層内のすべての型がこのプロパティを持つわけではないため、列を null 非許容にすることはできません。  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).IsRequired();
 ```  
 
-### <a name="configuring-an-index-on-one-or-more-properties"></a>1 つまたは複数のプロパティのインデックスを構成します。  
+### <a name="configuring-an-index-on-one-or-more-properties"></a>1つまたは複数のプロパティのインデックスの構成  
 
 > [!NOTE]
-> **EF6.1 以降のみ**-Entity Framework 6.1 で、インデックスの属性が導入されました。 以前のバージョンを使用している場合、このセクションの情報は適用されません。  
+> **Ef 6.1 以降のみ**-Index 属性が Entity Framework 6.1 で導入されました。 以前のバージョンを使用している場合、このセクションの情報は適用されません。  
 
-加えることが、Fluent API でネイティブでサポートされていないインデックスの作成用のサポートを使用して、 **IndexAttribute** Fluent API を使用して。 インデックスの属性は、パイプラインの後半で、データベース内のインデックスに変換し、モデルのモデル注釈を含めることによって処理されます。 Fluent API を使用して注釈を追加これらと同じ手動でできます。  
+インデックスの作成は、Fluent API ではネイティブでサポートされていませんが、Fluent API を使用して**Indexattribute**のサポートを利用できます。 インデックスの属性は、モデルの注釈をモデルに含めることによって処理され、その後、パイプラインの後の方でデータベースのインデックスに変換されます。 Fluent API を使用して、これらの同じ注釈を手動で追加できます。  
 
-これを行う最も簡単な方法は、のインスタンスを作成する**IndexAttribute**新しいインデックスのすべての設定を格納しています。 インスタンスを作成し、 **IndexAnnotation**は EF 特定の型に変換されますが、 **IndexAttribute** EF モデルに格納できるモデル注釈を設定します。 これらに渡すことができます、 **HasColumnAnnotation**メソッド名を指定する、Fluent API を**インデックス**の注釈。  
+これを行う最も簡単な方法は、新しいインデックスのすべての設定を含む**Indexattribute**のインスタンスを作成することです。 その後、 **Indexannotation**のインスタンスを作成できます。このインスタンスは、ef モデルに格納できるモデル注釈に**indexannotation**設定を変換する ef 固有の型です。 これらは、Fluent API の**Hascolumnannotation**メソッドに渡すことができ、注釈の名前の**インデックス**を指定します。  
 
 ``` csharp
 modelBuilder
@@ -100,9 +100,9 @@ modelBuilder
     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
 ```  
 
-使用できる設定の完全な一覧については**IndexAttribute**を参照してください、*インデックス*の[Code First のデータ注釈](~/ef6/modeling/code-first/data-annotations.md)します。 これには、インデックス名をカスタマイズする、一意のインデックスの作成、および複数列インデックスの作成が含まれます。  
+**Indexattribute**で使用できる設定の完全な一覧については、「 [Code First データ注釈](~/ef6/modeling/code-first/data-annotations.md)」の「 *Index* 」セクションを参照してください。 これには、インデックス名のカスタマイズ、一意のインデックスの作成、複数列のインデックスの作成が含まれます。  
 
-配列を渡すことによって、1 つのプロパティで複数のインデックス注釈を指定できます**IndexAttribute**のコンストラクターに**IndexAnnotation**します。  
+Indexattribute のコンストラクターに**Indexattribute**の配列を渡すことにより、1つのプロパティに対して複数のインデックス注釈を指定できます。  
 
 ``` csharp
 modelBuilder
@@ -117,17 +117,17 @@ modelBuilder
             })));
 ```  
 
-### <a name="specifying-not-to-map-a-clr-property-to-a-column-in-the-database"></a>CLR プロパティをデータベース内の列にマップしないように指定  
+### <a name="specifying-not-to-map-a-clr-property-to-a-column-in-the-database"></a>CLR プロパティをデータベースの列にマップしないように指定する  
 
-次の例では、CLR 型のプロパティが、データベース内の列にマップされていないことを指定する方法を示します。  
+次の例は、CLR 型のプロパティがデータベースの列にマップされないように指定する方法を示しています。  
 
 ``` csharp
 modelBuilder.Entity<Department>().Ignore(t => t.Budget);
 ```  
 
-### <a name="mapping-a-clr-property-to-a-specific-column-in-the-database"></a>CLR プロパティをデータベースの特定の列にマップします。  
+### <a name="mapping-a-clr-property-to-a-specific-column-in-the-database"></a>CLR プロパティをデータベース内の特定の列にマップする  
 
-次の例では、DepartmentName データベース列に名前の CLR プロパティがマップされます。  
+次の例では、CLR プロパティの名前を DepartmentName データベース列にマップします。  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -135,9 +135,9 @@ modelBuilder.Entity<Department>()
     .HasColumnName("DepartmentName");
 ```  
 
-### <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>モデルで定義されていない外部キーの名前を変更します。  
+### <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>モデルで定義されていない外部キーの名前変更  
 
-CLR 型での外部キーの定義が、データベースが必要な名前を指定しないように選択する場合は、次の操作を行います。  
+CLR 型で外部キーを定義しない場合に、データベースに含める名前を指定する場合は、次の手順を実行します。  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -146,9 +146,9 @@ modelBuilder.Entity<Course>()
     .Map(m => m.MapKey("ChangedDepartmentID"));
 ```  
 
-### <a name="configuring-whether-a-string-property-supports-unicode-content"></a>文字列プロパティは、Unicode コンテンツをサポートしているかどうかを構成します。  
+### <a name="configuring-whether-a-string-property-supports-unicode-content"></a>文字列プロパティが Unicode コンテンツをサポートするかどうかの構成  
 
-既定では、文字列は Unicode (SQL Server での nvarchar) されます。 IsUnicode メソッドを使用して、varchar 型の文字列があることを指定することができます。  
+既定では、文字列は Unicode (SQL Server の nvarchar) です。 IsUnicode メソッドを使用して、文字列を varchar 型にする必要があることを指定できます。  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -156,9 +156,9 @@ modelBuilder.Entity<Department>()
     .IsUnicode(false);
 ```  
 
-### <a name="configuring-the-data-type-of-a-database-column"></a>データベース列のデータ型を構成します。  
+### <a name="configuring-the-data-type-of-a-database-column"></a>データベース列のデータ型の構成  
 
-[HasColumnType](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.configuration.stringcolumnconfiguration.hascolumntype.aspx)メソッドは、同じ基本型のさまざまな表現へのマッピングを使用できます。 このメソッドを使用しての場合、実行時に、データの変換を実行できるようにはありません。 データベースに依存しない IsUnicode varchar 列の設定の推奨される方法は、することに注意してください。  
+[HasColumnType](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.configuration.stringcolumnconfiguration.hascolumntype.aspx)メソッドを使用すると、同じ基本型の異なる表現へのマッピングが可能になります。 この方法を使用しても、実行時にデータの変換を実行することはできません。 列を varchar に設定する場合は、データベースに依存しないため、IsUnicode を使用することをお勧めします。  
 
 ``` csharp
 modelBuilder.Entity<Department>()   
@@ -168,9 +168,9 @@ modelBuilder.Entity<Department>()
 
 ### <a name="configuring-properties-on-a-complex-type"></a>複合型のプロパティの構成  
 
-複合型のスカラー プロパティを構成する 2 つの方法はあります。  
+複合型のスカラープロパティを構成するには、2つの方法があります。  
 
-ComplexTypeConfiguration でプロパティを呼び出すことができます。  
+ComplexTypeConfiguration プロパティを呼び出すことができます。  
 
 ``` csharp
 modelBuilder.ComplexType<Details>()
@@ -178,7 +178,7 @@ modelBuilder.ComplexType<Details>()
     .HasMaxLength(20);
 ```  
 
-複合型のプロパティにアクセスするのに、ドット表記を使用することもできます。  
+ドット表記を使用して、複合型のプロパティにアクセスすることもできます。  
 
 ``` csharp
 modelBuilder.Entity<OnsiteCourse>()
@@ -186,9 +186,9 @@ modelBuilder.Entity<OnsiteCourse>()
     .HasMaxLength(20);
 ```  
 
-### <a name="configuring-a-property-to-be-used-as-an-optimistic-concurrency-token"></a>オプティミスティック同時実行トークンとして使用するプロパティを構成します。  
+### <a name="configuring-a-property-to-be-used-as-an-optimistic-concurrency-token"></a>オプティミスティック同時実行トークンとして使用するプロパティの構成  
 
-エンティティのプロパティが同時実行トークンを表すことを指定するには、ConcurrencyCheck 属性または IsConcurrencyToken メソッドのいずれかを使用できます。  
+エンティティのプロパティが同時実行トークンを表すように指定するには、ConcurrencyCheck 属性または IsConcurrencyToken メソッドを使用します。  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -196,7 +196,7 @@ modelBuilder.Entity<OfficeAssignment>()
     .IsConcurrencyToken();
 ```  
 
-データベース内の行バージョンであるプロパティを構成するのに IsRowVersion メソッドを使用することもできます。 オプティミスティック同時実行制御トークンは、行バージョンが自動的に構成するプロパティを設定します。  
+また、IsRowVersion メソッドを使用して、データベースの行バージョンとしてプロパティを構成することもできます。 プロパティを行バージョンに設定すると、オプティミスティック同時実行トークンとして自動的に構成されます。  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -204,43 +204,43 @@ modelBuilder.Entity<OfficeAssignment>()
     .IsRowVersion();
 ```  
 
-## <a name="type-mapping"></a>型のマッピング  
+## <a name="type-mapping"></a>型マッピング  
 
-### <a name="specifying-that-a-class-is-a-complex-type"></a>クラスが複合型を指定します。  
+### <a name="specifying-that-a-class-is-a-complex-type"></a>クラスが複合型であることを指定する  
 
-慣例により、指定したプライマリ キーを持たない型は複合型として扱われます。 一部のシナリオで Code First は検出されません複合型 (たとえば場合、ID という名前のプロパティがする主キーにするのには、必ずしも) があります。 このような場合、型が複合型であるかを明示的に指定する fluent API を使用するとします。  
+慣例により、主キーが指定されていない型は複合型として扱われます。 Code First が複合型を検出しないシナリオがいくつかあります (たとえば、ID というプロパティがあり、それが主キーであることを意味していない場合など)。 このような場合は、fluent API を使用して、型が複合型であることを明示的に指定します。  
 
 ``` csharp
 modelBuilder.ComplexType<Details>();
 ```  
 
-### <a name="specifying-not-to-map-a-clr-entity-type-to-a-table-in-the-database"></a>CLR のエンティティ型をデータベース内のテーブルにマップしないように指定  
+### <a name="specifying-not-to-map-a-clr-entity-type-to-a-table-in-the-database"></a>CLR エンティティ型をデータベース内のテーブルにマップしないように指定する  
 
-次の例では、データベース内のテーブルにマップされているから CLR 型を除外する方法を示します。  
+次の例では、CLR 型を、データベース内のテーブルにマップされないものから除外する方法を示します。  
 
 ``` csharp
 modelBuilder.Ignore<OnlineCourse>();
 ```  
 
-### <a name="mapping-an-entity-type-to-a-specific-table-in-the-database"></a>データベース内の特定のテーブルにエンティティ型のマッピング  
+### <a name="mapping-an-entity-type-to-a-specific-table-in-the-database"></a>データベース内の特定のテーブルへのエンティティ型のマッピング  
 
-部門のすべてのプロパティは、t _ 部門をという名前のテーブル内の列にマップされます。  
+Department のすべてのプロパティは、t_ Department という名前のテーブルの列にマップされます。  
 
 ``` csharp
 modelBuilder.Entity<Department>()  
     .ToTable("t_Department");
 ```  
 
-このようなスキーマ名を指定することもできます。  
+次のように、スキーマ名を指定することもできます。  
 
 ``` csharp
 modelBuilder.Entity<Department>()  
     .ToTable("t_Department", "school");
 ```  
 
-### <a name="mapping-the-table-per-hierarchy-tph-inheritance"></a>Table-per-hierarchy (TPH) 継承のマッピング  
+### <a name="mapping-the-table-per-hierarchy-tph-inheritance"></a>階層ごとのテーブル (TPH) の継承のマッピング  
 
-TPH マッピング シナリオでは、継承階層内のすべての型が 1 つのテーブルにマップされます。 識別子列を使用して、各行の種類を識別します。 Code First によるモデルを作成するときに、継承階層に参加している型の既定の戦略は TPH です。 既定では、「識別子」という名前のテーブルに識別子列が追加して、階層内の各型の CLR 型名は識別子の値を使用します。 既定の動作を変更するには、fluent API を使用します。  
+TPH マッピングシナリオでは、継承階層内のすべての型が1つのテーブルにマップされます。 識別子列は、各行の種類を識別するために使用されます。 Code First でモデルを作成する場合、TPH は、継承階層に参加する型の既定の方法です。 既定では、識別子の列が "識別子" という名前のテーブルに追加され、階層内の各型の CLR 型名が識別子の値に使用されます。 既定の動作を変更するには、fluent API を使用します。  
 
 ``` csharp
 modelBuilder.Entity<Course>()  
@@ -248,23 +248,23 @@ modelBuilder.Entity<Course>()
     .Map<OnsiteCourse>(m => m.Requires("Type").HasValue("OnsiteCourse"));
 ```  
 
-### <a name="mapping-the-table-per-type-tpt-inheritance"></a>テーブルあたり型 (TPT) 継承のマッピング  
+### <a name="mapping-the-table-per-type-tpt-inheritance"></a>テーブル型 (TPT) の継承のマッピング  
 
-TPT マッピング シナリオでは、すべての種類は個々 のテーブルにマップされます。 基本データ型または派生型のみに属するプロパティは、その型にマップされたテーブルに格納されます。 派生型にマップされるテーブルでは、派生テーブル、ベース テーブルと結合する外部キーも格納されます。  
+TPT マッピングシナリオでは、すべての型が個々のテーブルにマップされます。 基本データ型または派生型のみに属するプロパティは、その型にマップされたテーブルに格納されます。 派生型にマップされるテーブルには、派生テーブルとベーステーブルを結合する外部キーも格納されます。  
 
 ``` csharp
 modelBuilder.Entity<Course>().ToTable("Course");  
 modelBuilder.Entity<OnsiteCourse>().ToTable("OnsiteCourse");
 ```  
 
-### <a name="mapping-the-table-per-concrete-class-tpc-inheritance"></a>テーブル-コンクリートあたり Class (TPC) 継承のマッピング  
+### <a name="mapping-the-table-per-concrete-class-tpc-inheritance"></a>テーブル単位のクラス (TPC) の継承のマッピング  
 
-TPC マッピング シナリオでは、階層内のすべての非抽象型は個々 のテーブルにマップされます。 派生クラスにマップされるテーブル、データベース内の基本クラスにマップされるテーブルに関係のあるありません。 継承されたプロパティを含むクラスのすべてのプロパティは、対応するテーブルの列にマップされます。  
+TPC マッピングシナリオでは、階層内のすべての非抽象型が個々のテーブルにマップされます。 派生クラスにマップされるテーブルには、データベースの基本クラスにマップされるテーブルとのリレーションシップがありません。 継承されたプロパティを含む、クラスのすべてのプロパティは、対応するテーブルの列にマップされます。  
 
-それぞれの派生型を構成する MapInheritedProperties メソッドを呼び出します。 MapInheritedProperties は、テーブルには、派生クラスの新しい列に、基本クラスから継承されたすべてのプロパティを再マップします。  
+MapInheritedProperties メソッドを呼び出して、それぞれの派生型を構成します。 MapInheritedProperties は、基本クラスから継承されたすべてのプロパティを、派生クラスのテーブルの新しい列に再マップします。  
 
 > [!NOTE]
-> TPC 継承階層に参加しているテーブルを共有しないため、主キーがありますされる重複したエンティティ キーの同じ identity シードがデータベースで生成された値がある場合は、サブクラスにマップされているテーブルに挿入するときに注意してください。 この問題を解決するには、各テーブルの別の最初のシード値を指定するか、主キー プロパティに、id が無効です。 Identity は、Code First を使用する場合の整数キー プロパティの既定値です。  
+> TPC 継承階層に参加しているテーブルでは主キーが共有されないため、同じ identity シードを使用してデータベースが生成された値がある場合は、サブクラスにマップされているテーブルに挿入すると、重複するエンティティキーが存在することに注意してください。 この問題を解決するには、各テーブルに対して異なる初期シード値を指定するか、プライマリキープロパティで id をオフにします。 Id は、Code First を操作する場合の整数キープロパティの既定値です。  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -284,9 +284,9 @@ modelBuilder.Entity<OnlineCourse>().Map(m =>
 });
 ```  
 
-### <a name="mapping-properties-of-an-entity-type-to-multiple-tables-in-the-database-entity-splitting"></a>エンティティ型のプロパティを (エンティティ分割) データベースの複数のテーブルにマップします。  
+### <a name="mapping-properties-of-an-entity-type-to-multiple-tables-in-the-database-entity-splitting"></a>エンティティ型のプロパティをデータベース内の複数のテーブルにマップする (エンティティ分割)  
 
-エンティティ分割には、複数のテーブルに分散し、エンティティ型のプロパティことができます。 次の例では、Department エンティティが 2 つのテーブルに分割されます。 部門と DepartmentDetails します。 エンティティ分割プロパティのサブセットを特定のテーブルにマップするのにマップのメソッドに複数の呼び出しを使用します。  
+エンティティ分割を使用すると、エンティティ型のプロパティを複数のテーブルに分散させることができます。 次の例では、Department エンティティは Department と DepartmentDetails の2つのテーブルに分割されています。 エンティティ分割では、マップメソッドの複数の呼び出しを使用して、プロパティのサブセットを特定のテーブルにマップします。  
 
 ``` csharp
 modelBuilder.Entity<Department>()
@@ -302,9 +302,9 @@ modelBuilder.Entity<Department>()
     });
 ```  
 
-### <a name="mapping-multiple-entity-types-to-one-table-in-the-database-table-splitting"></a>データベース (テーブル分割) の 1 つのテーブルに複数のエンティティ型のマッピング  
+### <a name="mapping-multiple-entity-types-to-one-table-in-the-database-table-splitting"></a>データベース内の1つのテーブルへの複数のエンティティ型のマッピング (テーブル分割)  
 
-次の例では、1 つのテーブルに主キーを共有する 2 つのエンティティ型をマップします。  
+次の例では、主キーを共有する2つのエンティティ型を1つのテーブルにマップします。  
 
 ``` csharp
 modelBuilder.Entity<OfficeAssignment>()
@@ -319,13 +319,13 @@ modelBuilder.Entity<Instructor>().ToTable("Instructor");
 modelBuilder.Entity<OfficeAssignment>().ToTable("Instructor");
 ```  
 
-### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>ストアド プロシージャの挿入/更新/削除 (EF6 以降) へのエンティティ型のマッピング  
+### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>ストアドプロシージャの挿入/更新/削除へのエンティティ型のマッピング (EF6 以降)  
 
-EF6 で始まる挿入更新にストアド プロシージャを使用し、削除するエンティティにマップできます。 詳細についてを参照してください、[コード最初挿入/更新/削除のストアド プロシージャ](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md)します。  
+EF6 以降では、insert update および delete のストアドプロシージャを使用するようにエンティティをマップできます。 詳細については、「[ストアドプロシージャの挿入/更新/削除 Code First](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md)」を参照してください。  
 
 ## <a name="model-used-in-samples"></a>サンプルで使用されるモデル  
 
-このページのサンプルについては、次のコードの最初のモデルが使用されます。  
+このページのサンプルには、次の Code First モデルが使用されています。  
 
 ``` csharp
 using System.Data.Entity;

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
 ms.openlocfilehash: 35b0284a5ad8b2b732f074589bd458d243312575
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181669"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416103"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>データベース操作のログ記録と受信
 > [!NOTE]
@@ -100,7 +100,7 @@ WHERE @@ROWCOUNT > 0 AND [Id] = scope_identity()
 
 Log プロパティが設定されると、次のすべてがログに記録されます。  
 
-- SQL では、さまざまな種類のコマンドを使用できます。 例 :  
+- SQL では、さまざまな種類のコマンドを使用できます。 次に例を示します。  
     - クエリ (通常の LINQ クエリ、eSQL クエリ、SqlQuery などのメソッドからの生のクエリを含む)  
     - SaveChanges の一部として生成された挿入、更新、および削除  
     - 遅延読み込みによって生成されたクエリなどのクエリを読み込むリレーションシップ  
@@ -227,7 +227,7 @@ public class OneLineFormatter : DatabaseLogFormatter
 
 ### <a name="setting-the-databaselogformatter"></a>DatabaseLogFormatter の設定  
 
-新しい DatabaseLogFormatter クラスを作成したら、EF に登録する必要があります。 これは、コードベースの構成を使用して行います。 簡単に言うと、これは、Dbconfiguration クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成し、この新しいクラスのコンストラクターで SetDatabaseLogFormatter を呼び出すことを意味します。 例 :  
+新しい DatabaseLogFormatter クラスを作成したら、EF に登録する必要があります。 これは、コードベースの構成を使用して行います。 簡単に言うと、これは、Dbconfiguration クラスと同じアセンブリ内の DbConfiguration から派生した新しいクラスを作成し、この新しいクラスのコンストラクターで SetDatabaseLogFormatter を呼び出すことを意味します。 次に例を示します。  
 
 ``` csharp
 public class MyDbConfiguration : DbConfiguration
@@ -289,7 +289,7 @@ OriginalResult プロパティと Originalresult プロパティは読み取り�
 
 ### <a name="registering-interceptors"></a>インターセプターの登録  
 
-1つ以上のインターセプトインターフェイスを実装するクラスが作成されたら、DbInterception クラスを使用して EF に登録できます。 例 :  
+1つ以上のインターセプトインターフェイスを実装するクラスが作成されたら、DbInterception クラスを使用して EF に登録できます。 次に例を示します。  
 
 ``` csharp
 DbInterception.Add(new NLogCommandInterceptor());

@@ -5,11 +5,11 @@ ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/value-conversions
 ms.openlocfilehash: 93774bc1bc3887f982faeac151825a6643c1107c
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654792"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414555"
 ---
 # <a name="value-conversions"></a>値変換
 
@@ -18,7 +18,7 @@ ms.locfileid: "73654792"
 
 値コンバーターを使用すると、データベースに対して読み取りまたは書き込みを行うときに、プロパティ値を変換できます。 この変換は、1つの値から同じ型の別の型 (文字列の暗号化など) にすることも、1つの型の値から別の型の値に変換することもできます (たとえば、列挙値をデータベース内の文字列に変換するなど)。
 
-## <a name="fundamentals"></a>Fundamentals
+## <a name="fundamentals"></a>基礎
 
 値コンバーターは、`ModelClrType` と `ProviderClrType`の観点から指定されています。 モデルの種類は、エンティティ型のプロパティの .NET 型です。 プロバイダーの種類は、データベースプロバイダーによって認識される .NET 型です。 たとえば、列挙型を文字列としてデータベースに保存する場合、モデルの種類は列挙型の型であり、プロバイダーの種類は `String`になります。 これらの2つの型は同じにすることができます。
 
@@ -63,7 +63,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ## <a name="the-valueconverter-class"></a>ValueConverter クラス
 
-上記のように `HasConversion` を呼び出すと、`ValueConverter` インスタンスが作成され、プロパティに設定されます。 代わりに、`ValueConverter` を明示的に作成できます。 (例:
+上記のように `HasConversion` を呼び出すと、`ValueConverter` インスタンスが作成され、プロパティに設定されます。 代わりに、`ValueConverter` を明示的に作成できます。 次に例を示します。
 
 ``` csharp
 var converter = new ValueConverter<EquineBeast, string>(
@@ -83,7 +83,7 @@ modelBuilder
 
 ## <a name="built-in-converters"></a>組み込みのコンバーター
 
-EF Core には、`Microsoft.EntityFrameworkCore.Storage.ValueConversion` 名前空間に存在する定義済みの `ValueConverter` クラスのセットが付属しています。 これらの数値は、次のとおりです。
+EF Core には、`Microsoft.EntityFrameworkCore.Storage.ValueConversion` 名前空間に存在する定義済みの `ValueConverter` クラスのセットが付属しています。 次のとおりです。
 
 * `BoolToZeroOneConverter`-Bool を0に、1を1にします。
 * `BoolToStringConverter`-Bool to string ("Y"、"N" など)

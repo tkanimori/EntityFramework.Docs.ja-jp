@@ -4,18 +4,18 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 2eda668b-1e5d-487d-9a8c-0e3beef03fcb
 ms.openlocfilehash: efd646348d8a18bbeed2d0a0e708d4d36eb26eac
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182427"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414483"
 ---
 # <a name="local-data"></a>ローカル データ
 DbSet に対して LINQ クエリを直接実行すると、常にクエリがデータベースに送信されますが、現在、DbSet. Local プロパティを使用してメモリ内にあるデータにアクセスできます。 また、DbContext. Entry メソッドと DbContext. ChangeTracker メソッドを使用して、エンティティに関する追加情報 EF が追跡している情報にアクセスすることもできます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
 
 ## <a name="using-local-to-look-at-local-data"></a>ローカルデータの参照にローカルを使用する  
 
-DbSet のローカルプロパティは、現在コンテキストによって追跡されていて、削除済みとしてマークされていないセットのエンティティへの単純なアクセスを提供します。 ローカルプロパティにアクセスしても、クエリがデータベースに送信されることはありません。 これは、通常、クエリが既に実行された後に使用されることを意味します。 読み込み拡張メソッドを使用してクエリを実行し、コンテキストが結果を追跡できるようにすることができます。 以下に例を示します。  
+DbSet のローカルプロパティは、現在コンテキストによって追跡されていて、削除済みとしてマークされていないセットのエンティティへの単純なアクセスを提供します。 ローカルプロパティにアクセスしても、クエリがデータベースに送信されることはありません。 これは、通常、クエリが既に実行された後に使用されることを意味します。 読み込み拡張メソッドを使用してクエリを実行し、コンテキストが結果を追跡できるようにすることができます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -73,7 +73,7 @@ Found 2: The Visual Studio Blog with state Unchanged
 
 ## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>ローカルを使用してコンテキストのエンティティを追加および削除する  
 
-DbSet の Local プロパティは、コンテキストのコンテンツと同期したままになるように、イベントがフックされた[system.collections.objectmodel.observablecollection](https://msdn.microsoft.com/library/ms668604.aspx)を返します。 これは、ローカルコレクションまたは DbSet からエンティティを追加または削除できることを意味します。 また、新しいエンティティをコンテキストに取り込むクエリによって、そのエンティティでローカルコレクションが更新されることも意味します。 以下に例を示します。  
+DbSet の Local プロパティは、コンテキストのコンテンツと同期したままになるように、イベントがフックされた[system.collections.objectmodel.observablecollection](https://msdn.microsoft.com/library/ms668604.aspx)を返します。 これは、ローカルコレクションまたは DbSet からエンティティを追加または削除できることを意味します。 また、新しいエンティティをコンテキストに取り込むクエリによって、そのエンティティでローカルコレクションが更新されることも意味します。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -155,7 +155,7 @@ DbSet のローカルプロパティは、System.collections.objectmodel.observa
 
 ## <a name="wpf-binding-to-navigation-properties"></a>WPF のナビゲーションプロパティへのバインド  
 
-マスター/詳細データのバインドを行う場合は、いずれかのエンティティのナビゲーションプロパティに詳細ビューをバインドすることができます。 この作業を行う簡単な方法は、ナビゲーションプロパティに System.collections.objectmodel.observablecollection を使用することです。 以下に例を示します。  
+マスター/詳細データのバインドを行う場合は、いずれかのエンティティのナビゲーションプロパティに詳細ビューをバインドすることができます。 この作業を行う簡単な方法は、ナビゲーションプロパティに System.collections.objectmodel.observablecollection を使用することです。 次に例を示します。  
 
 ``` csharp
 public class Blog
@@ -175,7 +175,7 @@ public class Blog
 
 ## <a name="using-local-to-clean-up-entities-in-savechanges"></a>ローカルを使用して SaveChanges でエンティティをクリーンアップする  
 
-ほとんどの場合、ナビゲーションプロパティから削除されたエンティティは、コンテキストで削除済みとして自動的にマークされません。 たとえば、Post オブジェクトを Blog コレクションから削除した場合、SaveChanges が呼び出されても、その投稿は自動的には削除されません。 削除する必要がある場合は、SaveChanges を呼び出す前、またはオーバーライドされた SaveChanges の一部として、これらのぶら下がりエンティティを検索し、削除済みとしてマークする必要があります。 以下に例を示します。  
+ほとんどの場合、ナビゲーションプロパティから削除されたエンティティは、コンテキストで削除済みとして自動的にマークされません。 たとえば、Post オブジェクトを Blog コレクションから削除した場合、SaveChanges が呼び出されても、その投稿は自動的には削除されません。 削除する必要がある場合は、SaveChanges を呼び出す前、またはオーバーライドされた SaveChanges の一部として、これらのぶら下がりエンティティを検索し、削除済みとしてマークする必要があります。 次に例を示します。  
 
 ``` csharp
 public override int SaveChanges()
@@ -208,7 +208,7 @@ Windows フォームは、System.collections.objectmodel.observablecollection �
 
 このシリーズの多くの例では、Entry メソッドを使用して、エンティティの DbEntityEntry インスタンスを返しています。 このエントリオブジェクトは、現在の状態などのエンティティに関する情報を収集するための開始点として機能します。また、関連エンティティの明示的な読み込みなど、エンティティに対する操作の実行にも使用されます。  
 
-Entries メソッドは、コンテキストによって追跡されている多数またはすべてのエンティティに対して DbEntityEntry オブジェクトを返します。 これにより、情報を収集したり、1つのエントリだけではなく、多くのエンティティに対して操作を実行したりすることができます。 以下に例を示します。  
+Entries メソッドは、コンテキストによって追跡されている多数またはすべてのエンティティに対して DbEntityEntry オブジェクトを返します。 これにより、情報を収集したり、1つのエントリだけではなく、多くのエンティティに対して操作を実行したりすることができます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())

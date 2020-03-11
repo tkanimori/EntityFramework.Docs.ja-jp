@@ -1,38 +1,38 @@
 ---
-title: Entity Framework デザイナー - EF6 で ObjectContext に戻しています
+title: Entity Framework Designer の ObjectContext に戻す-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36550569-a1de-47cb-ba6d-544794ffd500
 ms.openlocfilehash: 3e436f0d9cf94720be9c424b327816438d571ae8
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488948"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415431"
 ---
-# <a name="reverting-to-objectcontext-in-entity-framework-designer"></a>Entity Framework デザイナーで ObjectContext に戻しています
-以前のバージョンの Entity Framework EF Designer で作成したモデルの ObjectContext から派生したコンテキストと EntityObject から派生したエンティティ クラスは生成します。
+# <a name="reverting-to-objectcontext-in-entity-framework-designer"></a>Entity Framework Designer 内の ObjectContext に戻す
+以前のバージョンの Entity Framework は、EF デザイナーで作成されたモデルが、EntityObject から派生した ObjectContext およびエンティティクラスから派生したコンテキストを生成します。
 
-EF4.1 以降 DbContext と POCO エンティティ クラスから派生したコンテキストを生成するコード生成テンプレートにスワップお勧めします。
+EF 4.1 以降では、DbContext および POCO エンティティクラスから派生するコンテキストを生成するコード生成テンプレートにスワップすることをお勧めします。
 
-Visual Studio 2012 では、既定では EF Designer で作成されたすべての新しいモデルの生成された DbContext コードを取得します。 既存のモデルでは、引き続き DbContext ベースのコード ジェネレーターをスワップしない限り、ベース ObjectContext コードを生成します。
+Visual Studio 2012 では、EF デザイナーで作成されたすべての新しいモデルに対して、既定で DbContext コードが生成されます。 DbContext ベースのコードジェネレーターにスワップする場合を除き、既存のモデルでは、ObjectContext ベースのコードが引き続き生成されます。
 
-## <a name="reverting-back-to-objectcontext-code-generation"></a>ObjectContext コードの生成に戻します
+## <a name="reverting-back-to-objectcontext-code-generation"></a>ObjectContext コード生成に戻す
 
-### <a name="1-disable-dbcontext-code-generation"></a>1.DbContext のコード生成を無効にします。
+### <a name="1-disable-dbcontext-code-generation"></a>1. DbContext コード生成を無効にします
 
-プロジェクトで 2 つの .tt ファイルによって派生 DbContext と POCO クラスの生成が処理される、ソリューション エクスプ ローラーで .edmx ファイルを展開する場合は、これらのファイルが表示されます。 これらのファイルをプロジェクトから削除します。
+派生した DbContext と POCO クラスの生成は、プロジェクト内の2つの .tt ファイルによって処理されます。ソリューションエクスプローラーで .edmx ファイルを展開すると、これらのファイルが表示されます。 これらの両方のファイルをプロジェクトから削除します。
 
-![汎用のコード ファイル](~/ef6/media/codegenfiles.png)
+![コード Gen ファイル](~/ef6/media/codegenfiles.png)
 
-VB.NET を使用している場合は、選択する必要があります。、 **すべてのファイル**入れ子になったファイルを表示するボタンをクリックします。
+VB.NET を使用している場合は、 **[すべてのファイルを表示]** ボタンを選択して、入れ子になったファイルを表示する必要があります。
 
 ![すべてのファイルを表示](~/ef6/media/showallfiles.png)
 
-### <a name="2-re-enable-objectcontext-code-generation"></a>2.ObjectContext コードの生成を再度有効にします。
+### <a name="2-re-enable-objectcontext-code-generation"></a>2. ObjectContext コード生成を再度有効にする
 
-デザイン サーフェスと選択の空白部分を右クリックし、EF デザイナーでモデル化するオープン**プロパティ**します。
+EF デザイナーでモデルを開き、デザイン画面の空白部分を右クリックして、 **[プロパティ]** を選択します。
 
-プロパティ ウィンドウの変更で、**コード生成方法**から**None**に**既定**します。
+プロパティウィンドウ **[コード生成方法]** を **[なし**] から **[既定]** に変更します。
 
 ![コード生成戦略](~/ef6/media/codegenstrategy.png)

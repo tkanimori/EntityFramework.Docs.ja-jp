@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 29958ae5-85d3-4585-9ba6-550b8ec9393a
 ms.openlocfilehash: 4395a9c117a6cf38e7fc08f11ee689d6fffa6fed
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182097"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416229"
 ---
 # <a name="upgrading-to-entity-framework-6"></a>Entity Framework 6 へのアップグレード
 
@@ -64,13 +64,13 @@ DbContext および Code First 型の名前空間は変更されていません�
 
 以前に system.object に含まれていた ObjectContext などの型は、新しい名前空間に移動されました。 つまり、EF6 に対してビルドするには、 *using*ディレクティブまたは*Import*ディレクティブを更新する必要があります。
 
-名前空間の変更に関する一般的な規則は、system.string 内のすべての型が、system.string に移動されることです。 言い換えると、" **Entity. Core** " を挿入するだけです。 System. Data の後。 例 :
+名前空間の変更に関する一般的な規則は、system.string 内のすべての型が、system.string に移動されることです。 言い換えると、" **Entity. Core** " を挿入するだけです。 System. Data の後。 次に例を示します。
 
 - System.string. EntityException = > system.string。**Entity. Core**。EntityException  
 - System.string は、system.string を > します。**Entity. Core**。オブジェクト。 ObjectContext  
 - RelationshipManager = > system.string のデータを持つことができます。**Entity. Core**。オブジェクト. RelationshipManager  
 
-これらの型は、ほとんどの DbContext ベースのアプリケーションでは直接使用されないため、*コア*名前空間にあります。 System.object の一部であった型の中には、DbContext ベースのアプリケーションで一般的に使用されているものもあります。そのため、*コア*名前空間に移動されていません。 これらの設定は、次のとおりです。
+これらの型は、ほとんどの DbContext ベースのアプリケーションでは直接使用されないため、*コア*名前空間にあります。 System.object の一部であった型の中には、DbContext ベースのアプリケーションで一般的に使用されているものもあります。そのため、*コア*名前空間に移動されていません。 次のとおりです。
 
 - EntityState = > system.string をします。**エンティティ**。EntityState  
 - System.string. EdmFunctionAttribute = > system.string......**Entity. DbFunctionAttribute**  

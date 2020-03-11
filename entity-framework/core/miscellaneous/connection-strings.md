@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
 uid: core/miscellaneous/connection-strings
 ms.openlocfilehash: ed89d6d09b15b0dea7fd8bc3ff3e3f631495ecb7
-ms.sourcegitcommit: cbaa6cc89bd71d5e0bcc891e55743f0e8ea3393b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/20/2019
-ms.locfileid: "71149110"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414093"
 ---
 # <a name="connection-strings"></a>接続文字列
 
@@ -31,9 +31,9 @@ WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト�
 ```
 
 > [!TIP]  
-> データベース`providerName`プロバイダーはコードを使用して構成されているため、app.config に格納されている EF Core 接続文字列では、この設定は必要ありません。
+> データベースプロバイダーはコードを使用して構成されているため、App.config に格納されている EF Core 接続文字列で `providerName` 設定は必要ありません。
 
-その後、コンテキストの`ConfigurationManager` `OnConfiguring`メソッドで API を使用して接続文字列を読み取ることができます。 この API を使用できるようにするに`System.Configuration`は、フレームワークアセンブリへの参照を追加する必要がある場合があります。
+その後、コンテキストの `OnConfiguring` メソッドで `ConfigurationManager` API を使用して接続文字列を読み取ることができます。 この API を使用できるようにするには、`System.Configuration` framework アセンブリに参照を追加する必要がある場合があります。
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -67,7 +67,7 @@ public class BloggingContext : DbContext
 
 ## <a name="aspnet-core"></a>ASP.NET Core
 
-ASP.NET Core 構成システムは非常に柔軟であり、接続文字列は、環境変数、 `appsettings.json`ユーザーシークレットストア、または別の構成ソースに格納できます。 詳細については[、ASP.NET Core のドキュメントの構成セクション](https://docs.asp.net/en/latest/fundamentals/configuration.html)を参照してください。 次の例は、に`appsettings.json`格納されている接続文字列を示しています。
+ASP.NET Core 構成システムは非常に柔軟であり、接続文字列は `appsettings.json`、環境変数、ユーザーシークレットストア、または別の構成ソースに格納できます。 詳細については[、ASP.NET Core のドキュメントの構成セクション](https://docs.asp.net/en/latest/fundamentals/configuration.html)を参照してください。 次の例は、`appsettings.json`に格納されている接続文字列を示しています。
 
 ``` json
 {
@@ -77,7 +77,7 @@ ASP.NET Core 構成システムは非常に柔軟であり、接続文字列は�
 }
 ```
 
-コンテキストは、通常、構成`Startup.cs`から読み取られる接続文字列を使用してで構成されます。 メソッドは`GetConnectionString()` 、キーがで`ConnectionStrings:<connection string name>`ある構成値を検索します。 この拡張メソッドを使用するには、この[拡張機能の名前空間](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration)をインポートする必要があります。
+コンテキストは、通常、構成から読み取る接続文字列を使用して `Startup.cs` で構成されます。 `GetConnectionString()` メソッドは、キーが `ConnectionStrings:<connection string name>`である構成値を検索します。 この拡張メソッドを使用するには、この[拡張機能の名前空間](https://docs.microsoft.com/dotnet/api/microsoft.extensions.configuration)をインポートする必要があります。
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)

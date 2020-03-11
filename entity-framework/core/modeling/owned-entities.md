@@ -5,18 +5,18 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 30b91b6e66b6c0f516d1ba12485304b52770cbef
-ms.sourcegitcommit: 4e86f01740e407ff25e704a11b1f7d7e66bfb2a6
+ms.openlocfilehash: da4a459fbc40010fc14190204c8ed66fe0495b84
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/09/2020
-ms.locfileid: "75781236"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413985"
 ---
-# <a name="owned-entity-types"></a>所有されているエンティティ型
+# <a name="owned-entity-types"></a>所有エンティティ型
 
-EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、_所有エンティティ型_と呼ばれます。 所有エンティティ型を含むエンティティはその_所有者_します。
+EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、_所有エンティティ型_と呼ばれます。 所有エンティティ型を含むエンティティは、その_所有者_です。
 
-所有されているエンティティは、本質的に所有者の一部であり、存在しない場合は、概念的には[集計](https://martinfowler.com/bliki/DDD_Aggregate.html)に似ています。 つまり、所有されている型は、所有者とのリレーションシップの依存側の定義によって決まります。
+所有されているエンティティは、本質的に所有者の一部であり、存在しない場合は、概念的には[集計](https://martinfowler.com/bliki/DDD_Aggregate.html)に似ています。 つまり、所有されているエンティティは、所有者とのリレーションシップの依存側の定義によって決まります。
 
 ## <a name="explicit-configuration"></a>明示的な構成
 
@@ -38,7 +38,7 @@ EF Core を使用すると、他のエンティティ型のナビゲーション
 
 [!code-csharp[OwnsOneString](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneString)]
 
-詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities)を参照してください。
+詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities)を参照してください。
 
 ## <a name="implicit-keys"></a>暗黙のキー
 
@@ -90,7 +90,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 
 所有エンティティ型できます別の所有エンティティ型と同じ .NET 型したがって .NET 型できない可能性があります所有型を識別するために十分な。
 
-その場合、所有者から所有エンティティを指すプロパティになります、_ナビゲーションを定義する_の所有エンティティ型。 EF Core の観点から見ると、定義のナビゲーションは、.NET 型と共に型の id の一部になります。
+そのような場合は、所有者から所有されているエンティティを指すプロパティが、所有されているエンティティ型の_ナビゲーションを定義_するようになります。 EF Core の観点から見ると、定義のナビゲーションは、.NET 型と共に型の id の一部になります。
 
 たとえば、次のクラスの `ShippingAddress` と `BillingAddress` は両方とも同じ .NET 型 `StreetAddress`ます。
 

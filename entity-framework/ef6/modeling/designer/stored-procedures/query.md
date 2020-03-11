@@ -4,16 +4,16 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
 ms.openlocfilehash: 2e0092b526278597e8477d47eeb642598647bb91
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182477"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415203"
 ---
 # <a name="designer-query-stored-procedures"></a>デザイナークエリのストアドプロシージャ
 このステップバイステップチュートリアルでは、Entity Framework Designer (EF デザイナー) を使用してストアドプロシージャをモデルにインポートし、インポートされたストアドプロシージャを呼び出して結果を取得する方法について説明します。 
 
-この Code First では、ストアドプロシージャまたは関数へのマッピングはサポートされていません。 ただし、ストアドプロシージャまたは関数は、ストアドプロシージャまたは関数を呼び出すことによって呼び出すことができます。 例 :
+この Code First では、ストアドプロシージャまたは関数へのマッピングはサポートされていません。 ただし、ストアドプロシージャまたは関数は、ストアドプロシージャまたは関数を呼び出すことによって呼び出すことができます。 次に例を示します。
 ``` csharp
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 ```
@@ -31,7 +31,7 @@ var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 -   [**ファイル]、[新規&gt; プロジェクトの&gt;** ] の選択
 -   左側のウィンドウで、[ **Visual C\#** ] をクリックし、**コンソール**テンプレートを選択します。
 -   名前として「 **Efwithsprocssample** 」と入力します。
--   [ **OK]** を選択します。
+-    **[OK]** を選択します。
 
 ## <a name="create-a-model"></a>モデルの作成
 
@@ -45,7 +45,7 @@ var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]")`;
 -   [データベースオブジェクトの選択] ダイアログボックスで、[**テーブル** ] チェックボックスをオンにして、すべてのテーブルを選択します。  
     また、 **[ストアドプロシージャと関数]** ノードで、 **GetStudentGrades**および**GetDepartmentName**の下にある次のストアドプロシージャを選択します。 
 
-    ![インポート](~/ef6/media/import.jpg)
+    ![[インポート]](~/ef6/media/import.jpg)
 
     *Visual Studio 2012 以降では、EF デザイナーはストアドプロシージャの一括インポートをサポートしています。既定では、[**選択したストアドプロシージャと関数をエンティティモデルにインポート**する] がオンになっています。*
 -   [ **完了**] をクリックします。

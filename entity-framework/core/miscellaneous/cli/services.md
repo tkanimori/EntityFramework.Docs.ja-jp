@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 10/26/2017
 uid: core/miscellaneous/cli/services
 ms.openlocfilehash: 57294ab41e7c251b1dafae9d573aa98676c5d939
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655833"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414207"
 ---
 # <a name="design-time-services"></a>デザイン時サービス
 

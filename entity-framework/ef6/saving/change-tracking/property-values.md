@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
 ms.openlocfilehash: d8a18182754980d79b71df3f227b30c4ce40366f
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182142"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414375"
 ---
 # <a name="working-with-property-values"></a>プロパティ値の操作
 ほとんどの場合 Entity Framework は、エンティティインスタンスのプロパティの状態、元の値、および現在の値の追跡を行います。 ただし、接続が切断されたシナリオなど、EF がプロパティについての情報を表示または操作する場合もあります。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -55,7 +55,7 @@ using (var context = new BloggingContext())
 
 ## <a name="getting-and-setting-the-current-value-of-an-unmapped-property"></a>マップされていないプロパティの現在の値の取得と設定  
 
-データベースにマップされていないプロパティの現在の値も読み取ることができます。 マップされていないプロパティの例としては、ブログの .Rsslink プロパティがあります。 この値は、ブログ Id に基づいて計算される場合があるため、データベースに格納する必要はありません。 以下に例を示します。  
+データベースにマップされていないプロパティの現在の値も読み取ることができます。 マップされていないプロパティの例としては、ブログの .Rsslink プロパティがあります。 この値は、ブログ Id に基づいて計算される場合があるため、データベースに格納する必要はありません。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -71,7 +71,7 @@ using (var context = new BloggingContext())
 
 プロパティが setter を公開している場合は、現在の値を設定することもできます。  
 
-マップされていないプロパティの値の読み取りは、マップされていないプロパティの Entity Framework 検証を実行する場合に便利です。 同じ理由から、現在の値は、コンテキストによって現在追跡されていないエンティティのプロパティに対して読み取りおよび設定できます。 以下に例を示します。  
+マップされていないプロパティの値の読み取りは、マップされていないプロパティの Entity Framework 検証を実行する場合に便利です。 同じ理由から、現在の値は、コンテキストによって現在追跡されていないエンティティのプロパティに対して読み取りおよび設定できます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -167,7 +167,7 @@ public static void PrintValues(DbPropertyValues values)
 
 ## <a name="setting-current-or-original-values-from-another-object"></a>別のオブジェクトからの現在または元の値の設定  
 
-追跡対象エンティティの現在の値または元の値は、別のオブジェクトから値をコピーすることによって更新できます。 以下に例を示します。  
+追跡対象エンティティの現在の値または元の値は、別のオブジェクトから値をコピーすることによって更新できます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -214,7 +214,7 @@ Property Name has value My Boring Blog
 
 ## <a name="setting-current-or-original-values-from-a-dictionary"></a>ディクショナリからの現在または元の値の設定  
 
-追跡対象エンティティの現在の値または元の値は、ディクショナリまたはその他のデータ構造から値をコピーすることによって更新できます。 以下に例を示します。  
+追跡対象エンティティの現在の値または元の値は、ディクショナリまたはその他のデータ構造から値をコピーすることによって更新できます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -242,7 +242,7 @@ using (var context = new BloggingContext())
 
 ## <a name="setting-current-or-original-values-from-a-dictionary-using-property"></a>プロパティを使用してディクショナリから現在または元の値を設定する  
 
-前に示したように CurrentValues または OriginalValues を使用する代わりに、プロパティメソッドを使用して各プロパティの値を設定することもできます。 これは、複合プロパティの値を設定する必要がある場合に適しています。 以下に例を示します。  
+前に示したように CurrentValues または OriginalValues を使用する代わりに、プロパティメソッドを使用して各プロパティの値を設定することもできます。 これは、複合プロパティの値を設定する必要がある場合に適しています。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -270,7 +270,7 @@ using (var context = new BloggingContext())
 
 ## <a name="creating-a-cloned-object-containing-current-original-or-database-values"></a>現在、元、またはデータベースの値を含む複製されたオブジェクトの作成  
 
-CurrentValues、OriginalValues、または GetDatabaseValues から返された DbPropertyValues オブジェクトを使用して、エンティティの複製を作成できます。 この複製には、作成に使用された DbPropertyValues オブジェクトのプロパティ値が含まれます。 以下に例を示します。  
+CurrentValues、OriginalValues、または GetDatabaseValues から返された DbPropertyValues オブジェクトを使用して、エンティティの複製を作成できます。 この複製には、作成に使用された DbPropertyValues オブジェクトのプロパティ値が含まれます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -287,7 +287,7 @@ using (var context = new BloggingContext())
 
 ## <a name="getting-and-setting-the-current-or-original-values-of-complex-properties"></a>複合プロパティの現在の値または元の値の取得と設定  
 
-複合オブジェクト全体の値は、プリミティブプロパティの場合と同様に、プロパティメソッドを使用して読み取って設定できます。 さらに、複合オブジェクトをドリルダウンして、そのオブジェクトのプロパティの読み取りや設定を行うことも、入れ子になったオブジェクトを使用することもできます。 次にいくつかの例を示します。  
+複合オブジェクト全体の値は、プリミティブプロパティの場合と同様に、プロパティメソッドを使用して読み取って設定できます。 さらに、複合オブジェクトをドリルダウンして、そのオブジェクトのプロパティの読み取りや設定を行うことも、入れ子になったオブジェクトを使用することもできます。 次に例をいくつか示します。  
 
 ``` csharp
 using (var context = new BloggingContext())

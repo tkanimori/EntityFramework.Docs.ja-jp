@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 09/16/2019
 uid: core/miscellaneous/cli/dbcontext-creation
 ms.openlocfilehash: f44f0648678af5a70e5171d69692bde1c1d5e0eb
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655527"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414219"
 ---
 # <a name="design-time-dbcontext-creation"></a>デザイン時 DbContext 作成
 
@@ -36,14 +36,14 @@ DbContext をアプリケーションサービスプロバイダーから取得�
 
 ## <a name="from-a-design-time-factory"></a>デザイン時のファクトリから
 
-また、`IDesignTimeDbContextFactory<TContext>` インターフェイスを実装することにより、DbContext を作成する方法を指定することもできます。このインターフェイスを実装するクラスが、派生した `DbContext` と同じプロジェクトまたはアプリケーションのスタートアッププロジェクトに存在する場合、ツールはその他をバイパスします。DbContext を作成し、代わりにデザイン時のファクトリを使用する方法。
+また、`IDesignTimeDbContextFactory<TContext>` インターフェイスを実装することで DbContext を作成する方法を指定することもできます。このインターフェイスを実装するクラスが、派生 `DbContext` と同じプロジェクトまたはアプリケーションのスタートアッププロジェクトに存在する場合、ツールは DbContext を作成する他の方法をバイパスし、代わりにデザイン時のファクトリを使用します。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/CommandLine/BloggingContextFactory.cs)]
 
 > [!NOTE]
 > `args` パラメーターは現在使用されていません。 ツールからデザイン時引数を指定する機能の追跡には[問題][8]があります。
 
-デザイン時のファクトリは、実行時とは異なるデザイン時に DbContext を別の方法で構成する必要がある場合、`DbContext` コンストラクターが DI に登録されていない場合、DI を使用していない場合、または何らかの理由で何らかの理由でそのような場合に特に役立ちます。ASP.NET Core アプリケーションの `Main` クラスに `BuildWebHost` メソッドを使用しないことをお勧めします。
+デザイン時のファクトリは、実行時とは異なるデザイン時に DbContext を構成する必要がある場合、`DbContext` コンストラクターが DI に登録されていない場合、di を使用していない場合、または何らかの理由で ASP.NET Core アプリケーションの `Main` クラスに `BuildWebHost` メソッドを使用しない場合に特に便利です。
 
   [1]: xref:core/managing-schemas/migrations/index
   [2]: xref:core/miscellaneous/configuring-dbcontext

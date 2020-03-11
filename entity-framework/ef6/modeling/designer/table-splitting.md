@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 452f17c3-9f26-4de4-9894-8bc036e23b0f
 ms.openlocfilehash: f5e7532e6c0b473d8ce77cbd11e3e673b0af6cbe
-ms.sourcegitcommit: b2b9468de2cf930687f8b85c3ce54ff8c449f644
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/12/2019
-ms.locfileid: "70921776"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415011"
 ---
 # <a name="designer-table-splitting"></a>デザイナーのテーブル分割
 このチュートリアルでは、Entity Framework Designer (EF Designer) を使用してモデルを変更することで、複数のエンティティ型を1つのテーブルにマップする方法について説明します。
@@ -58,7 +58,7 @@ ms.locfileid: "70921776"
 -   デザイン画面の空の領域を右クリックし、[ **新規追加**] をポイントして、[ **エンティティ**] をクリックします。
     [ **新しいエンティティ** ] ダイアログボックスが表示されます。
 -   [ **エンティティ名**] に「 **hireinfo** 」と入力し、**キープロパティ**名に「 **PersonID** 」と入力します。
--   [ **OK]** をクリックします。
+-    **[OK]** をクリックします。
 -   新しいエンティティ型が作成され、デザイン画面に表示されます。
 -    **Person** エンティティ型の **HireDate** プロパティを選択し、ctrl キーを押し**ながら X**キーを押します。
 -   **Hireinfo** エンティティを選択し、ctrl キーを押し**ながら V**キーを押します。
@@ -126,7 +126,7 @@ ms.locfileid: "70921776"
 
 -   次の**INSERT**は、コンテキストの実行結果として実行されました。SaveChanges () と**Person**および**hireinfo**エンティティのデータを結合します。
 
-    ![［挿入］](~/ef6/media/insert.png)
+    ![挿入](~/ef6/media/insert.png)
 
 -   次の**SELECT**は、コンテキストの実行結果として実行されました。FirstOrDefault () を選択し、 **Person**にマップされた列のみを選択します
 

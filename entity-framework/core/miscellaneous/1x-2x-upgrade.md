@@ -5,11 +5,11 @@ ms.date: 08/13/2017
 ms.assetid: 8BD43C8C-63D9-4F3A-B954-7BC518A1B7DB
 uid: core/miscellaneous/1x-2x-upgrade
 ms.openlocfilehash: b27c09fdb6210dd7c6aa0c8bc912a8bd183c16b9
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824431"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414231"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 にアプリケーションをアップグレードする
 
@@ -74,7 +74,7 @@ namespace AspNetCoreDotNetCore2._0App
 
 上記で説明した ASP.NET Core 2.0 の変更のため、新しい `IDesignTimeDbContextFactory<TContext>` インターフェイスで `DbContextFactoryOptions` が不要になったことがわかりました。 代わりに、次の代替手段を使用する必要があります。
 
-| DbContextFactoryOptions | 代替                                                  |
+| DbContextFactoryOptions | 代替手段                                                  |
 |:------------------------|:-------------------------------------------------------------|
 | ApplicationBasePath     | AppContext.BaseDirectory                                     |
 | ContentRootPath         | Directory.GetCurrentDirectory()                              |
@@ -118,7 +118,7 @@ var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName
 var tableName = context.Model.FindEntityType(typeof(User)).Relational().TableName;
 ```
 
-`ForSqlServerToTable`のようなメソッドを使用する代わりに、現在使用されているプロバイダーに基づいて条件付きコードを記述するために拡張メソッドを使用できるようになりました。 例:
+`ForSqlServerToTable`のようなメソッドを使用する代わりに、現在使用されているプロバイダーに基づいて条件付きコードを記述するために拡張メソッドを使用できるようになりました。 次に例を示します。
 
 ```csharp
 modelBuilder.Entity<User>().ToTable(
@@ -135,7 +135,7 @@ modelBuilder.Entity<User>().ToTable(
 
 ## <a name="in-memory-databases-must-be-named"></a>インメモリデータベースは、という名前にする必要があります。
 
-名前のないグローバルなメモリ内データベースデータベースは削除されているため、すべてのインメモリデータベースに名前を付ける必要があります。 例:
+名前のないグローバルなメモリ内データベースデータベースは削除されているため、すべてのインメモリデータベースに名前を付ける必要があります。 次に例を示します。
 
 ``` csharp
 optionsBuilder.UseInMemoryDatabase("MyDatabase");

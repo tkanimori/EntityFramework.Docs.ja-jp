@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
 ms.openlocfilehash: c873e9a216bd9bd1934f2149ae6af602072f3608
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656165"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415845"
 ---
 # <a name="model-based-conventions"></a>モデルベースの規則
 > [!NOTE]
@@ -83,7 +83,7 @@ class DiscriminatorRenamingConvention : IStoreModelConvention<EdmProperty>
 
 もう1つの複雑なモデルベースの規則の例として、独立した関連付け (IAs) の名前付け方法を構成します。  これは、IAs が EF によって生成され、DbModelBuilder API がアクセスできるモデルに存在しないため、モデルの規則が適用される状況です。  
 
-EF が IA を生成すると、EntityType_KeyName という名前の列が作成されます。 たとえば、CustomerId という名前のキー列を持つ Customer という名前のアソシエーションでは、Customer_CustomerId という名前の列が生成されます。 次の規則は、IA 用に生成された列名から '\_' 文字を除去します。  
+EF が IA を生成すると、EntityType_KeyName という名前の列が作成されます。 たとえば、CustomerId という名前のキー列を持つ Customer という名前のアソシエーションの場合、Customer_CustomerId という名前の列が生成されます。 次の規則は、IA 用に生成された列名から '\_' 文字を除去します。  
 
 ``` csharp
 using System.Data.Entity;
@@ -207,6 +207,6 @@ public class BlogContext : DbContext
 }
 ```  
 
-## <a name="notes"></a>ノート  
+## <a name="notes"></a>メモ  
 
 Entity Framework によって現在適用されている規則の一覧については、MSDN のドキュメント「 [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)」を参照してください。  このリストは、ソースコードから直接プルされます。  Entity Framework 6 のソースコードは[GitHub](https://github.com/aspnet/entityframework6/)で入手でき、Entity Framework によって使用される規則の多くは、カスタムモデルベースの規則の出発点として適しています。  

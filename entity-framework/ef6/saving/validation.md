@@ -4,13 +4,13 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
 ms.openlocfilehash: 2c5e6f1b3f60862124bafcac42e8859a7591f8e6
-ms.sourcegitcommit: 2355447d89496a8ca6bcbfc0a68a14a0bf7f0327
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/23/2019
-ms.locfileid: "72812151"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414369"
 ---
-# <a name="data-validation"></a>データの検証
+# <a name="data-validation"></a>データ検証
 > [!NOTE]
 > **Ef 4.1 以降のみ**-このページで説明した機能、api などは、Entity Framework 4.1 で導入されました。 以前のバージョンを使用している場合、情報の一部またはすべてが適用されない
 
@@ -54,7 +54,7 @@ public string Title { get; set; }
 
 アプリケーションで追加のコードやマークアップの変更を加えなくても、既存の MVC アプリケーションは、プロパティと注釈の名前を使用してメッセージを動的に構築しながら、クライアント側の検証を実行します。
 
-![図1](~/ef6/media/figure01.png)
+![図 1](~/ef6/media/figure01.png)
 
 この Create view のポストバックメソッドでは、新しいブログをデータベースに保存するために Entity Framework が使用されますが、アプリケーションがそのコードに到達する前に MVC のクライアント側の検証がトリガーされます。
 
@@ -156,7 +156,7 @@ public class Blog : IValidatableObject
 
 Fluent API によって提供される検証とは異なり、この検証結果はビューによって認識されます。また、前にエラーを追加するために使用した例外ハンドラー `ModelState` は不要です。 `ValidationResult`で両方のプロパティ名を設定したため、MVC HtmlHelpers には、両方のプロパティのエラーメッセージが表示されます。
 
-![図2](~/ef6/media/figure02.png)
+![図 2](~/ef6/media/figure02.png)
 
 ## <a name="dbcontextvalidateentity"></a>DbContext. ValidateEntity
 

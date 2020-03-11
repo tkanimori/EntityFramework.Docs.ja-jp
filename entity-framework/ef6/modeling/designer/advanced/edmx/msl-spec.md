@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 13ae7bc1-74b4-4ee4-8d73-c337be841467
 ms.openlocfilehash: 8990d1373ea2121ce11337a43dbcdf3b9e1532bd
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182556"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415479"
 ---
 # <a name="msl-specification"></a>MSL 仕様
 マッピング仕様言語 (MSL) は、Entity Framework アプリケーションの概念モデルとストレージモデルの間のマッピングを記述する XML ベースの言語です。
@@ -33,14 +33,14 @@ MSL のバージョンは、XML 名前空間で区別されます。
 
 **Alias**要素に子要素を含めることはできません。
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Alias**要素に適用できる属性について説明します。
 
 | 属性名 | 必須 | 値                                                                     |
 |:---------------|:------------|:--------------------------------------------------------------------------|
 | **[キー]**        | はい         | **Value**属性によって指定された名前空間のエイリアス。 |
-| **[値]**      | はい         | **キー**要素の値がエイリアスである名前空間。     |
+| **Value**      | はい         | **キー**要素の値がエイリアスである名前空間。     |
 
 ### <a name="example"></a>例
 
@@ -87,7 +87,7 @@ MSL のバージョンは、XML 名前空間で区別されます。
 
 -   ScalarProperty
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Associationend**要素に適用できる属性について説明します。
 
@@ -194,7 +194,7 @@ MSL のバージョンは、XML 名前空間で区別されます。
 -   条件 (0 個以上)
 -   ModificationFunctionMapping (0 個または1個)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **AssociationSetMapping**要素に適用できる属性について説明します。
 
@@ -232,7 +232,7 @@ MSL のバージョンは、XML 名前空間で区別されます。
 -   ComplextTypeMapping (0 個以上)
 -   条件 (0 個以上)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Complexproperty**要素に適用できる属性について説明します。
 
@@ -302,7 +302,7 @@ MSL のバージョンは、XML 名前空間で区別されます。
 
 -   ScalarProperty (0 個以上)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Complextypemapping**要素に適用できる属性について説明します。
 
@@ -312,7 +312,7 @@ MSL のバージョンは、XML 名前空間で区別されます。
 
 ### <a name="example"></a>例
 
-次のストアド プロシージャを考えてみます。
+次のストアド プロシージャについて考えてみます。
 
 ``` SQL
  CREATE PROCEDURE [dbo].[GetGrades]
@@ -373,15 +373,15 @@ MSL のバージョンは、XML 名前空間で区別されます。
 
 **Condition**要素に子要素を含めることはできません。
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Condition**要素に適用できる属性について説明します。
 
 | 属性名 | 必須 | 値                                                                                                                                                                                                                                                                                         |
 |:---------------|:------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| **ColumnName** | いいえ          | 条件の評価に使用される値のテーブル列の名前。                                                                                                                                                                                                                   |
-| **IsNull**     | いいえ          | **True**または**False**。 値が**true**で列の値が**null**である場合、または値が**False**で列の値が**null**でない場合、条件は true になります。 それ以外の場合、条件は False です。 <br/> **IsNull**属性と**Value**属性は同時に使用できません。 |
-| **[値]**      | いいえ          | 列値と比較される値。 値が同じ場合、条件は True です。 それ以外の場合、条件は False です。 <br/> **IsNull**属性と**Value**属性は同時に使用できません。                                                                       |
+| **[ColumnName]** | いいえ          | 条件の評価に使用される値のテーブル列の名前。                                                                                                                                                                                                                   |
+| **IsNull**     | いいえ          | **True** または **False** です。 値が**true**で列の値が**null**である場合、または値が**False**で列の値が**null**でない場合、条件は true になります。 それ以外の場合、条件は False です。 <br/> **IsNull**属性と**Value**属性は同時に使用できません。 |
+| **Value**      | いいえ          | 列値と比較される値。 値が同じ場合、条件は True です。 それ以外の場合、条件は False です。 <br/> **IsNull**属性と**Value**属性は同時に使用できません。                                                                       |
 | **名前**       | いいえ          | 条件の評価に使用される値を持つ概念モデルのエンティティ プロパティの名前。 <br/> **Condition**要素が FunctionImportMapping 要素内で使用されている場合、この属性は適用されません。                                                                           |
 
 ### <a name="example"></a>例
@@ -434,7 +434,7 @@ EntityTypeMapping 要素に適用される場合、 **Deletefunction**要素は�
 -   ComplexProperty (0 個以上)
 -   ScarlarProperty (0 個以上)
 
-#### <a name="applicable-attributes"></a>適用可能な属性
+#### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Entitytypemapping**要素に適用されるときに**deletefunction**要素に適用できる属性について説明します。
 
@@ -498,7 +498,7 @@ AssociationSetMapping 要素に適用した場合、 **Deletefunction**要素は
 
 -   EndProperty
 
-#### <a name="applicable-attributes"></a>適用可能な属性
+#### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **AssociationSetMapping**要素に適用されるときに**deletefunction**要素に適用できる属性について説明します。
 
@@ -552,7 +552,7 @@ AssociationSetMapping 要素に適用した場合、 **Deletefunction**要素は
 
 -   ScalarProperty (0 個以上)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Endproperty**要素に適用できる属性について説明します。
 
@@ -622,7 +622,7 @@ AssociationSetMapping 要素に適用した場合、 **Deletefunction**要素は
 -   AssociationSetMapping (0 個以上)
 -   FunctionImportMapping (0 個以上)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **EntityContainerMapping**要素に適用できる属性について説明します。
 
@@ -630,7 +630,7 @@ AssociationSetMapping 要素に適用した場合、 **Deletefunction**要素は
 |:--------------------------|:------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | **StorageModelContainer** | はい         | マップされるストレージ モデルのエンティティ コンテナーの名前。                                                                                                                                                                                     |
 | **CdmEntityContainer**    | はい         | マップされる概念モデルのエンティティ コンテナーの名前。                                                                                                                                                                                  |
-| **GenerateUpdateViews**   | いいえ          | **True**または**False**。 **False**の場合、更新ビューは生成されません。 データが正常にラウンドトリップしない可能性があるため、読み取り専用マッピングが無効である場合は、この属性を**False**に設定する必要があります。 <br/> 既定値は **True** です。 |
+| **GenerateUpdateViews**   | いいえ          | **True** または **False** です。 **False**の場合、更新ビューは生成されません。 データが正常にラウンドトリップしない可能性があるため、読み取り専用マッピングが無効である場合は、この属性を**False**に設定する必要があります。 <br/> 既定値は **True**です。 |
 
 ### <a name="example"></a>例
 
@@ -673,7 +673,7 @@ AssociationSetMapping 要素に適用した場合、 **Deletefunction**要素は
 -   QueryView (0 個または1個)
 -   MappingFragment (0 個以上)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **EntitySetMapping**要素に適用できる属性について説明します。
 
@@ -730,7 +730,7 @@ ModificationFunctionMapping 子要素を使用すると、エンティティ型�
 -   MappingFragment (0 個以上)
 -   ModificationFunctionMapping (0 個または1個)
 -   ScalarProperty
--   状態
+-   条件
 
 > [!NOTE]
 > **Mappingfragment**要素と**ModificationFunctionMapping**要素は、同時に**entitytypemapping**要素の子要素にすることはできません。
@@ -739,7 +739,7 @@ ModificationFunctionMapping 子要素を使用すると、エンティティ型�
 > [!NOTE]
 > **ScalarProperty**要素と**Condition**要素は、functionimportmapping 要素内で使用されている場合にのみ、 **entitytypemapping**要素の子要素にすることができます。
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Entitytypemapping**要素に適用できる属性について説明します。
 
@@ -825,7 +825,7 @@ ModificationFunctionMapping 子要素を使用すると、エンティティ型�
 
 -   ResultMapping (0 個以上)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Functionimportmapping**要素に適用できる属性について説明します。
 
@@ -883,7 +883,7 @@ EntityTypeMapping 要素に適用される場合、 **Insertfunction**要素は�
 -   ResultBinding (0 個または1個)
 -   ScarlarProperty (0 個以上)
 
-#### <a name="applicable-attributes"></a>適用可能な属性
+#### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Entitytypemapping**要素に適用するときに**insertfunction**要素に適用できる属性について説明します。
 
@@ -934,7 +934,7 @@ EntityTypeMapping 要素に適用される場合、 **Insertfunction**要素は�
 
 -   EndProperty
 
-#### <a name="applicable-attributes"></a>適用可能な属性
+#### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Insertfunction**要素が**AssociationSetMapping**要素に適用されるときに適用できる属性について説明します。
 
@@ -982,7 +982,7 @@ EntityTypeMapping 要素に適用される場合、 **Insertfunction**要素は�
 
 マッピングスキーマ言語 (MSL) の**mapping**要素には、概念モデルで定義されているオブジェクトをデータベースにマップするための情報が含まれています (ストレージモデルの説明を参照)。 詳細については、「CSDL 仕様」と「SSDL 仕様」を参照してください。
 
-**Mapping**要素は、マッピングスキーマのルート要素です。 マッピング仕様の XML 名前空間は https://schemas.microsoft.com/ado/2009/11/mapping/cs します。
+**Mapping**要素は、マッピングスキーマのルート要素です。 マッピング仕様の XML 名前空間は https://schemas.microsoft.com/ado/2009/11/mapping/csです。
 
 マッピング要素には、次の子要素をここに示す順序で含めることができます。
 
@@ -991,7 +991,7 @@ EntityTypeMapping 要素に適用される場合、 **Insertfunction**要素は�
 
 MSL で参照される概念モデル型およびストレージ モデル型の名前は、それぞれの名前空間名で修飾する必要があります。 概念モデルの名前空間の名前については、「Schema 要素 (CSDL)」を参照してください。 ストレージモデルの名前空間の名前については、「Schema 要素 (SSDL)」を参照してください。 MSL で使用される名前空間の別名は、Alias 要素で定義できます。
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、**マッピング**要素に適用できる属性について説明します。
 
@@ -1044,7 +1044,7 @@ MSL で参照される概念モデル型およびストレージ モデル型の
 -   ScalarProperty (0 個以上)
 -   条件 (0 個以上)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Mappingfragment**要素に適用できる属性について説明します。
 
@@ -1207,7 +1207,7 @@ MSL で参照される概念モデル型およびストレージ モデル型の
 
 **QueryView**要素には、子要素を含めることはできません。
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **QueryView**要素に適用できる属性について説明します。
 
@@ -1287,7 +1287,7 @@ MSL で参照される概念モデル型およびストレージ モデル型の
  </EntityContainerMapping>
 ```
  
-### <a name="comments"></a>コメント
+### <a name="comments"></a>説明
 
 クエリ ビューを定義して、次のシナリオを実現できます。
 
@@ -1321,14 +1321,14 @@ MSL で参照される概念モデル型およびストレージ モデル型の
 
 **Resultbinding**要素に子要素を含めることはできません。
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Resultbinding**要素に適用できる属性について説明します。
 
 | 属性名 | 必須 | 値                                                                         |
 |:---------------|:------------|:------------------------------------------------------------------------------|
 | **名前**       | はい         | マップされる概念モデルのエンティティ プロパティの名前。 |
-| **ColumnName** | はい         | マップされる列の名前。                                          |
+| **[ColumnName]** | はい         | マップされる列の名前。                                          |
 
 ### <a name="example"></a>例
 
@@ -1405,7 +1405,7 @@ MSL で参照される概念モデル型およびストレージ モデル型の
 
 ### <a name="example"></a>例
 
-次のストアド プロシージャを考えてみます。
+次のストアド プロシージャについて考えてみます。
 
 ``` SQL
  CREATE PROCEDURE [dbo].[GetGrades]
@@ -1471,7 +1471,7 @@ MSL で参照される概念モデル型およびストレージ モデル型の
 
 **ScalarProperty**要素には、子要素を含めることはできません。
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 **ScalarProperty**要素に適用される属性は、要素の役割によって異なります。
 
@@ -1480,7 +1480,7 @@ MSL で参照される概念モデル型およびストレージ モデル型の
 | 属性名 | 必須 | 値                                                           |
 |:---------------|:------------|:----------------------------------------------------------------|
 | **名前**       | はい         | マップされる概念モデルのプロパティの名前。 |
-| **ColumnName** | はい         | マップされるテーブル列の名前。              |
+| **[ColumnName]** | はい         | マップされるテーブル列の名前。              |
 
 次の表では、 **ScalarProperty**要素を使用して、概念モデルのプロパティをストアドプロシージャのパラメーターにマップするときに適用できる属性について説明します。
 
@@ -1591,7 +1591,7 @@ MSL で参照される概念モデル型およびストレージ モデル型の
 -   ResultBinding (0 個または1個)
 -   ScarlarProperty (0 個以上)
 
-### <a name="applicable-attributes"></a>適用可能な属性
+### <a name="applicable-attributes"></a>該当する属性
 
 次の表では、 **Updatefunction**要素に適用できる属性について説明します。
 

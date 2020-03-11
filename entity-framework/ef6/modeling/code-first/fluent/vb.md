@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
 ms.openlocfilehash: 1c889877b827408919c6170cf997e8805cc607cf
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824829"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415749"
 ---
 # <a name="fluent-api-with-vbnet"></a>VB.NET を使用した Fluent API
 Code First では、C\# または VB.NET クラスを使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。 このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。
@@ -28,7 +28,7 @@ Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudi
 
 単純にするために、Code First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。
 
--   Visual Studio を開く
+-   Visual Studio を開きます
 -   **ファイル&gt; 新規&gt; プロジェクト...**
 -   左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。
 -   名前として「 **Codefirstvbsample** 」と入力します。
@@ -142,7 +142,7 @@ Entity Framework の型の使用を開始しようとしています。 EntityFr
 > **NuGet パッケージの管理...** オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります
 -   **[オンライン]** タブを選択します。
 -   **Entityframework**パッケージを選択します
--   **[Install]** (インストール) をクリックします。
+-   **[インストール]** をクリックします。
 
 次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。 ここでは、TEntity から派生し、モデル内のクラスごとに型指定された Dbcontext&lt;&gt; を公開するコンテキストを定義します。
 

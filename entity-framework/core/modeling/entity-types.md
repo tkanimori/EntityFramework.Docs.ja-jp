@@ -6,11 +6,11 @@ ms.date: 12/03/2019
 ms.assetid: cbe6935e-2679-4b77-8914-a8d772240cf1
 uid: core/modeling/entity-types
 ms.openlocfilehash: b3d9ad753637d021d9aa52965da38091ae690f77
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502415"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414579"
 ---
 # <a name="entity-types"></a>エンティティ型
 
@@ -32,11 +32,11 @@ ms.locfileid: "75502415"
 
 モデルに型を含めない場合は、その型を除外することができます。
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/IgnoreType.cs?name=IgnoreType&highlight=1)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IgnoreType.cs?name=IgnoreType&highlight=3)]
 
@@ -48,11 +48,11 @@ ms.locfileid: "75502415"
 
 テーブル名は手動で構成できます。
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/TableName.cs?Name=TableName&highlight=1)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TableName.cs?Name=TableName&highlight=3-4)]
 
@@ -64,11 +64,11 @@ ms.locfileid: "75502415"
 
 次のように、特定のスキーマで作成されるテーブルを構成できます。
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/TableNameAndSchema.cs?name=TableNameAndSchema&highlight=1)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TableNameAndSchema.cs?name=TableNameAndSchema&highlight=3-4)]
 

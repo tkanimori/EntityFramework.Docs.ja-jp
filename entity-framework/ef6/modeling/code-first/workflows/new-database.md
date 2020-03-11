@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 2df6cb0a-7d8b-4e28-9d05-e2b9a90125af
 ms.openlocfilehash: d540fc6e84049f345ae22998f94c309e0be73fc3
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182567"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415545"
 ---
 # <a name="code-first-to-a-new-database"></a>新しいデータベースへの Code First
 このビデオとステップバイステップのチュートリアルでは、新しいデータベースを対象とした Code First 開発の概要について説明します。 このシナリオには、存在しないデータベースのターゲット設定、Code First 作成されるデータベース、または Code First が新しいテーブルを追加する空のデータベースが対象となります。 Code First では、C\# または VB.Net クラスを使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。
@@ -367,6 +367,6 @@ DisplayName 列の名前が変更され、\_名が表示されるようになり
 
 ![表示名が変更されたスキーマ](~/ef6/media/schemawithdisplaynamerenamed.png)
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 このチュートリアルでは、新しいデータベースを使用した Code First 開発について説明しました。 クラスを使用してモデルを定義した後、そのモデルを使用してデータベースを作成し、データを格納および取得します。 データベースを作成した後は、モデルの進化に従ってスキーマを変更するために Code First Migrations を使用しました。 また、データ注釈と Fluent API を使用してモデルを構成する方法についても説明しました。

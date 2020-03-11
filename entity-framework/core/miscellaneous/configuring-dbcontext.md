@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
 ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655802"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414159"
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext の構成
 
@@ -186,7 +186,7 @@ EF Core が `DbContext` インスタンスを同時に使用しようとした�
 
 [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)拡張メソッドは、既定でスコープを持つ[有効期間](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes)の `DbContext` 型を登録します。
 
-これは、特定の時間に各クライアント要求を実行するスレッドが1つしかないため、ASP.NET Core アプリケーションの同時アクセスの問題から安全です。また、各要求は個別の依存関係挿入スコープ (したがって、別の `DbContext` インスタンス) を取得するためです.
+これは、特定の時間に各クライアント要求を実行するスレッドが1つだけであるため、ASP.NET Core アプリケーションの同時アクセスの問題から安全です。また、各要求は個別の依存関係挿入スコープ (したがって、別の `DbContext` インスタンス) を取得するためです。
 
 ただし、複数のスレッドを明示的に並列実行するコードでは、`DbContext` インスタンスに同時にアクセスしないようにする必要があります。
 

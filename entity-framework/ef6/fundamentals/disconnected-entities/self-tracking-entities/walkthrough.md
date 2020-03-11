@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: b21207c9-1d95-4aa3-ae05-bc5fe300dab0
 ms.openlocfilehash: 9bd644461f50a7eff1006cb8866ca9a3b08b6b8d
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181709"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416145"
 ---
 # <a name="self-tracking-entities-walkthrough"></a>自己追跡エンティティのチュートリアル
 > [!IMPORTANT]
@@ -33,7 +33,7 @@ ms.locfileid: "72181709"
 
 このチュートリアルを完了するには、Visual Studio の最新バージョンが必要です。
 
-## <a name="create-a-database"></a>データベースを作成する
+## <a name="create-a-database"></a>データベースの作成
 
 Visual Studio と共にインストールされるデータベースサーバーは、インストールされている Visual Studio のバージョンによって異なります。
 
@@ -83,7 +83,7 @@ Visual Studio と共にインストールされるデータベースサーバー
     INSERT INTO [dbo].[Posts] ([Title], [Content], [BlogId]) VALUES (N'What is New', N'More interesting stuff...', 1)
 ```
 
-## <a name="create-the-model"></a>モデルの作成
+## <a name="create-the-model"></a>モデルを作成する
 
 まず、モデルを配置するためのプロジェクトが必要です。
 
@@ -271,7 +271,7 @@ WCF サービスへのサービス参照が必要です
 
 これで、サービスを使用するコードを記述できるようになりました。
 
--   **Program.cs**を開き、内容を次のコードに置き換えます。
+-   **Program.cs** を開き、その内容を次のコードに置き換えます。
 
 ``` csharp
     using STESample.ConsoleTest.BloggingService;

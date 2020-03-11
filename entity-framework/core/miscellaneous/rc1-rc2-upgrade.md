@@ -5,11 +5,11 @@ ms.date: 10/27/2016
 ms.assetid: 6d75b229-cc79-4d08-88cd-3a1c1b24d88f
 uid: core/miscellaneous/rc1-rc2-upgrade
 ms.openlocfilehash: 887b7cd539b9c0f5a680398f5039757420228710
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181289"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414111"
 ---
 # <a name="upgrading-from-ef-core-10-rc1-to-10-rc2"></a>EF Core 1.0 RC1 から 1.0 RC2 へのアップグレード
 
@@ -83,7 +83,7 @@ public ApplicationDbContext(DbContextOptions<ApplicationDbContext> options)
 
 `IServiceProvider` をコンテキストに渡す RC1 コードがある場合、これは別のコンストラクターパラメーターではなく `DbContextOptions`に移動されました。 サービスプロバイダーを設定するには、`DbContextOptionsBuilder.UseInternalServiceProvider(...)` を使用します。
 
-### <a name="testing"></a>Testing (テスト)
+### <a name="testing"></a>テスト
 
 これを行う最も一般的なシナリオは、テスト時に InMemory データベースのスコープを制御することでした。 RC2 を使用した例については、更新された[テスト](testing/index.md)に関する記事をご覧ください。
 

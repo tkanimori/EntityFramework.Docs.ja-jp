@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/teams
 ms.openlocfilehash: 6c17c56277821159962884aef72d46c624442e20
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73655541"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414243"
 ---
 # <a name="migrations-in-team-environments"></a>チーム環境での移行
 
@@ -48,7 +48,7 @@ b.Property<string>("Alias");
 >>>>>>> Theirs
 ```
 
-この種類の競合が発生した場合は、移行を再作成して解決します。 この場合は、以下の手順に従ってください。
+この種類の競合が発生した場合は、移行を再作成して解決します。 次の手順に従います。
 
 1. マージの前に、マージを中止して作業ディレクトリにロールバックします
 2. 移行を削除する (ただし、モデルの変更を保持する)

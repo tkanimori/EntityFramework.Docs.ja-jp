@@ -1,54 +1,54 @@
 ---
-title: SQLite - EF Core でのテスト
+title: SQLite を使用したテスト-EF Core
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 7a2b75e2-1875-4487-9877-feff0651b5a6
 uid: core/miscellaneous/testing/sqlite
-ms.openlocfilehash: e8ff204a09d50064b4f0d4376f02b05c8681ac25
-ms.sourcegitcommit: 8f801993c9b8cd8a8fbfa7134818a8edca79e31a
+ms.openlocfilehash: f7f847d8c766c0d4d7577ea6760ee72a17f84933
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/14/2019
-ms.locfileid: "59562534"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414633"
 ---
 # <a name="testing-with-sqlite"></a>SQLite のテスト
 
-SQLite は、SQLite を使用して、実際のデータベース操作のオーバーヘッドがなく、リレーショナル データベースに対してテストを記述することができるようにする、インメモリ モードです。
+SQLite にはメモリ内モードがあり、これを使用すると、実際のデータベース操作のオーバーヘッドを発生させることなく、リレーショナルデータベースに対して SQLite を使用してテストを作成することができます。
 
 > [!TIP]  
-> この記事を表示する[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing)github
+> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing)は GitHub でご覧いただけます。
 
-## <a name="example-testing-scenario"></a>テスト シナリオの例
+## <a name="example-testing-scenario"></a>テストシナリオの例
 
-ブログに関連するいくつかの操作を実行するアプリケーション コードは、次のサービスを検討してください。 内部的には、 `DbContext` SQL Server データベースに接続します。 ように、コードを変更しなくてもこのサービスの効率的なテストを記述またはテストを作成する作業の多くを実行できます、メモリ内の SQLite データベースに接続するには、このコンテキストを交換する便利なことが、コンテキストの二重。
+アプリケーションコードがブログに関連するいくつかの操作を実行できるようにするには、次のサービスを検討してください。 内部的には、SQL Server データベースに接続する `DbContext` を使用します。 このコンテキストをスワップしてメモリ内の SQLite データベースに接続すると、コードを変更しなくても効率的なテストを作成できるようになります。また、コンテキストのテスト double を作成するために作業を行うこともできます。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
 
-## <a name="get-your-context-ready"></a>コンテキストを準備します。
+## <a name="get-your-context-ready"></a>コンテキストの準備
 
-### <a name="avoid-configuring-two-database-providers"></a>2 つのデータベース プロバイダーを構成しない場合
+### <a name="avoid-configuring-two-database-providers"></a>2つのデータベースプロバイダーの構成を回避する
 
-テストでは、InMemory プロバイダーを使用するコンテキストの外部で構成すること。 オーバーライドすることで、データベース プロバイダーを構成している場合`OnConfiguring`コンテキストでする必要がある 1 つ既に構成されていない場合のみ、データベース プロバイダーを構成することを確認する条件付きコードを追加します。
+テストでは、InMemory プロバイダーを使用するようにコンテキストを外部で構成しようとしています。 コンテキストで `OnConfiguring` をオーバーライドしてデータベースプロバイダーを構成する場合は、データベースプロバイダーがまだ構成されていない場合にのみ構成するように、いくつかの条件付きコードを追加する必要があります。
 
 > [!TIP]  
-> ASP.NET Core を使用している場合、必要はありませんこのコード (Startup.cs) のコンテキスト外で、データベース プロバイダーが構成されているためです。
+> ASP.NET Core を使用している場合は、このコードは必要ありません。これは、データベースプロバイダーがコンテキスト (Startup.cs) の外部で構成されているためです。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
 
-### <a name="add-a-constructor-for-testing"></a>テストのコンス トラクターを追加します。
+### <a name="add-a-constructor-for-testing"></a>テスト用のコンストラクターを追加する
 
-別のデータベースに対するテストを有効にする最も簡単な方法が変更のコンテキストを受け取るコンス トラクターを公開するには、`DbContextOptions<TContext>`します。
+別のデータベースに対してテストを有効にする最も簡単な方法は、コンテキストを変更して、`DbContextOptions<TContext>`を受け入れるコンストラクターを公開することです。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
 
 > [!TIP]  
-> `DbContextOptions<TContext>` すべてに接続するデータベースなど、その設定のコンテキストに指示します。 これは、コンテキストの OnConfiguring メソッドを使用して構築された同じオブジェクトです。
+> `DbContextOptions<TContext>` は、接続先のデータベースなど、すべての設定をコンテキストに伝えます。 これは、コンテキストで OnConfiguring メソッドを実行して作成されたオブジェクトと同じです。
 
-## <a name="writing-tests"></a>テストの記述
+## <a name="writing-tests"></a>テストの作成
 
-このプロバイダーでのテストにキーをメモリ内データベースのスコープを制御、SQLite を使用してコンテキストを通知する機能があります。 データベースのスコープは、接続の開閉によって制御されます。 データベースは、接続が開かれている期間に制限されます。 通常、クリーンなデータベースは、各テスト メソッドにします。
+このプロバイダーを使用してテストするための鍵は、SQLite を使用するようにコンテキストに指示し、インメモリデータベースのスコープを制御する機能です。 データベースのスコープは、接続を開いたり閉じたりすることによって制御されます。 データベースのスコープは、接続が開いている期間です。 通常は、各テストメソッドにクリーンなデータベースが必要です。
 
 >[!TIP]
-> `SqliteConnection()` と `.UseSqlite()` 拡張メソッドを使用するには、NuGet パッケージの [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/) を参照してください。
+> `SqliteConnection()` と `.UseSqlite()` 拡張メソッドを使用するには、 [NuGet パッケージを](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/)参照してください。
 
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/SQLite/BlogServiceTests.cs)]

@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: c6ae6d8f-1ace-47db-ad47-b1718f1ba082
 ms.openlocfilehash: 92a763b84a04d3ce7ec0853ef2a4852356cf7997
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182519"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415353"
 ---
 # <a name="enum-support---ef-designer"></a>列挙型のサポート-EF デザイナー
 > [!NOTE]
@@ -46,7 +46,7 @@ Entity Framework では、列挙体には、 **Byte**、 **Int16**、 **Int32**�
 2.  左側のメニューから **[データ]** を選択し、テンプレート ペインで  **[ADO.NET Entity Data Model]** を選択します。
 3.  ファイル名として「 **Enumtestmodel. .edmx** 」と入力し、 **[追加]** をクリックします。
 4.  Entity Data Model ウィザードページで、モデルのコンテンツの選択 ダイアログボックスの **空のモデル** を選択します。
-5.  **[完了]** をクリック
+5.  **[完了]** をクリックします。
 
 モデルを編集するためのデザイン画面を提供する Entity Designer が表示されます。
 
@@ -60,7 +60,7 @@ Entity Framework では、列挙体には、 **Byte**、 **Int16**、 **Int32**�
 
 1.  デザイン画面の空の領域を右クリックし、[ **&gt; エンティティの追加**] を選択すると、[新しいエンティティ] ダイアログボックスが表示されます。
 2.  型名に**Department**を指定し、キープロパティ名として**DepartmentID**を指定します。型は**Int32**型のままにします。
-3.  **[OK]** をクリックします。
+3.  **[OK]**
 4.  エンティティを右クリックし、[**新しい&gt; スカラープロパティの追加**] を選択します。
 5.  新しいプロパティの名前を**Name**に変更します。
 6.  新しいプロパティの型を**int32**に変更し (既定では、新しいプロパティは文字列型です)、型を変更し、プロパティウィンドウを開いて、type プロパティを**int32**に変更します。
@@ -133,6 +133,6 @@ DepartmentID: 1 Name: English
 
 データベースのデータを表示するには、SQL Server オブジェクトエクスプローラーでデータベース名を右クリックし、[最新の情報に**更新**] を選択します。 次に、テーブルのマウスの右ボタンをクリックし、 **[データの表示]** を選択します。
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 このチュートリアルでは、Entity Framework Designer を使用して列挙型をマップする方法と、コードで enum を使用する方法について説明しました。 

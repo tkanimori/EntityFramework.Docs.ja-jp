@@ -1,29 +1,29 @@
 ---
-title: コード規則の最初の EF6
+title: Code First 規則-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: bc644573-c2b2-4ed7-8745-3c37c41058ad
 ms.openlocfilehash: 4d03a32db5d84eb37c22617a95005b272172a65d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45491001"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415947"
 ---
-# <a name="code-first-conventions"></a>コードの最初の規則
-まず、コードを使用すると、C# または Visual Basic .NET のクラスを使用してモデルを記述できます。 規則を使用して、モデルの基本的な形状が検出されます。 規則は、Code First を使用する場合は、クラス定義に基づく概念モデルを自動的に構成するために使用するルールのセットです。 規則は、System.Data.Entity.ModelConfiguration.Conventions 名前空間で定義されます。  
+# <a name="code-first-conventions"></a>Code First 規則
+Code First では、または Visual Basic .NET クラスC#を使用してモデルを記述できます。 モデルの基本図形は、規約を使用して検出されます。 規則は、Code First を操作するときに、クラス定義に基づいて概念モデルを自動的に構成するために使用される規則のセットです。 規則は、system.string 名前空間で定義されています。  
 
-さらに、データ注釈または fluent API を使用して、モデルを構成できます。 優先順位は、データ注釈と規則が続く、fluent API を使用した構成に付与されます。 詳細については、次を参照してください[データ注釈](~/ef6/modeling/code-first/data-annotations.md)、 [Fluent API - リレーションシップ](~/ef6/modeling/code-first/fluent/relationships.md)、 [Fluent API の種類とプロパティ](~/ef6/modeling/code-first/fluent/types-and-properties.md)と[VB.NETにFluentAPI](~/ef6/modeling/code-first/fluent/vb.md)。  
+データ注釈または fluent API を使用して、モデルをさらに構成できます。 優先順位は、fluent API の後にデータ注釈と規則を使用して構成されます。 詳細については、「[データ注釈](~/ef6/modeling/code-first/data-annotations.md)」、「 [Fluent api-リレーションシップ](~/ef6/modeling/code-first/fluent/relationships.md)」、「 [fluent api 型 & プロパティ](~/ef6/modeling/code-first/fluent/types-and-properties.md)」、および「 [VB.NET を使用した fluent api](~/ef6/modeling/code-first/fluent/vb.md)」を参照してください。  
 
-Code First 規約の詳細な一覧が表示されます、 [API ドキュメント](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)します。 このトピックでは、Code First によって使用される規則の概要を示します。  
+Code First の規則の詳細な一覧については、 [API のドキュメント](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)を参照してください。 このトピックでは、Code First によって使用される規則の概要について説明します。  
 
-## <a name="type-discovery"></a>型の探索  
+## <a name="type-discovery"></a>種類の検出  
 
-Code First の開発を使用する場合に、(ドメイン) の概念モデルを定義する .NET Framework クラスを記述することで、通常で開始します。 クラスを定義するだけでなくも設定する必要が**DbContext**モデルに追加する型も把握しています。 派生したコンテキスト クラスを定義するには、 **DbContext**公開**DbSet**モデルの一部に型のプロパティ。 コードでは、まずこれらの型が含まれますされ、参照先の型が別のアセンブリで定義されている場合でもが、参照先の種類でもプルされます。  
+Code First 開発を使用する場合は、通常、概念 (ドメイン) モデルを定義する .NET Framework クラスを記述することから始めます。 クラスを定義するだけでなく、モデルに含める型を**Dbcontext**に知らせる必要もあります。 これを行うには、 **dbcontext**から派生したコンテキストクラスを定義し、モデルに含める型の**dbcontext**プロパティを公開します。 Code First にはこれらの型が含まれ、参照される型が別のアセンブリで定義されている場合でも、参照される型がすべて取得されます。  
 
-型は、継承階層に参加して、定義するのに十分な処理は、 **DbSet**基底クラスと同じアセンブリ内にある場合、基底クラスと派生型のプロパティは自動的に含まれるになります。  
+型が継承階層に参加している場合は、基本クラスの**Dbset**プロパティを定義するだけで十分です。基底クラスと同じアセンブリ内にある場合は、派生型が自動的に含まれます。  
 
-次の例では、1 つしかない**DbSet**プロパティで定義されている、 **SchoolEntities**クラス (**部門**)。 コードは、まず探索し、参照先の種類でプルこのプロパティを使用します。  
+次の例では、 **SchoolEntities** **クラス (department**) で定義されている**dbset**プロパティは1つだけです。 Code First は、このプロパティを使用して、参照されるすべての型を検出し、プルします。  
 
 ``` csharp
 public class SchoolEntities : DbContext
@@ -69,15 +69,15 @@ public partial class OnsiteCourse : Course
 }
 ```  
 
-モデルから型を除外する場合を使用して、 **NotMapped**属性または**DbModelBuilder.Ignore** fluent API。  
+モデルから型を除外する場合は、 **Notmapped**属性または**dbmodelbuilder を使用します。** fluent API を無視します。  
 
 ```  csharp
 modelBuilder.Ignore<Department>();
 ```  
 
-## <a name="primary-key-convention"></a>プライマリ キーの規則  
+## <a name="primary-key-convention"></a>主キーの規則  
 
-コードでは、プロパティは、(いない大文字小文字を区別)、"ID"という名前のクラスのプロパティはまたはクラス名の"ID"が続く場合、主キーを最初は推測します。 主キー プロパティの型が数値か、または GUID がある場合、id 列として構成します。  
+クラスのプロパティの名前が "ID" である場合 (大文字と小文字は区別されません)、またはクラス名の後に "ID" が続く場合、Code First は、プロパティが主キーであると推測します。 主キープロパティの型が数値または GUID の場合は、id 列として構成されます。  
 
 ``` csharp
 public class Department
@@ -90,15 +90,15 @@ public class Department
 }
 ```  
 
-## <a name="relationship-convention"></a>リレーションシップの規則  
+## <a name="relationship-convention"></a>リレーションシップ規則  
 
-Entity Framework では、ナビゲーション プロパティは、2 つのエンティティ型間のリレーションシップを移動する方法を提供します。 各オブジェクトは、参加する各リレーションシップに対してナビゲーション プロパティを持つことができます。 ナビゲーション プロパティを使用するに移動し、参照オブジェクトを返す双方向のリレーションシップを管理できます (多重度がいずれかである場合または 0 または 1) または (多重度が多くの場合) のコレクション。 コードは、まず、型に定義されているナビゲーション プロパティに基づくリレーションシップを推測します。  
+Entity Framework では、ナビゲーションプロパティを使用して、2つのエンティティ型間のリレーションシップをナビゲートすることができます。 各オブジェクトは、参加する各リレーションシップに対してナビゲーション プロパティを持つことができます。 ナビゲーションプロパティを使用すると、リレーションシップを双方向に移動して管理し、参照オブジェクト (多重度が1または0または1のいずれか) またはコレクション (多重度が多の場合) を返すことができます。 Code First は、型に定義されているナビゲーションプロパティに基づいてリレーションシップを推測します。  
 
-ナビゲーションのプロパティだけでなく、外部キー プロパティを依存オブジェクトを表す型を含めることをお勧めします。 任意のプロパティは、プリンシパルのプライマリ キー プロパティと同じデータ型と、次の形式のいずれかに続く名前は、リレーションシップの外部キーを表します: '\<ナビゲーション プロパティの名前\>\<プリンシパル主キー プロパティ名\>'、'\<プリンシパル クラス名\>\<主キー プロパティ名\>'、または '\<プリンシパルのプライマリ キー プロパティ名\>'。 複数の一致が見つかった場合は、上に示した順序で優先順位が指定します。 外部キーの検出は大文字小文字が区別されません。 外部キー プロパティが検出されると、Code First は推測外部キーの null 値許容属性に基づくリレーションシップの多重度。 プロパティが null 許容の場合、リレーションシップが省略可能です。 として登録します。それ以外の場合、リレーションシップが登録されている必須とします。  
+ナビゲーションプロパティに加えて、依存オブジェクトを表す型に外部キープロパティを含めることをお勧めします。 プリンシパルプライマリキープロパティと同じデータ型で、次のいずれかの形式の名前を持つプロパティは、リレーションシップの外部キーを表します。 '\<ナビゲーションプロパティ名\>\<プリンシパル主キープロパティ名\>'、'\<プリンシパルクラス名\>\<主キープロパティ名\>'、または '\<プリンシパルプライマリキープロパティ名\>'。 複数の一致が見つかった場合は、上記の順序で優先順位が付けられます。 外部キーの検出では、大文字と小文字は区別されません。 外部キープロパティが検出されると、Code First 外部キーの null 値の許容に基づいて、リレーションシップの多重度が推測されます。 プロパティが null 値を許容する場合、リレーションシップはオプションとして登録されます。それ以外の場合、リレーションシップは必須として登録されます。  
 
-場合は、依存エンティティの外部キーが許容されませんし、Code First 連鎖削除の設定の関係します。 依存エンティティの外部キー値が許容、Code First は連鎖削除、リレーションシップに、プリンシパルが削除されたときに、外部キーが設定されます場合、を null にします。 多重度とカスケード削除の動作がによって検出された規則は、fluent API を使用してオーバーライドできます。  
+依存エンティティの外部キーが null 値を許容しない場合、Code First はリレーションシップに対して連鎖削除を設定します。 依存エンティティの外部キーが null 許容である場合、Code First はリレーションシップに対して連鎖削除を設定しません。また、プリンシパルが削除されると、外部キーは null に設定されます。 規則によって検出された多重度と連鎖削除の動作は、fluent API を使用してオーバーライドできます。  
 
-次の例では、部門とコースのクラス間のリレーションシップを定義するナビゲーション プロパティと外部キーが使用されます。  
+次の例では、ナビゲーションプロパティと外部キーを使用して、Department クラスと Course クラス間のリレーションシップを定義しています。  
 
 ``` csharp
 public class Department
@@ -128,11 +128,11 @@ public class Course
 ```  
 
 > [!NOTE]
-> 同じ型の間で複数のリレーションシップがある場合 (たとえば、定義する、 **Person**と**帳**クラス、場所、 **Person**クラスには、が含まれています**ReviewedBooks**と**AuthoredBooks**ナビゲーション プロパティ、および**帳**クラスが含まれています、**作成者**と**レビュー担当者**ナビゲーション プロパティ) のデータ注釈または fluent API を使用して、リレーションシップを手動で構成する必要があります。 詳細については、[データ注釈 - リレーションシップ](~/ef6/modeling/code-first/data-annotations.md)と[Fluent API - リレーションシップ](~/ef6/modeling/code-first/fluent/relationships.md)を参照してください。  
+> 同じ型の間に複数のリレーションシップがある場合 (たとえば **、person クラス**に**ReviewedBooks**および**authoredbooks**ナビゲーションプロパティが含まれていて、 **book** **クラスに** **作成者**と**レビュー担当者**のナビゲーションプロパティが含まれている場合)、データ注釈または fluent API を使用してリレーションシップを手動で構成する必要があります。 詳細については、「[データ注釈-リレーションシップ](~/ef6/modeling/code-first/data-annotations.md)」と「 [Fluent API-リレーションシップ](~/ef6/modeling/code-first/fluent/relationships.md)」を参照してください。  
 
 ## <a name="complex-types-convention"></a>複合型の規則  
 
-Code First が検出、クラス定義を主キーを推論することはできません、およびデータ注釈または fluent API で主キーが登録されていない型は自動的に複合型として登録します。 複合型の検出では、型をエンティティ型を参照し、別の型のコレクション プロパティから参照されていないプロパティにないことも必要です。 次のクラス定義を指定した Code First は推論を**詳細**複合型は、主キーがあるないためです。  
+主キーを推論できず、データ注釈または fluent API によって登録される主キーがないクラス定義を Code First が検出すると、その型は複合型として自動的に登録されます。 複合型の検出では、型がエンティティ型を参照するプロパティを持たず、別の型のコレクションプロパティから参照されていないことも必要です。 次のクラス定義を指定すると Code First 主キーがないため、**詳細**が複合型であると推論されます。  
 
 ``` csharp
 public partial class OnsiteCourse : Course
@@ -153,13 +153,13 @@ public class Details
 }
 ```  
 
-## <a name="connection-string-convention"></a>接続文字列の規則  
+## <a name="connection-string-convention"></a>接続文字列の表記規則  
 
-DbContext は参照を使用する接続の検出を使用している表記規則について[接続とモデル](~/ef6/fundamentals/configuring/connection-strings.md)します。  
+使用する接続を検出するために DbContext が使用する規則については、「[接続とモデル](~/ef6/fundamentals/configuring/connection-strings.md)」を参照してください。  
 
-## <a name="removing-conventions"></a>規則を削除します。  
+## <a name="removing-conventions"></a>規則の削除  
 
-System.Data.Entity.ModelConfiguration.Conventions 名前空間で定義されている規則を削除することができます。 次の例では、削除**PluralizingTableNameConvention**します。  
+System.string 名前空間で定義されている任意の規則を削除できます。 次の例では、 **PluralizingTableNameConvention**を削除します。  
 
 ``` csharp
 public class SchoolEntities : DbContext
@@ -176,6 +176,6 @@ public class SchoolEntities : DbContext
 }
 ```  
 
-## <a name="custom-conventions"></a>カスタムの規則  
+## <a name="custom-conventions"></a>カスタム規約  
 
-カスタムの規則は、以降の EF6 でサポートされます。 詳細については、[カスタム コードの最初の規則](~/ef6/modeling/code-first/conventions/custom.md)を参照してください。
+カスタム規則は EF6 以降でサポートされています。 詳細については、「[カスタム Code First 規則](~/ef6/modeling/code-first/conventions/custom.md)」を参照してください。

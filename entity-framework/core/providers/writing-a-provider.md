@@ -4,19 +4,19 @@ author: anmiller
 ms.date: 10/27/2016
 ms.assetid: 1165e2ec-e421-43fc-92ab-d92f9ab3c494
 uid: core/providers/writing-a-provider
-ms.openlocfilehash: 9d52a8581772cc5405e94966fa7ebdff4128c252
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 2d9e4a6cdfda80d7dfcfb6e7bf0480eb49f8e057
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654778"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414807"
 ---
 # <a name="writing-a-database-provider"></a>データベース プロバイダーを記述する
 
 Entity Framework Core データベースプロバイダーの作成の詳細については、「 [Arthur ヴィッカース](https://github.com/ajcvickers)」を参照して[EF Core プロバイダーを作成](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/)することをお勧めします。
 
 > [!NOTE]
-> これらの投稿は EF Core 1.1 以降に更新されていません。この[問題が 681](https://github.com/aspnet/EntityFramework.Docs/issues/681)で発生したため、このドキュメントの更新が追跡されています。
+> これらの投稿は EF Core 1.1 以降に更新されていません。この[問題が 681](https://github.com/dotnet/EntityFramework.Docs/issues/681)で発生したため、このドキュメントの更新が追跡されています。
 
 EF Core codebase はオープンソースであり、参照として使用できるデータベースプロバイダーがいくつか含まれています。 ソースコードについては、<https://github.com/aspnet/EntityFrameworkCore>を参照してください。 また、 [Npgsql](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL)、 [Pomelo MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)、 [SQL Server Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact)など、一般的に使用されるサードパーティプロバイダーのコードを確認すると役立つ場合もあります。 特に、これらのプロジェクトは、NuGet で公開する機能テストをから拡張して実行するように設定されています。 この種のセットアップは強くお勧めします。
 
@@ -32,7 +32,7 @@ NuGet パッケージには、次の名前付けを使用することをお勧�
 
 `<Optional project/company name>.EntityFrameworkCore.<Database engine name>`
 
-(例:
+次に例を示します。
 
 * `Microsoft.EntityFrameworkCore.SqlServer`
 * `Npgsql.EntityFrameworkCore.PostgreSQL`

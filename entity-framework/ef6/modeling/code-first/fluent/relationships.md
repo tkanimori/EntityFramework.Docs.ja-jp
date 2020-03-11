@@ -1,30 +1,30 @@
 ---
-title: Fluent API - リレーションシップ - EF6
+title: Fluent API-リレーションシップ-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: fd73b4f8-16d5-40f1-9640-885ceafe67a1
 ms.openlocfilehash: 05f282c02699f8bf3c71197ac5e01000f1855917
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45490468"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415761"
 ---
-# <a name="fluent-api---relationships"></a>Fluent API - リレーションシップ
+# <a name="fluent-api---relationships"></a>Fluent API-リレーションシップ
 > [!NOTE]
-> このページは、Code First fluent API を使用してモデル内のリレーションシップの設定に関する情報を提供します。 EF とアクセスし、リレーションシップを使用してデータを操作する方法に関係の詳細については、[リレーションシップとナビゲーション プロパティ](~/ef6/fundamentals/relationships.md)を参照してください。  
+> このページでは、fluent API を使用して Code First モデル内のリレーションシップを設定する方法について説明します。 EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「[リレーションシップ & ナビゲーションプロパティ](~/ef6/fundamentals/relationships.md)」を参照してください。  
 
-Code First を使用する場合は、ドメインの CLR クラスを定義することで、モデルを定義します。 既定では、Entity Framework は、クラスをデータベース スキーマにマップするのに Code First の規則を使用します。 ほとんどの場合、外部キーと、クラスを定義するナビゲーション プロパティに基づいて、テーブル間のリレーションシップを設定するコードの最初に依存することができますコードの最初の名前付け規則を使用する場合。 クラスを定義するときに、規則に従わない、または規則の動作方法を変更する場合、fluent API や data annotations を使用するには Code First は、テーブル間のリレーションシップをマップできるように、クラスを構成します。  
+Code First を使用する場合は、ドメイン CLR クラスを定義してモデルを定義します。 既定では、Entity Framework は Code First 規約を使用して、クラスをデータベーススキーマにマップします。 Code First 名前付け規則を使用する場合、ほとんどの場合、Code First に依存して、クラスで定義する外部キーとナビゲーションプロパティに基づいてテーブル間のリレーションシップを設定できます。 クラスの定義時に規則に従っていない場合、または規則の動作を変更する場合は、fluent API またはデータ注釈を使用してクラスを構成し、Code First がテーブル間のリレーションシップをマップできるようにすることができます。  
 
 ## <a name="introduction"></a>はじめに  
 
-Fluent API を使用したリレーションシップを構成するときに、EntityTypeConfiguration インスタンスを開始し、HasRequired、HasOptional、または多くのメソッドを使用して、このエンティティが参加するリレーションシップの種類を指定します。 HasRequired と HasOptional のメソッドは、参照ナビゲーション プロパティを表すラムダ式を受け取ります。 HasMany メソッドは、コレクション ナビゲーション プロパティを表すラムダ式を受け取ります。 WithRequired、ジオメトリマネジャ、および WithMany メソッドを使用して、逆のナビゲーション プロパティを設定できます。 これらのメソッドでは、引数を受け取らないし、一方向のナビゲーションでカーディナリティを指定するために使用するオーバー ロードがあります。  
+Fluent API とのリレーションシップを構成する場合は、まず EntityTypeConfiguration インスタンスを作成し、次に HasRequired、Hasrequired、または Hasrequired メソッドを使用して、このエンティティが参加するリレーションシップの種類を指定します。 HasRequired メソッドと Hasrequired メソッドは、参照ナビゲーションプロパティを表すラムダ式を受け取ります。 HasMany メソッドは、コレクションナビゲーションプロパティを表すラムダ式を受け取ります。 次に、WithRequired、Withrequired、および Withrequired メソッドを使用して、逆ナビゲーションプロパティを構成できます。 これらのメソッドには、引数を受け取らないオーバーロードがあり、一方向のナビゲーションでカーディナリティを指定するために使用できます。  
 
-外部キー プロパティは、HasForeignKey メソッドを使用して構成できます。 このメソッドは、外部キーとして使用するプロパティを表すラムダ式を受け取ります。  
+その後、HasForeignKey メソッドを使用して、外部キープロパティを構成できます。 このメソッドは、外部キーとして使用されるプロパティを表すラムダ式を受け取ります。  
 
-## <a name="configuring-a-required-to-optional-relationship-one-tozero-or-one"></a>必須-を-省略可能なリレーションシップ (1-0-または-1) を構成します。  
+## <a name="configuring-a-required-to-optional-relationship-one-tozero-or-one"></a>必須からオプションのリレーションシップを構成する (1 対0または1つ)  
 
-次の例では、0 または 1 に 1 つのリレーションシップを構成します。 OfficeAssignment では、プロパティの名前が HasKey メソッドは、主キーを構成するために使用する規則に従っていないためには、プライマリ キーと外部キー、InstructorID プロパティがあります。  
+次の例では、一対ゼロまたは一対一のリレーションシップを構成します。 OfficeAssignment には、主キーと外部キーの InstructorID プロパティがあります。これは、プロパティの名前が規則に従っていないためです。これは、プライマリキーの構成に HasKey メソッドが使用されるためです。  
 
 ``` csharp
 // Configure the primary key for the OfficeAssignment
@@ -37,9 +37,9 @@ modelBuilder.Entity<OfficeAssignment>()
     .WithOptional(t => t.OfficeAssignment);
 ```  
 
-## <a name="configuring-a-relationship-where-both-ends-are-required-one-to-one"></a>両方の End は (1 対 1) 必須リレーションシップを構成します。  
+## <a name="configuring-a-relationship-where-both-ends-are-required-one-to-one"></a>両端が必要なリレーションシップを構成する (1 対 1)  
 
-ほとんどの場合、依存している種類と、リレーションシップのプリンシパルには、Entity Framework は推測できます。 ただし、両方が、リレーションシップの end が必要なまたは両方の側は省略可能な Entity Framework とは、依存とプリンシパルに識別できません。 リレーションシップの両端が必要なときに、HasRequired メソッドの後、WithRequiredPrincipal または WithRequiredDependent を使用します。 リレーションシップの両端が省略可能な場合は、WithOptionalPrincipal または WithOptionalDependent を HasOptional メソッドの後に使用します。  
+ほとんどの場合 Entity Framework は、依存している型と、リレーションシップのプリンシパルである型を推論できます。 ただし、リレーションシップの両端が必要である場合、または両方の側が省略可能な場合 Entity Framework は依存関係とプリンシパルを識別できません。 リレーションシップの両方の end が必要な場合は、HasRequired メソッドの後に WithRequiredPrincipal または Withrequiredprincipal を使用します。 リレーションシップの両方の end が省略可能な場合は、HasOptional メソッドの後に、Withoptional Principal または Withoptional を使用します。  
 
 ``` csharp
 // Configure the primary key for the OfficeAssignment
@@ -51,9 +51,9 @@ modelBuilder.Entity<Instructor>()
     .WithRequiredPrincipal(t => t.Instructor);
 ```  
 
-## <a name="configuring-a-many-to-many-relationship"></a>多対多リレーションシップを構成します。  
+## <a name="configuring-a-many-to-many-relationship"></a>多対多リレーションシップの構成  
 
-次のコードは、コースと Instructor 型の間の多対多リレーションシップを構成します。 次の例では、既定の Code First 規約は、結合テーブルの作成に使用されます。 その結果、CourseInstructor テーブルが Course_CourseID および Instructor_InstructorID 列で作成されます。  
+次のコードでは、コースとインストラクターの型の間に多対多のリレーションシップを構成しています。 次の例では、既定の Code First 規約を使用して、結合テーブルを作成します。 その結果、Course_CourseID と Instructor_InstructorID 列を含む CourseInstructor テーブルが作成されます。  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -61,7 +61,7 @@ modelBuilder.Entity<Course>()
     .WithMany(t => t.Courses)
 ```  
 
-テーブルの結合テーブルの名前と列の名前を指定する場合は、マップのメソッドを使用して追加の構成を行う必要があります。 次のコードでは、CourseID と InstructorID 列を含む CourseInstructor テーブルを生成します。  
+テーブル内の結合テーブル名と列名を指定する場合は、Map メソッドを使用して追加の構成を行う必要があります。 次のコードでは、CourseID 列と InstructorID 列を含む CourseInstructor テーブルが生成されます。  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -75,9 +75,9 @@ modelBuilder.Entity<Course>()
     });
 ```  
 
-## <a name="configuring-a-relationship-with-one-navigation-property"></a>1 つのナビゲーション プロパティを持つリレーションシップを構成します。  
+## <a name="configuring-a-relationship-with-one-navigation-property"></a>1つのナビゲーションプロパティを使用したリレーションシップの構成  
 
-一方向の (という単一方向も) リレーションシップがリレーションシップの end の 1 つのみで、両方ではなくナビゲーション プロパティを定義する場合。 慣例により、Code First は常に解釈として一対多、一方向の関係。 たとえば、Instructor と OfficeAssignment、場所にあるナビゲーション プロパティは Instructor 型のみの間の一対一のリレーションシップの場合は、fluent API を使用してこの関係を構成する必要があります。  
+一方向 (一方向とも呼ばれます) のリレーションシップは、ナビゲーションプロパティがいずれかのリレーションシップの両端でのみ定義されていて、両方ではない場合です。 慣例により、Code First は常に一対多として一方向の関係を解釈します。 たとえば、インストラクターと OfficeAssignment の間に1対1のリレーションシップが必要な場合に、インストラクターの種類に対してのみナビゲーションプロパティがある場合は、fluent API を使用してこのリレーションシップを構成する必要があります。  
 
 ``` csharp
 // Configure the primary Key for the OfficeAssignment
@@ -89,16 +89,16 @@ modelBuilder.Entity<Instructor>()
     .WithRequiredPrincipal();
 ```  
 
-## <a name="enabling-cascade-delete"></a>連鎖削除を有効にします。  
+## <a name="enabling-cascade-delete"></a>連鎖削除の有効化  
 
-WillCascadeOnDelete メソッドを使用して、リレーションシップで連鎖削除を構成できます。 場合は、依存エンティティの外部キーが許容されませんし、Code First 連鎖削除の設定の関係します。 依存エンティティの外部キー値が許容、Code First は連鎖削除、リレーションシップに、プリンシパルが削除されたときに、外部キーが設定されます場合、を null にします。  
+WillCascadeOnDelete メソッドを使用して、リレーションシップに対して連鎖削除を構成できます。 依存エンティティの外部キーが null 値を許容しない場合、Code First はリレーションシップに対して連鎖削除を設定します。 依存エンティティの外部キーが null 許容である場合、Code First はリレーションシップに対して連鎖削除を設定しません。また、プリンシパルが削除されると、外部キーは null に設定されます。  
 
-使用してこれらの連鎖削除規則を削除することができます。  
+これらの連鎖削除規則は、次を使用して削除できます。  
 
-modelBuilder.Conventions.Remove\<OneToManyCascadeDeleteConvention\>)  
-modelBuilder.Conventions.Remove\<ManyToManyCascadeDeleteConvention\>)  
+modelBuilder. 規則\<OneToManyCascadeDeleteConvention\>() を削除します。  
+modelBuilder. 規則\<ManyToManyCascadeDeleteConvention\>() を削除します。  
 
-次のコードでは、必要になるリレーションシップを構成し、連鎖削除を無効にします。  
+次のコードでは、必要となるリレーションシップを構成してから、cascade delete を無効にしています。  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -110,7 +110,7 @@ modelBuilder.Entity<Course>()
 
 ## <a name="configuring-a-composite-foreign-key"></a>複合外部キーの構成  
 
-部門型の主キーが DepartmentID と名前のプロパティ、構成されている場合の部門とコース タイプの外部キーの主キーをよう構成は。  
+Department 型の主キーが DepartmentID および Name プロパティで構成されている場合は、次のように、学科の主キーとコースの種類の外部キーを構成します。  
 
 ``` csharp
 // Composite primary key
@@ -124,9 +124,9 @@ modelBuilder.Entity<Course>()
     .HasForeignKey(d => new { d.DepartmentID, d.DepartmentName });
 ```  
 
-## <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>モデルで定義されていない外部キーの名前を変更します。  
+## <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a>モデルで定義されていない外部キーの名前変更  
 
-を、CLR 型での外部キーの定義が、データベースが必要な名前を指定しないように選択する場合は、次の操作を行います。  
+CLR 型で外部キーを定義しないことを選択したが、データベースに必要な名前を指定する場合は、次の手順を実行します。  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -135,9 +135,9 @@ modelBuilder.Entity<Course>()
     .Map(m => m.MapKey("ChangedDepartmentID"));
 ```  
 
-## <a name="configuring-a-foreign-key-name-that-does-not-follow-the-code-first-convention"></a>コードの最初の規則に従っていない外部キー名を構成します。  
+## <a name="configuring-a-foreign-key-name-that-does-not-follow-the-code-first-convention"></a>Code First 規約に従っていない外部キー名の構成  
 
-コースのクラスの外部キー プロパティが SomeDepartmentID DepartmentID ではなく、呼び出された場合は、SomeDepartmentID 外部キーにすることを指定するには、次を実行する必要があります。  
+Course クラスの外部キープロパティが DepartmentID ではなく SomeDepartmentID と呼ばれていた場合は、次の手順を実行して、SomeDepartmentID を外部キーにするように指定する必要があります。  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -148,7 +148,7 @@ modelBuilder.Entity<Course>()
 
 ## <a name="model-used-in-samples"></a>サンプルで使用されるモデル  
 
-このページのサンプルについては、次のコードの最初のモデルが使用されます。  
+このページのサンプルには、次の Code First モデルが使用されています。  
 
 ``` csharp
 using System.Data.Entity;

@@ -1,49 +1,49 @@
 ---
-title: EF6 移行履歴テーブルのカスタマイズ
+title: 移行履歴テーブルのカスタマイズ-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ed5518f0-a9a6-454e-9e98-a4fa7748c8d0
 ms.openlocfilehash: eb19f367611a86f685557a6741a5f2f0bad6b718
-ms.sourcegitcommit: e66745c9f91258b2cacf5ff263141be3cba4b09e
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/06/2019
-ms.locfileid: "54058748"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415683"
 ---
 # <a name="customizing-the-migrations-history-table"></a>移行履歴テーブルのカスタマイズ
 > [!NOTE]
 > **EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
 
 > [!NOTE]
-> この記事では、基本的なシナリオで Code First Migrations を使用する方法を理解する前提としています。 そうしないかどうかを読み取る必要があります[Code First Migrations](~/ef6/modeling/code-first/migrations/index.md)続行する前にします。
+> この記事では、基本的なシナリオでの Code First Migrations の使用方法を理解していることを前提としています。 そうでない場合は、続行する前に[Code First Migrations](~/ef6/modeling/code-first/migrations/index.md)を読む必要があります。
 
-## <a name="what-is-migrations-history-table"></a>移行履歴テーブルとは何ですか。
+## <a name="what-is-migrations-history-table"></a>移行履歴テーブルとは
 
-移行履歴テーブルは、データベースに適用される移行の詳細を格納する Code First Migrations で使用するテーブルです。 既定で、データベース内のテーブルの名前は\_ \_MigrationHistory とそれを作成、データベースに最初の移行を適用する場合。 Entity Framework 5 では、次の表は、アプリケーションは、Microsoft Sql Server データベースを使用する場合に、システム テーブルをでした。 ただし Entity Framework 6 でこれが変更され、移行履歴テーブルがシステム テーブルをマークされていません。
+移行履歴テーブルは、データベースに適用された移行の詳細を格納するために Code First Migrations によって使用されるテーブルです。 既定では、データベース内のテーブルの名前は MigrationHistory \_\_され、データベースへの最初の移行を適用するときに作成されます。 Entity Framework 5 では、アプリケーションが Microsoft Sql Server データベースを使用していた場合、このテーブルはシステムテーブルでした。 これは Entity Framework 6 で変更され、移行履歴テーブルはシステムテーブルとしてマークされなくなりました。
 
-## <a name="why-customize-migrations-history-table"></a>移行履歴テーブルをカスタマイズする理由ですか。
+## <a name="why-customize-migrations-history-table"></a>移行履歴テーブルをカスタマイズする理由
 
-Code First Migrations を単独で使用する移行履歴テーブルは、手動で変更することで移行を中断できます。 ただし、場合によって、既定の構成は適していません、テーブルは、たとえば、カスタマイズする必要があります。
+移行履歴テーブルは Code First Migrations によってのみ使用され、手動で変更すると移行が中断される可能性があります。 ただし、既定の構成が適切ではなく、テーブルをカスタマイズする必要がある場合があります。次に例を示します。
 
--   名前/3 を有効にする列のファセットを変更する必要があります<sup>rd</sup>パーティの移行
--   テーブルの名前を変更します。
--   既定以外のスキーマを使用する必要がある、 \_ \_MigrationHistory テーブル
--   コンテキストの特定のバージョンの追加のデータを格納する必要があると、そのため、テーブルに追加の列を追加する必要があります。
+-   <sup>サードパーティの</sup>移行プロバイダーを有効にするには、列の名前やファセットを変更する必要があります。
+-   テーブルの名前を変更するには
+-   \_\_MigrationHistory テーブルには、既定以外のスキーマを使用する必要があります。
+-   コンテキストの特定のバージョンの追加データを格納する必要があるため、テーブルに列を追加する必要があります。
 
-## <a name="words-of-precaution"></a>念のための単語
+## <a name="words-of-precaution"></a>予防策
 
-移行履歴テーブルを変更するには強力ですが、こうした過剰反応しないように注意する必要があります。 EF ランタイム現在はチェックしません、カスタマイズされた移行履歴テーブルが、ランタイムと互換性のあるかどうか。 アプリケーションではない場合は、予測できない方法で動作または実行時に中断された可能性があります。 これよりも使用が重要ですデータベースごとの複数のコンテキストを使用する場合である場合複数のコンテキストことができます、同じ移行履歴テーブルの移行に関する情報を格納します。
+移行履歴テーブルを変更することは強力ですが、過剰な作業を行わないように注意する必要があります。 EF runtime では、現在、カスタマイズされた移行履歴テーブルにランタイムとの互換性があるかどうかは確認されません。 そうでない場合は、実行時にアプリケーションが中断したり、予期しない動作が発生したりする可能性があります。 これは、データベースごとに複数のコンテキストを使用する場合にさらに重要になります。この場合、複数のコンテキストで同じ移行履歴テーブルを使用して、移行に関する情報を格納できます。
 
-## <a name="how-to-customize-migrations-history-table"></a>移行履歴テーブルをカスタマイズする方法でしょうか。
+## <a name="how-to-customize-migrations-history-table"></a>移行履歴テーブルをカスタマイズする方法
 
-開始する前に知っておくべき最初の移行を適用する前にのみ、移行履歴テーブルをカスタマイズできます。 ここでは、コードにします。
+開始する前に、最初の移行を適用する前にのみ、移行履歴テーブルをカスタマイズできることを把握しておく必要があります。 ここで、コードにします。
 
-まず、System.Data.Entity.Migrations.History.HistoryContext クラスから派生したクラスを作成する必要があります。 Fluent API での EF モデルの構成とよく似ています、移行履歴テーブルを構成するため、HistoryContext クラスは、DbContext クラスから派生します。 同じ OnModelCreating メソッドをオーバーライドし、fluent API を使用して、テーブルを構成する必要があります。
+最初に、システムから派生したクラスを作成する必要があります。このクラスは、 履歴コンテキストクラスは DbContext クラスから派生するため、移行履歴テーブルを構成することは、fluent API での EF モデルの構成とよく似ています。 OnModelCreating メソッドをオーバーライドし、fluent API を使用してテーブルを構成するだけです。
 
 >[!NOTE]
-> 通常、EF モデルを構成するときに、呼び出しに必要はありません。以降、DbContext.OnModelCreating() オーバーライド OnModelCreating メソッドから OnModelCreating() が空の本文です。 移行履歴テーブルを構成するときにない場合になります。 この場合、最初に実際に呼び出す基本 OnModelCreating() オーバーライドではすべきです。OnModelCreating() します。 これは、オーバーライド元のメソッドで調整しする既定の方法での移行履歴テーブルを構成します。
+> 通常、EF モデルを構成するときは、base を呼び出す必要はありません。DbContext. OnModelCreating () に空の本文があるため、オーバーライドされた OnModelCreating メソッドから OnModelCreating () が行われました。 これは、移行履歴テーブルを構成する場合には当てはまりません。 この場合、OnModelCreating () オーバーライドで最初に行うことは、base を呼び出すことです。OnModelCreating ()。 これにより、移行履歴テーブルが既定の方法で構成されます。これにより、上書きする方法を調整できます。
 
-たとえば、移行履歴テーブルの名前を変更し、"admin"と呼ばれるカスタム スキーマを配置したいとします。 さらに、DBA ほしいへの移行から MigrationId 列の名前を変更する\_id。  次に HistoryContext から派生したクラスを作成してこれを実現する可能性があります。
+たとえば、移行履歴テーブルの名前を変更し、"admin" というカスタムスキーマに格納するとします。 さらに、DBA は MigrationId 列の名前を移行\_ID に変更したいと考えています。  これを実現するには、履歴コンテキストから派生した次のクラスを作成します。
 
 ``` csharp
     using System.Data.Common;
@@ -69,7 +69,7 @@ Code First Migrations を単独で使用する移行履歴テーブルは、手�
     }
 ```
 
-経由で登録することで EF を意識する必要がある、カスタム HistoryContext 準備ができたら[コード ベースの構成](https://msdn.com/data/jj680699):
+カスタム履歴コンテキストを準備したら、[コードベースの構成](https://msdn.com/data/jj680699)を使用して登録することにより、EF に認識させる必要があります。
 
 ``` csharp
     using System.Data.Entity;
@@ -87,6 +87,6 @@ Code First Migrations を単独で使用する移行履歴テーブルは、手�
     }
 ```
 
-これでほぼ完了です。 パッケージ マネージャー コンソール、Enable-migrations に移動できるようになりました Add-migration と最後にデータベースを更新します。 これは、HistoryContext 派生クラスで指定した詳細に従って移行履歴テーブルが構成されているデータベースに追加するのになります。
+これは非常に簡単です。 これで、パッケージマネージャーコンソールに移動し、移行、追加、および更新を行うことができます。 これにより、履歴コンテキストの派生クラスで指定した詳細に従って、構成された移行履歴テーブルがデータベースに追加されます。
 
 ![データベース](~/ef6/media/database.png)

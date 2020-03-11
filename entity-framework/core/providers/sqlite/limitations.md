@@ -5,11 +5,11 @@ ms.date: 04/09/2017
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
 ms.openlocfilehash: 2f80dc195265787318ac4925dd937da45ffad011
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72179767"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414759"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core データベースプロバイダーの制限事項
 
@@ -25,16 +25,16 @@ SQLite プロバイダーには、多くの移行に関する制限がありま�
 
 ## <a name="query-limitations"></a>クエリの制限事項
 
-SQLite では、次のデータ型はネイティブでサポートされていません。 EF Core は、これらの型の値の読み取りと書き込みが可能であり、等値 (`where e.Property == value`) のクエリもサポートされています。 ただし、比較や順序付けなどの操作では、クライアントでの評価が必要になります。
+SQLite では、次のデータ型はネイティブでサポートされていません。 EF Core は、これらの型の値の読み取りと書き込みを行うことができ、等値 (`where e.Property == value`) のクエリもサポートされています。 ただし、比較や順序付けなどの操作では、クライアントでの評価が必要になります。
 
 * DateTimeOffset
-* 10 進数
+* Decimal
 * TimeSpan
 * UInt64
 
-@No__t-0 の代わりに、DateTime 値を使用することをお勧めします。 複数のタイムゾーンを処理する場合は、保存してから適切なタイムゾーンに変換する前に、値を UTC に変換することをお勧めします。
+`DateTimeOffset`の代わりに、DateTime 値を使用することをお勧めします。 複数のタイムゾーンを処理する場合は、保存してから適切なタイムゾーンに変換する前に、値を UTC に変換することをお勧めします。
 
-@No__t-0 型では、高レベルの精度が提供されます。 ただし、このレベルの精度が不要な場合は、代わりに double を使用することをお勧めします。 [値コンバーター](../../modeling/value-conversions.md)を使用して、クラスで10進数の使用を続けることができます。
+`Decimal` 型は、高レベルの精度を提供します。 ただし、このレベルの精度が不要な場合は、代わりに double を使用することをお勧めします。 [値コンバーター](../../modeling/value-conversions.md)を使用して、クラスで10進数の使用を続けることができます。
 
 ``` csharp
 modelBuilder.Entity<MyEntity>()
@@ -46,7 +46,7 @@ modelBuilder.Entity<MyEntity>()
 
 SQLite データベースエンジンでは、他の多くのリレーショナルデータベースでサポートされているいくつかのスキーマ操作はサポートされていません。 サポートされていない操作の1つを SQLite データベースに適用しようとすると、`NotSupportedException` がスローされます。
 
-| 操作            | さ? | バージョンが必要です |
+| 操作            | サポート対象かどうか | バージョンが必要です |
 |:---------------------|:-----------|:-----------------|
 | Table.addcolumn            | ✔          | 1.0              |
 | AddForeignKey        | ✗          |                  |
@@ -66,7 +66,7 @@ SQLite データベースエンジンでは、他の多くのリレーショナ�
 | RenameTable          | ✔          | 1.0              |
 | EnsureSchema         | ✔ (非 op)  | 2.0              |
 | DropSchema           | ✔ (非 op)  | 2.0              |
-| Insert               | ✔          | 2.0              |
+| 挿入               | ✔          | 2.0              |
 | 更新               | ✔          | 2.0              |
 | 削除               | ✔          | 2.0              |
 

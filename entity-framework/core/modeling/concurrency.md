@@ -5,11 +5,11 @@ ms.date: 01/03/2020
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 uid: core/modeling/concurrency
 ms.openlocfilehash: bfeb611f222f7195fe22d920b452b40cc4addf90
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76124367"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414621"
 ---
 # <a name="concurrency-tokens"></a>コンカレンシー トークン
 
@@ -18,13 +18,13 @@ ms.locfileid: "76124367"
 
 同時実行トークンとして構成されたプロパティは、オプティミスティック同時実行制御を実装するために使用されます。
 
-## <a name="configuration"></a>の構成
+## <a name="configuration"></a>構成
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Concurrency.cs?name=Concurrency&highlight=5)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Concurrency.cs?name=Concurrency&highlight=5)]
 
@@ -36,11 +36,11 @@ Timestamp/rowversion は、行が挿入または更新されるたびに、デ�
 
 次のように、プロパティを timestamp/rowversion として構成できます。
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Timestamp.cs?name=Timestamp&highlight=7)]
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Timestamp.cs?name=Timestamp&highlight=9,17)]
 

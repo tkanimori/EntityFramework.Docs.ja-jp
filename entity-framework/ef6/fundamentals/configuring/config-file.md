@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 000044c6-1d32-4cf7-ae1f-ea21d86ebf8f
 ms.openlocfilehash: 86389e4a3a3bac46e2a4cf2da648a4b19e29f3c3
-ms.sourcegitcommit: 299011fc4bd576eed58a4274f967639fa13fec53
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/21/2019
-ms.locfileid: "69886553"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414855"
 ---
 # <a name="configuration-file-settings"></a>構成ファイルの設定
 Entity Framework では、構成ファイルからいくつかの設定を指定できます。 一般的な EF では、"構成よりも規約" の原則に従います。この投稿で説明されているすべての設定は既定の動作であるため、既定で要件を満たさなくなった場合にのみ設定を変更することを考慮する必要があります。  
@@ -40,7 +40,7 @@ Entityframework の NuGet パッケージをインストールすると、プロ
 
 接続文字列は標準の**connectionStrings**要素に含まれ、 **entityframework**セクションは必要ありません。  
 
-Code First ベースのモデルでは、通常の ADO.NET 接続文字列を使用します。 例えば:  
+Code First ベースのモデルでは、通常の ADO.NET 接続文字列を使用します。 次に例を示します。  
 
 ``` xml
 <connectionStrings>
@@ -50,7 +50,7 @@ Code First ベースのモデルでは、通常の ADO.NET 接続文字列を使
 </connectionStrings>
 ```  
 
-EF デザイナーベースのモデルでは、特殊な EF 接続文字列を使用します。 例えば:  
+EF デザイナーベースのモデルでは、特殊な EF 接続文字列を使用します。 次に例を示します。  
 
 ``` xml  
 <connectionStrings>
@@ -110,7 +110,7 @@ EF6 より前は、データベースプロバイダーの Entity Framework 固�
 
 EF 6.1 以降では、構成ファイルにインターセプターを登録できます。 インターセプターを使用すると、EF がデータベースクエリの実行や接続の開始などの特定の操作を実行するときに、追加のロジックを実行できます。  
 
-インターセプターは、 **Entityframework**セクションのインターセプター子セクションの下に**インターセプター**要素を含めることによって登録されます。 たとえば、次の構成では、すべてのデータベース操作をコンソールに記録する組み込みの**Databaselogger**インターセプターが登録されます。  
+インターセプターは、 **Entityframework**セクションの**インターセプター子セクションの下に** **インターセプター**要素を含めることによって登録されます。 たとえば、次の構成では、すべてのデータベース操作をコンソールに記録する組み込みの**Databaselogger**インターセプターが登録されます。  
 
 ``` xml  
 <interceptors>
@@ -145,7 +145,7 @@ EF 6.1 以降では、構成ファイルにインターセプターを登録で�
 </interceptors>
 ```  
 
-**Databaselogger**およびインターセプターの登録の詳細については、ブログ[投稿「EF 6.1:再コンパイル](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/)せずにログ記録をオンにします。  
+**Databaselogger**およびインターセプターの登録の詳細については、ブログ投稿「 [EF 6.1: 再コンパイルせずにログ記録を有効](https://blog.oneunicorn.com/2014/02/09/ef-6-1-turning-on-logging-without-recompiling/)にする」を参照してください。  
 
 ## <a name="code-first-default-connection-factory"></a>既定の接続ファクトリの Code First  
 
@@ -180,7 +180,7 @@ EF NuGet パッケージをインストールすると、インストールさ�
 </entityFramework>
 ```  
 
-既定の接続ファクトリを設定していない場合、Code First はを`.\SQLEXPRESS`指す sqlconnectionfactory を使用します。 SqlConnectionFactory には、接続文字列の一部をオーバーライドできるコンストラクターも用意されています。 以外`.\SQLEXPRESS`の SQL Server インスタンスを使用する場合は、このコンストラクターを使用してサーバーを設定できます。  
+既定の接続ファクトリを設定しない場合、Code First は、`.\SQLEXPRESS`を指す SqlConnectionFactory を使用します。 SqlConnectionFactory には、接続文字列の一部をオーバーライドできるコンストラクターも用意されています。 `.\SQLEXPRESS` 以外の SQL Server インスタンスを使用する場合は、このコンストラクターを使用してサーバーを設定できます。  
 
 次の構成では、明示的な接続文字列が設定されていないコンテキストに対して Code First が**Mydatabaseserver**を使用するようになります。  
 
@@ -240,7 +240,7 @@ EF NuGet パッケージをインストールすると、インストールさ�
 
 Entity Framework に含まれている汎用データベース初期化子のいずれかを構成できます。 **Type**属性は、ジェネリック型の .NET Framework 形式を使用します。  
 
-たとえば、Code First Migrations を使用している場合は、 `MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>`初期化子を使用してデータベースを自動的に移行するように構成できます。  
+たとえば、Code First Migrations を使用している場合は、`MigrateDatabaseToLatestVersion<TContext, TMigrationsConfiguration>` 初期化子を使用してデータベースを自動的に移行するように構成できます。  
 
 ``` xml
 <contexts>

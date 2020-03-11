@@ -1,21 +1,21 @@
 ---
-title: EF6 の DbSets を定義します。
+title: 定義 (DbSets を)-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4528a509-ace7-4dfb-8065-1b833f5e03a0
 ms.openlocfilehash: 045b22d2b9d26804948689dd7c9dd694baadda7e
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45488999"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415779"
 ---
-# <a name="defining-dbsets"></a>DbSets を定義します。
-Code First ワークフローを開発する際に、データベースとのセッションを表し、モデル内の各型の DbSet を公開する DbContext 派生を定義します。 このトピックでは、DbSet プロパティを定義するさまざまな方法を説明します。  
+# <a name="defining-dbsets"></a>定義 (DbSets を)
+Code First ワークフローを使用して開発する場合は、データベースとのセッションを表す派生 DbContext を定義し、モデルの型ごとに Dbcontext を公開します。 このトピックでは、DbSet プロパティを定義するさまざまな方法について説明します。  
 
-## <a name="dbcontext-with-dbset-properties"></a>DbContext の DbSet プロパティ  
+## <a name="dbcontext-with-dbset-properties"></a>DbContext と Dbcontext プロパティ  
 
-最初のコード例に示すように、一般的なケースは、モデルのエンティティ型のパブリックの自動 DbSet プロパティを DbContext です。 例えば:  
+Code First 例に示す一般的なケースは、モデルのエンティティ型に対して、パブリックな自動 Dbcontext プロパティを持つ DbContext を使用することです。 次に例を示します。  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -25,11 +25,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-Code First モードで使用する場合、エンティティ型だけから到達可能なその他の種類の構成として、ブログや投稿に設定されます。 さらに DbContext では、適切な DbSet のインスタンスを設定するには、各プロパティの setter は呼び出しが自動的に。  
+Code First モードで使用すると、ブログや投稿をエンティティ型として構成できるだけでなく、その他の型を構成することができます。 さらに、DbContext は、これらの各プロパティの setter を自動的に呼び出して、適切な Dbcontext のインスタンスを設定します。  
 
-## <a name="dbcontext-with-idbset-properties"></a>DbContext IDbSet プロパティを持つ  
+## <a name="dbcontext-with-idbset-properties"></a>IDbSet プロパティを持つ DbContext  
 
-ときに作成するモックまたは fakes、インターフェイスを使用して、セットのプロパティの宣言をより便利ななどの場合があります。 このような場合、IDbSet DbSet の代わりにインターフェイスを使用することができます。 例えば:  
+モックの作成時やフェイクの作成時など、インターフェイスを使用して set プロパティを宣言すると便利な場合があります。 このような場合は、DbSet の代わりに IDbSet インターフェイスを使用できます。 次に例を示します。  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -39,11 +39,11 @@ public class BloggingContext : DbContext
 }
 ```  
 
-このコンテキストは、そのプロパティの設定の DbSet クラスを使用するコンテキストとまったく同じ方法で動作します。  
+このコンテキストは、その設定プロパティに DbSet クラスを使用するコンテキストとまったく同じ方法で動作します。  
 
-## <a name="dbcontext-with-read-only-set-properties"></a>プロパティを設定する読み取り専用の DbContext  
+## <a name="dbcontext-with-read-only-set-properties"></a>読み取り専用の設定プロパティを持つ DbContext  
 
-DbSet または IDbSet のプロパティのパブリック setter を公開したくない場合代わりに読み取り専用プロパティを作成し、自分で、セットのインスタンスを作成することができます。 例えば:  
+DbSet または IDbSet プロパティのパブリック setter を公開したくない場合は、代わりに読み取り専用プロパティを作成し、自分で set インスタンスを作成できます。 次に例を示します。  
 
 ``` csharp
 public class BloggingContext : DbContext
@@ -60,6 +60,6 @@ public class BloggingContext : DbContext
 }
 ```  
 
-DbContext はそれが呼び出されるたびに、同じインスタンスがこれらの各プロパティが返されるように、Set メソッドから返された DbSet のインスタンスをキャッシュに注意してください。  
+DbContext は、Set メソッドから返された Dbcontext のインスタンスをキャッシュして、これらの各プロパティが呼び出されるたびに同じインスタンスを返すようにします。  
 
-ここで、同じ方法での Code First のしくみのエンティティ型の検出ほどには、パブリック getter および setter プロパティは。  
+Code First のエンティティ型の検出は、パブリックな getter と setter を持つプロパティの場合と同じように動作します。  

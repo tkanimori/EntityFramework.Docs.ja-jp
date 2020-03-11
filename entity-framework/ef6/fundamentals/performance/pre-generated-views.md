@@ -1,43 +1,43 @@
 ---
-title: 事前に生成されたマッピング ビュー - EF6
+title: 事前に生成されたマッピングビュー-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
 ms.openlocfilehash: 1fda9fe9638adce9b24a6b81aa081effeb0def81
-ms.sourcegitcommit: c568d33214fc25c76e02c8529a29da7a356b37b4
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/30/2018
-ms.locfileid: "47459527"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416031"
 ---
-# <a name="pre-generated-mapping-views"></a>事前に生成されたマッピング ビュー
-Entity Framework では、クエリを実行したり、データ ソースに変更を保存することが、前に、一連のデータベースにアクセスするマッピング ビューが生成する必要があります。 これらのマッピング ビューを抽象的な方法でデータベースを表す Entity SQL ステートメントのセットし、アプリケーション ドメインごとにキャッシュされるメタデータの一部であります。 同じアプリケーション ドメインで同じコンテキストの複数のインスタンスを作成する場合は、再生成するのではなく、キャッシュされたメタデータからマッピング ビューは再利用します。 マップ ビューの生成は、最初のクエリの実行における全体的なコストのかなりの部分であるため、Entity Framework では、マッピング ビューを事前に生成およびコンパイル済みのプロジェクトに追加することができます。 詳細については、[パフォーマンスに関する考慮事項 (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md)を参照してください。
+# <a name="pre-generated-mapping-views"></a>事前に生成されたマッピングビュー
+Entity Framework がクエリを実行したり、データソースへの変更を保存したりする前に、データベースにアクセスするための一連のマッピングビューを生成する必要があります。 これらのマッピングビューは、データベースを抽象的な方法で表す一連の Entity SQL ステートメントであり、アプリケーションドメインごとにキャッシュされるメタデータの一部です。 同じアプリケーションドメイン内に同じコンテキストの複数のインスタンスを作成すると、キャッシュされたメタデータからのマッピングビューが再生成されるのではなく再利用されます。 マッピングビューの生成は最初のクエリの実行にかかる全体的なコストの重要な部分であるため、Entity Framework を使用すると、マッピングビューを事前に生成し、コンパイル済みのプロジェクトに含めることができます。 詳細については、「  [パフォーマンスに関する考慮事項 (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md)」を参照してください。
 
-## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>EF Power Tools の Community Edition ではビューのマッピングを生成します。
+## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>EF Power Tools Community Edition を使用したマッピングビューの生成
 
-ビューを事前に生成する最も簡単な方法は使用する、 [EF Power Tools の Community Edition](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition)します。 Power ツールをインストールしたら次に示すようにビューの生成のメニュー オプションを必要があります。
+ビューを事前に生成する最も簡単な方法は、 [EF Power Tools Community エディション](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition)を使用することです。 パワーツールをインストールすると、次のように、ビューを生成するメニューオプションが表示されます。
 
--   **Code First** DbContext クラスを含むコード ファイルにモデルを右クリックします。
--   **EF Designer**モデルは、EDMX ファイルを右クリックします。
+-   **Code First**モデルの場合は、dbcontext クラスを含むコードファイルを右クリックします。
+-   **EF デザイナー**モデルの場合は、EDMX ファイルを右クリックします。
 
-![ビューを生成します。](~/ef6/media/generateviews.png)
+![ビューの生成](~/ef6/media/generateviews.png)
 
-生成された次のようなクラスが、プロセスが完了すると
+プロセスが完了すると、次のようなクラスが生成されます。
 
 ![生成されたビュー](~/ef6/media/generatedviews.png)
 
-これを実行すると、アプリケーションの EF は必要に応じてビューの読み込みにこのクラスを使用します。 モデルの変更と再生成しないこのクラスの場合、EF によって例外がスローされます。
+アプリケーションを実行すると、EF はこのクラスを使用して必要に応じてビューを読み込みます。 モデルが変更され、このクラスを再生成していない場合、EF は例外をスローします。
 
-## <a name="generating-mapping-views-from-code---ef6-onwards"></a>コードの EF6 以降からビューのマッピングを生成します。
+## <a name="generating-mapping-views-from-code---ef6-onwards"></a>コード EF6 からのマッピングビューの生成
 
-ビューを生成するその他の方法は、EF を提供する Api を使用することです。 このメソッドを使用する場合が、自分でビューの読み込みにも必要ですが、ビューをシリアル化する自由があります。
+ビューを生成するもう1つの方法は、EF に用意されている Api を使用することです。 この方法を使用する場合は、必要に応じてビューを自由にシリアル化できますが、自分でビューを読み込む必要もあります。
 
 > [!NOTE]
-> **EF6 以降のみ**-このセクションに示すように、Api は、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、この情報は適用されません。
+> **EF6 以降のみ**-このセクションに示されている api は Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、この情報は適用されません。
 
 ### <a name="generating-views"></a>ビューの生成
 
-ビューを生成する Api は、System.Data.Entity.Core.Mapping.StorageMappingItemCollection クラスです。 ObjectContext の MetadataWorkspace を使用して、コンテキストに対して、StorageMappingCollection を取得できます。 使用してこれにアクセスできるように、新しい DbContext API を使用している場合は、次のような IObjectContextAdapter、このコードであるという dbContext 派生、DbContext のインスタンス。
+ビューを生成するための Api は、StorageMappingItemCollection クラスに表示されます。 ObjectContext の MetadataWorkspace を使用して、コンテキストの StorageMappingCollection を取得できます。 新しい DbContext API を使用している場合は、次のような IObjectContextAdapter を使用してこれにアクセスできます。このコードでは、dbContext という名前の派生 DbContext のインスタンスを使用しています。
 
 ``` csharp
     var objectContext = ((IObjectContextAdapter) dbContext).ObjectContext;
@@ -45,31 +45,31 @@ Entity Framework では、クエリを実行したり、データ ソースに�
                                                                         .GetItemCollection(DataSpace.CSSpace);
 ```
 
-StorageMappingItemCollection したら GenerateViews と ComputeMappingHashValue メソッドへのアクセスを取得できます。
+StorageMappingItemCollection を取得すると、GenerateViews と ComputeMappingHashValue メソッドにアクセスできるようになります。
 
 ``` csharp
     public Dictionary\<EntitySetBase, DbMappingView> GenerateViews(IList<EdmSchemaError> errors)
     public string ComputeMappingHashValue()
 ```
 
-最初のメソッドでは、コンテナーのマッピングでは、各ビューのエントリを使って、ディクショナリを作成します。 2 番目のメソッドでは、1 つのコンテナーのマッピングのハッシュ値を計算し、実行時の検証に使用、モデルが、ビューが事前に生成した後に変更していないこと。 2 つのメソッドのオーバーライドは、複数のコンテナーのマッピングに関連する複雑なシナリオで提供されます。
+最初のメソッドは、コンテナーマッピング内の各ビューのエントリを含むディクショナリを作成します。 2番目のメソッドは、1つのコンテナーマッピングのハッシュ値を計算し、ビューが事前に生成された後にモデルが変更されていないことを検証するために実行時に使用されます。 複数のコンテナーマッピングが関係する複雑なシナリオでは、2つのメソッドのオーバーライドが提供されます。
 
-ビューを生成するときに GenerateViews メソッドを呼び出すし、結果として得られる EntitySetBase と DbMappingView を記述します。 また、ComputeMappingHashValue メソッドによって生成されたハッシュを格納する必要があります。
+ビューを生成するときに、GenerateViews メソッドを呼び出し、結果として得られた EntitySetBase および DbMappingView を記述します。 また、ComputeMappingHashValue メソッドによって生成されたハッシュも格納する必要があります。
 
 ### <a name="loading-views"></a>ビューの読み込み
 
-GenerateViews メソッドによって生成されるビューを読み込むためには、DbMappingViewCache 抽象クラスから継承するクラスを使用して EF を行うことができます。 DbMappingViewCache は、2 つのメソッドを実装する必要がありますを指定します。
+GenerateViews メソッドによって生成されたビューを読み込むには、DbMappingViewCache 抽象クラスを継承するクラスを EF に提供します。 DbMappingViewCache は、実装する必要がある2つのメソッドを指定します。
 
 ``` csharp
     public abstract string MappingHashValue { get; }
     public abstract DbMappingView GetView(EntitySetBase extent);
 ```
 
-MappingHashValue プロパティには、ComputeMappingHashValue メソッドによって生成されたハッシュを返す必要があります。 EF がビューの確認にはまず生成し、モデルのハッシュ値をこのプロパティによって返されるハッシュと比較します。 これらが一致しない場合は、EF は EntityCommandCompilationException 例外をスローします。
+MappingHashValue プロパティは、ComputeMappingHashValue メソッドによって生成されたハッシュを返す必要があります。 EF がビューを要求するときに、最初に生成され、このプロパティによって返されるハッシュとモデルのハッシュ値を比較します。 一致しない場合、EF は EntityCommandCompilationException 例外をスローします。
 
-GetView メソッドで、EntitySetBase はそのまま使用し、GenerateViews メソッドによって生成されたディクショナリで指定された EntitySetBase に関連付けられていた解析対象の EntitySql が生成する対象を含む DbMappingVIew を返す必要があります。 EF を求める場合ことがない、GetView ビューは null を返します。
+GetView メソッドは EntitySetBase を受け入れ、GenerateViews メソッドによって生成されたディクショナリ内の指定された EntitySetBase に関連付けられていた EntitySql を含む DbMappingVIew を返す必要があります。 EF が不要なビューを要求した場合、GetView は null を返す必要があります。
 
-格納および取得のために必要な解析対象の EntitySql 1 つの方法がわかりますが、上記とパワー ツールで生成される DbMappingViewCache からの抜粋を次に示します。
+次に示すのは、前述のようにパワーツールで生成された DbMappingViewCache からの抽出です。ここでは、必要な EntitySql を格納および取得するための1つの方法を示しています。
 
 ``` csharp
     public override string MappingHashValue
@@ -117,10 +117,10 @@ GetView メソッドで、EntitySetBase はそのまま使用し、GenerateViews
     }
 ```
 
-EF に使用しているには、追加する、DbMappingViewCache は用に作成されたコンテキストの指定、DbMappingViewCacheTypeAttribute を使用します。 次のコードで MyMappingViewCache クラスを使用して、BlogContext を関連付けます。
+EF で DbMappingViewCache を使用するには、DbMappingViewCacheTypeAttribute を使用して、作成されたコンテキストを指定します。 次のコードでは、ブログコンテキストを MyMappingViewCache クラスに関連付けます。
 
 ``` csharp
     [assembly: DbMappingViewCacheType(typeof(BlogContext), typeof(MyMappingViewCache))]
 ```
 
-複雑なシナリオは、マッピング ビュー キャッシュ ファクトリを指定することによってマッピング キャッシュ インスタンスの表示を提供することができます。 これは、抽象クラス System.Data.Entity.Infrastructure.MappingViews.DbMappingViewCacheFactory を実装することで実行できます。 使用されるマッピング ビュー キャッシュ ファクトリのインスタンスを取得または、StorageMappingItemCollection.MappingViewCacheFactoryproperty を使用して設定できます。
+より複雑なシナリオでは、マッピングビューのキャッシュファクトリを指定することによって、マッピングビューのキャッシュインスタンスを指定できます。 これは、抽象クラスの system.object を実装することによって行うことができます。 使用されるマッピングビューのキャッシュファクトリのインスタンスは、StorageMappingItemCollection. MappingViewCacheFactoryproperty を使用して取得または設定できます。

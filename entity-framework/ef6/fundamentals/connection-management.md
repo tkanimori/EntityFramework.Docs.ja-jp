@@ -1,35 +1,35 @@
 ---
-title: EF6 の接続管理
+title: 接続管理-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ecaa5a27-b19e-4bf9-8142-a3fb00642270
 ms.openlocfilehash: a6352bbbc38c38bd5f30536736ec969056df2c7d
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489337"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414867"
 ---
-# <a name="connection-management"></a>接続の管理
-このページでは、Entity Framework の動作を記述の接続に渡すコンテキストとの機能に関して、 **Database.Connection.Open()** API。  
+# <a name="connection-management"></a>接続管理
+このページでは、コンテキストへの接続の受け渡しと、**データベース. Connection. Open ()** API の機能に関して、Entity Framework の動作について説明します。  
 
-## <a name="passing-connections-to-the-context"></a>コンテキストへの接続を渡す  
+## <a name="passing-connections-to-the-context"></a>コンテキストへの接続の引き渡し  
 
-### <a name="behavior-for-ef5-and-earlier-versions"></a>EF5 と以前のバージョンの動作  
+### <a name="behavior-for-ef5-and-earlier-versions"></a>EF5 以前のバージョンの動作  
 
-接続を許可する 2 つのコンストラクターがあります。  
+接続を受け入れるコンストラクターは2つあります。  
 
 ``` csharp
 public DbContext(DbConnection existingConnection, bool contextOwnsConnection)
 public DbContext(DbConnection existingConnection, DbCompiledModel model, bool contextOwnsConnection)
 ```  
 
-これらを使用することですが、いくつかの制限を回避する必要があります。  
+これらを使用することはできますが、いくつかの制限事項に対処する必要があります。  
 
-1. 開いている接続に渡すこれらのいずれかのフレームワークが、InvalidOperationException がスローされることを使用しようとしています。 初めてしという開くことができません再既に開いている接続。  
-2. ContextOwnsConnection フラグは、コンテキストが破棄されたときに、基になるストア接続を破棄する必要があるかどうかを意味する解釈されます。 ただし、その設定に関係なく、コンテキストが破棄されたときにストア接続は閉じ常に。 同じ接続では、複数の DbContext があればどのコンテキストが破棄された最初は閉じます (同様に、DbContext で既存の ADO.NET 接続を混合する場合は、DbContext は必ず接続を終了破棄されるときに) 接続.  
+1. 開いている接続をこれらのいずれかに渡すと、フレームワークが初めて使用しようとしたときに、既に開いている接続を再び開くことができないということを示す InvalidOperationException がスローされます。  
+2. ContextOwnsConnection フラグは、コンテキストが破棄されるときに、基になるストア接続を破棄する必要があるかどうかを示すために解釈されます。 ただし、その設定に関係なく、コンテキストが破棄されると、ストア接続は常に閉じられます。 そのため、同じ接続を持つ複数の DbContext を使用している場合は、最初に破棄されたコンテキストによって接続が閉じられます (同様に、DbContext を使用して既存の ADO.NET 接続を混在させた場合、DbContext は常に破棄された接続を閉じます).  
 
-閉じている接続を渡すと、すべてのコンテキストが作成された後に開くことがコードを実行するだけで上記の最初の制限を回避することができます。  
+閉じられた接続を渡し、すべてのコンテキストを作成した後でそれを開くコードのみを実行することで、上記の最初の制限を回避することができます。  
 
 ``` csharp
 using System.Collections.Generic;
@@ -71,11 +71,11 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-第 2 の制限を終了する接続の準備が整ったら、DbContext オブジェクトのいずれかを破棄しないようにする必要があるということです。  
+2つ目の制限は、接続を閉じる準備が整うまで、DbContext オブジェクトの破棄を避ける必要があることを意味します。  
 
-### <a name="behavior-in-ef6-and-future-versions"></a>EF6 と今後のバージョンでの動作  
+### <a name="behavior-in-ef6-and-future-versions"></a>EF6 および将来のバージョンでの動作  
 
-EF6 と今後のバージョンでは、DbContext は、同じ 2 つのコンストラクターがありますは受信したときに、コンストラクターに渡された接続を閉じるには不要します。 このため、これが可能になりました。  
+EF6 および将来のバージョンでは、DbContext は同じ2つのコンストラクターを持ちますが、コンストラクターに渡された接続を受信時に閉じる必要がなくなりました。 これで、次のことが可能になりました。  
 
 ``` csharp
 using System.Collections.Generic;
@@ -123,24 +123,24 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-また contextOwnsConnection フラグは、かどうか、接続が閉じられたおよび DbContext を破棄すると破棄を今すぐ制御します。 上記の例では、コンテキストが、接続は閉じられないように以前のバージョンの EF、いたでしょうが、接続自体が破棄されるときではなく、(行 32) を破棄 (40 行)。  
+また、contextOwnsConnection フラグは、DbContext が破棄されるときに接続が閉じられ、破棄されるかどうかを制御するようになりました。 このため、上記の例では、コンテキストが破棄されたとき (32 行目) に接続が閉じられません。これは、以前のバージョンの EF と同じですが、接続自体が破棄される (40 行目) ことになります。  
 
-もちろん、DbContext (true または他のコンストラクターのいずれかを使用するセット contextOwnsConnection だけ) の接続を制御することは可能では希望される場合。  
+もちろん、DbContext で接続を制御することもできます (contextOwnsConnection を true に設定するか、他のコンストラクターのいずれかを使用するだけで済みます)。  
 
 > [!NOTE]
-> このモデルで新しいトランザクションを使用する場合は、いくつか追加の考慮事項にもあります。 詳細を参照してください[トランザクション操作](~/ef6/saving/transactions.md)します。  
+> この新しいモデルでトランザクションを使用する場合は、追加の考慮事項がいくつかあります。 詳細については、「[トランザクションの](~/ef6/saving/transactions.md)使用」を参照してください。  
 
-## <a name="databaseconnectionopen"></a>Database.Connection.Open()  
+## <a name="databaseconnectionopen"></a>Database. Connection. Open ()  
 
-### <a name="behavior-for-ef5-and-earlier-versions"></a>EF5 と以前のバージョンの動作  
+### <a name="behavior-for-ef5-and-earlier-versions"></a>EF5 以前のバージョンの動作  
 
-EF5 と以前のバージョンでは、バグを**ObjectContext.Connection.State**基になるストア接続の実際の状態を反映するように更新されませんでした。 たとえば、次のコードを実行した場合を返されるステータス**Closed**が実際には、基になるストア接続でも**オープン**します。  
+EF5 以前のバージョンでは、基になるストア接続の真の状態を反映するために、 **ObjectContext**が更新されていないというバグがあります。 たとえば、次のコードを実行した場合、実際には基になるストア接続が**開か**れているにもかかわらず、状態を**閉じる**ことができます。  
 
 ``` csharp
 ((IObjectContextAdapter)context).ObjectContext.Connection.State
 ```  
 
-別に場合 Database.Connection.Open() を呼び出すことによって、データベース接続を開くことが開いて、次回クエリを実行するか、データベースの接続が必要なものがあればを呼び出すまで (後 SaveChanges()) など、保存、基になること接続は閉じられます。 コンテキストは、再び開くし、再別のデータベース操作が必要な接続を閉じます。  
+別の方法として、データベース接続を開いた場合、データベース接続を開くと、次にクエリを実行するか、データベース接続を必要とする任意のもの (SaveChanges () など) を呼び出してから、基になるストアを呼び出すことができます。接続は閉じられます。 その後、別のデータベース操作が必要になったときに、コンテキストは再起動し、接続を再度閉じます。  
 
 ``` csharp
 using System;
@@ -184,14 +184,14 @@ namespace ConnectionManagementExamples
 }
 ```  
 
-### <a name="behavior-in-ef6-and-future-versions"></a>EF6 と今後のバージョンでの動作  
+### <a name="behavior-in-ef6-and-future-versions"></a>EF6 および将来のバージョンでの動作  
 
-EF6 と今後のバージョンを思い出させてアプローチを呼び出し元のコードは、呼び出し元のコンテキストで接続を開くことが選択した場合。Database.Connection.Open() し、それがこれを行うための正当な理由と、フレームワークは、接続の開閉に制御が、接続を自動的に閉じる不要になったことと想定されます。  
+EF6 および将来のバージョンでは、呼び出し元のコードがコンテキストを呼び出すことによって接続を開くことを選択した場合のアプローチを採用しました。Database. Connection. Open () では、そのような理由があるので、フレームワークは接続の開閉を制御する必要があり、接続を自動的に閉じることを想定しています。  
 
 > [!NOTE]
-> これは、場合は、可能性のある時間は、そのため注意して使用するのに開かれている接続につながります。  
+> このため、接続が長時間開かれているため、注意して使用することができます。  
 
-私たちは ObjectContext.Connection.State ここでは追跡の基になる接続の状態正しくできるように、コードも更新されます。  
+また、コードを更新して、ObjectContext が基になる接続の状態を正しく追跡できるようにしました。  
 
 ``` csharp
 using System;

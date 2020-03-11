@@ -5,13 +5,13 @@ ms.date: 12/16/2019
 ms.assetid: 85b92003-b692-417d-ac1d-76d40dce664b
 uid: core/modeling/indexes
 ms.openlocfilehash: 810fccc0c6b035f515107601b245811f7b4118a6
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502137"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413937"
 ---
-# <a name="indexes"></a>Indexes
+# <a name="indexes"></a>インデックス
 
 インデックスは、多くのデータストアで共通の概念です。 データストアでの実装は異なる場合がありますが、列または列のセットに基づいて参照を作成するために使用されます。
 

@@ -1,27 +1,27 @@
 ---
-title: 接続の回復 - EF Core
+title: 接続の回復性-EF Core
 author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 6d8cf117dfd94524a53e10bb4a23c2a44c4c8e7b
-ms.sourcegitcommit: 33b2e84dae96040f60a613186a24ff3c7b00b6db
+ms.openlocfilehash: 07646e6ead845c38537945a03367ac7f50784236
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/21/2019
-ms.locfileid: "56459173"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414135"
 ---
-# <a name="connection-resiliency"></a>接続の復元性
+# <a name="connection-resiliency"></a>接続の回復
 
-接続の回復性は、失敗したデータベース コマンドを自動的に再試行します。 機能は、「実行戦略」、障害を検出し、コマンドを再試行するのに必要なロジックをカプセル化されているを指定することで、任意のデータベースで使用できます。 EF Core プロバイダーは、特定のデータベース エラー状態と最適な再試行ポリシーに合わせて調整するという実行ストラテジを指定できます。
+接続の回復性は、失敗したデータベースコマンドを自動的に再試行します。 この機能は、"実行戦略" を指定することによって任意のデータベースで使用できます。これには、エラーを検出してコマンドを再試行するために必要なロジックがカプセル化されています。 EF Core プロバイダーは、特定のデータベースエラー条件と最適な再試行ポリシーに合わせて、実行戦略を提供できます。
 
-たとえば、SQL Server プロバイダーには、SQL Server (SQL Azure を含む) に合わせた具体的には、実行戦略が含まれています。 再試行できる例外の種類を認識し、最大再試行回数、再試行などの間の遅延の実用的な既定値を持ちます。
+例として、SQL Server プロバイダーには、SQL Server (SQL Azure を含む) に特化した実行方法が用意されています。 再試行できる例外の種類を認識しており、最大再試行回数、再試行間隔などの既定値があります。
 
-実行戦略は、コンテキストのオプションを構成するときに指定します。 通常、これは、`OnConfiguring`派生コンテキストのメソッド。
+実行方法は、コンテキストのオプションを構成するときに指定します。 これは通常、派生コンテキストの `OnConfiguring` メソッドにあります。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
 
-または`Startup.cs`ASP.NET Core アプリケーション。
+または、`Startup.cs` で ASP.NET Core アプリケーションの場合は、次のようになります。
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
@@ -33,9 +33,9 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-## <a name="custom-execution-strategy"></a>カスタムの実行方法
+## <a name="custom-execution-strategy"></a>カスタム実行戦略
 
-これには、既定値を変更する場合、独自のカスタム実行戦略を登録するメカニズムがあります。
+既定値を変更する必要がある場合は、独自のカスタム実行戦略を登録するメカニズムがあります。
 
 ``` csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -49,61 +49,61 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ## <a name="execution-strategies-and-transactions"></a>実行戦略とトランザクション
 
-したときにエラーを自動的に再試行実行戦略は、失敗した再試行ブロック内の各操作を再生できるようにする必要があります。 再試行が有効な場合、EF Core を使用して実行する各操作は、独自の再試行可能な操作になります。 つまり、各クエリ、呼び出しごとに`SaveChanges()`一時的なエラーが発生した場合、ユニットとして再試行されます。
+エラーに対して自動的に再試行を行う実行方法は、失敗した再試行ブロックで各操作を再生できる必要があります。 再試行が有効になっている場合、EF Core 経由で実行する各操作が独自の再試行可能な操作になります。 つまり、一時的な障害が発生した場合、各クエリと `SaveChanges()` の各呼び出しが1つの単位として再試行されます。
 
-ただし、コードを使用してトランザクションを開始する場合、`BeginTransaction()`の単位として扱う必要のある操作のグループを定義して、トランザクション内ですべてを再生できるものと、エラーが発生する必要があります。 実行戦略を使用するときに実行しようとすると、次のような例外が表示されます。
+ただし、コードがを使用してトランザクションを開始する場合 `BeginTransaction()`、1つの単位として処理する必要がある独自の操作グループを定義する場合、トランザクション内のすべてのものを再生する必要がある場合は、エラーが発生します。 実行戦略を使用しているときに、次のような例外が発生します。
 
-> InvalidOperationException:構成された実行戦略 'SqlServerRetryingExecutionStrategy' は、ユーザーが開始したトランザクションをサポートしていません。 'DbContext.Database.CreateExecutionStrategy()' から返された実行戦略を使用して、再試行可能なユニットとしてトランザクション内のすべての操作を実行します。
+> InvalidOperationException: 構成された実行方法 ' SqlServerRetryingExecutionStrategy ' は、ユーザーが開始したトランザクションをサポートしていません。 'DbContext.Database.CreateExecutionStrategy()' から返された実行戦略を使用して、再試行可能なユニットとしてトランザクション内のすべての操作を実行します。
 
-ソリューションでは、手動で実行する必要があるすべてを表すデリゲートの実行戦略を呼び出します。 一時的なエラーが発生した場合、実行戦略によってデリゲートが再び呼び出されます。
+これを解決するには、実行する必要があるすべてを表すデリゲートを使用して、手動で実行戦略を呼び出します。 一時的な障害が発生した場合、実行戦略は、デリゲートをもう一度呼び出します。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#ManualTransaction)]
 
-この方法は、アンビエント トランザクションにも使用できます。
+この方法は、アンビエントトランザクションと共に使用することもできます。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#AmbientTransaction)]
 
-## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>トランザクション コミットの失敗、冪等性の問題
+## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>トランザクションのコミットエラーとべき等の問題
 
-一般に、接続障害が発生したときに、現在のトランザクションがロールバックされます。 ただし、トランザクション中に、接続が切断される場合がコミットされた、その結果、トランザクションの状態は不明です。 これを参照してください[ブログの投稿](https://blogs.msdn.com/b/adonet/archive/2013/03/11/sql-database-connectivity-and-the-idempotency-issue.aspx)の詳細。
+一般に、接続エラーが発生した場合は、現在のトランザクションがロールバックされます。 ただし、トランザクションのコミット中に接続が切断された場合、トランザクションの結果の状態は不明になります。 
 
-既定では、実行戦略は、操作を再試行、トランザクションがロールバックがそうでない場合この例外が発生する場合は、新しいデータベースの状態は互換性がないかになる可能性が**データの破損**場合、操作は、自動生成されたキー値を持つ新しい行を挿入するときなど、特定の状態に依存しません。
+既定では、トランザクションがロールバックされた場合と同様に操作が再試行されますが、その場合、新しいデータベースの状態に互換性がない場合、または自動生成されたキー値を使用して新しい行を挿入する場合など、操作が特定の状態に依存してい**ない場合は**、例外が発生します。
 
-これに対処するいくつかの方法はあります。
+これに対処するには、いくつかの方法があります。
 
-### <a name="option-1---do-almost-nothing"></a>オプション 1 - Do nothing (ほぼ)
+### <a name="option-1---do-almost-nothing"></a>オプション 1-(ほぼ) 何もしない
 
-この状態が実際に発生した場合にだけが失敗するアプリケーションで許容される可能性があるために、トランザクションのコミット中に接続エラーが発生する可能性は低くなります。
+トランザクションのコミット中に接続エラーが発生する可能性は低いため、この状態が実際に発生した場合にアプリケーションが失敗する可能性があります。
 
-ただし、重複する行を追加する代わりに、例外がスローされることを確認するためにストア生成キーを使用しないようにする必要があります。 クライアントで生成された GUID 値またはクライアント側の値ジェネレーターを使用してください。
+ただし、重複する行を追加するのではなく、例外がスローされるようにするために、ストアによって生成されたキーを使用しないようにする必要があります。 クライアントによって生成された GUID 値またはクライアント側の値ジェネレーターを使用することを検討してください。
 
-### <a name="option-2---rebuild-application-state"></a>オプション 2 - アプリケーションの状態を再構築
+### <a name="option-2---rebuild-application-state"></a>オプション 2-アプリケーションの状態を再構築する
 
-1. 現在の破棄`DbContext`します。
-2. 新規作成`DbContext`と、データベースからのアプリケーションの状態を復元します。
-3. 最後の操作が完了していない正常にユーザーに通知します。
+1. 現在の `DbContext`を破棄します。
+2. 新しい `DbContext` を作成し、データベースからアプリケーションの状態を復元します。
+3. 最後の操作が正常に完了していない可能性があることをユーザーに通知します。
 
-### <a name="option-3---add-state-verification"></a>オプション 3 - 状態の検証を追加します
+### <a name="option-3---add-state-verification"></a>オプション 3-状態検証の追加
 
-ほとんどのデータベースの状態を変更する操作が成功したかどうかをチェックするコードを追加すること勧めします。 EF - 簡単に確認する拡張メソッドを提供する`IExecutionStrategy.ExecuteInTransaction`します。
+データベースの状態を変更するほとんどの操作では、成功したかどうかを確認するコードを追加できます。 EF には、これを簡単に `IExecutionStrategy.ExecuteInTransaction`できる拡張メソッドが用意されています。
 
-このメソッドは、開始し、トランザクションをコミットし、内の関数を受け入れることも、`verifySucceeded`トランザクションのコミット中に一時的なエラーが発生したときに呼び出されるパラメーター。
+このメソッドは、トランザクションを開始してコミットします。また、トランザクションのコミット中に一時的なエラーが発生したときに呼び出される `verifySucceeded` パラメーターの関数も受け入れます。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Verification)]
 
 > [!NOTE]
-> ここで`SaveChanges`が呼び出されると`acceptAllChangesOnSuccess`に設定`false`の状態の変更を回避するために、`Blog`エンティティ`Unchanged`場合`SaveChanges`が成功するとします。 これにより、コミットに失敗した場合、トランザクションがロールバックは、同じ操作を再試行してください。
+> ここでは、`Unchanged` が成功した場合に `Blog` エンティティの状態が `SaveChanges` に変更されないように、`acceptAllChangesOnSuccess` を `false` に設定して `SaveChanges` が呼び出されます。 これにより、コミットが失敗し、トランザクションがロールバックされた場合に、が同じ操作を再試行することができます。
 
-### <a name="option-4---manually-track-the-transaction"></a>オプション 4 は、トランザクションを手動で追跡
+### <a name="option-4---manually-track-the-transaction"></a>オプション 4-トランザクションを手動で追跡する
 
-ストア生成キーを使用して、または実行された操作に依存しない汎用コミットでのエラー処理の方法を必要する必要がある場合は、各トランザクションはコミットに失敗した場合にチェックされている ID 割り当てでした。
+ストアによって生成されたキーを使用する必要がある場合、または実行された操作に依存しないコミットエラーを処理する汎用的な方法が必要な場合は、コミットが失敗したときにチェックされる ID を各トランザクションに割り当てることができます。
 
 1. トランザクションの状態を追跡するために使用するデータベースにテーブルを追加します。
-2. 各トランザクションの先頭にあるテーブルに行を挿入します。
-3. コミット中に、接続に失敗した場合、データベース内の対応する行の存在を確認します。
-4. コミットが成功した場合は、テーブルの増加を回避するために、対応する行を削除します。
+2. 各トランザクションの開始時に、テーブルに行を挿入します。
+3. コミット中に接続が失敗した場合は、データベース内の対応する行が存在するかどうかを確認します。
+4. コミットが成功した場合は、対応する行を削除して、テーブルの増加を回避します。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Tracking)]
 
 > [!NOTE]
-> 検証に使用するコンテキストのように、接続がトランザクションのコミット中に失敗した場合、検証中にもう一度失敗する可能性が定義されて、実行戦略であることを確認します。
+> 検証に使用されるコンテキストに、トランザクションのコミット中に失敗した場合の検証中に再び失敗する可能性があるという実行方法が定義されていることを確認します。

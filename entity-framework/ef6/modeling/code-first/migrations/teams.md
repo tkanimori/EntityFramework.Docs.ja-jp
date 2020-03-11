@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
 ms.openlocfilehash: b3c4c35d636caf4ddd251dd78e026587abc57d42
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182608"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415611"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>チーム環境での Code First Migrations
 > [!NOTE]
@@ -107,11 +107,11 @@ Developer \#1 と developer \#2 では、ローカルコードベースで EF �
 
 これは、最初に変更を送信するときに、Developer \#1 の幸運な日です。 リポジトリを同期した後に他のユーザーがチェックインしていないため、マージを実行せずに変更を送信するだけで済みます。
 
-![送信](~/ef6/media/submit.png)
+![[送信]](~/ef6/media/submit.png)
 
 ここで、開発者 \#2 が送信されます。 幸運なことではありません。 他のユーザーが同期後に変更を送信したため、変更を取得してマージする必要があります。 ソース管理システムは、非常に単純であるため、変更をコードレベルで自動的にマージできる可能性があります。 同期後の Developer \#2 のローカルリポジトリの状態を次の図に示します。 
 
-![だとすると](~/ef6/media/pull.png)
+![プル](~/ef6/media/pull.png)
 
 この段階では、開発者 \#2 は、新しい**Addrating**移行 (Developer \#2 のデータベースに適用されていない) を検出して適用する**更新データベース**を実行できます。 これで、 **[評価]** 列が **[ブログ]** テーブルに追加され、データベースがモデルと同期されます。
 
@@ -174,7 +174,7 @@ Developer \#1 と developer \#2 では、ローカルコードベースで EF �
 
 ![更新されたメタデータ](~/ef6/media/updatedmetadata.png)
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 チーム環境で Code First Migrations を使用する場合、いくつかの課題があります。 ただし、移行のしくみ、およびマージの競合を解決するための簡単な方法についての理解を深めることで、これらの課題を簡単に克服できます。
 

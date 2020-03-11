@@ -4,17 +4,17 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 1e773972-2da5-45e0-85a2-3cf3fbcfa5cf
 ms.openlocfilehash: bdb0df969c33d5ad3f103bfa9af6002c9c2bb9b3
-ms.sourcegitcommit: 6c28926a1e35e392b198a8729fc13c1c1968a27b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/02/2019
-ms.locfileid: "71813562"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415143"
 ---
 # <a name="designer-cud-stored-procedures"></a>デザイナー CUD ストアドプロシージャ
 
 このステップバイステップチュートリアルでは、Entity Framework Designer (EF Designer) を使用して、エンティティ型の create\\insert、update、および delete (CUD) 操作をストアドプロシージャにマップする方法について説明します。  既定では、CUD 操作の SQL ステートメントが Entity Framework によって自動的に生成されますが、ストアドプロシージャをこれらの操作にマップすることもできます。  
 
-この Code First では、ストアドプロシージャまたは関数へのマッピングはサポートされていません。 ただし、ストアドプロシージャまたは関数は、ストアドプロシージャまたは関数を呼び出すことによって呼び出すことができます。 例 :
+この Code First では、ストアドプロシージャまたは関数へのマッピングはサポートされていません。 ただし、ストアドプロシージャまたは関数は、ストアドプロシージャまたは関数を呼び出すことによって呼び出すことができます。 次に例を示します。
 
 ``` csharp
 var query = context.Products.SqlQuery("EXECUTE [dbo].[GetAllProducts]");
@@ -42,7 +42,7 @@ CUD 操作をストアドプロシージャにマップする場合は、次の�
 - [**ファイル]、[新規&gt; プロジェクトの&gt;** ] の選択
 - 左側のウィンドウで、[ **Visual C\#** ] をクリックし、**コンソール**テンプレートを選択します。
 -  **Cudsprocssample** を名前として入力します。
-- [ **OK]** を選択します。
+-  **[OK]** を選択します。
 
 ## <a name="create-a-model"></a>モデルの作成
 

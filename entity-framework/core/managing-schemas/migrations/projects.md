@@ -5,11 +5,11 @@ ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/projects
 ms.openlocfilehash: 89b7f50fe750c2953aa75efcdffcb1a5199ce90c
-ms.sourcegitcommit: 7a709ce4f77134782393aa802df5ab2718714479
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/04/2019
-ms.locfileid: "74824413"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414279"
 ---
 # <a name="using-a-separate-migrations-project"></a>個別の移行プロジェクトの使用
 
@@ -45,13 +45,13 @@ ms.locfileid: "74824413"
 
 すべてを正しく行った場合は、新しい移行をプロジェクトに追加できるようになります。
 
-## <a name="net-core-clitabdotnet-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+## <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add NewMigration --project MyApp.Migrations
 ```
 
-## <a name="visual-studiotabvs"></a>[Visual Studio](#tab/vs)
+## <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ``` powershell
 Add-Migration NewMigration -Project MyApp.Migrations

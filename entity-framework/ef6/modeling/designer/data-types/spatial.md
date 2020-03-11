@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 06baa6e1-d680-4a95-845b-81305c87a962
 ms.openlocfilehash: a9c54fbc14dd02ce5d4d91449a0d5f9e72f7f0f7
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182499"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415329"
 ---
 # <a name="spatial---ef-designer"></a>空間-EF デザイナー
 > [!NOTE]
@@ -48,7 +48,7 @@ ms.locfileid: "72182499"
 2.  左側のメニューから **[データ]** を選択し、テンプレート ペインで  **[ADO.NET Entity Data Model]** を選択します。
 3.  ファイル名として「UniversityModel」と入力し、 **[追加]** をクリックし**ます。**
 4.  Entity Data Model ウィザードページで、モデルのコンテンツの選択 ダイアログボックスの **空のモデル** を選択します。
-5.  **[完了]** をクリック
+5.  **[完了]** をクリックします。
 
 モデルを編集するためのデザイン画面を提供する Entity Designer が表示されます。
 
@@ -62,7 +62,7 @@ ms.locfileid: "72182499"
 
 1.  デザイン画面の空の領域を右クリックし、[ **&gt; エンティティの追加**] を選択すると、[新しいエンティティ] ダイアログボックスが表示されます。
 2.  型名として「**大学**」を指定し、キープロパティ名として「 **UniversityID** 」を指定し、型を**Int32**にします。
-3.  **[OK]** をクリックします。
+3.  **[OK]**
 4.  エンティティを右クリックし、[**新しい&gt; スカラープロパティの追加**] を選択します。
 5.  新しいプロパティの名前を**Name**に変更します。
 6.  別のスカラープロパティを追加し、その名前を「 **Location** 」に変更して、プロパティウィンドウを開き、新しいプロパティの型を**Geography**に変更します。
@@ -126,6 +126,6 @@ The closest University to you is: School of Fine Art.
 
 データベースのデータを表示するには、SQL Server オブジェクトエクスプローラーでデータベース名を右クリックし、[最新の情報に**更新**] を選択します。 次に、テーブルのマウスの右ボタンをクリックし、 **[データの表示]** を選択します。
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 このチュートリアルでは、Entity Framework Designer を使用して空間型をマップする方法と、コードで空間型を使用する方法について説明しました。 

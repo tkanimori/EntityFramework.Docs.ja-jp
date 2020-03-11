@@ -1,29 +1,29 @@
 ---
-title: 同時実行の競合の EF6 の処理
+title: 同時実行の競合の処理-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2318e4d3-f561-4720-bbc3-921556806476
 ms.openlocfilehash: 81ae186201fdfac331b1d4e7836b222545fe78b5
-ms.sourcegitcommit: 2b787009fd5be5627f1189ee396e708cd130e07b
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/13/2018
-ms.locfileid: "45489155"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416247"
 ---
-# <a name="handling-concurrency-conflicts"></a>同時実行の競合の処理
-オプティミスティック同時実行は共有的では、エンティティをエンティティからデータが変更されていないことを期待してデータベースに保存しようとしてが読み込まれました。 わかった場合、例外がスローされ、再度保存する前に、競合を解決する必要がありますし、データが変更されました。 このトピックでは、Entity Framework では、このような例外を処理する方法について説明します。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
+# <a name="handling-concurrency-conflicts"></a>コンカレンシーの競合の処理
+オプティミスティック同時実行制御では、エンティティが読み込まれてからデータが変更されていないことを期待して、エンティティをデータベースに保存しようとしています。 データが変更されたことが判明した場合は、例外がスローされるので、再度保存する前に競合を解決する必要があります。 このトピックでは、Entity Framework でこのような例外を処理する方法について説明します。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
 
-この投稿はオプティミスティック同時実行制御の詳細については、適切な場所ではありません。 以下のセクションでは、同時実行の解像度の知識を前提としていて、一般的なタスクのパターンを表示します。  
+この投稿は、オプティミスティック同時実行制御を完全に説明するための適切な場所ではありません。 以下のセクションでは、同時実行の解決についての知識を前提とし、一般的なタスクのパターンを示します。  
 
-これらのパターンの多くで説明したトピックの使用[プロパティの値を操作](~/ef6/saving/change-tracking/property-values.md)します。  
+これらのパターンの多くは、「[プロパティ値の操作](~/ef6/saving/change-tracking/property-values.md)」で説明されているトピックを使用します。  
 
-使用している独立した関連付け (場所、外部キーにマップされていないエンティティのプロパティ) と、同時実行の問題を解決するは外部キー アソシエーションを使用する場合よりもはるかに難しくなります。 そのため、アプリケーションで同時実行の解決を行う場合に、常に、エンティティに外部キーをマップすることをお勧めします。 次の例では、外部キー アソシエーションを使用していることを前提としています。  
+独立した関連付け (外部キーがエンティティのプロパティにマップされていない場合) を使用する場合の同時実行の問題の解決は、外部キーの関連付けを使用する場合よりもはるかに困難です。 したがって、アプリケーションで同時実行の解決を行う場合は、常に外部キーをエンティティにマップすることをお勧めします。 以下のすべての例では、外部キーの関連付けを使用していることを前提としています。  
 
-外部キー アソシエーションを使用するエンティティを保存しようとしているときに、オプティミスティック同時実行例外が検出されたときに、DbUpdateConcurrencyException が SaveChanges によってスローされます。  
+外部キーの関連付けを使用するエンティティを保存しようとしているときに、オプティミスティック同時実行制御の例外が検出されると、DbUpdateConcurrencyException が SaveChanges によってスローされます。  
 
-## <a name="resolving-optimistic-concurrency-exceptions-with-reload-database-wins"></a>再読み込み (データベース wins) とオプティミスティック同時実行例外を解決します。  
+## <a name="resolving-optimistic-concurrency-exceptions-with-reload-database-wins"></a>再読み込みによるオプティミスティック同時実行例外の解決 (データベースの優先)  
 
-データベースの値で、エンティティの現在の値を上書きする Reload メソッドを使用できます。 エンティティは通常に渡され、戻るなんらかの形でユーザーと、もう一度その変更を加えるし、再度保存しようとする必要があります。 例えば:  
+再読み込みメソッドを使用して、エンティティの現在の値をデータベース内の現在の値で上書きすることができます。 エンティティは通常、何らかの形でユーザーに戻され、再度変更を加えて再保存する必要があります。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,18 +52,18 @@ using (var context = new BloggingContext())
 }
 ```  
 
-同時実行例外をシミュレートするためには、SaveChanges の呼び出しにブレークポイントを設定し、SQL Management Studio などの他のツールを使用してデータベースに保存されているエンティティを変更します。 SaveChanges SqlCommand を直接使用してデータベースを更新する前に行を挿入することもできます。 例えば:  
+同時実行例外をシミュレートするには、SaveChanges 呼び出しにブレークポイントを設定し、SQL Management Studio などの別のツールを使用して、データベースに保存されているエンティティを変更することをお勧めします。 SaveChanges の前に行を挿入して、SqlCommand を使用してデータベースを直接更新することもできます。 次に例を示します。  
 
 ``` csharp
 context.Database.SqlCommand(
     "UPDATE dbo.Blogs SET Name = 'Another Name' WHERE BlogId = 1");
 ```  
 
-DbUpdateConcurrencyException のエントリ メソッドでは、更新に失敗したエンティティの対象の DbEntityEntry インスタンスを返します。 (現在常に返します同時実行の問題の 1 つの値。 これは値を返す複数の一般的な更新プログラムの例外の。)これらの各呼び出しが再読み込みやデータベースから再読み込みする必要があるすべてのエンティティのエントリを取得する代わりに適さない場合があります。  
+DbUpdateConcurrencyException の Entries メソッドは、更新に失敗したエンティティの DbEntityEntry インスタンスを返します。 (現在、このプロパティは、同時実行の問題に対して常に単一の値を返します。 一般的な更新例外に対して複数の値が返される場合があります)。場合によっては、データベースからの再読み込みが必要になる可能性のあるすべてのエンティティのエントリを取得し、それぞれに対して再読み込みを呼び出すこともできます。  
 
-## <a name="resolving-optimistic-concurrency-exceptions-as-client-wins"></a>クライアント側に合わせると、オプティミスティック同時実行例外を解決します。  
+## <a name="resolving-optimistic-concurrency-exceptions-as-client-wins"></a>クライアント優先としてのオプティミスティック同時実行例外の解決  
 
-再読み込みを使用する上記の例が、データベースの wins とも呼ばれます。 または store wins エンティティ内の値がデータベースからの値によって上書きされるためです。 逆を行うし、エンティティの現在の値で、データベース内の値を上書きするたい場合があります。 これは、クライアント側に合わせるとも呼ばれますが、データベースの現在の値を取得して、エンティティの元の値として設定して実行できます。 (を参照してください[プロパティの値を操作](~/ef6/saving/change-tracking/property-values.md)現在と元の値の詳細について)。例えば:  
+再読み込みを使用する上記の例は、データベースの値によってエンティティ内の値が上書きされるため、データベースの優先またはストアの優先と呼ばれることがあります。 場合によっては、逆の処理を行い、現在エンティティ内にある値を使用してデータベースの値を上書きすることが必要になることがあります。 これは、クライアント優先とも呼ばれ、現在のデータベース値を取得し、エンティティの元の値として設定することによって実行できます。 (現在の値と元の値の詳細については、「[プロパティ値の使用](~/ef6/saving/change-tracking/property-values.md)」を参照してください)。例えば：  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -94,7 +94,7 @@ using (var context = new BloggingContext())
 
 ## <a name="custom-resolution-of-optimistic-concurrency-exceptions"></a>オプティミスティック同時実行例外のカスタム解決  
 
-場合によって、エンティティの現在の値と、データベースの現在の値を組み合わせるしたい場合があります。 これには、カスタム ロジックやユーザー操作がいくつかは、通常必要があります。 たとえば、フォームを現在の値は、データベース内の値を格納しているユーザーに表示可能性があり、既定値に解決される値の設定。 ユーザーは必要に応じて、解決された値を編集し、データベースに保存されるこれらの解決された値になります。 これ行うエンティティのエントリで CurrentValues とではから返される DbPropertyValues オブジェクトを使用します。 例えば:  
+場合によっては、現在データベース内にある値を、現在エンティティ内にある値と組み合わせる必要があります。 これには通常、カスタムロジックまたはユーザーの操作が必要です。 たとえば、現在の値、データベース内の値、および解決済みの値の既定のセットを含むフォームをユーザーに提示することができます。 その後、ユーザーは必要に応じて解決済みの値を編集し、データベースに保存される解決済みの値になります。 これは、エンティティのエントリの CurrentValues および GetDatabaseValues から返された DbPropertyValues オブジェクトを使用して行うことができます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -143,9 +143,9 @@ public void HaveUserResolveConcurrency(DbPropertyValues currentValues,
 }
 ```  
 
-## <a name="custom-resolution-of-optimistic-concurrency-exceptions-using-objects"></a>オブジェクトを使用してオプティミスティック同時実行例外のカスタム解決  
+## <a name="custom-resolution-of-optimistic-concurrency-exceptions-using-objects"></a>オブジェクトを使用したオプティミスティック同時実行例外のカスタム解決  
 
-上記のコードでは、現在を受け渡す、データベース、および解決される値の DbPropertyValues インスタンスを使用します。 このエンティティ型のインスタンスを使いやすい場合があります。 これ行う DbPropertyValues の ToObject や SetValues メソッドを使用します。 例えば:  
+上記のコードでは、DbPropertyValues インスタンスを使用して、現在、データベース、および解決済みの値を渡しています。 このために、エンティティ型のインスタンスを使用する方が簡単な場合があります。 これは、DbPropertyValues の ToObject および SetValues メソッドを使用して行うことができます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())

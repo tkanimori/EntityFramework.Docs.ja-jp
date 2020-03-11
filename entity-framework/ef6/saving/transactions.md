@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 0d0f1824-d781-4cb3-8fda-b7eaefced1cd
 ms.openlocfilehash: 7030dc675993339f72c935f6b430cead85fecb7f
-ms.sourcegitcommit: c9c3e00c2d445b784423469838adc071a946e7c9
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/18/2019
-ms.locfileid: "68306521"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416241"
 ---
 # <a name="working-with-transactions"></a>トランザクションの操作
 > [!NOTE]
@@ -32,21 +32,21 @@ Entity Framework は、トランザクション内のクエリをラップしま
 
 ## <a name="how-the-apis-work"></a>Api のしくみ  
 
-EF6 より前では、データベース接続自体を開いたときに insisted を Entity Framework しています (既に開いている接続が渡された場合、例外がスローされました)。 トランザクションは開いている接続でのみ開始できるため、ユーザーが複数の操作を1つのトランザクションにラップする唯一の方法は、 [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx)を使用するか、または、を使用して開始することです **。** 返された**Entityconnection**オブジェクトで**Open ()** と**BeginTransaction ()** を直接呼び出します。 また、基になるデータベース接続でトランザクションを開始した場合、データベースに接続した API 呼び出しは失敗します。  
+EF6 より前では、データベース接続自体を開いたときに insisted を Entity Framework しています (既に開いている接続が渡された場合、例外がスローされました)。 トランザクションは開いている接続でのみ開始できるため、ユーザーが複数の操作を1つのトランザクションにラップする唯一の方法は、 [TransactionScope](https://msdn.microsoft.com/library/system.transactions.transactionscope.aspx)を使用するか、**または、返さ**れた**Entityconnection**オブジェクトに対して**open ()** と**BeginTransaction ()** の呼び出しを直接開始することです。 また、基になるデータベース接続でトランザクションを開始した場合、データベースに接続した API 呼び出しは失敗します。  
 
 > [!NOTE]
 > 閉じられた接続のみを受け入れる制限は Entity Framework 6 で削除されました。 詳細については、「[接続管理](~/ef6/fundamentals/connection-management.md)」を参照してください。  
 
 EF6 以降では、フレームワークで次の機能が提供されるようになりました。  
 
-1. **BeginTransaction ()** :ユーザーが既存の DbContext 内でトランザクションを開始して完了するための簡単な方法。同じトランザクション内で複数の操作を組み合わせることができるため、すべてがコミットされるか、すべてロールバックされます。 また、トランザクションの分離レベルをユーザーがより簡単に指定できるようにします。  
+1. **BeginTransaction ()** : ユーザーが既存の dbcontext 内でトランザクションを開始して完了するための簡単な方法。同じトランザクション内で複数の操作を組み合わせることができるため、すべてがコミットされるか、またはすべてがロールバックされます。 また、トランザクションの分離レベルをユーザーがより簡単に指定できるようにします。  
 2. **UseTransaction ()** : dbcontext で、Entity Framework の外部で開始されたトランザクションを使用できるようにします。  
 
 ### <a name="combining-several-operations-into-one-transaction-within-the-same-context"></a>同じコンテキスト内で複数の操作を1つのトランザクションに結合する  
 
 **BeginTransaction ()** には、2つのオーバーライドがあります。1つは明示的な[IsolationLevel](https://msdn.microsoft.com/library/system.data.isolationlevel.aspx)を受け取り、もう1つは引数を取らず、基になるデータベースプロバイダーからの既定の IsolationLevel を使用します。 どちらのオーバーライドも、基になるストアトランザクションでコミットとロールバックを実行する**commit ()** メソッドと**rollback ()** メソッドを提供する**dbcontexttransaction**オブジェクトを返します。  
 
-**Dbcontexttransaction**は、コミットまたはロールバックされた後に破棄されることを意図しています。 これを実現する簡単な方法の1つは、 **(...){...}** using ブロックが完了すると自動的に**Dispose ()** を呼び出す構文。  
+**Dbcontexttransaction**は、コミットまたはロールバックされた後に破棄されることを意図しています。 これを実現する簡単な方法の1つは、 **using (...) {...}** using ブロックが完了すると自動的に**Dispose ()** を呼び出す構文。  
 
 ``` csharp
 using System;
@@ -111,7 +111,7 @@ using (var conn = new SqlConnection("..."))
 
 さらに、(既定の設定を避ける必要がある場合は IsolationLevel を含む) 自分でトランザクションを開始し、接続で既に開始されているトランザクションがあることを Entity Framework 確認してください (下記の33行目を参照)。  
 
-その後、SqlConnection 自体、または DbContext で直接データベース操作を実行できます。 このような操作はすべて1つのトランザクション内で実行されます。 トランザクションのコミットまたはロールバック、およびそのトランザクションに対する Dispose () の呼び出し、およびデータベース接続の終了と破棄を行います。 例えば:  
+その後、SqlConnection 自体、または DbContext で直接データベース操作を実行できます。 このような操作はすべて1つのトランザクション内で実行されます。 トランザクションのコミットまたはロールバック、およびそのトランザクションに対する Dispose () の呼び出し、およびデータベース接続の終了と破棄を行います。 次に例を示します。  
 
 ``` csharp
 using System;
@@ -178,17 +178,17 @@ UseTransaction () に null を渡すことにより、現在のトランザク�
 
 このセクションでは、上記のトランザクションとの相互作用について詳しく説明します。  
 
-- 接続の復元性  
+- 接続の回復性  
 - 非同期メソッド  
 - TransactionScope トランザクション  
 
-### <a name="connection-resiliency"></a>接続の復元性  
+### <a name="connection-resiliency"></a>接続の回復  
 
 新しい接続の回復性機能は、ユーザーが開始したトランザクションでは機能しません。 詳細については、「[実行方法の再試行](~/ef6/fundamentals/connection-resiliency/retry-logic.md#user-initiated-transactions-are-not-supported)」を参照してください。  
 
 ### <a name="asynchronous-programming"></a>非同期プログラミング  
 
-前のセクションで説明した方法では、 [非同期クエリおよび保存メソッド](~/ef6/fundamentals/async.md
+前のセクションで説明した方法では、[非同期クエリおよび保存メソッド](~/ef6/fundamentals/async.md
 )を操作するためのその他のオプションや設定は必要ありません。 ただし、非同期メソッドの実行内容によっては、トランザクションが長時間実行される可能性があることに注意してください。これにより、アプリケーション全体のパフォーマンスを低下させるデッドロックやブロッキングが発生する可能性があります。  
 
 ### <a name="transactionscope-transactions"></a>TransactionScope トランザクション  

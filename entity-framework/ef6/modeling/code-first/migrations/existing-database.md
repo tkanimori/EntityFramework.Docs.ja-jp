@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: f0cc4f93-67dd-4664-9753-0a9f913814db
 ms.openlocfilehash: eb7948eafb1322cabcf69b47bd5411f762fe8498
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182581"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415695"
 ---
 # <a name="code-first-migrations-with-an-existing-database"></a>既存のデータベースでの Code First Migrations
 > [!NOTE]
@@ -67,7 +67,7 @@ Code First Migrations は、最新の移行に格納されているモデルの�
 3.  パッケージマネージャーコンソールで、**データベースの更新**コマンドを実行します。 これにより、データベースへの InitialCreate 移行が適用されます。 実際の移行には変更が含まれていないため (一時的にコメントアウトされているため)、\_\_MigrationsHistory テーブルに行を追加するだけで、この移行が既に適用されていることがわかります。
 4.  Up メソッドのコードのコメントを解除します。 これは、この移行が今後のデータベースに適用されるときに、ローカルデータベースに既に存在していたスキーマが移行によって作成されることを意味します。
 
-## <a name="things-to-be-aware-of"></a>注意点
+## <a name="things-to-be-aware-of"></a>注意事項
 
 既存のデータベースに対して移行を使用する場合は、注意が必要な点がいくつかあります。
 

@@ -6,11 +6,11 @@ ms.author: ansvyryd
 ms.date: 10/27/2016
 uid: core/modeling/inheritance
 ms.openlocfilehash: 507854e3acc0347adee612e516b3e2e0b10f55cf
-ms.sourcegitcommit: 32c51c22988c6f83ed4f8e50a1d01be3f4114e81
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/27/2019
-ms.locfileid: "75502170"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414627"
 ---
 # <a name="inheritance"></a>継承
 
@@ -31,7 +31,7 @@ EF では、.NET 型階層をデータベースにマップできます。 こ�
 
 このモデルは、次のデータベーススキーマにマップされます (それぞれの行に格納されている*ブログ*の種類を識別する、暗黙的に作成された*識別子*の列に注意してください)。
 
-![イメージ](_static/inheritance-tph-data.png)
+![image](_static/inheritance-tph-data.png)
 
 >[!NOTE]
 > TPH マッピングを使用する場合、データベース列は必要に応じて自動的に null 許容になります。 たとえば、 *RssUrl*列は null 値を許容します。通常の*ブログ*インスタンスにはそのプロパティがないためです。

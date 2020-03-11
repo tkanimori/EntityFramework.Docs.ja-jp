@@ -1,21 +1,21 @@
 ---
-title: 生 SQL クエリ - EF6
+title: 生の SQL クエリ-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
 ms.openlocfilehash: 168aee67186535bf2a50705e86bfc5a88147e369
-ms.sourcegitcommit: 269c8a1a457a9ad27b4026c22c4b1a76991fb360
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/18/2018
-ms.locfileid: "46283785"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414471"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
-Entity Framework エンティティ クラスで LINQ を使用してクエリを実行することができます。 ただし、データベースに対して直接 SQL そのものを使用してクエリを実行する時間があります。 これは、Code First モデルの現在のストアド プロシージャへのマッピングをサポートしていないことができますが、ストアド プロシージャの呼び出しが含まれます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
+Entity Framework を使用すると、エンティティクラスで LINQ を使用してクエリを実行できます。 ただし、生の SQL を使用してデータベースに対して直接クエリを実行することが必要になる場合があります。 これにはストアドプロシージャの呼び出しが含まれます。これは、ストアドプロシージャへのマッピングを現在サポートしていない Code First モデルに役立ちます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
 
-## <a name="writing-sql-queries-for-entities"></a>エンティティの SQL クエリの記述  
+## <a name="writing-sql-queries-for-entities"></a>エンティティに対する SQL クエリの記述  
 
-DbSet に SqlQuery メソッドは、エンティティのインスタンスを返す書き込まれる生 SQL クエリを使用します。 れる LINQ クエリが返されたかどうかと同様、返されたオブジェクトがコンテキストによって追跡されます。 例えば:  
+DbSet の SqlQuery メソッドを使用すると、エンティティインスタンスを返す生の SQL クエリを記述できます。 返されたオブジェクトは、LINQ クエリによって返された場合と同様に、コンテキストによって追跡されます。 次に例を示します。  
 
 ``` csharp  
 using (var context = new BloggingContext())
@@ -24,15 +24,15 @@ using (var context = new BloggingContext())
 }
 ```  
 
-LINQ クエリと同様、クエリが実行されない結果が列挙されるまでに注意してください: ToList への呼び出しで上記の例で実行されます。  
+LINQ クエリの場合と同様に、クエリは結果が列挙されるまで実行されないことに注意してください。上記の例では、これは ToList の呼び出しを使用して行われます。  
 
-生 SQL クエリが 2 つの理由に書き込まれるたびに、十分に注意してください。 最初に、実際には、要求された型のエンティティのみが返されることを確認するクエリを記述する必要があります。 たとえば、継承などの機能を使用する場合が正しくない CLR 型のエンティティを作成するクエリを記述する簡単です。  
+生の SQL クエリが2つの理由で書き込まれるたびに、注意が必要です。 最初に、要求された型のエンティティのみが返されるようにクエリを記述する必要があります。 たとえば、継承などの機能を使用する場合、誤った CLR 型のエンティティを作成するクエリを記述するのは簡単です。  
 
-次に、生の SQL クエリの種類によっては、SQL インジェクション攻撃の特にの潜在的なセキュリティ リスクを公開します。 このような攻撃から保護するための適切な方法で、クエリでパラメーターを使用することを確認します。  
+次に、一部の種類の未加工の SQL クエリは、特に SQL インジェクション攻撃に関連する潜在的なセキュリティリスクを露呈します。 このような攻撃から保護するために、クエリでパラメーターを正しい方法で使用していることを確認してください。  
 
-### <a name="loading-entities-from-stored-procedures"></a>ストアド プロシージャからのエンティティの読み込み  
+### <a name="loading-entities-from-stored-procedures"></a>ストアドプロシージャからのエンティティの読み込み  
 
-DbSet.SqlQuery を使用して、ストアド プロシージャの結果からエンティティを読み込むことができます。 たとえば、次のコードは、dbo を呼び出します。データベースの GetBlogs プロシージャ:  
+DbSet SqlQuery を使用して、ストアドプロシージャの結果からエンティティを読み込むことができます。 たとえば、次のコードは dbo を呼び出します。データベース内の GetBlogs プロシージャ:  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -41,7 +41,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-次の構文を使用してストアド プロシージャにパラメーターを渡すこともできます。  
+次の構文を使用して、ストアドプロシージャにパラメーターを渡すこともできます。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,9 +52,9 @@ using (var context = new BloggingContext())
 }
 ```  
 
-## <a name="writing-sql-queries-for-non-entity-types"></a>エンティティ型以外の SQL クエリの作成  
+## <a name="writing-sql-queries-for-non-entity-types"></a>非エンティティ型に対する SQL クエリの記述  
 
-データベース クラスの SqlQuery メソッドを使用して、プリミティブ型を含む、任意の型のインスタンスを返す SQL クエリを作成できます。 例えば:  
+プリミティブ型を含む任意の型のインスタンスを返す SQL クエリは、データベースクラスの SqlQuery メソッドを使用して作成できます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -64,11 +64,11 @@ using (var context = new BloggingContext())
 }
 ```  
 
-オブジェクトのエンティティ型のインスタンスである場合でも、データベースで SqlQuery から返される結果は、コンテキストによって追跡ことはありません。  
+オブジェクトがエンティティ型のインスタンスであっても、データベースに対して SqlQuery から返された結果はコンテキストによって追跡されません。  
 
-## <a name="sending-raw-commands-to-the-database"></a>生のコマンドをデータベースに送信します。  
+## <a name="sending-raw-commands-to-the-database"></a>生のコマンドをデータベースに送信する  
 
-非クエリ コマンドは、データベースで ExecuteSqlCommand メソッドを使用してデータベースに送信できます。 例えば:  
+クエリ以外のコマンドは、データベースで ExecuteSqlCommand メソッドを使用してデータベースに送信できます。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -78,8 +78,8 @@ using (var context = new BloggingContext())
 }
 ```  
 
-エンティティが読み込まれたまたは、データベースから再読み込みされるまで ExecuteSqlCommand を使用して、データベース内のデータに加えられた変更は、コンテキストに不透明なことに注意してください。  
+ExecuteSqlCommand を使用してデータベース内のデータに加えられた変更は、エンティティがデータベースから読み込まれるか、データベースから再読み込みされるまでコンテキストに対して不透明になります。  
 
 ### <a name="output-parameters"></a>出力パラメーター  
 
-出力パラメーターを使用している場合は、結果が完全に読み取られるまでに、その値は使用できません。 これは、DbDataReader の基になる動作によるものを参照してください[DataReader によるデータの取得](https://go.microsoft.com/fwlink/?LinkID=398589)の詳細。  
+出力パラメーターが使用されている場合、結果が完全に読み取られるまで、値は使用できません。 これは、DbDataReader の基になる動作に起因します。詳細については、「 [DataReader を使用したデータの取得](https://go.microsoft.com/fwlink/?LinkID=398589)」を参照してください。  

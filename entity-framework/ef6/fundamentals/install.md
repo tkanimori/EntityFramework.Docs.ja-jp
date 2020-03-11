@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
 ms.openlocfilehash: 2bdec6a9be228fbe934d0f46aa1bfafdfb2c971c
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181740"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78416097"
 ---
 # <a name="get-entity-framework"></a>Entity Framework を取得する
 Entity Framework は、EF Tools for Visual Studio と EF Runtime で構成されています。
@@ -45,7 +45,7 @@ EF 4.1 以降では、新しいバージョンの EF runtime が[Entityframework
 Install-Package EntityFramework -Version <number>
 ```
 
-@No__t-0 は、インストールする EF の特定のバージョンを表していることに注意してください。 たとえば、6.2.0 は EF 6.2 の number のバージョンです。   
+`<number>` は、インストールする EF の特定のバージョンを表すことに注意してください。 たとえば、6.2.0 は EF 6.2 の number のバージョンです。   
 
 4\.1 より前の EF runtime は .NET Framework に含まれており、個別にインストールすることはできません。
 

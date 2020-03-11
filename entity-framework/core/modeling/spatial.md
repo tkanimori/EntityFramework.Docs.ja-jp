@@ -6,11 +6,11 @@ ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
 ms.openlocfilehash: 5b45f83ca7f02665f52ccfe16b5af506a6046a62
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76124432"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78414705"
 ---
 # <a name="spatial-data"></a>空間データ
 
@@ -19,7 +19,7 @@ ms.locfileid: "76124432"
 
 空間データは、オブジェクトの物理的な位置と形状を表します。 多くのデータベースでは、この種類のデータをサポートしているため、他のデータと共にインデックスを作成してクエリを実行できます。 一般的なシナリオとしては、ある場所からの特定の距離にあるオブジェクトのクエリ、または特定の場所を含む罫線を持つオブジェクトの選択などがあります。 EF Core では、 [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite)空間ライブラリを使用した空間データ型へのマッピングがサポートされています。
 
-## <a name="installing"></a>のインストール
+## <a name="installing"></a>インストール
 
 EF Core で空間データを使用するには、適切なサポート NuGet パッケージをインストールする必要があります。 どのパッケージをインストールする必要があるかは、使用しているプロバイダーによって異なります。
 
@@ -30,7 +30,7 @@ Microsoft.EntityFrameworkCore.Sqlite    | [NetTopologySuite (Microsoft EntityFra
 Microsoft.EntityFrameworkCore.InMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
 Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
 
-## <a name="reverse-engineering"></a>リバース エンジニアリング
+## <a name="reverse-engineering"></a>リバースエンジニアリング
 
 空間 NuGet パッケージでは、空間プロパティでモデルの[リバースエンジニアリング](../managing-schemas/scaffolding.md)を行うこともできますが、`Scaffold-DbContext` または `dotnet ef dbcontext scaffold`を実行する***前***にパッケージをインストールする必要があります。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
@@ -267,7 +267,7 @@ modelBuilder.Entity<City>().Property(c => c.Location)
     .ForSqliteHasSrid(4326);
 ```
 
-### <a name="dimension"></a>ディメンション
+### <a name="dimension"></a>Dimension
 
 SRID と同様に、列のディメンション (または座標) も列の一部として指定されます。 既定の座標は X と Y です。 ForSqliteHasDimension メソッドを使用して、追加の座標 (Z および M) を有効にします。
 
@@ -343,7 +343,7 @@ ExteriorRing | ✔ | ✔ | ✔ | ✔
 GetInteriorRingN (int) | ✔ | ✔ | ✔ | ✔
 NumInteriorRings | ✔ | ✔ | ✔ | ✔
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [SQL Server の空間データ](https://docs.microsoft.com/sql/relational-databases/spatial/spatial-data-sql-server)
 * [SpatiaLite ホームページ](https://www.gaia-gis.it/fossil/libspatialite)

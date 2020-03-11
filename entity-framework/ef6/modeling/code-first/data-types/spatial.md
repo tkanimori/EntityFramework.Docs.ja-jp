@@ -4,11 +4,11 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: d617aed1-15f2-48a9-b187-186991c666e3
 ms.openlocfilehash: 018f480c1f0f1e74fc9f7a8950a6880e96f1facc
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72182650"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78415785"
 ---
 # <a name="spatial---code-first"></a>空間 Code First
 > [!NOTE]
@@ -150,6 +150,6 @@ The closest University to you is: School of Fine Art.
 4.  **[データベース]** フォルダーを展開して新しいデータベースを表示し、 **[大学]** テーブルを参照します。
 5.  データを表示するには、テーブルを右クリックし、 **[データの表示]** を選択します。
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 このチュートリアルでは、Entity Framework Code First で空間型を使用する方法について説明しました。 
