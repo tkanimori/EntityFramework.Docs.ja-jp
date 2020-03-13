@@ -3,12 +3,12 @@ title: EF Core 5.0 の新機能
 author: ajcvickers
 ms.date: 01/29/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew.md
-ms.openlocfilehash: e858379cc46abbef999fd32a3685e1d522524889
-ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
+ms.openlocfilehash: 65d7bd43e8a00c77fd6091a74c677635710d03e3
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77052018"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413847"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -30,7 +30,7 @@ EF Core 5.0 の最初のプレビューは、現在のところ 2020 年の第�
 
 暫定版のドキュメントは、[2019 年 12 月 5 日の EF 週次ステータス](https://github.com/dotnet/efcore/issues/15403#issuecomment-562332863)に含まれています。
 
-追加のドキュメントは、イシュー [#2085](https://github.com/aspnet/EntityFramework.Docs/issues/2085) で追跡されます。
+追加のドキュメントは、イシュー [#2085](https://github.com/dotnet/EntityFramework.Docs/issues/2085) で追跡されます。
 
 ### <a name="simple-way-to-get-generated-sql"></a>生成された SQL の取得方法がシンプルに
 
@@ -38,7 +38,7 @@ EF Core 5.0 では、LINQ クエリの実行時に EF Core によって生成さ
 
 暫定版ドキュメントは、[2020 年 1 月 9 日の EF 週次ステータス](https://github.com/dotnet/efcore/issues/19549#issuecomment-572823246)に含まれています。
 
-追加のドキュメントは、イシュー [#1331](https://github.com/aspnet/EntityFramework.Docs/issues/1331) で追跡されます。
+追加のドキュメントは、イシュー [#1331](https://github.com/dotnet/EntityFramework.Docs/issues/1331) で追跡されます。
 
 ### <a name="enhanced-debug-views"></a>強化されたデバッグ ビュー
 
@@ -48,7 +48,7 @@ EF Core 5.0 では、モデル ビューを読みやすくし、状態マネー�
 
 暫定版のドキュメントは、[2019 年 12 月 12 日の EF 週次ステータス](https://github.com/dotnet/efcore/issues/15403#issuecomment-565196206)に含まれています。
 
-追加のドキュメントは、イシュー [#2086](https://github.com/aspnet/EntityFramework.Docs/issues/2086) で追跡されます。
+追加のドキュメントは、イシュー [#2086](https://github.com/dotnet/EntityFramework.Docs/issues/2086) で追跡されます。
 
 ### <a name="connection-or-connection-string-can-be-changed-on-initialized-dbcontext"></a>初期化された DbContext で接続または接続文字列が変更可能に
 
@@ -56,7 +56,7 @@ EF Core 5.0 では、モデル ビューを読みやすくし、状態マネー�
 また、コンテキスト インスタンスで接続または接続文字列をミュートできるようになりました。
 これにより、同じコンテキスト インスタンスを異なるデータベースに動的に接続できるようになります。
 
-ドキュメントは、イシュー [#2075](https://github.com/aspnet/EntityFramework.Docs/issues/2075) で追跡されます。
+ドキュメントは、イシュー [#2075](https://github.com/dotnet/EntityFramework.Docs/issues/2075) で追跡されます。
 
 ### <a name="change-tracking-proxies"></a>変更追跡のプロキシ
 
@@ -64,7 +64,7 @@ EF Core で、[INotifyPropertyChanging](https://docs.microsoft.com/dotnet/api/sy
 これにより、エンティティ プロパティの値の変更が EF Core に直接報告されるため、変更をスキャンする必要がなくなります。
 ただし、プロキシには独自の制限のセットが付属しているため、すべてのユーザーが使用できるわけではありません
 
-ドキュメントは、イシュー [#2076](https://github.com/aspnet/EntityFramework.Docs/issues/2076) で追跡されます。
+ドキュメントは、イシュー [#2076](https://github.com/dotnet/EntityFramework.Docs/issues/2076) で追跡されます。
 
 ### <a name="improved-handling-of-database-null-semantics"></a>データベースの null セマンティクスの処理の向上
 
@@ -73,14 +73,14 @@ EF Core で、[INotifyPropertyChanging](https://docs.microsoft.com/dotnet/api/sy
 EF Core は、既定で C# の null セマンティクスを使用できるようにクエリを変換します。
 EF Core 5.0 では、この変換の効率が大幅に向上します。
 
-ドキュメントは、イシュー [#1612](https://github.com/aspnet/EntityFramework.Docs/issues/1612) で追跡されます。
+ドキュメントは、イシュー [#1612](https://github.com/dotnet/EntityFramework.Docs/issues/1612) で追跡されます。
 
 ### <a name="indexer-properties"></a>インデクサーのプロパティ
 
 EF Core 5.0 では、C# インデクサー プロパティのマッピングがサポートされています。
 これにより、エンティティはプロパティ バッグとして機能し、列がバッグの名前付きプロパティにマップされます。
 
-ドキュメントは、イシュー [#2018](https://github.com/aspnet/EntityFramework.Docs/issues/2018) で追跡されます。
+ドキュメントは、イシュー [#2018](https://github.com/dotnet/EntityFramework.Docs/issues/2018) で追跡されます。
 
 ### <a name="generation-of-check-constraints-for-enum-mappings"></a>列挙型マッピングの CHECK 制約の生成
 
@@ -91,14 +91,14 @@ EF Core 5.0 の移行で、列挙型プロパティのマッピングに CHECK �
 MyEnumColumn VARCHAR(10) NOT NULL CHECK (MyEnumColumn IN('Useful', 'Useless', 'Unknown'))
 ```
 
-ドキュメントは、イシュー [#2082](https://github.com/aspnet/EntityFramework.Docs/issues/2082) で追跡されます。
+ドキュメントは、イシュー [#2082](https://github.com/dotnet/EntityFramework.Docs/issues/2082) で追跡されます。
 
 ### <a name="query-translations-for-more-datetime-constructs"></a>より多くの DateTime コンストラクトに対するクエリ変換
 
 新しい DataTime のコンストラクトが含まれるクエリを変換できるようになりました。
 また、SQL Server 関数 DateDiffWeek がマップされるようになりました。
 
-ドキュメントは、イシュー [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079) で追跡されます。
+ドキュメントは、イシュー [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079) で追跡されます。
 
 ### <a name="query-translations-for-more-byte-array-constructs"></a>より多くのバイト配列コンストラクトに対するクエリ変換
 
@@ -106,7 +106,7 @@ byte[] プロパティで Contains、Length、SequenceEqual などを使用す�
 
 暫定版のドキュメントは、[2019 年 12 月 5 日の EF 週次ステータス](https://github.com/dotnet/efcore/issues/15403#issuecomment-562332863)に含まれています。
 
-追加のドキュメントは、イシュー [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079) で追跡されます。
+追加のドキュメントは、イシュー [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079) で追跡されます。
 
 ### <a name="query-translation-for-reverse"></a>Reverse のクエリ変換
 
@@ -117,7 +117,7 @@ byte[] プロパティで Contains、Length、SequenceEqual などを使用す�
 context.Employees.OrderBy(e => e.EmployeeID).Reverse()
 ```
 
-ドキュメントは、イシュー [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079) で追跡されます。
+ドキュメントは、イシュー [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079) で追跡されます。
 
 ### <a name="query-translation-for-bitwise-operators"></a>ビット処理演算子のクエリ変換
 
@@ -127,10 +127,10 @@ context.Employees.OrderBy(e => e.EmployeeID).Reverse()
 context.Orders.Where(o => ~o.OrderID == negatedId)
 ```
 
-ドキュメントは、イシュー [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079) で追跡されます。
+ドキュメントは、イシュー [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079) で追跡されます。
 
 ### <a name="query-translation-for-strings-on-cosmos"></a>Cosmos の文字列のクエリ変換
 
 文字列メソッド Contains、StartsWith、EndsWith を使用するクエリが、Azure Cosmos DB プロバイダーの使用時に変換されるようになりました。
 
-ドキュメントは、イシュー [#2079](https://github.com/aspnet/EntityFramework.Docs/issues/2079) で追跡されます。
+ドキュメントは、イシュー [#2079](https://github.com/dotnet/EntityFramework.Docs/issues/2079) で追跡されます。

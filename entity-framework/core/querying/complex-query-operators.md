@@ -4,19 +4,19 @@ author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 2e187a2a-4072-4198-9040-aaad68e424fd
 uid: core/querying/complex-query-operators
-ms.openlocfilehash: 350a7fa6a3ee1de16bad4b63e10842f9356a1b60
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.openlocfilehash: 44c2695ea003da043925740a52596fd27da638f8
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72186234"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413775"
 ---
 # <a name="complex-query-operators"></a>複雑なクエリ演算子
 
 統合言語クエリ (LINQ) には、複数のデータ ソースを結合したり、複雑な処理を行ったりする、多数の複雑な演算子が含まれています。 すべての LINQ 演算子が、サーバー側で適切に変換されるわけではありません。 あるフォームのクエリがサーバーに変換されることがありますが、結果が同じであっても、別のフォームで記述されている場合は変換されません。 このページでは、複雑な演算子とそのサポートされるバリエーションについていくつか説明します。 今後のリリースで、さらに多くのパターンを認識し、それらに対応する変換を追加する可能性があります。 また、変換のサポートはプロバイダーによって異なることに注意することが重要です。 SqlServer で変換される特定のクエリは、SQLite データベースでは機能しない場合があります。
 
 > [!TIP]
-> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="join"></a>Join
 

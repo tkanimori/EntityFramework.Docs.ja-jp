@@ -5,11 +5,11 @@ ms.date: 10/03/2019
 ms.assetid: b6429b14-cba0-4af4-878f-b829777c89cb
 uid: core/querying/async
 ms.openlocfilehash: ce26db32a616dac5edac2a8451014ae63cbfc12d
-ms.sourcegitcommit: 708b18520321c587b2046ad2ea9fa7c48aeebfe5
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/09/2019
-ms.locfileid: "72181821"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413781"
 ---
 # <a name="asynchronous-queries"></a>非同期クエリ
 

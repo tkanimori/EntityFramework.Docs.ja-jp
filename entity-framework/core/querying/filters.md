@@ -3,12 +3,12 @@ title: グローバル クエリ フィルター - EF Core
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: f4ee9b77411290249e763f9cb8492eea61803e91
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.openlocfilehash: 9262ff7970b0502945480c673315071cbc3f44b9
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76124393"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413763"
 ---
 # <a name="global-query-filters"></a>グローバル クエリ フィルター
 
@@ -25,7 +25,7 @@ ms.locfileid: "76124393"
 次の例では、グローバル クエリ フィルターを使用して論理削除とマルチテナントのクエリ動作を単純なブログ モデルに実装する方法を示しています。
 
 > [!TIP]
-> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/QueryFilters)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/QueryFilters)は GitHub で確認できます。
 
 最初に、エンティティを次のように定義します。
 

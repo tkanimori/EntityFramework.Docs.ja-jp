@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: ee8e14ec-2158-4c9c-96b5-118715e2ed9e
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 51c8b6f4517a3f87821ed1e4e2d60549e06ed39d
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: 6e92b869d691d0224abf1997d9eb7ea035489c5d
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656064"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413667"
 ---
 # <a name="cascade-delete"></a>連鎖削除
 
@@ -41,9 +41,9 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 | 動作名               | メモリ内の依存/子への影響    | データベース内の依存/子への影響  |
 |:----------------------------|:---------------------------------------|:---------------------------------------|
 | **Cascade**                 | エンティティは削除されます                   | エンティティは削除されます                   |
-| **ClientSetNull** (既定) | 外部キー プロパティは null に設定されます | なし                                   |
+| **ClientSetNull** (既定) | 外部キー プロパティは null に設定されます | None                                   |
 | **SetNull**                 | 外部キー プロパティは null に設定されます | 外部キー プロパティは null に設定されます |
-| **Restrict**                | なし                                   | なし                                   |
+| **Restrict**                | None                                   | None                                   |
 
 ### <a name="required-relationships"></a>必須リレーションシップ
 
@@ -52,9 +52,9 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 | 動作名         | メモリ内の依存/子への影響 | データベース内の依存/子への影響 |
 |:----------------------|:------------------------------------|:--------------------------------------|
 | **Cascade** (既定) | エンティティは削除されます                | エンティティは削除されます                  |
-| **ClientSetNull**     | SaveChanges がスローされます                  | なし                                  |
+| **ClientSetNull**     | SaveChanges がスローされます                  | None                                  |
 | **SetNull**           | SaveChanges がスローされます                  | SaveChanges がスローされます                    |
-| **Restrict**          | なし                                | なし                                  |
+| **Restrict**          | None                                | None                                  |
 
 上記の表の "*なし*" は制約違反を引き起こす可能性があります。 たとえば、プリンシパル/子エンティティが削除されても、依存/子の外部キーを変更するアクションが実行されない場合、データベースは外部制約違反のために SaveChanges をスローする可能性があります。
 
@@ -75,7 +75,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ## <a name="entity-deletion-examples"></a>エンティティ削除の例
 
-以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/)の一部です。 このサンプルは、親エンティティが削除されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で、何が起こるかを示しています。
+以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/)の一部です。 このサンプルは、親エンティティが削除されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で、何が起こるかを示しています。
 
 [!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteBehaviorVariations)]
 
@@ -186,7 +186,7 @@ EF Core は複数の削除動作を実装しており、個々のリレーショ
 
 ## <a name="delete-orphans-examples"></a>孤立の削除例
 
-以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/)の一部です。 このサンプルは、親/プリンシパルとその子/依存のリレーションシップが切断されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で何が起こるかを示しています。 この例では、プリンシパル/親 (ブログ) のコレクション ナビゲーション プロパティから依存/子 (投稿) を削除することで、リレーションシップが切断されています。 ただし、依存/子からプリンシパル/親への参照が null に設定される場合、動作は同じです。
+以下のコードは、ダウンロードして実行できる[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/CascadeDelete/)の一部です。 このサンプルは、親/プリンシパルとその子/依存のリレーションシップが切断されたときに、省略可能なリレーションシップと必須のリレーションシップのそれぞれの削除動作で何が起こるかを示しています。 この例では、プリンシパル/親 (ブログ) のコレクション ナビゲーション プロパティから依存/子 (投稿) を削除することで、リレーションシップが切断されています。 ただし、依存/子からプリンシパル/親への参照が null に設定される場合、動作は同じです。
 
 [!code-csharp[Main](../../../samples/core/Saving/CascadeDelete/Sample.cs#DeleteOrphansVariations)]
 
