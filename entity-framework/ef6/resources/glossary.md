@@ -5,17 +5,17 @@ ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
 uid: ef6/resources/glossary
 ms.openlocfilehash: df0da4a68b3d2c882d9673417ee5fe335eccae2b
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656154"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402145"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework 用語集
 ## <a name="code-first"></a>Code First
 コードを使用して Entity Framework モデルを作成する。 モデルでは、既存のデータベースまたは新しいデータベースを対象にすることができます。
 
-## <a name="context"></a>コンテキスト
+## <a name="context"></a>Context
 データベースとのセッションを表すクラス。これにより、データのクエリと保存を行うことができます。 コンテキストは、DbContext または ObjectContext クラスから派生します。
 
 ## <a name="convention-code-first"></a>規則 (Code First)
@@ -30,10 +30,10 @@ EF デザイナーを使用して、既存のデータベースを対象とす�
 ## <a name="ef-designer"></a>EF デザイナー
 ボックスと行を使用して Entity Framework モデルを作成できる Visual Studio のビジュアルデザイナー。
 
-## <a name="entity"></a>エンティティ
+## <a name="entity"></a>Entity
 顧客、製品、注文などのアプリケーション データを表すクラスまたはオブジェクト。
 
-## <a name="entity-data-model"></a>エンティティ データ モデル
+## <a name="entity-data-model"></a>Entity Data Model
 エンティティとその間のリレーションシップを記述するモデル。 EF では、EDM を使用して、開発者がプログラムを実行する概念モデルを記述します。 EDM は、Dr. Peter Chen によって導入されたエンティティリレーションシップモデルに基づいて構築されます。 EDM は、Microsoft の開発者およびサーバーテクノロジのスイート全体で共通のデータモデルになるという主な目標を使用して開発されました。 EDM は、OData プロトコルの一部としても使用されます。
 
 ## <a name="explicit-loading"></a>明示的読み込み
@@ -46,7 +46,7 @@ Code First モデルを構成するために使用できる API。
 外部キーを表すプロパティが依存エンティティのクラスに含まれるエンティティ間のアソシエーション。 たとえば、Product には CategoryId プロパティが含まれています。
 
 ## <a name="identifying-relationship"></a>リレーションシップの識別
-プリンシパル エンティティの主キーが依存エンティティの主キーの一部であるリレーションシップ。 このようなリレーションシップでは、プリンシパル エンティティが存在しないと、依存エンティティは存在できません。
+プリンシパル エンティティの主キーが、依存エンティティの主キーの一部であるリレーションシップ。 この種のリレーションシップでは、依存エンティティはプリンシパル エンティティなしに存在できません。
 
 ## <a name="independent-association"></a>独立関連付け
 依存エンティティのクラスの外部キーを表すプロパティがないエンティティ間のアソシエーション。 たとえば、Product クラスには Category へのリレーションシップが含まれていますが、CategoryId プロパティはありません。 Entity Framework は、2つのアソシエーション end のエンティティの状態に関係なく、関連付けの状態を追跡します。
@@ -78,5 +78,5 @@ N 層の開発に役立つコード生成テンプレートから構築された
 ## <a name="table-per-type-tpt"></a>型ごとのテーブル (TPT)
 階層内のすべての型の共通プロパティがデータベース内の同じテーブルにマップされる継承をマッピングする方法。ただし、それぞれの型に固有のプロパティは、別のテーブルにマップされます。
 
-## <a name="type-discovery"></a>種類の検出
+## <a name="type-discovery"></a>型の検出
 Entity Framework モデルに含める必要がある型を識別するプロセス。

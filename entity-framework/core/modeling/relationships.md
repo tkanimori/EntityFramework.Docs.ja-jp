@@ -5,11 +5,11 @@ author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
 ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
-ms.sourcegitcommit: 89567d08c9d8bf9c33bb55a62f17067094a4065a
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/06/2020
-ms.locfileid: "77051408"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402115"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -118,13 +118,13 @@ ms.locfileid: "77051408"
 
 ## <a name="manual-configuration"></a>手動構成
 
-### <a name="fluent-apitabfluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 Fluent API でリレーションシップを構成するには、まず、リレーションシップを構成するナビゲーションプロパティを特定します。 `HasOne` または `HasMany` によって、構成を開始するエンティティ型のナビゲーションプロパティが識別されます。 次に、`WithOne` または `WithMany` への呼び出しを連結して、逆のナビゲーションを識別します。 `HasOne`/`WithOne` は参照ナビゲーションプロパティに使用され、`HasMany`/`WithMany` コレクションのナビゲーションプロパティに使用されます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?name=NoForeignKey&highlight=8-10)]
 
-### <a name="data-annotationstabdata-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 データ注釈を使用すると、依存エンティティとプリンシパルエンティティのナビゲーションプロパティをどのように組み合わせるかを構成できます。 これは通常、2つのエンティティ型の間に複数のナビゲーションプロパティのペアがある場合に実行されます。
 
@@ -146,19 +146,19 @@ Fluent API でリレーションシップを構成するには、まず、リレ
 
 ### <a name="foreign-key"></a>外部キー
 
-#### <a name="fluent-api-simple-keytabfluent-api-simple-key"></a>[Fluent API (単純キー)](#tab/fluent-api-simple-key)
+#### <a name="fluent-api-simple-key"></a>[Fluent API (単純キー)](#tab/fluent-api-simple-key)
 
 Fluent API を使用して、特定のリレーションシップの外部キープロパティとして使用するプロパティを構成できます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ForeignKey.cs?name=ForeignKey&highlight=11)]
 
-#### <a name="fluent-api-composite-keytabfluent-api-composite-key"></a>[Fluent API (複合キー)](#tab/fluent-api-composite-key)
+#### <a name="fluent-api-composite-key"></a>[Fluent API (複合キー)](#tab/fluent-api-composite-key)
 
 Fluent API を使用して、特定のリレーションシップの複合外部キープロパティとして使用するプロパティを構成できます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositeForeignKey.cs?name=CompositeForeignKey&highlight=13)]
 
-#### <a name="data-annotations-simple-keytabdata-annotations-simple-key"></a>[データ注釈 (単純キー)](#tab/data-annotations-simple-key)
+#### <a name="data-annotations-simple-key"></a>[データ注釈 (単純キー)](#tab/data-annotations-simple-key)
 
 データ注釈を使用して、特定のリレーションシップの外部キープロパティとして使用するプロパティを構成できます。 これは通常、外部キープロパティが規則によって検出されない場合に実行されます。
 
@@ -196,11 +196,11 @@ Fluent API を使用して、特定のリレーションシップの複合外部
 
 外部キーで主キー以外のプロパティを参照する場合は、Fluent API を使用してリレーションシップのプリンシパルキープロパティを構成できます。 プリンシパルキーとして構成したプロパティは、自動的に[代替キー](alternate-keys.md)として設定されます。
 
-#### <a name="simple-keytabsimple-key"></a>[単純キー](#tab/simple-key)
+#### <a name="simple-key"></a>[単純キー](#tab/simple-key)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/PrincipalKey.cs?name=PrincipalKey&highlight=11)]
 
-#### <a name="composite-keytabcomposite-key"></a>[複合キー](#tab/composite-key)
+#### <a name="composite-key"></a>[複合キー](#tab/composite-key)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=CompositePrincipalKey&highlight=11)]
 
