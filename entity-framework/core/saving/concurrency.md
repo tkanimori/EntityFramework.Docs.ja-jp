@@ -3,12 +3,12 @@ title: コンカレンシーの競合の処理 - EF Core
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: b72fa472698e76e18f155cf96b738b0e193eee0f
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: a1d1a5a11d482f9104691aa3c072dbd1c548e9f1
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73654613"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413649"
 ---
 # <a name="handling-concurrency-conflicts"></a>コンカレンシーの競合の処理
 
@@ -16,7 +16,7 @@ ms.locfileid: "73654613"
 > このページは、EF Core でのコンカレンシーのしくみと、アプリケーションでコンカレンシーの競合を処理する方法について説明します。 モデルでコンカレンシー トークンを構成する方法の詳細については、[コンカレンシー トークン](xref:core/modeling/concurrency)に関するページを参照してください。
 
 > [!TIP]
-> この記事の[サンプル](https://github.com/aspnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Concurrency/)は GitHub で確認できます。
 
 "_データベースのコンカレンシー_" とは、複数のプロセスまたはユーザーが、データベース内の同じデータに対して同時にアクセスするか、または変更を加える状況のことです。 "_コンカレンシー制御_" とは、コンカレント変更においてデータの一貫性を保証するために使用される特定のメカニズムのことです。
 

@@ -1,25 +1,17 @@
----
-ms.openlocfilehash: 79a2a10cae9f8a5541bca132e407d4abbe95e093
-ms.sourcegitcommit: 87fcaba46535aa351db4bdb1231bd14b40e459b9
-ms.translationtype: HT
-ms.contentlocale: ja-JP
-ms.lasthandoff: 04/22/2019
-ms.locfileid: "59929888"
----
 # <a name="contributing-to-the-entity-framework-documentation"></a>Entity Framework ドキュメントへの投稿
 
 記事やコード サンプルを Entity Framework ドキュメントに投稿するプロセスを以下で説明します。 投稿には、誤字の修正のような簡単なものから、新しい記事のような複雑なものまであります。
 
 ## <a name="how-to-make-a-simple-correction-or-suggestion"></a>簡単な修正や提案を行う方法
 
-記事は、マークダウン ファイルとしてリポジトリに格納されます。 マークダウン ファイルのコンテンツに対して簡単な変更を行うには、ブラウザー ウィンドウの右上隅にある **[編集]** リンクをクリックします。 場合によっては、**オプション** バーを展開して、**[編集]** リンクを表示する必要があります。 指示に従って pull request (PR) を作成します。 EF チームによって、PR がレビューされ、受け入れられるか変更が提案されます。
+記事は、マークダウン ファイルとしてリポジトリに格納されます。 マークダウン ファイルのコンテンツに対して簡単な変更を行うには、ブラウザー ウィンドウの右上隅にある **[編集]** リンクをクリックします。 場合によっては、**オプション** バーを展開して、 **[編集]** リンクを表示する必要があります。 指示に従って pull request (PR) を作成します。 EF チームによって、PR がレビューされ、受け入れられるか変更が提案されます。
 
 ## <a name="how-to-make-a-more-complex-submission"></a>もっと複雑な投稿を行う方法
 
 [Git と GitHub.com](https://guides.github.com/activities/hello-world/) の基本的な理解が必要です。
 
-* 既存の記事の変更や新しい記事の作成など、行いたい内容を説明する[問題](https://github.com/aspnet/EntityFramework.Docs/issues/new)を開きます。 大量の時間を費やす前に、EF チームの承認を待ちます。
-* [aspnet/EntityFramework.Docs](https://github.com/aspnet/EntityFramework.Docs/) リポジトリをフォークして、ご自分の変更用のブランチを作成します。
+* 既存の記事の変更や新しい記事の作成など、行いたい内容を説明する[問題](https://github.com/dotnet/EntityFramework.Docs/issues/new)を開きます。 大量の時間を費やす前に、EF チームの承認を待ちます。
+* [dotnet/EntityFramework.Docs](https://github.com/dotnet/EntityFramework.Docs/) リポジトリをフォークして、ご自分の変更用のブランチを作成します。
 * 変更内容を記載した pull request (PR) をマスターに送信します。
 * PR のフィードバックに対応します。
 

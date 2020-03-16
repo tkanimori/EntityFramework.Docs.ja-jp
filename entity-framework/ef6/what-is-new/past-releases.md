@@ -4,12 +4,12 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
 uid: ef6/what-is-new/past-releases
-ms.openlocfilehash: fada7740453cd9a55a1d0069236efcecbd9aa314
-ms.sourcegitcommit: 18ab4c349473d94b15b4ca977df12147db07b77f
+ms.openlocfilehash: b7181334cd125c5cbf296d5b3674c0b5f087f438
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/06/2019
-ms.locfileid: "73656137"
+ms.lasthandoff: 03/15/2020
+ms.locfileid: "79402121"
 ---
 # <a name="past-releases-of-entity-framework"></a>過去のリリースの Entity Framework
 
@@ -94,7 +94,7 @@ EF 6.1.0 runtime は2014年3月に NuGet にリリースされました。
 - **[アプリ/web.config ファイルを使用してインターセプターを構成する機能](~/ef6/fundamentals/configuring/config-file.md)** を使用すると、アプリケーションを再コンパイルしなくてもインターセプターを追加できます。
 - System.string は、すべてのデータベース操作をファイルに簡単に記録できるようにする新しいインターセプターとなって**います。** 以前の機能と組み合わせて使用すると、配置された[アプリケーションのデータベース操作のログ記録](~/ef6/fundamentals/configuring/config-file.md)を簡単に切り替えることができ、再コンパイルする必要はありません。
 - **移行モデル変更の検出**が改善され、スキャフォールディングの移行がより正確になりました。また、変更検出プロセスのパフォーマンスも向上しています。
-- 初期化中のデータベース操作の削減、LINQ クエリでの null 等値比較の最適化、より多くのシナリオでのビューの生成 (モデルの作成) の高速化、およびのより効率的な具体化など、**パフォーマンスが向上**しました。複数のアソシエーションを持つ追跡対象のエンティティ。
+- 初期化中のデータベース操作の削減、LINQ クエリでの null 等値比較の最適化、より多くのシナリオでのより高速なビュー生成 (モデルの作成)、複数のアソシエーションを持つ追跡対象エンティティのより効率的な具体化など、**パフォーマンスの向上**。
 
 ## <a name="ef-602"></a>EF 6.0.2
 EF 6.0.2 runtime は、2013年12月に NuGet にリリースされました。
@@ -121,7 +121,7 @@ Code First または EF デザイナーで作成されたモデルでは、次�
 - **[依存関係の解決](~/ef6/fundamentals/configuring/dependency-resolution.md)** では、サービスロケーターパターンのサポートが導入されており、カスタム実装に置き換えることができるいくつかの機能を考慮しています。
 - **[インターセプトと sql のログ記録](~/ef6/fundamentals/logging-and-interception.md)** は、上位に構築された単純な SQL ログを使用して、EF 操作を傍受するための低レベルの構成ブロックを提供します。
 - テストの容易性の**向上**により、[モックフレームワークを使用](~/ef6/fundamentals/testing/mocking.md)する場合や[独自のテスト double](~/ef6/fundamentals/testing/writing-test-doubles.md)を作成する場合に、dbcontext および dbcontext のテスト代替を簡単に作成できるようになりました。
-- **[既に開いている DbConnection を使用して Dbcontext を作成できるようになりまし](~/ef6/fundamentals/connection-management.md)** た。これにより、コンテキストの作成時に接続を開くことができた場合 (保証できないコンポーネント間の接続を共有する場合など) に便利なシナリオを実現できます。接続の状態です。
+- **[既に開かれている DbConnection を使用して Dbcontext を作成できるようになりまし](~/ef6/fundamentals/connection-management.md)** た。これにより、コンテキストの作成時に接続を開くことができた場合 (接続の状態を保証できないコンポーネント間の接続の共有など) に役立つシナリオが有効になります。
 - **[トランザクションサポートの強化](~/ef6/saving/transactions.md)** により、フレームワークの外部にあるトランザクションのサポートに加え、フレームワーク内でトランザクションを作成するための向上した方法が提供されます。
 - **.Net 4.0 での列挙型、空間、およびパフォーマンスの向上**-.NET Framework に含まれていたコアコンポーネントを EF NuGet パッケージに移動することで、enum サポート、空間データ型、.net 4.0 での EF5 のパフォーマンス向上を実現できるようになりました。
 - **列挙型のパフォーマンスが向上しました。 LINQ クエリでが含まれています。**
@@ -142,7 +142,7 @@ Code First または EF デザイナーで作成されたモデルでは、次�
 - **[Dbmodelbuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** は、Code First モデルの既定のデータベーススキーマを1か所で構成できる新しい Code First API です。 以前は、Code First の既定のスキーマは &quot;dbo&quot; にハードコーディングされており、テーブルが属していたスキーマを構成する唯一の方法は ToTable API を使用していました。
 - **AddFromAssembly メソッド**を使用すると、CODE FIRST Fluent API で構成クラスを使用している場合に、アセンブリで定義されているすべての構成クラスを簡単に追加できます。
 - **[カスタム移行操作](https://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** を使用すると、コードベースの移行で使用する操作を追加できます。
-- Code First を使用して作成されたデータベースの**既定のトランザクション分離レベルは、READ_COMMITTED_SNAPSHOT に変更**されます。これにより、スケーラビリティが向上し、デッドロックが減少します。
+- Code First を使用して作成されたデータベースで**は、既定のトランザクション分離レベルが READ_COMMITTED_SNAPSHOT に変更**されます。これにより、スケーラビリティが向上し、デッドロックが減少します。
 - **エンティティ型と複合型を nestedinside クラスにすることができるようになりました**。
 
 ## <a name="ef-50"></a>EF 5.0
@@ -234,7 +234,7 @@ Ef 4.3 リリース専用にまとめたコンテンツの一覧を次に示し�
 ## <a name="ef-42"></a>EF 4.2
 EF 4.2.0 ランタイムは、2011年11月に NuGet にリリースされました。
 このリリースには、EF 4.1.1 リリースのバグ修正が含まれています。
-このリリースにはバグ修正が含まれているだけなので、EF 4.1.2 patch リリースになっている可能性がありますが、4.2 に移行して、4.1 リリースで使用していた日付ベースのパッチバージョン番号からの移動を許可し、s の[セマンティック](https://semver.org)バージョンを採用しています。emantic のバージョン管理。
+このリリースにはバグ修正が含まれているだけなので、EF 4.1.2 patch リリースになっている可能性がありますが、4.2 に移行することにしました。これにより、4.1 リリースで使用していた日付ベースのパッチバージョン番号から移動し、セマンティックバージョン管理[のセマンティックバージョン](https://semver.org)を採用します。
 
 Ef 4.2 リリース専用にまとめたコンテンツの一覧を次に示します。 ef 4.1 用に提供されているコンテンツは、ef 4.2 にも引き続き適用されます。
 

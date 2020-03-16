@@ -3,12 +3,12 @@ title: Entity Framework Core 5.0 の計画
 author: ajcvickers
 ms.date: 01/14/2020
 uid: core/what-is-new/ef-core-5.0/plan.md
-ms.openlocfilehash: 0472841fdcd105ec8ea38db062c6768510b8735d
-ms.sourcegitcommit: f2a38c086291699422d8b28a72d9611d1b24ad0d
+ms.openlocfilehash: c5b7300c61c2f668b6f9393ae51bf9ebddf330a7
+ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/16/2020
-ms.locfileid: "76125356"
+ms.lasthandoff: 03/06/2020
+ms.locfileid: "78413823"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Entity Framework Core 5.0 の計画
 
@@ -47,11 +47,13 @@ EF Core 5.0 への大規模な投資の基礎となる、いくつかの主要�
 
 状態: 進行中
 
-多対多は、GitHub バックログで最も要求の多かった機能です (407 票)。 多対多リレーションシップのサポートは、次の 3 つの主要領域に分けることができます。
+多対多は、GitHub バックログで[最も要求の多かった機能](https://github.com/aspnet/EntityFrameworkCore/issues/1368)です (約 407 票)。
 
-* スキップ ナビゲーション プロパティ。 これにより、基になる結合テーブル エンティティを参照することなく、クエリなどにモデルを使用できます。
-* property-bag エンティティ型。 これにより、標準の CLR 型 (例: `Dictionary`) をエンティティ インスタンスに使用できるようになり、エンティティ型ごとに明示的な CLR 型は不要になります。
-* 多対多リレーションシップを簡単に構成するための Sugar。
+多対多リレーションシップのサポート全体は、[#10508](https://github.com/aspnet/EntityFrameworkCore/issues/10508) として追跡されています。 これは、次の 3 つの主な領域に分けることができます。
+
+* スキップ ナビゲーション プロパティ。 これにより、基になる結合テーブル エンティティを参照することなく、クエリなどにモデルを使用できます。 ([#19003](https://github.com/aspnet/EntityFrameworkCore/issues/19003))
+* property-bag エンティティ型。 これにより、標準の CLR 型 (例: `Dictionary`) をエンティティ インスタンスに使用できるようになり、エンティティ型ごとに明示的な CLR 型は不要になります。 (5.0 で拡張: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)。)
+* 多対多リレーションシップを簡単に構成するための Sugar。 (5.0 で拡張。)
 
 多対多のサポートを望んでいるユーザーにとって最も大きな阻害要因は、クエリなどのビジネス ロジックにおいて、結合テーブルを参照せずに、"自然な" リレーションシップを使用できないことであると考えています。 結合テーブルのエンティティ型がまだ存在する場合がありますが、ビジネス ロジックを妨げることはないはずです。 5\.0 でスキップ ナビゲーション プロパティに取り組んだのはそのためです。
 
@@ -148,7 +150,7 @@ TPT の作業が行われているのは、要求の多かった機能である�
 
 * Blazor
 * Xamarin (AOT とリンカーのストーリーの使用を含む)
-* WinForms、WPF、WinUI、場合によっては他の UI フレームワーク
+* WinForms、WPF、WinUI、場合によっては他の UI frameworks
 
 これは、EF Core での多くの小規模な機能向上と、EF だけではないエンドツーエンドのエクスペリエンスを向上させるための、他のチームによるガイダンスと長期的な共同作業になる可能性があります。
 
@@ -170,7 +172,7 @@ TPT の作業が行われているのは、要求の多かった機能である�
 
 状態: 進行中
 
-EF Core では、パフォーマンス ベンチマークのスイートの向上と、ランタイムのパフォーマンスの向上が計画されています。 さらに、3.0 リリース サイクル中にプロトタイプ化された新しい ADO.NET バッチ API を完了する予定です。 また、ADO.NET レイヤーでは、Npgsql プロバイダーのさらなるパフォーマンス向上が計画されています。
+EF Core では、パフォーマンス ベンチマークのスイートの向上と、ランタイムに対する特定のパフォーマンスの向上が計画されています。 さらに、3.0 リリース サイクル中にプロトタイプ化された新しい ADO.NET バッチ API を完了する予定です。 また、ADO.NET レイヤーでは、Npgsql プロバイダーのさらなるパフォーマンス向上が計画されています。
 
 この作業の一環として、ADO.NET および EF Core パフォーマンス カウンターや他の診断を必要に応じて追加することも計画されています。
 
@@ -178,7 +180,7 @@ EF Core では、パフォーマンス ベンチマークのスイートの向�
 
 ドキュメント作成リーダー: @ajcvickers
 
-追跡: [#1920](https://github.com/aspnet/EntityFramework.Docs/issues/1920)
+追跡: [#1920](https://github.com/dotnet/EntityFramework.Docs/issues/1920)
 
 規模: L
 
@@ -194,7 +196,7 @@ EF Core では、パフォーマンス ベンチマークのスイートの向�
 
 ドキュメント作成リーダー: @bricelam
 
-追跡: [#1675](https://github.com/aspnet/EntityFramework.Docs/issues/1675)
+追跡: [#1675](https://github.com/dotnet/EntityFramework.Docs/issues/1675)
 
 規模: M
 
@@ -206,7 +208,7 @@ EF チームも、Microsoft.Data.Sqlite ADO.NET プロバイダーを所有し�
 
 ドキュメント作成リーダー: @ajcvickers
 
-追跡: [5.0 マイルストーンでのドキュメント リポジトリの問題](https://github.com/aspnet/EntityFramework.Docs/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A5.0.0+)
+追跡: [5.0 マイルストーンでのドキュメント リポジトリの問題](https://github.com/dotnet/EntityFramework.Docs/issues?utf8=%E2%9C%93&q=is%3Aissue+milestone%3A5.0.0+)
 
 規模: L
 
