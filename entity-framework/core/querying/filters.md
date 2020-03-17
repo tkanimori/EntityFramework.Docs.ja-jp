@@ -37,10 +37,10 @@ _Blog_ エンティティの _tenantId_ フィールドの宣言に注意して�
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#Configuration)]
 
-_HasQueryFilter_ の呼び出しに渡される predicate 式は、自動的に これらの型の LINQ クエリに自動的に適用されます。
+_HasQueryFilter_ の呼び出しに渡される predicate 式は、これらの型の LINQ クエリに自動的に適用されます。
 
 > [!TIP]
-> DbContext インスタンスのレベルのフィールドの使用に注意してください。`_tenantId` は現在のテナントを設定するために使用されています。 グローバクエリフィルターは、適切なコンテキストのインスタンス (つまりクエリを実行しているインスタンス) の値を使用します。
+> DbContext インスタンスのレベルのフィールドの使用に注意してください。`_tenantId` は現在のテナントを設定するために使用されています。 モデルレベル フィルターは、適切なコンテキストのインスタンス (つまりクエリを実行しているインスタンス) の値を使用します。
 
 > [!NOTE]
 > 現在、同一のエンティティに対して複数のクエリフィルターを定義することはできません。最後のフィルターのみが適用されます。 ただし、論理 _AND_ 演算子 ([C# の `&&`](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)) を使用して、複数の条件を持つ単一のフィルターを定義することができます。
