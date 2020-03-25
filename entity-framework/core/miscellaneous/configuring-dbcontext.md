@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 3ab90d46b7a4476044e5ea38eaf04f995708e7bf
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 53b38f288cd45e66d68ebcc3b6066646d59b0262
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414159"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136187"
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext の構成
 
@@ -186,11 +186,11 @@ EF Core が `DbContext` インスタンスを同時に使用しようとした�
 
 [`AddDbContext`](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.entityframeworkservicecollectionextensions.adddbcontext)拡張メソッドは、既定でスコープを持つ[有効期間](https://docs.microsoft.com/aspnet/core/fundamentals/dependency-injection#service-lifetimes)の `DbContext` 型を登録します。
 
-これは、特定の時間に各クライアント要求を実行するスレッドが1つだけであるため、ASP.NET Core アプリケーションの同時アクセスの問題から安全です。また、各要求は個別の依存関係挿入スコープ (したがって、別の `DbContext` インスタンス) を取得するためです。
+これは、特定の時間に各クライアント要求を実行するスレッドが1つだけであり、各要求が個別の依存関係挿入スコープ (したがって別の `DbContext` インスタンス) を取得するため、ほとんどの ASP.NET Core アプリケーションの同時アクセスの問題から安全です。 Blazor Server ホスティングモデルでは、Blazor ユーザー回線を維持するために1つの論理要求が使用されます。そのため、既定の挿入スコープが使用されている場合は、ユーザー回線ごとに1つのスコープされた DbContext インスタンスのみ使用できます。
 
-ただし、複数のスレッドを明示的に並列実行するコードでは、`DbContext` インスタンスに同時にアクセスしないようにする必要があります。
+複数のスレッドを明示的に並列実行するコードでは、`DbContext` インスタンスに同時にアクセスしないようにする必要があります。
 
-依存関係の挿入を使用すると、コンテキストをスコープとして登録し、各スレッドに対して (`IServiceScopeFactory`を使用して) スコープを作成するか、`DbContext` を一時的に登録する (`ServiceLifetime` パラメーターを受け取る `AddDbContext` のオーバーロードを使用) ことによって実現できます。
+依存関係の挿入を使用すると、コンテキストをスコープとして登録し、各スレッドに対して (`IServiceScopeFactory`を使用して) スコープを作成するか、または `DbContext` を一時的に登録する (`ServiceLifetime` パラメーターを受け取る `AddDbContext` のオーバーロードを使用して) ことができます。
 
 ## <a name="more-reading"></a>その他の参考資料
 
