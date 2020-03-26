@@ -4,18 +4,22 @@ author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: 9daae787d0cec0ca536413e6263bb363ba76ff2c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: e0367aeefd682434bf520301776bcff4f0e72e06
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78413417"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136136"
 ---
 # <a name="whats-new-in-ef6"></a>EF6 の新機能
 
 最新の機能と最高の信頼性を得るには、最新リリース バージョンの Entity Framework を使用することを強くお勧めします。
 ただし、前のバージョンを使用しなければならないことや、新しい改善点を最新のプレリリースで試さなければならないこともあります。
 特定のバージョンの EF をインストールする場合は、「[Get Entity Framework](~/ef6/fundamentals/install.md)」(Entity Framework の取得) を参照してください。
+
+## <a name="ef-640"></a>EF 6.4.0
+
+EF 6.4.0 ランタイムは、NuGet で 2019 年 12 月にリリースされました。 EF 6.4 の主な目的は、EF 6.3 で提供された機能とシナリオをポーランド語にすることです。 Github にある[重要な修正の一覧](https://github.com/dotnet/ef6/milestone/14?closed=1)をご覧ください。
 
 ## <a name="ef-630"></a>EF 6.3.0
 
@@ -31,7 +35,7 @@ EF 6.3.0 ランタイムは、NuGet で 2019 年 9 月にリリースされま�
 
 ### <a name="ef-designer-support"></a>EF デザイナーのサポート
 
-現在、.NET Core または .NET Standard のプロジェクトで EF デザイナーを直接使用することはサポートされていません。 
+現在、.NET Core または .NET Standard のプロジェクトでも、SDK スタイルの .NET Framework プロジェクトでも、EF デザイナーを直接使用することはサポートされていません。 
 
 この制限を回避するには、エンティティと DbContext の EDMX ファイルと生成されたクラスを、リンク ファイルとして、同じソリューション内の .NET Core 3.0 または .NET Standard 2.1 プロジェクトに追加します。
 
@@ -47,6 +51,8 @@ EF 6.3.0 ランタイムは、NuGet で 2019 年 9 月にリリースされま�
 ```
 
 EDMX ファイルが EntityDeploy ビルド アクションにリンクされていることに注意してください。 これは特別な MSBuild タスク (EF 6.3 パッケージに含まれるようになりました) で、EF モデルを埋め込みリソースとして対象のアセンブリに追加する処理 (または、EDMX の [メタデータ成果物の処理] 設定に基づいて、これをファイルとして出力フォルダーにコピーする処理) を担当します。 これを設定する方法について詳しくは、[EDMX .NET Core サンプル](https://aka.ms/EdmxDotNetCoreSample)に関するページをご覧ください。
+
+警告: "実際の" .edmx ファイルを定義している古いスタイル (つまり、非 SDK スタイル) の .NET Framework プロジェクトは必ず、.sln ファイル内のリンクを定義するプロジェクトの_前_にくるようにしてください。 そうしないと、デザイナーで .edmx ファイルを開いたとき、次のエラー メッセージが表示されます: "現在、プロジェクトに対して指定されているターゲット フレームワークでは Entity Framework が使用できません。 プロジェクトのターゲット フレームワークを変更することも、XmlEditor でモデルを編集することもできます"。
 
 ## <a name="past-releases"></a>以前のリリース
 

@@ -4,12 +4,12 @@ author: ajcvickers
 ms.date: 03/03/2020
 ms.assetid: C21F89EE-FB08-4ED9-A2A0-76CB7656E6E4
 uid: core/what-is-new/index
-ms.openlocfilehash: 2c41f65d1fead8430a39c6230a0f22506686504e
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 7b58b4de0eb8d9575f77e0b147da017eabad1867
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78413207"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136232"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core のリリースと計画
 
@@ -57,10 +57,12 @@ Microsoft では、これを改善するために取り組んでいます。
 
 ### <a name="get-it-now"></a>今すぐ入手しましょう
 
-EF Core 5.0 のパッケージが、[デイリー ビルド](https://github.com/aspnet/AspNetCore/blob/master/docs/DailyBuilds.md)として**今すぐ入手**できます。 
+EF Core 5.0 のパッケージは**今すぐ**、
 
-デイリー ビルドの使用は、イシューを発見し、できるだけ早くフィードバックを提供する優れた方法です。
+* [デイリー ビルド](https://github.com/dotnet/aspnetcore/blob/master/docs/DailyBuilds.md)として入手できます。
+  * すべての最新の機能とバグの修正。 一般に非常に安定しています。57,000 以上のテストが各ビルドに対して実行されます。
+* [NuGet でのプレビュー](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
+  * デイリー ビルドに対して遅れはありますが、対応する ASP.NET Core および .NET Core のプレビューで機能することがテストされます。
+
+デイリー ビルドのプレビューを使用することは、イシューを発見し、できるだけ早くフィードバックを提供するための優れた方法です。
 フィードバックが早く得られるほど、次の公式リリースまでに対処できる可能性が高くなります。
-各ビルドのプラットフォームあたり 56,000 以上ものテストを実行することで、デイリー ビルドを良好な状態に保っています。
-
-プレビュー パッケージは、その年の後半に NuGet で配布されます。
