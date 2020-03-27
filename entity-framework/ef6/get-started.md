@@ -4,12 +4,12 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
 uid: ef6/get-started
-ms.openlocfilehash: 74ae347af3c386639631f28ccb2ddbe9f444953a
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 729dea2c474c35f638ccaf6673550f76e88e2667
+ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78413493"
+ms.lasthandoff: 03/24/2020
+ms.locfileid: "80136267"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Entity Framework 6 の概要
 
@@ -25,7 +25,7 @@ ms.locfileid: "78413493"
 
   お使いの EF モデルに、コードの記述と、ボックスや線の描画のどちらを指定したいですか?
 EF を使用して、オブジェクトを既存のデータベースにマップしますか? または EF を使用して自分のオブジェクトに合わせたデータベースを作成したいですか?
-ここでは、EF6 を使用する次の 2 つの異なる方法について学習します: EF Designer と Code First。
+ここでは、EF6 を使用する次の 2 種類の方法について学習します: EF Designer と Code First。
 説明に従って、違いに関するビデオをご覧ください。
 
 * [DbContext の操作](~/ef6/fundamentals/working-with-dbcontext.md)
