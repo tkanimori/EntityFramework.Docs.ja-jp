@@ -29,13 +29,13 @@
               items:
                 - name: 大まかな計画
                   href: core/what-is-new/ef-core-5.0/plan.md
-                - name: 新着記事
+                - name: 新機能
                   href: core/what-is-new/ef-core-5.0/whatsnew.md
             - name: EF Core 3.0
               items:
                 - name: 新機能
                   href: core/what-is-new/ef-core-3.0/index.md
-                - name: 互換性に影響する変更
+                - name: 重大な変更
                   href: core/what-is-new/ef-core-3.0/breaking-changes.md
             - name: EF Core 2.2
               href: core/what-is-new/ef-core-2.2.md
@@ -55,7 +55,7 @@
                   href: core/miscellaneous/rc2-rtm-upgrade.md
                 - name: 1.x から 2.0
                   href: core/miscellaneous/1x-2x-upgrade.md
-        - name: 作業開始
+        - name: はじめに
           items:
             - name: EF Core のチュートリアル
               href: core/get-started/index.md
@@ -65,11 +65,11 @@
               href: /aspnet/core/data/ef-rp/intro
         - name: 基礎
           items:
-            - name: 接続文字列
+            - name: Connection strings
               href: core/miscellaneous/connection-strings.md
-            - name: ログの記録
+            - name: ログ記録
               href: core/miscellaneous/logging.md
-            - name: 接続の復元性
+            - name: 接続の回復性
               href: core/miscellaneous/connection-resiliency.md
             - name: テスト
               items:
@@ -87,11 +87,11 @@
           items:
             - name: 概要
               href: core/modeling/index.md
-            - name: エンティティ型
+            - name: エンティティの種類
               href: core/modeling/entity-types.md
             - name: エンティティのプロパティ
               href: core/modeling/entity-properties.md
-            - name: キー
+            - name: '[キー]'
               href: core/modeling/keys.md
             - name: 生成された値
               href: core/modeling/generated-properties.md
@@ -101,7 +101,7 @@
               href: core/modeling/shadow-properties.md
             - name: リレーションシップ
               href: core/modeling/relationships.md
-            - name: Indexes
+            - name: インデックス
               href: core/modeling/indexes.md
             - name: 継承
               href: core/modeling/inheritance.md
@@ -254,7 +254,7 @@
               href: ef6/what-is-new/upgrading-to-ef6.md
             - name: Visual Studio のリリース
               href: ef6/what-is-new/visual-studio.md
-        - name: 作業開始
+        - name: はじめに
           href: ef6/get-started.md
         - name: 基礎
           items:
@@ -272,13 +272,13 @@
                   href: ef6/fundamentals/configuring/code-based.md
                 - name: config ファイル
                   href: ef6/fundamentals/configuring/config-file.md
-                - name: 接続文字列
+                - name: Connection strings
                   href: ef6/fundamentals/configuring/connection-strings.md
                 - name: 依存関係の解決
                   href: ef6/fundamentals/configuring/dependency-resolution.md
             - name: 接続管理
               href: ef6/fundamentals/connection-management.md
-            - name: 接続の復元性
+            - name: 接続の回復性
               items:
                 - name: 再試行ロジック
                   href: ef6/fundamentals/connection-resiliency/retry-logic.md
@@ -334,7 +334,7 @@
               href: ef6/modeling/index.md
             - name: Code First を使用する
               items:
-                - name: ワークフロー
+                - name: Workflows
                   items:
                     - name: 新しいデータベースの場合
                       href: ef6/modeling/code-first/workflows/new-database.md
@@ -344,13 +344,13 @@
                   href: ef6/modeling/code-first/data-annotations.md
                 - name: DbSets
                   href: ef6/modeling/code-first/dbsets.md
-                - name: データの種類
+                - name: データ型
                   items:
-                    - name: 列挙体
+                    - name: 列挙型
                       href: ef6/modeling/code-first/data-types/enums.md
-                    - name: 空間
+                    - name: Spatial
                       href: ef6/modeling/code-first/data-types/spatial.md
-                - name: 規約
+                - name: 規則
                   items:
                     - name: 組み込みの規約
                       href: ef6/modeling/code-first/conventions/built-in.md
@@ -384,19 +384,19 @@
                       href: ef6/modeling/code-first/migrations/teams.md
             - name: EF デザイナーを使用する
               items:
-                - name: ワークフロー
+                - name: Workflows
                   items:
                     - name: Model-First
                       href: ef6/modeling/designer/workflows/model-first.md
                     - name: Database-First
                       href: ef6/modeling/designer/workflows/database-first.md
-                - name: データの種類
+                - name: データ型
                   items:
                     - name: 複合型
                       href: ef6/modeling/designer/data-types/complex-types.md
-                    - name: 列挙体
+                    - name: 列挙型
                       href: ef6/modeling/designer/data-types/enums.md
-                    - name: 空間
+                    - name: Spatial
                       href: ef6/modeling/designer/data-types/spatial.md
                 - name: マッピングを分割する
                   items:
@@ -422,7 +422,7 @@
                   href: ef6/modeling/designer/multiple-diagrams.md
                 - name: ランタイム バージョンを選択する
                   href: ef6/modeling/designer/select-runtime-version.md
-                - name: コード生成
+                - name: コードの生成
                   items:
                     - name: 概要
                       href: ef6/modeling/designer/codegen/index.md
@@ -464,21 +464,21 @@
           items:
             - name: 概要
               href: ef6/saving/index.md
-            - name: Change tracking
+            - name: 変更の追跡
               items:
                 - name: 自動検出の変更
                   href: ef6/saving/change-tracking/auto-detect-changes.md
                 - name: エンティティ状態
                   href: ef6/saving/change-tracking/entity-state.md
-                - name: プロパティの値
+                - name: プロパティ値
                   href: ef6/saving/change-tracking/property-values.md
             - name: コンカレンシーの競合の処理
               href: ef6/saving/concurrency.md
             - name: トランザクションを使用する
               href: ef6/saving/transactions.md
-            - name: データの検証
+            - name: データ検証
               href: ef6/saving/validation.md
-        - name: その他の技術情報
+        - name: その他のリソース
           items:
             - name: ブログ
               href: ef6/resources/blogs.md
@@ -502,27 +502,27 @@
                       href: ef6/resources/licenses/ef5/chs.md
                     - name: 繁体中国語
                       href: ef6/resources/licenses/ef5/cht.md
-                    - name: ドイツ語
+                    - name: German
                       href: ef6/resources/licenses/ef5/deu.md
-                    - name: 英語
+                    - name: English
                       href: ef6/resources/licenses/ef5/enu.md
-                    - name: スペイン語
+                    - name: Spanish
                       href: ef6/resources/licenses/ef5/esn.md
-                    - name: フランス語
+                    - name: French
                       href: ef6/resources/licenses/ef5/fra.md
-                    - name: イタリア語
+                    - name: Italian
                       href: ef6/resources/licenses/ef5/ita.md
-                    - name: 日本語
+                    - name: Japanese
                       href: ef6/resources/licenses/ef5/jpn.md
-                    - name: 韓国語
+                    - name: Korean
                       href: ef6/resources/licenses/ef5/kor.md
-                    - name: ロシア語
+                    - name: Russian
                       href: ef6/resources/licenses/ef5/rus.md
                 - name: EF6
                   items:
                     - name: プレリリース
                       items:
-                        - name: '[アルファ]'
+                        - name: Alpha
                           href: ef6/resources/licenses/ef6/prerelease/alpha.md
                         - name: ベータ - リリース候補
                           href: ef6/resources/licenses/ef6/prerelease/beta-rc.md
@@ -530,21 +530,21 @@
                       href: ef6/resources/licenses/ef6/chs.md
                     - name: 繁体中国語
                       href: ef6/resources/licenses/ef6/cht.md
-                    - name: ドイツ語
+                    - name: German
                       href: ef6/resources/licenses/ef6/deu.md
-                    - name: 英語
+                    - name: English
                       href: ef6/resources/licenses/ef6/enu.md
-                    - name: スペイン語
+                    - name: Spanish
                       href: ef6/resources/licenses/ef6/esn.md
-                    - name: フランス語
+                    - name: French
                       href: ef6/resources/licenses/ef6/fra.md
-                    - name: イタリア語
+                    - name: Italian
                       href: ef6/resources/licenses/ef6/ita.md
-                    - name: 日本語
+                    - name: Japanese
                       href: ef6/resources/licenses/ef6/jpn.md
-                    - name: 韓国語
+                    - name: Korean
                       href: ef6/resources/licenses/ef6/kor.md
-                    - name: ロシア語
+                    - name: Russian
                       href: ef6/resources/licenses/ef6/rus.md
         - name: EF6 API リファレンス >>
           href: /dotnet/api/?view=entity-framework-6.2.0
