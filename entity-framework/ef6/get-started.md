@@ -5,10 +5,10 @@ ms.date: 10/23/2016
 ms.assetid: 66ce9113-81d2-480f-8c16-d00ec405b2f7
 uid: ef6/get-started
 ms.openlocfilehash: 729dea2c474c35f638ccaf6673550f76e88e2667
-ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "80136267"
 ---
 # <a name="get-started-with-entity-framework-6"></a>Entity Framework 6 の概要

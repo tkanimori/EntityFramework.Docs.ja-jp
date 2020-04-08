@@ -5,10 +5,10 @@ ms.author: bricelam
 ms.date: 09/19/2018
 uid: core/miscellaneous/cli/index
 ms.openlocfilehash: 237192c55ea3542521a7a292ac8550d72e4ef82c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78412817"
 ---
 # <a name="entity-framework-core-tools-reference"></a>Entity Framework Core ツールのリファレンス
@@ -21,7 +21,7 @@ Entity Framework Core ツールは、設計時の開発タスクに役立ちま�
 
 いずれのツールも機能は同じです。 Visual Studio で開発を行っている場合は、統合性に優れた**パッケージ マネージャー コンソール** ツールの使用をお勧めします。
 
-## <a name="next-steps"></a>次の手順
+## <a name="next-steps"></a>次のステップ
 
 * [EF Core パッケージ マネージャー コンソール ツールのリファレンス](powershell.md)
 * [EF Core .NET CLI ツールのリファレンス](dotnet.md)

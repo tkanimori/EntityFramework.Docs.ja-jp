@@ -5,10 +5,10 @@ ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
 ms.openlocfilehash: e01bd146c4dfe7a8d36b641cb52ae366fddd8239
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413787"
 ---
 # <a name="client-vs-server-evaluation"></a>クライアントとサーバーの評価

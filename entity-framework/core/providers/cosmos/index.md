@@ -6,10 +6,10 @@ ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
 ms.openlocfilehash: 74284bf78f404e376436a1ef5d5933186c85ae49
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413057"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダー
@@ -42,7 +42,7 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 
 ***
 
-## <a name="get-started"></a>作業開始
+## <a name="get-started"></a>はじめに
 
 > [!TIP]  
 > この記事の[サンプルは GitHub](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Cosmos) で確認できます。
@@ -65,7 +65,7 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 [!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
 
 > [!IMPORTANT]
-> 必須のコンテナーを作成し、モデル内に[シード データ](../../modeling/data-seeding.md)が存在する場合は挿入するようにするためには、[EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) を呼び出す必要があります。 ただし、`EnsureCreatedAsync` は、パフォーマンスの問題を引き起こす可能性があるため、通常の操作ではなく、配置時にのみ呼び出す必要があります。
+> 必須のコンテナーを作成し、モデル内に[シード データ](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync)が存在する場合は挿入するようにするためには、[EnsureCreatedAsync](../../modeling/data-seeding.md) を呼び出す必要があります。 ただし、`EnsureCreatedAsync` は、パフォーマンスの問題を引き起こす可能性があるため、通常の操作ではなく、配置時にのみ呼び出す必要があります。
 
 ## <a name="cosmos-specific-model-customization"></a>Cosmos 固有のモデルのカスタマイズ
 
@@ -164,7 +164,7 @@ EF Core には、追跡対象のすべてのエンティティに対して、内
 
 ## <a name="working-with-disconnected-entities"></a>接続解除エンティティの使用
 
-すべてのアイテムには、特定のパーティション キーに対して一意な `id` 値が必要です。 既定では、EF Core は、' | ' を区切り記号として使用して、識別子と主キーの値を連結して値を生成します。 このキー値は、エンティティが `Added` 状態になったときにのみ生成されます。 これは、.NET 型にその値を保存する `id` プロパティがない場合に[エンティティをアタッチするとき](../../saving/disconnected-entities.md)に問題になる場合があります。
+すべてのアイテムには、特定のパーティション キーに対して一意な `id` 値が必要です。 既定では、EF Core は、' | ' を区切り記号として使用して、識別子と主キーの値を連結して値を生成します。 このキー値は、エンティティが `Added` 状態になったときにのみ生成されます。 これは、.NET 型にその値を保存する [ プロパティがない場合に](../../saving/disconnected-entities.md)エンティティをアタッチするとき`id`に問題になる場合があります。
 
 この制限を回避するには、`id` 値を手動で作成して設定するか、エンティティをまず追加済みとしてマークして、その後目的の状態に変更します。
 

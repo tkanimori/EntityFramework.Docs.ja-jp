@@ -5,10 +5,10 @@ ms.date: 10/27/2016
 ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
 uid: core/saving/related-data
 ms.openlocfilehash: 86d32b6172ee21c12a15e9ed4bb0142afc99c8bd
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413613"
 ---
 # <a name="saving-related-data"></a>関連データの保存
@@ -27,13 +27,13 @@ ms.locfileid: "78413613"
 [!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
 
 > [!TIP]  
-> 単一のエンティティの状態を設定するには、EntityEntry.State プロパティを使用します。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
+> 単一のエンティティの状態を設定するには、EntityEntry.State プロパティを使用します。 たとえば、「 `context.Entry(blog).State = EntityState.Modified` 」のように入力します。
 
 ## <a name="adding-a-related-entity"></a>関連エンティティの追加
 
 コンテキストによって既に追跡されているエンティティのナビゲーション プロパティから新しいエンティティを参照した場合、そのエンティティが検出され、データベースに挿入されます。
 
-次の例では、データベースからフェッチされた `blog` エンティティの `Posts` プロパティに `post` エンティティが追加されているため、そのエンティティが挿入されます。
+次の例では、データベースからフェッチされた `post` エンティティの `Posts` プロパティに `blog` エンティティが追加されているため、そのエンティティが挿入されます。
 
 [!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#AddingRelatedEntity)]
 
@@ -41,7 +41,7 @@ ms.locfileid: "78413613"
 
 エンティティのナビゲーション プロパティを変更すると、データベース内の外部キー列に対応する変更が行われます。
 
-次の例では、`Blog` ナビゲーション プロパティが `blog` をポイントするように設定されているため、`post` エンティティが新しい `blog` エンティティに所属するように更新されます。 コンテキストによって既に追跡されているエンティティ (`post`) のナビゲーション プロパティによって参照される新しいエンティティであるため、`blog` もデータベースに挿入されることに注意してください。
+次の例では、`post` ナビゲーション プロパティが `blog` をポイントするように設定されているため、`Blog` エンティティが新しい `blog` エンティティに所属するように更新されます。 コンテキストによって既に追跡されているエンティティ (`blog`) のナビゲーション プロパティによって参照される新しいエンティティであるため、`post` もデータベースに挿入されることに注意してください。
 
 [!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#ChangingRelationships)]
 

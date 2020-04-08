@@ -5,10 +5,10 @@ ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 uid: core/saving/basic
 ms.openlocfilehash: 066d67d6104316832a33f5a3648f1f2fa6cc9c50
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413685"
 ---
 # <a name="basic-save"></a>基本の保存
@@ -25,7 +25,7 @@ ms.locfileid: "78413685"
 [!code-csharp[Main](../../../samples/core/Saving/Basics/Sample.cs#Add)]
 
 > [!TIP]  
-> Add、Attach、および Update メソッドは、そのすべてが「[関連データ](related-data.md)」で説明するように、すべてのエンティティで動作します。 EntityEntry.State プロパティを使用して、単一のエンティティの状態を設定できます。 たとえば、`context.Entry(blog).State = EntityState.Modified` のようにします。
+> Add、Attach、および Update メソッドは、そのすべてが「[関連データ](related-data.md)」で説明するように、すべてのエンティティで動作します。 EntityEntry.State プロパティを使用して、単一のエンティティの状態を設定できます。 たとえば、「 `context.Entry(blog).State = EntityState.Modified` 」のように入力します。
 
 ## <a name="updating-data"></a>データの更新
 

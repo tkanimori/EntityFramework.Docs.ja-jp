@@ -5,10 +5,10 @@ ms.date: 03/17/2020
 ms.assetid: de2e34cd-659b-4cab-b5ed-7a979c6bf120
 uid: core/querying/how-query-works
 ms.openlocfilehash: e8a50efe31468ea8df211602636dd474550bc0ef
-ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "80136241"
 ---
 # <a name="how-queries-work"></a>クエリのしくみ

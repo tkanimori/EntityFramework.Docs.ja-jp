@@ -6,7 +6,7 @@
 
 記事は、マークダウン ファイルとしてリポジトリに格納されます。 マークダウン ファイルのコンテンツに対して簡単な変更を行うには、ブラウザー ウィンドウの右上隅にある **[編集]** リンクをクリックします。 場合によっては、**オプション** バーを展開して、 **[編集]** リンクを表示する必要があります。 指示に従って pull request (PR) を作成します。 EF チームによって、PR がレビューされ、受け入れられるか変更が提案されます。
 
-## <a name="how-to-make-a-more-complex-submission"></a>もっと複雑な投稿を行う方法
+## <a name="how-to-make-a-more-complex-submission"></a>もっと複雑な提案を行う方法
 
 [Git と GitHub.com](https://guides.github.com/activities/hello-world/) の基本的な理解が必要です。
 
@@ -15,7 +15,7 @@
 * 変更内容を記載した pull request (PR) をマスターに送信します。
 * PR のフィードバックに対応します。
 
-## <a name="markdown-syntax"></a>マークダウンの構文
+## <a name="markdown-syntax"></a>Markdown の構文
 
 記事は [DocFX Flavored Markdown (DFM)](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) で書かれています。これは [GitHub flavored Markdown (GFM)](https://guides.github.com/features/mastering-markdown/) のスーパーセットです。 EF ドキュメントでよく使用される UI 機能についての DFM 構文およびメタデータの例については、.NET Core リポジトリ スタイル ガイドの「[Metadata and Markdown Template](https://github.com/dotnet/docs/blob/master/styleguide/template.md)」(メタデータおよび Markdown テンプレート) を参照してください。
 
@@ -37,7 +37,7 @@
 [!code-csharp[Main](../../../samples/core/saving/Program.cs)]
 ```
 
-行番号を使用してファイルの一部をスニペットとしてレンダリングするには:
+行番号を使用してファイルの一部をスニペットとして表示するには:
 
 ``` none
 [!code-csharp[Main](../../../samples/core/saving/Program.cs?range=1-10]
@@ -45,7 +45,7 @@
 
 C# スニペットの場合は、[C# の領域](https://msdn.microsoft.com/library/9a1ybwek.aspx)を参照できます。 行番号ではなく領域を使用してください。 コード ファイル内の行番号は変更されて、Markdown での行番号参照と同期しなくなることがよくあるためです。 C# の領域は入れ子にすることができます。 外側の領域を参照した場合、内側の `#region` と `#endregion` ディレクティブはスニペットにレンダリングされません。
 
-"snippet_Example" という名前の C# 領域をレンダリングするには:
+C# の "snippet_Example" という名前の領域を表示するには:
 
 ``` none
 [!code-csharp[Main](../../../samples/core/saving/Program.cs?name=snippet_Example)]
@@ -65,7 +65,7 @@ DocFX には、Windows または、Linux または macOS 用の Mono 上の .NET
 
 ### <a name="windows-instructions"></a>Windows での手順
 
-* [DocFX リリース](https://github.com/dotnet/docfx/releases)から *docfx.zip* をダウンロードして解凍します。
+* *DocFX リリース*から [docfx.zip](https://github.com/dotnet/docfx/releases) をダウンロードして解凍します。
 * DocFX を PATH に追加します。
 * コマンド ライン ウィンドウで、複製されたリポジトリ (ここには *docfx.json* ファイルが格納される) に移動し、次のコマンドを実行します。
 
@@ -75,7 +75,7 @@ DocFX には、Windows または、Linux または macOS 用の Mono 上の .NET
 
 * ブラウザーで、`http://localhost:8080` に移動します。
 
-### <a name="mono-instructions"></a>Mono での手順
+### <a name="mono-instructions"></a>Mono での説明
 
 * Homebrew を使用して Mono をインストールします (`brew install mono`)。
 * [最新バージョンの DocFX](https://github.com/dotnet/docfx/releases/tag/v2.7.2) をダウンロードします。

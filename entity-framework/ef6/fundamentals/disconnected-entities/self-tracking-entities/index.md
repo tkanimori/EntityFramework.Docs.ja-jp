@@ -4,10 +4,10 @@ author: divega
 ms.date: 10/23/2016
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
 ms.openlocfilehash: 3bb9759d89fbd0c10b911625aa7d0afd7747de14
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413357"
 ---
 # <a name="self-tracking-entities"></a>自己追跡エンティティ
@@ -24,7 +24,7 @@ STE エンティティは、オブジェクト グラフに対する変更が行
 - **\<モデル名\>.tt** ファイルは、エンティティ型と、自己追跡エンティティが使用する変更追跡ロジックおよび自己追跡エンティティで状態設定が可能な拡張メソッドを含むヘルパー クラスを生成します。  
 - **\<モデル名\>.Context.tt** ファイルは、派生コンテキストと、**ObjectContext** および **ObjectSet** クラスの **ApplyChanges** メソッドを含む拡張クラスを生成します。 これらのメソッドは、自己追跡エンティティのグラフに含まれている変更追跡情報を検証して、データベースに変更内容を保存するために実行しなければならない一連の操作を推論します。  
 
-## <a name="get-started"></a>はじめに  
+## <a name="get-started"></a>開始するには  
 
 最初に、「[Self-Tracking Entities Walkthrough](walkthrough.md)」(自己追跡エンティティ チュートリアル) ページを参照してください。  
 
@@ -46,7 +46,7 @@ STE エンティティは、オブジェクト グラフに対する変更が行
 - 自己追跡エンティティは遅延読み込みを実行できません。  
 - バイナリ シリアル化および ASP.NET 状態管理オブジェクトへのシリアル化は自己追跡エンティティによってサポートされていません。 ただし、バイナリ シリアル化のサポートを追加するようにテンプレートをカスタマイズできます。 詳細については、「[自己追跡エンティティでのバイナリ シリアル化および ViewState の使用](https://go.microsoft.com/fwlink/?LinkId=199208)」を参照してください。  
 
-## <a name="security-considerations"></a>セキュリティの考慮事項  
+## <a name="security-considerations"></a>セキュリティに関する考慮事項  
 
 次のセキュリティに関する考慮事項は、自己追跡エンティティを使用する場合に考慮する必要があります。  
 

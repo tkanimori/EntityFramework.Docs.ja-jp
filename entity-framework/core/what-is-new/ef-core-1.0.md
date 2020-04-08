@@ -5,10 +5,10 @@ ms.date: 10/27/2016
 ms.assetid: 20A25111-AEBE-4BC2-83A5-3F651952DF72
 uid: core/what-is-new/ef-core-1.0
 ms.openlocfilehash: 2cd2a54d75ed3f0caa8b674dfb56babcfcc13592
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413595"
 ---
 # <a name="features-included-in-ef-core-10"></a>EF Core 1.0 に含まれる機能
@@ -65,7 +65,7 @@ ms.locfileid: "78413595"
 
 代替キーを定義し、そのキーを対象とするリレーションシップを定義する機能を利用できます。
 
-### <a name="indexes"></a>Indexes
+### <a name="indexes"></a>インデックス
 
 モデルにインデックスを定義すると、インデックスが自動的にデータベースに導入されます。 一意なインデックスもサポートされています。
 
@@ -81,7 +81,7 @@ ms.locfileid: "78413595"
 
 モデル内の無効なパターンを検出し、有用なエラー メッセージを示します。
 
-## <a name="change-tracking"></a>Change tracking
+## <a name="change-tracking"></a>変更の追跡
 
 ### <a name="snapshot-change-tracking"></a>スナップショットによる変更の追跡
 
@@ -117,7 +117,7 @@ ms.locfileid: "78413595"
 
 `SaveChanges` が常にアトミックであることを示します。つまり、完全に成功するか、データベースが変更されないかどちらかです。 コンテキスト インスタンスなどの間でトランザクションを共有できる、トランザクションに関連した API もあります。
 
-### <a name="relational-batching-of-statements"></a>関係: ステートメントのバッチ処理
+### <a name="relational-batching-of-statements"></a>リレーショナル: ステートメントのバッチ処理
 
 複数の INSERT/UPDATE/DELETE コマンドを 1 度のラウンドトリップでデータベースにバッチ更新することにより、パフォーマンスを向上させます。
 
@@ -171,7 +171,7 @@ Microsoft SQL Server 2008 以降に接続します。
 
 SQLite 3 データベースに接続します。
 
-### <a name="in-memory"></a>In-Memory
+### <a name="in-memory"></a>インメモリ
 
 実際のデータベースに接続せずに簡単にテストできるように設計されています。
 

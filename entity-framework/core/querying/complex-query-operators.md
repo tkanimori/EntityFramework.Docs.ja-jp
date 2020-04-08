@@ -5,10 +5,10 @@ ms.date: 10/03/2019
 ms.assetid: 2e187a2a-4072-4198-9040-aaad68e424fd
 uid: core/querying/complex-query-operators
 ms.openlocfilehash: 44c2695ea003da043925740a52596fd27da638f8
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413775"
 ---
 # <a name="complex-query-operators"></a>複雑なクエリ演算子
@@ -18,7 +18,7 @@ ms.locfileid: "78413775"
 > [!TIP]
 > この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
-## <a name="join"></a>Join
+## <a name="join"></a>結合
 
 LINQ Join 演算子を使用すると、各ソースのキー セレクターに基づいて 2 つのデータ ソースを接続でき、キーが一致したときに値のタプルが生成されます。 リレーショナル データベースでは、必然的に `INNER JOIN` に変換されます。 LINQ Join には外部および内部のキー セレクターがありますが、データベースには単一の結合条件が必要です。 したがって、EF Core では、外部キー セレクターと内部キー セレクターが等価であるかどうかを比較して、結合条件を生成します。 さらに、キー セレクターが匿名型である場合、EF Core では、等価要素ごとに比較する結合条件を生成します。
 
@@ -56,7 +56,7 @@ CROSS JOIN [Posts] AS [p]
 
 ### <a name="collection-selector-references-outer-in-a-where-clause"></a>where 句でのコレクション セレクターによる外部参照
 
-コレクション セレクターに where 句があり、外部要素が参照される場合、EF Core ではそれがデータベース結合に変換され、述語が結合条件として使用されます。 通常、このケースは、外部要素のコレクション ナビゲーションをコレクション セレクターとして使用する場合に発生します。 外部要素のコレクションが空の場合、その外部要素の結果は生成されません。 しかし、コレクション セレクターに `DefaultIfEmpty` が適用されている場合、外部要素は内部要素の既定値と接続されます。 このような違いから、この種のクエリは、`DefaultIfEmpty` と `LEFT JOIN` がない場合、および `DefaultIfEmpty` が適用されている場合に `INNER JOIN` に変換されます。
+コレクション セレクターに where 句があり、外部要素が参照される場合、EF Core ではそれがデータベース結合に変換され、述語が結合条件として使用されます。 通常、このケースは、外部要素のコレクション ナビゲーションをコレクション セレクターとして使用する場合に発生します。 外部要素のコレクションが空の場合、その外部要素の結果は生成されません。 しかし、コレクション セレクターに `DefaultIfEmpty` が適用されている場合、外部要素は内部要素の既定値と接続されます。 このような違いから、この種のクエリは、`INNER JOIN` と `DefaultIfEmpty` がない場合、および `LEFT JOIN` が適用されている場合に `DefaultIfEmpty` に変換されます。
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToJoin)]
 
@@ -72,7 +72,7 @@ LEFT JOIN [Posts] AS [p] ON [b].[BlogId] = [p].[BlogId]
 
 ### <a name="collection-selector-references-outer-in-a-non-where-case"></a>where 以外のケースでのコレクション セレクターによる外部参照
 
-コレクション セレクターで、(上記のケースのように) where 句には含まれていない外部要素を参照する場合、データベース結合には変換されません。 そのため、外部の各要素のコレクション セレクターを評価する必要があります。 多くのリレーショナル データベースでは `APPLY` 演算に変換されます。 外部要素のコレクションが空の場合、その外部要素の結果は生成されません。 しかし、コレクション セレクターに `DefaultIfEmpty` が適用されている場合、外部要素は内部要素の既定値と接続されます。 このような違いから、この種のクエリは、`DefaultIfEmpty` と `OUTER APPLY` がない場合、および `DefaultIfEmpty` が適用されている場合に `CROSS APPLY` に変換されます。 SQLite のような特定のデータベースでは `APPLY` 演算子がサポートされないため、この種のクエリが変換されない場合があります。
+コレクション セレクターで、(上記のケースのように) where 句には含まれていない外部要素を参照する場合、データベース結合には変換されません。 そのため、外部の各要素のコレクション セレクターを評価する必要があります。 多くのリレーショナル データベースでは `APPLY` 演算に変換されます。 外部要素のコレクションが空の場合、その外部要素の結果は生成されません。 しかし、コレクション セレクターに `DefaultIfEmpty` が適用されている場合、外部要素は内部要素の既定値と接続されます。 このような違いから、この種のクエリは、`CROSS APPLY` と `DefaultIfEmpty` がない場合、および `OUTER APPLY` が適用されている場合に `DefaultIfEmpty` に変換されます。 SQLite のような特定のデータベースでは `APPLY` 演算子がサポートされないため、この種のクエリが変換されない場合があります。
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToApply)]
 
@@ -112,12 +112,12 @@ ORDER BY [p].[AuthorId]
 
 EF Core でサポートされる集約演算子は次のとおりです
 
-- 平均
-- カウント
+- Average
+- Count
 - LongCount
-- 最大
-- 最小
-- Sum
+- Max
+- Min
+- SUM
 
 ## <a name="left-join"></a>Left Join
 

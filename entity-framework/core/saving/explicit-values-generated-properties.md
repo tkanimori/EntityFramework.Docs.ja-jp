@@ -5,10 +5,10 @@ ms.date: 10/27/2016
 ms.assetid: 3f1993c2-cdf5-425b-bac2-a2665a20322b
 uid: core/saving/explicit-values-generated-properties
 ms.openlocfilehash: 43c4ab3c2a60645cdeff2a6cc40ce979f832f2fd
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413631"
 ---
 # <a name="setting-explicit-values-for-generated-properties"></a>生成されるプロパティに明示的な値を設定する
@@ -50,7 +50,7 @@ ms.locfileid: "78413631"
 
 慣例として、`Employee.EmployeeId` プロパティは、ストア生成された `IDENTITY` 列です。
 
-ほとんどの状況で、上述した方法がキー プロパティに対して有効です。 しかし、SQL Server の `IDENTITY` 列に明示的な値を挿入するには、`SaveChanges()` を呼び出す前に `IDENTITY_INSERT` を手動で有効にする必要があります。
+ほとんどの状況で、上述した方法がキー プロパティに対して有効です。 しかし、SQL Server の `IDENTITY` 列に明示的な値を挿入するには、`IDENTITY_INSERT` を呼び出す前に `SaveChanges()` を手動で有効にする必要があります。
 
 > [!NOTE]  
 > SQL Server プロバイダー内で自動的にこれを行うための[機能要求](https://github.com/aspnet/EntityFramework/issues/703)が、バックログに用意されています。
@@ -74,9 +74,9 @@ ms.locfileid: "78413631"
 > 既定では、更新中に生成されるように構成されたプロパティに明示的な値の保存を試行しようとすると、EF Core は例外をスローします。 これを回避するには、下位レベルのメタデータ API にドロップダウンして、`AfterSaveBehavior` を設定する必要があります (上記を参照)。
 
 > [!NOTE]  
-> **EF Core 2.0 の変更:** 前のリリースでは、保存後の動作は `IsReadOnlyAfterSave` フラグによって制御されていました。 このフラグは廃止され、`AfterSaveBehavior` に置き換えられました。
+> **EF Core 2.0 での変更:** 前のリリースでは、保存後の動作は `IsReadOnlyAfterSave` フラグ経由で制御されていました。 このフラグは廃止され、`AfterSaveBehavior` に置き換えられました。
 
-また、データベースには、`UPDATE` 操作中に `LastPayRaise` 列の値を生成するためのトリガーがあります。
+また、データベースには、`LastPayRaise` 操作中に `UPDATE` 列の値を生成するためのトリガーがあります。
 
 [!code-sql[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
 

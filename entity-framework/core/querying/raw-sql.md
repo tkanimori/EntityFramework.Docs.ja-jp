@@ -5,10 +5,10 @@ ms.date: 10/08/2019
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
 ms.openlocfilehash: a54bb67c0fce9d621382f6372e70fe4cdca48a20
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413715"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
@@ -83,11 +83,11 @@ EF Core では提供された SQL がサブクエリとして扱われるため�
 
 - 末尾のセミコロン
 - SQL Server では、末尾のクエリ レベル ヒント (例: `OPTION (HASH JOIN)`)
-- SQL Server では、`SELECT` 句の `OFFSET 0` または `TOP 100 PERCENT` と共に使用されない `ORDER BY` 句
+- SQL Server では、`ORDER BY` 句の `OFFSET 0` または `TOP 100 PERCENT` と共に使用されない `SELECT` 句
 
 SQL Server ではストアド プロシージャ呼び出しを構成することができないため、そのような呼び出しに追加のクエリ演算子を適用しようとすると、無効な SQL が発生します。 EF Core でストアド プロシージャの構成が試行されないようにするには、`AsEnumerable` または `AsAsyncEnumerable` メソッドの直後に `FromSqlRaw` または `FromSqlInterpolated` メソッドを使用します。
 
-## <a name="change-tracking"></a>変更追跡
+## <a name="change-tracking"></a>変更の追跡
 
 `FromSqlRaw` または `FromSqlInterpolated` メソッドを使用するクエリでは、EF Core 内の他の LINQ クエリとまったく同じ変更追跡ルールに従います。 たとえば、クエリでエンティティ型を予測する場合、既定で結果は追跡されます。
 

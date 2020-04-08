@@ -5,10 +5,10 @@ ms.date: 10/10/2019
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
 ms.openlocfilehash: a6c71c12f429f1324abe91d1b2cef96312bec051
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413697"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ

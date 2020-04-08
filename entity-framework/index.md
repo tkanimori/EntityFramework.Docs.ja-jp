@@ -6,10 +6,10 @@ ms.date: 10/27/2016
 ms.assetid: 6bb12583-c39a-454c-8d83-d2a2793ca9ef
 uid: index
 ms.openlocfilehash: 1643e3c9d1b8565155ebc1c04713a40883d03a07
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78412917"
 ---
 <div id="main" class="v2">
@@ -24,7 +24,7 @@ ms.locfileid: "78412917"
                         <ul id="entityfmwk1" class="cardsC">
                             <li>
                                 <div class="container intro">
-                                    <p>Entity Framework はオブジェクト リレーショナル マッパー (O/RM) であり、.NET 開発者は .NET オブジェクトを利用してデータベースを操作できます。 開発者が通常記述しなければならないデータアクセス コードの多くが不要になります。</p>
+                                    <p>Entity Framework は、.NET 開発者が .NET オブジェクトを使用してデータベースを操作できるようにする、オブジェクト リレーショナル マッパー (O/RM) です。 これにより、開発者が通常は記述する必要のあるデータアクセス コードの大部分が不要になります。</p>
                                 </div>
                             </li>
                             <li>
@@ -129,7 +129,7 @@ ms.locfileid: "78412917"
                                             </div>
                                             <div class="cardText">
                                                 <h3>
-                                                    <a href="/ef/core/">開始するには</a>
+                                                    <a href="/ef/core/">作業開始</a>
                                                 </h3>
                                                 <p>
                                                     <a href="/ef/core/">概要</a>
@@ -258,7 +258,7 @@ ms.locfileid: "78412917"
                                                     </div>
                                                 </div>
                                                 <div class="cardText">
-                                                    <h3>はじめに</h3>
+                                                    <h3>開始するには</h3>
                                                     <p>Entity Framework 6 でデータにアクセスする方法を説明します。</p>
                                                 </div>
                                             </div>

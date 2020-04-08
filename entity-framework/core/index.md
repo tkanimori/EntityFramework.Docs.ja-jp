@@ -5,10 +5,10 @@ ms.date: 10/27/2016
 ms.assetid: bc2a2676-bc46-493f-bf49-e3cc97994d57
 uid: core/index
 ms.openlocfilehash: e6127f775d6bbbdf81debf5519388fe252fe079d
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78412837"
 ---
 # <a name="entity-framework-core"></a>Entity Framework Core
@@ -39,6 +39,6 @@ EF Core では、データ アクセスはモデルを利用して実行され�
 
 [!code-csharp[Main](../../samples/core/Intro/Program.cs#SavingData)]
 
-## <a name="next-steps"></a>次の手順
+## <a name="next-steps"></a>次のステップ
 
 入門チュートリアルについては、「[Entity Framework Core の概要](get-started/index.md)」を参照してください。

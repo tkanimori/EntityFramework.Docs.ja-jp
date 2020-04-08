@@ -4,10 +4,10 @@ author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
 ms.openlocfilehash: a1d1a5a11d482f9104691aa3c072dbd1c548e9f1
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413649"
 ---
 # <a name="handling-concurrency-conflicts"></a>コンカレンシーの競合の処理
@@ -33,11 +33,11 @@ EF Core は、"_オプティミスティック コンカレンシー_" を実装
 
 データベース プロバイダーは、コンカレンシー トークン値の比較の実装を担います。
 
-リレーショナル データベースでは、EF Core は `UPDATE` や `DELETE` ステートメントの `WHERE` 句に、コンカレンシー トークン値のチェックを含みます。 ステートメントを実行した後、EF Core は、影響を受けた行数を読み取ります。
+リレーショナル データベースでは、EF Core は `WHERE` や `UPDATE` ステートメントの `DELETE` 句に、コンカレンシー トークン値のチェックを含みます。 ステートメントを実行した後、EF Core は、影響を受けた行数を読み取ります。
 
 影響を受けた行がない場合、コンカレンシーの競合が検出され、EF Core は `DbUpdateConcurrencyException` をスローします。
 
-たとえば、`Person` 上でコンカレンシー トークンになるように、`LastName` を構成できます。 これにより、Person 上での更新処理に、`WHERE` 句でのコンカレンシーのチェックが含まれるようになります。
+たとえば、`LastName` 上でコンカレンシー トークンになるように、`Person` を構成できます。 これにより、Person 上での更新処理に、`WHERE` 句でのコンカレンシーのチェックが含まれるようになります。
 
 ``` sql
 UPDATE [Person] SET [FirstName] = @p1
@@ -62,7 +62,7 @@ WHERE [PersonId] = @p0 AND [LastName] = @p2;
 
 コンカレンシーの競合を処理する一般的な方法は、次のとおりです。
 
-1. `SaveChanges` の間に `DbUpdateConcurrencyException` をキャッチします。
+1. `DbUpdateConcurrencyException` の間に `SaveChanges` をキャッチします。
 2. `DbUpdateConcurrencyException.Entries` を使用して、影響を受けるエンティティに対する新しい変更の設定を準備します。
 3. コンカレンシー トークンの元の値を更新して、データベースの現在の値を反映します。
 4. 競合が発生しなくなるまで、プロセスを再試行します。

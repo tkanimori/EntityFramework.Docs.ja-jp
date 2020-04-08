@@ -5,10 +5,10 @@ ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
 ms.openlocfilehash: 83f6b819409d502dba17a678d44a0746a4a77f4b
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
+ms.lasthandoff: 04/07/2020
 ms.locfileid: "78413577"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
@@ -133,7 +133,7 @@ var query =
     select p;
 ```
 
-次のことに注意してください。
+注意点を次に示します。
 
 - 規則では、SQL の生成時、関数 (この場合はユーザー定義関数) の名前としてメソッドの名前が使用されますが、メソッド登録時に名前とスキーマをオーバーライドできます。
 - 現在のところ、スカラー関数のみがサポートされています。
@@ -158,13 +158,13 @@ class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 builder.ApplyConfiguration(new CustomerConfiguration());
 ```
 
-## <a name="high-performance"></a>高パフォーマンス
+## <a name="high-performance"></a>高性能
 
 ### <a name="dbcontext-pooling"></a>DbContext プール
 
 ASP.NET Core アプリケーションで EF Core を使用する基本パターンは通常、カスタム DbContext 型を依存関係挿入システムに登録し、その後、コントローラーのコンストラクター パラメーターからその型のインスタンスを取得するというパターンになります。 つまり、DbContext の新しいインスタンスが要求ごとに作成されます。
 
-バージョン 2.0 では、依存関係挿入でカスタム DbContext 型を登録する新しい方法を導入しました。再利用可能な DbContext インスタンスのプールが透過的に導入されます。 DbContext プールを使用するには、サービス登録で `AddDbContext` の代わりに `AddDbContextPool` を使用します。
+バージョン 2.0 では、依存関係挿入でカスタム DbContext 型を登録する新しい方法を導入しました。再利用可能な DbContext インスタンスのプールが透過的に導入されます。 DbContext プールを使用するには、サービス登録で `AddDbContextPool` の代わりに `AddDbContext` を使用します。
 
 ``` csharp
 services.AddDbContextPool<BloggingContext>(
@@ -205,11 +205,11 @@ using (var db = new CustomerContext())
 }
 ```
 
-## <a name="change-tracking"></a>変更追跡
+## <a name="change-tracking"></a>変更の追跡
 
 ### <a name="attach-can-track-a-graph-of-new-and-existing-entities"></a>Attach で新規および既存のエンティティのグラフを追跡可能
 
-EF Core では、さまざまメカニズムを利用し、キー値を自動生成できます。 この機能を使用するとき、キー プロパティが CLR 既定の場合 (通常はゼロか null)、値が生成されます。 つまり、エンティティのグラフを `DbContext.Attach` または `DbSet.Attach` に渡すことができます。EF Core は、既にキーが設定されているエンティティを `Unchanged` としてマークします。キーが設定されていないエンティティは `Added` としてマークされます。 それにより、生成されたキーを使用するとき、新規と既存の混合エンティティのグラフを簡単に添付できるようになります。 `DbContext.Update` と `DbSet.Update` は同じように動作しますが、キーが設定されているエンティティは `Unchanged` ではなく `Modified` としてマークされます。
+EF Core では、さまざまメカニズムを利用し、キー値を自動生成できます。 この機能を使用するとき、キー プロパティが CLR 既定の場合 (通常はゼロか null)、値が生成されます。 つまり、エンティティのグラフを `DbContext.Attach` または `DbSet.Attach` に渡すことができます。EF Core は、既にキーが設定されているエンティティを `Unchanged` としてマークします。キーが設定されていないエンティティは `Added` としてマークされます。 それにより、生成されたキーを使用するとき、新規と既存の混合エンティティのグラフを簡単に添付できるようになります。 `DbContext.Update` と `DbSet.Update` は同じように動作しますが、キーが設定されているエンティティは `Modified` ではなく `Unchanged` としてマークされます。
 
 ## <a name="query"></a>クエリ
 
@@ -225,7 +225,7 @@ EF Core では、さまざまメカニズムを利用し、キー値を自動生
 
 C# 6 では文字列補間が導入されました。この機能では、C# 式を文字列リテラルに直接埋め込むことができます。実行時、文字列が効率的に構築されます。 EF Core 2.0 では、RAW SQL 文字列を受け取る 2 つのプライマリ API、`FromSql` と `ExecuteSqlCommand` に、補間文字列の特殊なサポートを追加しました。 この新しいサポートにより、"安全な" 方法で C# 文字列補間を使用できます。 すなわち、実行時に SQL を動的に構築するときに起こりうる SQL 挿入のよくある間違いを防ぎます。
 
-次に例を示します。
+たとえば次のようになります。
 
 ``` csharp
 var city = "London";
@@ -268,7 +268,7 @@ var aCustomers =
 
 Like() にはインメモリ実装が付随することに注目してください。インメモリ データベースに対して作業するときやクライアント側で述語を評価する必要があるときに便利です。
 
-## <a name="database-management"></a>データベース管理
+## <a name="database-management"></a>データベースの管理
 
 ### <a name="pluralization-hook-for-dbcontext-scaffolding"></a>DbContext スキャフォールディングの複数形化フック
 
@@ -299,7 +299,7 @@ public class MyPluralizer : IPluralizer
 }
 ```
 
-## <a name="others"></a>Others
+## <a name="others"></a>その他
 
 ### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>ADO.NET SQLite プロバイダーを SQLitePCL.raw に移動
 
@@ -309,7 +309,7 @@ public class MyPluralizer : IPluralizer
 
 プロバイダーがモデルと対話するしくみが大幅に増強され、規則、注釈、fluent API がさまざまプロバイダーと連動するしくみが単純になりました。
 
-EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、*一般的なリレーショナル メタデータ コンセプト*へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。
+EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、*一般的なリレーショナル メタデータ コンセプト*へのあらゆるアクセスが `.Relational` や `.SqlServer` などではなく、`.Sqlite` の呼び出しで常に行われます。
 
 ### <a name="consolidated-logging-and-diagnostics"></a>統合されたログと診断
 
