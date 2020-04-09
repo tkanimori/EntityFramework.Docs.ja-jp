@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 12/17/2019
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 99f59153a452a2f4aad5811110ebc5b5da7717ef
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: e3806f7161fecfe66450d3e08f97caf3d2c84cf3
+ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78412997"
+ms.lasthandoff: 04/07/2020
+ms.locfileid: "80634239"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -175,3 +175,14 @@ SQL Server を使用している開発者がテンポラル テーブルを簡�
 LINQ ラムダ式で拡張メソッドを呼び出すためのサポートを追加します。 対象の EF Core:3.1
 
 [GitHub リポジトリ](https://github.com/ClaveConsulting/Expressionify)
+
+### <a name="xlinq"></a>XLinq
+
+リレーショナル データベース用の統合言語クエリ (LINQ) テクノロジ。 C# を使用して、厳密に型指定されたクエリを記述できます。 対象の EF Core:3.1
+
+- クエリの作成時のラムダ、変数、関数内での複数のステートメントなどの C# の完全なサポート。
+- SQL と意味的な違いはありません。 XLinq では SQL ステートメント (`SELECT`、`FROM`、`WHERE`) を第一級の C# メソッドとして、使い慣れた構文を intellisense、タイプ セーフおよびリファクタリングと組み合わせ宣言します。
+
+その結果、SQL はその API をローカルに公開する、文字どおりの *"統合言語 SQL"* である "もう 1 つの" クラス ライブラリになります。
+
+[Web サイト](http://xlinq.live/)
