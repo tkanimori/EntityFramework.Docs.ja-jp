@@ -3,12 +3,12 @@ title: サポートされている .NET 実装 - EF Core
 author: bricelam
 ms.date: 03/03/2020
 uid: core/platforms/index
-ms.openlocfilehash: 693d4cae85eddf86d01e17084415147c52a008c7
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 2738645596a325a1a43fd5b2164e370dd8c5893e
+ms.sourcegitcommit: 144edccf9b29a7ffad119c235ac9808ec1a46193
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413067"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81434124"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>EF Core でサポートされている .NET 実装
 
@@ -73,4 +73,4 @@ UWP で EF Core を使用する場合:
 
 ## <a name="report-issues"></a>問題のレポート
 
-予想どおりに機能しない組み合わせについては、[EF Core イシュー追跡ツール](https://github.com/aspnet/entityframeworkcore/issues/new)で新しいイシューを登録することが推奨されています。 Xamarin 関連の問題については、 [Xamarin.Android](https://github.com/xamarin/xamarin-android/issues/new) または [Xamarin.iOS](https://github.com/xamarin/xamarin-macios/issues/new) の問題追跡ツールをご利用ください。
+予想どおりに機能しない組み合わせについては、[EF Core 問題追跡ツール](https://github.com/aspnet/entityframeworkcore/issues/new)で新しい問題を登録することが推奨されています。 Xamarin 関連の問題については、 [Xamarin.Android](https://github.com/xamarin/xamarin-android/issues/new) または [Xamarin.iOS](https://github.com/xamarin/xamarin-macios/issues/new) の問題追跡ツールをご利用ください。
