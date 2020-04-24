@@ -4,12 +4,12 @@ author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: 0e7a1ee159cdf5b72448fe6d73c972975b1ab95b
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 7ace80bf326395d3b68f3e745100cd45356d7973
+ms.sourcegitcommit: 144edccf9b29a7ffad119c235ac9808ec1a46193
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78412867"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81434098"
 ---
 # <a name="getting-started-with-ef-core"></a>EF Core の概要
 
@@ -95,7 +95,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 
 EF Core では、既存のデータベースからモデルを[リバース エンジニアリング](../managing-schemas/scaffolding.md)することもできます。
 
-ヒント :実際のアプリでは、クラスはそれぞれ別々のファイルに記述し、[接続文字列](../miscellaneous/connection-strings.md)は構成ファイルまたは環境変数に記述します。 チュートリアルをわかりやすくするために、すべてを 1 つのファイルに記述しています。
+ヒント :このアプリケーションでは、わかりやすくするために意図的に事をシンプルにしています。 運用アプリケーションのコードに、[接続文字列](../miscellaneous/connection-strings.md) は格納しないでください。 また、各 C# クラスを独自のファイルに分割することが必要な場合もあります。
 
 ## <a name="create-the-database"></a>データベースの作成
 
