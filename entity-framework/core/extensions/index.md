@@ -1,15 +1,15 @@
 ---
 title: ツールと拡張機能 - EF Core
 author: ErikEJ
-ms.date: 12/17/2019
+ms.date: 04/11/2020
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: e3806f7161fecfe66450d3e08f97caf3d2c84cf3
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 3fa407ca36d32a33a6bc889cd54ff88537510e9c
+ms.sourcegitcommit: 387cbd8109c0fc5ce6bdc85d0dec1aed72ad4c33
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "80634239"
+ms.lasthandoff: 04/23/2020
+ms.locfileid: "82103114"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -22,7 +22,7 @@ ms.locfileid: "80634239"
 
 ### <a name="llblgen-pro"></a>LLBLGen Pro
 
-LLBLGen Pro は、Entity Framework と Entity Framework Core のサポートを備えたエンティティ モデリング ソリューションです。 これにより、エンティティ モデルを定義し、データベースに Database-First または Model-First を使って簡単にマップできるようになるため、クエリの記述をすぐに始めることができます。 対象の EF Core:2.
+LLBLGen Pro は、Entity Framework と Entity Framework Core のサポートを備えたエンティティ モデリング ソリューションです。 これにより、エンティティ モデルを定義し、データベースに Database-First または Model-First を使って簡単にマップできるようになるため、クエリの記述をすぐに始めることができます。 対象の EF Core:2、3
 
 [Web サイト](https://www.llblgen.com/)
 
@@ -71,11 +71,11 @@ EF Core によって実行されたデータ変更を履歴テーブルに自動
 
 [GitHub リポジトリ](https://github.com/Arch/AutoHistory/)
 
-### <a name="efsecondlevelcachecore"></a>EFSecondLevelCache.Core
+### <a name="efcoresecondlevelcacheinterceptor"></a>EFCoreSecondLevelCacheInterceptor
 
-同じクエリの後続の実行によってデータベースにアクセスされたり、キャッシュからデータが直接取得されたりしないように、2 番目のレベルのキャッシュに EF Core クエリの結果が格納されるようにする拡張機能。 対象の EF Core:2.
+第 2 レベルのキャッシュは、クエリ キャッシュです。 EF コマンドの結果はキャッシュに保存されます。これにより同じ EF コマンドが実行されたときにデータベースからではなくキャッシュからデータが取得されるようになります。 対象の EF Core:3.
 
-[GitHub リポジトリ](https://github.com/VahidN/EFSecondLevelCache.Core/)
+[GitHub リポジトリ](https://github.com/VahidN/EFCoreSecondLevelCacheInterceptor)
 
 ### <a name="geco"></a>Geco
 
@@ -172,13 +172,13 @@ SQL Server を使用している開発者がテンポラル テーブルを簡�
 
 ### <a name="expressionify"></a>Expressionify
 
-LINQ ラムダ式で拡張メソッドを呼び出すためのサポートを追加します。 対象の EF Core:3.1
+LINQ ラムダ式で拡張メソッドを呼び出すためのサポートを追加します。 対象の EF Core:3.
 
 [GitHub リポジトリ](https://github.com/ClaveConsulting/Expressionify)
 
 ### <a name="xlinq"></a>XLinq
 
-リレーショナル データベース用の統合言語クエリ (LINQ) テクノロジ。 C# を使用して、厳密に型指定されたクエリを記述できます。 対象の EF Core:3.1
+リレーショナル データベース用の統合言語クエリ (LINQ) テクノロジ。 C# を使用して、厳密に型指定されたクエリを記述できます。 対象の EF Core:3.
 
 - クエリの作成時のラムダ、変数、関数内での複数のステートメントなどの C# の完全なサポート。
 - SQL と意味的な違いはありません。 XLinq では SQL ステートメント (`SELECT`、`FROM`、`WHERE`) を第一級の C# メソッドとして、使い慣れた構文を intellisense、タイプ セーフおよびリファクタリングと組み合わせ宣言します。
@@ -186,3 +186,27 @@ LINQ ラムダ式で拡張メソッドを呼び出すためのサポートを追
 その結果、SQL はその API をローカルに公開する、文字どおりの *"統合言語 SQL"* である "もう 1 つの" クラス ライブラリになります。
 
 [Web サイト](http://xlinq.live/)
+
+### <a name="ramses"></a>Ramses
+
+ライフサイクル フック (SaveChanges 用)。 対象の EF Core:2、3。
+
+[GitHub リポジトリ](https://github.com/JValck/Ramses)
+
+### <a name="efcorenamingconventions"></a>EFCore.NamingConventions
+
+これにより、snake_case を含むすべてのテーブル名と列名が自動的にすべて大文字またはすべて小文字の名前になります。 対象の EF Core:3.
+
+[GitHub リポジトリ](https://github.com/efcore/EFCore.NamingConventions)
+
+### <a name="simplersoftwareentityframeworkcoresqlservernodatime"></a>SimplerSoftware.EntityFrameworkCore.SqlServer.NodaTime
+
+NodaTime の SQL Server 用 EntityFrameworkCore にネイティブ サポートを追加します。 対象の EF Core:3.
+
+[GitHub リポジトリ](https://github.com/StevenRasmussen/EFCore.SqlServer.NodaTime)
+
+### <a name="dabbleentityframeworkcoretemporalquery"></a>Dabble.EntityFrameworkCore.Temporal.Query
+
+Microsoft SQL Server テンポラル テーブル クエリをサポートするための Entity Framework Core 3.1 の LINQ 拡張機能。 対象の EF Core:3.
+
+[GitHub リポジトリ](https://github.com/Adam-Langley/efcore-temporal-query)
