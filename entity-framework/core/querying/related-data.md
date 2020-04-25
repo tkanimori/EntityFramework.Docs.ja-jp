@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 915aaa41beb495a046f2d6260e9c3b174d5f3031
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: bfd6e161ed7f7bf96e61946f94c8eeadd24a72f5
+ms.sourcegitcommit: 144edccf9b29a7ffad119c235ac9808ec1a46193
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413721"
+ms.lasthandoff: 04/16/2020
+ms.locfileid: "81434189"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -49,12 +49,33 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-含まれているエンティティの 1 つについて複数の関連エンティティを含めることができます。 たとえば、`Blogs` をクエリするときに、`Posts` を含め、さらに `Author` の `Tags` と `Posts` の両方を含めたい場合があります。 この場合、ルートから始まる各インクルード パスを指定する必要があります。 たとえば、`Blog -> Posts -> Author` や `Blog -> Posts -> Tags`す。 これで冗長的な結合を実現することにはならず、ほとんどの場合、SQL を生成するときに EF で結合は統合されます。
+含まれているエンティティの 1 つについて複数の関連エンティティを含めることができます。 たとえば、`Blogs` をクエリするときに、`Posts` を含め、さらに `Posts` の `Author` と `Tags` の両方を含めたい場合があります。 この場合、ルートから始まる各インクルード パスを指定する必要があります。 たとえば、`Blog -> Posts -> Author` と`Blog -> Posts -> Tags` です。 これで冗長的な結合を実現することにはならず、ほとんどの場合、SQL を生成するときに EF で結合は統合されます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
 > [!CAUTION]
 > バージョン 3.0.0 より、各 `Include` によって追加の JOIN がリレーショナル プロバイダーによって作成された SQL クエリに追加されます。以前のバージョンでは追加の SQL クエリが生成されていました。 これにより、クエリのパフォーマンスが良かれ悪しかれ大幅に変わります。 特に、`Include` 演算子が非常に多い LINQ クエリは、デカルト爆発の問題を回避するために、複数の個別の LINQ クエリに分割する必要がある場合があります。
+
+### <a name="filtered-include"></a>フィルター処理されたインクルード
+
+> [!NOTE]
+> この機能は EF Core 5.0 で導入されています。
+
+インクルードを適用して関連データを読み込む場合は、インクルードされているコレクション ナビゲーションに特定の列挙可能な操作を適用できます。これにより、結果のフィルター処理と並べ替えが可能になります。
+
+サポートされている操作は、`Where`、`OrderBy`、`OrderByDescending`、`ThenBy`、`ThenByDescending`、`Skip`、`Take` です。
+
+このような操作は、次の例に示すように、インクルード メソッドに渡されるラムダのコレクション ナビゲーションに適用する必要があります。
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#FilteredInclude)]
+
+インクルードされている各ナビゲーションでは、フィルター操作の一意のセットが 1 つだけ許可されます。 特定のコレクション ナビゲーション (次の例では `blog.Posts`) に複数のインクルード操作が適用されている場合、フィルター操作はそのいずれかでのみ指定できます。 
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludesFiltered1)]
+
+また、複数回インクルードされているナビゲーションごとに、同一の操作を適用することもできます。
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludesFiltered2)]
 
 ### <a name="include-on-derived-types"></a>派生型に対するインクルード
 
@@ -108,7 +129,7 @@ public class School
   context.People.Include(person => (person as Student).School).ToList()
   ```
 
-* 型 `Include` のパラメーターを受け取る `string` のオーバーロードを使用する
+* 型 `string` のパラメーターを受け取る `Include` のオーバーロードを使用する
 
   ```csharp
   context.People.Include("School").ToList()
@@ -176,7 +197,7 @@ public class Post
 
 ### <a name="lazy-loading-without-proxies"></a>プロキシを使用しない遅延読み込み
 
-遅延読み込みプロキシは、`ILazyLoader`エンティティ型コンストラクター[に関するページで説明されているように、エンティティに ](../modeling/constructors.md) サービスを挿入することで機能します。 次に例を示します。
+遅延読み込みプロキシは、[エンティティ型コンストラクター](../modeling/constructors.md)に関するページで説明されているように、エンティティに `ILazyLoader` サービスを挿入することで機能します。 次に例を示します。
 
 ```csharp
 public class Blog
@@ -231,7 +252,7 @@ public class Post
 }
 ```
 
-この場合、エンティティ型を継承したり、ナビゲーション プロパティを仮想にしたりする必要はありません。コンテキストにアタッチされたときに、`new` で作成されたエンティティ インスタンスの遅延読み込みを実行することができます。 ただし、これには、`ILazyLoader`Microsoft.EntityFrameworkCore.Abstractions[ パッケージで定義される ](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) サービスが必要です。 このパッケージに含まれる型のセットは、それに依存してもほとんど影響がないように、最低限のセットになっています。 しかし、エンティティ型で EF Core パッケージへの依存を完全に回避するには、デリゲートとして `ILazyLoader.Load` メソッドを挿入することが可能です。 次に例を示します。
+この場合、エンティティ型を継承したり、ナビゲーション プロパティを仮想にしたりする必要はありません。コンテキストにアタッチされたときに、`new` で作成されたエンティティ インスタンスの遅延読み込みを実行することができます。 ただし、これには、[Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) パッケージで定義される `ILazyLoader` サービスが必要です。 このパッケージに含まれる型のセットは、それに依存してもほとんど影響がないように、最低限のセットになっています。 しかし、エンティティ型で EF Core パッケージへの依存を完全に回避するには、デリゲートとして `ILazyLoader.Load` メソッドを挿入することが可能です。 次に例を示します。
 
 ```csharp
 public class Blog
@@ -314,9 +335,9 @@ EF Core はナビゲーション プロパティを自動的に修正するの�
 
 一部のシリアル化フレームワークでは、このような循環は許可されていません。 たとえば、Json.NET では、循環が発生した場合に次の例外をスローします。
 
-> Newtonsoft.Json.JsonSerializationException: Self referencing loop detected for property 'Blog' with type 'MyApplication.Models.Blog'.
+> Newtonsoft.Json.JsonSerializationException:Self referencing loop detected for property 'Blog' with type 'MyApplication.Models.Blog'.
 
-ASP.NET Core を使用している場合は、オブジェクト グラフで見つかった循環を無視するように Json.NET を構成できます。 この操作は、`ConfigureServices(...)` の `Startup.cs` メソッドで実行します。
+ASP.NET Core を使用している場合は、オブジェクト グラフで見つかった循環を無視するように Json.NET を構成できます。 この操作は、`Startup.cs` の `ConfigureServices(...)` メソッドで実行します。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)
