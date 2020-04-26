@@ -4,12 +4,12 @@ description: EF Core 5.0 の新機能の概要
 author: ajcvickers
 ms.date: 03/30/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew.md
-ms.openlocfilehash: c047a308cadf44eea577dcab29b68b36942a50df
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: c902988920e3b1a6039808fe0658fc19dee2728a
+ms.sourcegitcommit: 387cbd8109c0fc5ce6bdc85d0dec1aed72ad4c33
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "80634282"
+ms.lasthandoff: 04/23/2020
+ms.locfileid: "82103075"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -20,6 +20,106 @@ EF Core 5.0 は現在開発中です。
 このプランでは、最終リリースの出荷前に含めようとしているものすべてを含めた、EF Core 5.0 のテーマ全体について説明します。
 
 公開されている公式ドキュメントについては、リンクが追加されます。
+
+## <a name="preview-3"></a>Preview 3
+
+### <a name="filtered-include"></a>フィルター処理されたインクルード
+
+Include メソッドでは、インクルードされるエンティティのフィルター処理がサポートされるようになりました。
+次に例を示します。
+
+```CSharp
+var blogs = context.Blogs
+    .Include(e => e.Posts.Where(p => p.Title.Contains("Cheese")))
+    .ToList();
+```
+
+このクエリでは、投稿のタイトルに "チーズ" が含まれている場合にのみ、関連付けられている各投稿と共にブログが返されます。
+
+Skip と Take を使用して、インクルードされるエンティティの数を減らすこともできます。
+次に例を示します。
+ 
+```CSharp
+var blogs = context.Blogs
+    .Include(e => e.Posts.OrderByDescending(post => post.Title).Take(5)))
+    .ToList();
+```
+このクエリでは、ブログ 1 件あたり最大 5 件の投稿が含まれるブログが返されます。
+
+詳細については、[インクルードに関するドキュメント](xref:core/querying/related-data#filtered-include)を参照してください。
+
+### <a name="new-modelbuilder-api-for-navigation-properties"></a>ナビゲーション プロパティの新しい ModelBuilder API
+
+ナビゲーション プロパティは、主に[リレーションシップを定義する](xref:core/modeling/relationships)ときに構成されます。
+ただし、ナビゲーション プロパティに追加の構成が必要な場合は、新しい `Navigation` メソッドを使用できます。
+たとえば、フィールドが規約によって見つからない場合にナビゲーションにバッキング フィールドを設定するには、次を実行します。
+
+```CSharp
+modelBuilder.Entity<Blog>().Navigation(e => e.Posts).HasField("_myposts");
+```
+
+`Navigation` API は、リレーションシップの構成に代わるものではないことに注意してください。
+代わりに、既に検出または定義されたリレーションシップで、ナビゲーション プロパティの追加構成を行うことができます。
+
+ドキュメントは、イシュー [#2302](https://github.com/dotnet/EntityFramework.Docs/issues/2302) で追跡されます。
+
+### <a name="new-command-line-parameters-for-namespaces-and-connection-strings"></a>名前空間と接続文字列の新しいコマンドライン パラメーター 
+
+移行とスキャフォールディングでは、コマンド ラインで名前空間を指定できるようになりました。
+たとえば、別の名前空間にコンテキスト クラスとモデル クラスを配置するデータベースをリバース エンジニアリングするには、次を実行します。 
+
+```
+dotnet ef dbcontext scaffold "connection string" Microsoft.EntityFrameworkCore.SqlServer --context-namespace "My.Context" --namespace "My.Model"
+```
+
+また、接続文字列を `database-update` コマンドに渡すことができるようになりました。
+
+```
+dotnet ef database update --connection "connection string"
+```
+
+VS パッケージ マネージャー コンソールで使用される PowerShell コマンドにも、同等のパラメーターが追加されています。
+
+ドキュメントは、イシュー [#2303](https://github.com/dotnet/EntityFramework.Docs/issues/2303) で追跡されます。
+
+### <a name="enabledetailederrors-has-returned"></a>EnableDetailedErrors が返された
+
+パフォーマンス上の理由から、EF では、データベースから値を読み取るときに追加の null チェックは行われません。
+これにより、予期しない null が検出された場合に、根本原因を突き止めることが困難な例外が発生する可能性があります。
+
+`EnableDetailedErrors` を使用すると、クエリに null チェックがさらに追加されます。パフォーマンスのオーバーヘッドが小さいため、これらのエラーでは、根本原因まで簡単に追跡できるようになります。  
+
+次に例を示します。
+```CSharp
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .EnableDetailedErrors()
+        .EnableSensitiveDataLogging() // Often also useful with EnableDetailedErrors 
+        .UseSqlServer(Your.SqlServerConnectionString);
+```
+
+ドキュメントは、イシュー [#955](https://github.com/dotnet/EntityFramework.Docs/issues/955) で追跡されます。
+
+### <a name="cosmos-partition-keys"></a>Cosmos のパーティション キー
+
+指定されたクエリに使用するパーティション キーをクエリで指定できるようになりました。
+次に例を示します。
+
+```CSharp
+await context.Set<Customer>()
+             .WithPartitionKey(myPartitionKey)
+             .FirstAsync();
+```
+
+ドキュメントは、イシュー [#2199](https://github.com/dotnet/EntityFramework.Docs/issues/2199) で追跡されます。
+
+### <a name="support-for-the-sql-server-datalength-function"></a>SQL Server DATALENGTH 関数のサポート
+
+これには、新しい `EF.Functions.DataLength` メソッドを使用してアクセスできます。
+次に例を示します。
+```CSharp
+var count = context.Orders.Count(c => 100 < EF.Functions.DataLength(c.OrderDate));
+``` 
 
 ## <a name="preview-2"></a>Preview 2
 
