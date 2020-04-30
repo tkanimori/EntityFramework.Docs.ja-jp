@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 09/18/2018
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: a9ce6d5b5f36a72e3715a9de787f1f00e989a58c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 0676475d46a8d21dee7bd10e25dd273a11e96ac3
+ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414201"
+ms.lasthandoff: 04/29/2020
+ms.locfileid: "82538402"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core ツールリファレンス-Visual Studio のパッケージマネージャーコンソール
 
@@ -23,7 +23,7 @@ Visual Studio を使用していない場合は、代わりに[EF Core コマン
 
 ### <a name="aspnet-core-version-21-and-later"></a>ASP.NET Core バージョン2.1 以降
 
-`Microsoft.EntityFrameworkCore.Tools` パッケージは[AspNetCore メタパッケージ](/aspnet/core/fundamentals/metapackage-app)に含まれているため、ツールは ASP.NET Core 2.1 以降のプロジェクトに自動的に含まれます。
+`Microsoft.EntityFrameworkCore.Tools`パッケージは[AspNetCore メタパッケージ](/aspnet/core/fundamentals/metapackage-app)に含まれているので、ツールは ASP.NET Core 2.1 以降のプロジェクトに自動的に含まれます。
 
 そのため、ツールをインストールするために何もする必要はありませんが、次の操作を行う必要があります。
 
@@ -32,7 +32,7 @@ Visual Studio を使用していない場合は、代わりに[EF Core コマン
 
 最新バージョンのツールを入手するには、次の手順も実行することをお勧めします。
 
-* *.Csproj*ファイルを編集し、最新バージョンの[Microsoft Entityframeworkcore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/)パッケージを指定する行を追加します。 たとえば、.csproj ファイルには、次のような `ItemGroup` が含ま*れ*ている可能性があります。
+* *.Csproj*ファイルを編集し、最新バージョンの[Microsoft Entityframeworkcore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/)パッケージを指定する行を追加します。 たとえば、.csproj ファイルには、 `ItemGroup`次のようなを含めることができ*ます。*
 
   ```xml
   <ItemGroup>
@@ -119,7 +119,7 @@ SHORT DESCRIPTION
 
 ### <a name="other-target-frameworks"></a>その他のターゲットフレームワーク
 
-パッケージマネージャーコンソールツールは、.NET Core または .NET Framework プロジェクトで使用できます。 .NET Standard クラスライブラリに EF Core モデルがあるアプリには、.NET Core または .NET Framework プロジェクトがない可能性があります。 たとえば、これは Xamarin とユニバーサル Windows プラットフォームアプリに当てはまります。 このような場合は、ツールのスタートアッププロジェクトとして機能することだけを目的とした .NET Core または .NET Framework コンソールアプリプロジェクトを作成できます。 プロジェクトは、実際のコードを持たないダミープロジェクトにすることができます &mdash;、ツールのターゲットを指定するためにのみ必要です。
+パッケージマネージャーコンソールツールは、.NET Core または .NET Framework プロジェクトで使用できます。 .NET Standard クラスライブラリに EF Core モデルがあるアプリには、.NET Core または .NET Framework プロジェクトがない可能性があります。 たとえば、これは Xamarin とユニバーサル Windows プラットフォームアプリに当てはまります。 このような場合は、ツールのスタートアッププロジェクトとして機能することだけを目的とした .NET Core または .NET Framework コンソールアプリプロジェクトを作成できます。 プロジェクトは、実際のコード&mdash;を持たないダミープロジェクトにすることができます。これは、ツールのターゲットを指定するためにのみ必要です。
 
 ダミープロジェクトが必要な理由 前述のように、ツールはデザイン時にアプリケーションコードを実行する必要があります。 そのためには、.NET Core または .NET Framework ランタイムを使用する必要があります。 EF Core モデルが .NET Core または .NET Framework を対象とするプロジェクト内にある場合、EF Core ツールはプロジェクトからランタイムを借用します。 EF Core モデルが .NET Standard クラスライブラリ内にある場合は、これを行うことはできません。 .NET Standard は実際の .NET 実装ではありません。これは、.NET 実装がサポートする必要のある一連の Api の仕様です。 したがって、EF Core ツールでアプリケーションコードを実行するために .NET Standard は十分ではありません。 スタートアッププロジェクトとして使用するために作成するダミープロジェクトは、ツールが .NET Standard クラスライブラリを読み込むことができる具象ターゲットプラットフォームを提供します。
 
@@ -131,42 +131,43 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 次の表に、すべての EF Core コマンドに共通のパラメーターを示します。
 
-| パラメーター                 | Description                                                                                                                                                                                                          |
+| パラメーター                 | 説明                                                                                                                                                                                                          |
 |:--------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| -コンテキスト \<文字列 >        | 使用する `DbContext` クラス。 クラス名のみ、または名前空間で完全修飾されています。  このパラメーターを省略した場合、EF Core によってコンテキストクラスが検索されます。 複数のコンテキストクラスがある場合は、このパラメーターが必要です。 |
-| -Project \<文字列 >        | ターゲットプロジェクト。 このパラメーターを省略すると、**パッケージマネージャーコンソール**の**既定のプロジェクト**がターゲットプロジェクトとして使用されます。                                                                             |
-| -StartupProject \<文字列 > | スタートアッププロジェクト。 このパラメーターを省略すると、**ソリューションのプロパティ**の**スタートアッププロジェクト**がターゲットプロジェクトとして使用されます。                                                                                 |
+| -コンテキスト\<文字列>        | 使用する `DbContext` クラス。 クラス名のみ、または名前空間で完全修飾されています。  このパラメーターを省略した場合、EF Core によってコンテキストクラスが検索されます。 複数のコンテキストクラスがある場合は、このパラメーターが必要です。 |
+| -プロジェクト\<文字列>        | ターゲットプロジェクト。 このパラメーターを省略すると、**パッケージマネージャーコンソール**の**既定のプロジェクト**がターゲットプロジェクトとして使用されます。                                                                             |
+| <nobr>-Startupproject</nobr> \<String> | スタートアッププロジェクト。 このパラメーターを省略すると、**ソリューションのプロパティ**の**スタートアッププロジェクト**がターゲットプロジェクトとして使用されます。                                                                                 |
 | -Verbose                  | 詳細出力を表示します。                                                                                                                                                                                                 |
 
-コマンドに関するヘルプ情報を表示するには、PowerShell の `Get-Help` コマンドを使用します。
+コマンドに関するヘルプ情報を表示するには、 `Get-Help` PowerShell のコマンドを使用します。
 
 > [!TIP]
 > Context、Project、および StartupProject の各パラメーターでは、タブの展開がサポートされています。
 
-## <a name="add-migration"></a>Add-Migration
+## <a name="add-migration"></a>移行の追加
 
 新しい移行を追加します。
 
 パラメーター:
 
-| パラメーター                         | Description                                                                                                             |
+| パラメーター                         | 説明                                                                                                             |
 |:----------------------------------|:------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-Name \<String ><nobr>       | 移行の名前。 位置指定パラメーターは、これが必要です。                                              |
-| <nobr>-OutputDir \<文字列 ></nobr> | 使用するディレクトリ (およびサブ名前空間)。 パスでは、ターゲット プロジェクトのディレクトリに対して相対的です。 既定値は「移行」です。 |
+| <nobr>-Name \<文字列><nobr>       | 移行の名前。 これは位置指定パラメーターであり、必須です。                                              |
+| <nobr>-OutputDir \<文字列></nobr> | ファイルの出力に使用するディレクトリ。 パスは、ターゲットプロジェクトディレクトリに対する相対パスです。 既定値は "移行" です。 |
+| <nobr>-名前\<空間文字列></nobr> | 生成されたクラスに使用する名前空間。 既定値は、出力ディレクトリから生成されます。 |
 
-## <a name="drop-database"></a>Drop-Database
+## <a name="drop-database"></a>Drop Database
 
 データベースを削除します。
 
 パラメーター:
 
-| パラメーター | Description                                              |
+| パラメーター | 説明                                              |
 |:----------|:---------------------------------------------------------|
 | -WhatIf   | 削除するデータベースを表示しますが、削除はしません。 |
 
 ## <a name="get-dbcontext"></a>Get-DbContext
 
-`DbContext` 型に関する情報を取得します。
+`DbContext`型に関する情報を取得します。
 
 ## <a name="remove-migration"></a>Remove-Migration
 
@@ -174,27 +175,29 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 パラメーター:
 
-| パラメーター | Description                                                                     |
+| パラメーター | 説明                                                                     |
 |:----------|:--------------------------------------------------------------------------------|
 | -Force    | 移行を元に戻します (データベースに適用された変更をロールバックします)。 |
 
 ## <a name="scaffold-dbcontext"></a>スキャフォールディング-DbContext
 
-データベースの `DbContext` およびエンティティ型のコードを生成します。 `Scaffold-DbContext` がエンティティ型を生成するためには、データベーステーブルに主キーが必要です。
+データベースの`DbContext`およびエンティティ型のコードを生成します。 でエンティティ型`Scaffold-DbContext`を生成するには、データベーステーブルに主キーが必要です。
 
 パラメーター:
 
-| パラメーター                          | Description                                                                                                                                                                                                                                                             |
+| パラメーター                          | 説明                                                                                                                                                                                                                                                             |
 |:-----------------------------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>-接続 \<文字列 ></nobr> | データベースへの接続文字列。 ASP.NET Core 2.x プロジェクトの場合、値は、*接続文字列 > の名前を\<名前*にすることができます。 その場合、プロジェクト用に設定されている構成ソースから名前を取得します。 位置指定パラメーターは、これが必要です。 |
-| <nobr>-プロバイダー \<文字列 ></nobr>   | 使用するプロバイダー。 通常、これは NuGet パッケージの名前です (例: `Microsoft.EntityFrameworkCore.SqlServer`)。 位置指定パラメーターは、これが必要です。                                                                                           |
-| -OutputDir \<文字列 >               | ファイルを配置するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。                                                                                                                                                                                             |
-| -ContextDir \<文字列 >              | `DbContext` ファイルを格納するディレクトリ。 パスでは、プロジェクト ディレクトリに対して相対的です。                                                                                                                                                                              |
-| -コンテキスト \<文字列 >                 | 生成する `DbContext` クラスの名前。                                                                                                                                                                                                                          |
-| -Schema \<String [] >               | エンティティ型を生成するテーブルのスキーマ。 このパラメーターを省略すると、すべてのスキーマが含まれます。                                                                                                                                                             |
+| <nobr>-接続\<文字列></nobr> | データベースへの接続文字列。 ASP.NET Core 2.x プロジェクトの場合、値には*名前 =\<接続文字列>の名前*を指定できます。 その場合、プロジェクト用に設定されている構成ソースから名前を取得します。 これは位置指定パラメーターであり、必須です。 |
+| <nobr>-プロバイダー \<文字列></nobr>   | 使用するプロバイダー。 通常、これは NuGet パッケージの名前です (例: `Microsoft.EntityFrameworkCore.SqlServer`)。 これは位置指定パラメーターであり、必須です。                                                                                           |
+| -OutputDir \<文字列>               | ファイルを格納するディレクトリ。 パスは、プロジェクトディレクトリに対する相対パスです。                                                                                                                                                                                             |
+| -ContextDir \<文字列>              | `DbContext`ファイルを格納するディレクトリ。 パスは、プロジェクトディレクトリに対する相対パスです。                                                                                                                                                               |
+| -名前\<空間文字列>               | 生成されたすべてのクラスに使用する名前空間。 既定値は、ルート名前空間と出力ディレクトリから生成されます。                                                                                                                                                                                             |
+| -ContextNamespace \<文字列>        | 生成さ`DbContext`れたクラスに使用する名前空間。 注: は`-Namespace`オーバーライドされます。                                                                                                                                                                              |
+| -コンテキスト\<文字列>                 | 生成する`DbContext`クラスの名前。                                                                                                                                                                                                                          |
+| -スキーマ\<文字列 [] >               | エンティティ型を生成するテーブルのスキーマ。 このパラメーターを省略すると、すべてのスキーマが含まれます。                                                                                                                                                             |
 | -Tables \<String [] >                | エンティティ型を生成するテーブル。 このパラメーターを省略すると、すべてのテーブルが含まれます。                                                                                                                                                                         |
 | -DataAnnotations                   | 属性を使用してモデルを構成します (可能な場合)。 このパラメーターを省略した場合は、fluent API のみが使用されます。                                                                                                                                                      |
-| -UseDatabaseNames                  | テーブル名と列名は、データベースに表示されるとおりに使用します。 このパラメーターを省略した場合、データベース名は、名前のスタイルC#規則により厳密に準拠するように変更されます。                                                                                       |
+| -UseDatabaseNames 場合                  | テーブル名と列名は、データベースに表示されるとおりに使用します。 このパラメーターを省略した場合、データベース名は、C# の名前のスタイル規則により厳密に準拠するように変更されます。                                                                                       |
 | -Force                             | 既存のファイルを上書きします。                                                                                                                                                                                                                                               |
 
 例:
@@ -203,24 +206,24 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models
 ```
 
-選択したテーブルのみをスキャフォールディングし、指定した名前の別のフォルダーにコンテキストを作成する例を次に示します。
+選択されたテーブルのみをスキャフォールディングし、指定された名前と名前空間を持つ別のフォルダーにコンテキストを作成する例を次に示します。
 
 ```powershell
-Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Blog","Post" -ContextDir Context -Context BlogContext
+Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Blog","Post" -ContextDir Context -Context BlogContext -ContextNamespace New.Namespace
 ```
 
-## <a name="script-migration"></a>Script-Migration
+## <a name="script-migration"></a>スクリプト-移行
 
 選択した移行のすべての変更を、選択した別の移行に適用する SQL スクリプトを生成します。
 
 パラメーター:
 
-| パラメーター                | Description                                                                                                                                                                                                                |
+| パラメーター                | 説明                                                                                                                                                                                                                |
 |:-------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| *-* \<文字列 > から        | 開始の移行。 移行は名前または ID で識別される可能性があります。 数値0は、*最初の移行の前に*特別なケースです。 既定値は 0 です。                                                              |
-| *-文字列 > を \<するには*          | 終了の移行。 移行の最後の既定値します。                                                                                                                                                                      |
-| <nobr>-べき等</nobr> | すべての移行でのデータベースで使用できるスクリプトを生成します。                                                                                                                                                         |
-| -出力 \<文字列 >        | 結果を書き込むファイル。 このパラメーターを省略すると、 */obj/Debug/netcoreapp2.1/ghbkztfz.sql/* のように、アプリのランタイムファイルが作成されたときと同じフォルダーに生成された名前でファイルが作成されます。 |
+| *-* \<文字列> から        | 移行を開始しています。 移行は、名前または ID で識別できます。 数値0は、*最初の移行の前に*特別なケースです。 既定値は 0 です。                                                              |
+| *-To* \<文字列>          | 移行を終了しています。 既定では、最後の移行になります。                                                                                                                                                                      |
+| <nobr>-べき等</nobr> | 任意の移行時にデータベースで使用できるスクリプトを生成します。                                                                                                                                                         |
+| -出力\<文字列>        | 結果の書き込み先のファイル。 このパラメーターを省略すると、 */obj/Debug/netcoreapp2.1/ghbkztfz.sql/* のように、アプリのランタイムファイルが作成されたときと同じフォルダーに生成された名前でファイルが作成されます。 |
 
 > [!TIP]
 > To、From、および Output パラメーターでは、タブの拡張がサポートされています。
@@ -237,13 +240,14 @@ Script-Migration -To InitialCreate
 Script-Migration -From 20180904195021_InitialCreate
 ```
 
-## <a name="update-database"></a>Update-Database
+## <a name="update-database"></a>データベースの更新
 
 最後に移行したデータベース、または指定した移行にデータベースを更新します。
 
-| パラメーター                           | Description                                                                                                                                                                                                                                                     |
+| パラメーター                           | 説明                                                                                                                                                                                                                                                     |
 |:------------------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr> *-移行*\<文字列 ></nobr> | Target の移行。 移行は名前または ID で識別される可能性があります。 数値0は、*最初の移行の前に*特別なケースであり、すべての移行が元に戻されます。 移行が指定されていない場合のコマンドは、既定最後の移行になります。 |
+| <nobr>*-移行* \<文字列></nobr> | ターゲットの移行。 移行は、名前または ID で識別できます。 数値0は、*最初の移行の前に*特別なケースであり、すべての移行が元に戻されます。 移行が指定されていない場合、コマンドは既定で最後の移行になります。 |
+| <nobr>-接続\<文字列></nobr>  | データベースへの接続文字列。 既定値は、または`AddDbContext` `OnConfiguring`で指定されたものです。 |
 
 > [!TIP]
 > 移行パラメーターでは、タブの拡張がサポートされています。
@@ -254,14 +258,14 @@ Script-Migration -From 20180904195021_InitialCreate
 Update-Database -Migration 0
 ```
 
-次の例では、指定された移行にデータベースを更新します。 最初のは移行名を使用し、2番目のは移行 ID を使用します。
+次の例では、指定された移行にデータベースを更新します。 最初のは移行名を使用し、2つ目のは移行 ID と指定された接続を使用します。
 
 ```powershell
 Update-Database -Migration InitialCreate
-Update-Database -Migration 20180904195021_InitialCreate
+Update-Database -Migration 20180904195021_InitialCreate -Connection your_connection_string
 ```
 
 ## <a name="additional-resources"></a>その他のリソース
 
 * [移行](xref:core/managing-schemas/migrations/index)
-* [リバース エンジニアリング](xref:core/managing-schemas/scaffolding)
+* [リバースエンジニアリング](xref:core/managing-schemas/scaffolding)

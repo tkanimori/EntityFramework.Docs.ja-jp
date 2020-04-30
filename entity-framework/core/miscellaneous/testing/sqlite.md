@@ -1,54 +1,46 @@
 ---
 title: SQLite を使用したテスト-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 7a2b75e2-1875-4487-9877-feff0651b5a6
+description: SQLite を使用した EF Core アプリケーションのテスト
+author: ajcvickers
+ms.date: 04/24/2020
 uid: core/miscellaneous/testing/sqlite
-ms.openlocfilehash: f7f847d8c766c0d4d7577ea6760ee72a17f84933
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 327fdc230df2a3b4094accf93fffa81f92e0a931
+ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414633"
+ms.lasthandoff: 04/29/2020
+ms.locfileid: "82538283"
 ---
-# <a name="testing-with-sqlite"></a>SQLite のテスト
+# <a name="using-sqlite-to-test-an-ef-core-application"></a>SQLite を使用した EF Core アプリケーションのテスト
 
-SQLite にはメモリ内モードがあり、これを使用すると、実際のデータベース操作のオーバーヘッドを発生させることなく、リレーショナルデータベースに対して SQLite を使用してテストを作成することができます。
+> [!WARNING]
+> SQLite を使用すると、EF Core アプリケーションをテストする効果的な方法になります。
+> ただし、SQLite の動作が他のデータベースシステムと異なる場合は、問題が発生する可能性があります。 問題とトレードオフの詳細については、「 [EF Core を使用したコードのテスト](xref:core/miscellaneous/testing/index)」を参照してください。  
 
-> [!TIP]  
-> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing)は GitHub でご覧いただけます。
+このドキュメントでは、 [EF Core を使用するアプリケーションのテスト方法を示すサンプル](xref:core/miscellaneous/testing/testing-sample)で導入された概念について説明します。
+このサンプルのコード例を次に示します。
 
-## <a name="example-testing-scenario"></a>テストシナリオの例
+## <a name="using-sqlite-in-memory-databases"></a>SQLite インメモリデータベースの使用
 
-アプリケーションコードがブログに関連するいくつかの操作を実行できるようにするには、次のサービスを検討してください。 内部的には、SQL Server データベースに接続する `DbContext` を使用します。 このコンテキストをスワップしてメモリ内の SQLite データベースに接続すると、コードを変更しなくても効率的なテストを作成できるようになります。また、コンテキストのテスト double を作成するために作業を行うこともできます。
+通常、SQLite は単純なファイルとしてデータベースを作成し、アプリケーションでインプロセスのファイルにアクセスします。
+これは、特に高速[SSD](https://en.wikipedia.org/wiki/Solid-state_drive)を使用する場合には非常に高速です。 
 
-[!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
+SQLite では、単にメモリ内で作成されたデータベースを使用することもできます。
+これは、インメモリデータベースの有効期間を理解していれば、EF Core で簡単に使用できます。
+* データベースへの接続が開かれると、データベースが作成されます。
+* データベースへの接続が閉じられると、データベースは削除されます。
 
-## <a name="get-your-context-ready"></a>コンテキストの準備
+指定されている場合、既に開いている接続が使用されるため、EF Core は閉じようとしません。
+そのため、メモリ内の SQLite データベースで EF Core を使用するには、EF に渡す前に接続を開く必要があります。  
 
-### <a name="avoid-configuring-two-database-providers"></a>2つのデータベースプロバイダーの構成を回避する
+この[サンプル](xref:core/miscellaneous/testing/testing-sample)では、次のコードを使用してこれを実現します。
 
-テストでは、InMemory プロバイダーを使用するようにコンテキストを外部で構成しようとしています。 コンテキストで `OnConfiguring` をオーバーライドしてデータベースプロバイダーを構成する場合は、データベースプロバイダーがまだ構成されていない場合にのみ構成するように、いくつかの条件付きコードを追加する必要があります。
+[!code-csharp[SqliteInMemory](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/Tests/SqliteInMemoryItemsControllerTest.cs?name=SqliteInMemory)]
 
-> [!TIP]  
-> ASP.NET Core を使用している場合は、このコードは必要ありません。これは、データベースプロバイダーがコンテキスト (Startup.cs) の外部で構成されているためです。
+注意:
+* メソッド`CreateInMemoryDatabase`は、SQLite メモリ内データベースを作成し、そのデータベースへの接続を開きます。
+* 作成さ`DbConnection`れたはから`ContextOptions`抽出され、保存されます。
+* リソースがリークしないようにテストが破棄されると、接続は破棄されます。 
 
-[!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
-
-### <a name="add-a-constructor-for-testing"></a>テスト用のコンストラクターを追加する
-
-別のデータベースに対してテストを有効にする最も簡単な方法は、コンテキストを変更して、`DbContextOptions<TContext>`を受け入れるコンストラクターを公開することです。
-
-[!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
-
-> [!TIP]  
-> `DbContextOptions<TContext>` は、接続先のデータベースなど、すべての設定をコンテキストに伝えます。 これは、コンテキストで OnConfiguring メソッドを実行して作成されたオブジェクトと同じです。
-
-## <a name="writing-tests"></a>テストの作成
-
-このプロバイダーを使用してテストするための鍵は、SQLite を使用するようにコンテキストに指示し、インメモリデータベースのスコープを制御する機能です。 データベースのスコープは、接続を開いたり閉じたりすることによって制御されます。 データベースのスコープは、接続が開いている期間です。 通常は、各テストメソッドにクリーンなデータベースが必要です。
-
->[!TIP]
-> `SqliteConnection()` と `.UseSqlite()` 拡張メソッドを使用するには、 [NuGet パッケージを](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/)参照してください。
-
-[!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/SQLite/BlogServiceTests.cs)]
+> [!NOTE]
+> [問題 #16103](https://github.com/dotnet/efcore/issues/16103)は、この接続管理を容易にする方法を追跡することです。 
