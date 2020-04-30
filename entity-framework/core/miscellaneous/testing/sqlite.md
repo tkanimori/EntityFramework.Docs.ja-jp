@@ -1,54 +1,46 @@
 ---
 title: SQLite を使用したテスト-EF Core
-author: rowanmiller
-ms.date: 10/27/2016
-ms.assetid: 7a2b75e2-1875-4487-9877-feff0651b5a6
+description: SQLite を使用した EF Core アプリケーションのテスト
+author: ajcvickers
+ms.date: 04/24/2020
 uid: core/miscellaneous/testing/sqlite
-ms.openlocfilehash: f7f847d8c766c0d4d7577ea6760ee72a17f84933
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 327fdc230df2a3b4094accf93fffa81f92e0a931
+ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414633"
+ms.lasthandoff: 04/29/2020
+ms.locfileid: "82538283"
 ---
-# <a name="testing-with-sqlite"></a><span data-ttu-id="68b2e-102">SQLite のテスト</span><span class="sxs-lookup"><span data-stu-id="68b2e-102">Testing with SQLite</span></span>
+# <a name="using-sqlite-to-test-an-ef-core-application"></a><span data-ttu-id="06b2f-103">SQLite を使用した EF Core アプリケーションのテスト</span><span class="sxs-lookup"><span data-stu-id="06b2f-103">Using SQLite to test an EF Core application</span></span>
 
-<span data-ttu-id="68b2e-103">SQLite にはメモリ内モードがあり、これを使用すると、実際のデータベース操作のオーバーヘッドを発生させることなく、リレーショナルデータベースに対して SQLite を使用してテストを作成することができます。</span><span class="sxs-lookup"><span data-stu-id="68b2e-103">SQLite has an in-memory mode that allows you to use SQLite to write tests against a relational database, without the overhead of actual database operations.</span></span>
+> [!WARNING]
+> <span data-ttu-id="06b2f-104">SQLite を使用すると、EF Core アプリケーションをテストする効果的な方法になります。</span><span class="sxs-lookup"><span data-stu-id="06b2f-104">Using SQLite can be an effective way to test an EF Core application.</span></span>
+> <span data-ttu-id="06b2f-105">ただし、SQLite の動作が他のデータベースシステムと異なる場合は、問題が発生する可能性があります。</span><span class="sxs-lookup"><span data-stu-id="06b2f-105">However, problems can arise where SQLite behaves differently from other database systems.</span></span> <span data-ttu-id="06b2f-106">問題とトレードオフの詳細については、「 [EF Core を使用したコードのテスト](xref:core/miscellaneous/testing/index)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="06b2f-106">See [Testing code that uses EF Core](xref:core/miscellaneous/testing/index) for a discussion of the issues and trade-offs.</span></span>  
 
-> [!TIP]  
-> <span data-ttu-id="68b2e-104">この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing)は GitHub でご覧いただけます。</span><span class="sxs-lookup"><span data-stu-id="68b2e-104">You can view this article's [sample](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing) on GitHub</span></span>
+<span data-ttu-id="06b2f-107">このドキュメントでは、 [EF Core を使用するアプリケーションのテスト方法を示すサンプル](xref:core/miscellaneous/testing/testing-sample)で導入された概念について説明します。</span><span class="sxs-lookup"><span data-stu-id="06b2f-107">This document builds uses on the concepts introduced in [Sample showing how to test applications that use EF Core](xref:core/miscellaneous/testing/testing-sample).</span></span>
+<span data-ttu-id="06b2f-108">このサンプルのコード例を次に示します。</span><span class="sxs-lookup"><span data-stu-id="06b2f-108">The code examples shown here come from this sample.</span></span>
 
-## <a name="example-testing-scenario"></a><span data-ttu-id="68b2e-105">テストシナリオの例</span><span class="sxs-lookup"><span data-stu-id="68b2e-105">Example testing scenario</span></span>
+## <a name="using-sqlite-in-memory-databases"></a><span data-ttu-id="06b2f-109">SQLite インメモリデータベースの使用</span><span class="sxs-lookup"><span data-stu-id="06b2f-109">Using SQLite in-memory databases</span></span>
 
-<span data-ttu-id="68b2e-106">アプリケーションコードがブログに関連するいくつかの操作を実行できるようにするには、次のサービスを検討してください。</span><span class="sxs-lookup"><span data-stu-id="68b2e-106">Consider the following service that allows application code to perform some operations related to blogs.</span></span> <span data-ttu-id="68b2e-107">内部的には、SQL Server データベースに接続する `DbContext` を使用します。</span><span class="sxs-lookup"><span data-stu-id="68b2e-107">Internally it uses a `DbContext` that connects to a SQL Server database.</span></span> <span data-ttu-id="68b2e-108">このコンテキストをスワップしてメモリ内の SQLite データベースに接続すると、コードを変更しなくても効率的なテストを作成できるようになります。また、コンテキストのテスト double を作成するために作業を行うこともできます。</span><span class="sxs-lookup"><span data-stu-id="68b2e-108">It would be useful to swap this context to connect to an in-memory SQLite database so that we can write efficient tests for this service without having to modify the code, or do a lot of work to create a test double of the context.</span></span>
+<span data-ttu-id="06b2f-110">通常、SQLite は単純なファイルとしてデータベースを作成し、アプリケーションでインプロセスのファイルにアクセスします。</span><span class="sxs-lookup"><span data-stu-id="06b2f-110">Normally, SQLite creates databases as simple files and accesses the file in-process with your application.</span></span>
+<span data-ttu-id="06b2f-111">これは、特に高速[SSD](https://en.wikipedia.org/wiki/Solid-state_drive)を使用する場合には非常に高速です。</span><span class="sxs-lookup"><span data-stu-id="06b2f-111">This is very fast, especially when using a fast [SSD](https://en.wikipedia.org/wiki/Solid-state_drive).</span></span> 
 
-[!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BlogService.cs)]
+<span data-ttu-id="06b2f-112">SQLite では、単にメモリ内で作成されたデータベースを使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="06b2f-112">SQLite can also use databases created purely in-memory.</span></span>
+<span data-ttu-id="06b2f-113">これは、インメモリデータベースの有効期間を理解していれば、EF Core で簡単に使用できます。</span><span class="sxs-lookup"><span data-stu-id="06b2f-113">This is easy to use with EF Core as long as you understand the in-memory database lifetime:</span></span>
+* <span data-ttu-id="06b2f-114">データベースへの接続が開かれると、データベースが作成されます。</span><span class="sxs-lookup"><span data-stu-id="06b2f-114">The database is created when the connection to it is opened</span></span>
+* <span data-ttu-id="06b2f-115">データベースへの接続が閉じられると、データベースは削除されます。</span><span class="sxs-lookup"><span data-stu-id="06b2f-115">The database is deleted when the connection to it is closed</span></span>
 
-## <a name="get-your-context-ready"></a><span data-ttu-id="68b2e-109">コンテキストの準備</span><span class="sxs-lookup"><span data-stu-id="68b2e-109">Get your context ready</span></span>
+<span data-ttu-id="06b2f-116">指定されている場合、既に開いている接続が使用されるため、EF Core は閉じようとしません。</span><span class="sxs-lookup"><span data-stu-id="06b2f-116">EF Core will use an already open connection when given one, and will never attempt to close it.</span></span>
+<span data-ttu-id="06b2f-117">そのため、メモリ内の SQLite データベースで EF Core を使用するには、EF に渡す前に接続を開く必要があります。</span><span class="sxs-lookup"><span data-stu-id="06b2f-117">So the key to using EF Core with an in-memory SQLite database is to open the connection before passing it to EF.</span></span>  
 
-### <a name="avoid-configuring-two-database-providers"></a><span data-ttu-id="68b2e-110">2つのデータベースプロバイダーの構成を回避する</span><span class="sxs-lookup"><span data-stu-id="68b2e-110">Avoid configuring two database providers</span></span>
+<span data-ttu-id="06b2f-118">この[サンプル](xref:core/miscellaneous/testing/testing-sample)では、次のコードを使用してこれを実現します。</span><span class="sxs-lookup"><span data-stu-id="06b2f-118">The [sample](xref:core/miscellaneous/testing/testing-sample) achieves this with the following code:</span></span>
 
-<span data-ttu-id="68b2e-111">テストでは、InMemory プロバイダーを使用するようにコンテキストを外部で構成しようとしています。</span><span class="sxs-lookup"><span data-stu-id="68b2e-111">In your tests you are going to externally configure the context to use the InMemory provider.</span></span> <span data-ttu-id="68b2e-112">コンテキストで `OnConfiguring` をオーバーライドしてデータベースプロバイダーを構成する場合は、データベースプロバイダーがまだ構成されていない場合にのみ構成するように、いくつかの条件付きコードを追加する必要があります。</span><span class="sxs-lookup"><span data-stu-id="68b2e-112">If you are configuring a database provider by overriding `OnConfiguring` in your context, then you need to add some conditional code to ensure that you only configure the database provider if one has not already been configured.</span></span>
+[!code-csharp[SqliteInMemory](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/Tests/SqliteInMemoryItemsControllerTest.cs?name=SqliteInMemory)]
 
-> [!TIP]  
-> <span data-ttu-id="68b2e-113">ASP.NET Core を使用している場合は、このコードは必要ありません。これは、データベースプロバイダーがコンテキスト (Startup.cs) の外部で構成されているためです。</span><span class="sxs-lookup"><span data-stu-id="68b2e-113">If you are using ASP.NET Core, then you should not need this code since your database provider is configured outside of the context (in Startup.cs).</span></span>
+<span data-ttu-id="06b2f-119">注意:</span><span class="sxs-lookup"><span data-stu-id="06b2f-119">Notice:</span></span>
+* <span data-ttu-id="06b2f-120">メソッド`CreateInMemoryDatabase`は、SQLite メモリ内データベースを作成し、そのデータベースへの接続を開きます。</span><span class="sxs-lookup"><span data-stu-id="06b2f-120">The `CreateInMemoryDatabase` method creates a SQLite in-memory database and opens the connection to it.</span></span>
+* <span data-ttu-id="06b2f-121">作成さ`DbConnection`れたはから`ContextOptions`抽出され、保存されます。</span><span class="sxs-lookup"><span data-stu-id="06b2f-121">The created `DbConnection` is extracted from the `ContextOptions` and saved.</span></span>
+* <span data-ttu-id="06b2f-122">リソースがリークしないようにテストが破棄されると、接続は破棄されます。</span><span class="sxs-lookup"><span data-stu-id="06b2f-122">The connection is disposed when the test is disposed so that resources are not leaked.</span></span> 
 
-[!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#OnConfiguring)]
-
-### <a name="add-a-constructor-for-testing"></a><span data-ttu-id="68b2e-114">テスト用のコンストラクターを追加する</span><span class="sxs-lookup"><span data-stu-id="68b2e-114">Add a constructor for testing</span></span>
-
-<span data-ttu-id="68b2e-115">別のデータベースに対してテストを有効にする最も簡単な方法は、コンテキストを変更して、`DbContextOptions<TContext>`を受け入れるコンストラクターを公開することです。</span><span class="sxs-lookup"><span data-stu-id="68b2e-115">The simplest way to enable testing against a different database is to modify your context to expose a constructor that accepts a `DbContextOptions<TContext>`.</span></span>
-
-[!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/BusinessLogic/BloggingContext.cs#Constructors)]
-
-> [!TIP]  
-> <span data-ttu-id="68b2e-116">`DbContextOptions<TContext>` は、接続先のデータベースなど、すべての設定をコンテキストに伝えます。</span><span class="sxs-lookup"><span data-stu-id="68b2e-116">`DbContextOptions<TContext>` tells the context all of its settings, such as which database to connect to.</span></span> <span data-ttu-id="68b2e-117">これは、コンテキストで OnConfiguring メソッドを実行して作成されたオブジェクトと同じです。</span><span class="sxs-lookup"><span data-stu-id="68b2e-117">This is the same object that is built by running the OnConfiguring method in your context.</span></span>
-
-## <a name="writing-tests"></a><span data-ttu-id="68b2e-118">テストの作成</span><span class="sxs-lookup"><span data-stu-id="68b2e-118">Writing tests</span></span>
-
-<span data-ttu-id="68b2e-119">このプロバイダーを使用してテストするための鍵は、SQLite を使用するようにコンテキストに指示し、インメモリデータベースのスコープを制御する機能です。</span><span class="sxs-lookup"><span data-stu-id="68b2e-119">The key to testing with this provider is the ability to tell the context to use SQLite, and control the scope of the in-memory database.</span></span> <span data-ttu-id="68b2e-120">データベースのスコープは、接続を開いたり閉じたりすることによって制御されます。</span><span class="sxs-lookup"><span data-stu-id="68b2e-120">The scope of the database is controlled by opening and closing the connection.</span></span> <span data-ttu-id="68b2e-121">データベースのスコープは、接続が開いている期間です。</span><span class="sxs-lookup"><span data-stu-id="68b2e-121">The database is scoped to the duration that the connection is open.</span></span> <span data-ttu-id="68b2e-122">通常は、各テストメソッドにクリーンなデータベースが必要です。</span><span class="sxs-lookup"><span data-stu-id="68b2e-122">Typically you want a clean database for each test method.</span></span>
-
->[!TIP]
-> <span data-ttu-id="68b2e-123">`SqliteConnection()` と `.UseSqlite()` 拡張メソッドを使用するには、 [NuGet パッケージを](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/)参照してください。</span><span class="sxs-lookup"><span data-stu-id="68b2e-123">To use `SqliteConnection()` and the `.UseSqlite()` extension method, reference the NuGet package [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite/).</span></span>
-
-[!code-csharp[Main](../../../../samples/core/Miscellaneous/Testing/TestProject/SQLite/BlogServiceTests.cs)]
+> [!NOTE]
+> <span data-ttu-id="06b2f-123">[問題 #16103](https://github.com/dotnet/efcore/issues/16103)は、この接続管理を容易にする方法を追跡することです。</span><span class="sxs-lookup"><span data-stu-id="06b2f-123">[Issue #16103](https://github.com/dotnet/efcore/issues/16103) is tracking ways to make this connection management easier.</span></span> 
