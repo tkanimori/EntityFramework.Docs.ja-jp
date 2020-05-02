@@ -1,15 +1,15 @@
 ---
-title: EF Core を使ったコンポーネントのテスト - EF Core
+title: EF Core を使用するコードのテスト - EF Core
 description: EF Core を使用するアプリケーションをテストするさまざまな方法
 author: ajcvickers
-ms.date: 03/23/2020
+ms.date: 04/22/2020
 uid: core/miscellaneous/testing/index
-ms.openlocfilehash: b1ab37ebb0a3aae09d5d5b225f746cf83dfba170
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 308128b0d51b9e0d1fc1ebb0ed00e803100efb52
+ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "80634248"
+ms.lasthandoff: 04/29/2020
+ms.locfileid: "82538361"
 ---
 # <a name="testing-code-that-uses-ef-core"></a>EF Core を使用するコードのテスト
 
@@ -19,6 +19,9 @@ ms.locfileid: "80634248"
 * データベースをまったく使用しない、テスト ダブルまたはその他のメカニズムを使用する。
 
 このドキュメントでは、これらの各選択肢とのトレードオフについて概説し、各方法で EF Core を使用する方法を示します。  
+
+> [!TIP]
+> ここで紹介した概念を示すコードについては、「[EF Core テストのサンプル](xref:core/miscellaneous/testing/testing-sample)」を参照してください。 
 
 ## <a name="all-database-providers-are-not-equal"></a>すべてのデータベース プロバイダーが同一ではない
 
@@ -30,7 +33,7 @@ EF Core データベース プロバイダーは、この共通のフレーム�
 これは基本的に、データベース プロバイダーを切り替えた場合、EF Core の動作が変わってしまい、別のすべての動作に明確に対応するとされていない限り、そのアプリケーションの正常な動作は期待できないことを意味します。
 ただし、リレーショナル データベース同士には共通性が多いため、多くの場合、これで機能します。
 これには良い点と悪い点があります。
-良い点は、データベースを比較的簡単に切り替えることができることです。
+良い点は、データベース システムを比較的簡単に切り替えることができることです。
 悪い点は、アプリケーションが新しいデータベース システムで完全にテストされていない場合、セキュリティについて誤った意識を与える可能性があるということです。  
 
 ## <a name="approach-1-production-database-system"></a>アプローチ 1: 運用データベース システム
@@ -45,20 +48,22 @@ EF Core データベース プロバイダーは、この共通のフレーム�
 SQL Azure と SQL Server は非常に似ているため、SQL Server でテストをすることは通常、妥当なトレードオフになります。
 ただし、それでも実稼働環境に移行する前に、SQL Azure 自体でもテストをした方が賢明です。
  
-### <a name="localdb"></a>LocalDb 
+### <a name="localdb"></a>LocalDB 
 
 すべての主要なデータベース システムには、ローカルでのテスト用の何らかの "開発者向けのバージョン" があります。
-SQL Server にも、[LocalDb](/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15) と呼ばれる機能があります。
-LocalDb の主な利点は、必要に応じてデータベース インスタンスを起動できることです。
+SQL Server にも [LocalDB](/sql/database-engine/configure-windows/sql-server-express-localdb?view=sql-server-ver15) という機能があります。
+LocalDB の主な利点は、必要に応じてデータベース インスタンスを起動できることです。
 これにより、テストを実行していないときも、お使いのコンピューター上でデータベース サービスが実行されることを回避できます。
 
-LocalDb に問題がないわけではありません。
+LocalDB に問題がないわけではありません。
 * これでは、[SQL Server Developer エディション](/sql/sql-server/editions-and-components-of-sql-server-2016?view=sql-server-ver15)がサポートするものをすべてサポートしていません。
 * Linux では利用できません。
 * サービスの起動後の最初のテスト実行では、遅延が発生する可能性があります。
 
 個人的には、私は自分の開発用コンピューターでデータベース サービスの実行が問題になったことはなく、開発者向けバージョンの一般使用をお勧めしています。
-ただし、これは特にあまり高性能ではない開発用コンピューターを使用している一部のユーザーには適していると言えるでしょう。  
+ただし、LocalDB は特にあまり高性能ではない開発用コンピューターを使用している一部のユーザーには適していると言えるでしょう。
+
+開発マシン上でデータベース システムを直接実行しないようにするには、SQL Server (またはその他のデータベース システム) を Docker コンテナー (または同様のもの) で実行する方法もあります。  
 
 ## <a name="approach-2-sqlite"></a>アプローチ 2: SQLite
 
@@ -105,8 +110,8 @@ EF Core 内部をテストする際には、これをテストにデータベー
 これを行うのは困難で、煩雑で、不安定です。
 **これは行わないでください。**
 
-代わりに、DbContext を使用するものの単体テストには、インメモリ データベースを使用します。
-この場合、テストがデータベースの動作に依存しないため、インメモリ データベースを使用するのが適切です。
+代わりに、DbContext を使用するものの単体テストには、EF インメモリ データベースを使用します。
+この場合、テストがデータベースの動作に依存しないため、EF インメモリ データベースを使用するのが適切です。
 実際のデータベース クエリや更新プログラムをテストには、これを行わないでください。   
 
-単体テストでのインメモリ データベースの使用に関する EF Core 固有のガイダンスについては、[インメモリ プロバイダーを使用したテスト](xref:core/miscellaneous/testing/in-memory)に関する記事を参照してください。
+[EF Core テスト サンプル](xref:core/miscellaneous/testing/testing-sample)は、EF インメモリ データベースだけでなく SQL Server と SQLite を使用したテストを示しています。 

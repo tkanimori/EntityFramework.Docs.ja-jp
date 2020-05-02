@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 10/05/2018
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 190057daed61c58c1f89ee8d775913458e413a50
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 99bb420d95cb86443b63ba05ce9e6b4ab838eff9
+ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "80136198"
+ms.lasthandoff: 04/29/2020
+ms.locfileid: "82538450"
 ---
 # <a name="migrations"></a>移行
 
@@ -62,7 +62,20 @@ Add-Migration InitialCreate
 変更の進行がわかるように、ファイル名のタイムスタンプは時系列順で維持されます。
 
 > [!TIP]
-> 移行ファイルは自由に移動したり、その名前空間を変更したりできます。 新しい移行は前回の移行の兄弟として作成されます。
+> 移行ファイルは自由に移動し、手動で名前空間を変更できます。 新しい移行は前回の移行の兄弟として作成されます。
+> 
+> また、`-Namespace` (パッケージ マネージャー コンソール) または `--namespace` (.NET Core CLI) を使用して、生成時に名前空間を指定することもできます。
+> ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+> 
+> ```dotnetcli
+> dotnet ef migrations add InitialCreate --namespace Your.Namespace
+> ```
+> 
+> ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
+> 
+> ``` powershell
+> Add-Migration InitialCreate -Namespace Your.Namespace
+> ```
 
 ## <a name="update-the-database"></a>データベースを更新する
 

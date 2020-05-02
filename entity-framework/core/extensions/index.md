@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 04/11/2020
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 3fa407ca36d32a33a6bc889cd54ff88537510e9c
-ms.sourcegitcommit: 387cbd8109c0fc5ce6bdc85d0dec1aed72ad4c33
+ms.openlocfilehash: 246cf687f2a087e9a9a569c875b27712ebe80c5c
+ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/23/2020
-ms.locfileid: "82103114"
+ms.lasthandoff: 04/29/2020
+ms.locfileid: "82538331"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -210,3 +210,9 @@ NodaTime の SQL Server 用 EntityFrameworkCore にネイティブ サポート�
 Microsoft SQL Server テンポラル テーブル クエリをサポートするための Entity Framework Core 3.1 の LINQ 拡張機能。 対象の EF Core:3.
 
 [GitHub リポジトリ](https://github.com/Adam-Langley/efcore-temporal-query)
+
+### <a name="entityframeworkcoresqlserverhierarchyid"></a>EntityFrameworkCore.SqlServer.HierarchyId
+
+SQL Server EF Core プロバイダーに hierarchyid のサポートを追加します。 対象の EF Core:3.
+
+[GitHub リポジトリ](https://github.com/efcore/EFCore.SqlServer.HierarchyId)
