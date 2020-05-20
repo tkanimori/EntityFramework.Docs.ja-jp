@@ -65,7 +65,7 @@ DocFX には、Windows または、Linux または macOS 用の Mono 上の .NET
 
 ### <a name="windows-instructions"></a>Windows での手順
 
-* *DocFX リリース*から [docfx.zip](https://github.com/dotnet/docfx/releases) をダウンロードして解凍します。
+* [DocFX リリース](https://github.com/dotnet/docfx/releases)から *docfx.zip* をダウンロードして解凍します。
 * DocFX を PATH に追加します。
 * コマンド ライン ウィンドウで、複製されたリポジトリ (ここには *docfx.json* ファイルが格納される) に移動し、次のコマンドを実行します。
 
