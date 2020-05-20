@@ -22,7 +22,7 @@ EF Core 2.2 では、[NetTopologySuite](https://github.com/NetTopologySuite/NetT
 
 空間データのサポートは、一連のプロバイダー固有の拡張機能パッケージとして実装されています。
 これらの各パッケージには、NTS 型用のマッピングとメソッド、および対応するデータベースの空間型と関数が用意されています。
-現在、このようなプロバイダーの拡張機能は [SQL Server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite/)、[SQLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite/)、([Npgsql プロジェクト](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite/)の) [PostgreSQL](https://www.npgsql.org/) で使用できます。
+現在、このようなプロバイダーの拡張機能は [SQL Server](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer.NetTopologySuite/)、[SQLite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite/)、([Npgsql プロジェクト](https://www.npgsql.org/)の) [PostgreSQL](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite/) で使用できます。
 空間型は、追加の拡張機能なしで、[EF Core のメモリ内プロバイダー](xref:core/providers/in-memory/index)と共に直接使用できます。
 
 プロバイダーの拡張機能をインストールすると、サポートされている型のプロパティをエンティティに追加できます。 次に例を示します。
