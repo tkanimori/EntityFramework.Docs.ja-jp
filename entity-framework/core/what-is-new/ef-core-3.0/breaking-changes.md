@@ -263,7 +263,7 @@ EF Core 3.0 以降、新しい `FromSqlRaw` および `FromSqlInterpolated` メ�
 
 **理由**
 
-`FromSql` 以外の任意の場所で `DbSet` を指定しても、さらなる意味や価値が追加されることはなく、特定のシナリオではあいまいさの原因となる可能性があります。
+`DbSet` 以外の任意の場所で `FromSql` を指定しても、さらなる意味や価値が追加されることはなく、特定のシナリオではあいまいさの原因となる可能性があります。
 
 **軽減策**
 
@@ -285,7 +285,7 @@ var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
 
 **新しい動作**
 
-EF Core 3.0 以降では、指定した型と ID を持つエンティティが、返されたグラフ内の異なる場所で検出されると、それぞれ異なるエンティティ インスタンスが作成されます。 たとえば、上記のクエリでは、2 つの製品が同じカテゴリに関連付けられている場合でも、各 `Category` に対して新しい `Product` インスタンスが返されるようになります。
+EF Core 3.0 以降では、指定した型と ID を持つエンティティが、返されたグラフ内の異なる場所で検出されると、それぞれ異なるエンティティ インスタンスが作成されます。 たとえば、上記のクエリでは、2 つの製品が同じカテゴリに関連付けられている場合でも、各 `Product` に対して新しい `Category` インスタンスが返されるようになります。
 
 **理由**
 
@@ -556,12 +556,12 @@ public class OrderDetails
     public string ShippingAddress { get; set; }
 }
 ```
-EF Core 3.0 より前のバージョンでは、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、新しい `OrderDetails` を追加する場合には常に `Order` インスタンスが必要でした。
+EF Core 3.0 より前のバージョンでは、`OrderDetails` が `Order` によって所有されている場合、または同じテーブルに明示的にマップされている場合、新しい `Order` を追加する場合には常に `OrderDetails` インスタンスが必要でした。
 
 
 **新しい動作**
 
-EF Core 3.0 以降では、`Order` なしで `OrderDetails` を追加することができ、主キー以外のすべての `OrderDetails` プロパティが NULL 値が許可される列にマップされます。
+EF Core 3.0 以降では、`OrderDetails` なしで `Order` を追加することができ、主キー以外のすべての `OrderDetails` プロパティが NULL 値が許可される列にマップされます。
 `OrderDetails` は、必要なプロパティのいずれにも値がない場合、または主キー以外に必要なプロパティがなく、すべてのプロパティが `null` の場合、EF Core のクエリの実行時に `null` に設定されます。
 
 **軽減策**
@@ -603,7 +603,7 @@ EF Core 3.0 より前のバージョンでは、`OrderDetails` が `Order` に�
 
 **新しい動作**
 
-EF Core 3.0 以降では、新しい `Version` 値が `Order` を所有している場合には `OrderDetails` に伝達されます。 それ以外の場合は、モデルの検証中に例外がスローされます。
+EF Core 3.0 以降では、新しい `Version` 値が `OrderDetails` を所有している場合には `Order` に伝達されます。 それ以外の場合は、モデルの検証中に例外がスローされます。
 
 **理由**
 
@@ -1001,7 +1001,7 @@ EF Core 3.0 以降では、`AddEntityFramework*` によって IMemoryCache サ�
 
 **軽減策**
 
-`AddEntityFramework*` または `AddDbContext` も呼び出された場合、ほとんどの場合、`AddDbContextPool` を呼び出す必要はありません。 したがって、最善の軽減策は、`AddEntityFramework*` の呼び出しを削除することです。
+`AddDbContext` または `AddDbContextPool` も呼び出された場合、ほとんどの場合、`AddEntityFramework*` を呼び出す必要はありません。 したがって、最善の軽減策は、`AddEntityFramework*` の呼び出しを削除することです。
 
 ご自身のアプリケーションでこれらのサービスが必要な場合は、[AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) を使用する前に、IMemoryCache の実装を DI コンテナーに明示的に登録します。
 
@@ -1031,7 +1031,7 @@ EF Core 3.0 以降では、`DbContext.Entry` の呼び出しで、特定のエ�
 
 **軽減策**
 
-3\.0 より前の動作を確保するには、`ChangeTracker.DetectChanges()` を呼び出す前に明示的に `Entry` を呼び出します。
+3.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChangeTracker.DetectChanges()` を呼び出します。
 
 ### <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>文字列とバイト配列のキーが既定でクライアントによって生成されない
 
@@ -1164,7 +1164,7 @@ EF Core 3.0 以前では、1 つの文字列と共に `HasOne` または `HasMan
 modelBuilder.Entity<Samurai>().HasOne("Entrance").WithOne();
 ```
 
-このコードは、プライベートである可能性がある `Samurai` ナビゲーション プロパティを使って、`Entrance` を他のエンティティ型に関連付けているように見えます。
+このコードは、プライベートである可能性がある `Entrance` ナビゲーション プロパティを使って、`Samurai` を他のエンティティ型に関連付けているように見えます。
 
 実際には、このコードは、ナビゲーション プロパティなしで、`Entrance` と呼ばれるエンティティ型に対してリレーションシップを作成しようとしています。
 
@@ -1205,7 +1205,7 @@ modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 
 **新しい動作**
 
-前述のメソッドは、以前と同じ `ValueTask<T>` に対して `T` を返すようになりました。
+前述のメソッドは、以前と同じ `T` に対して `ValueTask<T>` を返すようになりました。
 
 **理由**
 
@@ -1214,7 +1214,7 @@ modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 **軽減策**
 
 上記の API を待機しているだけのアプリケーションのみを再コンパイルする必要があります。ソースの変更は必要ありません。
-より複雑な使用方法 (返された `Task` を `Task.WhenAny()` に渡すなど) では通常、返された `ValueTask<T>` を `Task<T>` を呼び出すことによって `AsTask()` に変換する必要があります。
+より複雑な使用方法 (返された `Task` を `Task.WhenAny()` に渡すなど) では通常、返された `ValueTask<T>` を `AsTask()` を呼び出すことによって `Task<T>` に変換する必要があります。
 これにより、この変更による割り当ての削減が無効になることに注意してください。
 
 <a name="rtt"></a>
@@ -1367,7 +1367,7 @@ EF Core 3.0 以降では、EF Core で `SQLitePCLRaw.bundle_e_sqlite3` が使用
 
 **軽減策**
 
-iOS でネイティブの SQLite バージョンを使用するには、別の `Microsoft.Data.Sqlite` バンドルを使用するように `SQLitePCLRaw` を構成します。
+iOS でネイティブの SQLite バージョンを使用するには、別の `SQLitePCLRaw` バンドルを使用するように `Microsoft.Data.Sqlite` を構成します。
 
 <a name="guid"></a>
 

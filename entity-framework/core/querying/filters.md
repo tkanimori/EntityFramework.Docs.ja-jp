@@ -33,7 +33,7 @@ ms.locfileid: "78413763"
 
 _Blog_ エンティティの _tenantId_ フィールドの宣言をメモします。 これは、固有のテナントと各 Blog インスタンスの関連付けに使用されます。 また、_Post_ エンティティ型の _IsDeleted_ プロパティが定義されています。 これは、_Post_ インスタンスが "論理削除" されたかどうかの追跡を継続するために使用されます。 つまり、基になるデータを物理的に削除せずに、インスタンスは削除済みとしてマークされます。
 
-次に、_API を使用して_OnModelCreating`HasQueryFilter` でクエリフィルターを構成します。
+次に、`HasQueryFilter` API を使用して _OnModelCreating_ でクエリフィルターを構成します。
 
 [!code-csharp[Main](../../../samples/core/QueryFilters/Program.cs#Configuration)]
 

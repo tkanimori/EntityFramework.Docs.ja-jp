@@ -133,7 +133,7 @@ var query = context.Customers.Select(
 
 ## <a name="owned-attribute"></a>[Owned] 属性
 
-[ で型に注釈を付けるだけで、](xref:core/modeling/owned-entities)所有エンティティ型`[Owned]`を構成して、所有者エンティティをモデルに確実に追加できるようになりました。
+`[Owned]` で型に注釈を付けるだけで、[所有エンティティ型](xref:core/modeling/owned-entities)を構成して、所有者エンティティをモデルに確実に追加できるようになりました。
 
 ``` csharp
 [Owned]
@@ -162,7 +162,7 @@ _dotnet-ef_ コマンドは .NET Core SDK の一部になりました。した�
 
 ## <a name="state-change-events"></a>状態変更イベント
 
-`Tracked` の新しい `StateChanged` および `ChangeTracker` イベントを使用すると、エンティティの DbContext への移行またはその状態の変化に対応するロジックを記述することができます。
+`ChangeTracker` の新しい `Tracked` および `StateChanged` イベントを使用すると、エンティティの DbContext への移行またはその状態の変化に対応するロジックを記述することができます。
 
 ## <a name="raw-sql-parameter-analyzer"></a>生 SQL パラメーター アナライザー
 

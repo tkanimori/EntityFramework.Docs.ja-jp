@@ -50,7 +50,7 @@ ms.locfileid: "78413631"
 
 慣例として、`Employee.EmployeeId` プロパティは、ストア生成された `IDENTITY` 列です。
 
-ほとんどの状況で、上述した方法がキー プロパティに対して有効です。 しかし、SQL Server の `IDENTITY` 列に明示的な値を挿入するには、`IDENTITY_INSERT` を呼び出す前に `SaveChanges()` を手動で有効にする必要があります。
+ほとんどの状況で、上述した方法がキー プロパティに対して有効です。 しかし、SQL Server の `IDENTITY` 列に明示的な値を挿入するには、`SaveChanges()` を呼び出す前に `IDENTITY_INSERT` を手動で有効にする必要があります。
 
 > [!NOTE]  
 > SQL Server プロバイダー内で自動的にこれを行うための[機能要求](https://github.com/aspnet/EntityFramework/issues/703)が、バックログに用意されています。
@@ -76,7 +76,7 @@ ms.locfileid: "78413631"
 > [!NOTE]  
 > **EF Core 2.0 での変更:** 前のリリースでは、保存後の動作は `IsReadOnlyAfterSave` フラグ経由で制御されていました。 このフラグは廃止され、`AfterSaveBehavior` に置き換えられました。
 
-また、データベースには、`LastPayRaise` 操作中に `UPDATE` 列の値を生成するためのトリガーがあります。
+また、データベースには、`UPDATE` 操作中に `LastPayRaise` 列の値を生成するためのトリガーがあります。
 
 [!code-sql[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/employee_UPDATE.sql)]
 

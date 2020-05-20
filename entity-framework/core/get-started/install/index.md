@@ -41,7 +41,7 @@ NuGet パッケージをインストールまたは更新するには、.NET Cor
   dotnet add package Microsoft.EntityFrameworkCore.SqlServer
   ```
 
-* `dotnet add package` 修飾子を利用し、`-v` コマンドで特定のバージョンを指定できます。 たとえば、EF Core 2.2.0 のパッケージをインストールするには、コマンドの末尾に `-v 2.2.0` を追加します。
+* `-v` 修飾子を利用し、`dotnet add package` コマンドで特定のバージョンを指定できます。 たとえば、EF Core 2.2.0 のパッケージをインストールするには、コマンドの末尾に `-v 2.2.0` を追加します。
 
 詳細については、「[.NET コマンド ライン インターフェイス (CLI) ツール](/dotnet/core/tools/)」をご覧ください。
 

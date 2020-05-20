@@ -33,11 +33,11 @@ EF Core は、"_オプティミスティック コンカレンシー_" を実装
 
 データベース プロバイダーは、コンカレンシー トークン値の比較の実装を担います。
 
-リレーショナル データベースでは、EF Core は `WHERE` や `UPDATE` ステートメントの `DELETE` 句に、コンカレンシー トークン値のチェックを含みます。 ステートメントを実行した後、EF Core は、影響を受けた行数を読み取ります。
+リレーショナル データベースでは、EF Core は `UPDATE` や `DELETE` ステートメントの `WHERE` 句に、コンカレンシー トークン値のチェックを含みます。 ステートメントを実行した後、EF Core は、影響を受けた行数を読み取ります。
 
 影響を受けた行がない場合、コンカレンシーの競合が検出され、EF Core は `DbUpdateConcurrencyException` をスローします。
 
-たとえば、`LastName` 上でコンカレンシー トークンになるように、`Person` を構成できます。 これにより、Person 上での更新処理に、`WHERE` 句でのコンカレンシーのチェックが含まれるようになります。
+たとえば、`Person` 上でコンカレンシー トークンになるように、`LastName` を構成できます。 これにより、Person 上での更新処理に、`WHERE` 句でのコンカレンシーのチェックが含まれるようになります。
 
 ``` sql
 UPDATE [Person] SET [FirstName] = @p1
@@ -62,7 +62,7 @@ WHERE [PersonId] = @p0 AND [LastName] = @p2;
 
 コンカレンシーの競合を処理する一般的な方法は、次のとおりです。
 
-1. `DbUpdateConcurrencyException` の間に `SaveChanges` をキャッチします。
+1. `SaveChanges` の間に `DbUpdateConcurrencyException` をキャッチします。
 2. `DbUpdateConcurrencyException.Entries` を使用して、影響を受けるエンティティに対する新しい変更の設定を準備します。
 3. コンカレンシー トークンの元の値を更新して、データベースの現在の値を反映します。
 4. 競合が発生しなくなるまで、プロセスを再試行します。

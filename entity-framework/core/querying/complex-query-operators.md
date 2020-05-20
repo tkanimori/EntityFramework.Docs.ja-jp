@@ -56,7 +56,7 @@ CROSS JOIN [Posts] AS [p]
 
 ### <a name="collection-selector-references-outer-in-a-where-clause"></a>where 句でのコレクション セレクターによる外部参照
 
-コレクション セレクターに where 句があり、外部要素が参照される場合、EF Core ではそれがデータベース結合に変換され、述語が結合条件として使用されます。 通常、このケースは、外部要素のコレクション ナビゲーションをコレクション セレクターとして使用する場合に発生します。 外部要素のコレクションが空の場合、その外部要素の結果は生成されません。 しかし、コレクション セレクターに `DefaultIfEmpty` が適用されている場合、外部要素は内部要素の既定値と接続されます。 このような違いから、この種のクエリは、`INNER JOIN` と `DefaultIfEmpty` がない場合、および `LEFT JOIN` が適用されている場合に `DefaultIfEmpty` に変換されます。
+コレクション セレクターに where 句があり、外部要素が参照される場合、EF Core ではそれがデータベース結合に変換され、述語が結合条件として使用されます。 通常、このケースは、外部要素のコレクション ナビゲーションをコレクション セレクターとして使用する場合に発生します。 外部要素のコレクションが空の場合、その外部要素の結果は生成されません。 しかし、コレクション セレクターに `DefaultIfEmpty` が適用されている場合、外部要素は内部要素の既定値と接続されます。 このような違いから、この種のクエリは、`DefaultIfEmpty` と `LEFT JOIN` がない場合、および `DefaultIfEmpty` が適用されている場合に `INNER JOIN` に変換されます。
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToJoin)]
 
@@ -72,7 +72,7 @@ LEFT JOIN [Posts] AS [p] ON [b].[BlogId] = [p].[BlogId]
 
 ### <a name="collection-selector-references-outer-in-a-non-where-case"></a>where 以外のケースでのコレクション セレクターによる外部参照
 
-コレクション セレクターで、(上記のケースのように) where 句には含まれていない外部要素を参照する場合、データベース結合には変換されません。 そのため、外部の各要素のコレクション セレクターを評価する必要があります。 多くのリレーショナル データベースでは `APPLY` 演算に変換されます。 外部要素のコレクションが空の場合、その外部要素の結果は生成されません。 しかし、コレクション セレクターに `DefaultIfEmpty` が適用されている場合、外部要素は内部要素の既定値と接続されます。 このような違いから、この種のクエリは、`CROSS APPLY` と `DefaultIfEmpty` がない場合、および `OUTER APPLY` が適用されている場合に `DefaultIfEmpty` に変換されます。 SQLite のような特定のデータベースでは `APPLY` 演算子がサポートされないため、この種のクエリが変換されない場合があります。
+コレクション セレクターで、(上記のケースのように) where 句には含まれていない外部要素を参照する場合、データベース結合には変換されません。 そのため、外部の各要素のコレクション セレクターを評価する必要があります。 多くのリレーショナル データベースでは `APPLY` 演算に変換されます。 外部要素のコレクションが空の場合、その外部要素の結果は生成されません。 しかし、コレクション セレクターに `DefaultIfEmpty` が適用されている場合、外部要素は内部要素の既定値と接続されます。 このような違いから、この種のクエリは、`DefaultIfEmpty` と `OUTER APPLY` がない場合、および `DefaultIfEmpty` が適用されている場合に `CROSS APPLY` に変換されます。 SQLite のような特定のデータベースでは `APPLY` 演算子がサポートされないため、この種のクエリが変換されない場合があります。
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Sample.cs#SelectManyConvertedToApply)]
 

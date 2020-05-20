@@ -83,7 +83,7 @@ EF Core では提供された SQL がサブクエリとして扱われるため�
 
 - 末尾のセミコロン
 - SQL Server では、末尾のクエリ レベル ヒント (例: `OPTION (HASH JOIN)`)
-- SQL Server では、`ORDER BY` 句の `OFFSET 0` または `TOP 100 PERCENT` と共に使用されない `SELECT` 句
+- SQL Server では、`SELECT` 句の `OFFSET 0` または `TOP 100 PERCENT` と共に使用されない `ORDER BY` 句
 
 SQL Server ではストアド プロシージャ呼び出しを構成することができないため、そのような呼び出しに追加のクエリ演算子を適用しようとすると、無効な SQL が発生します。 EF Core でストアド プロシージャの構成が試行されないようにするには、`AsEnumerable` または `AsAsyncEnumerable` メソッドの直後に `FromSqlRaw` または `FromSqlInterpolated` メソッドを使用します。
 

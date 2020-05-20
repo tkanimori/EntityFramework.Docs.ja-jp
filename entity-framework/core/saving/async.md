@@ -18,6 +18,6 @@ ms.locfileid: "78413691"
 > [!WARNING]  
 > EF Core は、同じコンテキスト インスタンス上での複数の並列操作の実行をサポートしていません。 次の操作を開始する前に、操作が完了するまで常に待機する必要があります。 これは通常、各同期操作において `await` キーワードを使用することで行われます。
 
-Entity Framework Core では、`DbContext.SaveChangesAsync()` に対する非同期の代替として `DbContext.SaveChanges()`を提供しています。
+Entity Framework Core では、`DbContext.SaveChanges()` に対する非同期の代替として `DbContext.SaveChangesAsync()`を提供しています。
 
 [!code-csharp[Main](../../../samples/core/Saving/Async/Sample.cs#Sample)]
