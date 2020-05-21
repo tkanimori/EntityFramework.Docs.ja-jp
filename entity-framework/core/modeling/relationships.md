@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するときにエンティティ型
 author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
-ms.openlocfilehash: 6d68e813cec6c989e8e4cb848f8740489645c65c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 8d3df109f34c2a77305db1e2be2eea1694d7ad6b
+ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/15/2020
-ms.locfileid: "79402115"
+ms.lasthandoff: 05/20/2020
+ms.locfileid: "83672768"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -40,25 +40,25 @@ ms.locfileid: "79402115"
   
 * **自己参照リレーションシップ:** 依存エンティティ型とプリンシパルエンティティ型が同じリレーションシップ。
 
-次のコードは、`Blog` との間の一対多のリレーションシップを示してい `Post`
+次のコードは、との間の一対多リレーションシップを示しています。 `Blog``Post`
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/Full.cs#Full)]
 
-* `Post` が依存エンティティである
+* `Post`は依存エンティティです。
 
-* `Blog` はプリンシパルエンティティです。
+* `Blog`プリンシパルエンティティ
 
-* `Blog.BlogId` がプリンシパルキー (この場合は、代替キーではなく主キー) です。
+* `Blog.BlogId`は主キー (この場合は、代替キーではなく主キー) です。
 
-* `Post.BlogId` は外部キーです。
+* `Post.BlogId`は外部キーです。
 
-* `Post.Blog` は参照ナビゲーションプロパティです
+* `Post.Blog`参照ナビゲーションプロパティです
 
-* `Blog.Posts` はコレクションナビゲーションプロパティです。
+* `Blog.Posts`コレクションナビゲーションプロパティです
 
-* `Post.Blog` は `Blog.Posts` の逆ナビゲーションプロパティ (およびその逆) です。
+* `Post.Blog`はの逆ナビゲーションプロパティです `Blog.Posts` (逆も同様)。
 
-## <a name="conventions"></a>規則
+## <a name="conventions"></a>規約
 
 既定では、型に対してナビゲーションプロパティが検出されると、リレーションシップが作成されます。 プロパティは、参照先の型が現在のデータベースプロバイダーによってスカラー型としてマップされていない場合、ナビゲーションプロパティと見なされます。
 
@@ -85,15 +85,15 @@ ms.locfileid: "79402115"
 > プロパティが主キーであるか、またはプリンシパルキーと互換性のない型である場合、外部キーとして構成されません。
 
 > [!NOTE]
-> 3\.0 より EF Core 前では、プリンシパルキープロパティとまったく同じ名前のプロパティが、[外部キーとも一致](https://github.com/aspnet/EntityFrameworkCore/issues/13274)していました。
+> 3.0 より EF Core 前では、プリンシパルキープロパティとまったく同じ名前のプロパティが、[外部キーとも一致](https://github.com/aspnet/EntityFrameworkCore/issues/13274)していました。
 
 ### <a name="no-foreign-key-property"></a>外部キープロパティがありません
 
-依存エンティティクラスで外部キープロパティを定義することをお勧めしますが、必須ではありません。 外部キープロパティが見つからない場合は、`<navigation property name><principal key property name>` という名前の[シャドウ外部キープロパティ](shadow-properties.md)が導入されます。依存する型にナビゲーションが存在しない場合は `<principal entity name><principal key property name>` ます。
+依存エンティティクラスで外部キープロパティを定義することをお勧めしますが、必須ではありません。 外部キープロパティが見つからない場合は、という名前の[シャドウ外部キープロパティ](shadow-properties.md)が導入され `<navigation property name><principal key property name>` `<principal entity name><principal key property name>` ます。依存する型にナビゲーションが存在しない場合はになります。
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/NoForeignKey.cs?name=NoForeignKey&highlight=6,15)]
 
-この例では、ナビゲーション名の前に冗長があるため、シャドウ外部キーが `BlogId` ます。
+この例では、シャドウ外部キーは、 `BlogId` ナビゲーション名の前に冗長があるためです。
 
 > [!NOTE]
 > 同じ名前のプロパティが既に存在する場合は、シャドウプロパティ名の後に数字が付加されます。
@@ -120,7 +120,7 @@ ms.locfileid: "79402115"
 
 ### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
-Fluent API でリレーションシップを構成するには、まず、リレーションシップを構成するナビゲーションプロパティを特定します。 `HasOne` または `HasMany` によって、構成を開始するエンティティ型のナビゲーションプロパティが識別されます。 次に、`WithOne` または `WithMany` への呼び出しを連結して、逆のナビゲーションを識別します。 `HasOne`/`WithOne` は参照ナビゲーションプロパティに使用され、`HasMany`/`WithMany` コレクションのナビゲーションプロパティに使用されます。
+Fluent API でリレーションシップを構成するには、まず、リレーションシップを構成するナビゲーションプロパティを特定します。 `HasOne`またはは、 `HasMany` 構成を開始するエンティティ型のナビゲーションプロパティを識別します。 次に、またはへの呼び出しを連結し `WithOne` `WithMany` て、逆のナビゲーションを識別します。 `HasOne`/`WithOne`は、参照ナビゲーションプロパティに使用され、 `HasMany` / `WithMany` コレクションナビゲーションプロパティに使用されます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NoForeignKey.cs?name=NoForeignKey&highlight=8-10)]
 
@@ -134,15 +134,25 @@ Fluent API でリレーションシップを構成するには、まず、リレ
 > 依存エンティティのプロパティに対してのみ [必須] を使用すると、リレーションシップの requiredness に影響を与えることができます。 [必須] プリンシパルエンティティからのナビゲーションは通常は無視されますが、エンティティが依存するエンティティになる場合があります。
 
 > [!NOTE]
-> データ注釈 `[ForeignKey]` と `[InverseProperty]` は `System.ComponentModel.DataAnnotations.Schema` 名前空間で使用できます。 `[Required]` は、`System.ComponentModel.DataAnnotations` 名前空間で使用できます。
+> データ注釈 `[ForeignKey]` と `[InverseProperty]` は、名前空間で使用でき `System.ComponentModel.DataAnnotations.Schema` ます。 `[Required]`は、名前空間で使用でき `System.ComponentModel.DataAnnotations` ます。
 
 ---
 
 ### <a name="single-navigation-property"></a>単一ナビゲーションプロパティ
 
-ナビゲーションプロパティが1つしかない場合は、`WithOne` と `WithMany`のパラメーターなしのオーバーロードがあります。 これは、リレーションシップのもう一方の端には概念的に参照またはコレクションが存在するが、エンティティクラスにはナビゲーションプロパティが含まれていないことを示します。
+ナビゲーションプロパティが1つしかない場合は、とのパラメーターなしのオーバーロードがあり `WithOne` `WithMany` ます。 これは、リレーションシップのもう一方の端には概念的に参照またはコレクションが存在するが、エンティティクラスにはナビゲーションプロパティが含まれていないことを示します。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneNavigation.cs?name=OneNavigation&highlight=8-10)]
+
+---
+
+### <a name="configuring-navigation-properties"></a>ナビゲーションプロパティの構成
+
+ナビゲーションプロパティが作成された後で、さらに構成する必要がある場合があります。 EFCore 5.0 では、この構成を実行できるように新しい Fluent API が追加されています。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NavigationConfiguration.cs?name=NavigationConfiguration&highlight=7-9)]
+
+[!NOTE] この呼び出しを使用してナビゲーションプロパティを作成することはできません。 これは、リレーションシップの定義または規則によって以前に作成されたナビゲーションプロパティの構成にのみ使用されます。
 
 ### <a name="foreign-key"></a>外部キー
 
@@ -165,22 +175,22 @@ Fluent API を使用して、特定のリレーションシップの複合外部
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?name=ForeignKey&highlight=17)]
 
 > [!TIP]  
-> `[ForeignKey]` 注釈は、リレーションシップのいずれかのナビゲーションプロパティに配置できます。 依存エンティティクラスのナビゲーションプロパティに移動する必要はありません。
+> 注釈は、 `[ForeignKey]` リレーションシップのいずれかのナビゲーションプロパティに配置できます。 依存エンティティクラスのナビゲーションプロパティに移動する必要はありません。
 
 > [!NOTE]
-> ナビゲーションプロパティで `[ForeignKey]` を使用して指定されたプロパティは、依存する型を存在する必要はありません。 この場合、指定した名前を使用して、シャドウ外部キーが作成されます。
+> ナビゲーションプロパティでを使用して指定したプロパティは、 `[ForeignKey]` 依存する型を存在させる必要はありません。 この場合、指定した名前を使用して、シャドウ外部キーが作成されます。
 
 ---
 
 #### <a name="shadow-foreign-key"></a>シャドウ外部キー
 
-`HasForeignKey(...)` の文字列オーバーロードを使用して、shadow プロパティを外部キーとして構成できます (詳細については、「 [Shadow Properties](shadow-properties.md) 」を参照してください)。 次に示すように、外部キーとして使用する前に、シャドウプロパティをモデルに明示的に追加することをお勧めします。
+の文字列オーバーロードを使用し `HasForeignKey(...)` て、shadow プロパティを外部キーとして構成できます (詳細については、「 [shadow Properties](shadow-properties.md) 」を参照してください)。 次に示すように、外部キーとして使用する前に、シャドウプロパティをモデルに明示的に追加することをお勧めします。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ShadowForeignKey.cs?name=ShadowForeignKey&highlight=10,16)]
 
 #### <a name="foreign-key-constraint-name"></a>外部キー制約名
 
-規則により、リレーショナルデータベースを対象とする場合、外部キー制約には FK_<dependent type name> _<principal type name>_ <foreign key property name>という名前が付けられます。 複合外部キーの場合 <foreign key property name> は、外部キープロパティ名のアンダースコア区切りの一覧になります。
+規則により、リレーショナルデータベースを対象とする場合、外部キー制約には FK_ という名前が付けられ <dependent type name> _<principal type name>_ <foreign key property name> ます。 複合外部キーの場合 <foreign key property name> は、外部キープロパティ名のアンダースコアで区切られたリストになります。
 
 制約名は次のように構成することもできます。
 
@@ -216,7 +226,7 @@ Fluent API を使用して、リレーションシップが必須か省略可能
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?name=Required&highlight=6)]
 
 > [!NOTE]
-> `IsRequired(false)` を呼び出すと、他の方法で構成しない限り、外部キープロパティも省略可能になります。
+> を呼び出す `IsRequired(false)` と、特に構成されていない限り、外部キープロパティも省略可能になります。
 
 ### <a name="cascade-delete"></a>連鎖削除
 
@@ -237,9 +247,9 @@ Fluent API を使用して、特定のリレーションシップに対して連
 > [!NOTE]  
 > EF は、外部キープロパティを検出する機能に基づいて、依存するエンティティの1つを選択します。 依存関係として間違ったエンティティが選択されている場合は、Fluent API を使用してこれを修正できます。
 
-Fluent API との関係を構成する場合は、`HasOne` メソッドと `WithOne` メソッドを使用します。
+Fluent API との関係を構成する場合は、 `HasOne` メソッドとメソッドを使用し `WithOne` ます。
 
-外部キーを構成するときに、依存エンティティ型を指定する必要があります。次の一覧で `HasForeignKey` に提供されているジェネリックパラメーターに注意してください。 一対多のリレーションシップでは、参照ナビゲーションを持つエンティティが依存しており、コレクションを持つエンティティがプリンシパルであることが明らかです。 ただし、これは一対一のリレーションシップではないため、明示的に定義する必要があります。
+外部キーを構成するときは、依存エンティティ型を指定する必要があります。以下の一覧で、に提供されているジェネリックパラメーターに注意して `HasForeignKey` ください。 一対多のリレーションシップでは、参照ナビゲーションを持つエンティティが依存しており、コレクションを持つエンティティがプリンシパルであることが明らかです。 ただし、これは一対一のリレーションシップではないため、明示的に定義する必要があります。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?name=OneToOne&highlight=11)]
 

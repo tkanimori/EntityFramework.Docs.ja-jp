@@ -3,12 +3,12 @@ title: 同時実行の競合の処理-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2318e4d3-f561-4720-bbc3-921556806476
-ms.openlocfilehash: 81ae186201fdfac331b1d4e7836b222545fe78b5
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: a99f824fe256a10b84f539a5339a09624315efa4
+ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416247"
+ms.lasthandoff: 05/20/2020
+ms.locfileid: "83672708"
 ---
 # <a name="handling-concurrency-conflicts"></a>コンカレンシーの競合の処理
 オプティミスティック同時実行制御では、エンティティが読み込まれてからデータが変更されていないことを期待して、エンティティをデータベースに保存しようとしています。 データが変更されたことが判明した場合は、例外がスローされるので、再度保存する前に競合を解決する必要があります。 このトピックでは、Entity Framework でこのような例外を処理する方法について説明します。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -23,7 +23,7 @@ ms.locfileid: "78416247"
 
 ## <a name="resolving-optimistic-concurrency-exceptions-with-reload-database-wins"></a>再読み込みによるオプティミスティック同時実行例外の解決 (データベースの優先)  
 
-再読み込みメソッドを使用して、エンティティの現在の値をデータベース内の現在の値で上書きすることができます。 エンティティは通常、何らかの形でユーザーに戻され、再度変更を加えて再保存する必要があります。 次に例を示します。  
+再読み込みメソッドを使用して、エンティティの現在の値をデータベース内の現在の値で上書きすることができます。 エンティティは通常、何らかの形でユーザーに戻され、再度変更を加えて再保存する必要があります。 たとえば、次のように入力します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -52,7 +52,7 @@ using (var context = new BloggingContext())
 }
 ```  
 
-同時実行例外をシミュレートするには、SaveChanges 呼び出しにブレークポイントを設定し、SQL Management Studio などの別のツールを使用して、データベースに保存されているエンティティを変更することをお勧めします。 SaveChanges の前に行を挿入して、SqlCommand を使用してデータベースを直接更新することもできます。 次に例を示します。  
+同時実行例外をシミュレートするには、SaveChanges 呼び出しにブレークポイントを設定し、SQL Server Management Studio などの別のツールを使用してデータベースに保存されているエンティティを変更する方法が適しています。 SaveChanges の前に行を挿入して、SqlCommand を使用してデータベースを直接更新することもできます。 たとえば、次のように入力します。  
 
 ``` csharp
 context.Database.SqlCommand(
@@ -94,7 +94,7 @@ using (var context = new BloggingContext())
 
 ## <a name="custom-resolution-of-optimistic-concurrency-exceptions"></a>オプティミスティック同時実行例外のカスタム解決  
 
-場合によっては、現在データベース内にある値を、現在エンティティ内にある値と組み合わせる必要があります。 これには通常、カスタムロジックまたはユーザーの操作が必要です。 たとえば、現在の値、データベース内の値、および解決済みの値の既定のセットを含むフォームをユーザーに提示することができます。 その後、ユーザーは必要に応じて解決済みの値を編集し、データベースに保存される解決済みの値になります。 これは、エンティティのエントリの CurrentValues および GetDatabaseValues から返された DbPropertyValues オブジェクトを使用して行うことができます。 次に例を示します。  
+場合によっては、現在データベース内にある値を、現在エンティティ内にある値と組み合わせる必要があります。 これには通常、カスタムロジックまたはユーザーの操作が必要です。 たとえば、現在の値、データベース内の値、および解決済みの値の既定のセットを含むフォームをユーザーに提示することができます。 その後、ユーザーは必要に応じて解決済みの値を編集し、データベースに保存される解決済みの値になります。 これは、エンティティのエントリの CurrentValues および GetDatabaseValues から返された DbPropertyValues オブジェクトを使用して行うことができます。 たとえば、次のように入力します。  
 
 ``` csharp
 using (var context = new BloggingContext())

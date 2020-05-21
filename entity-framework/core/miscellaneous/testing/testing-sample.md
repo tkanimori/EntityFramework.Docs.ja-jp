@@ -1,22 +1,20 @@
 ---
-title: テストサンプルの EF Core-EF Core
-description: EF Core を使用するアプリケーションをテストする方法を示すサンプル
-author: ajcvickers
-ms.date: 04/22/2020
-uid: core/miscellaneous/testing/testing-sample
+title: ''
+description: ''
+author: ''
+ms.date: ''
+uid: ''
 no-loc:
 - Item
 - Tag
 - Items
 - Tags
-- items
-- tags
-ms.openlocfilehash: dda7191df7646aa06aab51d8d7891bd0ba155674
-ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
+ms.openlocfilehash: ae073fc0b3a99fb9de07a3e0a42c638fe0838a5a
+ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/29/2020
-ms.locfileid: "82564260"
+ms.lasthandoff: 05/20/2020
+ms.locfileid: "83672819"
 ---
 # <a name="ef-core-testing-sample"></a>EF Core テストのサンプル
 
@@ -34,13 +32,13 @@ ms.locfileid: "82564260"
 
 ### <a name="the-model-and-business-rules"></a>モデルとビジネスルール
 
-この API をサポートするモデルには、 ItemsととTagsいう2つのエンティティ型があります。
+この API をサポートするモデルには、とという2つのエンティティ型があり Items Tags ます。
 
-* Items大文字と小文字を区別する名前とTagsのコレクションを指定します。
-* 各Tagにはラベルと、 Itemに適用された回数を表すカウントがあります。
-* 各Itemには、指定Tagされたラベルを持つが1つだけ必要です。
+* Items大文字と小文字を区別する名前とのコレクションを指定 Tags します。
+* 各に Tag はラベルと、に適用された回数を表すカウントがあり Item ます。
+* 各 Item Tag には、指定されたラベルを持つが1つだけ必要です。
   * 同じラベルの付いた項目に複数回タグが付けられている場合、そのラベルを持つ既存のタグの数が、新しいタグではなくインクリメントされます。 
-* を削除Itemすると、関連Tags付けられているすべてのが削除します。
+* を削除 Item すると、関連付けられているすべてのが削除 Tags します。
 
 #### <a name="the-item-entity-type"></a>Itemエンティティ型
 
@@ -48,22 +46,22 @@ ms.locfileid: "82564260"
 
 [!code-csharp[ItemEntityType](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/Item.cs?name=ItemEntityType)]
 
-とその構成は`DbContext.OnModelCreating`次のとおりです。
+とその構成 `DbContext.OnModelCreating` は次のとおりです。
 
 [!code-csharp[ConfigureItem](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/ItemsContext.cs?name=ConfigureItem)]
 
 エンティティ型は、ドメインモデルとビジネスルールを反映するために使用できる方法に制約があることに注意してください。 特に次の点に違いがあります。
-- 主キーは`_id`フィールドに直接マップされ、一般公開されません。
+- 主キーはフィールドに直接マップされ、 `_id` 一般公開されません。
   - EF は、主キーの値と名前を受け入れるプライベートコンストラクターを検出して使用します。
 - `Name`プロパティは読み取り専用で、コンストラクターでのみ設定されます。 
-- Tagsは、任意の`IReadOnlyList<Tag>`変更を防ぐためにとして公開されます。
-  - EF は、 `Tags`名前を一致`_tags`させることによって、プロパティをバッキングフィールドに関連付けます。 
-  - メソッド`AddTag`は、タグラベルを受け取り、上で説明したビジネスルールを実装します。
+- Tagsは、任意の `IReadOnlyList<Tag>` 変更を防ぐためにとして公開されます。
+  - EF は、 `Tags` `_tags` 名前を一致させることによって、プロパティをバッキングフィールドに関連付けます。 
+  - メソッドは、 `AddTag` タグラベルを受け取り、上で説明したビジネスルールを実装します。
     つまり、タグは新しいラベルに対してのみ追加されます。
     それ以外の場合は、既存のラベルのカウントがインクリメントされます。
-- ナビゲーション`Tags`プロパティは多対一のリレーションシップ用に構成されています。
-  - からTagへItemのナビゲーションプロパティは必要ありません。そのため、このプロパティは含まれません。
-  - また、 Tagでは外部キープロパティが定義されていません。
+- `Tags`ナビゲーションプロパティは多対一のリレーションシップ用に構成されています。
+  - からへのナビゲーションプロパティは必要ありませ Tag ん Item 。そのため、このプロパティは含まれません。
+  - また、で Tag は外部キープロパティが定義されていません。
     代わりに、EF によってプロパティがシャドウ状態で作成および管理されます。
 
 #### <a name="the-tag-entity-type"></a>Tagエンティティ型
@@ -72,36 +70,36 @@ ms.locfileid: "82564260"
 
 [!code-csharp[TagEntityType](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/Tag.cs?name=TagEntityType)]
 
-とその構成は`DbContext.OnModelCreating`次のとおりです。
+とその構成 `DbContext.OnModelCreating` は次のとおりです。
 
 [!code-csharp[ConfigureTag](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/ItemsContext.cs?name=ConfigureTag)]
 
-と同様ItemにTag 、では主キーが非`Label`表示になり、プロパティは読み取り専用になります。
+と同様に Item 、では Tag 主キーが非表示になり、プロパティは読み取り専用になり `Label` ます。
 
 ### <a name="the-itemscontroller"></a>ItemsController
 
 Web API コントローラーは非常に基本的なものです。
-コンストラクターの挿入`DbContext`を通じて、依存関係の挿入コンテナーからを取得します。
+`DbContext`コンストラクターの挿入を通じて、依存関係の挿入コンテナーからを取得します。
 
 [!code-csharp[Constructor](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/Controllers/ItemsController.cs?name=Constructor)]
 
-このメソッドには、指定ItemsされItemた名前を持つすべてのまたはを取得するメソッドがあります。
+このメソッドには Items 、指定された名前を持つすべてのまたはを取得するメソッドがあり Item ます。
 
 [!code-csharp[Get](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/Controllers/ItemsController.cs?name=Get)]
 
-これには、新しいItemを追加するメソッドがあります。
+これには、新しいを追加するメソッドがあり Item ます。
 
 [!code-csharp[PostItem](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/Controllers/ItemsController.cs?name=PostItem)]
 
-ラベルをItem使用してにタグを付けるメソッド。
+ラベルを使用してにタグを付けるメソッド Item 。
 
 [!code-csharp[PostTag](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/Controllers/ItemsController.cs?name=PostTag)]
 
-とのすべての関連Item Tagsを削除するメソッドを次に示します。
+とのすべての関連を削除するメソッドを Item Tags 次に示します。
 
 [!code-csharp[DeleteItem](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/ItemsWebApi/Controllers/ItemsController.cs?name=DeleteItem)]
 
-ほとんどの検証とエラー処理は、煩雑さを減らすために削除されました。
+ほとんどの検証とエラー処理は、煩雑さを減らすために削除されています。
 
 ## <a name="the-tests"></a>テスト
 
@@ -145,7 +143,7 @@ XUnit は、ほとんどのテストフレームワークと同様に、テス�
 [!code-csharp[Seeding](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/Tests/ItemsControllerTest.cs?name=Seeding)]
 
 各具象テストクラスは、このから継承します。
-次に例を示します。
+たとえば、次のように入力します。
 
 [!code-csharp[SqliteItemsControllerTest](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/Tests/SqliteItemsControllerTest.cs?name=SqliteItemsControllerTest)]
 
@@ -153,18 +151,18 @@ XUnit は、ほとんどのテストフレームワークと同様に、テス�
 
 アプリケーションで依存関係の挿入が使用されている場合でも、テストは行われません。
 ここでは依存関係の挿入を使用することはできますが、必要な追加のコードはほとんど価値がありません。
-代わりに、を使用して`new` dbcontext が作成され、その後、依存関係としてコントローラーに直接渡されます。
+代わりに、を使用して DbContext が作成され、その `new` 後、依存関係としてコントローラーに直接渡されます。
 
 各テストでは、コントローラーでテスト対象のメソッドが実行され、結果が想定どおりにアサートされます。
-次に例を示します。
+たとえば、次のように入力します。
 
 [!code-csharp[CanGetItems](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/Tests/ItemsControllerTest.cs?name=CanGetItems)]
 
-データベースのシードとテストの実行には、異なる DbContext インスタンスが使用されていることに注意してください。 これにより、シード処理時にコンテキストによって追跡されるエンティティがテストで使用されないようになります。
+データベースのシードとテストの実行には、異なる DbContext インスタンスが使用されていることに注意してください。 これにより、シード処理の際に、コンテキストによって追跡されるエンティティがテストで使用されないようになります。
 また、web アプリとサービスの動作にも適しています。
 
 データベースを変化させるテストでは、同様の理由により、テストで2番目の DbContext インスタンスを作成します。
-つまり、変更が実際にデータベースに保存されていることを確認するために、新しいコンテキストを作成し、それをデータベースから読み取ります。 次に例を示します。
+つまり、変更がデータベースに保存されたことを確認するために、新しいコンテキストを作成し、それをデータベースから読み取ります。 たとえば、次のように入力します。
 
 [!code-csharp[CanAddItem](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/Tests/ItemsControllerTest.cs?name=CanAddItem)]
 
@@ -180,9 +178,9 @@ XUnit は、ほとんどのテストフレームワークと同様に、テス�
 これらの詳細については、 [EF Core を使用するコードのテスト](xref:core/miscellaneous/testing/index)に関する概念レベルで説明されています。  
 以下のセクションでは、このサンプルのテストで示されている問題の2つの例について説明します。
 
-### <a name="test-passes-when-application-is-broken"></a>アプリケーションが破損した場合のテスト成功
+### <a name="test-passes-when-the-application-is-broken"></a>アプリケーションが破損したときにテストに合格する
 
-アプリケーションの要件の1つは、"Items大文字と小文字を区別した名前とのTagsコレクションを持つ" ということです。
+アプリケーションの要件の1つは、" Items 大文字と小文字を区別した名前とのコレクションを持つ" ということです Tags 。
 これは非常に簡単にテストできます。
 
 [!code-csharp[CanAddItemCaseInsensitive](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/Tests/ItemsControllerTest.cs?name=CanAddItemCaseInsensitive)]
@@ -204,14 +202,14 @@ System.InvalidOperationException : Sequence contains more than one element
 これは、EF のメモリ内データベースと SQLite データベースの両方で既定で大文字と小文字が区別されるためです。
 一方、SQL Server では、大文字と小文字は区別されません。 
 
-EF Core では、大文字と小文字の区別の変更によってパフォーマンスが大幅に低下する可能性があるので、設計上、これらの動作は変更されません。
+EF Core では、大文字と小文字の区別の変更によってパフォーマンスが大幅に低下する可能性があるため、仕様により、これらの動作は変更されません。
 
 これが問題であることを確認したら、アプリケーションを修正し、テストを補うことができます。
 ただし、EF のインメモリデータベースまたは SQLite プロバイダーでテストする場合には、このバグが失われる可能性があります。
 
-### <a name="test-fails-when-application-is-correct"></a>アプリケーションが正しい場合にテストが失敗する 
+### <a name="test-fails-when-the-application-is-correct"></a>アプリケーションが正しい場合にテストが失敗する 
 
-アプリケーションの要件の1つとして、「を削除Itemすると、関連Tags付けられているすべてのものを削除する必要がある」ということです。
+アプリケーションの要件の1つは、「を削除すると、 Item 関連するすべてのものを削除する必要がある」ということです Tags 。
 ここでも、簡単にテストできます。
 
 [!code-csharp[DeleteItem](../../../../samples/core/Miscellaneous/Testing/ItemsWebApi/Tests/ItemsControllerTest.cs?name=DeleteItem)]

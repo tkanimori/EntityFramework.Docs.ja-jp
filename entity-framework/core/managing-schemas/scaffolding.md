@@ -5,16 +5,16 @@ ms.author: bricelam
 ms.date: 11/13/2018
 ms.assetid: 6263EF7D-4989-42E6-BDEE-45DA770342FB
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: 41204de8cd8c4f292afa16b209eb5302eaf74905
-ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
+ms.openlocfilehash: cb20120154101a9b92b4bf2bc06d20b1dafe88c1
+ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/29/2020
-ms.locfileid: "82538442"
+ms.lasthandoff: 05/20/2020
+ms.locfileid: "83672971"
 ---
 # <a name="reverse-engineering"></a> リバース エンジニアリング
 
-リバースエンジニアリングは、データベーススキーマに基づいてエンティティ型クラスおよび DbContext クラスをスキャフォールディングするプロセスです。 これは、EF Core パッケージマネージャー `Scaffold-DbContext`コンソール (PMC) ツールのコマンド、または .net コマンドライン`dotnet ef dbcontext scaffold`インターフェイス (CLI) ツールのコマンドを使用して実行できます。
+リバースエンジニアリングは、データベーススキーマに基づいてエンティティ型クラスおよび DbContext クラスをスキャフォールディングするプロセスです。 これは、 `Scaffold-DbContext` EF Core パッケージマネージャーコンソール (PMC) ツールのコマンド、または `dotnet ef dbcontext scaffold` .net コマンドラインインターフェイス (CLI) ツールのコマンドを使用して実行できます。
 
 ## <a name="installing"></a>インストール
 
@@ -26,19 +26,25 @@ ms.locfileid: "82538442"
 
 コマンドの最初の引数は、データベースへの接続文字列です。 ツールは、この接続文字列を使用してデータベーススキーマを読み取ります。
 
-接続文字列の引用符とエスケープ方法は、コマンドの実行に使用しているシェルによって異なります。 詳細については、シェルのドキュメントを参照してください。 たとえば、PowerShell では`$`文字をエスケープする必要があります`\`が、は使用しません。
+接続文字列の引用符とエスケープ方法は、コマンドの実行に使用しているシェルによって異なります。 詳細については、シェルのドキュメントを参照してください。 たとえば、PowerShell では文字をエスケープする必要がありますが、は使用 `$` しません `\` 。
 
-``` powershell
-Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer
-```
+### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
+
+``` powershell
+Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer
+```
+
+***
+
 ### <a name="configuration-and-user-secrets"></a>構成とユーザーシークレット
 
-ASP.NET Core のプロジェクトがある場合は、 `Name=<connection-string>`構文を使用して構成から接続文字列を読み取ることができます。
+ASP.NET Core のプロジェクトがある場合は、構文を使用して `Name=<connection-string>` 構成から接続文字列を読み取ることができます。
 
 これは、[シークレットマネージャーツール](https://docs.microsoft.com/aspnet/core/security/app-secrets#secret-manager)を使用すると、データベースのパスワードをコードベースとは別に保持するのに適しています。
 
@@ -55,29 +61,35 @@ dotnet ef dbcontext scaffold Name=Chinook Microsoft.EntityFrameworkCore.SqlServe
 
 データベーススキーマ内のすべてのテーブルは、既定でエンティティ型にリバースエンジニアリングされます。 スキーマとテーブルを指定することにより、リバースエンジニアリングされるテーブルを制限できます。
 
-PMC `-Schemas`のパラメーターと CLI の`--schema`オプションを使用して、スキーマ内のすべてのテーブルを含めることができます。
+### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-`-Tables`(PMC) と`--table` (CLI) を使用して、特定のテーブルを含めることができます。
+オプションを使用すると、スキーマ内のすべてのテーブルを含めることができますが、を使用して `--schema` `--table` 特定のテーブルを含めることができます。
 
-PMC に複数のテーブルを含めるには、配列を使用します。
-
-``` powershell
-Scaffold-DbContext ... -Tables Artist, Album
-```
-
-CLI に複数のテーブルを含めるには、オプションを複数回指定します。
+複数のテーブルを含めるには、オプションを複数回指定します。
 
 ```dotnetcli
 dotnet ef dbcontext scaffold ... --table Artist --table Album
 ```
 
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
+
+オプションを使用すると、スキーマ内のすべてのテーブルを含めることができますが、を使用して `-Schemas` `-Tables` 特定のテーブルを含めることができます。
+
+複数のテーブルを含めるには、次のように配列を使用します。
+
+``` powershell
+Scaffold-DbContext ... -Tables Artist, Album
+```
+
+***
+
 ## <a name="preserving-names"></a>名前の保持
 
-既定では、型およびプロパティの .NET の名前付け規則に一致するように、テーブル名と列名が固定されています。 PMC また`-UseDatabaseNames`は CLI の`--use-database-names`オプションでスイッチを指定すると、元のデータベース名を可能な限り保持したまま、この動作を無効にすることができます。 無効な .NET 識別子は修正されますが、ナビゲーションプロパティのような名前は、.NET の名前付け規則に準拠したままになります。
+既定では、型およびプロパティの .NET の名前付け規則に一致するように、テーブル名と列名が固定されています。 `-UseDatabaseNames`PMC または CLI のオプションでスイッチを指定すると、 `--use-database-names` 元のデータベース名を可能な限り保持したまま、この動作を無効にすることができます。 無効な .NET 識別子は修正されますが、ナビゲーションプロパティのような名前は、.NET の名前付け規則に準拠したままになります。
 
 ## <a name="fluent-api-or-data-annotations"></a>Fluent API またはデータ注釈
 
-エンティティ型は、既定では Fluent API を使用して構成されます。 可能`-DataAnnotations`な場合は、 `--data-annotations`代わりにデータ注釈を使用するように (PMC) または (CLI) を指定します。
+エンティティ型は、既定では Fluent API を使用して構成されます。 `-DataAnnotations` `--data-annotations` 可能な場合は、代わりにデータ注釈を使用するように (PMC) または (CLI) を指定します。
 
 たとえば、Fluent API を使用すると、次のようにスキャフォールディングます。
 
@@ -97,31 +109,41 @@ public string Title { get; set; }
 
 ## <a name="dbcontext-name"></a>DbContext 名
 
-スキャフォールディング DbContext クラス名は、既定で*コンテキスト*がサフィックスとして付けられたデータベースの名前になります。 別のものを指定するに`-Context`は、PMC `--context`と CLI でを使用します。
+スキャフォールディング DbContext クラス名は、既定で*コンテキスト*がサフィックスとして付けられたデータベースの名前になります。 別のものを指定するには、PMC と CLI でを使用し `-Context` `--context` ます。
 
 ## <a name="directories-and-namespaces"></a>ディレクトリと名前空間
 
-エンティティクラスと DbContext クラスは、プロジェクトのルートディレクトリにスキャフォールディングされ、プロジェクトの既定の名前空間を使用します。 (PMC) または`-OutputDir` `--output-dir` (CLI) を使用して、クラスをスキャフォールディングするディレクトリを指定できます。
+エンティティクラスと DbContext クラスは、プロジェクトのルートディレクトリにスキャフォールディングされ、プロジェクトの既定の名前空間を使用します。
 
-また、(PMC `-ContextDir` ) と`--context-dir` (CLI) を使用して、エンティティ型クラスとは別のディレクトリに dbcontext クラスをスキャフォールディングすることもできます。
+### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
-``` powershell
-Scaffold-DbContext ... -ContextDir Data -OutputDir Models
-```
+クラスがスキャフォールディングを使用しているディレクトリを指定することができます。また、このディレクトリを使用して、 `--output-dir` `--context-dir` エンティティ型クラスとは別のディレクトリに dbcontext クラスをスキャフォールディングできます。
 
 ```dotnetcli
 dotnet ef dbcontext scaffold ... --context-dir Data --output-dir Models
 ```
 
- 既定では、名前空間は、ルート名前空間に、プロジェクトのルートディレクトリの下にあるサブディレクトリの名前を加えたものになります。 ただし、(PMC) または`-Namespace` `--namespace` (CLI) を使用して、すべての出力クラスの名前空間をオーバーライドできます。 また、(PMC) または`-ContextNamespace` `--context-namespace` (CLI) を使用して、dbcontext クラスの名前空間のみをオーバーライドすることもできます。
+既定では、名前空間は、ルート名前空間に、プロジェクトのルートディレクトリの下にあるサブディレクトリの名前を加えたものになります。 ただし、EFCore 5.0 以降では、を使用して、すべての出力クラスの名前空間をオーバーライドでき `--namespace` ます。 次のものを使用して、DbContext クラスだけの名前空間をオーバーライドすることもでき `--context-namespace` ます。
+
+```dotnetcli
+dotnet ef dbcontext scaffold ... --namespace Your.Namespace --context-namespace Your.DbContext.Namespace
+```
+
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
+
+クラスがスキャフォールディングを使用しているディレクトリを指定することができます。また、このディレクトリを使用して、 `-OutputDir` `-ContextDir` エンティティ型クラスとは別のディレクトリに dbcontext クラスをスキャフォールディングできます。
+
+``` powershell
+Scaffold-DbContext ... -ContextDir Data -OutputDir Models
+```
+
+既定では、名前空間は、ルート名前空間に、プロジェクトのルートディレクトリの下にあるサブディレクトリの名前を加えたものになります。 ただし、EFCore 5.0 以降では、を使用して、すべての出力クラスの名前空間をオーバーライドでき `-Namespace` ます。 また、を使用して、DbContext クラスの名前空間だけをオーバーライドすることもでき `-ContextNamespace` ます。
 
 ``` powershell
 Scaffold-DbContext ... -Namespace Your.Namespace -ContextNamespace Your.DbContext.Namespace
 ```
 
-```dotnetcli
-dotnet ef dbcontext scaffold ... --namespace Your.Namespace --context-namespace Your.DbContext.Namespace
-```
+***
 
 ## <a name="how-it-works"></a>しくみ
 
@@ -136,7 +158,7 @@ dotnet ef dbcontext scaffold ... --namespace Your.Namespace --context-namespace 
 * モデルに関するすべての情報は、データベーススキーマを使用して表すことはできません。 たとえば、[**継承階層**](../modeling/inheritance.md)、[**所有型**](../modeling/owned-entities.md)、および[**テーブル分割**](../modeling/table-splitting.md)に関する情報は、データベーススキーマには存在しません。 このため、これらの構造はリバースエンジニアリングされません。
 * また、**一部の列の型**は、EF Core プロバイダーでサポートされない場合があります。 これらの列はモデルに含まれません。
 * EF Core モデルで[**同時実行トークン**](../modeling/concurrency.md)を定義して、2人のユーザーが同時に同じエンティティを更新できないようにすることができます。 一部のデータベースには、この種類の列を表す特殊な型 (SQL Server での rowversion など) があります。この場合、この情報をリバースエンジニアリングできます。ただし、その他の同時実行トークンはリバースエンジニアリングされません。
-* [C# 8 nullable 参照型機能は、現在、](/dotnet/csharp/tutorials/nullable-reference-types)リバースエンジニアリングではサポートされていません。 EF Core は、機能が無効になっていると想定している c# コードを常に生成します。 たとえば、null 値が許容されるテキスト列は、プロパティが`string`必須か`string?`どうかを構成するために使用される Fluent API またはデータ注釈を使用してではなく、型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、C# の Null 値の許容属性に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)問題によって追跡されます。
+* [C# 8 nullable 参照型機能は、現在、](/dotnet/csharp/tutorials/nullable-reference-types)リバースエンジニアリングではサポートされていません。 EF Core は、機能が無効になっていると想定している c# コードを常に生成します。 たとえば、null 値が許容されるテキスト列は、 `string` `string?` プロパティが必須かどうかを構成するために使用される Fluent API またはデータ注釈を使用してではなく、型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、C# の Null 値の許容属性に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)問題によって追跡されます。
 
 ## <a name="customizing-the-model"></a>モデルのカスタマイズ
 
@@ -150,7 +172,7 @@ EF Core によって生成されるコードはコードです。 自由に変�
 
 データベースに変更を加えた後、その変更を反映するために EF Core モデルを更新することが必要になる場合があります。 データベースの変更が単純な場合は、EF Core モデルに手動で変更を加えるだけで簡単に行うことができます。 たとえば、テーブルまたは列の名前を変更したり、列を削除したり、列の型を更新したりすることは、コードを作成するための重要な変更です。
 
-ただし、大幅な変更は、手動で簡単に行うことができません。 一般的なワークフローの1つは、(PMC) または`-Force` `--force` (CLI) を使用してデータベースからモデルを再度リバースエンジニアリングし、既存のモデルを更新されたモデルで上書きすることです。
+ただし、大幅な変更は、手動で簡単に行うことができません。 一般的なワークフローの1つは、 `-Force` (PMC) または (CLI) を使用してデータベースからモデルを再度リバースエンジニアリングし、 `--force` 既存のモデルを更新されたモデルで上書きすることです。
 
 一般的に要求されるもう1つの機能は、名前変更、型階層などのカスタマイズを維持しながら、データベースからモデルを更新する機能です。この機能の進行状況を追跡するには、[問題[#831](https://github.com/aspnet/EntityFrameworkCore/issues/831)を使用します。
 
