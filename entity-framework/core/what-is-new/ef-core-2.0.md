@@ -4,12 +4,12 @@ author: divega
 ms.date: 02/20/2018
 ms.assetid: 2CB5809E-0EFB-44F6-AF14-9D5BFFFBFF9D
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 83f6b819409d502dba17a678d44a0746a4a77f4b
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: a3e066056fc67031060920f5f7763007bdc1d2d3
+ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413577"
+ms.lasthandoff: 05/20/2020
+ms.locfileid: "83672884"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
 
@@ -133,7 +133,7 @@ var query =
     select p;
 ```
 
-注意点を次に示します。
+次のことに注意してください。
 
 - 規則では、SQL の生成時、関数 (この場合はユーザー定義関数) の名前としてメソッドの名前が使用されますが、メソッド登録時に名前とスキーマをオーバーライドできます。
 - 現在のところ、スカラー関数のみがサポートされています。
@@ -158,7 +158,7 @@ class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 builder.ApplyConfiguration(new CustomerConfiguration());
 ```
 
-## <a name="high-performance"></a>高性能
+## <a name="high-performance"></a>高パフォーマンス
 
 ### <a name="dbcontext-pooling"></a>DbContext プール
 
@@ -180,7 +180,7 @@ services.AddDbContextPool<BloggingContext>(
 この新しい方法では、DbContext の `OnConfiguring()` メソッドでできることにいくつかの制限があります。
 
 > [!WARNING]  
-> 派生した DbContext クラス (要求間で共有できない) で独自の状態を維持する場合 (プライベート フィールドなど)、DbContext プールを使用しないでください。 EF Core は、DbContext インスタンスをプールに追加する前に認識された状態のみをリセットします。
+> 派生した DbContext クラス (要求間で共有できない) で独自の状態を維持する場合 (プライベート フィールドなど)、DbContext プールを使用しないでください。 EF Core は、DbContext インスタンスをプールに追加する前に認識した状態のみをリセットします。
 
 ### <a name="explicitly-compiled-queries"></a>明示的にコンパイルされたクエリ
 
@@ -205,7 +205,7 @@ using (var db = new CustomerContext())
 }
 ```
 
-## <a name="change-tracking"></a>変更の追跡
+## <a name="change-tracking"></a>変更追跡
 
 ### <a name="attach-can-track-a-graph-of-new-and-existing-entities"></a>Attach で新規および既存のエンティティのグラフを追跡可能
 
@@ -225,7 +225,7 @@ EF Core では、さまざまメカニズムを利用し、キー値を自動生
 
 C# 6 では文字列補間が導入されました。この機能では、C# 式を文字列リテラルに直接埋め込むことができます。実行時、文字列が効率的に構築されます。 EF Core 2.0 では、RAW SQL 文字列を受け取る 2 つのプライマリ API、`FromSql` と `ExecuteSqlCommand` に、補間文字列の特殊なサポートを追加しました。 この新しいサポートにより、"安全な" 方法で C# 文字列補間を使用できます。 すなわち、実行時に SQL を動的に構築するときに起こりうる SQL 挿入のよくある間違いを防ぎます。
 
-たとえば次のようになります。
+次に例を示します。
 
 ``` csharp
 var city = "London";
@@ -268,7 +268,7 @@ var aCustomers =
 
 Like() にはインメモリ実装が付随することに注目してください。インメモリ データベースに対して作業するときやクライアント側で述語を評価する必要があるときに便利です。
 
-## <a name="database-management"></a>データベースの管理
+## <a name="database-management"></a>データベース管理
 
 ### <a name="pluralization-hook-for-dbcontext-scaffolding"></a>DbContext スキャフォールディングの複数形化フック
 
@@ -299,7 +299,7 @@ public class MyPluralizer : IPluralizer
 }
 ```
 
-## <a name="others"></a>その他
+## <a name="others"></a>Others
 
 ### <a name="move-adonet-sqlite-provider-to-sqlitepclraw"></a>ADO.NET SQLite プロバイダーを SQLitePCL.raw に移動
 

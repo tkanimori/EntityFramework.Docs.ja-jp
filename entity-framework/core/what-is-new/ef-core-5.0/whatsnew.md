@@ -2,14 +2,14 @@
 title: EF Core 5.0 の新機能
 description: EF Core 5.0 の新機能の概要
 author: ajcvickers
-ms.date: 03/30/2020
+ms.date: 05/11/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew.md
-ms.openlocfilehash: c902988920e3b1a6039808fe0658fc19dee2728a
-ms.sourcegitcommit: 387cbd8109c0fc5ce6bdc85d0dec1aed72ad4c33
+ms.openlocfilehash: fcb2eb8df99a06eaf3459835347a4027a363b86b
+ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/23/2020
-ms.locfileid: "82103075"
+ms.lasthandoff: 05/20/2020
+ms.locfileid: "83672851"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -20,6 +20,38 @@ EF Core 5.0 は現在開発中です。
 このプランでは、最終リリースの出荷前に含めようとしているものすべてを含めた、EF Core 5.0 のテーマ全体について説明します。
 
 公開されている公式ドキュメントについては、リンクが追加されます。
+
+## <a name="preview-4"></a>Preview 4
+
+### <a name="configure-database-precisionscale-in-model"></a>モデルでデータベースの有効桁数または小数点以下桁数を構成する
+
+モデル ビルダーを使用して、プロパティの有効桁数と小数点以下桁数を指定できるようになりました。
+次に例を示します。
+
+```CSharp
+modelBuilder
+    .Entity<Blog>()
+    .Property(b => b.Numeric)
+    .HasPrecision(16, 4);
+```
+
+有効桁数と小数点以下桁数は、"decimal(16,4)" のように、完全なデータベースの種類を使用して設定することもできます。 
+
+ドキュメントは、イシュー [#527](https://github.com/dotnet/EntityFramework.Docs/issues/527) で追跡されます。
+
+### <a name="specify-sql-server-index-fill-factor"></a>SQL Server インデックスの指定 FILL FACTOR を指定する
+
+SQL Server でインデックスを作成するときに、FILL FACTOR を指定できるようになりました。
+次に例を示します。
+
+```CSharp
+modelBuilder
+    .Entity<Customer>()
+    .HasIndex(e => e.Name)
+    .HasFillFactor(90);
+```
+
+ドキュメントは、イシュー [#2378](https://github.com/dotnet/EntityFramework.Docs/issues/2378) で追跡されます。
 
 ## <a name="preview-3"></a>Preview 3
 
@@ -61,7 +93,7 @@ modelBuilder.Entity<Blog>().Navigation(e => e.Posts).HasField("_myposts");
 `Navigation` API は、リレーションシップの構成に代わるものではないことに注意してください。
 代わりに、既に検出または定義されたリレーションシップで、ナビゲーション プロパティの追加構成を行うことができます。
 
-ドキュメントは、イシュー [#2302](https://github.com/dotnet/EntityFramework.Docs/issues/2302) で追跡されます。
+[ナビゲーション プロパティの構成に関するドキュメント](xref:core/modeling/relationships#configuring-navigation-properties)を参照してください。
 
 ### <a name="new-command-line-parameters-for-namespaces-and-connection-strings"></a>名前空間と接続文字列の新しいコマンドライン パラメーター 
 
@@ -72,15 +104,18 @@ modelBuilder.Entity<Blog>().Navigation(e => e.Posts).HasField("_myposts");
 dotnet ef dbcontext scaffold "connection string" Microsoft.EntityFrameworkCore.SqlServer --context-namespace "My.Context" --namespace "My.Model"
 ```
 
+詳細については、「[移行](xref:core/managing-schemas/migrations/index#namespaces)」と「[リバース エンジニアリング](xref:core/managing-schemas/scaffolding#directories-and-namespaces)」のドキュメントを参照してください。
+
+---
 また、接続文字列を `database-update` コマンドに渡すことができるようになりました。
 
 ```
 dotnet ef database update --connection "connection string"
 ```
 
-VS パッケージ マネージャー コンソールで使用される PowerShell コマンドにも、同等のパラメーターが追加されています。
+詳細については、[ツールのドキュメント](xref:core/miscellaneous/cli/dotnet#dotnet-ef-database-update)を参照してください。
 
-ドキュメントは、イシュー [#2303](https://github.com/dotnet/EntityFramework.Docs/issues/2303) で追跡されます。
+VS パッケージ マネージャー コンソールで使用される PowerShell コマンドにも、同等のパラメーターが追加されています。
 
 ### <a name="enabledetailederrors-has-returned"></a>EnableDetailedErrors が返された
 
