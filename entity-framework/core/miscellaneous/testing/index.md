@@ -4,12 +4,12 @@ description: EF Core を使用するアプリケーションをテストする�
 author: ajcvickers
 ms.date: 04/22/2020
 uid: core/miscellaneous/testing/index
-ms.openlocfilehash: 415769e9c3c664ce49c9308740d39a65a10807ba
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: a5ff85a60af1f56a0924d6fa0646195146a6827e
+ms.sourcegitcommit: 1f0f93c66b2b50e03fcbed90260e94faa0279c46
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672890"
+ms.lasthandoff: 06/04/2020
+ms.locfileid: "84418911"
 ---
 # <a name="testing-code-that-uses-ef-core"></a>EF Core を使用するコードのテスト
 
@@ -92,9 +92,11 @@ EF Core 固有のガイダンスについては、「[SQLite を使用したテ�
 ## <a name="approach-3-the-ef-core-in-memory-database"></a>アプローチ 3:EF Core のインメモリ データベース
 
 EF Core には、EF Core 自体の内部テストに使用するインメモリ データベースが付属しています。
-このデータベースは、**EF Core を使用するテスト アプリケーションの代わりには一般に適していません**。 具体的には、次のように使用します。
+このデータベースは、**EF Core を使用するテスト アプリケーションの代わりには一般に適していません**。 具体的な内容は次のとおりです。
+
 * リレーショナル データベースではありません。
 * トランザクションはサポートされていません。
+* 生 SQL クエリを実行することはできません。
 * パフォーマンスのために最適化されていません。
 
 EF Core 内部をテストする際には、これをテストにデータベースが関係ないときに特に使用するため、これらのいずれも重要ではありません。

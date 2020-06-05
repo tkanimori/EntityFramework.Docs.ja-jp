@@ -4,12 +4,12 @@ author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: 7ace80bf326395d3b68f3e745100cd45356d7973
-ms.sourcegitcommit: 144edccf9b29a7ffad119c235ac9808ec1a46193
+ms.openlocfilehash: b45a7e5010dd3ef37ea952aaf483847ae95ea4ef
+ms.sourcegitcommit: 1f0f93c66b2b50e03fcbed90260e94faa0279c46
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81434098"
+ms.lasthandoff: 06/04/2020
+ms.locfileid: "84418946"
 ---
 # <a name="getting-started-with-ef-core"></a>EF Core の概要
 
@@ -19,9 +19,9 @@ ms.locfileid: "81434098"
 
 [この記事のサンプルは GitHub で確認してください](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/GetStarted)。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
-以下のソフトウェアをインストールします。
+次のソフトウェアをインストールします。
 
 ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -30,7 +30,7 @@ ms.locfileid: "81434098"
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
 * 次のワークロードでは、[Visual Studio 2019 バージョン 16.3 以降](https://www.visualstudio.com/downloads/):
-  * **.NET Core クロスプラットフォームの開発** ( **[他のツールセット]** の下)
+  * **.NET Core クロスプラットフォーム** ( **[他のツールセット]** 以下)
 
 ---
 
@@ -45,7 +45,7 @@ cd EFGetStarted
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
-* Visual Studio を開く
+* Visual Studio を開きます
 * **[新しいプロジェクトの作成]** をクリックします。
 * **[C#]** タグを持つ **[コンソール アプリ (.NET Core)]** を選択し、 **[次へ]** を選択します
 * 名前に「**EFGetStarted**」を入力して **[作成]** をクリックします。
@@ -71,7 +71,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
   Install-Package Microsoft.EntityFrameworkCore.Sqlite
   ```
 
-ヒント :プロジェクトを右クリックし、 **[NuGet パッケージの管理]** を選択してパッケージをインストールすることもできます。
+ヒント:プロジェクトを右クリックし、 **[NuGet パッケージの管理]** を選択してパッケージをインストールすることもできます。
 
 ---
 
@@ -95,7 +95,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 
 EF Core では、既存のデータベースからモデルを[リバース エンジニアリング](../managing-schemas/scaffolding.md)することもできます。
 
-ヒント :このアプリケーションでは、わかりやすくするために意図的に事をシンプルにしています。 運用アプリケーションのコードに、[接続文字列](../miscellaneous/connection-strings.md) は格納しないでください。 また、各 C# クラスを独自のファイルに分割することが必要な場合もあります。
+ヒント:このアプリケーションでは、わかりやすくするために意図的に事をシンプルにしています。 運用アプリケーションのコードに、[接続文字列](../miscellaneous/connection-strings.md) は格納しないでください。 また、各 C# クラスを独自のファイルに分割することが必要な場合もあります。
 
 ## <a name="create-the-database"></a>データベースの作成
 
@@ -130,7 +130,7 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
 
 ## <a name="create-read-update--delete"></a>作成、読み取り、更新、および削除
 
-* *Program.cs* を開き、内容を次のコードに置き換えます。
+* *Program.cs* を開き、その内容を次のコードに置き換えます。
 
   [!code-csharp[Main](../../../samples/core/GetStarted/Program.cs)]
 
@@ -161,7 +161,7 @@ Visual Studio で、.NET Core コンソール アプリの実行時に使用さ�
 
 ---
 
-## <a name="next-steps"></a>次の手順
+## <a name="next-steps"></a>次のステップ
 
 * Web アプリでの EF Core の使用には、[ASP.NET Core のチュートリアル](/aspnet/core/data/ef-rp/intro)のページを参照してください
 * [LINQ クエリ式](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)について参照してください
