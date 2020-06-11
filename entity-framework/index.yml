@@ -10,12 +10,12 @@ metadata:
   author: WadePickett
   ms.author: wpickett
   ms.date: 04/15/2020
-  ms.openlocfilehash: 54cbd0fcda19c4e2f35a3c3d4f350e3fecf3f597
-  ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
+  ms.openlocfilehash: 1411737453563ac5377dbda2804dd0bd058133a7
+  ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
   ms.translationtype: HT
   ms.contentlocale: ja-JP
-  ms.lasthandoff: 04/29/2020
-  ms.locfileid: "82538379"
+  ms.lasthandoff: 06/10/2020
+  ms.locfileid: "84664170"
 highlightedContent:
   items:
   - title: Entity Framework Core
@@ -94,6 +94,8 @@ additionalContent:
         text: DbContext を構成する
       - url: core/miscellaneous/nullable-reference-types.md
         text: null 許容参照型
+      - url: core/miscellaneous/collations-and-case-sensitivity.md
+        text: 照合順序と大文字と小文字の区別
     - title: モデルを作成する
       links:
       - url: core/modeling/index.md
