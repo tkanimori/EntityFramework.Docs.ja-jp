@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するときにエンティティ型
 author: AndriySvyryd
 ms.date: 11/21/2019
 uid: core/modeling/relationships
-ms.openlocfilehash: 8d3df109f34c2a77305db1e2be2eea1694d7ad6b
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: 3ed25b752970cf0f55d38f1ce5b8383f1c90edc3
+ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672768"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84664144"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -152,7 +152,8 @@ Fluent API でリレーションシップを構成するには、まず、リレ
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NavigationConfiguration.cs?name=NavigationConfiguration&highlight=7-9)]
 
-[!NOTE] この呼び出しを使用してナビゲーションプロパティを作成することはできません。 これは、リレーションシップの定義または規則によって以前に作成されたナビゲーションプロパティの構成にのみ使用されます。
+> [!NOTE]
+> この呼び出しを使用してナビゲーションプロパティを作成することはできません。 これは、リレーションシップの定義または規則によって以前に作成されたナビゲーションプロパティの構成にのみ使用されます。
 
 ### <a name="foreign-key"></a>外部キー
 
@@ -178,7 +179,7 @@ Fluent API を使用して、特定のリレーションシップの複合外部
 > 注釈は、 `[ForeignKey]` リレーションシップのいずれかのナビゲーションプロパティに配置できます。 依存エンティティクラスのナビゲーションプロパティに移動する必要はありません。
 
 > [!NOTE]
-> ナビゲーションプロパティでを使用して指定したプロパティは、 `[ForeignKey]` 依存する型を存在させる必要はありません。 この場合、指定した名前を使用して、シャドウ外部キーが作成されます。
+> ナビゲーションプロパティでを使用して指定されたプロパティは、 `[ForeignKey]` 依存する型に存在する必要はありません。 この場合、指定した名前を使用して、シャドウ外部キーが作成されます。
 
 ---
 

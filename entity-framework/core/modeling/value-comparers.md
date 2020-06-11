@@ -4,12 +4,12 @@ description: 値比較子を使用してプロパティ値を比較 EF Core 方�
 author: ajcvickers
 ms.date: 03/20/2020
 uid: core/modeling/value-comparers
-ms.openlocfilehash: 9dfed7b7ef8163f4f5c94a0c81c510807c53c13d
-ms.sourcegitcommit: c3b8386071d64953ee68788ef9d951144881a6ab
+ms.openlocfilehash: 9e33bfb840606b746626daa1da7331904b495ab4
+ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/24/2020
-ms.locfileid: "80148257"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84664118"
 ---
 # <a name="value-comparers"></a>値の比較演算子
 
@@ -94,7 +94,7 @@ EF Core には、構造体のプロパティのコンパイル済みのメンバ
 
 [!code-csharp[ListProperty](../../../samples/core/Modeling/ValueConversions/MappingListProperty.cs?name=ListProperty)]
 
-[`List<T>` クラス](/dotnet/api/system.collections.generic.list-1?view=netstandard-2.1):
+[ `List<T>` クラス](/dotnet/api/system.collections.generic.list-1?view=netstandard-2.1):
 * 参照の等価性があります。同じ値を含む2つのリストは、異なるものとして扱われます。
 * 変更可能です。リスト内の値は、追加および削除できます。
 
@@ -102,7 +102,7 @@ EF Core には、構造体のプロパティのコンパイル済みのメンバ
 
 [!code-csharp[ConfigureListProperty](../../../samples/core/Modeling/ValueConversions/MappingListProperty.cs?name=ConfigureListProperty)]
 
-そのためには、プロパティに `ValueComparer<T>` を設定して、この変換で正しい比較を強制的に使用 EF Core ようにする必要があります。
+そのためには、プロパティにを設定して、 `ValueComparer<T>` この変換で正しい比較を使用 EF Core ようにする必要があります。
 
 [!code-csharp[ConfigureListPropertyComparer](../../../samples/core/Modeling/ValueConversions/MappingListProperty.cs?name=ConfigureListPropertyComparer)]
 
@@ -110,8 +110,8 @@ EF Core には、構造体のプロパティのコンパイル済みのメンバ
 > 値の比較子を設定するためのモデルビルダー ("fluent") API は、まだ実装されていません。
 > 代わりに、上記のコードは、ビルダーによって公開されている下位レベルの IMutableProperty に対して ' Metadata ' として SetValueComparer を呼び出します。
 
-`ValueComparer<T>` コンストラクターは、次の3つの式を受け取ります。
-* 品質を確認するための式
+コンストラクターは、 `ValueComparer<T>` 次の3つの式を受け取ります。
+* 等しいかどうかをチェックする式
 * ハッシュコードを生成するための式
 * 値をスナップショットにする式  
 
