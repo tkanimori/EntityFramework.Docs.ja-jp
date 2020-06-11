@@ -31,6 +31,8 @@
                   href: core/what-is-new/ef-core-5.0/plan.md
                 - name: 新着記事
                   href: core/what-is-new/ef-core-5.0/whatsnew.md
+                - name: 互換性に影響する変更
+                  href: core/what-is-new/ef-core-5.0/breaking-changes.md
             - name: EF Core 3.0
               items:
                 - name: 新機能
@@ -87,6 +89,8 @@
               href: core/miscellaneous/configuring-dbcontext.md
             - name: null 許容参照型
               href: core/miscellaneous/nullable-reference-types.md
+            - name: 照合順序と大文字と小文字の区別
+              href: core/miscellaneous/collations-and-case-sensitivity.md
         - name: モデルを作成する
           items:
             - name: 概要

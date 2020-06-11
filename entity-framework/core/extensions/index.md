@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 04/11/2020
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 246cf687f2a087e9a9a569c875b27712ebe80c5c
-ms.sourcegitcommit: 79e460f76b6664e1da5886d102bd97f651d2ffff
+ms.openlocfilehash: 41bc403b586c9e67033d6db0dc4418510bc7b061
+ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/29/2020
-ms.locfileid: "82538331"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84664183"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -216,3 +216,11 @@ Microsoft SQL Server テンポラル テーブル クエリをサポートする
 SQL Server EF Core プロバイダーに hierarchyid のサポートを追加します。 対象の EF Core:3.
 
 [GitHub リポジトリ](https://github.com/efcore/EFCore.SqlServer.HierarchyId)
+
+### <a name="linq2dbentityframeworkcore"></a>linq2db.EntityFrameworkCore
+
+SQL 式に対する LINQ クエリの代替トランスレーター。 対象の EF Core:3.
+
+CTE、一括コピー、テーブル ヒント、ウィンドウ関数、一時テーブル、データベース側の作成、更新、削除作などの高度な SQL 機能のサポートが含まれています。
+
+[GitHub リポジトリ](https://github.com/linq2db/linq2db.EntityFrameworkCore)
