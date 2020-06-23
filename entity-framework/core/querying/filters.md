@@ -3,12 +3,12 @@ title: グローバル クエリ フィルター - EF Core
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: 9262ff7970b0502945480c673315071cbc3f44b9
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: f6c59bcbab31edcbed22079a1320c060ce08c6f7
+ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413763"
+ms.lasthandoff: 06/10/2020
+ms.locfileid: "84664131"
 ---
 # <a name="global-query-filters"></a>グローバル クエリ フィルター
 
@@ -25,7 +25,7 @@ ms.locfileid: "78413763"
 次の例では、グローバル クエリ フィルターを使用して論理削除とマルチテナントのクエリ動作を単純なブログ モデルに実装する方法を示しています。
 
 > [!TIP]
-> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/QueryFilters)は GitHub で確認できます。
+> GitHub 上の[マルチテナント サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/QueryFilters)および[ナビゲーションを使用したサンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/QueryFiltersNavigations)を確認できます。 
 
 最初に、エンティティを次のように定義します。
 
@@ -44,6 +44,74 @@ _HasQueryFilter_ の呼び出しに渡される predicate 式は、これらの�
 
 > [!NOTE]
 > 現在、同じエンティティに対して複数のクエリ フィルターを定義することはできません。最後のフィルターのみが適用されます。 ただし、論理 _AND_ 演算子 ([C# では `&&`](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)) を使用して、複数の条件を持つ単一のフィルターを定義することができます。
+
+## <a name="use-of-navigations"></a>ナビゲーションの使用
+
+グローバル クエリ フィルターを定義するとき、ナビゲーションを使用できます。 それらは再帰的に適用されます。クエリ フィルター内で使用されているナビゲーションが変換されると、参照先エンティティに対して定義されているクエリ フィルターも適用されるため、ナビゲーションがさらに追加される可能性があります。
+
+> [!NOTE]
+> 現在、グローバル クエリ フィルター定義内のサイクルは EF Core によって検出されないため、それらを定義する際には注意が必要です。 正しく指定されていない場合、クエリの変換中に無限ループが発生する可能性があります。
+
+## <a name="accessing-entity-with-query-filter-using-reqiured-navigation"></a>必須のナビゲーションを使用したクエリ フィルターを含むエンティティにアクセスする
+
+> [!CAUTION]
+> グローバル クエリ フィルターが定義されているエンティティにアクセスする場合に必須のナビゲーションを使用すると、予期しない結果が生じる可能性があります。 
+
+必須のナビゲーションでは、関連エンティティが常に存在している必要があります。 必須の関連エンティティがクエリ フィルターによって除外されると、親エンティティが予期しない状態になる可能性があります。 これにより、返される要素が予想よりも少なくなる可能性があります。 
+
+この問題を説明するために、上で指定した `Blog` および `Post` エンティティと、次の _OnModelCreating_ メソッドを使用できます。
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Blog>().HasMany(b => b.Posts).WithOne(p => p.Blog).IsRequired();
+    modelBuilder.Entity<Blog>().HasQueryFilter(b => b.Url.Contains("fish"));
+}
+```
+
+このモデルは、次のデータを使用してシード処理することができます。
+
+[!code-csharp[Main](../../../samples/core/QueryFiltersNavigations/Program.cs#SeedData)]
+
+次の 2 つのクエリを実行すると、問題が発生する可能性があります。
+
+[!code-csharp[Main](../../../samples/core/QueryFiltersNavigations/Program.cs#Queries)]
+
+この設定の場合、最初のクエリでは 6 個の `Post` すべてが返されますが、2 番目のクエリで返されるのは 3 個だけです。 これは、2 番目のクエリ内の _Include_ メソッドによって、関連する `Blog` エンティティが読み込まれるために発生します。 `Blog` と `Post` 間のナビゲーションは必須であるため、EF Core ではクエリの作成時に `INNER JOIN` が使用されます。
+
+```SQL
+SELECT [p].[PostId], [p].[BlogId], [p].[Content], [p].[IsDeleted], [p].[Title], [t].[BlogId], [t].[Name], [t].[Url]
+FROM [Post] AS [p]
+INNER JOIN (
+    SELECT [b].[BlogId], [b].[Name], [b].[Url]
+    FROM [Blogs] AS [b]
+    WHERE CHARINDEX(N'fish', [b].[Url]) > 0
+) AS [t] ON [p].[BlogId] = [t].[BlogId]
+```
+
+`INNER JOIN` を使用すると、関連する `Blog` がグローバル クエリ フィルターによって削除されたすべての `Post` が除外されます。 
+
+そのアドレス指定は、必須ではなく、オプションのナビゲーションを使用して行うことができます。 このように、最初のクエリは以前と同じままですが、2 番目のクエリでは `LEFT JOIN` が生成され、6 個の結果が返されるようになります。
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Blog>().HasMany(b => b.Posts).WithOne(p => p.Blog).IsRequired(false);
+    modelBuilder.Entity<Blog>().HasQueryFilter(b => b.Url.Contains("fish"));
+}
+```
+
+別の方法として、`Blog` と `Post` の両方のエンティティに対して一貫したフィルターを指定する方法があります。
+これにより、一致するフィルターが `Blog` と `Post` の両方に適用されます。 予期しない状態になる可能性がある `Post` は削除され、両方のクエリとも 3 個の結果が返されます。 
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Blog>().HasMany(b => b.Posts).WithOne(p => p.Blog).IsRequired();
+    modelBuilder.Entity<Blog>().HasQueryFilter(b => b.Url.Contains("fish"));
+    modelBuilder.Entity<Post>().HasQueryFilter(p => p.Blog.Url.Contains("fish"));
+}
+```
 
 ## <a name="disabling-filters"></a>フィルターを無効にする
 

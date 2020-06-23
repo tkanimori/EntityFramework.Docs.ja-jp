@@ -2,14 +2,14 @@
 title: EF Core 5.0 の新機能
 description: EF Core 5.0 の新機能の概要
 author: ajcvickers
-ms.date: 05/11/2020
+ms.date: 06/02/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew.md
-ms.openlocfilehash: fcb2eb8df99a06eaf3459835347a4027a363b86b
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: 45d851a4b08a26dda0c24e20c79f42964fa4fae4
+ms.sourcegitcommit: 1f0f93c66b2b50e03fcbed90260e94faa0279c46
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672851"
+ms.lasthandoff: 06/04/2020
+ms.locfileid: "84418943"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -20,6 +20,117 @@ EF Core 5.0 は現在開発中です。
 このプランでは、最終リリースの出荷前に含めようとしているものすべてを含めた、EF Core 5.0 のテーマ全体について説明します。
 
 公開されている公式ドキュメントについては、リンクが追加されます。
+
+## <a name="preview-5"></a>Preview 5
+
+### <a name="database-collations"></a>データベースの照合順序
+
+データベースにおける既定の照合順序を EF モデルで指定できるようになりました。
+これは、データベースの作成時に照合順序を設定するために生成された移行にフローします。
+次に例を示します。
+
+```CSharp
+modelBuilder.UseCollation("German_PhoneBook_CI_AS");
+```
+
+次に、移行では、SQL Server 上にデータベースを作成するために次のものが生成されます。
+
+```sql
+CREATE DATABASE [Test]
+COLLATE German_PhoneBook_CI_AS;
+```
+
+特定のデータベース列に使用する照合順序を指定することもできます。
+次に例を示します。
+
+```CSharp
+ modelBuilder
+     .Entity<User>()
+     .Property(e => e.Name)
+     .UseCollation("German_PhoneBook_CI_AS");
+```
+
+移行を使用しないものについては、DbContext をスキャフォールディングする際に、照合順序がデータベースからリバースエンジニアリングされるようになりました。
+
+最後に、`EF.Functions.Collate()` では、さまざまな照合順序を使用したアドホック クエリが可能です。
+次に例を示します。
+
+```CSharp
+context.Users.Single(e => EF.Functions.Collate(e.Name, "French_CI_AS") == "Jean-Michel Jarre");
+```
+
+これにより、SQL Server に対して次のクエリが生成されます。
+
+```sql
+SELECT TOP(2) [u].[Id], [u].[Name]
+FROM [Users] AS [u]
+WHERE [u].[Name] COLLATE French_CI_AS = N'Jean-Michel Jarre'
+```
+
+アドホック照合順序はデータベースのパフォーマンスに悪影響を及ぼす可能性があるため、注意して使用する必要があります。
+
+ドキュメントは、イシュー [#2273](https://github.com/dotnet/EntityFramework.Docs/issues/2273) で追跡されます。
+
+### <a name="flow-arguments-into-idesigntimedbcontextfactory"></a>引数を IDesignTimeDbContextFactory にフローする
+
+引数は、コマンド ラインから [IDesignTimeDbContextFactory](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.design.idesigntimedbcontextfactory-1?view=efcore-3.1)の `CreateDbContext` メソッドにフローされるようになりました。 たとえば、これが開発ビルドであることを示すために、カスタム引数 (`dev` など) をコマンド ラインで渡すことができます。
+
+```
+dotnet ef migrations add two --verbose --dev
+``` 
+
+この引数は次にファクトリにフローされ、そこではコンテキストの作成方法および初期化方法を制御するために使用できます。
+次に例を示します。
+
+```CSharp
+public class MyDbContextFactory : IDesignTimeDbContextFactory<SomeDbContext>
+{
+    public SomeDbContext CreateDbContext(string[] args) 
+        => new SomeDbContext(args.Contains("--dev"));
+}
+```
+
+ドキュメントは、イシュー [#2419](https://github.com/dotnet/EntityFramework.Docs/issues/2419) で追跡されます。
+
+### <a name="no-tracking-queries-with-identity-resolution"></a>識別子の解決を使用した追跡なしのクエリ
+
+識別子の解決を実行するように追跡なしのクエリ構成できるようになりました。
+たとえば、次のクエリでは、各ブログの主キーが同じである場合でも、投稿ごとに新しいブログ インスタンスが作成されます。 
+
+```CSharp
+context.Posts.AsNoTracking().Include(e => e.Blog).ToList();
+```
+
+ただし、通常は速度が少し低下し、常により多くのメモリを使用することになりますが、1 つのブログ インスタンスだけを確実に作成するように、このクエリを変更することができます。
+
+```CSharp
+context.Posts.AsNoTracking().PerformIdentityResolution().Include(e => e.Blog).ToList();
+```
+
+これは、追跡なしのクエリに対してのみ有効です。すべての追跡クエリでは既にこの動作が行われているからです。 また、API レビューに従って、`PerformIdentityResolution` 構文も変更されます。
+[#19877](https://github.com/dotnet/efcore/issues/19877#issuecomment-637371073) を参照してください。
+
+ドキュメントは、イシュー [#1895](https://github.com/dotnet/EntityFramework.Docs/issues/1895) で追跡されます。
+
+### <a name="stored-persisted-computed-columns"></a>格納された (保存された) 計算列
+
+ほとんどのデータベースでは、計算後に計算列の値を格納することができます。
+これによってディスク領域が消費されますが、計算列の計算は、その値が取得されるたびではなく、更新時に 1 回だけ行われます。
+また、これにより、一部のデータベースについて列のインデックスを作成することもできます。
+
+EF Core 5.0 では、計算列を格納済みとして構成できます。
+次に例を示します。
+ 
+```CSharp
+modelBuilder
+    .Entity<User>()
+    .Property(e => e.SomethingComputed)
+    .HasComputedColumnSql("my sql", stored: true);
+```
+
+### <a name="sqlite-computed-columns"></a>SQLite の計算列
+
+EF Core では、SQLite データベースの計算列がサポートされるようになりました。
 
 ## <a name="preview-4"></a>Preview 4
 
@@ -50,8 +161,6 @@ modelBuilder
     .HasIndex(e => e.Name)
     .HasFillFactor(90);
 ```
-
-ドキュメントは、イシュー [#2378](https://github.com/dotnet/EntityFramework.Docs/issues/2378) で追跡されます。
 
 ## <a name="preview-3"></a>Preview 3
 
