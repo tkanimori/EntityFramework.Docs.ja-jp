@@ -1,16 +1,16 @@
 ---
 title: エンティティのプロパティ-EF Core
 description: Entity Framework Core を使用してエンティティのプロパティを構成およびマップする方法
-author: roji
-ms.date: 12/10/2019
+author: lajones
+ms.date: 05/27/2020
 ms.assetid: e9dff604-3469-4a05-8f9e-18ac281d82a9
 uid: core/modeling/entity-properties
-ms.openlocfilehash: e4a1867a90df1fb277e7dd44b93d6c2d47895030
-ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
+ms.openlocfilehash: fcf3b0f8480fde2f3ba6b5fd601db115f1d246b8
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84664157"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370514"
 ---
 # <a name="entity-properties"></a>エンティティのプロパティ
 
@@ -85,6 +85,26 @@ ms.locfileid: "84664157"
 
 ***
 
+### <a name="precision-and-scale"></a>有効桁数と小数点以下桁数
+
+EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点以下桁数を構成できます。 このメソッドは、特定の列に必要なストレージの量をデータベースプロバイダーに伝えます。 これは、プロバイダーが有効桁数と小数点以下桁数を変化させることができるデータ型にのみ適用されます (通常はとのみ) `decimal` `DateTime` 。
+
+プロパティの場合 `decimal` 、有効桁数は列に含まれる任意の値を表すために必要な最大桁数を定義し、scale は必要な小数点以下の最大桁数を定義します。 プロパティの場合 `DateTime` 、有効桁数は秒の小数部を表すために必要な最大桁数を定義し、小数点以下桁数は使用されません。
+
+> [!NOTE]
+> Entity Framework は、データをプロバイダーに渡す前に、精度または小数点以下桁数の検証を行いません。 必要に応じて、プロバイダーまたはデータストアが検証します。 たとえば、SQL Server を対象とする場合、データ型の列では `datetime` 有効桁数を設定することはできませんが、1つのの有効桁数は 0 ~ 7 の範囲で指定 `datetime2` できます。
+
+次の例では、 `Score` 有効桁数が14で、小数点以下桁数が2のプロパティを構成すると、SQL Server で型の列が作成され、 `decimal(14,2)` `LastUpdated` 有効桁数が3になるようにプロパティを構成すると、型の列が生成され `datetime2(3)` ます。
+
+#### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/PrecisionAndScale.cs?name=PrecisionAndScale&highlight=3-9)]
+
+> [!NOTE]
+> 小数点以下桁数が定義されていない場合は、小数点以下桁数を定義するための Fluent API が使用され `HasPrecision(precision, scale)` ます。
+
+***
+
 ## <a name="required-and-optional-properties"></a>必須および省略可能なプロパティ
 
 プロパティが有効である場合、プロパティは省略可能と見なされ `null` ます。 `null`がプロパティに割り当てられる有効な値でない場合、必須プロパティと見なされます。 リレーショナルデータベーススキーマにマップする場合、必要なプロパティは null 非許容列として作成され、オプションのプロパティは null 値が許容される列として作成されます。
@@ -142,4 +162,4 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 
 データベース内のすべての列で特定の照合順序を使用する必要がある場合は、代わりにデータベースレベルで照合順序を定義します。
 
-照合順序のサポート EF Core に関する一般情報については、[照合順序のドキュメントページ](xref:core/miscellaneous/collations-and-case-sensitivity.md)を参照してください。
+照合順序のサポート EF Core に関する一般情報については、[照合順序のドキュメントページ](xref:core/miscellaneous/collations-and-case-sensitivity)を参照してください。

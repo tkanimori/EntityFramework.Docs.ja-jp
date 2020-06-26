@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 11/08/2017
 uid: core/managing-schemas/migrations/providers
-ms.openlocfilehash: efe95893f7dbfc8e5c4775e86d58abb32eee3c83
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 388829992687e626648889a47130cc61df1c0d1f
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414255"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370621"
 ---
 # <a name="migrations-with-multiple-providers"></a>複数のプロバイダーを使用した移行
 
@@ -68,7 +68,7 @@ Id = table.Column<int>(nullable: false)
     .Annotation("Sqlite:Autoincrement", true),
 ```
 
-操作を1つのプロバイダーにのみ適用できる (またはプロバイダー間で異なる) 場合は、`ActiveProvider` プロパティを使用して、どのプロバイダーがアクティブであるかを判断します。
+操作を1つのプロバイダーに対してのみ適用できる場合、またはプロバイダー間で異なる場合は、プロパティを使用して、 `ActiveProvider` どのプロバイダーがアクティブであるかを確認します。
 
 ``` csharp
 if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")

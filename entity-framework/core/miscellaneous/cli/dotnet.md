@@ -4,14 +4,14 @@ author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 6eb8b817a809dedf999ccb98307f5d8e2e41c0fb
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: fe378fc962c0d491703a3e77dca4415ad510d673
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672949"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370629"
 ---
-# <a name="entity-framework-core-tools-reference---net-cli"></a>Entity Framework Core ツールのリファレンス - .NET CLI
+# <a name="entity-framework-core-tools-reference---net-core-cli"></a>Entity Framework Core ツールリファレンス-.NET Core CLI
 
 Entity Framework Core 用のコマンドラインインターフェイス (CLI) ツールは、デザイン時の開発タスクを実行します。 たとえば、既存のデータベースに基づいて、[移行](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0)を作成し、移行を適用し、モデルのコードを生成します。 コマンドは、 [.NET Core SDK](https://www.microsoft.com/net/core)の一部であるクロスプラットフォーム[dotnet](/dotnet/core/tools)コマンドの拡張機能です。 これらのツールは、.NET Core プロジェクトで動作します。
 
@@ -69,7 +69,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 * .NET Core SDK バージョン2.1.200 をインストールします。 以降のバージョンは、EF Core 1.0 および1.1 の CLI ツールと互換性がありません。
 
-* 2.1.200 SDK バージョンを使用するようにアプリケーションを構成します。そのためには、[グローバルな json](/dotnet/core/tools/global-json)ファイルを変更します。 通常、このファイルはソリューションディレクトリ (プロジェクトの1つ上) に含まれています。
+* ファイル[のglobal.js](/dotnet/core/tools/global-json)を変更して、2.1.200 SDK バージョンを使用するようにアプリケーションを構成します。 通常、このファイルはソリューションディレクトリ (プロジェクトの1つ上) に含まれています。
 
 * プロジェクトファイルを編集し、 `Microsoft.EntityFrameworkCore.Tools.DotNet` アイテムとしてを追加し `DotNetCliToolReference` ます。 最新の1.x バージョンを指定します (例: 1.1.6)。 このセクションの最後にあるプロジェクトファイルの例を参照してください。
 
@@ -101,7 +101,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
   を含むパッケージ参照は、 `PrivateAssets="All"` このプロジェクトを参照するプロジェクトに公開されません。 この制限は、開発時にのみ使用されるパッケージに特に役立ちます。
 
-### <a name="verify-installation"></a>インストールの確認
+### <a name="verify-installation"></a>インストールの検証
 
 次のコマンドを実行して EF Core CLI ツールが正しくインストールされていることを確認します。
 
@@ -228,7 +228,7 @@ dotnet ef database update 20180904195021_InitialCreate --connection your_connect
 
 | 引数       | 説明                                                                                                                                                                                                             |
 |:---------------|:------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| `<CONNECTION>` | データベースへの接続文字列。 ASP.NET Core 2.x プロジェクトの場合、値には*名前 = \< 接続文字列>の名前*を指定できます。 その場合、プロジェクト用に設定されている構成ソースから名前を取得します。 |
+| `<CONNECTION>` | データベースへの接続文字列。 ASP.NET Core 2.x プロジェクトの場合、値には*name = \<name of connection string> *を指定できます。 その場合、プロジェクト用に設定されている構成ソースから名前を取得します。 |
 | `<PROVIDER>`   | 使用するプロバイダー。 通常、これは NuGet パッケージの名前です (例:) `Microsoft.EntityFrameworkCore.SqlServer` 。                                                                                           |
 
 オプション:
@@ -238,13 +238,14 @@ dotnet ef database update 20180904195021_InitialCreate --connection your_connect
 | <nobr>`-d`</nobr> | `--data-annotations`                   | 属性を使用してモデルを構成します (可能な場合)。 このオプションを省略した場合は、fluent API のみが使用されます。                                                                |
 | `-c`            | `--context <NAME>`                       | `DbContext`生成するクラスの名前。                                                                                                                                 |
 |                 | `--context-dir <PATH>`                   | クラスファイルを格納するディレクトリ `DbContext` 。 パスは、プロジェクトディレクトリに対する相対パスです。 名前空間は、フォルダー名から派生します。                                 |
-|                 | `--context-namespace <NAMESPACE>`        | 生成されたクラスに使用する名前空間 `DbContext` 。 注: はオーバーライドさ `--namespace` れます。                                 |
+|                 | `--context-namespace <NAMESPACE>`        | 生成されたクラスに使用する名前空間 `DbContext` 。 注: はオーバーライドさ `--namespace` れます。 (EFCore 5.0.0 以降から利用できます。)        |
 | `-f`            | `--force`                                | 既存のファイルを上書きします。                                                                                                                                                      |
 | `-o`            | `--output-dir <PATH>`                    | エンティティクラスファイルを配置するディレクトリ。 パスは、プロジェクトディレクトリに対する相対パスです。                                                                                       |
-| `-n`            | `--namespace <NAMESPACE>`                | 生成されたすべてのクラスに使用する名前空間。 既定値は、ルート名前空間と出力ディレクトリから生成されます。                    |
+| `-n`            | `--namespace <NAMESPACE>`                | 生成されたすべてのクラスに使用する名前空間。 既定値は、ルート名前空間と出力ディレクトリから生成されます。 (EFCore 5.0.0 以降から利用できます。)        |
 |                 | <nobr>`--schema <SCHEMA_NAME>...`</nobr> | エンティティ型を生成するテーブルのスキーマ。 複数のスキーマを指定するには、それぞれのスキーマを繰り返し `--schema` ます。 このオプションを省略した場合、すべてのスキーマが含まれます。          |
 | `-t`            | `--table <TABLE_NAME>`...                | エンティティ型を生成するテーブル。 複数のテーブルを指定するに `-t` は、 `--table` 1 つのテーブルに対してまたはを繰り返します。 このオプションを省略した場合、すべてのテーブルが含まれます。                |
 |                 | `--use-database-names`                   | テーブル名と列名は、データベースに表示されるとおりに使用します。 このオプションを省略した場合、データベース名は、C# の名前のスタイル規則により厳密に準拠するように変更されます。 |
+|                 | `--no-onconfiguring`                     | 生成されたクラスのメソッドの生成を抑制し `OnConfiguring` `DbContext` ます。 (EFCore 5.0.0 以降から利用できます。)        |
 
 次の例では、すべてのスキーマとテーブルをスキャフォールディングし、新しいファイルを [*モデル*] フォルダーに配置します。
 
@@ -273,7 +274,7 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 |                   | オプション                             | 説明                                                                                                      |
 |:------------------|:-----------------------------------|:-----------------------------------------------------------------------------------------------------------------|
 | <nobr>`-o`</nobr> | <nobr>`--output-dir <PATH>`</nobr> | ファイルの出力に使用するディレクトリ。 パスは、ターゲットプロジェクトディレクトリに対する相対パスです。 既定値は "移行" です。 |
-| <nobr>`-n`</nobr> | <nobr>`--namespace <NAMESPACE>`</nobr> | 生成されたクラスに使用する名前空間。 既定値は、出力ディレクトリから生成されます。 |
+| <nobr>`-n`</nobr> | <nobr>`--namespace <NAMESPACE>`</nobr> | 生成されたクラスに使用する名前空間。 既定値は、出力ディレクトリから生成されます。 (EFCore 5.0.0 以降から利用できます。) |
 
 ## <a name="dotnet-ef-migrations-list"></a>dotnet ef 移行リスト
 

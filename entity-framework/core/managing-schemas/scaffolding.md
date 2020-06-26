@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/13/2018
 ms.assetid: 6263EF7D-4989-42E6-BDEE-45DA770342FB
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: cb20120154101a9b92b4bf2bc06d20b1dafe88c1
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: 2422e7455dc4ef52f0a9d3bdaebfa02f62e6d50f
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672971"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370599"
 ---
 # <a name="reverse-engineering"></a> リバース エンジニアリング
 
@@ -85,11 +85,11 @@ Scaffold-DbContext ... -Tables Artist, Album
 
 ## <a name="preserving-names"></a>名前の保持
 
-既定では、型およびプロパティの .NET の名前付け規則に一致するように、テーブル名と列名が固定されています。 `-UseDatabaseNames`PMC または CLI のオプションでスイッチを指定すると、 `--use-database-names` 元のデータベース名を可能な限り保持したまま、この動作を無効にすることができます。 無効な .NET 識別子は修正されますが、ナビゲーションプロパティのような名前は、.NET の名前付け規則に準拠したままになります。
+既定では、型およびプロパティの .NET の名前付け規則に一致するように、テーブル名と列名が固定されています。 PMC でスイッチを指定するか .NET Core CLI でオプションを指定すると、 `-UseDatabaseNames` `--use-database-names` 元のデータベース名を可能な限り保持したまま、この動作が無効になります。 無効な .NET 識別子は修正されますが、ナビゲーションプロパティのような名前は、.NET の名前付け規則に準拠したままになります。
 
 ## <a name="fluent-api-or-data-annotations"></a>Fluent API またはデータ注釈
 
-エンティティ型は、既定では Fluent API を使用して構成されます。 `-DataAnnotations` `--data-annotations` 可能な場合は、代わりにデータ注釈を使用するように (PMC) または (CLI) を指定します。
+エンティティ型は、既定では Fluent API を使用して構成されます。 `-DataAnnotations`可能な場合は、(PMC) または `--data-annotations` (.NET Core CLI) を指定して、代わりにデータ注釈を使用します。
 
 たとえば、Fluent API を使用すると、次のようにスキャフォールディングます。
 
@@ -109,7 +109,7 @@ public string Title { get; set; }
 
 ## <a name="dbcontext-name"></a>DbContext 名
 
-スキャフォールディング DbContext クラス名は、既定で*コンテキスト*がサフィックスとして付けられたデータベースの名前になります。 別のものを指定するには、PMC と CLI でを使用し `-Context` `--context` ます。
+スキャフォールディング DbContext クラス名は、既定で*コンテキスト*がサフィックスとして付けられたデータベースの名前になります。 別のものを指定するには、PMC でを使用し、.NET Core CLI でを使用し `-Context` `--context` ます。
 
 ## <a name="directories-and-namespaces"></a>ディレクトリと名前空間
 

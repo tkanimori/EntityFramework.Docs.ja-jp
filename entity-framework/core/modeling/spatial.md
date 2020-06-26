@@ -5,12 +5,12 @@ ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 5b45f83ca7f02665f52ccfe16b5af506a6046a62
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 2222df84be7bfde3f252766bef1cfab39b476efa
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414705"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370449"
 ---
 # <a name="spatial-data"></a>空間データ
 
@@ -32,7 +32,7 @@ Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore](https://
 
 ## <a name="reverse-engineering"></a>リバースエンジニアリング
 
-空間 NuGet パッケージでは、空間プロパティでモデルの[リバースエンジニアリング](../managing-schemas/scaffolding.md)を行うこともできますが、`Scaffold-DbContext` または `dotnet ef dbcontext scaffold`を実行する***前***にパッケージをインストールする必要があります。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
+空間 NuGet パッケージでは、空間プロパティを使用してモデルの[リバースエンジニアリング](../managing-schemas/scaffolding.md)を行うこともできますが、またはを実行する***前***にパッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
 ## <a name="nettopologysuite-nts"></a>NetTopologySuite (NTS)
 
@@ -46,7 +46,7 @@ optionsBuilder.UseSqlServer(
     x => x.UseNetTopologySuite());
 ```
 
-空間データ型はいくつかあります。 使用する種類は、許可する図形の種類によって異なります。 ここでは、モデルのプロパティに使用できる NTS 型の階層を示します。 これらは `NetTopologySuite.Geometries` 名前空間内にあります。
+空間データ型はいくつかあります。 使用する種類は、許可する図形の種類によって異なります。 ここでは、モデルのプロパティに使用できる NTS 型の階層を示します。 これらは名前空間内にあり `NetTopologySuite.Geometries` ます。
 
 * ジオメトリ
   * ポイント
@@ -89,11 +89,11 @@ class Country
 
 ### <a name="creating-values"></a>値の作成
 
-コンストラクターを使用して、geometry オブジェクトを作成できます。ただし、NTS では、代わりに geometry ファクトリを使用することをお勧めします。 これにより、既定の SRID (座標によって使用される空間参照システム) を指定できます。また、精度モデル (計算時に使用) や座標シーケンス (次元を決定する) など、より高度なものを制御できます。およびメジャーが使用可能)。
+コンストラクターを使用して、geometry オブジェクトを作成できます。ただし、NTS では、代わりに geometry ファクトリを使用することをお勧めします。 これにより、既定の SRID (座標によって使用される空間参照システム) を指定できます。また、精度モデル (計算時に使用される) や座標シーケンス (使用可能な次元とメジャーを決定) など、より高度なものを制御できます。
 
 ``` csharp
 var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-var currentLocation = geometryFactory.CreatePoint(-122.121512, 47.6739882);
+var currentLocation = geometryFactory.CreatePoint(new Coordinate(-122.121512, 47.6739882));
 ```
 
 > [!NOTE]
@@ -101,7 +101,7 @@ var currentLocation = geometryFactory.CreatePoint(-122.121512, 47.6739882);
 
 ### <a name="longitude-and-latitude"></a>経度と緯度
 
-NTS 内の座標は、X 値と Y 値で表現されます。 経度と緯度を表すには、経度には X、緯度には Y を使用します。 これは、通常、これらの値が表示される `latitude, longitude` 形式とは**逆**になっていることに注意してください。
+NTS 内の座標は、X 値と Y 値で表現されます。 経度と緯度を表すには、経度には X、緯度には Y を使用します。 これは、通常、これらの値が表示されるのとは**逆**の形式であることに注意して `latitude, longitude` ください。
 
 ### <a name="srid-ignored-during-client-operations"></a>クライアント操作中に SRID が無視されました
 
@@ -213,15 +213,15 @@ SQL Server を使用している場合は、注意が必要な点がいくつか
 
 ### <a name="geography-or-geometry"></a>Geography または geometry
 
-既定では、空間プロパティは SQL Server の `geography` 列にマップされます。 `geometry`を使用するには、モデルの[列の型を構成](xref:core/modeling/entity-properties#column-data-types)します。
+既定では、空間プロパティは SQL Server の列にマップされ `geography` ます。 を使用するには `geometry` 、モデルの[列の型を構成](xref:core/modeling/entity-properties#column-data-types)します。
 
 ### <a name="geography-polygon-rings"></a>Geography polygon リング
 
-`geography` 列の型を使用する場合、SQL Server によって、外部リング (またはシェル) と内部リング (または穴) に追加の要件が課されます。 外部リングの方向を反時計回りにし、内部リングを時計回りにする必要があります。 NTS は、データベースに値を送信する前にこのことを検証します。
+列の型を使用する場合、SQL Server によって `geography` 、外部リング (またはシェル) と内部リング (または穴) に追加の要件が課されます。 外部リングの方向を反時計回りにし、内部リングを時計回りにする必要があります。 NTS は、データベースに値を送信する前にこのことを検証します。
 
 ### <a name="fullglobe"></a>FullGlobe
 
-`geography` 列の型を使用する場合、SQL Server には、全地球を表す非標準の geometry 型があります。 また、地球全体に基づくポリゴンを表す方法も用意されています (外部リングは不要)。 これらのいずれも、NTS ではサポートされていません。
+SQL Server には、列の型を使用するときに全地球を表す非標準の geometry 型があり `geography` ます。 また、地球全体に基づくポリゴンを表す方法も用意されています (外部リングは不要)。 これらのいずれも、NTS ではサポートされていません。
 
 > [!WARNING]
 > NTS では、これに基づく FullGlobe と多角形はサポートされていません。
@@ -260,7 +260,7 @@ make install
 
 ### <a name="configuring-srid"></a>SRID の構成
 
-SpatiaLite では、列ごとに SRID を指定する必要があります。 既定の SRID は `0`です。 ForSqliteHasSrid メソッドを使用して、別の SRID を指定します。
+SpatiaLite では、列ごとに SRID を指定する必要があります。 既定の SRID は `0` です。 ForSqliteHasSrid メソッドを使用して、別の SRID を指定します。
 
 ``` csharp
 modelBuilder.Entity<City>().Property(c => c.Location)
