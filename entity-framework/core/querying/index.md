@@ -4,12 +4,12 @@ author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 7c65ec3e-46c8-48f8-8232-9e31f96c277b
 uid: core/querying/index
-ms.openlocfilehash: 0e1e50d1a3f647d65301552d0a447f9fcae81438
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 82f8a2e8e78e9d82f46f2fc6ced6dd9141329a22
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413117"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370341"
 ---
 # <a name="querying-data"></a>データのクエリ
 
@@ -28,7 +28,7 @@ Entity Framework Core では統合言語クエリ (LINQ) を使用し、デー�
 
 [!code-csharp[Main](../../../samples/core/Querying/Basics/Sample.cs#LoadingSingleEntity)]
 
-## <a name="filtering"></a>Filtering
+## <a name="filtering"></a>フィルター処理
 
 [!code-csharp[Main](../../../samples/core/Querying/Basics/Sample.cs#Filtering)]
 

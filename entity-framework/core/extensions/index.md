@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 04/11/2020
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 41bc403b586c9e67033d6db0dc4418510bc7b061
-ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
+ms.openlocfilehash: 47a5601e996afab9c0aa0538a2a2b47f204f7753
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84664183"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370357"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -28,7 +28,7 @@ LLBLGen Pro は、Entity Framework と Entity Framework Core のサポートを�
 
 ### <a name="devart-entity-developer"></a>Devart Entity Developer
 
-Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な ORM デザインです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。 対象の EF Core:2.
+Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な ORM デザインです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。 対象の EF Core:1、2、3、5。
 
 [Web サイト](https://www.devart.com/entitydeveloper/)
 
