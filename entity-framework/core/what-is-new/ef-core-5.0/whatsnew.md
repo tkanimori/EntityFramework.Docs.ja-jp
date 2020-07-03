@@ -3,31 +3,321 @@ title: EF Core 5.0 の新機能
 description: EF Core 5.0 の新機能の概要
 author: ajcvickers
 ms.date: 06/02/2020
-uid: core/what-is-new/ef-core-5.0/whatsnew.md
-ms.openlocfilehash: 45d851a4b08a26dda0c24e20c79f42964fa4fae4
-ms.sourcegitcommit: 1f0f93c66b2b50e03fcbed90260e94faa0279c46
+uid: core/what-is-new/ef-core-5.0/whatsnew
+ms.openlocfilehash: 0a2ba5b804cc6636b321edcc48feeb76ad60560b
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/04/2020
-ms.locfileid: "84418943"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370371"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
-EF Core 5.0 は現在開発中です。
-このページには、各プレビューで導入された耳寄りな変更の概要が記載されています。
+EF Core 5.0 は現在開発中です。 このページには、各プレビューで導入された耳寄りな変更の概要が記載されています。
 
-このページには [EF Core 5.0 のプラン](plan.md)を記載していません。
-このプランでは、最終リリースの出荷前に含めようとしているものすべてを含めた、EF Core 5.0 のテーマ全体について説明します。
+このページには [EF Core 5.0 のプラン](xref:core/what-is-new/ef-core-5.0/plan)を記載していません。 このプランでは、最終リリースの出荷前に含めようとしているものすべてを含めた、EF Core 5.0 のテーマ全体について説明します。
 
 公開されている公式ドキュメントについては、リンクが追加されます。
+
+## <a name="preview-6"></a>Preview 6
+
+### <a name="split-queries-for-related-collections"></a>関連するコレクションのクエリを分割する
+
+EF Core 3.0 以降、EF Core では、LINQ クエリごとに 1 つの SQL クエリが常に生成されます。 これにより、使用中のトランザクション モードの制約内で返されるデータの整合性が確保されます。 ただし、クエリで `Include` またはプロジェクションを使用して複数の関連コレクションを戻すと、この処理が非常に遅くなる可能性があります。
+
+EF Core 5.0 では、関連するコレクションを含む単一の LINQ クエリを複数の SQL クエリに分割できるようになりました。 これにより、パフォーマンスを大幅に向上させることができますが、2 つのクエリ間でデータが変更された場合に返される結果に不整合が生じる可能性があります。 シリアル化可能な、またはスナップショットのトランザクションを使用すると、これを軽減し、分割されたクエリとの整合性を維持できますが、他のパフォーマンス コストと動作の違いが生じる可能性があります。
+
+#### <a name="split-queries-with-include"></a>インクルードを使用してクエリを分割する
+
+たとえば、`Include` を使用して 2 つのレベルの関連コレクションを取得するクエリについて考えてみます。
+
+```CSharp
+var artists = context.Artists
+    .Include(e => e.Albums).ThenInclude(e => e.Tags)
+    .ToList();
+```
+
+既定では、SQLite プロバイダーの使用時に、EF Core によって次の SQL が生成されます。
+
+```sql
+SELECT "a"."Id", "a"."Name", "t0"."Id", "t0"."ArtistId", "t0"."Title", "t0"."Id0", "t0"."AlbumId", "t0"."Name"
+FROM "Artists" AS "a"
+LEFT JOIN (
+    SELECT "a0"."Id", "a0"."ArtistId", "a0"."Title", "t"."Id" AS "Id0", "t"."AlbumId", "t"."Name"
+    FROM "Album" AS "a0"
+    LEFT JOIN "Tag" AS "t" ON "a0"."Id" = "t"."AlbumId"
+) AS "t0" ON "a"."Id" = "t0"."ArtistId"
+ORDER BY "a"."Id", "t0"."Id", "t0"."Id0"
+```
+
+新しい `AsSplitQuery` API を使用して、この動作を変更できます。 次に例を示します。
+
+```CSharp
+var artists = context.Artists
+    .AsSplitQuery()
+    .Include(e => e.Albums).ThenInclude(e => e.Tags)
+    .ToList();
+```
+
+AsSplitQuery は、すべてのリレーショナル データベース プロバイダーで使用でき、AsNoTracking と同様に、クエリ内の任意の場所で使用できます。 EF Core によって、次の 3 つの SQL クエリが生成されるようになりました。
+
+```sql
+SELECT "a"."Id", "a"."Name"
+FROM "Artists" AS "a"
+ORDER BY "a"."Id"
+
+SELECT "a0"."Id", "a0"."ArtistId", "a0"."Title", "a"."Id"
+FROM "Artists" AS "a"
+INNER JOIN "Album" AS "a0" ON "a"."Id" = "a0"."ArtistId"
+ORDER BY "a"."Id", "a0"."Id"
+
+SELECT "t"."Id", "t"."AlbumId", "t"."Name", "a"."Id", "a0"."Id"
+FROM "Artists" AS "a"
+INNER JOIN "Album" AS "a0" ON "a"."Id" = "a0"."ArtistId"
+INNER JOIN "Tag" AS "t" ON "a0"."Id" = "t"."AlbumId"
+ORDER BY "a"."Id", "a0"."Id"
+```
+
+クエリ ルートに対するすべての操作がサポートされています。 これには、OrderBy/Skip/Take、結合操作、FirstOrDefault、および類似した単一結果選択操作が含まれます。
+
+OrderBy/Skip/Take でフィルター処理されたインクルードは、Preview 6 ではサポートされませんが、デイリー ビルドで使用でき、Preview 7 には含まれます。
+
+#### <a name="split-queries-with-collection-projections"></a>コレクション プロジェクションを使用してクエリを分割する
+
+`AsSplitQuery` は、コレクションがプロジェクションに読み込まれるときにも使用できます。 次に例を示します。
+
+```CSharp
+context.Artists
+    .AsSplitQuery()
+    .Select(e => new
+    {
+        Artist = e,
+        Albums = e.Albums,
+    }).ToList();
+```
+
+この LINQ クエリでは、SQLite プロバイダーを使用するときに、次の 2 つの SQL クエリが生成されます。
+
+```sql
+SELECT "a"."Id", "a"."Name"
+FROM "Artists" AS "a"
+ORDER BY "a"."Id"
+
+SELECT "a0"."Id", "a0"."ArtistId", "a0"."Title", "a"."Id"
+FROM "Artists" AS "a"
+INNER JOIN "Album" AS "a0" ON "a"."Id" = "a0"."ArtistId"
+ORDER BY "a"."Id"
+```
+
+サポートされるのはコレクションの具体化のみであることに注意してください。 上記のケースの `e.Albums` 後のコンポジションでは、分割クエリは発生しません。 この領域の機能強化は、[#21234](https://github.com/dotnet/efcore/issues/21234) で追跡されます。
+
+### <a name="indexattribute"></a>IndexAttribute
+
+新しい IndexAttribute をエンティティ型に配置して、1 つの列のインデックスを指定することができます。 次に例を示します。
+
+```CSharp
+[Index(nameof(FullName), IsUnique = true)]
+public class User
+{
+    public int Id { get; set; }
+    
+    [MaxLength(128)]
+    public string FullName { get; set; }
+}
+```
+
+SQL Server の場合、移行によって次の SQL が生成されます。
+
+```sql
+CREATE UNIQUE INDEX [IX_Users_FullName]
+    ON [Users] ([FullName])
+    WHERE [FullName] IS NOT NULL;
+```
+
+IndexAttribute を使用して、複数の列にまたがるインデックスを指定することもできます。 次に例を示します。
+
+```CSharp
+[Index(nameof(FirstName), nameof(LastName), IsUnique = true)]
+public class User
+{
+    public int Id { get; set; }
+    
+    [MaxLength(64)]
+    public string FirstName { get; set; }
+
+    [MaxLength(64)]
+    public string LastName { get; set; }
+}
+```
+
+SQL Server の場合、次のようになります。
+
+```sql
+CREATE UNIQUE INDEX [IX_Users_FirstName_LastName]
+    ON [Users] ([FirstName], [LastName])
+    WHERE [FirstName] IS NOT NULL AND [LastName] IS NOT NULL;
+```
+
+ドキュメントは、イシュー [#2407](https://github.com/dotnet/EntityFramework.Docs/issues/2407) で追跡されます。
+
+### <a name="improved-query-translation-exceptions"></a>クエリ変換の例外の改善
+
+クエリ変換が失敗したときに生成される例外メッセージの改善を続けています。 たとえば、次のクエリでは、マップされていないプロパティ `IsSigned` を使用します。
+
+```CSharp
+var artists = context.Artists.Where(e => e.IsSigned).ToList();
+```
+
+EF Core は、`IsSigned` がマップされていないために変換が失敗したことを示す次の例外をスローします。
+
+> ハンドルされていない例外です。 System.InvalidOperationException:LINQ 式 'DbSet<Artist>() .Where(a => a.IsSigned)' を変換できませんでした。 追加情報:エンティティ型 'Artist' のメンバー 'IsSigned' の変換に失敗しました。 指定されたメンバーがマップされていない可能性があります。 変換できる形式でクエリを書き直すか、AsEnumerable()、AsAsyncEnumerable()、ToList()、または ToListAsync() のいずれかの呼び出しを挿入して、クライアント評価に明示的に切り替えてください。 詳細については、「 https://go.microsoft.com/fwlink/?linkid=2101038 」を参照してください。
+
+同様に、カルチャに依存するセマンティクスを使用して文字列の比較を変換しようとしたときに、より適切な例外メッセージが生成されるようになりました。 たとえば、次のクエリは `StringComparison.CurrentCulture` を使用しようとします。
+
+```CSharp
+var artists = context.Artists
+    .Where(e => e.Name.Equals("The Unicorns", StringComparison.CurrentCulture))
+    .ToList();
+```
+
+EF Core では、次の例外がスローされるようになりました。
+
+> ハンドルされていない例外です。 System.InvalidOperationException:LINQ 式 'DbSet<Artist>() .Where(a => a.Name.Equals( value: "The Unicorns", comparisonType: CurrentCulture))' を変換できませんでした。 追加情報:'StringComparison' 引数を受け取る 'string.Equals' メソッドの変換はサポートされていません。 詳細については、「 https://go.microsoft.com/fwlink/?linkid=2129535 」を参照してください。 変換できる形式でクエリを書き直すか、AsEnumerable()、AsAsyncEnumerable()、ToList()、または ToListAsync() のいずれかの呼び出しを挿入して、クライアント評価に明示的に切り替えてください。 詳細については、「 https://go.microsoft.com/fwlink/?linkid=2101038 」を参照してください。
+
+### <a name="specify-transaction-id"></a>トランザクション ID を指定する
+
+この機能は、[@Marusyk](https://github.com/Marusyk) によってコミュニティから提供されました。 投稿に感謝します。
+
+EF Core では、呼び出し全体のトランザクションの相関関係に対するトランザクション ID が公開されます。 この ID は通常、トランザクションの開始時に EF Core によって設定されます。 アプリケーションがトランザクションを代わりに開始する場合、この機能により、アプリケーションが、使用されるすべての場所で正しく関連付けられるように、トランザクション ID を明示的に設定できるようになります。 次に例を示します。
+
+```CSharp
+using (context.Database.UseTransaction(myTransaction, myId))
+{
+   ...
+}
+```
+
+### <a name="ipaddress-mapping"></a>IPAddress マッピング
+
+この機能は、[@ralmsdeveloper](https://github.com/ralmsdeveloper) によってコミュニティから提供されました。 投稿に感謝します。
+
+標準の .NET [IPAddress クラス](/dotnet/api/system.net.ipaddress)が、ネイティブ サポートをまだ持っていないデータベースの文字列型の列に自動的にマップされるようになりました。 たとえば、次のエンティティ型をマップすることを検討してください。
+
+```CSharp
+public class Host
+{
+    public int Id { get; set; }
+    public IPAddress Address { get; set; }
+}
+```
+
+SQL Server では、移行によって次のテーブルが作成されます。
+
+```sql
+CREATE TABLE [Host] (
+    [Id] int NOT NULL,
+    [Address] nvarchar(45) NULL,
+    CONSTRAINT [PK_Host] PRIMARY KEY ([Id]));
+``` 
+
+これで、通常の方法でエンティティを追加できます。
+
+```CSharp
+context.AddRange(
+    new Host { Address = IPAddress.Parse("127.0.0.1")},
+    new Host { Address = IPAddress.Parse("0000:0000:0000:0000:0000:0000:0000:0001")});
+``` 
+
+結果として生成される SQL では、正規化された IPv4 または IPv6 のアドレスが挿入されます。
+
+```sql
+Executed DbCommand (14ms) [Parameters=[@p0='1', @p1='127.0.0.1' (Size = 45), @p2='2', @p3='::1' (Size = 45)], CommandType='Text', CommandTimeout='30']
+      SET NOCOUNT ON;
+      INSERT INTO [Host] ([Id], [Address])
+      VALUES (@p0, @p1), (@p2, @p3);
+```
+
+### <a name="exclude-onconfiguring-when-scaffolding"></a>スキャフォールディング時の OnConfiguring を除外する
+
+DbContext が既存のデータベースからスキャフォールディングされると、EF Core の既定では、接続文字列を使用して OnConfiguring オーバーロードが作成され、コンテキストがすぐに使用できるようになります。 ただし、これは、OnConfiguring を持つ部分クラスが既に存在する場合や、コンテキストを他の方法で構成する場合には役に立ちません。
+
+これに対処するため、スキャフォールディング コマンドに、OnConfiguring の生成を省略するように指示できるようになりました。 次に例を示します。
+
+```
+dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook" Microsoft.EntityFrameworkCore.SqlServer --no-onconfiguring
+```
+
+または、パッケージ マネージャー コンソールで:
+
+```
+Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring 
+``` 
+
+[名前付き接続文字列と、ユーザー シークレットのようなセキュリティで保護されたストレージ](/core/managing-schemas/scaffolding?tabs=vs#configuration-and-user-secrets)を使用することをお勧めします。
+
+### <a name="translations-for-firstordefault-on-strings"></a>文字列の FirstOrDefault の変換
+
+この機能は、[@dvoreckyaa](https://github.com/dvoreckyaa) によってコミュニティから提供されました。 投稿に感謝します。
+
+FirstOrDefault と文字列内の文字に対する類似の演算子が変換されました。 たとえば、次の LINQ クエリ:
+
+```CSharp
+context.Customers.Where(c => c.ContactName.FirstOrDefault() == 'A').ToList();
+```
+
+は、SQL Server を使用すると、次の SQL に変換されます。
+
+```sql
+SELECT [c].[Id], [c].[ContactName]
+FROM [Customer] AS [c]
+WHERE SUBSTRING([c].[ContactName], 1, 1) = N'A'
+```
+
+### <a name="simplify-case-blocks"></a>CASE ブロックの簡略化
+
+EF Core は、CASE ブロックを使用してより良いクエリを生成するようになりました。 たとえば、次の LINQ クエリ: 
+
+```CSharp
+context.Weapons
+    .OrderBy(w => w.Name.CompareTo("Marcus' Lancer") == 0)
+    .ThenBy(w => w.Id)
+```
+
+は、SQL Server では、正式には次のように変換されていました。
+
+```sql
+SELECT [w].[Id], [w].[AmmunitionType], [w].[IsAutomatic], [w].[Name], [w].[OwnerFullName], [w].[SynergyWithId]
+FROM [Weapons] AS [w]
+ORDER BY CASE
+    WHEN (CASE
+        WHEN [w].[Name] = N'Marcus'' Lancer' THEN 0
+        WHEN [w].[Name] > N'Marcus'' Lancer' THEN 1
+        WHEN [w].[Name] < N'Marcus'' Lancer' THEN -1
+    END = 0) AND CASE
+        WHEN [w].[Name] = N'Marcus'' Lancer' THEN 0
+        WHEN [w].[Name] > N'Marcus'' Lancer' THEN 1
+        WHEN [w].[Name] < N'Marcus'' Lancer' THEN -1
+    END IS NOT NULL THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END, [w].[Id]");
+``` 
+
+しかし、今後は次のように変換されます。
+
+```sql
+SELECT [w].[Id], [w].[AmmunitionType], [w].[IsAutomatic], [w].[Name], [w].[OwnerFullName], [w].[SynergyWithId]
+FROM [Weapons] AS [w]
+ORDER BY CASE
+    WHEN ([w].[Name] = N'Marcus'' Lancer') AND [w].[Name] IS NOT NULL THEN CAST(1 AS bit)
+    ELSE CAST(0 AS bit)
+END, [w].[Id]");
+``` 
 
 ## <a name="preview-5"></a>Preview 5
 
 ### <a name="database-collations"></a>データベースの照合順序
 
-データベースにおける既定の照合順序を EF モデルで指定できるようになりました。
-これは、データベースの作成時に照合順序を設定するために生成された移行にフローします。
-次に例を示します。
+データベースにおける既定の照合順序を EF モデルで指定できるようになりました。 これは、データベースの作成時に照合順序を設定するために生成された移行にフローします。 次に例を示します。
 
 ```CSharp
 modelBuilder.UseCollation("German_PhoneBook_CI_AS");
@@ -40,8 +330,7 @@ CREATE DATABASE [Test]
 COLLATE German_PhoneBook_CI_AS;
 ```
 
-特定のデータベース列に使用する照合順序を指定することもできます。
-次に例を示します。
+特定のデータベース列に使用する照合順序を指定することもできます。 次に例を示します。
 
 ```CSharp
  modelBuilder
@@ -52,8 +341,7 @@ COLLATE German_PhoneBook_CI_AS;
 
 移行を使用しないものについては、DbContext をスキャフォールディングする際に、照合順序がデータベースからリバースエンジニアリングされるようになりました。
 
-最後に、`EF.Functions.Collate()` では、さまざまな照合順序を使用したアドホック クエリが可能です。
-次に例を示します。
+最後に、`EF.Functions.Collate()` では、さまざまな照合順序を使用したアドホック クエリが可能です。 次に例を示します。
 
 ```CSharp
 context.Users.Single(e => EF.Functions.Collate(e.Name, "French_CI_AS") == "Jean-Michel Jarre");
@@ -79,8 +367,7 @@ WHERE [u].[Name] COLLATE French_CI_AS = N'Jean-Michel Jarre'
 dotnet ef migrations add two --verbose --dev
 ``` 
 
-この引数は次にファクトリにフローされ、そこではコンテキストの作成方法および初期化方法を制御するために使用できます。
-次に例を示します。
+この引数は次にファクトリにフローされ、そこではコンテキストの作成方法および初期化方法を制御するために使用できます。 次に例を示します。
 
 ```CSharp
 public class MyDbContextFactory : IDesignTimeDbContextFactory<SomeDbContext>
@@ -94,8 +381,7 @@ public class MyDbContextFactory : IDesignTimeDbContextFactory<SomeDbContext>
 
 ### <a name="no-tracking-queries-with-identity-resolution"></a>識別子の解決を使用した追跡なしのクエリ
 
-識別子の解決を実行するように追跡なしのクエリ構成できるようになりました。
-たとえば、次のクエリでは、各ブログの主キーが同じである場合でも、投稿ごとに新しいブログ インスタンスが作成されます。 
+識別子の解決を実行するように追跡なしのクエリ構成できるようになりました。 たとえば、次のクエリでは、各ブログの主キーが同じである場合でも、投稿ごとに新しいブログ インスタンスが作成されます。 
 
 ```CSharp
 context.Posts.AsNoTracking().Include(e => e.Blog).ToList();
@@ -107,19 +393,15 @@ context.Posts.AsNoTracking().Include(e => e.Blog).ToList();
 context.Posts.AsNoTracking().PerformIdentityResolution().Include(e => e.Blog).ToList();
 ```
 
-これは、追跡なしのクエリに対してのみ有効です。すべての追跡クエリでは既にこの動作が行われているからです。 また、API レビューに従って、`PerformIdentityResolution` 構文も変更されます。
-[#19877](https://github.com/dotnet/efcore/issues/19877#issuecomment-637371073) を参照してください。
+これは、追跡なしのクエリに対してのみ有効です。すべての追跡クエリでは既にこの動作が行われているからです。 また、API レビューに従って、`PerformIdentityResolution` 構文も変更されます。 [#19877](https://github.com/dotnet/efcore/issues/19877#issuecomment-637371073) を参照してください。
 
 ドキュメントは、イシュー [#1895](https://github.com/dotnet/EntityFramework.Docs/issues/1895) で追跡されます。
 
 ### <a name="stored-persisted-computed-columns"></a>格納された (保存された) 計算列
 
-ほとんどのデータベースでは、計算後に計算列の値を格納することができます。
-これによってディスク領域が消費されますが、計算列の計算は、その値が取得されるたびではなく、更新時に 1 回だけ行われます。
-また、これにより、一部のデータベースについて列のインデックスを作成することもできます。
+ほとんどのデータベースでは、計算後に計算列の値を格納することができます。 これによってディスク領域が消費されますが、計算列の計算は、その値が取得されるたびではなく、更新時に 1 回だけ行われます。 また、これにより、一部のデータベースについて列のインデックスを作成することもできます。
 
-EF Core 5.0 では、計算列を格納済みとして構成できます。
-次に例を示します。
+EF Core 5.0 では、計算列を格納済みとして構成できます。 次に例を示します。
  
 ```CSharp
 modelBuilder
@@ -136,8 +418,7 @@ EF Core では、SQLite データベースの計算列がサポートされる�
 
 ### <a name="configure-database-precisionscale-in-model"></a>モデルでデータベースの有効桁数または小数点以下桁数を構成する
 
-モデル ビルダーを使用して、プロパティの有効桁数と小数点以下桁数を指定できるようになりました。
-次に例を示します。
+モデル ビルダーを使用して、プロパティの有効桁数と小数点以下桁数を指定できるようになりました。 次に例を示します。
 
 ```CSharp
 modelBuilder
@@ -152,8 +433,7 @@ modelBuilder
 
 ### <a name="specify-sql-server-index-fill-factor"></a>SQL Server インデックスの指定 FILL FACTOR を指定する
 
-SQL Server でインデックスを作成するときに、FILL FACTOR を指定できるようになりました。
-次に例を示します。
+SQL Server でインデックスを作成するときに、FILL FACTOR を指定できるようになりました。 次に例を示します。
 
 ```CSharp
 modelBuilder
@@ -166,8 +446,7 @@ modelBuilder
 
 ### <a name="filtered-include"></a>フィルター処理されたインクルード
 
-Include メソッドでは、インクルードされるエンティティのフィルター処理がサポートされるようになりました。
-次に例を示します。
+Include メソッドでは、インクルードされるエンティティのフィルター処理がサポートされるようになりました。 次に例を示します。
 
 ```CSharp
 var blogs = context.Blogs
@@ -177,8 +456,7 @@ var blogs = context.Blogs
 
 このクエリでは、投稿のタイトルに "チーズ" が含まれている場合にのみ、関連付けられている各投稿と共にブログが返されます。
 
-Skip と Take を使用して、インクルードされるエンティティの数を減らすこともできます。
-次に例を示します。
+Skip と Take を使用して、インクルードされるエンティティの数を減らすこともできます。 次に例を示します。
  
 ```CSharp
 var blogs = context.Blogs
@@ -191,23 +469,19 @@ var blogs = context.Blogs
 
 ### <a name="new-modelbuilder-api-for-navigation-properties"></a>ナビゲーション プロパティの新しい ModelBuilder API
 
-ナビゲーション プロパティは、主に[リレーションシップを定義する](xref:core/modeling/relationships)ときに構成されます。
-ただし、ナビゲーション プロパティに追加の構成が必要な場合は、新しい `Navigation` メソッドを使用できます。
-たとえば、フィールドが規約によって見つからない場合にナビゲーションにバッキング フィールドを設定するには、次を実行します。
+ナビゲーション プロパティは、主に[リレーションシップを定義する](xref:core/modeling/relationships)ときに構成されます。 ただし、ナビゲーション プロパティに追加の構成が必要な場合は、新しい `Navigation` メソッドを使用できます。 たとえば、フィールドが規約によって見つからない場合にナビゲーションにバッキング フィールドを設定するには、次を実行します。
 
 ```CSharp
 modelBuilder.Entity<Blog>().Navigation(e => e.Posts).HasField("_myposts");
 ```
 
-`Navigation` API は、リレーションシップの構成に代わるものではないことに注意してください。
-代わりに、既に検出または定義されたリレーションシップで、ナビゲーション プロパティの追加構成を行うことができます。
+`Navigation` API は、リレーションシップの構成に代わるものではないことに注意してください。 代わりに、既に検出または定義されたリレーションシップで、ナビゲーション プロパティの追加構成を行うことができます。
 
 [ナビゲーション プロパティの構成に関するドキュメント](xref:core/modeling/relationships#configuring-navigation-properties)を参照してください。
 
 ### <a name="new-command-line-parameters-for-namespaces-and-connection-strings"></a>名前空間と接続文字列の新しいコマンドライン パラメーター 
 
-移行とスキャフォールディングでは、コマンド ラインで名前空間を指定できるようになりました。
-たとえば、別の名前空間にコンテキスト クラスとモデル クラスを配置するデータベースをリバース エンジニアリングするには、次を実行します。 
+移行とスキャフォールディングでは、コマンド ラインで名前空間を指定できるようになりました。 たとえば、別の名前空間にコンテキスト クラスとモデル クラスを配置するデータベースをリバース エンジニアリングするには、次を実行します。 
 
 ```
 dotnet ef dbcontext scaffold "connection string" Microsoft.EntityFrameworkCore.SqlServer --context-namespace "My.Context" --namespace "My.Model"
@@ -228,8 +502,7 @@ VS パッケージ マネージャー コンソールで使用される PowerShe
 
 ### <a name="enabledetailederrors-has-returned"></a>EnableDetailedErrors が返された
 
-パフォーマンス上の理由から、EF では、データベースから値を読み取るときに追加の null チェックは行われません。
-これにより、予期しない null が検出された場合に、根本原因を突き止めることが困難な例外が発生する可能性があります。
+パフォーマンス上の理由から、EF では、データベースから値を読み取るときに追加の null チェックは行われません。 これにより、予期しない null が検出された場合に、根本原因を突き止めることが困難な例外が発生する可能性があります。
 
 `EnableDetailedErrors` を使用すると、クエリに null チェックがさらに追加されます。パフォーマンスのオーバーヘッドが小さいため、これらのエラーでは、根本原因まで簡単に追跡できるようになります。  
 
@@ -246,8 +519,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ### <a name="cosmos-partition-keys"></a>Cosmos のパーティション キー
 
-指定されたクエリに使用するパーティション キーをクエリで指定できるようになりました。
-次に例を示します。
+指定されたクエリに使用するパーティション キーをクエリで指定できるようになりました。 次に例を示します。
 
 ```CSharp
 await context.Set<Customer>()
@@ -259,8 +531,7 @@ await context.Set<Customer>()
 
 ### <a name="support-for-the-sql-server-datalength-function"></a>SQL Server DATALENGTH 関数のサポート
 
-これには、新しい `EF.Functions.DataLength` メソッドを使用してアクセスできます。
-次に例を示します。
+これには、新しい `EF.Functions.DataLength` メソッドを使用してアクセスできます。 次に例を示します。
 ```CSharp
 var count = context.Orders.Count(c => 100 < EF.Functions.DataLength(c.OrderDate));
 ``` 
@@ -269,9 +540,7 @@ var count = context.Orders.Count(c => 100 < EF.Functions.DataLength(c.OrderDate)
 
 ### <a name="use-a-c-attribute-to-specify-a-property-backing-field"></a>C# 属性を利用し、プロパティ バッキング フィールドを指定する
 
-C# 属性を利用し、プロパティのバッキング フィールドを指定できるようになりました。
-この属性を利用することで、EF Core では、バッキング フィールドが自動的に検出できないときでさえ、通常のようにバッキング フィールドとの間で読み書きできます。
-次に例を示します。
+C# 属性を利用し、プロパティのバッキング フィールドを指定できるようになりました。 この属性を利用することで、EF Core では、バッキング フィールドが自動的に検出できないときでさえ、通常のようにバッキング フィールドとの間で読み書きできます。 次に例を示します。
 
 ```CSharp
 public class Blog
@@ -293,9 +562,7 @@ public class Blog
 
 ### <a name="complete-discriminator-mapping"></a>完全な識別子マッピング
 
-EF Core では、[継承階層の TPH マッピング](/ef/core/modeling/inheritance)のために識別子列が使用されます。
-識別子に利用できるすべての値が EF Core で認識されている限り、パフォーマンスを一部改善できます。
-EF Core 5.0 にはこのような機能強化が実装されました。
+EF Core では、[継承階層の TPH マッピング](/ef/core/modeling/inheritance)のために識別子列が使用されます。 識別子に利用できるすべての値が EF Core で認識されている限り、パフォーマンスを一部改善できます。 EF Core 5.0 にはこのような機能強化が実装されました。
 
 たとえば、EF Core の前バージョンでは、ある階層内のすべての型を返すクエリにこの SQL が常に生成されました。
 
@@ -327,8 +594,7 @@ SQLIte でパフォーマンスが 2 点改善されました。
 
 ### <a name="simple-logging"></a>シンプルなログ
 
-この機能により、EF6 の `Database.Log` に似た機能が追加されます。
-つまり、外部のログ記録フレームワークを構成せずに、EF Core からログを簡単に取得できるようになります。
+この機能により、EF6 の `Database.Log` に似た機能が追加されます。 つまり、外部のログ記録フレームワークを構成せずに、EF Core からログを簡単に取得できるようになります。
 
 暫定版のドキュメントは、[2019 年 12 月 5 日の EF 週次ステータス](https://github.com/dotnet/efcore/issues/15403#issuecomment-562332863)に含まれています。
 
@@ -344,8 +610,7 @@ EF Core 5.0 では、LINQ クエリの実行時に EF Core によって生成さ
 
 ### <a name="use-a-c-attribute-to-indicate-that-an-entity-has-no-key"></a>エンティティにキーがないことを示すために C# 属性を使用
 
-新しい `KeylessAttribute` を使用したキーを持たないようにエンティティ タイプを構成できるようになりました。
-次に例を示します。
+新しい `KeylessAttribute` を使用したキーを持たないようにエンティティ タイプを構成できるようになりました。 次に例を示します。
 
 ```CSharp
 [Keyless]
@@ -361,25 +626,19 @@ public class Address
 
 ### <a name="connection-or-connection-string-can-be-changed-on-initialized-dbcontext"></a>初期化された DbContext で接続または接続文字列が変更可能に
 
-接続や接続文字列を使用しなくても、DbContext インスタンスを簡単に作成できるようになりました。
-また、コンテキスト インスタンスで接続または接続文字列をミュートできるようになりました。
-この機能により、同じコンテキスト インスタンスを異なるデータベースに動的に接続できるようになります。
+接続や接続文字列を使用しなくても、DbContext インスタンスを簡単に作成できるようになりました。 また、コンテキスト インスタンスで接続または接続文字列をミュートできるようになりました。 この機能により、同じコンテキスト インスタンスを異なるデータベースに動的に接続できるようになります。
 
 ドキュメントは、イシュー [#2075](https://github.com/dotnet/EntityFramework.Docs/issues/2075) で追跡されます。
 
 ### <a name="change-tracking-proxies"></a>変更追跡のプロキシ
 
-EF Core で、[INotifyPropertyChanging](https://docs.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanging?view=netcore-3.1) および [INotifyPropertyChanged](https://docs.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged?view=netcore-3.1) を自動的に実装するランタイム プロキシを生成できるようになりました。
-これにより、エンティティ プロパティの値の変更が EF Core に直接報告されるため、変更をスキャンする必要がなくなります。
-ただし、プロキシには独自の制限のセットが付属しているため、すべてのユーザーが使用できるわけではありません
+EF Core で、[INotifyPropertyChanging](https://docs.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanging?view=netcore-3.1) および [INotifyPropertyChanged](https://docs.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged?view=netcore-3.1) を自動的に実装するランタイム プロキシを生成できるようになりました。 これにより、エンティティ プロパティの値の変更が EF Core に直接報告されるため、変更をスキャンする必要がなくなります。 ただし、プロキシには独自の制限のセットが付属しているため、すべてのユーザーが使用できるわけではありません
 
 ドキュメントは、イシュー [#2076](https://github.com/dotnet/EntityFramework.Docs/issues/2076) で追跡されます。
 
 ### <a name="enhanced-debug-views"></a>強化されたデバッグ ビュー
 
-デバッグ ビューで、イシューのデバッグ時に EF Core の内部を簡単に確認できます。
-モデルのデバッグ ビューは少し前に実装されました。
-EF Core 5.0 では、モデル ビューを読みやすくし、状態マネージャーの追跡対象エンティティの新しいデバッグ ビューを追加しました。
+デバッグ ビューで、イシューのデバッグ時に EF Core の内部を簡単に確認できます。 モデルのデバッグ ビューは少し前に実装されました。 EF Core 5.0 では、モデル ビューを読みやすくし、状態マネージャーの追跡対象エンティティの新しいデバッグ ビューを追加しました。
 
 暫定版のドキュメントは、[2019 年 12 月 12 日の EF 週次ステータス](https://github.com/dotnet/efcore/issues/15403#issuecomment-565196206)に含まれています。
 
@@ -387,24 +646,19 @@ EF Core 5.0 では、モデル ビューを読みやすくし、状態マネー�
 
 ### <a name="improved-handling-of-database-null-semantics"></a>データベースの null セマンティクスの処理の向上
 
-リレーショナル データベースは通常、NULL を不明な値として扱うため、他の NULL とは等しくありません。
-C# では、null は、他の null と等しいかどうかを比較する定義済みの値として扱われます。
-EF Core は、既定で C# の null セマンティクスを使用できるようにクエリを変換します。
-EF Core 5.0 では、この変換の効率が大幅に向上します。
+リレーショナル データベースは通常、NULL を不明な値として扱うため、他の NULL とは等しくありません。 C# では、null は、他の null と等しいかどうかを比較する定義済みの値として扱われます。 EF Core は、既定で C# の null セマンティクスを使用できるようにクエリを変換します。 EF Core 5.0 では、この変換の効率が大幅に向上します。
 
 ドキュメントは、イシュー [#1612](https://github.com/dotnet/EntityFramework.Docs/issues/1612) で追跡されます。
 
 ### <a name="indexer-properties"></a>インデクサーのプロパティ
 
-EF Core 5.0 では、C# インデクサー プロパティのマッピングがサポートされています。
-これらのプロパティにより、エンティティはプロパティ バッグとして機能し、列がバッグの名前付きプロパティにマップされます。
+EF Core 5.0 では、C# インデクサー プロパティのマッピングがサポートされています。 これらのプロパティにより、エンティティはプロパティ バッグとして機能し、列がバッグの名前付きプロパティにマップされます。
 
 ドキュメントは、イシュー [#2018](https://github.com/dotnet/EntityFramework.Docs/issues/2018) で追跡されます。
 
 ### <a name="generation-of-check-constraints-for-enum-mappings"></a>列挙型マッピングの CHECK 制約の生成
 
-EF Core 5.0 の移行で、列挙型プロパティのマッピングに CHECK 制約を生成できるようになりました。
-次に例を示します。
+EF Core 5.0 の移行で、列挙型プロパティのマッピングに CHECK 制約を生成できるようになりました。 次に例を示します。
 
 ```SQL
 MyEnumColumn VARCHAR(10) NOT NULL CHECK (MyEnumColumn IN ('Useful', 'Useless', 'Unknown'))
@@ -414,9 +668,7 @@ MyEnumColumn VARCHAR(10) NOT NULL CHECK (MyEnumColumn IN ('Useful', 'Useless', '
 
 ### <a name="isrelational"></a>IsRelational
 
-既存の `IsSqlServer`、`IsSqlite`、`IsInMemory` に加えて、新しい `IsRelational` メソッドが追加されました。
-このメソッドは、DbContext がリレーショナル データベース プロバイダーを使用しているかどうかをテストするために使用できます。
-次に例を示します。
+既存の `IsSqlServer`、`IsSqlite`、`IsInMemory` に加えて、新しい `IsRelational` メソッドが追加されました。 このメソッドは、DbContext がリレーショナル データベース プロバイダーを使用しているかどうかをテストするために使用できます。 次に例を示します。
 
 ```CSharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -432,8 +684,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 ### <a name="cosmos-optimistic-concurrency-with-etags"></a>ETag を使用した Cosmos オプティミスティック同時実行制御
 
-Azure Cosmos DB データベース プロバイダーで、Etag を使用したオプティミスティック同時実行制御がサポートされるようになりました。
-OnModelCreating のモデル ビルダーを使用して ETag を構成します。
+Azure Cosmos DB データベース プロバイダーで、Etag を使用したオプティミスティック同時実行制御がサポートされるようになりました。 OnModelCreating のモデル ビルダーを使用して ETag を構成します。
 
 ```CSharp
 builder.Entity<Customer>().Property(c => c.ETag).IsEtagConcurrency();
@@ -471,8 +722,7 @@ byte[] プロパティで Contains、Length、SequenceEqual などを使用す�
 
 ### <a name="query-translation-for-reverse"></a>Reverse のクエリ変換
 
-`Reverse` を使用したクエリが変換されるようになりました。
-次に例を示します。
+`Reverse` を使用したクエリが変換されるようになりました。 次に例を示します。
 
 ```CSharp
 context.Employees.OrderBy(e => e.EmployeeID).Reverse()

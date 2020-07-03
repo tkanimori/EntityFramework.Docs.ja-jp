@@ -4,12 +4,12 @@ author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: e01bd146c4dfe7a8d36b641cb52ae366fddd8239
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 429fec2d2da6eb8910ac20531455ec8183096ec6
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413787"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370423"
 ---
 # <a name="client-vs-server-evaluation"></a>クライアントとサーバーの評価
 

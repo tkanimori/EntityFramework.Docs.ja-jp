@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: bfd6e161ed7f7bf96e61946f94c8eeadd24a72f5
-ms.sourcegitcommit: 144edccf9b29a7ffad119c235ac9808ec1a46193
+ms.openlocfilehash: 86b9d08377ea8295b746e5f0217a408edcfe1517
+ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/16/2020
-ms.locfileid: "81434189"
+ms.lasthandoff: 06/25/2020
+ms.locfileid: "85370474"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -76,6 +76,18 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 また、複数回インクルードされているナビゲーションごとに、同一の操作を適用することもできます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludesFiltered2)]
+
+> [!CAUTION]
+> クエリの追跡では、[ナビゲーション修正](tracking.md)により、フィルター処理されたインクルードの結果が予期しないものになることがあります。 以前にクエリされ、変更トラッカーに格納されていた関連エンティティはすべて、フィルターの要件を満たしていなくても、フィルター処理されたインクルードのクエリの結果に表示されます。 そのような状況でフィルター処理されたインクルードを使用する場合は、`NoTracking` クエリを使用するか、DbContext を再作成することを検討してください。
+
+例:
+
+```csharp
+var orders = context.Orders.Where(o => o.Id > 1000).ToList();
+
+// customer entities will have references to all orders where Id > 1000, rathat than > 5000
+var filtered = context.Customers.Include(c => c.Orders.Where(o => o.Id > 5000)).ToList();
+```
 
 ### <a name="include-on-derived-types"></a>派生型に対するインクルード
 
