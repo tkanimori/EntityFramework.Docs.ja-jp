@@ -5,12 +5,12 @@ author: lajones
 ms.date: 05/27/2020
 ms.assetid: e9dff604-3469-4a05-8f9e-18ac281d82a9
 uid: core/modeling/entity-properties
-ms.openlocfilehash: fcf3b0f8480fde2f3ba6b5fd601db115f1d246b8
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: d4e4c50d8c7febf5e42e9aa39352c0bb6a6bd409
+ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370514"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86238217"
 ---
 # <a name="entity-properties"></a>エンティティのプロパティ
 
@@ -36,7 +36,7 @@ ms.locfileid: "85370514"
 
 規則により、リレーショナルデータベースを使用する場合、エンティティのプロパティは、プロパティと同じ名前のテーブル列にマップされます。
 
-異なる名前で列を構成する場合は、次のようにします。
+異なる名前で列を構成する場合は、次のコードスニペットのようにします。
 
 ### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
@@ -87,7 +87,7 @@ ms.locfileid: "85370514"
 
 ### <a name="precision-and-scale"></a>有効桁数と小数点以下桁数
 
-EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点以下桁数を構成できます。 このメソッドは、特定の列に必要なストレージの量をデータベースプロバイダーに伝えます。 これは、プロバイダーが有効桁数と小数点以下桁数を変化させることができるデータ型にのみ適用されます (通常はとのみ) `decimal` `DateTime` 。
+EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点以下桁数を構成できます。 このメソッドは、特定の列に必要なストレージの量をデータベースプロバイダーに伝えます。 これは、プロバイダーが有効桁数と小数点以下桁数を変更できるデータ型にのみ適用されます (通常は `decimal` と) `DateTime` 。
 
 プロパティの場合 `decimal` 、有効桁数は列に含まれる任意の値を表すために必要な最大桁数を定義し、scale は必要な小数点以下の最大桁数を定義します。 プロパティの場合 `DateTime` 、有効桁数は秒の小数部を表すために必要な最大桁数を定義し、小数点以下桁数は使用されません。
 
@@ -95,6 +95,10 @@ EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点�
 > Entity Framework は、データをプロバイダーに渡す前に、精度または小数点以下桁数の検証を行いません。 必要に応じて、プロバイダーまたはデータストアが検証します。 たとえば、SQL Server を対象とする場合、データ型の列では `datetime` 有効桁数を設定することはできませんが、1つのの有効桁数は 0 ~ 7 の範囲で指定 `datetime2` できます。
 
 次の例では、 `Score` 有効桁数が14で、小数点以下桁数が2のプロパティを構成すると、SQL Server で型の列が作成され、 `decimal(14,2)` `LastUpdated` 有効桁数が3になるようにプロパティを構成すると、型の列が生成され `datetime2(3)` ます。
+
+#### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
+
+現在、データ注釈を使用してを構成することはできません。
 
 #### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
@@ -115,8 +119,8 @@ EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点�
 
 C# 8 では、null[許容参照型](/dotnet/csharp/tutorials/nullable-reference-types)と呼ばれる新しい機能が導入されました。これにより、参照型に注釈を付けて、null を含むかどうかを示すことができます。 この機能は既定で無効になっています。有効にすると、EF Core の動作が次のように変更されます。
 
-* Null 許容の参照型が無効になっている場合 (既定)、.NET 参照型を持つすべてのプロパティは、規約によってオプションとして構成されます (例: `string` )。
-* Null 値を許容する参照型が有効になっている場合、プロパティは、その .NET 型の C# の null 値の許容属性に基づいて構成されます。 `string?` はオプションとして構成されますが、 `string` は必須として構成されます。
+* Null 許容の参照型が無効になっている場合 (既定)、.NET 参照型を持つすべてのプロパティは、規約によってオプションとして構成されます (たとえば、 `string` )。
+* Null 値を許容する参照型が有効になっている場合、プロパティは、その .NET 型の C# の null 値の許容属性に基づいて構成されます。 `string?` オプションとして構成されますが、必要に応じて構成されます `string` 。
 
 次の例は、必須プロパティと省略可能なプロパティを持つエンティティ型を示しています。 null 許容の参照機能が無効 (既定値) で、有効になっています。
 
@@ -156,7 +160,7 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 > [!NOTE]
 > この機能は EF Core 5.0 で導入されています。
 
-照合順序は、テキスト列に対して定義し、比較および順序付けの方法を決定できます。 たとえば、次の例では、SQL Server 列が大文字と小文字を区別しないように構成されています。
+照合順序は、テキスト列に対して定義し、比較および順序付けの方法を決定できます。 たとえば、次のコードスニペットでは、SQL Server 列が大文字と小文字を区別しないように構成されています。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/Collations/Program.cs?range=42-43)]
 

@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: 062a7f292d16deb3840fd116f270edb11c6e0687
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: e955e93723fc371170641b0b3209cca014ef1c26
+ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672921"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86238152"
 ---
 # <a name="connection-strings"></a>接続文字列
 
@@ -17,7 +17,7 @@ ms.locfileid: "83672921"
 
 ## <a name="winforms--wpf-applications"></a>WinForms & WPF アプリケーション
 
-WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト済みの接続文字列パターンが用意されています。 接続文字列は、アプリケーションの app.config ファイル (ASP.NET を使用している場合は web.config) に追加する必要があります。 接続文字列にユーザー名やパスワードなどの機密情報が含まれている場合は、[シークレットマネージャーツール](/aspnet/core/security/app-secrets#secret-manager)を使用して構成ファイルの内容を保護することができます。
+WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト済みの接続文字列パターンが用意されています。 接続文字列は、アプリケーションの App.config ファイル (ASP.NET を使用している場合は Web.config) に追加する必要があります。 接続文字列にユーザー名やパスワードなどの機密情報が含まれている場合は、[シークレットマネージャーツール](/aspnet/core/security/app-secrets#secret-manager)を使用して構成ファイルの内容を保護することができます。
 
 ``` xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -31,7 +31,7 @@ WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト�
 ```
 
 > [!TIP]  
-> `providerName`データベースプロバイダーはコードを使用して構成されているため、app.config に格納されている EF Core 接続文字列では、この設定は必要ありません。
+> `providerName`データベースプロバイダーがコードによって構成されているため、App.config に格納されている EF Core 接続文字列では、この設定は必要ありません。
 
 その後、 `ConfigurationManager` コンテキストのメソッドで API を使用して接続文字列を読み取ることができ `OnConfiguring` ます。 この API を使用できるようにするには、フレームワークアセンブリへの参照を追加する必要がある場合があり `System.Configuration` ます。
 
@@ -73,7 +73,7 @@ ASP.NET Core 構成システムは非常に柔軟であり、接続文字列は 
 
 ```dotnetcli
 dotnet user-secrets set ConnectionStrings.YourDatabaseAlias "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase"
-dotnet ef dbcontext scaffold Name=YourDatabaseAlias Microsoft.EntityFrameworkCore.SqlServer
+dotnet ef dbcontext scaffold Name=ConnectionStrings.YourDatabaseAlias Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 または、次の例は、に格納されている接続文字列を示して `appsettings.json` います。
@@ -86,7 +86,7 @@ dotnet ef dbcontext scaffold Name=YourDatabaseAlias Microsoft.EntityFrameworkCor
 }
 ```
 
-その後、コンテキストは、通常、 `Startup.cs` 構成から読み取られる接続文字列を使用してで構成されます。 メソッドは、 `GetConnectionString()` キーがである構成値を検索し `ConnectionStrings:<connection string name>` ます。 この拡張メソッドを使用するには、この[拡張機能の名前空間](/dotnet/api/microsoft.extensions.configuration)をインポートする必要があります。
+その後、コンテキストは、通常、 `Startup.cs` 構成から読み取られる接続文字列を使用してで構成されます。 メソッドは、 `GetConnectionString()` キーがである構成値を検索し `ConnectionStrings:<connection string name>` ます。 この拡張メソッドを使用するには、 [Microsoft.Extensions.Configuration](/dotnet/api/microsoft.extensions.configuration)名前空間をインポートする必要があります。
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)

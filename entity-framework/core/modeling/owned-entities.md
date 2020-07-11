@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 69bdd5d5a64983d691b5967f3a64dedccbd7c07f
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: 6ff98d005c0a868d420509571378756c56edc54a
+ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672803"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86238126"
 ---
 # <a name="owned-entity-types"></a>所有されているエンティティ型
 
@@ -71,7 +71,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
 > [!NOTE]
-> EF Core 3.0 `WithOwner()` メソッドが存在しない場合は、この呼び出しを削除する必要があります。 また、主キーが自動的に検出されないため、常に指定されています。
+> EF Core 3.0 `WithOwner()` メソッドが存在しない場合は、この呼び出しを削除する必要があります。 また、主キーが自動的に検出されないため、常に指定する必要がありました。
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>所有型のテーブル分割へのマッピング
 
