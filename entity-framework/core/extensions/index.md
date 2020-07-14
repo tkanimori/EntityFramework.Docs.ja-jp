@@ -4,12 +4,12 @@ author: ErikEJ
 ms.date: 04/11/2020
 ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: 47a5601e996afab9c0aa0538a2a2b47f204f7753
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: 5b7945bd24ac19a82b08f4d5709555cf53485f4c
+ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370357"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86238256"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -157,6 +157,12 @@ SQL Server を使用している開発者がテンポラル テーブルを簡�
 
 [GitHub リポジトリ](https://github.com/SteffenMangold/EntityFrameworkCore.Cacheable)
 
+### <a name="entityframeworkcorencache"></a>EntityFrameworkCore.NCache
+
+NCache Entity Framework Core Provider は、クエリの結果をキャッシュする、分散された第 2 レベルのキャッシュ プロバイダーです。 NCache の分散アーキテクチャにより、拡張性と可用性が向上しています。 対象は EF Core 2 です。
+
+[Web サイト](https://www.alachisoft.com/ncache/ef-core-cache.html)
+
 ### <a name="entity-framework-plus"></a>Entity Framework Plus
 
 次のような機能によって DbContext を拡張します:Include Filter、Auditing、Caching、Query Future、Batch Delete、Batch Update など。 対象の EF Core:2、3。
@@ -224,3 +230,9 @@ SQL 式に対する LINQ クエリの代替トランスレーター。 対象の
 CTE、一括コピー、テーブル ヒント、ウィンドウ関数、一時テーブル、データベース側の作成、更新、削除作などの高度な SQL 機能のサポートが含まれています。
 
 [GitHub リポジトリ](https://github.com/linq2db/linq2db.EntityFrameworkCore)
+
+### <a name="efcoresoftdelete"></a>EFCore.SoftDelete
+
+エンティティの論理的な削除のための実装。 対象の EF Core:3.
+
+[NuGet](https://www.nuget.org/packages/EFCore.SoftDelete)
