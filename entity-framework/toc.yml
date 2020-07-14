@@ -144,6 +144,10 @@
               items:
                 - name: 概要
                   href: core/managing-schemas/migrations/index.md
+                - name: 移行の管理
+                  href: core/managing-schemas/migrations/managing.md
+                - name: 移行の適用
+                  href: core/managing-schemas/migrations/applying.md
                 - name: チーム環境
                   href: core/managing-schemas/migrations/teams.md
                 - name: カスタム操作
