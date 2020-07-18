@@ -1,15 +1,15 @@
 ---
 title: SQLite データベースプロバイダー-制限事項-EF Core
-author: rowanmiller
-ms.date: 04/09/2017
+author: bricelam
+ms.date: 07/16/2020
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 17e97da9dfffefeb507fde744b710e6936bff69b
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: 393f5e80ce2e11dcb11c2048e06effa27e48dc13
+ms.sourcegitcommit: d85263b5d5d665dbaf94de8832e2917bce048b34
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672779"
+ms.lasthandoff: 07/17/2020
+ms.locfileid: "86451230"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core データベース プロバイダーの制限事項
 
@@ -45,34 +45,36 @@ modelBuilder.Entity<MyEntity>()
 
 SQLite データベースエンジンでは、他の多くのリレーショナルデータベースでサポートされているいくつかのスキーマ操作はサポートされていません。 サポートされていない操作の1つを SQLite データベースに適用しようとすると、が `NotSupportedException` スローされます。
 
-| Operation            | サポート対象かどうか | バージョンが必要です |
-|:---------------------|:-----------|:-----------------|
-| Table.addcolumn            | ✔          | 1.0              |
-| AddForeignKey        | ✗          |                  |
-| AddPrimaryKey        | ✗          |                  |
-| AddUniqueConstraint  | ✗          |                  |
-| AlterColumn          | ✗          |                  |
-| CreateIndex          | ✔          | 1.0              |
-| CreateTable          | ✔          | 1.0              |
-| DropColumn           | ✗          |                  |
-| DropForeignKey       | ✗          |                  |
-| DropIndex            | ✔          | 1.0              |
-| DropPrimaryKey       | ✗          |                  |
-| DropTable            | ✔          | 1.0              |
-| DropUniqueConstraint | ✗          |                  |
-| RenameColumn         | ✔          | 2.2.2            |
-| RenameIndex          | ✔          | 2.1              |
-| RenameTable          | ✔          | 1.0              |
-| EnsureSchema         | ✔ (非 op)  | 2.0              |
-| DropSchema           | ✔ (非 op)  | 2.0              |
-| 挿入               | ✔          | 2.0              |
-| 更新               | ✔          | 2.0              |
-| 削除               | ✔          | 2.0              |
+特定の操作を実行するために再構築が試行されます。 再構築を行うことができるのは、EF Core モデルの一部であるデータベースアーティファクトだけです。 データベースアーティファクトがモデルの一部ではない場合 (たとえば、移行中に手動で作成された場合)、 `NotSupportedException` がまだスローされます。
+
+| 操作            | サポート対象かどうか  | バージョンが必要です |
+|:---------------------|:------------|:-----------------|
+| AddCheckConstraint   | ✔ (再構築) | 5.0              |
+| Table.addcolumn            | ✔           | 1.0              |
+| AddForeignKey        | ✔ (再構築) | 5.0              |
+| AddPrimaryKey        | ✔ (再構築) | 5.0              |
+| AddUniqueConstraint  | ✔ (再構築) | 5.0              |
+| AlterColumn          | ✔ (再構築) | 5.0              |
+| CreateIndex          | ✔           | 1.0              |
+| CreateTable          | ✔           | 1.0              |
+| DropCheckConstraint  | ✔ (再構築) | 5.0              |
+| DropColumn           | ✔ (再構築) | 5.0              |
+| DropForeignKey       | ✔ (再構築) | 5.0              |
+| DropIndex            | ✔           | 1.0              |
+| DropPrimaryKey       | ✔ (再構築) | 5.0              |
+| DropTable            | ✔           | 1.0              |
+| DropUniqueConstraint | ✔ (再構築) | 5.0              |
+| RenameColumn         | ✔           | 2.2.2            |
+| RenameIndex          | ✔ (再構築) | 2.1              |
+| RenameTable          | ✔           | 1.0              |
+| EnsureSchema         | ✔ (非 op)   | 2.0              |
+| DropSchema           | ✔ (非 op)   | 2.0              |
+| 挿入               | ✔           | 2.0              |
+| 更新               | ✔           | 2.0              |
+| 削除               | ✔           | 2.0              |
 
 ## <a name="migrations-limitations-workaround"></a>移行の制限の回避策
 
-これらの制限の一部を回避するには、移行でコードを手動で記述して、テーブルの再構築を実行します。 テーブルのリビルドには、既存のテーブルの名前変更、新しいテーブルの作成、新しいテーブルへのデータのコピー、および古いテーブルの削除が必要です。 これらの手順の一部を実行するには、メソッドを使用する必要があり `Sql(string)` ます。
+再構築を実行するために、移行でコードを手動で記述することで、これらの制限の一部を回避できます。 テーブルの再構築では、新しいテーブルを作成し、新しいテーブルにデータをコピーし、古いテーブルを削除して、新しいテーブルの名前を変更します。 これらの手順の一部を実行するには、メソッドを使用する必要があり `Sql(string)` ます。
 
 詳細については、SQLite のドキュメントで[他の種類のテーブルスキーマ変更を行う](https://sqlite.org/lang_altertable.html#otheralter)方法に関するドキュメントを参照してください。
-
-今後、EF では、これらの操作の一部を、テーブルの再構築方法を使用してサポートすることができます。 [この機能は、GitHub プロジェクトで追跡](https://github.com/aspnet/EntityFrameworkCore/issues/329)できます。
