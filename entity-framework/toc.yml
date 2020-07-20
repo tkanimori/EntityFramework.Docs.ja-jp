@@ -65,6 +65,8 @@
               href: core/get-started/install/index.md
             - name: ASP.NET Core のチュートリアル >>
               href: /aspnet/core/data/ef-rp/intro
+            - name: Xamarin のチュートリアル
+              href: core/get-started/xamarin.md
         - name: 基礎
           items:
             - name: 接続文字列
