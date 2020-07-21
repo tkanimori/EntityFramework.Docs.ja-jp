@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: 86b9d08377ea8295b746e5f0217a408edcfe1517
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: d3a1810599771befb451715d93454fff63949771
+ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370474"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86238308"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -53,8 +53,53 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
-> [!CAUTION]
-> バージョン 3.0.0 より、各 `Include` によって追加の JOIN がリレーショナル プロバイダーによって作成された SQL クエリに追加されます。以前のバージョンでは追加の SQL クエリが生成されていました。 これにより、クエリのパフォーマンスが良かれ悪しかれ大幅に変わります。 特に、`Include` 演算子が非常に多い LINQ クエリは、デカルト爆発の問題を回避するために、複数の個別の LINQ クエリに分割する必要がある場合があります。
+### <a name="single-and-split-queries"></a>単一クエリと分割クエリ
+
+> [!NOTE]
+> この機能は EF Core 5.0 で導入されています。
+
+リレーショナル データベースでは、JOIN を導入するとすべての関連エンティティが既定で読み込まれます。
+
+```sql
+SELECT [b].[BlogId], [b].[OwnerId], [b].[Rating], [b].[Url], [p].[PostId], [p].[AuthorId], [p].[BlogId], [p].[Content], [p].[Rating], [p].[Title]
+FROM [Blogs] AS [b]
+LEFT JOIN [Post] AS [p] ON [b].[BlogId] = [p].[BlogId]
+ORDER BY [b].[BlogId], [p].[PostId]
+```
+
+一般的なブログに複数の関連する投稿がある場合、これらの投稿の行によってブログの情報が複製され、いわゆる "デカルト爆発" の問題が発生します。 さらに一対多リレーションシップが読み込まれると、重複するデータの量が増加し、アプリケーションのパフォーマンスに悪影響を及ぼす可能性があります。
+
+EF では、特定の LINQ クエリを複数の SQL クエリに "*分割*" するように指定できます。 JOIN の代わりに、分割クエリでは、含まれている一対多のナビゲーションごとに追加の SQL クエリが実行されます。
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs?name=AsSplitQuery&highlight=5)]
+
+これにより、次の SQL が生成されます。
+
+```sql
+SELECT [b].[BlogId], [b].[OwnerId], [b].[Rating], [b].[Url]
+FROM [Blogs] AS [b]
+ORDER BY [b].[BlogId]
+
+SELECT [p].[PostId], [p].[AuthorId], [p].[BlogId], [p].[Content], [p].[Rating], [p].[Title], [b].[BlogId]
+FROM [Blogs] AS [b]
+INNER JOIN [Post] AS [p] ON [b].[BlogId] = [p].[BlogId]
+ORDER BY [b].[BlogId]
+```
+
+これによって JOIN とデカルト爆発に関連するパフォーマンス上の問題が回避されますが、いくつかの欠点もあります。
+
+* ほとんどのデータベースでは単一クエリに対してデータの整合性が保証されますが、複数クエリに対してこのような保証は存在しません。 つまり、クエリの実行中に同時にデータベースが更新される場合、結果として得られるデータの整合性が失われる可能性があります。 これはシリアル化可能なトランザクションまたはスナップショット トランザクションでクエリをラップすることで軽減できる場合がありますが、それ自体のパフォーマンス上の問題が発生する可能性があります。 詳細については、お使いのデータベースのドキュメントを参照してください。
+* 現在、各クエリによりデータベースに対する追加のネットワーク ラウンドトリップが発生します。これによって、特にデータベースの待ち時間が長い場合 (クラウド サービスなど)、パフォーマンスが低下する可能性があります。 EF Core では今後、クエリを 1 回のラウンドトリップにバッチ処理することによって、これを改善する予定です。
+* 一部のデータベースでは、複数のクエリの結果を同時に使用することが許可されていますが (SQL Server と MARS、Sqlite)、ほとんどの場合、特定の時点でアクティブにできるクエリは 1 つだけです。 つまり、後のクエリを実行する前に前のクエリの結果をすべてアプリケーションのメモリにバッファーし、メモリ要件を潜在的にかなり大きくする必要があります。
+
+残念ながら、すべてのシナリオに適合する関連エンティティの読み込み方法はありません。 単一クエリと分割クエリの長所と短所を慎重に検討し、ご自身のニーズに合うものを選択してください。
+
+> [!NOTE]
+> 一対一の関連エンティティは常に JOIN によって読み込まれます。パフォーマンス上の影響がないためです。
+>
+> 現時点では、SQL Server でクエリの分割を使用するには、接続文字列で `MultipleActiveResultSets=true` を設定する必要があります。 この要件は、今後のプレビューで削除される予定です。
+>
+> EF Core 5.0 の今後のプレビューでは、コンテキストの既定値としてクエリの分割を指定できるようになる予定です。
 
 ### <a name="filtered-include"></a>フィルター処理されたインクルード
 

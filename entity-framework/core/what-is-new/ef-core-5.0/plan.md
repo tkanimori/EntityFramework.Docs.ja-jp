@@ -3,19 +3,21 @@ title: Entity Framework Core 5.0 の計画
 author: ajcvickers
 ms.date: 06/11/2020
 uid: core/what-is-new/ef-core-5.0/plan
-ms.openlocfilehash: 249560bc14f72fd524be91bb1670dbaf78ae6b60
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: a107f901b215e7abaa5905852f81c2d9ab094b98
+ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370579"
+ms.lasthandoff: 07/10/2020
+ms.locfileid: "86238321"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Entity Framework Core 5.0 の計画
 
 [計画プロセス](xref:core/what-is-new/release_planning)で説明されているように、EF Core 5.0 リリースの暫定的な計画には関係者からの意見が取り込まれています。
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > この計画はまだ進行中です。 ここで説明されている内容は確約されたものではありません。 この計画は、さらに学習して発展する出発点となります。 現在、5.0 に対して計画されていない機能が盛り込まれる可能性があります。 現在、5.0 に対して計画されている機能が除外される可能性があります。
+
+## <a name="general-information"></a>一般情報
 
 ### <a name="version-number-and-release-date"></a>バージョン番号とリリース日
 
@@ -110,7 +112,7 @@ EF Core 3.0 では、特定の LINQ クエリに対して単一の SQL クエリ
 これにより、複数のコレクション向けのインクルードを使用するクエリのパフォーマンスが大幅に低下していました。
 
 EF Core 5.0 では、新しい既定の動作を保持しています。
-ただし、EF Core 5.0 では単一のクエリによってパフォーマンスが低下しているコレクションのインクルードで複数クエリの生成が許可されます。 
+ただし、EF Core 5.0 では、単一のクエリによってパフォーマンスが低下しているコレクションのインクルードで複数クエリの生成が許可されます。
 
 ## <a name="rationalize-totable-toquery-toview-fromsql-etc"></a>ToTable、ToQuery、ToView、FromSql などの合理化
 
@@ -165,7 +167,7 @@ EF Core 5.0 では、新しい既定の動作を保持しています。
 
 結果として、EF Core での多くの小規模な機能向上 (たとえば、SQLite での移行の向上など) と、EF だけではないエンドツーエンドのエクスペリエンスを向上させるための、他のチームによるガイダンスと長期的な共同作業になる可能性があります。
 
-## <a name="ef-core-platforms-experience"></a>EF Core プラットフォームのエクスペリエンス 
+## <a name="ef-core-platforms-experience"></a>EF Core プラットフォームのエクスペリエンス
 
 開発リーダー: @roji、@bricelam
 
@@ -247,10 +249,11 @@ EF チームも、Microsoft.Data.Sqlite ADO.NET プロバイダーを所有し�
 状態: 進行中
 
 既に、3.0 および 3.1 リリースのドキュメントの更新が行われています。 また、以下の作業も行われています。
-  * 概要ドキュメントをいっそう理解しやすく実行しやすいものにするための見直し
-  * 検索を容易にして相互参照を追加するためのドキュメントの再編成
-  * 既存ドキュメントの詳細さと明快さの向上
-  * サンプルの更新とその他の例の追加
+
+* 概要ドキュメントをいっそう理解しやすく実行しやすいものにするための見直し
+* 検索を容易にして相互参照を追加するためのドキュメントの再編成
+* 既存ドキュメントの詳細さと明快さの向上
+* サンプルの更新とその他の例の追加
 
 ## <a name="fixing-bugs"></a>バグの修正
 
@@ -286,6 +289,6 @@ EF チームも、Microsoft.Data.Sqlite ADO.NET プロバイダーを所有し�
 
 また、計画を立てるときは常に、[最も投票が多かった問題](https://github.com/dotnet/efcore/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)が考慮されています。 これらの問題をリリースから切り捨てることは常に苦痛ですが、保有するリソースにとって現実的な計画を立てる必要があります。
 
-## <a name="feedback"></a>フィードバック
+## <a name="suggestions"></a>推奨事項
 
 計画に関するフィードバックは重要です。 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指) することです。 このデータが、次のリリースの[計画プロセス](xref:core/what-is-new/release_planning)に取り込まれます。
