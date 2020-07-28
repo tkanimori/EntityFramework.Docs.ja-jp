@@ -2,14 +2,14 @@
 title: EF Core 5.0 の新機能
 description: EF Core 5.0 の新機能の概要
 author: ajcvickers
-ms.date: 06/02/2020
+ms.date: 07/20/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew
-ms.openlocfilehash: 304ed74fe344b43177525113c70b7be7bb0ac5ed
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: d42b2811d07516e9febedbc51fcb206000d38371
+ms.sourcegitcommit: 51148929e3889c48227d96c95c4e310d53a3d2c9
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238334"
+ms.lasthandoff: 07/21/2020
+ms.locfileid: "86873384"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -18,6 +18,148 @@ EF Core 5.0 は現在開発中です。 このページには、各プレビュ�
 このページには [EF Core 5.0 のプラン](xref:core/what-is-new/ef-core-5.0/plan)を記載していません。 このプランでは、最終リリースの出荷前に含めようとしているものすべてを含めた、EF Core 5.0 のテーマ全体について説明します。
 
 公開されている公式ドキュメントについては、リンクが追加されます。
+
+## <a name="preview-7"></a>Preview 7
+
+### <a name="dbcontextfactory"></a>DbContextFactory
+
+EF Core 5.0 には、アプリケーションの依存関係挿入 (D.I.) コンテナーに DbContext インスタンスを作成するファクトリを登録する `AddDbContextFactory` と `AddPooledDbContextFactory` が導入されています。 次に例を示します。
+
+```csharp
+services.AddDbContextFactory<SomeDbContext>(b =>
+    b.UseSqlServer(@"Server=(localdb)\mssqllocaldb;Database=Test"));
+```
+
+これにより、ASP.NET Core コントローラーなどのアプリケーション サービスが、サービス コンストラクターの `IDbContextFactory<TContext>` に依存できます。 次に例を示します。
+
+```csharp
+public class MyController
+{
+    private readonly IDbContextFactory<SomeDbContext> _contextFactory;
+
+    public MyController(IDbContextFactory<SomeDbContext> contextFactory)
+    {
+        _contextFactory = contextFactory;
+    }
+}
+```
+
+これにより、DbContext インスタンスを必要に応じて作成および使用できます。 次に例を示します。
+
+```csharp
+public void DoSomehing()
+{
+    using (var context = _contextFactory.CreateDbContext())
+    {
+        // ...            
+    }
+}
+```
+
+なお、この方法で作成された DbContext インスタンスは、アプリケーションのサービス プロバイダーには管理 "_されず_"、従ってアプリケーションによって破棄される必要があります。 この分離は、`IDbContextFactory` の使用が推奨される Blazor アプリケーションで非常に便利ですが、他のシナリオでも役立つ場合があります。
+
+DbContext インスタンスは、`AddPooledDbContextFactory` を呼び出すことによってプールできます。 このプールは、`AddDbContextPool` の場合と同じように動作しますが、同じ制限もあります。
+
+ドキュメントは、イシュー [#2523](https://github.com/dotnet/EntityFramework.Docs/issues/2523) で追跡されています。
+
+### <a name="reset-dbcontext-state"></a>DbContext の状態のリセット
+
+EF Core 5.0 には、追跡対象のすべてのエンティティの DbContext をクリアする `ChangeTracker.Clear()` が導入されています。 これは、作業単位ごとに有効期間が短い新しいコンテキスト インスタンスを作成するベスト プラクティスを使用している場合には通常不要です。 ただし、DbContext インスタンスの状態をリセットする必要がある場合、この新しい `Clear()` メソッドを使用すると、すべてのエンティティを一括でデタッチするよりも、パフォーマンスと堅牢性が向上します。  
+
+ドキュメントは、イシュー [#2524](https://github.com/dotnet/EntityFramework.Docs/issues/2524) で追跡されています。
+
+### <a name="new-pattern-for-store-generated-defaults"></a>ストアで生成された既定値に新しいパターン
+
+EF Core では、既定の制約値がある列に、値を明示的に設定できます。 EF Core では、このセンチネルとして、プロパティ型に CLR の既定値を使用しています。つまり、その値が CLR の既定でない場合はそれが挿入され、それ以外の場合は、データベースの既定値が使用されます。
+
+これは、既定の CLR が適切なセンチネルではない型 (特に、`bool` のプロパティ) で問題が発生します。 EF Core 5.0 で、次のようなケースで、バッキング フィールドに null 値が許容されるようになりました。 次に例を示します。
+
+```csharp
+public class Blog
+{
+    private bool? _isValid;
+
+    public bool IsValid
+    {
+        get => _isValid ?? false;
+        set => _isValid = value;
+    }
+}
+```
+
+なお、null 値はバッキング フィールドでは許容されますが、公開されているプロパティでは許容されません。 これにより、エンティティ型の公開サーフェスに影響を与えることなく、センチネル値を `null` にできます。 この場合、`IsValid` が設定されない場合、バッキング フィールドは null のままであるため、データベースの既定値が使用されます。 `true` または `false` のいずれかが設定される場合、この値はデータベースに明示的に保存されます。
+
+ドキュメントは、イシュー [#2525](https://github.com/dotnet/EntityFramework.Docs/issues/2525) で追跡されています。
+
+### <a name="cosmos-partition-keys"></a>Cosmos のパーティション キー
+
+EF Core では、EF モデルに Cosmos パーティション キーを含めることができます。 次に例を示します。
+
+```csharp
+modelBuilder.Entity<Customer>().HasPartitionKey(b => b.AlternateKey)
+```
+
+Preview 7 以降では、一部のクエリのパフォーマンスの向上のために、パーティション キーがエンティティ型の PK に含まれるようになりました。
+
+ドキュメントは、イシュー [#2471](https://github.com/dotnet/EntityFramework.Docs/issues/2471) で追跡されています。
+
+### <a name="cosmos-configuration"></a>Cosmos の構成
+
+EF Core 5.0 では、Cosmos と Cosmos への接続の構成が改善されています。
+
+以前は、EF Core を Cosmos データベースに接続する場合に、エンドポイントとキーを明示的に指定する必要がありました。 EF Core 5.0 では、代わりに接続文字列を使用できます。 また、EF Core 5.0 では、WebProxy インスタンスを明示的に設定することができます。 次に例を示します。
+
+```csharp
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseCosmos("my-cosmos-connection-string", "MyDb",
+            cosmosOptionsBuilder =>
+            {
+                cosmosOptionsBuilder.WebProxy(myProxyInstance);
+            });
+```
+
+その他、多くのタイムアウト値、制限なども構成できるようになりました。 次に例を示します。
+
+```csharp
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseCosmos("my-cosmos-connection-string", "MyDb",
+            cosmosOptionsBuilder =>
+            {
+                cosmosOptionsBuilder.LimitToEndpoint();
+                cosmosOptionsBuilder.RequestTimeout(requestTimeout);
+                cosmosOptionsBuilder.OpenTcpConnectionTimeout(timeout);
+                cosmosOptionsBuilder.IdleTcpConnectionTimeout(timeout);
+                cosmosOptionsBuilder.GatewayModeMaxConnectionLimit(connectionLimit);
+                cosmosOptionsBuilder.MaxTcpConnectionsPerEndpoint(connectionLimit);
+                cosmosOptionsBuilder.MaxRequestsPerTcpConnection(requestLimit);
+            });
+```
+
+最後に、一般により互換性がある、`ConnectionMode.Gateway` が既定の接続モードになりました。
+
+ドキュメントは、イシュー [#2471](https://github.com/dotnet/EntityFramework.Docs/issues/2471) で追跡されています。
+
+### <a name="scaffold-dbcontext-now-singularizes"></a>DbContext のスキャフォールディングの単数化
+
+以前は EF Core で、既存のデータベースから DbContext をスキャフォールディングする場合、データベース内のテーブル名と一致するエンティティ型名が作成されていました。 たとえば、`People` テーブルと `Addresses` テーブルには、`People` と `Addresses` という名前のエンティティ型が生成されていました。
+
+この動作は、以前のリリースでは、複数形化サービスの登録によって構成できました。 EF Core 5.0 では、既定の複数形化サービスとして [Humanizer](https://www.nuget.org/packages/Humanizer.Core/) パッケージが使用されるようになりました。 つまり、`People` テーブルと `Addresses` テーブルは、`Person` と `Address` という名前のエンティティ型にリバース エンジニアリングされます。
+
+### <a name="savepoints"></a>セーブポイント
+
+EF Core では、複数の操作を実行するトランザクションをより細かく制御する、[セーブポイント](/SQL/t-sql/language-elements/save-transaction-transact-sql?view=sql-server-ver15#remarks)がサポートされるようになりました。
+
+セーブポイントは、手動で作成、解放、ロールバックすることができます。 次に例を示します。
+
+```csharp
+context.Database.CreateSavepoint("MySavePoint"); 
+```
+
+また、`SaveChanges` の実行に失敗すると、EF Core では最後のセーブポイントにロールバックされるようになりました。 これにより、トランザクション全体を再実行しなくても、SaveChanges を再実行できます。
+
+ドキュメントは、イシュー [#2429](https://github.com/dotnet/EntityFramework.Docs/issues/2429) で追跡されています。
 
 ## <a name="preview-6"></a>Preview 6
 
