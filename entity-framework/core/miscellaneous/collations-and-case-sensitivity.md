@@ -5,12 +5,12 @@ author: roji
 ms.date: 04/27/2020
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/collations-and-case-sensitivity
-ms.openlocfilehash: b3874847922cb39aa57d50813e6e50ff7db72eb9
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: 46a13d341c1b721bb243ee2b205bdc2f4d7e7aee
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370566"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526447"
 ---
 # <a name="collations-and-case-sensitivity"></a>照合順序と大文字と小文字の区別
 
@@ -68,11 +68,11 @@ WHERE [c].[Name] COLLATE SQL_Latin1_General_CP1_CS_AS = N'John'
 
 .NET では、文字列の等価性が既定で大文字と小文字が区別されます。では `s1 == s2` 、文字列が同一であることを必要とする序数の比較が実行されます。 データベースの既定の照合順序は異なるため、インデックスを使用するには単純な等価性が必要であるため、EF Core はデータベースの大文字と小文字を区別する操作に単純な等価性を変換しようとしません。 C# の等値は、使用されている特定のデータベースとその照合順序の構成に応じて、大文字と小
 
-さらに、.NET は [`string.Equals`](https://docs.microsoft.com/dotnet/api/system.string.equals#System_String_Equals_System_String_System_StringComparison_) 列挙型を受け入れるオーバーロードを提供し [`StringComparison`](https://docs.microsoft.com/dotnet/api/system.stringcomparison) ます。これにより、比較に大文字と小文字の区別とカルチャを指定できます。 仕様により、これらのオーバーロードを SQL に変換することによって EF Core し、それらを使用しようとすると、例外が発生します。 1つの点として、EF Core では、大文字と小文字を区別しない照合順序を使用する必要があります。 さらに重要なこととして、照合順序を適用すると、ほとんどの場合、インデックスの使用が妨げられ、非常に基本的で一般的に使用される .NET コンストラクトのパフォーマンスに大きく影響します。 クエリで大文字と小文字を区別するか、大文字と小文字を区別しない比較を使用するには、前述のようにを使用して明示的に照合順序を指定し `EF.Functions.Collate` ます[detailed above](#explicit-collations-and-indexes)
+さらに、.NET は [`string.Equals`](/dotnet/api/system.string.equals#System_String_Equals_System_String_System_StringComparison_) 列挙型を受け入れるオーバーロードを提供し [`StringComparison`](/dotnet/api/system.stringcomparison) ます。これにより、比較に大文字と小文字の区別とカルチャを指定できます。 仕様により、これらのオーバーロードを SQL に変換することによって EF Core し、それらを使用しようとすると、例外が発生します。 1つの点として、EF Core では、大文字と小文字を区別しない照合順序を使用する必要があります。 さらに重要なこととして、照合順序を適用すると、ほとんどの場合、インデックスの使用が妨げられ、非常に基本的で一般的に使用される .NET コンストラクトのパフォーマンスに大きく影響します。 クエリで大文字と小文字を区別するか、大文字と小文字を区別しない比較を使用するには、前述のようにを使用して明示的に照合順序を指定し `EF.Functions.Collate` ます[detailed above](#explicit-collations-and-indexes)
 
 ## <a name="database-specific-information"></a>データベース固有の情報
 
-* [照合順序に関するドキュメントを SQL Server](https://docs.microsoft.com/sql/relational-databases/collations/collation-and-unicode-support)します。
-* [照合順序に関する Microsoft Data Sqlite ドキュメント](https://docs.microsoft.com/dotnet/standard/data/sqlite/collation)。
+* [照合順序に関するドキュメントを SQL Server](/sql/relational-databases/collations/collation-and-unicode-support)します。
+* [照合順序に関する Microsoft Data Sqlite ドキュメント](/dotnet/standard/data/sqlite/collation)。
 * [照合順序に関する PostgreSQL ドキュメント](https://www.postgresql.org/docs/current/collation.html)。
 * [照合順序に関する MySQL ドキュメント](https://dev.mysql.com/doc/refman/en/charset-general.html)。

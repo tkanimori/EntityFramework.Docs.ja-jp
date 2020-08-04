@@ -4,12 +4,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/managing
-ms.openlocfilehash: e52d3680360a1e83e05f04650c735c5a67680094
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: 2097d3cc9232d448191dbebbe3d14d86e80b91fe
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238730"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526434"
 ---
 # <a name="managing-migrations"></a>移行の管理
 
@@ -97,7 +97,7 @@ migrationBuilder.RenameColumn(
 
 ### <a name="adding-raw-sql"></a>生の SQL の追加
 
-列の名前の変更は、組み込みの API を使用して行うことができますが、多くの場合、可能ではありません。 たとえば、既存の `FirstName` `LastColumn` プロパティとプロパティを1つの新しいプロパティに置き換えることができ `FullName` ます。 EF Core によって生成される移行は、次のようになります。
+列の名前の変更は、組み込みの API を使用して行うことができますが、多くの場合、可能ではありません。 たとえば、既存の `FirstName` `LastName` プロパティとプロパティを1つの新しいプロパティに置き換えることができ `FullName` ます。 EF Core によって生成される移行は、次のようになります。
 
 ``` csharp
 migrationBuilder.DropColumn(
@@ -109,7 +109,7 @@ migrationBuilder.DropColumn(
     table: "Customer");
 
 migrationBuilder.AddColumn<string>(
-    name: "Name",
+    name: "FullName",
     table: "Customer",
     nullable: true);
 ```
@@ -118,14 +118,14 @@ migrationBuilder.AddColumn<string>(
 
 ``` csharp
 migrationBuilder.AddColumn<string>(
-    name: "Name",
+    name: "FullName",
     table: "Customer",
     nullable: true);
 
 migrationBuilder.Sql(
 @"
     UPDATE Customer
-    SET Name = FirstName + ' ' + LastName;
+    SET FullName = FirstName + ' ' + LastName;
 ");
 
 migrationBuilder.DropColumn(
@@ -159,7 +159,7 @@ migrationBuilder.Sql(
 * フルテキスト検索
 * 関数
 * トリガー
-* Views
+* ビュー
 
 ほとんどの場合、移行を適用すると、EF Core によって各移行が独自のトランザクションで自動的にラップされます。 残念ながら、一部のデータベースでは、一部の移行操作をトランザクション内で実行することはできません。このような場合は、に渡すことによってトランザクションをオプトアウトすることができ `suppressTransaction: true` `migrationBuilder.Sql` ます。
 

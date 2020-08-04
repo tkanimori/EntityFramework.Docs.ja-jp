@@ -4,12 +4,12 @@ author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: c3c1940b-136d-45d8-aa4f-cb5040f8980a
 uid: core/miscellaneous/rc2-rtm-upgrade
-ms.openlocfilehash: 779caad7883d13684b389dab7515be44bc42e1ef
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: f496806ea6330c60cf43068882b7de839e18e383
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414039"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526772"
 ---
 # <a name="upgrading-from-ef-core-10-rc2-to-rtm"></a>EF Core 1.0 RC2 から RTM へのアップグレード
 
@@ -21,25 +21,25 @@ ms.locfileid: "78414039"
 
 **インストールされているパッケージを RTM バージョンにアップグレードする必要があります。**
 
-* ランタイムパッケージ (たとえば、`Microsoft.EntityFrameworkCore.SqlServer`) は `1.0.0-rc2-final` から `1.0.0`に変更されました。
+* ランタイムパッケージ (たとえば、 `Microsoft.EntityFrameworkCore.SqlServer` ) はからに変更されました `1.0.0-rc2-final` `1.0.0` 。
 
-* `Microsoft.EntityFrameworkCore.Tools` パッケージが `1.0.0-preview1-final` から `1.0.0-preview2-final`に変更されました。 ツールはまだプレリリースであることに注意してください。
+* `Microsoft.EntityFrameworkCore.Tools`パッケージがからに変更されました `1.0.0-preview1-final` `1.0.0-preview2-final` 。 ツールはまだプレリリースであることに注意してください。
 
 ## <a name="existing-migrations-may-need-maxlength-added"></a>既存の移行に maxLength を追加する必要がある
 
-RC2 では、移行の列の定義は `table.Column<string>(nullable: true)` のように見え、列の長さは、移行の背後にあるコードに格納しているいくつかのメタデータで検索されました。 RTM では、スキャフォールディングコード `table.Column<string>(maxLength: 450, nullable: true)`に長さが含まれるようになりました。
+RC2 では、移行の列の定義は、 `table.Column<string>(nullable: true)` 移行の背後にあるコードに格納しているいくつかのメタデータで検索されています。 RTM では、スキャフォールディングコードに長さが含まれるようになりました `table.Column<string>(maxLength: 450, nullable: true)` 。
 
-RTM を使用する前にスキャフォールディングしていた既存の移行には、`maxLength` 引数が指定されていません。 これは、データベースでサポートされている最大長が使用されることを意味します (SQL Server では`nvarchar(max)`)。 これは一部の列に対しては問題ありませんが、キー、外部キー、またはインデックスの一部である列は、最大長を含むように更新する必要があります。 慣例により、450はキー、外部キー、およびインデックス付き列に使用される最大長です。 モデルで長さが明示的に構成されている場合は、代わりにその長さを使用する必要があります。
+RTM を使用する前にスキャフォールディングしていた既存の移行には、引数が指定されていません `maxLength` 。 これは、データベースでサポートされている最大長 (SQL Server) が使用されることを意味し `nvarchar(max)` ます。 これは一部の列に対しては問題ありませんが、キー、外部キー、またはインデックスの一部である列は、最大長を含むように更新する必要があります。 慣例により、450はキー、外部キー、およびインデックス付き列に使用される最大長です。 モデルで長さが明示的に構成されている場合は、代わりにその長さを使用する必要があります。
 
 ### <a name="aspnet-identity"></a>ASP.NET Identity
 
-この変更は、ASP.NET Identity を使用し、RTM 以前のプロジェクトテンプレートから作成されたプロジェクトに影響します。 プロジェクトテンプレートには、データベースの作成に使用される移行が含まれています。 この移行を編集して、次の列に `256` の最大長を指定する必要があります。
+この変更は、ASP.NET Identity を使用し、RTM 以前のプロジェクトテンプレートから作成されたプロジェクトに影響します。 プロジェクトテンプレートには、データベースの作成に使用される移行が含まれています。 この移行を編集して、次の列の最大長を指定する必要があり `256` ます。
 
 * **AspNetRoles**
-  * Name
+  * 名前
   * NormalizedName
 * **AspNetUsers**
-  * Email
+  * 電子メール
   * NormalizedEmail
   * NormalizedUserName
   * UserName
@@ -50,9 +50,9 @@ RTM を使用する前にスキャフォールディングしていた既存の�
 System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in table 'AspNetRoles' is of a type that is invalid for use as a key column in an index.
 ```
 
-## <a name="net-core-remove-imports-in-projectjson"></a>.NET Core: プロジェクトの json の "インポート" を削除する
+## <a name="net-core-remove-imports-in-projectjson"></a>.NET Core: project.jsの [インポート] を削除します。
 
-.NET Core を RC2 でターゲットとしている場合は、.NET Standard をサポートしていない EF Core の依存関係の一部に対する一時的な回避策として、`imports` をプロジェクトに追加する必要がありました。 これらは削除できます。
+.NET Core を RC2 で対象としていた場合は、 `imports` .NET Standard をサポートしていない EF Core の依存関係の一部に対する一時的な回避策として project.jsにを追加する必要がありました。 これらは削除できます。
 
 ``` json
 {
@@ -65,7 +65,7 @@ System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in tabl
 ```
 
 > [!NOTE]  
-> バージョン 1.0 RTM の時点では、 [.NET Core SDK](https://www.microsoft.com/net/download/core)は Visual Studio 2015 を使用した .net Core アプリケーションの `project.json` または開発をサポートしなくなりました。 [project.json から csproj への移行](https://docs.microsoft.com/dotnet/articles/core/migration/)をお勧めします。 Visual Studio を使用している場合は、 [Visual studio 2017](https://www.visualstudio.com/downloads/)にアップグレードすることをお勧めします。
+> バージョン 1.0 RTM の時点では、 [.NET Core SDK](https://www.microsoft.com/net/download/core)は `project.json` Visual Studio 2015 を使用して .net Core アプリケーションをサポートまたは開発しなくなりました。 [project.json から csproj への移行](/dotnet/articles/core/migration/)をお勧めします。 Visual Studio を使用している場合は、 [Visual studio 2017](https://www.visualstudio.com/downloads/)にアップグレードすることをお勧めします。
 
 ## <a name="uwp-add-binding-redirects"></a>UWP: バインドリダイレクトの追加
 
@@ -75,7 +75,7 @@ System.Data.SqlClient.SqlException (0x80131904): Column 'NormalizedName' in tabl
 System.IO.FileLoadException: Could not load file or assembly 'System.IO.FileSystem.Primitives, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b03f5f7f11d50a3a' or one of its dependencies. The located assembly's manifest definition does not match the assembly reference.
 ```
 
-UWP プロジェクトにバインドリダイレクトを手動で追加する必要があります。 プロジェクトルートフォルダーに `App.config` という名前のファイルを作成し、適切なアセンブリバージョンにリダイレクトを追加します。
+UWP プロジェクトにバインドリダイレクトを手動で追加する必要があります。 プロジェクトルートフォルダーにという名前のファイルを作成 `App.config` し、適切なアセンブリバージョンにリダイレクトを追加します。
 
 ```xml
 <configuration>

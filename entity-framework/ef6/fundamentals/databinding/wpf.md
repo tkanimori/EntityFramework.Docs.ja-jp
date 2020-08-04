@@ -3,19 +3,19 @@ title: WPF を使用したデータバインド-EF6
 author: divega
 ms.date: 05/19/2020
 ms.assetid: e90d48e6-bea7785-47ef-b756-7b89cce4daf0
-ms.openlocfilehash: c8e9e9a0810d8192e5184abbc7df2e74e4ee7edb
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: baeb75b1ee386ca58013048bcc31ea4074604673
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672910"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526850"
 ---
 # <a name="databinding-with-wpf"></a>WPF とのデータバインド
 
 > [!IMPORTANT]
 > **このドキュメントは、.NET Framework の WPF でのみ有効です**
 >
-> このドキュメントでは、.NET Framework での WPF のデータバインドについて説明します。 新しい .NET Core プロジェクトの場合は、Entity Framework 6 ではなく[EF Core](/ef/core)を使用することをお勧めします。 EF Core でのデータバインドのドキュメントは、 [#778 問題](https://github.com/dotnet/EntityFramework.Docs/issues/778)を追跡しています。
+> このドキュメントでは、.NET Framework での WPF のデータバインドについて説明します。 新しい .NET Core プロジェクトの場合は、Entity Framework 6 ではなく[EF Core](/ef/core)を使用することをお勧めします。 EF Core でのデータバインドのドキュメントは、「 [WPF でのはじめに](/ef/core/get-started/wpf)」を参照してください。
 
 このステップバイステップチュートリアルでは、"マスター/詳細" フォームで POCO 型を WPF コントロールにバインドする方法について説明します。 アプリケーションは、Entity Framework Api を使用して、データベースのデータをオブジェクトに読み込み、変更を追跡し、データベースにデータを保持します。
 
@@ -202,7 +202,7 @@ Visual Studio と共にインストールされるデータベースサーバー
 
     ![オブジェクトの選択](~/ef6/media/chooseyourobjects.png)
 
-リバースエンジニアリングプロセスが完了すると、新しいモデルがプロジェクトに追加され、Entity Framework Designer で表示できるように開かれます。 App.config ファイルも、データベースの接続の詳細と共にプロジェクトに追加されています。
+リバースエンジニアリングプロセスが完了すると、新しいモデルがプロジェクトに追加され、Entity Framework Designer で表示できるように開かれます。 データベースの接続の詳細を含む App.config ファイルもプロジェクトに追加されています。
 
 #### <a name="additional-steps-in-visual-studio-2010"></a>Visual Studio 2010 の追加手順
 
@@ -399,6 +399,6 @@ DbContext の**SaveChanges ()** を呼び出した後、id にはデータベー
 
 ![Id が設定されたメインウィンドウ](~/ef6/media/screen2.png)
 
-## <a name="additional-resources"></a>その他の情報
+## <a name="additional-resources"></a>その他のリソース
 
 WPF を使用したコレクションへのデータバインディングの詳細については、WPF のドキュメントの[このトピック](https://docs.microsoft.com/dotnet/framework/wpf/data/data-binding-overview#binding-to-collections)を参照してください。  

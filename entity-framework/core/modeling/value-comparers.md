@@ -4,12 +4,12 @@ description: 値比較子を使用してプロパティ値を比較 EF Core 方�
 author: ajcvickers
 ms.date: 03/20/2020
 uid: core/modeling/value-comparers
-ms.openlocfilehash: 9e33bfb840606b746626daa1da7331904b495ab4
-ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
+ms.openlocfilehash: fa5352129977d858d54d4aede746b320c91b0ad3
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84664118"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526785"
 ---
 # <a name="value-comparers"></a>値の比較演算子
 
@@ -59,7 +59,7 @@ FK プロパティが、比較する必要のある PK プロパティと_同じ
 
 ### <a name="simple-immutable-classes"></a>単純な変更できないクラス
 
-プロパティについて考えてみましょう。は、値コンバーターを使用して、単純な変更できないクラスをマップします。
+値コンバーターを使用して単純な変更できないクラスをマップするプロパティについて考えてみます。
 
 [!code-csharp[SimpleImmutableClass](../../../samples/core/Modeling/ValueConversions/MappingImmutableClassProperty.cs?name=SimpleImmutableClass)]
 

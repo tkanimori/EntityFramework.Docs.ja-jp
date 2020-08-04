@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 01/03/2020
 uid: core/modeling/table-splitting
-ms.openlocfilehash: de24f8903af79ebd7f68e6b74288257883c1fa8d
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: e7428bc516a69310b6a6f521acc49aee0ba9f802
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414699"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526500"
 ---
 # <a name="table-splitting"></a>テーブル分割
 
@@ -22,13 +22,13 @@ EF Core を使用すると、複数のエンティティを1つの行にマッ�
 
 テーブル分割の一般的なシナリオでは、テーブル内の列のサブセットのみを使用して、パフォーマンスまたはカプセル化を向上させることができます。
 
-この例では `Order` `DetailedOrder`のサブセットを表します。
+この例で `Order` は、のサブセットを表し `DetailedOrder` ます。
 
 [!code-csharp[Order](../../../samples/core/Modeling/TableSplitting/Order.cs?name=Order)]
 
 [!code-csharp[DetailedOrder](../../../samples/core/Modeling/TableSplitting/DetailedOrder.cs?name=DetailedOrder)]
 
-必要な構成に加えて、`Property(o => o.Status).HasColumnName("Status")` を呼び出して、`DetailedOrder.Status` を `Order.Status`と同じ列にマップします。
+必要な構成に加え `Property(o => o.Status).HasColumnName("Status")` て、を呼び出して、 `DetailedOrder.Status` と同じ列にマップし `Order.Status` ます。
 
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting)]
 
@@ -46,9 +46,9 @@ EF Core を使用すると、複数のエンティティを1つの行にマッ�
 > [!NOTE]
 > この機能は EF Core 3.0 で導入されました。
 
-依存エンティティによって使用されているすべての列がデータベースで `NULL` されている場合は、クエリの実行時にインスタンスが作成されません。 これにより、オプションの依存エンティティをモデル化できます。この場合、プリンシパルのリレーションシッププロパティは null になります。 これは、依存しているすべてのプロパティは省略可能であり、`null`に設定されていますが、これは想定されていない可能性があることに注意してください。
+依存エンティティによって使用されているすべての列が `NULL` データベース内に存在する場合、クエリの実行時にそのインスタンスのインスタンスは作成されません。 これにより、オプションの依存エンティティをモデル化できます。この場合、プリンシパルのリレーションシッププロパティは null になります。 これは、依存するすべてのプロパティが省略可能で、がに設定されている場合にも発生しますが、これは `null` 想定されていない可能性があります。
 
-## <a name="concurrency-tokens"></a>同時実行トークン
+## <a name="concurrency-tokens"></a>コンカレンシー トークン
 
 テーブルを共有するいずれかのエンティティ型に同時実行トークンが含まれている場合は、他のすべてのエンティティ型にも含める必要があります。 これは、同じテーブルにマップされたエンティティの1つだけが更新される場合に、古い同時実行トークンの値を回避するために必要です。
 
