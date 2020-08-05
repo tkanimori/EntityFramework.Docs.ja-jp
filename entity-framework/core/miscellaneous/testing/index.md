@@ -4,12 +4,12 @@ description: EF Core を使用するアプリケーションをテストする�
 author: ajcvickers
 ms.date: 04/22/2020
 uid: core/miscellaneous/testing/index
-ms.openlocfilehash: 71222f17ac4cc1b71052a2e7e916ebcedd2ae0f4
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: 7929c284c2794b2fcc95235ae413d56895ebb6e2
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370540"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526811"
 ---
 # <a name="testing-code-that-uses-ef-core"></a>EF Core を使用するコードのテスト
 
@@ -63,7 +63,7 @@ LocalDB に問題がないわけではありません。
 個人的には、私は自分の開発用コンピューターでデータベース サービスの実行が問題になったことはなく、開発者向けバージョンの一般使用をお勧めしています。
 ただし、LocalDB は特にあまり高性能ではない開発用コンピューターを使用している一部のユーザーには適していると言えるでしょう。
 
-開発マシン上でデータベース システムを直接実行しないようにするには、SQL Server (またはその他のデータベース システム) を Docker コンテナー (または同様のもの) で実行する方法もあります。  
+開発マシン上でデータベース システムを直接実行しないようにするには、Docker コンテナー (または同様のもの) で [SQL Server を実行する](/sql/linux/quickstart-install-connect-docker?view=sql-server-ver15) (または他のデータベース システムを実行する) 方法もあります。  
 
 ## <a name="approach-2-sqlite"></a>アプローチ 2: SQLite
 
