@@ -3,12 +3,12 @@ title: Entity Framework Core 5.0 の計画
 author: ajcvickers
 ms.date: 06/11/2020
 uid: core/what-is-new/ef-core-5.0/plan
-ms.openlocfilehash: a107f901b215e7abaa5905852f81c2d9ab094b98
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: 4abb6f500dce320dd0c32f8f3bf5c529b59fb28b
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238321"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526889"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Entity Framework Core 5.0 の計画
 
@@ -234,7 +234,7 @@ EF Core では、パフォーマンス ベンチマークのスイートの向�
 
 規模: M
 
-状態: 完了しました。 新しいドキュメントは、[Microsoft docs サイトで公開](https://docs.microsoft.com/dotnet/standard/data/sqlite/?tabs=netcore-cli)されています。
+状態: 完了しました。 新しいドキュメントは、[Microsoft docs サイトで公開](/dotnet/standard/data/sqlite/?tabs=netcore-cli)されています。
 
 EF チームも、Microsoft.Data.Sqlite ADO.NET プロバイダーを所有しています。 5\.0 リリースの一環として、このプロバイダーの完全な文書化が予定されています。
 

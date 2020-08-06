@@ -3,12 +3,12 @@ title: グローバル クエリ フィルター - EF Core
 author: anpete
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: 233289b0c50e15f4555b342bc654211ce04c24d3
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: 57d81919dedb853d2a41066f76ec20685ae41d6b
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370462"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526902"
 ---
 # <a name="global-query-filters"></a>グローバル クエリ フィルター
 
@@ -43,7 +43,7 @@ _HasQueryFilter_ の呼び出しに渡される predicate 式は、これらの�
 > DbContext インスタンス レベルのフィールドの使用に注意してください。`_tenantId` は、現在のテナントを設定するために使用されます。 モデルレベル フィルターは、正しいコンテキスト インスタンス (つまり、クエリを実行しているインスタンス) の値を使用します。
 
 > [!NOTE]
-> 現在、同じエンティティに対して複数のクエリ フィルターを定義することはできません。最後のフィルターのみが適用されます。 ただし、論理 _AND_ 演算子 ([C# では `&&`](https://docs.microsoft.com/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)) を使用して、複数の条件を持つ単一のフィルターを定義することができます。
+> 現在、同じエンティティに対して複数のクエリ フィルターを定義することはできません。最後のフィルターのみが適用されます。 ただし、論理 _AND_ 演算子 ([C# では `&&`](/dotnet/csharp/language-reference/operators/boolean-logical-operators#conditional-logical-and-operator-)) を使用して、複数の条件を持つ単一のフィルターを定義することができます。
 
 ## <a name="use-of-navigations"></a>ナビゲーションの使用
 

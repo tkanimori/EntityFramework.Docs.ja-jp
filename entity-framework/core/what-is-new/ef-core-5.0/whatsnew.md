@@ -4,12 +4,12 @@ description: EF Core 5.0 の新機能の概要
 author: ajcvickers
 ms.date: 07/20/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew
-ms.openlocfilehash: d42b2811d07516e9febedbc51fcb206000d38371
-ms.sourcegitcommit: 51148929e3889c48227d96c95c4e310d53a3d2c9
+ms.openlocfilehash: d7f5863e657e243ce733eda5dc8b40c1b92818ce
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86873384"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526876"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -47,7 +47,7 @@ public class MyController
 これにより、DbContext インスタンスを必要に応じて作成および使用できます。 次に例を示します。
 
 ```csharp
-public void DoSomehing()
+public void DoSomeThing()
 {
     using (var context = _contextFactory.CreateDbContext())
     {
@@ -503,7 +503,7 @@ WHERE [u].[Name] COLLATE French_CI_AS = N'Jean-Michel Jarre'
 
 ### <a name="flow-arguments-into-idesigntimedbcontextfactory"></a>引数を IDesignTimeDbContextFactory にフローする
 
-引数は、コマンド ラインから [IDesignTimeDbContextFactory](https://docs.microsoft.com/dotnet/api/microsoft.entityframeworkcore.design.idesigntimedbcontextfactory-1?view=efcore-3.1)の `CreateDbContext` メソッドにフローされるようになりました。 たとえば、これが開発ビルドであることを示すために、カスタム引数 (`dev` など) をコマンド ラインで渡すことができます。
+引数は、コマンド ラインから [IDesignTimeDbContextFactory](/dotnet/api/microsoft.entityframeworkcore.design.idesigntimedbcontextfactory-1?view=efcore-3.1)の `CreateDbContext` メソッドにフローされるようになりました。 たとえば、これが開発ビルドであることを示すために、カスタム引数 (`dev` など) をコマンド ラインで渡すことができます。
 
 ```
 dotnet ef migrations add two --verbose --dev
@@ -774,7 +774,7 @@ public class Address
 
 ### <a name="change-tracking-proxies"></a>変更追跡のプロキシ
 
-EF Core で、[INotifyPropertyChanging](https://docs.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanging?view=netcore-3.1) および [INotifyPropertyChanged](https://docs.microsoft.com/dotnet/api/system.componentmodel.inotifypropertychanged?view=netcore-3.1) を自動的に実装するランタイム プロキシを生成できるようになりました。 これにより、エンティティ プロパティの値の変更が EF Core に直接報告されるため、変更をスキャンする必要がなくなります。 ただし、プロキシには独自の制限のセットが付属しているため、すべてのユーザーが使用できるわけではありません
+EF Core で、[INotifyPropertyChanging](/dotnet/api/system.componentmodel.inotifypropertychanging?view=netcore-3.1) および [INotifyPropertyChanged](/dotnet/api/system.componentmodel.inotifypropertychanged?view=netcore-3.1) を自動的に実装するランタイム プロキシを生成できるようになりました。 これにより、エンティティ プロパティの値の変更が EF Core に直接報告されるため、変更をスキャンする必要がなくなります。 ただし、プロキシには独自の制限のセットが付属しているため、すべてのユーザーが使用できるわけではありません
 
 ドキュメントは、イシュー [#2076](https://github.com/dotnet/EntityFramework.Docs/issues/2076) で追跡されます。
 
@@ -832,7 +832,7 @@ Azure Cosmos DB データベース プロバイダーで、Etag を使用した�
 builder.Entity<Customer>().Property(c => c.ETag).IsEtagConcurrency();
 ```
 
-SaveChanges はコンカレンシーの競合に対して `DbUpdateConcurrencyException` をスローします。これを[処理して](https://docs.microsoft.com/ef/core/saving/concurrency)、たとえば再試行を実装することができます。
+SaveChanges はコンカレンシーの競合に対して `DbUpdateConcurrencyException` をスローします。これを[処理して](/ef/core/saving/concurrency)、たとえば再試行を実装することができます。
 
 ドキュメントは、イシュー [#2099](https://github.com/dotnet/EntityFramework.Docs/issues/2099) で追跡されます。
 
