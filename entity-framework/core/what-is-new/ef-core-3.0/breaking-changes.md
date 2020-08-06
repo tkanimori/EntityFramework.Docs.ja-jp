@@ -3,12 +3,12 @@ title: EF Core 3.0 での破壊的変更 - EF Core
 author: ajcvickers
 ms.date: 12/03/2019
 uid: core/what-is-new/ef-core-3.0/breaking-changes
-ms.openlocfilehash: 6e0c17a22b56b206f18e47f678e3e237d5c42375
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: a5e8b46fae63e45282342964a631ca2f830e601b
+ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413559"
+ms.lasthandoff: 08/03/2020
+ms.locfileid: "87526863"
 ---
 # <a name="breaking-changes-included-in-ef-core-30"></a>EF Core 3.0 に含まれる破壊的変更
 
@@ -23,32 +23,32 @@ ms.locfileid: "78413559"
 | [EF Core 3.0 では .NET Standard 2.0 ではなく .NET Standard 2.1 がターゲットにされる](#netstandard21) | 高      |
 | [EF Core のコマンドライン ツールである dotnet ef が .NET Core SDK の一部ではなくなった](#dotnet-ef) | 高      |
 | [DetectChanges でストア生成キーの値が優先される](#dc) | 高      |
-| [FromSql、ExecuteSql、および ExecuteSqlAsync の名前が変更された](#fromsql) | 高      |
+| [FromSql、ExecuteSql、および ExecuteSqlAsync の名前変更](#fromsql) | 高      |
 | [クエリ型がエンティティ型と統合される](#qt) | 高      |
 | [Entity Framework Core が ASP.NET Core 共有フレームワークの一部ではなくなった](#no-longer) | Medium      |
 | [既定で連鎖削除がすぐに行われるようになった](#cascade) | Medium      |
 | [関連エンティティの一括読み込みが 1 つのクエリで行われるようになった](#eager-loading-single-query) | Medium      |
-| [DeleteBehavior.Restrict のセマンティクスがクリーンになった](#deletebehavior) | Medium      |
+| [DeleteBehavior.Restrict のセマンティクスがクリーンになりました](#deletebehavior) | Medium      |
 | [所有型のリレーションシップ用の構成 API が変更された](#config) | Medium      |
 | [各プロパティで独立したメモリ内整数キー生成が使用される](#each) | Medium      |
 | [追跡なしのクエリでは、識別子の解決が実行されなくなった](#notrackingresolution) | Medium      |
-| [メタデータ API の変更](#metadata-api-changes) | Medium      |
+| [メタデータ API の変更点](#metadata-api-changes) | Medium      |
 | [プロバイダー固有のメタデータ API の変更](#provider) | Medium      |
-| [UseRowNumberForPaging が削除された](#urn) | Medium      |
+| [UseRowNumberForPaging の削除](#urn) | Medium      |
 | [FromSql メソッドをストアド プロシージャと共に使用して構成することができない](#fromsqlsproc) | Medium      |
 | [FromSql メソッドはクエリのルートでのみ指定できる](#fromsql) | 低      |
 | [~~クエリの実行がデバッグ レベルでログに記録される~~ 元に戻されます](#qe) | 低      |
 | [一時キーの値がエンティティ インスタンスに設定されなくなった](#tkv) | 低      |
-| [プリンシパルとテーブルを共有する依存エンティティが省略可能になった](#de) | 低      |
-| [同時実行トークン列とテーブルを共有するすべてのエンティティをプロパティにマップする必要がある](#aes) | 低      |
+| [プリンシパルとテーブルを共有する依存エンティティが省略可能になりました](#de) | 低      |
+| [同時実行トークン列とテーブルを共有するすべてのエンティティをプロパティにマップする必要があります。](#aes) | 低      |
 | [所有エンティティは、所有者がいないと、追跡クエリを使用してクエリを実行することができない](#owned-query) | 低      |
-| [マップされていない型から継承されたプロパティが、すべての派生型の 1 つの列にマップされるようになった](#ip) | 低      |
+| [マップされていない型から継承されたプロパティは、すべての派生型の 1 つの列にマップされるようになりました](#ip) | 低      |
 | [外部キー プロパティの規則がプリンシパル プロパティと同じ名前と一致しなくなった](#fkp) | 低      |
-| [データベース接続は、これ以上使用されない場合、TransactionScope が完了する前に閉じられるようになった](#dbc) | 低      |
+| [データベース接続は、これ以上使用されない場合、TransactionScope が完了する前に閉じられるようになりました](#dbc) | 低      |
 | [バッキング フィールドが既定で使用される](#backing-fields-are-used-by-default) | 低      |
 | [複数の互換性があるバッキング フィールドが見つかった場合にスローされる](#throw-if-multiple-compatible-backing-fields-are-found) | 低      |
-| [フィールド専用プロパティの名前はフィールドの名前に一致する必要がある](#field-only-property-names-should-match-the-field-name) | 低      |
-| [AddDbContext/AddDbContextPool で AddLogging および AddMemoryCache を呼び出さなくなった](#adddbc) | 低      |
+| [フィールド専用プロパティの名前はフィールドの名前に一致する必要があります](#field-only-property-names-should-match-the-field-name) | 低      |
+| [AddDbContext/AddDbContextPool で AddLogging および AddMemoryCache を呼び出さなくなりました](#adddbc) | 低      |
 | [AddEntityFramework* により、サイズ制限がある IMemoryCache が追加される](#addentityframework-adds-imemorycache-with-a-size-limit) | 低      |
 | [DbContext.Entry でローカルの DetectChanges が実行されるようになった](#dbe) | 低      |
 | [文字列とバイト配列のキーが既定でクライアントによって生成されない](#string-and-byte-array-keys-are-not-client-generated-by-default) | 低      |
@@ -56,7 +56,7 @@ ms.locfileid: "78413559"
 | [遅延読み込みプロキシで、ナビゲーション プロパティが完全に読み込まれたと見なされなくなった](#lazy-loading-proxies-no-longer-assume-navigation-properties-are-fully-loaded) | 低      |
 | [内部サービス プロバイダーの過剰な作成が既定でエラーと見なされるようになった](#excessive-creation-of-internal-service-providers-is-now-an-error-by-default) | 低      |
 | [1 つの文字列と共に呼び出される HasOne/HasMany の新しい動作](#nbh) | 低      |
-| [いくつかの非同期メソッドの戻り値の型が Task から ValueTask に変更された](#rtnt) | 低      |
+| [いくつかの非同期メソッドの戻り値の型が Task から ValueTask に変更されました](#rtnt) | 低      |
 | [Relational:TypeMapping 注釈が単に TypeMapping となった](#rtt) | 低      |
 | [派生型の ToTable で例外がスローされる](#totable-on-a-derived-type-throws-an-exception) | 低      |
 | [EF Core で SQLite FK を適用するためのプラグマが送信されなくなった](#pragma) | 低      |
@@ -64,13 +64,13 @@ ms.locfileid: "78413559"
 | [GUID の値が SQLite にテキストとして格納されるようになった](#guid) | 低      |
 | [Char の値が SQLite にテキストとして格納されるようになった](#char) | 低      |
 | [移行 ID がインバリアント カルチャの暦を使用して生成されるようになった](#migid) | 低      |
-| [IDbContextOptionsExtension から拡張機能の情報/メタデータが削除された](#xinfo) | 低      |
+| [IDbContextOptionsExtension から拡張機能の情報/メタデータを削除](#xinfo) | 低      |
 | [LogQueryPossibleExceptionWithAggregateOperator の名前が変更された](#lqpe) | 低      |
 | [外部キー制約名の API が明確化された](#clarify) | 低      |
-| [IRelationalDatabaseCreator.HasTables/HasTablesAsync がパブリックに変更された](#irdc2) | 低      |
-| [Microsoft.EntityFrameworkCore.Design が DevelopmentDependency パッケージになった](#dip) | 低      |
-| [SQLitePCL.raw がバージョン 2.0.0 に更新された](#SQLitePCL) | 低      |
-| [NetTopologySuite がバージョン 2.0.0 に更新された](#NetTopologySuite) | 低      |
+| [IRelationalDatabaseCreator.HasTables/HasTablesAsync をパブリックに変更](#irdc2) | 低      |
+| [Microsoft.EntityFrameworkCore.Design を DevelopmentDependency パッケージに変更](#dip) | 低      |
+| [SQLitePCL.raw のバージョン 2.0.0 への更新](#SQLitePCL) | 低      |
+| [NetTopologySuite のバージョン 2.0.0 への更新](#NetTopologySuite) | 低      |
 | [System.Data.SqlClient ではなく Microsoft.Data.SqlClient が使用される](#SqlClient) | 低      |
 | [複数のあいまいな自己参照リレーションシップを構成する必要がある](#mersa) | 低      |
 | [DbFunction.Schema が null または空の文字列である場合、モデルの既定のスキーマに構成される](#udf-empty-string) | 低      |
@@ -276,7 +276,7 @@ EF Core 3.0 以降、新しい `FromSqlRaw` および `FromSqlInterpolated` メ�
 
 **以前の動作**
 
-EF Core 3.0 以前の場合は、指定した型と ID を持つエンティティが出現するたびに同じエンティティ インスタンスが使用されます。 これは、追跡クエリの動作と一致します。 次のクエリを例にします。
+EF Core 3.0 以前の場合は、指定した型と ID を持つエンティティが出現するたびに同じエンティティ インスタンスが使用されます。 これは、追跡クエリの動作と一致します。 たとえば、このクエリは
 
 ```csharp
 var results = context.Products.Include(e => e.Category).AsNoTracking().ToList();
@@ -392,7 +392,7 @@ public string Id { get; set; }
 
 **理由**
 
-この変更は、 _が呼び出される_前に`SaveChanges`どのエンティティが削除されるかを把握することが重要である、データ バインディングおよび監査シナリオのエクスペリエンスを向上させるために行われました。
+この変更は、`SaveChanges` が呼び出される_前に_どのエンティティが削除されるかを把握することが重要である、データ バインディングおよび監査シナリオのエクスペリエンスを向上させるために行われました。
 
 **軽減策**
 
@@ -969,7 +969,7 @@ modelBuilder
 
 **以前の動作**
 
-EF Core 3.0 より前のバージョンでは、`AddDbContext` または `AddDbContextPool` を呼び出すと、[AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) および [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) への呼び出しを通じて、DI を使ってログ記録とメモリ キャッシュ サービスも登録されました。
+EF Core 3.0 より前のバージョンでは、`AddDbContext` または `AddDbContextPool` を呼び出すと、[AddLogging](/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) および [AddMemoryCache](/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) への呼び出しを通じて、DI を使ってログ記録とメモリ キャッシュ サービスも登録されました。
 
 **新しい動作**
 
@@ -981,7 +981,7 @@ EF Core 3.0 では、これらのサービスをアプリケーションの DI �
 
 **軽減策**
 
-ご自身のアプリケーションでこれらのサービスが必要な場合は、[AddLogging](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) または [AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) を使って、DI コンテナーで明示的にそれらを登録します。
+ご自身のアプリケーションでこれらのサービスが必要な場合は、[AddLogging](/dotnet/api/microsoft.extensions.dependencyinjection.loggingservicecollectionextensions.addlogging) または [AddMemoryCache](/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) を使って、DI コンテナーで明示的にそれらを登録します。
 
 ### <a name="addentityframework-adds-imemorycache-with-a-size-limit"></a>AddEntityFramework* により、サイズ制限がある IMemoryCache が追加される
 
@@ -1003,7 +1003,7 @@ EF Core 3.0 以降では、`AddEntityFramework*` によって IMemoryCache サ�
 
 `AddDbContext` または `AddDbContextPool` も呼び出された場合、ほとんどの場合、`AddEntityFramework*` を呼び出す必要はありません。 したがって、最善の軽減策は、`AddEntityFramework*` の呼び出しを削除することです。
 
-ご自身のアプリケーションでこれらのサービスが必要な場合は、[AddMemoryCache](https://docs.microsoft.com/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) を使用する前に、IMemoryCache の実装を DI コンテナーに明示的に登録します。
+ご自身のアプリケーションでこれらのサービスが必要な場合は、[AddMemoryCache](/dotnet/api/microsoft.extensions.dependencyinjection.memorycacheservicecollectionextensions.addmemorycache) を使用する前に、IMemoryCache の実装を DI コンテナーに明示的に登録します。
 
 <a name="dbe"></a>
 
@@ -1031,7 +1031,7 @@ EF Core 3.0 以降では、`DbContext.Entry` の呼び出しで、特定のエ�
 
 **軽減策**
 
-3.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChangeTracker.DetectChanges()` を呼び出します。
+3\.0 より前の動作を確保するには、`Entry` を呼び出す前に明示的に `ChangeTracker.DetectChanges()` を呼び出します。
 
 ### <a name="string-and-byte-array-keys-are-not-client-generated-by-default"></a>文字列とバイト配列のキーが既定でクライアントによって生成されない
 
@@ -1090,7 +1090,7 @@ EF Core 3.0 以降では、`ILoggerFactory` がスコープ化されたものと
 **軽減策**
 
 この変更は、EF Core の内部サービス プロバイダーでカスタム サービスを登録して使用しない限り、アプリケーション コードに影響しないはずです。
-これは一般的なことではありません。
+これは一般的ではありません。
 このような場合、ほとんどのものが引き続き機能しますが、`ILoggerFactory` に依存していたシングルトン サービスは、異なる方法で `ILoggerFactory` を取得するように変更する必要があります。
 
 このような状況になった場合は、[EF Core GitHub の問題追跡ツール](https://github.com/aspnet/EntityFrameworkCore/issues)で問題を提出し、`ILoggerFactory` の使用方法をお知らせください。これにより、Microsoft では、今後、再びこのように中断しない方法についてよりよく理解できます。
@@ -1272,7 +1272,7 @@ EF Core 3.0 より前では、`ForSqlServerHasIndex().ForSqlServerInclude()` に
 **新しい動作**
 
 EF Core 3.0 以降では、インデックスでの `Include` の使用が、リレーショナル レベルでサポートされるようになりました。
-`HasIndex().ForSqlServerInclude()`を使用します。
+`HasIndex().ForSqlServerInclude()` を使用してください。
 
 **理由**
 
@@ -1551,7 +1551,7 @@ EF Core 3.0 以降では、EF によって生成できるのは、それ以降�
 
 [問題 #10985 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/10985)
 
-**変更点**
+**変更**
 
 `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperator` の名前が `RelationalEventId.LogQueryPossibleExceptionWithAggregateOperatorWarning` に変更されました。
 
