@@ -4,43 +4,45 @@ author: roji
 ms.date: 09/09/2019
 ms.assetid: bde4e0ee-fba3-4813-a849-27049323d301
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: 3acd446d64a94ffecb12c181e3910528d2293448
-ms.sourcegitcommit: 51148929e3889c48227d96c95c4e310d53a3d2c9
+ms.openlocfilehash: 7d262ab9fb45535b626ce8d503b31a5e9a4630d3
+ms.sourcegitcommit: 6f7af3f138bf7c724cbdda261f97e5cf7035e8d7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/21/2020
-ms.locfileid: "86873358"
+ms.lasthandoff: 08/25/2020
+ms.locfileid: "88847567"
 ---
 # <a name="working-with-nullable-reference-types"></a>Null 許容の参照型の使用
 
-C# 8 では、null 値を[許容する参照](/dotnet/csharp/tutorials/nullable-reference-types)型と呼ばれる新しい機能が導入され、参照型に注釈を付けて、null を含むかどうかを示すことができます。 この機能を初めて使用する場合は、C# のドキュメントを参照してください。
+C# 8 では、null 値を [許容する参照](/dotnet/csharp/tutorials/nullable-reference-types)型と呼ばれる新しい機能が導入され、参照型に注釈を付けて、null を含むかどうかを示すことができます。 この機能を初めて使用する場合は、C# のドキュメントを参照してください。
 
 このページでは、null 許容の参照型に対する EF Core のサポートについて説明し、それらを操作するためのベストプラクティスについて説明します。
 
 ## <a name="required-and-optional-properties"></a>必須および省略可能なプロパティ
 
-必須およびオプションのプロパティに関する主なドキュメントと、null 許容の参照型との相互作用については、[必須プロパティと省略可能なプロパティ](xref:core/modeling/entity-properties#required-and-optional-properties)に関するページを参照してください。 まず最初にこのページを読むことをお勧めします。
+必須およびオプションのプロパティに関する主なドキュメントと、null 許容の参照型との相互作用については、 [必須プロパティと省略可能なプロパティ](xref:core/modeling/entity-properties#required-and-optional-properties) に関するページを参照してください。 まず最初にこのページを読むことをお勧めします。
 
 > [!NOTE]
 > 既存のプロジェクトで null 値を許容する参照型を有効にする場合は注意してください。以前にオプションとして構成されていた参照型プロパティは、明示的に null 値が指定されていない限り、必須として構成されます。 リレーショナルデータベーススキーマを管理する場合、これにより、データベース列の null 値の許容属性を変更する移行が生成される可能性があります。
 
 ## <a name="dbcontext-and-dbset"></a>DbContext と Dbcontext
 
-Null 値を許容する参照型が有効になっている場合、C# コンパイラは、初期化されていない null 非許容のプロパティに対して警告を出力します。 その結果、コンテキスト型で初期化されていない DbSet プロパティを持つ一般的な方法では、警告が生成されるようになりました。 この問題を解決するには、DbSet プロパティを読み取り専用にして、次のように初期化します。
+Null 値を許容する参照型が有効になっている場合、C# コンパイラは、初期化されていない null 非許容のプロパティに対して警告を出力します。 その結果、コンテキスト型で初期化されていない DbSet プロパティを持つ一般的な方法では、警告が生成されるようになりました。 これは次のように修正できます。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/NullableReferenceTypesContext.cs?name=Context&highlight=3-4)]
 
+もう1つの方法として、null 非許容の自動プロパティを使用しますが、null に初期化するには、null を使用しない演算子 (!) を使用して、コンパイラの警告をサイレント状態にします。 DbContext コンストラクターによって、すべての Dbcontext プロパティが初期化され、null が検出されることはありません。
+
 ## <a name="non-nullable-properties-and-initialization"></a>Null 非許容のプロパティと初期化
 
-初期化されていない null 非許容の参照型に対するコンパイラの警告は、エンティティ型の通常のプロパティにも問題があります。 上記の例では、コンストラクターバインディングを使用して、これらの警告を回避しました。[コンストラクターバインド](xref:core/modeling/constructors)は、null 非許容のプロパティで完全に動作する機能であり、常に初期化されていることを保証します。 ただし、シナリオによっては、コンストラクターバインドがオプションではない場合があります。たとえば、ナビゲーションプロパティをこの方法で初期化することはできません。
+初期化されていない null 非許容の参照型に対するコンパイラの警告は、エンティティ型の通常のプロパティにも問題があります。 上記の例では、コンストラクターバインディングを使用して、これらの警告を回避しました。 [コンストラクターバインド](xref:core/modeling/constructors)は、null 非許容のプロパティで完全に動作する機能であり、常に初期化されていることを保証します。 ただし、シナリオによっては、コンストラクターバインドがオプションではない場合があります。たとえば、ナビゲーションプロパティをこの方法で初期化することはできません。
 
 必須のナビゲーションプロパティでは、特定のプリンシパルに依存関係が常に存在しますが、プログラムのその時点でのニーズに応じて、特定のクエリによって読み込まれないことがあります ([データを読み込むためのさまざまなパターンを参照してください](xref:core/querying/related-data))。 同時に、これらのプロパティを null 許容にすることは望ましくありません。これは、必要に応じて、これらのプロパティへのすべてのアクセスが null をチェックするようにするためです。
 
-これらのシナリオを処理する方法の1つは、null 許容の[バッキングフィールド](xref:core/modeling/backing-field)を持つ null 非許容プロパティを持つことです。
+これらのシナリオを処理する方法の1つは、null 許容の [バッキングフィールド](xref:core/modeling/backing-field)を持つ null 非許容プロパティを持つことです。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Order.cs?range=10-17)]
 
-ナビゲーションプロパティは null 非許容であるため、必要なナビゲーションが構成されます。また、ナビゲーションが適切に読み込まれている限り、依存するにはプロパティを使用してアクセスできます。 ただし、最初に関連エンティティを適切に読み込むことなく、プロパティにアクセスした場合は、API コントラクトが正しく使用されていないため、InvalidOperationException がスローされます。 EF は、プロパティではなく、常にバッキングフィールドにアクセスするように構成する必要があることに注意してください。これは、設定が解除された場合でも値を読み取ることができるようにするためです。これを行う方法については、[バックアップフィールド](xref:core/modeling/backing-field)に関するドキュメントを参照してください。を指定して `PropertyAccessMode.Field` 、構成が正しいことを確認することを検討してください。
+ナビゲーションプロパティは null 非許容であるため、必要なナビゲーションが構成されます。また、ナビゲーションが適切に読み込まれている限り、依存するにはプロパティを使用してアクセスできます。 ただし、最初に関連エンティティを適切に読み込むことなく、プロパティにアクセスした場合は、API コントラクトが正しく使用されていないため、InvalidOperationException がスローされます。 EF は、プロパティではなく、常にバッキングフィールドにアクセスするように構成する必要があることに注意してください。これは、設定が解除された場合でも値を読み取ることができるようにするためです。これを行う方法については、 [バックアップフィールド](xref:core/modeling/backing-field) に関するドキュメントを参照してください。を指定して `PropertyAccessMode.Field` 、構成が正しいことを確認することを検討してください。
 
 Terser として、null に対応していない演算子 (!) のヘルプを使用して、単純にプロパティを null に初期化することができます。
 

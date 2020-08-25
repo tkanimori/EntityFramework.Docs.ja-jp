@@ -3,18 +3,18 @@ title: データ注釈の Code First-EF6
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 9fac2a90c46d78ff5fd632800cc0050276467773
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 17370b83aee9974161b1771e8a1dc99c2de27f0f
+ms.sourcegitcommit: 6f7af3f138bf7c724cbdda261f97e5cf7035e8d7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415857"
+ms.lasthandoff: 08/25/2020
+ms.locfileid: "88847619"
 ---
-# <a name="code-first-data-annotations"></a>データ注釈の Code First
+# <a name="code-first-data-annotations"></a>Code First Data Annotations (Code First のデータ注釈)
 > [!NOTE]
-> **Ef 4.1 以降のみ**-このページで説明した機能、api などは、Entity Framework 4.1 で導入されました。 以前のバージョンを使用している場合は、この情報の一部またはすべてが適用されません。
+> **Ef 4.1 以降のみ** -このページで説明した機能、api などは、Entity Framework 4.1 で導入されました。 以前のバージョンを使用している場合は、この情報の一部またはすべてが適用されません。
 
-このページの内容は、最初にジュリー Lerman (\<http://thedatafarm.com>)によって作成された記事から適用されます。
+このページの内容は、最初にジュリー Lerman () によって作成された記事から適用され \<http://thedatafarm.com> ます。
 
 Entity Framework Code First を使用すると、独自のドメインクラスを使用して、EF がクエリ、変更の追跡、および更新機能を実行するために依存するモデルを表すことができます。 Code First は、「構成よりも規約」と呼ばれるプログラミングパターンを活用します。 Code First は、クラスが Entity Framework の規則に従うことを前提としています。その場合、そのジョブの実行方法は自動的に機能します。 ただし、クラスがこれらの規則に従っていない場合は、クラスに構成を追加して、必要な情報を EF に提供することができます。
 
@@ -23,7 +23,7 @@ Code First には、これらの構成をクラスに追加する2つの方法�
 この記事では、(System.componentmodel 名前空間内の) DataAnnotations を使用してクラスを構成する方法に焦点を当て、最も一般的に必要な構成を強調表示します。 DataAnnotations は、ASP.NET MVC など、多くの .NET アプリケーションによっても認識されます。これにより、これらのアプリケーションは、クライアント側の検証に同じ注釈を利用できます。
 
 
-## <a name="the-model"></a>モデル
+## <a name="the-model"></a>Model
 
 ここでは、単純なクラスのペア (ブログと Post) で Code First DataAnnotations について説明します。
 
@@ -88,7 +88,7 @@ Entity Framework は、複数のプロパティで構成される複合キー (�
     }
 ```
 
-EF モデルで上記のクラスを使用しようとすると、`InvalidOperationException`が発生します。
+EF モデルで上記のクラスを使用しようとすると、次のようになり `InvalidOperationException` ます。
 
 *' Passport ' 型の複合主キーの順序を決定できません。複合主キーの順序を指定するには、ColumnAttribute または HasKey メソッドを使用します。*
 
@@ -113,7 +113,7 @@ EF モデルで上記のクラスを使用しようとすると、`InvalidOperat
 
 複合外部キーを持つエンティティがある場合は、対応する主キープロパティに使用したものと同じ列の順序を指定する必要があります。
 
-外部キープロパティ内の相対順序のみが同じである必要があります。**順序**に割り当てられた正確な値を一致させる必要はありません。 たとえば、次のクラスでは、1と2の代わりに3と4を使用できます。
+外部キープロパティ内の相対順序のみが同じである必要があります。 **順序** に割り当てられた正確な値を一致させる必要はありません。 たとえば、次のクラスでは、1と2の代わりに3と4を使用できます。
 
 ``` csharp
     public class PassportStamp
@@ -137,7 +137,7 @@ EF モデルで上記のクラスを使用しようとすると、`InvalidOperat
 
 ## <a name="required"></a>必須
 
-必須の注釈は、特定のプロパティが必要であることを EF に指示します。
+注釈は、 `Required` 特定のプロパティが必要であることを EF に指示します。
 
 Title プロパティに必要なを追加すると、EF (および MVC) によって、プロパティにデータが含まれるようになります。
 
@@ -163,7 +163,7 @@ Title プロパティに必要なを追加すると、EF (および MVC) によ�
 
 ## <a name="maxlength-and-minlength"></a>MaxLength および MinLength
 
-MaxLength 属性および MinLength 属性を使用すると、必要な場合と同様に、追加のプロパティ検証を指定できます。
+属性と属性を使用すると、 `MaxLength` `MinLength` の場合と同様に、追加のプロパティ検証を指定でき `Required` ます。
 
 次に示すのは、ブログ Ger名と長さの要件です。 この例では、属性を結合する方法も示しています。
 
@@ -206,7 +206,7 @@ Code first の規則では、サポートされるデータ型のすべてのプ
 
  
 
-## <a name="complextype"></a>ComplexType 要素
+## <a name="complextype"></a>ComplexType
 
 クラスのセット全体でドメインエンティティを記述し、そのクラスをレイヤー化して完全なエンティティを記述することは珍しくありません。 たとえば、ブログの詳細というクラスをモデルに追加することができます。
 
@@ -220,9 +220,9 @@ Code first の規則では、サポートされるデータ型のすべてのプ
     }
 ```
 
-ブログの詳細には、どのような種類のキープロパティもありません。 ドメイン駆動設計では、ブログの詳細を値オブジェクトと呼びます。 Entity Framework は、値オブジェクトを複合型として参照します。  複合型は独自に追跡できません。
+に `BlogDetails` は、キープロパティの型がないことに注意してください。 ドメイン駆動設計で `BlogDetails` は、は値オブジェクトと呼ばれます。 Entity Framework は、値オブジェクトを複合型として参照します。複合型は独自に追跡できません。
 
-ただし、ブログクラスのプロパティとして、Blog の詳細については、ブログオブジェクトの一部として追跡されます。 Code first がこれを認識できるようにするには、このクラスを ComplexType としてマークする必要があります。
+ただし、クラスのプロパティとして `Blog` 、 `BlogDetails` はオブジェクトの一部として追跡され `Blog` ます。 Code first でこれを認識させるには、クラスをとしてマークする必要があり `BlogDetails` `ComplexType` ます。
 
 ``` csharp
     [ComplexType]
@@ -235,42 +235,42 @@ Code first の規則では、サポートされるデータ型のすべてのプ
     }
 ```
 
-ブログクラスにプロパティを追加して、ブログのブログの詳細を表すことができるようになりました。
+クラスにプロパティを追加し `Blog` て、そのブログのを表すことができるようになりました `BlogDetails` 。
 
 ``` csharp
         public BlogDetails BlogDetail { get; set; }
 ```
 
-データベースでは、ブログテーブルには、blog 詳細プロパティに含まれるプロパティを含む、ブログのすべてのプロパティが含まれます。 既定では、各の前に複合型の名前 (「ブログ詳細」) が付いています。
+データベースでは、この `Blog` テーブルには、プロパティに含まれるプロパティを含む、ブログのすべてのプロパティが含まれ `BlogDetail` ます。 既定では、それぞれの前に複合型の名前 "ブログの詳細" が付いています。
 
 ![複合型を含むブログテーブル](~/ef6/media/jj591583-figure06.png)
 
 
 ## <a name="concurrencycheck"></a>ConcurrencyCheck
 
-ConcurrencyCheck 注釈を使用すると、ユーザーがエンティティを編集または削除したときに、データベースの同時実行チェックに使用される1つ以上のプロパティにフラグを設定できます。 EF デザイナーを使用している場合は、プロパティの ConcurrencyMode を Fixed に設定することになります。
+注釈を使用すると、 `ConcurrencyCheck` ユーザーがエンティティを編集または削除したときに、データベースの同時実行チェックに使用される1つ以上のプロパティにフラグを設定できます。 EF デザイナーを使用している場合は、プロパティをに設定することに `ConcurrencyMode` `Fixed` なります。
 
-ConcurrencyCheck がどのように動作するかを、"ブログ Gername" プロパティに追加してみましょう。
+`ConcurrencyCheck`これをプロパティに追加して、の動作を確認してみましょう `BloggerName` 。
 
 ``` csharp
     [ConcurrencyCheck, MaxLength(10, ErrorMessage="BloggerName must be 10 characters or less"),MinLength(5)]
     public string BloggerName { get; set; }
 ```
 
-SaveChanges が呼び出されると、"ブログ Gername" フィールドの ConcurrencyCheck 注釈によって、そのプロパティの元の値が更新で使用されます。 コマンドは、キー値だけでなく、ブログ Gername の元の値にもフィルターを適用して、正しい行の検索を試みます。  データベースに送信される UPDATE コマンドの重要な部分を次に示します。このコマンドは、PrimaryTrackingKey が1で、blog Gername が "ジュリー" である行を更新します。これは、ブログがデータベースから取得されたときの元の値です。
+が呼び出されると、フィールドの注釈によって、 `SaveChanges` `ConcurrencyCheck` `BloggerName` そのプロパティの元の値が更新で使用されます。 コマンドは、キー値だけでなく、の元の値にもフィルターを適用して、正しい行の検索を試み `BloggerName` ます。ここでは、データベースに送信される UPDATE コマンドの重要な部分を示します。このコマンドは、が1で、が "ジュリー" である行を更新し `PrimaryTrackingKey` `BloggerName` ます。これは、そのブログがデータベースから取得されたときの元の値です。
 
 ``` SQL
     where (([PrimaryTrackingKey] = @4) and ([BloggerName] = @5))
     @4=1,@5=N'Julie'
 ```
 
-その間に他のユーザーがそのブログの blogger 名を変更した場合、この更新は失敗し、処理する必要がある DbUpdateConcurrencyException が得られます。
+その間に他のユーザーがそのブログの blogger 名を変更した場合、この更新は失敗し、処理する必要がある **DbUpdateConcurrencyException** が得られます。
 
  
 
 ## <a name="timestamp"></a>TimeStamp
 
-同時実行チェックには、rowversion フィールドまたは timestamp フィールドを使用するのが一般的です。 ただし、ConcurrencyCheck 注釈を使用するのではなく、プロパティの型がバイト配列である限り、より具体的なタイムスタンプ注釈を使用できます。 Code first では、タイムスタンププロパティは ConcurrencyCheck プロパティと同じように扱われますが、code first によって生成されるデータベースフィールドが null 非許容であることも保証されます。 指定されたクラスに設定できるタイムスタンププロパティは1つだけです。
+同時実行チェックには、rowversion フィールドまたは timestamp フィールドを使用するのが一般的です。 ただし、注釈を使用するのではなく、 `ConcurrencyCheck` `TimeStamp` プロパティの型がバイト配列である限り、より具体的な注釈を使用できます。 Code first ではプロパティはプロパティと同じように扱われ `Timestamp` `ConcurrencyCheck` ますが、code first によって生成されるデータベースフィールドが null 非許容であることも保証されます。 指定されたクラスに設定できるタイムスタンププロパティは1つだけです。
 
 次のプロパティをブログクラスに追加します。
 
@@ -289,23 +289,23 @@ SaveChanges が呼び出されると、"ブログ Gername" フィールドの Co
 
 データベース Code First 作成する場合は、作成するテーブルと列の名前を変更することもできます。 また、既存のデータベースで Code First を使用することもできます。 ただし、ドメイン内のクラスとプロパティの名前がデータベース内のテーブルと列の名前と一致するとは限りません。
 
-クラスの名前は Blog であり、規約により、code first は、これがブログという名前のテーブルにマップされることを前提としています。 そうでない場合は、table 属性を使用してテーブルの名前を指定できます。 ここで、注釈はテーブル名が InternalBlogs であることを示しています。
+クラスにはという名前が付けられ `Blog` 、規約により、code first はという名前のテーブルにマップされることを前提として `Blogs` います。 そうでない場合は、属性を使用してテーブルの名前を指定でき `Table` ます。 ここで、注釈はテーブル名が **Internalblogs**であることを示しています。
 
 ``` csharp
     [Table("InternalBlogs")]
     public class Blog
 ```
 
-列注釈は、マップされた列の属性を指定する際に、より使い慣れになります。 名前、データ型、またはテーブル内で列が表示される順序を指定できます。 列属性の例を次に示します。
+`Column`注釈は、マップされた列の属性を指定するときに、より使い慣れになります。 名前、データ型、またはテーブル内で列が表示される順序を指定できます。 属性の例を次に示し `Column` ます。
 
 ``` csharp
     [Column("BlogDescription", TypeName="ntext")]
     public String Description {get;set;}
 ```
 
-列の TypeName 属性を DataType DataAnnotation と混同しないでください。 DataType は UI に使用される注釈であり、Code First によって無視されます。
+列の `TypeName` 属性を DataType DataAnnotation と混同しないでください。 DataType は UI に使用される注釈であり、Code First によって無視されます。
 
-再生成された後のテーブルを次に示します。 テーブル名が InternalBlogs に変更され、[複合型からの説明] 列が [ブログの説明] に変わりました。 名前が注釈に指定されているため、code first では、複合型の名前を使用して列名を開始する規則が使用されません。
+再生成された後のテーブルを次に示します。 テーブル名が **Internalblogs** に変更され、 `Description` 複合型の列がになりました `BlogDescription` 。 名前が注釈に指定されているため、code first では、複合型の名前を使用して列名を開始する規則が使用されません。
 
 ![ブログのテーブルと列の名前を変更](~/ef6/media/jj591583-figure08.png)
 
@@ -313,7 +313,7 @@ SaveChanges が呼び出されると、"ブログ Gername" フィールドの Co
 
 ## <a name="databasegenerated"></a>DatabaseGenerated
 
-重要なデータベース機能は、計算されたプロパティを持つことができる機能です。 Code First クラスを計算列を含むテーブルにマップしている場合は、Entity Framework でそれらの列を更新しないようにしてください。 ただし、データを挿入または更新した後、EF によってそれらの値がデータベースから返されるようにする必要があります。 DatabaseGenerated 注釈を使用して、計算された列挙型と共にクラス内のこれらのプロパティにフラグを付けることができます。 その他の列挙型は None と Identity です。
+重要なデータベース機能は、計算されたプロパティを持つことができる機能です。 Code First クラスを計算列を含むテーブルにマップしている場合は、Entity Framework でそれらの列を更新しないようにしてください。 ただし、データを挿入または更新した後、EF によってそれらの値がデータベースから返されるようにする必要があります。 注釈を使用して、 `DatabaseGenerated` 列挙型と共にクラス内のこれらのプロパティにフラグを付けることができ `Computed` ます。 その他の列挙型は `None` と `Identity` です。
 
 ``` csharp
     [DatabaseGenerated(DatabaseGeneratedOption.Computed)]
@@ -322,18 +322,18 @@ SaveChanges が呼び出されると、"ブログ Gername" フィールドの Co
 
 Code first でデータベースを生成しているときに、バイト列またはタイムスタンプ列に対して生成されたデータベースを使用できます。それ以外の場合は、既存のデータベースをポイントするときにのみ使用してください。これは、code first では計算列の数式を判別できないためです。
 
-前に読みました。既定では、整数であるキープロパティはデータベースの id キーになります。 これは、DatabaseGenerated. Id に対して DatabaseGenerated を設定した場合と同じです。 Id キーを使用しない場合は、値を DatabaseGeneratedOption に設定できます。
+前に読みました。既定では、整数であるキープロパティはデータベースの id キーになります。 これは、をに設定することと同じ `DatabaseGenerated` `DatabaseGeneratedOption.Identity` です。 Id キーにしない場合は、値をに設定 `DatabaseGeneratedOption.None` します。
 
  
 
 ## <a name="index"></a>インデックス
 
 > [!NOTE]
-> **Ef 6.1 以降のみ**-Index 属性が Entity Framework 6.1 で導入されました。 以前のバージョンを使用している場合、このセクションの情報は適用されません。
+> **Ef 6.1 以降のみ** - `Index` 属性は Entity Framework 6.1 で導入されました。 以前のバージョンを使用している場合、このセクションの情報は適用されません。
 
-1つ以上の列にインデックスを作成するには、 **Indexattribute**を使用します。 属性を1つ以上のプロパティに追加すると、データベースの作成時に EF によってデータベース内の対応するインデックスが作成されるか、Code First Migrations を使用している場合は、対応する**Createindex**の呼び出しがスキャフォールディングます。
+1つ以上の列にインデックスを作成するには、 **Indexattribute**を使用します。 属性を1つ以上のプロパティに追加すると、データベースの作成時に EF によってデータベース内の対応するインデックスが作成されるか、Code First Migrations を使用している場合は、対応する **Createindex** の呼び出しがスキャフォールディングます。
 
-たとえば、次のコードでは、データベースの **[投稿]** テーブルの **[評価]** 列にインデックスが作成されます。
+たとえば、次のコードでは、 `Rating` データベース内のテーブルの列にインデックスが作成され `Posts` ます。
 
 ``` csharp
     public class Post
@@ -347,14 +347,14 @@ Code first でデータベースを生成しているときに、バイト列ま
     }
 ```
 
-既定では、インデックスの名前は**ix\_&lt;プロパティ名&gt;** (上記の例では Ix\_評価) になります。 ただし、インデックスの名前を指定することもできます。 次の例では、インデックスを**Postr/index**という名前にする必要があることを指定します。
+既定では、インデックスは**ix \_ &lt; プロパティ名 &gt; ** ( \_ 上記の例では ix 評価) という名前になります。 ただし、インデックスの名前を指定することもできます。 次の例では、インデックスの名前をにする必要があることを指定し `PostRatingIndex` ます。
 
 ``` csharp
     [Index("PostRatingIndex")]
     public int Rating { get; set; }
 ```
 
-既定では、インデックスは一意ではありませんが、 **isunique**名前付きパラメーターを使用して、インデックスが一意であることを指定できます。 次の例では、**ユーザー**のログイン名に対して一意のインデックスが導入されています。
+既定では、インデックスは一意ではありませんが、名前付きパラメーターを使用して、インデックスが一意である `IsUnique` ことを指定できます。 次の例では、のログイン名に対して一意のインデックスを作成し `User` ます。
 
 ``` csharp
     public class User
@@ -371,7 +371,7 @@ Code first でデータベースを生成しているときに、バイト列ま
 
 ### <a name="multiple-column-indexes"></a>複数列のインデックス
 
-複数の列にまたがるインデックスは、指定されたテーブルの複数のインデックス注釈で同じ名前を使用して指定されます。 複数列のインデックスを作成する場合は、インデックス内の列の順序を指定する必要があります。 たとえば、次のコードでは、**評価**に対して複数列のインデックスを作成し、IX という名前のブログ**id**を**IX\_ブログ idandレーティング**として作成しています。 **ブログ id**はインデックスの最初の列で、**評価**は2番目の列です。
+複数の列にまたがるインデックスは、指定されたテーブルの複数のインデックス注釈で同じ名前を使用して指定されます。 複数列のインデックスを作成する場合は、インデックス内の列の順序を指定する必要があります。 たとえば、次のコードでは、に複数列のインデックスを作成 `Rating` し、 `BlogId` **IX \_ ブログ idand格付け**という名前を付けています。 `BlogId` はインデックスの最初の列で、 `Rating` は2番目の列です。
 
 ``` csharp
     public class Post
@@ -391,13 +391,13 @@ Code first でデータベースを生成しているときに、バイト列ま
 ## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>リレーションシップ属性: InverseProperty と ForeignKey
 
 > [!NOTE]
-> このページでは、データ注釈を使用して Code First モデル内のリレーションシップを設定する方法について説明します。 EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「[リレーションシップ & ナビゲーションプロパティ](~/ef6/fundamentals/relationships.md)」を参照してください。
+> このページでは、データ注釈を使用して Code First モデル内のリレーションシップを設定する方法について説明します。 EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「 [リレーションシップ & ナビゲーションプロパティ](~/ef6/fundamentals/relationships.md)」を参照してください。
 
 Code first 規則は、モデル内の最も一般的な関係を処理しますが、サポートが必要な場合もあります。
 
-ブログクラスのキープロパティの名前を変更すると、Post との関係に問題が発生しました。 
+クラスのキープロパティの名前を変更すると、との `Blog` 関係に問題が発生しました `Post` 。 
 
-データベースを生成するとき、code first は Post クラスで Blog Id プロパティを確認し、クラス名に "Id" が付いているという規則により、ブログクラスの外部キーとして認識します。 ただし、ブログクラスには、blog Id プロパティはありません。 これを解決するには、Post でナビゲーションプロパティを作成し、外部 DataAnnotation を使用して、2つのクラス間のリレーションシップを作成する方法 ("Post." ブログ Id プロパティを使用) と、「」で制約を指定する方法について説明します。データベース.
+データベースを生成するとき、code first `BlogId` は Post クラスのプロパティを確認し、クラス名と **Id**が一致するという規則によって、クラスに対する外部キーとして認識し `Blog` ます。 ただし `BlogId` 、ブログクラスにはプロパティがありません。 これを解決するには、でナビゲーションプロパティを作成 `Post` し、dataannotation を使用して、 `ForeignKey` (プロパティを使用して) 2 つのクラス間のリレーションシップを構築する方法 `Post.BlogId` と、データベースで制約を指定する方法について説明します。
 
 ``` csharp
     public class Post
@@ -413,20 +413,20 @@ Code first 規則は、モデル内の最も一般的な関係を処理します
     }
 ```
 
-データベース内の制約によって、InternalBlogs. PrimaryTrackingKey と Post. Blog Id の間のリレーションシップが示されます。 
+データベース内の制約によって、との間のリレーションシップが表示され `InternalBlogs.PrimaryTrackingKey` `Posts.BlogId` ます。 
 
 ![InternalBlogs. PrimaryTrackingKey と Post. blog Id のリレーションシップ](~/ef6/media/jj591583-figure09.png)
 
-InverseProperty は、クラス間に複数のリレーションシップがある場合に使用されます。
+は、 `InverseProperty` クラス間に複数のリレーションシップがある場合に使用されます。
 
-Post クラスでは、だれがブログ投稿を作成したか、およびだれが編集したかを追跡することができます。 Post クラスの2つの新しいナビゲーションプロパティを次に示します。
+クラスでは、だれがブログ投稿を作成したか、およびだれが編集したかを `Post` 追跡することができます。 Post クラスの2つの新しいナビゲーションプロパティを次に示します。
 
 ``` csharp
     public Person CreatedBy { get; set; }
     public Person UpdatedBy { get; set; }
 ```
 
-また、これらのプロパティによって参照される Person クラスにを追加する必要があります。 Person クラスは、ナビゲーションプロパティを投稿に戻します。1つはユーザーが作成したすべての投稿、もう1つはその人物によって更新されたすべての投稿を対象とします。
+また、 `Person` これらのプロパティで参照されるクラスを追加する必要があります。 `Person`クラスは、ナビゲーションプロパティをに戻し `Post` ます。1つはユーザーが作成したすべての投稿、もう1つはそのユーザーが更新したすべての投稿を対象とします。
 
 ``` csharp
     public class Person
@@ -438,11 +438,11 @@ Post クラスでは、だれがブログ投稿を作成したか、およびだ
     }
 ```
 
-Code first では、2つのクラスのプロパティを独自に一致させることはできません。 投稿のデータベーステーブルには、CreatedBy person の外部キーと Updatedby person の外部キーが1つずつ含まれている必要がありますが、code first では、Person\_Id、Person\_Id1、CreatedBy\_Id、および UpdatedBy\_Id という4つの外部キープロパティが作成されます。
+Code first では、2つのクラスのプロパティを独自に一致させることはできません。 のデータベーステーブルには、person の `Posts` 外部キーが1つずつ含まれている必要がありますが、code first では、person `CreatedBy` `UpdatedBy` ** \_ id**、 **Person \_ Id1**、 **CreatedBy \_ id** 、および **updatedby \_ id**という4つの外部キープロパティが作成されます。
 
 ![余分な外部キーを含む post テーブル](~/ef6/media/jj591583-figure10.png)
 
-これらの問題を修正するには、InverseProperty 注釈を使用して、プロパティの配置を指定します。
+これらの問題を修正するには、注釈を使用して `InverseProperty` プロパティの配置を指定します。
 
 ``` csharp
     [InverseProperty("CreatedBy")]
@@ -452,7 +452,7 @@ Code first では、2つのクラスのプロパティを独自に一致させ�
     public List<Post> PostsUpdated { get; set; }
 ```
 
-Person の PostsWritten プロパティは、これが Post 型を参照することを認識しているため、CreatedBy へのリレーションシップを構築します。 同様に、PostsUpdated Post に接続されます。 また、code first では余分な外部キーは作成されません。
+`PostsWritten`Person のプロパティは、このが型を参照していることを認識しているので、 `Post` へのリレーションシップを構築し `Post.CreatedBy` ます。 同様 `PostsUpdated` に、はに接続され `Post.UpdatedBy` ます。 また、code first では余分な外部キーは作成されません。
 
 ![余分な外部キーを持たない投稿テーブル](~/ef6/media/jj591583-figure11.png)
 
