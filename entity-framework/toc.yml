@@ -65,6 +65,8 @@
               href: core/get-started/install/index.md
             - name: ASP.NET Core のチュートリアル >>
               href: /aspnet/core/data/ef-rp/intro
+            - name: EF Core を使用した Blazor Server に関するガイド >>
+              href: /aspnet/core/blazor/blazor-server-ef-core
             - name: WPF .NET Core のチュートリアル
               href: core/get-started/wpf.md
             - name: Xamarin のチュートリアル
