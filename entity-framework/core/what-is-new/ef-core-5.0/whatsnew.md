@@ -4,12 +4,12 @@ description: EF Core 5.0 の新機能の概要
 author: ajcvickers
 ms.date: 07/20/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew
-ms.openlocfilehash: d7f5863e657e243ce733eda5dc8b40c1b92818ce
-ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
+ms.openlocfilehash: 3a1f5c7d44ad0e4d648492c4edcf14678c73538e
+ms.sourcegitcommit: 6f7af3f138bf7c724cbdda261f97e5cf7035e8d7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526876"
+ms.lasthandoff: 08/25/2020
+ms.locfileid: "88847594"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -18,6 +18,349 @@ EF Core 5.0 は現在開発中です。 このページには、各プレビュ�
 このページには [EF Core 5.0 のプラン](xref:core/what-is-new/ef-core-5.0/plan)を記載していません。 このプランでは、最終リリースの出荷前に含めようとしているものすべてを含めた、EF Core 5.0 のテーマ全体について説明します。
 
 公開されている公式ドキュメントについては、リンクが追加されます。
+
+## <a name="preview-8"></a>Preview 8
+
+## <a name="table-per-type-tpt-mapping"></a>Table-Per-Type (TPT) のマッピング
+
+EF Core の既定では、.NET 型の継承階層が 1 つのデータベース テーブルにマップされます。 これは、Table-Per-Hierarchy (TPH) のマッピングと呼ばれます。 EF Core 5.0 を使用すると、継承階層の各 .NET 型を別のデータベース テーブルにマップすることもできます。これは Table-Per-Type (TPT) のマッピングと呼ばれます。
+
+たとえば、次のようにマップされた階層を持つこのモデルを考えてみましょう。
+
+```c#
+public class Animal
+{
+    public int Id { get; set; }
+    public string Species { get; set; }
+}
+
+public class Pet : Animal
+{
+    public string Name { get; set; }
+}
+
+public class Cat : Pet
+{
+    public string EdcuationLevel { get; set; }
+}
+
+public class Dog : Pet
+{
+    public string FavoriteToy { get; set; }
+}
+```
+
+EF Core の既定では、これが 1 つのテーブルにマップされます。
+
+```sql
+CREATE TABLE [Animals] (
+    [Id] int NOT NULL IDENTITY,
+    [Species] nvarchar(max) NULL,
+    [Discriminator] nvarchar(max) NOT NULL,
+    [Name] nvarchar(max) NULL,
+    [EdcuationLevel] nvarchar(max) NULL,
+    [FavoriteToy] nvarchar(max) NULL,
+    CONSTRAINT [PK_Animals] PRIMARY KEY ([Id])
+);
+```
+
+一方、各エンティティ型を別のテーブルにマップすると、代わりに型ごとに 1 つのテーブルが作成されます。
+
+```sql
+CREATE TABLE [Animals] (
+    [Id] int NOT NULL IDENTITY,
+    [Species] nvarchar(max) NULL,
+    CONSTRAINT [PK_Animals] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [Pets] (
+    [Id] int NOT NULL,
+    [Name] nvarchar(max) NULL,
+    CONSTRAINT [PK_Pets] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Pets_Animals_Id] FOREIGN KEY ([Id]) REFERENCES [Animals] ([Id]) ON DELETE NO ACTION
+);
+
+CREATE TABLE [Cats] (
+    [Id] int NOT NULL,
+    [EdcuationLevel] nvarchar(max) NULL,
+    CONSTRAINT [PK_Cats] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Cats_Animals_Id] FOREIGN KEY ([Id]) REFERENCES [Animals] ([Id]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_Cats_Pets_Id] FOREIGN KEY ([Id]) REFERENCES [Pets] ([Id]) ON DELETE NO ACTION
+);
+
+CREATE TABLE [Dogs] (
+    [Id] int NOT NULL,
+    [FavoriteToy] nvarchar(max) NULL,
+    CONSTRAINT [PK_Dogs] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Dogs_Animals_Id] FOREIGN KEY ([Id]) REFERENCES [Animals] ([Id]) ON DELETE NO ACTION,
+    CONSTRAINT [FK_Dogs_Pets_Id] FOREIGN KEY ([Id]) REFERENCES [Pets] ([Id]) ON DELETE NO ACTION
+);
+```
+
+前述の外部キー制約の作成は、プレビュー 8 のコードを分岐した後に追加されたことに注意してください。
+
+エンティティ型を別のテーブルにマップするには、マッピング属性を使用します。
+
+```c#
+[Table("Animals")]
+public class Animal
+{
+    public int Id { get; set; }
+    public string Species { get; set; }
+}
+
+[Table("Pets")]
+public class Pet : Animal
+{
+    public string Name { get; set; }
+}
+
+[Table("Cats")]
+public class Cat : Pet
+{
+    public string EdcuationLevel { get; set; }
+}
+
+[Table("Dogs")]
+public class Dog : Pet
+{
+    public string FavoriteToy { get; set; }
+}
+```
+
+または `ModelBuilder` 構成を使用します。
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Animal>().ToTable("Animals");
+    modelBuilder.Entity<Pet>().ToTable("Pets");
+    modelBuilder.Entity<Cat>().ToTable("Cats");
+    modelBuilder.Entity<Dog>().ToTable("Dogs");
+}
+```
+
+ドキュメントは、イシュー [#1979](https://github.com/dotnet/EntityFramework.Docs/issues/1979) で追跡されています。
+
+### <a name="migrations-rebuild-sqlite-tables"></a>移行:SQLite テーブルを再構築する
+
+他のデータベースと比較すると、SQLite のスキーマ操作機能は比較的限られています。 たとえば、既存のテーブルから列を削除するには、テーブル全体を削除して再作成する必要があります。 EF Core 5.0 の移行では、必要なスキーマ変更のためにテーブルの自動再構築がサポートされるようになりました。
+
+たとえば、エンティティ型 `Unicorn` に対して作成された `Unicorns` テーブルがあるとします。
+
+```c#
+public class Unicorn
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public int Age { get; set; }
+}
+```
+
+```sql
+CREATE TABLE "Unicorns" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Unicorns" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NULL,
+    "Age" INTEGER NOT NULL
+);
+```
+
+次に、ユニコーンの年齢を格納することは非常に失礼だと考えられることがわかったので、そのプロパティを削除し、新しい移行を追加して、データベースを更新しましょう。 EF Core 3.1 を使用している場合は列を削除できないため、この更新は失敗します。 EF Core 5.0 ではそうではなく、移行によってテーブルが再構築されます。
+
+```sql
+CREATE TABLE "ef_temp_Unicorns" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_Unicorns" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NULL
+);
+
+INSERT INTO "ef_temp_Unicorns" ("Id", "Name")
+SELECT "Id", "Name"
+FROM Unicorns;
+
+PRAGMA foreign_keys = 0;
+
+DROP TABLE "Unicorns";
+
+ALTER TABLE "ef_temp_Unicorns" RENAME TO "Unicorns";
+
+PRAGMA foreign_keys = 1;
+```
+
+次のことに注意してください。
+* 新しいテーブルに必要なスキーマを使用して一時テーブルが作成されます
+* データは現在のテーブルから一時テーブルにコピーされます
+* 外部キーの適用はオフに切り替えられます
+* 現在のテーブルはドロップされます
+* 一時テーブルは新しいテーブルとして名前が変更されます
+
+ドキュメントは、イシュー [#2583](https://github.com/dotnet/EntityFramework.Docs/issues/2583) で追跡されています。
+
+### <a name="table-valued-functions"></a>テーブル値関数
+
+この機能は、[@pmiddleton](https://github.com/pmiddleton) によってコミュニティから提供されました。 投稿に感謝します。
+
+EF Core 5.0 には、.NET メソッドをテーブル値関数 (TVF) にマップするための最上級のサポートが含まれています。 これらの関数を LINQ クエリで使用することができます。また、この関数の結果に対する追加の構成も SQL に変換されます。
+
+たとえば、SQL Server データベースで定義されている次の TVF について考えてみましょう。
+
+```sql
+CREATE FUNCTION GetReports(@employeeId int)
+RETURNS @reports TABLE
+(
+    Name nvarchar(50) NOT NULL,
+    IsDeveloper bit NOT NULL
+)
+AS
+BEGIN
+    WITH cteEmployees AS
+    (
+        SELECT Id, Name, ManagerId, IsDeveloper
+        FROM Employees
+        WHERE Id = @employeeId
+        UNION ALL
+        SELECT e.Id, e.Name, e.ManagerId, e.IsDeveloper
+        FROM Employees e
+        INNER JOIN cteEmployees cteEmp ON cteEmp.Id = e.ManagerId
+    )
+    INSERT INTO @reports
+    SELECT Name, IsDeveloper
+    FROM cteEmployees
+    WHERE Id != @employeeId
+
+    RETURN
+END
+```
+
+EF Core モデルでは、この TVF を使用するために 2 つのエンティティ型が必要です。
+* 通常の方法で Employees テーブルにマップする `Employee` 型
+* TVF から返されるシェイプと一致する `Report` 型
+
+```c#
+public class Employee
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public bool IsDeveloper { get; set; }
+
+    public int? ManagerId { get; set; }
+    public virtual Employee Manager { get; set; }
+}
+```
+
+```c#
+public class Report
+{
+    public string Name { get; set; }
+    public bool IsDeveloper { get; set; }
+}
+```
+
+これらの型は、EF Core モデルに含まれている必要があります。
+
+```c#
+modelBuilder.Entity<Employee>();
+modelBuilder.Entity(typeof(Report)).HasNoKey();
+```
+
+`Report` には主キーがないため、そのように構成する必要があることに注意してください。
+
+最後に、.NET メソッドをデータベースの TVF にマップする必要があります。 このメソッドは、新しい `FromExpression` メソッドを使用して DbContext に対して定義できます。
+
+```c#
+public IQueryable<Report> GetReports(int managerId)
+    => FromExpression(() => GetReports(managerId));
+```
+
+このメソッドには、上記で定義された TVF に一致するパラメーターと戻り値の型が使用されます。 次に、メソッドは OnModelCreating の EF Core モデルに追加されます
+
+```c#
+modelBuilder.HasDbFunction(() => GetReports(default));
+```
+
+(ここでラムダを使用すると、`MethodInfo` を EF Core に簡単に渡すことができます。 メソッドに渡された引数は無視されます)。
+
+これで、`GetReports` を呼び出して結果を構成するクエリを作成できるようになりました。 次に例を示します。
+
+```c#
+from e in context.Employees
+from rc in context.GetReports(e.Id)
+where rc.IsDeveloper == true
+select new
+{
+  ManagerName = e.Name,
+  EmployeeName = rc.Name,
+})
+```
+
+SQL Server では、これは次のように変換されます。
+
+```sql
+SELECT [e].[Name] AS [ManagerName], [g].[Name] AS [EmployeeName]
+FROM [Employees] AS [e]
+CROSS APPLY [dbo].[GetReports]([e].[Id]) AS [g]
+WHERE [g].[IsDeveloper] = CAST(1 AS bit)
+```
+
+SQL では `Employees` テーブルがルートとされ、`GetReports` が呼び出され、関数の結果に WHERE 句が追加されることに注目してください。
+
+### <a name="flexible-queryupdate-mapping"></a>柔軟なクエリと更新マップ
+
+EF Core 5.0 では、同じエンティティ型を異なるデータベース オブジェクトにマップできます。 これらのオブジェクトは、テーブル、ビュー、または関数です。
+
+たとえば、エンティティ型はデータベース ビューとデータベース テーブルの両方にマップできます。
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder
+        .Entity<Blog>()
+        .ToTable("Blogs")
+        .ToView("BlogsView");
+}
+```
+
+既定では、EF Core はビューからクエリを実行し、更新をテーブルに送信します。 たとえば、次のコードを実行します。
+
+```c#
+var blog = context.Set<Blog>().Single(e => e.Name == "One Unicorn");
+
+blog.Name = "1unicorn2";
+
+context.SaveChanges();
+```
+
+ビューに対してクエリを実行し、テーブルを更新します。
+
+```sql
+SELECT TOP(2) [b].[Id], [b].[Name], [b].[Url]
+FROM [BlogsView] AS [b]
+WHERE [b].[Name] = N'One Unicorn'
+
+SET NOCOUNT ON;
+UPDATE [Blogs] SET [Name] = @p0
+WHERE [Id] = @p1;
+SELECT @@ROWCOUNT;
+```
+
+### <a name="context-wide-split-query-configuration"></a>コンテキスト全体の分割クエリ構成
+
+分割クエリ (以下を参照してください) は、DbContext によって実行されるクエリの既定値として構成できるようになりました。 この構成はリレーショナル プロバイダーの場合にのみ使用できるため、`UseProvider` 構成の一部として指定する必要があります。 次に例を示します。
+
+```c#
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .UseSqlServer(
+            Your.SqlServerConnectionString,
+            b => b.UseQuerySplittingBehavior(QuerySplittingBehavior.SplitQuery));
+```
+
+ドキュメントは、イシュー [#2407](https://github.com/dotnet/EntityFramework.Docs/issues/2407) で追跡されます。
+
+### <a name="physicaladdress-mapping"></a>PhysicalAddress のマッピング
+
+この機能は、[@ralmsdeveloper](https://github.com/ralmsdeveloper) によってコミュニティから提供されました。 投稿に感謝します。
+
+この構成はリレーショナル プロバイダーでのみ使用できるた標準の .NET [PhysicalAddress クラス](/dotnet/api/system.net.networkinformation.physicaladdress)が、ネイティブ サポートをまだ持っていないデータベースの文字列型の列に自動的にマップされるようになりました。 詳細については、以下の `IPAddress` の例を参照してください。
 
 ## <a name="preview-7"></a>Preview 7
 
@@ -51,7 +394,7 @@ public void DoSomeThing()
 {
     using (var context = _contextFactory.CreateDbContext())
     {
-        // ...            
+        // ...
     }
 }
 ```
@@ -64,7 +407,7 @@ DbContext インスタンスは、`AddPooledDbContextFactory` を呼び出すこ
 
 ### <a name="reset-dbcontext-state"></a>DbContext の状態のリセット
 
-EF Core 5.0 には、追跡対象のすべてのエンティティの DbContext をクリアする `ChangeTracker.Clear()` が導入されています。 これは、作業単位ごとに有効期間が短い新しいコンテキスト インスタンスを作成するベスト プラクティスを使用している場合には通常不要です。 ただし、DbContext インスタンスの状態をリセットする必要がある場合、この新しい `Clear()` メソッドを使用すると、すべてのエンティティを一括でデタッチするよりも、パフォーマンスと堅牢性が向上します。  
+EF Core 5.0 には、追跡対象のすべてのエンティティの DbContext をクリアする `ChangeTracker.Clear()` が導入されています。 これは、作業単位ごとに有効期間が短い新しいコンテキスト インスタンスを作成するベスト プラクティスを使用している場合には通常不要です。 ただし、DbContext インスタンスの状態をリセットする必要がある場合、この新しい `Clear()` メソッドを使用すると、すべてのエンティティを一括でデタッチするよりも、パフォーマンスと堅牢性が向上します。
 
 ドキュメントは、イシュー [#2524](https://github.com/dotnet/EntityFramework.Docs/issues/2524) で追跡されています。
 
@@ -154,7 +497,7 @@ EF Core では、複数の操作を実行するトランザクションをより
 セーブポイントは、手動で作成、解放、ロールバックすることができます。 次に例を示します。
 
 ```csharp
-context.Database.CreateSavepoint("MySavePoint"); 
+context.Database.CreateSavepoint("MySavePoint");
 ```
 
 また、`SaveChanges` の実行に失敗すると、EF Core では最後のセーブポイントにロールバックされるようになりました。 これにより、トランザクション全体を再実行しなくても、SaveChanges を再実行できます。
@@ -262,7 +605,7 @@ ORDER BY "a"."Id"
 public class User
 {
     public int Id { get; set; }
-    
+
     [MaxLength(128)]
     public string FullName { get; set; }
 }
@@ -283,7 +626,7 @@ IndexAttribute を使用して、複数の列にまたがるインデックス�
 public class User
 {
     public int Id { get; set; }
-    
+
     [MaxLength(64)]
     public string FirstName { get; set; }
 
@@ -360,7 +703,7 @@ CREATE TABLE [Host] (
     [Id] int NOT NULL,
     [Address] nvarchar(45) NULL,
     CONSTRAINT [PK_Host] PRIMARY KEY ([Id]));
-``` 
+```
 
 これで、通常の方法でエンティティを追加できます。
 
@@ -368,7 +711,7 @@ CREATE TABLE [Host] (
 context.AddRange(
     new Host { Address = IPAddress.Parse("127.0.0.1")},
     new Host { Address = IPAddress.Parse("0000:0000:0000:0000:0000:0000:0000:0001")});
-``` 
+```
 
 結果として生成される SQL では、正規化された IPv4 または IPv6 のアドレスが挿入されます。
 
@@ -392,8 +735,8 @@ dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog
 または、パッケージ マネージャー コンソールで:
 
 ```
-Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring 
-``` 
+Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring
+```
 
 [名前付き接続文字列と、ユーザー シークレットのようなセキュリティで保護されたストレージ](/core/managing-schemas/scaffolding?tabs=vs#configuration-and-user-secrets)を使用することをお勧めします。
 
@@ -417,7 +760,7 @@ WHERE SUBSTRING([c].[ContactName], 1, 1) = N'A'
 
 ### <a name="simplify-case-blocks"></a>CASE ブロックの簡略化
 
-EF Core は、CASE ブロックを使用してより良いクエリを生成するようになりました。 たとえば、次の LINQ クエリ: 
+EF Core は、CASE ブロックを使用してより良いクエリを生成するようになりました。 たとえば、次の LINQ クエリ:
 
 ```CSharp
 context.Weapons
@@ -442,7 +785,7 @@ ORDER BY CASE
     END IS NOT NULL THEN CAST(1 AS bit)
     ELSE CAST(0 AS bit)
 END, [w].[Id]");
-``` 
+```
 
 しかし、今後は次のように変換されます。
 
@@ -453,7 +796,7 @@ ORDER BY CASE
     WHEN ([w].[Name] = N'Marcus'' Lancer') AND [w].[Name] IS NOT NULL THEN CAST(1 AS bit)
     ELSE CAST(0 AS bit)
 END, [w].[Id]");
-``` 
+```
 
 ## <a name="preview-5"></a>Preview 5
 
@@ -507,14 +850,14 @@ WHERE [u].[Name] COLLATE French_CI_AS = N'Jean-Michel Jarre'
 
 ```
 dotnet ef migrations add two --verbose --dev
-``` 
+```
 
 この引数は次にファクトリにフローされ、そこではコンテキストの作成方法および初期化方法を制御するために使用できます。 次に例を示します。
 
 ```CSharp
 public class MyDbContextFactory : IDesignTimeDbContextFactory<SomeDbContext>
 {
-    public SomeDbContext CreateDbContext(string[] args) 
+    public SomeDbContext CreateDbContext(string[] args)
         => new SomeDbContext(args.Contains("--dev"));
 }
 ```
@@ -523,7 +866,7 @@ public class MyDbContextFactory : IDesignTimeDbContextFactory<SomeDbContext>
 
 ### <a name="no-tracking-queries-with-identity-resolution"></a>識別子の解決を使用した追跡なしのクエリ
 
-識別子の解決を実行するように追跡なしのクエリ構成できるようになりました。 たとえば、次のクエリでは、各ブログの主キーが同じである場合でも、投稿ごとに新しいブログ インスタンスが作成されます。 
+識別子の解決を実行するように追跡なしのクエリ構成できるようになりました。 たとえば、次のクエリでは、各ブログの主キーが同じである場合でも、投稿ごとに新しいブログ インスタンスが作成されます。
 
 ```CSharp
 context.Posts.AsNoTracking().Include(e => e.Blog).ToList();
@@ -544,7 +887,7 @@ context.Posts.AsNoTracking().PerformIdentityResolution().Include(e => e.Blog).To
 ほとんどのデータベースでは、計算後に計算列の値を格納することができます。 これによってディスク領域が消費されますが、計算列の計算は、その値が取得されるたびではなく、更新時に 1 回だけ行われます。 また、これにより、一部のデータベースについて列のインデックスを作成することもできます。
 
 EF Core 5.0 では、計算列を格納済みとして構成できます。 次に例を示します。
- 
+
 ```CSharp
 modelBuilder
     .Entity<User>()
@@ -569,7 +912,7 @@ modelBuilder
     .HasPrecision(16, 4);
 ```
 
-有効桁数と小数点以下桁数は、"decimal(16,4)" のように、完全なデータベースの種類を使用して設定することもできます。 
+有効桁数と小数点以下桁数は、"decimal(16,4)" のように、完全なデータベースの種類を使用して設定することもできます。
 
 ドキュメントは、イシュー [#527](https://github.com/dotnet/EntityFramework.Docs/issues/527) で追跡されます。
 
@@ -599,7 +942,7 @@ var blogs = context.Blogs
 このクエリでは、投稿のタイトルに "チーズ" が含まれている場合にのみ、関連付けられている各投稿と共にブログが返されます。
 
 Skip と Take を使用して、インクルードされるエンティティの数を減らすこともできます。 次に例を示します。
- 
+
 ```CSharp
 var blogs = context.Blogs
     .Include(e => e.Posts.OrderByDescending(post => post.Title).Take(5)))
@@ -621,9 +964,9 @@ modelBuilder.Entity<Blog>().Navigation(e => e.Posts).HasField("_myposts");
 
 [ナビゲーション プロパティの構成に関するドキュメント](xref:core/modeling/relationships#configuring-navigation-properties)を参照してください。
 
-### <a name="new-command-line-parameters-for-namespaces-and-connection-strings"></a>名前空間と接続文字列の新しいコマンドライン パラメーター 
+### <a name="new-command-line-parameters-for-namespaces-and-connection-strings"></a>名前空間と接続文字列の新しいコマンドライン パラメーター
 
-移行とスキャフォールディングでは、コマンド ラインで名前空間を指定できるようになりました。 たとえば、別の名前空間にコンテキスト クラスとモデル クラスを配置するデータベースをリバース エンジニアリングするには、次を実行します。 
+移行とスキャフォールディングでは、コマンド ラインで名前空間を指定できるようになりました。 たとえば、別の名前空間にコンテキスト クラスとモデル クラスを配置するデータベースをリバース エンジニアリングするには、次を実行します。
 
 ```
 dotnet ef dbcontext scaffold "connection string" Microsoft.EntityFrameworkCore.SqlServer --context-namespace "My.Context" --namespace "My.Model"
@@ -646,14 +989,14 @@ VS パッケージ マネージャー コンソールで使用される PowerShe
 
 パフォーマンス上の理由から、EF では、データベースから値を読み取るときに追加の null チェックは行われません。 これにより、予期しない null が検出された場合に、根本原因を突き止めることが困難な例外が発生する可能性があります。
 
-`EnableDetailedErrors` を使用すると、クエリに null チェックがさらに追加されます。パフォーマンスのオーバーヘッドが小さいため、これらのエラーでは、根本原因まで簡単に追跡できるようになります。  
+`EnableDetailedErrors` を使用すると、クエリに null チェックがさらに追加されます。パフォーマンスのオーバーヘッドが小さいため、これらのエラーでは、根本原因まで簡単に追跡できるようになります。
 
 次に例を示します。
 ```CSharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .EnableDetailedErrors()
-        .EnableSensitiveDataLogging() // Often also useful with EnableDetailedErrors 
+        .EnableSensitiveDataLogging() // Often also useful with EnableDetailedErrors
         .UseSqlServer(Your.SqlServerConnectionString);
 ```
 
@@ -676,7 +1019,7 @@ await context.Set<Customer>()
 これには、新しい `EF.Functions.DataLength` メソッドを使用してアクセスできます。 次に例を示します。
 ```CSharp
 var count = context.Orders.Count(c => 100 < EF.Functions.DataLength(c.OrderDate));
-``` 
+```
 
 ## <a name="preview-2"></a>Preview 2
 
