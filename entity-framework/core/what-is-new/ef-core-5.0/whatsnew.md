@@ -4,12 +4,12 @@ description: EF Core 5.0 の新機能の概要
 author: ajcvickers
 ms.date: 07/20/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew
-ms.openlocfilehash: 3a1f5c7d44ad0e4d648492c4edcf14678c73538e
-ms.sourcegitcommit: 6f7af3f138bf7c724cbdda261f97e5cf7035e8d7
+ms.openlocfilehash: f822e3ae776778749a654377cbd9d9814ca40972
+ms.sourcegitcommit: 12d257db4786487a0c28e9ddd79f176f7cf6edb1
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/25/2020
-ms.locfileid: "88847594"
+ms.lasthandoff: 08/28/2020
+ms.locfileid: "89043598"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -21,7 +21,7 @@ EF Core 5.0 は現在開発中です。 このページには、各プレビュ�
 
 ## <a name="preview-8"></a>Preview 8
 
-## <a name="table-per-type-tpt-mapping"></a>Table-Per-Type (TPT) のマッピング
+### <a name="table-per-type-tpt-mapping"></a>Table-Per-Type (TPT) のマッピング
 
 EF Core の既定では、.NET 型の継承階層が 1 つのデータベース テーブルにマップされます。 これは、Table-Per-Hierarchy (TPH) のマッピングと呼ばれます。 EF Core 5.0 を使用すると、継承階層の各 .NET 型を別のデータベース テーブルにマップすることもできます。これは Table-Per-Type (TPT) のマッピングと呼ばれます。
 
