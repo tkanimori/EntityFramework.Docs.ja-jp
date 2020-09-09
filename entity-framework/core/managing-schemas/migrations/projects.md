@@ -1,32 +1,33 @@
 ---
 title: 個別の移行プロジェクトの使用-EF Core
+description: Entity Framework Core でのデータベーススキーマの管理に個別の移行プロジェクトを使用する
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/projects
-ms.openlocfilehash: 89b7f50fe750c2953aa75efcdffcb1a5199ce90c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: a3f0ed96c6a8e3e8629d9a4bb1610fcbfe6ca043
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414279"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617916"
 ---
-# <a name="using-a-separate-migrations-project"></a><span data-ttu-id="68501-102">個別の移行プロジェクトの使用</span><span class="sxs-lookup"><span data-stu-id="68501-102">Using a Separate Migrations Project</span></span>
+# <a name="using-a-separate-migrations-project"></a><span data-ttu-id="aeb0c-103">個別の移行プロジェクトの使用</span><span class="sxs-lookup"><span data-stu-id="aeb0c-103">Using a Separate Migrations Project</span></span>
 
-<span data-ttu-id="68501-103">移行は、`DbContext`を含むアセンブリとは別のアセンブリに格納することができます。</span><span class="sxs-lookup"><span data-stu-id="68501-103">You may want to store your migrations in a different assembly than the one containing your `DbContext`.</span></span> <span data-ttu-id="68501-104">また、この方法を使用して、複数の移行のセットを維持できます。たとえば、1つは開発用、もう1つはリリース間のアップグレード用です。</span><span class="sxs-lookup"><span data-stu-id="68501-104">You can also use this strategy to maintain multiple sets of migrations, for example, one for development and another for release-to-release upgrades.</span></span>
+<span data-ttu-id="aeb0c-104">移行は、を含むアセンブリとは別のアセンブリに格納することをお勧めし `DbContext` ます。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-104">You may want to store your migrations in a different assembly than the one containing your `DbContext`.</span></span> <span data-ttu-id="aeb0c-105">また、この方法を使用して、複数の移行のセットを維持できます。たとえば、1つは開発用、もう1つはリリース間のアップグレード用です。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-105">You can also use this strategy to maintain multiple sets of migrations, for example, one for development and another for release-to-release upgrades.</span></span>
 
-<span data-ttu-id="68501-105">目的</span><span class="sxs-lookup"><span data-stu-id="68501-105">To do this...</span></span>
+<span data-ttu-id="aeb0c-106">目的</span><span class="sxs-lookup"><span data-stu-id="aeb0c-106">To do this...</span></span>
 
-1. <span data-ttu-id="68501-106">新しいクラス ライブラリを作成します。</span><span class="sxs-lookup"><span data-stu-id="68501-106">Create a new class library.</span></span>
+1. <span data-ttu-id="aeb0c-107">新しいクラス ライブラリを作成します。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-107">Create a new class library.</span></span>
 
-2. <span data-ttu-id="68501-107">DbContext アセンブリへの参照を追加します。</span><span class="sxs-lookup"><span data-stu-id="68501-107">Add a reference to your DbContext assembly.</span></span>
+2. <span data-ttu-id="aeb0c-108">DbContext アセンブリへの参照を追加します。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-108">Add a reference to your DbContext assembly.</span></span>
 
-3. <span data-ttu-id="68501-108">移行およびモデルスナップショットファイルをクラスライブラリに移動します。</span><span class="sxs-lookup"><span data-stu-id="68501-108">Move the migrations and model snapshot files to the class library.</span></span>
+3. <span data-ttu-id="aeb0c-109">移行およびモデルスナップショットファイルをクラスライブラリに移動します。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-109">Move the migrations and model snapshot files to the class library.</span></span>
    > [!TIP]
-   > <span data-ttu-id="68501-109">既存の移行がない場合は、DbContext を含むプロジェクト内で1つを生成し、それを移動します。</span><span class="sxs-lookup"><span data-stu-id="68501-109">If you have no existing migrations, generate one in the project containing the DbContext then move it.</span></span>
-   > <span data-ttu-id="68501-110">移行アセンブリに既存の移行が含まれていない場合、追加移行コマンドで DbContext を見つけることができないため、これが重要になります。</span><span class="sxs-lookup"><span data-stu-id="68501-110">This is important because if the migrations assembly does not contain an existing migration, the Add-Migration command will be unable to find the DbContext.</span></span>
+   > <span data-ttu-id="aeb0c-110">既存の移行がない場合は、DbContext を含むプロジェクト内で1つを生成し、それを移動します。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-110">If you have no existing migrations, generate one in the project containing the DbContext then move it.</span></span>
+   > <span data-ttu-id="aeb0c-111">移行アセンブリに既存の移行が含まれていない場合、追加移行コマンドで DbContext を見つけることができないため、これが重要になります。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-111">This is important because if the migrations assembly does not contain an existing migration, the Add-Migration command will be unable to find the DbContext.</span></span>
 
-4. <span data-ttu-id="68501-111">移行アセンブリを構成します。</span><span class="sxs-lookup"><span data-stu-id="68501-111">Configure the migrations assembly:</span></span>
+4. <span data-ttu-id="aeb0c-112">移行アセンブリを構成します。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-112">Configure the migrations assembly:</span></span>
 
    ``` csharp
    options.UseSqlServer(
@@ -34,8 +35,8 @@ ms.locfileid: "78414279"
        x => x.MigrationsAssembly("MyApp.Migrations"));
    ```
 
-5. <span data-ttu-id="68501-112">スタートアップアセンブリから移行アセンブリへの参照を追加します。</span><span class="sxs-lookup"><span data-stu-id="68501-112">Add a reference to your migrations assembly from the startup assembly.</span></span>
-   * <span data-ttu-id="68501-113">これによって循環依存関係が発生する場合は、クラスライブラリの出力パスを更新します。</span><span class="sxs-lookup"><span data-stu-id="68501-113">If this causes a circular dependency, update the output path of the class library:</span></span>
+5. <span data-ttu-id="aeb0c-113">スタートアップアセンブリから移行アセンブリへの参照を追加します。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-113">Add a reference to your migrations assembly from the startup assembly.</span></span>
+   * <span data-ttu-id="aeb0c-114">これによって循環依存関係が発生する場合は、クラスライブラリの出力パスを更新します。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-114">If this causes a circular dependency, update the output path of the class library:</span></span>
 
      ``` xml
      <PropertyGroup>
@@ -43,15 +44,15 @@ ms.locfileid: "78414279"
      </PropertyGroup>
      ```
 
-<span data-ttu-id="68501-114">すべてを正しく行った場合は、新しい移行をプロジェクトに追加できるようになります。</span><span class="sxs-lookup"><span data-stu-id="68501-114">If you did everything correctly, you should be able to add new migrations to the project.</span></span>
+<span data-ttu-id="aeb0c-115">すべてを正しく行った場合は、新しい移行をプロジェクトに追加できるようになります。</span><span class="sxs-lookup"><span data-stu-id="aeb0c-115">If you did everything correctly, you should be able to add new migrations to the project.</span></span>
 
-## <a name="net-core-cli"></a>[<span data-ttu-id="68501-115">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="68501-115">.NET Core CLI</span></span>](#tab/dotnet-core-cli)
+## <a name="net-core-cli"></a>[<span data-ttu-id="aeb0c-116">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="aeb0c-116">.NET Core CLI</span></span>](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add NewMigration --project MyApp.Migrations
 ```
 
-## <a name="visual-studio"></a>[<span data-ttu-id="68501-116">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="68501-116">Visual Studio</span></span>](#tab/vs)
+## <a name="visual-studio"></a>[<span data-ttu-id="aeb0c-117">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="aeb0c-117">Visual Studio</span></span>](#tab/vs)
 
 ``` powershell
 Add-Migration NewMigration -Project MyApp.Migrations
