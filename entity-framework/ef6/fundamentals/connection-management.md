@@ -1,17 +1,19 @@
 ---
 title: 接続管理-EF6
+description: Entity Framework 6 での接続管理
 author: divega
 ms.date: 10/23/2016
 ms.assetid: ecaa5a27-b19e-4bf9-8142-a3fb00642270
-ms.openlocfilehash: a6352bbbc38c38bd5f30536736ec969056df2c7d
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/connection-management
+ms.openlocfilehash: c352e761a9891b5c275f32752f10de13222bf48e
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414867"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617224"
 ---
 # <a name="connection-management"></a>接続管理
-このページでは、コンテキストへの接続の受け渡しと、**データベース. Connection. Open ()** API の機能に関して、Entity Framework の動作について説明します。  
+このページでは、コンテキストへの接続の受け渡しと、 **データベース. Connection. Open ()** API の機能に関して、Entity Framework の動作について説明します。  
 
 ## <a name="passing-connections-to-the-context"></a>コンテキストへの接続の引き渡し  
 
@@ -27,7 +29,7 @@ public DbContext(DbConnection existingConnection, DbCompiledModel model, bool co
 これらを使用することはできますが、いくつかの制限事項に対処する必要があります。  
 
 1. 開いている接続をこれらのいずれかに渡すと、フレームワークが初めて使用しようとしたときに、既に開いている接続を再び開くことができないということを示す InvalidOperationException がスローされます。  
-2. ContextOwnsConnection フラグは、コンテキストが破棄されるときに、基になるストア接続を破棄する必要があるかどうかを示すために解釈されます。 ただし、その設定に関係なく、コンテキストが破棄されると、ストア接続は常に閉じられます。 そのため、同じ接続を持つ複数の DbContext を使用している場合は、最初に破棄されたコンテキストによって接続が閉じられます (同様に、DbContext を使用して既存の ADO.NET 接続を混在させた場合、DbContext は常に破棄された接続を閉じます).  
+2. ContextOwnsConnection フラグは、コンテキストが破棄されるときに、基になるストア接続を破棄する必要があるかどうかを示すために解釈されます。 ただし、その設定に関係なく、コンテキストが破棄されると、ストア接続は常に閉じられます。 そのため、同じ接続を持つ複数の DbContext を使用している場合は、最初に破棄されたコンテキストによって接続が閉じられます (同様に、DbContext を使用して既存の ADO.NET 接続を混在させた場合、DbContext は常に破棄された接続を閉じます)。  
 
 閉じられた接続を渡し、すべてのコンテキストを作成した後でそれを開くコードのみを実行することで、上記の最初の制限を回避することができます。  
 
@@ -128,19 +130,19 @@ namespace ConnectionManagementExamples
 もちろん、DbContext で接続を制御することもできます (contextOwnsConnection を true に設定するか、他のコンストラクターのいずれかを使用するだけで済みます)。  
 
 > [!NOTE]
-> この新しいモデルでトランザクションを使用する場合は、追加の考慮事項がいくつかあります。 詳細については、「[トランザクションの](~/ef6/saving/transactions.md)使用」を参照してください。  
+> この新しいモデルでトランザクションを使用する場合は、追加の考慮事項がいくつかあります。 詳細については、「 [トランザクションの](xref:ef6/saving/transactions)使用」を参照してください。  
 
 ## <a name="databaseconnectionopen"></a>Database. Connection. Open ()  
 
 ### <a name="behavior-for-ef5-and-earlier-versions"></a>EF5 以前のバージョンの動作  
 
-EF5 以前のバージョンでは、基になるストア接続の真の状態を反映するために、 **ObjectContext**が更新されていないというバグがあります。 たとえば、次のコードを実行した場合、実際には基になるストア接続が**開か**れているにもかかわらず、状態を**閉じる**ことができます。  
+EF5 以前のバージョンでは、基になるストア接続の真の状態を反映するために、 **ObjectContext** が更新されていないというバグがあります。 たとえば、次のコードを実行した場合、実際には基になるストア接続が**開か**れているにもかかわらず、状態を**閉じる**ことができます。  
 
 ``` csharp
 ((IObjectContextAdapter)context).ObjectContext.Connection.State
 ```  
 
-別の方法として、データベース接続を開いた場合、データベース接続を開くと、次にクエリを実行するか、データベース接続を必要とする任意のもの (SaveChanges () など) を呼び出してから、基になるストアを呼び出すことができます。接続は閉じられます。 その後、別のデータベース操作が必要になったときに、コンテキストは再起動し、接続を再度閉じます。  
+別の方法として、データベース接続を開いた場合、データベース接続を開くと、次にクエリを実行するか、データベース接続を必要とする任意のものを呼び出す (たとえば、SaveChanges ()) まで、基になるストア接続が閉じられます。 その後、別のデータベース操作が必要になったときに、コンテキストは再起動し、接続を再度閉じます。  
 
 ``` csharp
 using System;

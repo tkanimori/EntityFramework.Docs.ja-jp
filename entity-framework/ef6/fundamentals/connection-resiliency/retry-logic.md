@@ -1,14 +1,16 @@
 ---
 title: 接続の回復性と再試行ロジック-EF6
+description: Entity Framework 6 の接続の回復性と再試行ロジック
 author: AndriySvyryd
 ms.date: 11/20/2019
 ms.assetid: 47d68ac1-927e-4842-ab8c-ed8c8698dff2
-ms.openlocfilehash: 50e65bed32d0cfcf42746da0d632f9e990424b97
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/connection-resiliency/retry-logic
+ms.openlocfilehash: 7d05c924f309e410bc457b7e46b0618d38c95569
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/15/2020
-ms.locfileid: "79402109"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616101"
 ---
 # <a name="connection-resiliency-and-retry-logic"></a>接続の回復性と再試行ロジック
 > [!NOTE]
@@ -32,7 +34,7 @@ ms.locfileid: "79402109"
 
 ## <a name="enabling-an-execution-strategy"></a>実行戦略を有効にする  
 
-実行戦略を使用するように EF に指示する最も簡単な方法は、 [Dbconfiguration](~/ef6/fundamentals/configuring/code-based.md)クラスの setexecutionstrategy メソッドを使用することです。  
+実行戦略を使用するように EF に指示する最も簡単な方法は、 [Dbconfiguration](xref:ef6/fundamentals/configuring/code-based) クラスの setexecutionstrategy メソッドを使用することです。  
 
 ``` csharp
 public class MyConfiguration : DbConfiguration
@@ -66,7 +68,7 @@ public class MyConfiguration : DbConfiguration
 
 SqlAzureExecutionStrategy は、一時的なエラーが最初に発生したときに直ちに再試行されますが、最大再試行回数を超えた場合、または合計時間が最大遅延に達した場合は、再試行の間隔が長くなります。  
 
-実行戦略は、限られた数の例外のみを再試行します。通常は一時的なもので、他のエラーも処理し、エラーが一時的でない場合や、解決に時間がかかりすぎる場合に RetryLimitExceeded 例外をキャッチする必要があります。自分自身.  
+実行戦略は、限られた数の例外のみを再試行します。通常は一時的なものであり、他のエラーも処理する必要があります。また、エラーが一時的でない場合や、それ自体を解決するのに時間がかかりすぎる場合は、RetryLimitExceeded 例外をキャッチする必要があります。  
 
 再試行の実行方法を使用する場合、いくつかの制限があります。  
 
@@ -84,7 +86,7 @@ using (var db = new BloggingContext())
 }
 ```  
 
-再試行の実行戦略が登録されている場合、ストリーミングはサポートされません。 この制限が存在するのは、返される結果に対して接続が部分的に削除される可能性があるためです。 この場合、EF はクエリ全体を再実行する必要がありますが、既に返された結果を知るための信頼できる方法はありません (最初のクエリが送信された後にデータが変更された可能性があり、結果が別の順序で返され、結果に一意の識別子がない可能性があります)など)。  
+再試行の実行戦略が登録されている場合、ストリーミングはサポートされません。 この制限が存在するのは、返される結果に対して接続が部分的に削除される可能性があるためです。 この場合、EF はクエリ全体を再実行する必要がありますが、既に返された結果 (最初のクエリが送信された後にデータが変更された可能性があり、結果が別の順序で返される可能性があり、結果が一意の識別子を持たない可能性があります)。  
 
 ## <a name="user-initiated-transactions-are-not-supported"></a>ユーザーが開始したトランザクションはサポートされていません  
 

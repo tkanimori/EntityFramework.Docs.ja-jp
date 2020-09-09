@@ -1,17 +1,19 @@
 ---
 title: 事前に生成されたマッピングビュー-EF6
+description: Entity Framework 6 で事前に生成されたマッピングビュー
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
-ms.openlocfilehash: 1fda9fe9638adce9b24a6b81aa081effeb0def81
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/performance/pre-generated-views
+ms.openlocfilehash: 8318030603339c45c5c8459db580b7a8de5febda
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416031"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89615853"
 ---
 # <a name="pre-generated-mapping-views"></a>事前に生成されたマッピングビュー
-Entity Framework がクエリを実行したり、データソースへの変更を保存したりする前に、データベースにアクセスするための一連のマッピングビューを生成する必要があります。 これらのマッピングビューは、データベースを抽象的な方法で表す一連の Entity SQL ステートメントであり、アプリケーションドメインごとにキャッシュされるメタデータの一部です。 同じアプリケーションドメイン内に同じコンテキストの複数のインスタンスを作成すると、キャッシュされたメタデータからのマッピングビューが再生成されるのではなく再利用されます。 マッピングビューの生成は最初のクエリの実行にかかる全体的なコストの重要な部分であるため、Entity Framework を使用すると、マッピングビューを事前に生成し、コンパイル済みのプロジェクトに含めることができます。 詳細については、「  [パフォーマンスに関する考慮事項 (Entity Framework)](~/ef6/fundamentals/performance/perf-whitepaper.md)」を参照してください。
+Entity Framework がクエリを実行したり、データソースへの変更を保存したりする前に、データベースにアクセスするための一連のマッピングビューを生成する必要があります。 これらのマッピングビューは、データベースを抽象的な方法で表す一連の Entity SQL ステートメントであり、アプリケーションドメインごとにキャッシュされるメタデータの一部です。 同じアプリケーションドメイン内に同じコンテキストの複数のインスタンスを作成すると、キャッシュされたメタデータからのマッピングビューが再生成されるのではなく再利用されます。 マッピングビューの生成は最初のクエリの実行にかかる全体的なコストの重要な部分であるため、Entity Framework を使用すると、マッピングビューを事前に生成し、コンパイル済みのプロジェクトに含めることができます。詳細については、「  [パフォーマンスに関する考慮事項 (Entity Framework)](xref:ef6/fundamentals/performance/perf-whitepaper)」を参照してください。
 
 ## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>EF Power Tools Community Edition を使用したマッピングビューの生成
 
@@ -33,7 +35,7 @@ Entity Framework がクエリを実行したり、データソースへの変更
 ビューを生成するもう1つの方法は、EF に用意されている Api を使用することです。 この方法を使用する場合は、必要に応じてビューを自由にシリアル化できますが、自分でビューを読み込む必要もあります。
 
 > [!NOTE]
-> **EF6 以降のみ**-このセクションに示されている api は Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、この情報は適用されません。
+> **EF6 以降のみ** -このセクションに示されている api は Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、この情報は適用されません。
 
 ### <a name="generating-views"></a>ビューの生成
 
@@ -123,4 +125,4 @@ EF で DbMappingViewCache を使用するには、DbMappingViewCacheTypeAttribut
     [assembly: DbMappingViewCacheType(typeof(BlogContext), typeof(MyMappingViewCache))]
 ```
 
-より複雑なシナリオでは、マッピングビューのキャッシュファクトリを指定することによって、マッピングビューのキャッシュインスタンスを指定できます。 これは、抽象クラスの system.object を実装することによって行うことができます。 使用されるマッピングビューのキャッシュファクトリのインスタンスは、StorageMappingItemCollection. MappingViewCacheFactoryproperty を使用して取得または設定できます。
+より複雑なシナリオでは、マッピングビューのキャッシュファクトリを指定することによって、マッピングビューのキャッシュインスタンスを指定できます。 これは、抽象クラスの system.object を実装することによって行うことができます。。 使用されるマッピングビューのキャッシュファクトリのインスタンスは、StorageMappingItemCollection. MappingViewCacheFactoryproperty を使用して取得または設定できます。

@@ -1,15 +1,16 @@
 ---
 title: 値の変換-EF Core
+description: Entity Framework Core モデルでの値コンバーターの構成
 author: ajcvickers
 ms.date: 02/19/2018
 ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 93774bc1bc3887f982faeac151825a6643c1107c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 79e54392bf5503b4b651f25ce6e5fc63d418df90
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414555"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616666"
 ---
 # <a name="value-conversions"></a>値変換
 
@@ -18,15 +19,15 @@ ms.locfileid: "78414555"
 
 値コンバーターを使用すると、データベースに対して読み取りまたは書き込みを行うときに、プロパティ値を変換できます。 この変換は、1つの値から同じ型の別の型 (文字列の暗号化など) にすることも、1つの型の値から別の型の値に変換することもできます (たとえば、列挙値をデータベース内の文字列に変換するなど)。
 
-## <a name="fundamentals"></a>基礎
+## <a name="fundamentals"></a>Fundamentals
 
-値コンバーターは、`ModelClrType` と `ProviderClrType`の観点から指定されています。 モデルの種類は、エンティティ型のプロパティの .NET 型です。 プロバイダーの種類は、データベースプロバイダーによって認識される .NET 型です。 たとえば、列挙型を文字列としてデータベースに保存する場合、モデルの種類は列挙型の型であり、プロバイダーの種類は `String`になります。 これらの2つの型は同じにすることができます。
+値コンバーターは、との観点で指定され `ModelClrType` てい `ProviderClrType` ます。 モデルの種類は、エンティティ型のプロパティの .NET 型です。 プロバイダーの種類は、データベースプロバイダーによって認識される .NET 型です。 たとえば、列挙型を文字列としてデータベースに保存する場合、モデルの種類は列挙型の型であり、プロバイダーの型は `String` です。 これらの2つの型は同じにすることができます。
 
-変換は、2つの `Func` 式ツリーを使用して定義されます。1つは `ModelClrType` から `ProviderClrType`、もう一方は `ProviderClrType` から `ModelClrType`です。 式ツリーは、効率的な変換のためにデータベースアクセスコードにコンパイルできるように使用されます。 複雑な変換では、式ツリーは、変換を実行するメソッドを簡単に呼び出すことができます。
+変換は、からへの変換 `Func` `ModelClrType` `ProviderClrType` と、からへの2つの式ツリーを使用して定義され `ProviderClrType` `ModelClrType` ます。 式ツリーは、効率的な変換のためにデータベースアクセスコードにコンパイルできるように使用されます。 複雑な変換では、式ツリーは、変換を実行するメソッドを簡単に呼び出すことができます。
 
 ## <a name="configuring-a-value-converter"></a>値コンバーターの構成
 
-値の変換は、`DbContext`の `OnModelCreating` のプロパティで定義されます。 たとえば、次のように定義された列挙型とエンティティ型について考えてみます。
+値の変換は、ののプロパティで定義され `OnModelCreating` `DbContext` ます。 たとえば、次のように定義された列挙型とエンティティ型について考えてみます。
 
 ``` csharp
 public class Rider
@@ -44,7 +45,7 @@ public enum EquineBeast
 }
 ```
 
-次に、`OnModelCreating` で変換を定義して、列挙値を文字列として格納することができます (例: "Donkey", "Mule",...)。
+次に、で変換を定義し `OnModelCreating` て、列挙値を文字列 (たとえば、"Donkey"、"Mule"、...) としてデータベースに格納できます。
 
 ``` csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
@@ -59,11 +60,11 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 ```
 
 > [!NOTE]  
-> `null` 値は、値コンバーターに渡されません。 これにより、変換の実装が容易になり、null 許容のプロパティと null 非許容のプロパティ間で共有できるようになります。
+> 値は、 `null` 値コンバーターに渡されません。 これにより、変換の実装が容易になり、null 許容のプロパティと null 非許容のプロパティ間で共有できるようになります。
 
 ## <a name="the-valueconverter-class"></a>ValueConverter クラス
 
-上記のように `HasConversion` を呼び出すと、`ValueConverter` インスタンスが作成され、プロパティに設定されます。 代わりに、`ValueConverter` を明示的に作成できます。 次に例を示します。
+`HasConversion`上に示すようにを呼び出すと、インスタンスが作成され `ValueConverter` 、プロパティに設定されます。 代わりに、を `ValueConverter` 明示的に作成できます。 次に例を示します。
 
 ``` csharp
 var converter = new ValueConverter<EquineBeast, string>(
@@ -83,31 +84,31 @@ modelBuilder
 
 ## <a name="built-in-converters"></a>組み込みのコンバーター
 
-EF Core には、`Microsoft.EntityFrameworkCore.Storage.ValueConversion` 名前空間に存在する定義済みの `ValueConverter` クラスのセットが付属しています。 次のとおりです。
+EF Core には、名前空間で定義されている一連の定義済みクラスが付属して `ValueConverter` `Microsoft.EntityFrameworkCore.Storage.ValueConversion` います。 次のとおりです。
 
-* `BoolToZeroOneConverter`-Bool を0に、1を1にします。
-* `BoolToStringConverter`-Bool to string ("Y"、"N" など)
-* `BoolToTwoValuesConverter`-Bool を任意の2つの値に
-* Base64 でエンコードされた文字列への `BytesToStringConverter` バイト配列
-* `CastingConverter`-型キャストのみを必要とする変換
-* 1文字の文字列に `CharToStringConverter`-Char
-* `DateTimeOffsetToBinaryConverter`-DateTimeOffset からバイナリエンコード64ビット値へ
-* `DateTimeOffsetToBytesConverter`-DateTimeOffset から byte 配列
-* `DateTimeOffsetToStringConverter`-DateTimeOffset to string
-* `DateTimeToBinaryConverter`-DateTime ~ 64-Datetimekind.utc を含むビット値
-* `DateTimeToStringConverter`-DateTime to string
-* `DateTimeToTicksConverter`-DateTime から ticks
-* `EnumToNumberConverter`-基になる数値に列挙される
-* `EnumToStringConverter`-列挙型文字列
-* `GuidToBytesConverter`-バイト配列への Guid
-* `GuidToStringConverter`-文字列への Guid
-* `NumberToBytesConverter`-バイト配列に対する任意の数値
-* `NumberToStringConverter`-文字列に対する任意の数値
-* `StringToBytesConverter`-文字列を UTF8 バイトに
-* `TimeSpanToStringConverter`-TimeSpan to string
-* `TimeSpanToTicksConverter`-TimeSpan から ticks
+* `BoolToZeroOneConverter` -Bool から0および1
+* `BoolToStringConverter` -Bool to string ("Y"、"N" など)
+* `BoolToTwoValuesConverter` -Bool から任意の2つの値へ
+* `BytesToStringConverter` -Base64 でエンコードされた文字列へのバイト配列
+* `CastingConverter` -型キャストのみを必要とする変換
+* `CharToStringConverter` -Char から単一の文字列へ
+* `DateTimeOffsetToBinaryConverter` -DateTimeOffset からバイナリエンコード64ビット値
+* `DateTimeOffsetToBytesConverter` -DateTimeOffset からバイト配列
+* `DateTimeOffsetToStringConverter` -DateTimeOffset から文字列
+* `DateTimeToBinaryConverter` -DateTime から 64-Datetimekind.utc を含むビット値
+* `DateTimeToStringConverter` -DateTime から string
+* `DateTimeToTicksConverter` -DateTime からティック
+* `EnumToNumberConverter` -基になる数値の列挙型
+* `EnumToStringConverter` -文字列への列挙
+* `GuidToBytesConverter` -Guid からバイト配列
+* `GuidToStringConverter` -文字列への Guid
+* `NumberToBytesConverter` -バイト配列に対する任意の数値
+* `NumberToStringConverter` -文字列に対する任意の数値
+* `StringToBytesConverter` -文字列から UTF8 バイトへ
+* `TimeSpanToStringConverter` -TimeSpan から string
+* `TimeSpanToTicksConverter` -TimeSpan からティック
 
-この一覧に `EnumToStringConverter` が含まれていることに注意してください。 これは、上記のように、明示的に変換を指定する必要がないことを意味します。 代わりに、組み込みのコンバーターを使用します。
+`EnumToStringConverter`この一覧にはが含まれていることに注意してください。 これは、上記のように、明示的に変換を指定する必要がないことを意味します。 代わりに、組み込みのコンバーターを使用します。
 
 ``` csharp
 var converter = new EnumToStringConverter<EquineBeast>();
@@ -143,13 +144,13 @@ public class Rider
 }
 ```
 
-その後、列挙値は、`OnModelCreating`で追加の構成を行わなくても、データベースに文字列として保存されます。
+その後、列挙値は、で追加の構成を行わなくても、データベースに文字列として保存され `OnModelCreating` ます。
 
 ## <a name="limitations"></a>制限事項
 
 値変換システムには、現在、いくつかの既知の制限があります。
 
-* 前述のように、`null` を変換することはできません。
+* 前述のように、を `null` 変換することはできません。
 * 現在、1つのプロパティから複数の列への変換、またはその逆の変換を行う方法はありません。
 * 値の変換を使用すると、式を SQL に変換する EF Core の機能に影響を与える可能性があります。 このような場合、警告がログに記録されます。
 これらの制限事項の削除は、将来のリリースで検討されています。

@@ -1,15 +1,16 @@
 ---
 title: バッキングフィールド-EF Core
+description: Entity Framework Core モデルでのプロパティのバッキングフィールドの構成
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: a628795e-64df-4f24-a5e8-76bc261e7ed8
 uid: core/modeling/backing-field
-ms.openlocfilehash: e015c4f3fca767d25bee179c027813bd9fcf4c07
-ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
+ms.openlocfilehash: 36fc64efa08f2cdeb7005e3fc6335298f2426bde
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526759"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617577"
 ---
 # <a name="backing-fields"></a>バッキング フィールド
 
@@ -28,7 +29,7 @@ ms.locfileid: "87526759"
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/BackingField.cs#Sample)]
 
-バッキングフィールドは、モデルに含まれているプロパティに対してのみ検出されることに注意してください。 モデルに含まれるプロパティの詳細については、「[プロパティを除外 & を含める](included-properties.md)」を参照してください。
+バッキングフィールドは、モデルに含まれているプロパティに対してのみ検出されることに注意してください。 モデルに含まれるプロパティの詳細については、「 [プロパティを除外 & を含める](xref:core/modeling/entity-properties)」を参照してください。
 
 データ注釈 (EFCore 5.0 で利用可能) または Fluent API を使用してバッキングフィールドを構成することもできます。たとえば、フィールド名が上記の規則に対応していない場合です。
 
@@ -46,14 +47,14 @@ ms.locfileid: "87526759"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/BackingFieldAccessMode.cs?name=BackingFieldAccessMode&highlight=6)]
 
-サポートされているオプションの完全なセットについては、「 [Propertyaccessmode 列挙型](/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode)」を参照してください。
+サポートされているオプションの完全なセットについては、「 [Propertyaccessmode 列挙型](/dotnet/api/microsoft.entityframeworkcore.propertyaccessmode) 」を参照してください。
 
 > [!NOTE]
 > EF Core 3.0 では、既定のプロパティアクセスモードはからに変更されました `PreferFieldDuringConstruction` `PreferField` 。
 
 ## <a name="field-only-properties"></a>フィールドのみのプロパティ
 
-また、エンティティクラスに対応する CLR プロパティを持たない概念プロパティをモデルに作成することもできますが、代わりにフィールドを使用してエンティティにデータを格納します。 これは、データがエンティティの CLR 型ではなく、変更トラッカーに格納される[シャドウプロパティ](shadow-properties.md)とは異なります。 フィールドのみのプロパティは、一般に、エンティティクラスがプロパティの代わりにメソッドを使用して値を取得または設定する場合、またはフィールドがドメインモデル内でまったく公開されない場合 (主キーなど) に使用されます。
+また、エンティティクラスに対応する CLR プロパティを持たない概念プロパティをモデルに作成することもできますが、代わりにフィールドを使用してエンティティにデータを格納します。 これは、データがエンティティの CLR 型ではなく、変更トラッカーに格納される [シャドウプロパティ](xref:core/modeling/shadow-properties)とは異なります。 フィールドのみのプロパティは、一般に、エンティティクラスがプロパティの代わりにメソッドを使用して値を取得または設定する場合、またはフィールドがドメインモデル内でまったく公開されない場合 (主キーなど) に使用されます。
 
 API に名前を指定することで、フィールドのみのプロパティを構成でき `Property(...)` ます。
 

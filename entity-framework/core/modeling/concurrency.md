@@ -1,20 +1,21 @@
 ---
 title: 同時実行トークン-EF Core
+description: Entity Framework Core モデルでのオプティミスティック同時実行制御のための同時実行トークンの構成
 author: AndriySvyryd
 ms.date: 01/03/2020
 ms.assetid: bc8b1cb0-befe-4b67-8004-26e6c5f69385
 uid: core/modeling/concurrency
-ms.openlocfilehash: bfeb611f222f7195fe22d920b452b40cc4addf90
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 57718a1b0146f437bb4126524889c81ae0dfd895
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414621"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617553"
 ---
 # <a name="concurrency-tokens"></a>コンカレンシー トークン
 
 > [!NOTE]
-> このページでは、同時実行トークンの構成方法について説明します。 EF Core での同時実行制御のしくみと、アプリケーションで同時実行の競合を処理する方法の例については、「[同時実行の競合の処理](../saving/concurrency.md)」を参照してください。
+> このページでは、同時実行トークンの構成方法について説明します。 EF Core での同時実行制御のしくみと、アプリケーションで同時実行の競合を処理する方法の例については、「 [同時実行の競合の処理](xref:core/saving/concurrency) 」を参照してください。
 
 同時実行トークンとして構成されたプロパティは、オプティミスティック同時実行制御を実装するために使用されます。
 
@@ -32,7 +33,7 @@ ms.locfileid: "78414621"
 
 ## <a name="timestamprowversion"></a>Timestamp/rowversion
 
-Timestamp/rowversion は、行が挿入または更新されるたびに、データベースによって新しい値が自動的に生成されるプロパティです。 また、プロパティは同時実行トークンとして扱われるので、更新しようとしている行がクエリ後に変更された場合に例外が発生することが保証されます。 正確な詳細は、使用されているデータベースプロバイダーによって異なります。SQL Server では、通常、 *byte []* プロパティを使用します。これは、データベースの*ROWVERSION*列として設定されます。
+Timestamp/rowversion は、行が挿入または更新されるたびに、データベースによって新しい値が自動的に生成されるプロパティです。 また、プロパティは同時実行トークンとして扱われるので、更新しようとしている行がクエリ後に変更された場合に例外が発生することが保証されます。 正確な詳細は、使用されているデータベースプロバイダーによって異なります。SQL Server では、通常、 *byte []* プロパティを使用します。これは、データベースの *ROWVERSION* 列として設定されます。
 
 次のように、プロパティを timestamp/rowversion として構成できます。
 

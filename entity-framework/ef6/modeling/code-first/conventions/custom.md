@@ -1,27 +1,29 @@
 ---
 title: カスタム Code First 規則-EF6
+description: Entity Framework 6 のカスタム Code First 規則
 author: divega
 ms.date: 10/23/2016
 ms.assetid: dd2bdbd9-ae9e-470a-aeb8-d0ba160499b7
-ms.openlocfilehash: cfd7f7cad532dca5227793c04d7d91e977ea5e4e
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/code-first/conventions/custom
+ms.openlocfilehash: 69e4b0111394e83195f5c0a81624c7b9e45bda52
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415893"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617258"
 ---
 # <a name="custom-code-first-conventions"></a>カスタム Code First 規則
 > [!NOTE]
 > **EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
 
-Code First を使用する場合、モデルは一連の規則を使用してクラスから計算されます。 既定の[Code First 規則](~/ef6/modeling/code-first/conventions/built-in.md)では、エンティティの主キーになるプロパティ、エンティティがマップされるテーブルの名前、および10進数の列の有効桁数と小数点以下桁数が既定で決まります。
+Code First を使用する場合、モデルは一連の規則を使用してクラスから計算されます。 既定の [Code First 規則](xref:ef6/modeling/code-first/conventions/built-in) では、エンティティの主キーになるプロパティ、エンティティがマップされるテーブルの名前、および10進数の列の有効桁数と小数点以下桁数が既定で決まります。
 
 これらの既定の規則は、モデルに最適ではない場合があります。また、データ注釈または Fluent API を使用して多数の個々のエンティティを構成することによって回避する必要があります。 カスタム Code First 規則を使用すると、モデルの構成の既定値を提供する独自の規則を定義できます。 このチュートリアルでは、さまざまな種類のカスタム規則と、それぞれの作成方法について説明します。
 
 
 ## <a name="model-based-conventions"></a>モデルベースの規則
 
-このページでは、カスタム規則の DbModelBuilder API について説明します。 ほとんどのカスタム規則を作成するには、この API が十分である必要があります。 ただし、作成された最終的なモデルを操作し、高度なシナリオに対応するために、モデルベースの規則を作成することもできます。 詳細については、「[モデルベースの規則](~/ef6/modeling/code-first/conventions/model.md)」を参照してください。
+このページでは、カスタム規則の DbModelBuilder API について説明します。 ほとんどのカスタム規則を作成するには、この API が十分である必要があります。 ただし、作成された最終的なモデルを操作し、高度なシナリオに対応するために、モデルベースの規則を作成することもできます。 詳細については、「 [モデルベースの規則](xref:ef6/modeling/code-first/conventions/model)」を参照してください。
 
  
 
@@ -208,7 +210,7 @@ IsKey メソッドの興味深い機能は、付加的な機能です。 つま�
                 .Configure(c => c.IsUnicode(c.ClrPropertyInfo.GetCustomAttribute<IsUnicode>().Unicode));
 ```
 
-これは簡単ですが、規約 API の Having メソッドを使用することによって、これをより簡潔な方法で実現できます。 Having メソッドには、Func&lt;PropertyInfo、T&gt; 型のパラメーターがあります。このパラメーターは Where メソッドと同じですが、オブジェクトを返すことが想定されています。 返されたオブジェクトが null の場合、プロパティは構成されません。つまり、Where と同じようにプロパティをフィルターで除外することができますが、返されたオブジェクトをキャプチャして、それを Configure メソッドに渡す点も異なります。 これは次のように機能します。
+これは簡単ですが、規約 API の Having メソッドを使用することによって、これをより簡潔な方法で実現できます。 Having メソッドには、Func PropertyInfo, T 型のパラメーターがあります。このパラメーターは &lt; &gt; Where メソッドと同じ PropertyInfo を受け取りますが、オブジェクトを返すことが想定されています。 返されたオブジェクトが null の場合、プロパティは構成されません。つまり、Where と同じようにプロパティをフィルターで除外することができますが、返されたオブジェクトをキャプチャして、それを Configure メソッドに渡す点も異なります。 これは次のように機能します。
 
 ``` csharp
     modelBuilder.Properties()
@@ -235,7 +237,7 @@ IsKey メソッドの興味深い機能は、付加的な機能です。 つま�
     }
 ```
 
-このメソッドは、型を受け取り、キャメルケースの代わりに小文字とアンダースコアを使用する文字列を返します。 このモデルでは、ProductCategory クラスは Productcategory ではなく product\_category という名前のテーブルにマップされます。
+このメソッドは、型を受け取り、キャメルケースの代わりに小文字とアンダースコアを使用する文字列を返します。 このモデルでは、ProductCategory クラスは Productcategory ではなく product category というテーブルにマップされ \_ ます。
 
 このメソッドを用意したら、次のような規則でそれを呼び出すことができます。
 
@@ -246,9 +248,9 @@ IsKey メソッドの興味深い機能は、付加的な機能です。 つま�
 
 この規則により、モデル内のすべての型が、GetTableName メソッドから返されたテーブル名にマップされるように構成されます。 この規則は、Fluent API を使用してモデル内の各エンティティに対して ToTable メソッドを呼び出すことと同じです。
 
-この点に注意する必要があるのは、ToTable EF を呼び出すと、指定した文字列が正確なテーブル名として取得され、テーブル名を決定するときに通常実行する複数形化はありません。 このため、テーブル名は製品\_カテゴリではなく product\_category になります。 この規則では、複数形化サービスの呼び出しを自分で行うことによって解決できます。
+この点に注意する必要があるのは、ToTable EF を呼び出すと、指定した文字列が正確なテーブル名として取得され、テーブル名を決定するときに通常実行する複数形化はありません。 このため、テーブル名は、製品カテゴリでは \_ なく製品カテゴリになり \_ ます。 この規則では、複数形化サービスの呼び出しを自分で行うことによって解決できます。
 
-次のコードでは、EF6 に追加された[依存関係の解決](~/ef6/fundamentals/configuring/dependency-resolution.md)機能を使用して、EF によって使用された複数形化サービスを取得し、テーブル名を複数化します。
+次のコードでは、EF6 に追加された [依存関係の解決](xref:ef6/fundamentals/configuring/dependency-resolution) 機能を使用して、EF によって使用された複数形化サービスを取得し、テーブル名を複数化します。
 
 ``` csharp
     private string GetTableName(Type type)
@@ -328,7 +330,7 @@ ToTable のもう1つの重要な側面は、特定のテーブルに型を明�
     modelBuilder.Conventions.AddBefore<IdKeyDiscoveryConvention>(new DateTime2Convention());
 ```
 
-これは、組み込み規約の前または後に実行する必要がある規則を追加するときに最も使用されるものです。組み込みの規則の一覧については、「: system.string[名前空間](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)」を参照してください。
+これは、組み込み規約の前または後に実行する必要がある規則を追加するときに最も使用されるものです。組み込みの規則の一覧については、「: system.string [名前空間](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx)」を参照してください。
 
 また、モデルに適用しない規則を削除することもできます。 規則を削除するには、Remove メソッドを使用します。 PluralizingTableNameConvention を削除する例を次に示します。
 

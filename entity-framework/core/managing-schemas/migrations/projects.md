@@ -1,19 +1,20 @@
 ---
 title: 個別の移行プロジェクトの使用-EF Core
+description: Entity Framework Core でのデータベーススキーマの管理に個別の移行プロジェクトを使用する
 author: bricelam
 ms.author: bricelam
 ms.date: 10/30/2017
 uid: core/managing-schemas/migrations/projects
-ms.openlocfilehash: 89b7f50fe750c2953aa75efcdffcb1a5199ce90c
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: a3f0ed96c6a8e3e8629d9a4bb1610fcbfe6ca043
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414279"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617916"
 ---
 # <a name="using-a-separate-migrations-project"></a>個別の移行プロジェクトの使用
 
-移行は、`DbContext`を含むアセンブリとは別のアセンブリに格納することができます。 また、この方法を使用して、複数の移行のセットを維持できます。たとえば、1つは開発用、もう1つはリリース間のアップグレード用です。
+移行は、を含むアセンブリとは別のアセンブリに格納することをお勧めし `DbContext` ます。 また、この方法を使用して、複数の移行のセットを維持できます。たとえば、1つは開発用、もう1つはリリース間のアップグレード用です。
 
 目的
 

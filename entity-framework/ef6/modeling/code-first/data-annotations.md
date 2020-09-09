@@ -1,14 +1,16 @@
 ---
 title: データ注釈の Code First-EF6
+description: Entity Framework 6 のデータ注釈の Code First
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 80abefbd-23c9-4fce-9cd3-520e5df9856e
-ms.openlocfilehash: 17370b83aee9974161b1771e8a1dc99c2de27f0f
-ms.sourcegitcommit: 6f7af3f138bf7c724cbdda261f97e5cf7035e8d7
+uid: ef6/modeling/code-first/data-annotations
+ms.openlocfilehash: 37b2872b5fb40cf0dc346554b2cbb9e3fffd6bdc
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/25/2020
-ms.locfileid: "88847619"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617349"
 ---
 # <a name="code-first-data-annotations"></a>Code First Data Annotations (Code First のデータ注釈)
 > [!NOTE]
@@ -391,7 +393,7 @@ Code first でデータベースを生成しているときに、バイト列ま
 ## <a name="relationship-attributes-inverseproperty-and-foreignkey"></a>リレーションシップ属性: InverseProperty と ForeignKey
 
 > [!NOTE]
-> このページでは、データ注釈を使用して Code First モデル内のリレーションシップを設定する方法について説明します。 EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「 [リレーションシップ & ナビゲーションプロパティ](~/ef6/fundamentals/relationships.md)」を参照してください。
+> このページでは、データ注釈を使用して Code First モデル内のリレーションシップを設定する方法について説明します。 EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「 [リレーションシップ & ナビゲーションプロパティ](xref:ef6/fundamentals/relationships)」を参照してください。
 
 Code first 規則は、モデル内の最も一般的な関係を処理しますが、サポートが必要な場合もあります。
 
@@ -458,7 +460,7 @@ Code first では、2つのクラスのプロパティを独自に一致させ�
 
  
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 DataAnnotations では、クライアントとサーバー側の検証をコードの最初のクラスで記述できるだけでなく、規則に基づいて、コードがクラスに対して最初に実行する想定を強化し、修正することもできます。 DataAnnotations を使用すると、データベーススキーマの生成だけでなく、コードの最初のクラスを既存のデータベースにマップすることもできます。
 

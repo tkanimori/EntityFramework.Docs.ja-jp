@@ -1,15 +1,16 @@
 ---
 title: SQLite データベースプロバイダー-制限事項-EF Core
+description: 他のプロバイダーと比較した場合の Entity Framework Core SQLite データベースプロバイダーの制限事項
 author: bricelam
 ms.date: 07/16/2020
 ms.assetid: 94ab4800-c460-4caa-a5e8-acdfee6e6ce2
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 393f5e80ce2e11dcb11c2048e06effa27e48dc13
-ms.sourcegitcommit: d85263b5d5d665dbaf94de8832e2917bce048b34
+ms.openlocfilehash: 2657bf03bc5cd0d5fb45c57e7f7605824deb44d2
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86451230"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616535"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core データベース プロバイダーの制限事項
 
@@ -33,7 +34,7 @@ SQLite では、次のデータ型はネイティブでサポートされてい�
 
 で `DateTimeOffset` はなく、DateTime 値を使用することをお勧めします。 複数のタイムゾーンを処理する場合は、保存してから適切なタイムゾーンに変換する前に、値を UTC に変換することをお勧めします。
 
-この `Decimal` 型は、高レベルの精度を提供します。 ただし、このレベルの精度が不要な場合は、代わりに double を使用することをお勧めします。 [値コンバーター](../../modeling/value-conversions.md)を使用して、クラスで10進数の使用を続けることができます。
+この `Decimal` 型は、高レベルの精度を提供します。 ただし、このレベルの精度が不要な場合は、代わりに double を使用することをお勧めします。 [値コンバーター](xref:core/modeling/value-conversions)を使用して、クラスで10進数の使用を続けることができます。
 
 ``` csharp
 modelBuilder.Entity<MyEntity>()
@@ -47,7 +48,7 @@ SQLite データベースエンジンでは、他の多くのリレーショナ�
 
 特定の操作を実行するために再構築が試行されます。 再構築を行うことができるのは、EF Core モデルの一部であるデータベースアーティファクトだけです。 データベースアーティファクトがモデルの一部ではない場合 (たとえば、移行中に手動で作成された場合)、 `NotSupportedException` がまだスローされます。
 
-| 操作            | サポート対象かどうか  | バージョンが必要です |
+| Operation            | サポート対象かどうか  | バージョンが必要です |
 |:---------------------|:------------|:-----------------|
 | AddCheckConstraint   | ✔ (再構築) | 5.0              |
 | Table.addcolumn            | ✔           | 1.0              |
@@ -77,4 +78,4 @@ SQLite データベースエンジンでは、他の多くのリレーショナ�
 
 再構築を実行するために、移行でコードを手動で記述することで、これらの制限の一部を回避できます。 テーブルの再構築では、新しいテーブルを作成し、新しいテーブルにデータをコピーし、古いテーブルを削除して、新しいテーブルの名前を変更します。 これらの手順の一部を実行するには、メソッドを使用する必要があり `Sql(string)` ます。
 
-詳細については、SQLite のドキュメントで[他の種類のテーブルスキーマ変更を行う](https://sqlite.org/lang_altertable.html#otheralter)方法に関するドキュメントを参照してください。
+詳細については、SQLite のドキュメントで [他の種類のテーブルスキーマ変更を行う](https://sqlite.org/lang_altertable.html#otheralter) 方法に関するドキュメントを参照してください。

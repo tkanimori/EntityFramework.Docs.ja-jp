@@ -1,14 +1,16 @@
 ---
 title: データベース操作のログ記録とインターセプト-EF6
+description: Entity Framework 6 でのデータベース操作のログ記録とインターセプト
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b5ee7eb1-88cc-456e-b53c-c67e24c3f8ca
-ms.openlocfilehash: 35b0284a5ad8b2b732f074589bd458d243312575
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/logging-and-interception
+ms.openlocfilehash: bb5c3392b4f2e1f291d7ac373d07724f56d0eb30
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78416103"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616195"
 ---
 # <a name="logging-and-intercepting-database-operations"></a>データベース操作のログ記録と受信
 > [!NOTE]
@@ -124,9 +126,9 @@ Log プロパティが設定されると、次のすべてがログに記録さ�
 
 ## <a name="logging-to-different-places"></a>別の場所へのログ記録  
 
-前述のように、コンソールへのログ記録はとても簡単です。 また、異なる種類の[TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx)を使用して、メモリやファイルなどに簡単にログを記録することもできます。  
+前述のように、コンソールへのログ記録はとても簡単です。 また、異なる種類の [TextWriter](https://msdn.microsoft.com/library/system.io.textwriter.aspx)を使用して、メモリやファイルなどに簡単にログを記録することもできます。  
 
-LINQ to SQL に慣れている場合は、EF で log プロパティが実際の TextWriter オブジェクト (たとえば、Console) に設定されているときに、Log プロパティが文字列を受け入れるメソッドに設定されている LINQ to SQL ことに注意してください (たとえば、、Console. write または Console) を入力します。 これは、文字列のシンクとして機能するデリゲートを受け入れることによって、TextWriter から EF を分離するためです。 たとえば、既にいくつかのログ記録フレームワークがあり、次のようなログ記録方法が定義されているとします。  
+LINQ to SQL を使い慣れている場合は、LINQ to SQL で Log プロパティが実際の TextWriter オブジェクト (たとえば、Console. Out) に設定されていることに気付くかもしれませんが、EF では、Log プロパティは文字列を受け入れるメソッドに設定されています (たとえば、write または Console)。 これは、文字列のシンクとして機能するデリゲートを受け入れることによって、TextWriter から EF を分離するためです。 たとえば、既にいくつかのログ記録フレームワークがあり、次のようなログ記録方法が定義されているとします。  
 
 ``` csharp
 public class MyLogger
@@ -155,7 +157,7 @@ context.Database.Log = s => logger.Log("EFApp", s);
 
 ### <a name="successful-execution"></a>成功した実行  
 
-正常に完了したコマンドの場合、出力は "x ミリ秒で完了しました。結果:" の後に結果を示すいくつかの結果が続きます。 データリーダーを返すコマンドの場合は、返される[Dbdatareader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx)の型が結果に示されます。 上に示した update コマンドなどの整数値を返すコマンドは、その整数です。  
+正常に完了したコマンドの場合、出力は "x ミリ秒で完了しました。結果:" の後に結果を示すいくつかの結果が続きます。 データリーダーを返すコマンドの場合は、返される [Dbdatareader](https://msdn.microsoft.com/library/system.data.common.dbdatareader.aspx) の型が結果に示されます。 上に示した update コマンドなどの整数値を返すコマンドは、その整数です。  
 
 ### <a name="failed-execution"></a>失敗した実行  
 
@@ -261,11 +263,11 @@ Context 'BlogContext' is executing command 'insert [dbo].[Posts]([Title], [BlogI
 
 ### <a name="the-interception-context"></a>インターセプトコンテキスト  
 
-任意のインターセプターインターフェイスで定義されているメソッドを見ると、すべての呼び出しには DbInterceptionContext 型のオブジェクト、または DbCommandInterceptionContext\<\>など、このクラスから派生した型のオブジェクトが指定されていることがわかります。 このオブジェクトには、EF が行っているアクションに関するコンテキスト情報が含まれています。 たとえば、アクションが DbContext の代わりに実行されている場合、DbContext は DbInterceptionContext に含まれます。 同様に、非同期に実行されるコマンドの場合、IsAsync フラグは DbCommandInterceptionContext に設定されます。  
+任意のインターセプターインターフェイスで定義されているメソッドを見ると、すべての呼び出しには DbInterceptionContext 型のオブジェクト、または DbCommandInterceptionContext などの派生型のオブジェクトが指定されていることがわかり \<\> ます。 このオブジェクトには、EF が行っているアクションに関するコンテキスト情報が含まれています。 たとえば、アクションが DbContext の代わりに実行されている場合、DbContext は DbInterceptionContext に含まれます。 同様に、非同期に実行されるコマンドの場合、IsAsync フラグは DbCommandInterceptionContext に設定されます。  
 
 ### <a name="result-handling"></a>結果の処理  
 
-DbCommandInterceptionContext\<\> クラスには、Result、OriginalResult、Exception、および Originalresult というプロパティが含まれています。 これらのプロパティは、操作が実行される前に呼び出されるインターセプトメソッド (つまり...) の呼び出しに対して null または0に設定されます。メソッドを実行しています。 操作が実行され、成功した場合、Result と OriginalResult は操作の結果に設定されます。 これらの値は、操作が実行された後に呼び出されるインターセプトメソッド (つまり...実行されたメソッド。 同様に、操作がをスローした場合、Exception プロパティと OriginalException プロパティが設定されます。  
+DbCommandInterceptionContext クラスには、 \<\> Result、OriginalResult、Exception、および Originalresult というプロパティが含まれています。 これらのプロパティは、操作が実行される前に呼び出されるインターセプトメソッド (つまり...) の呼び出しに対して null または0に設定されます。メソッドを実行しています。 操作が実行され、成功した場合、Result と OriginalResult は操作の結果に設定されます。 これらの値は、操作が実行された後に呼び出されるインターセプトメソッド (つまり...実行されたメソッド。 同様に、操作がをスローした場合、Exception プロパティと OriginalException プロパティが設定されます。  
 
 #### <a name="suppressing-execution"></a>実行の抑制  
 
@@ -299,7 +301,7 @@ DbInterception.Add(new NLogCommandInterceptor());
 
 ### <a name="example-logging-to-nlog"></a>例: NLog へのログ記録  
 
-ここでは、IDbCommandInterceptor と[Nlog](https://nlog-project.org/)を使用して、次のことを行う例について説明します。  
+ここでは、IDbCommandInterceptor と [Nlog](https://nlog-project.org/) を使用して、次のことを行う例について説明します。  
 
 - 非同期的に実行されていないコマンドに対して警告をログに記録します。  
 - 実行時にスローされるすべてのコマンドに対してエラーをログに記録します。  

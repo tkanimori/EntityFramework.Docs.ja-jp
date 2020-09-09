@@ -1,15 +1,16 @@
 ---
 title: コンストラクターを使用したエンティティ型-EF Core
+description: コンストラクターを使用して Entity Framework Core モデルとデータをバインドする
 author: ajcvickers
 ms.date: 02/23/2018
 ms.assetid: 420AFFE7-B709-4A68-9149-F06F8746FB33
 uid: core/modeling/constructors
-ms.openlocfilehash: ddfaa8eebde388a9d3309f21b8891de593077956
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 58529a3a68e69a31249460d402027274404dce45
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414651"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617531"
 ---
 # <a name="entity-types-with-constructors"></a>コンストラクターを使用したエンティティ型
 
@@ -204,7 +205,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 注意する点:
 
-* キー "property" はフィールドになりました。 これは、ストアによって生成されたキーを使用できるように、`readonly` フィールドではありません。
+* キー "property" はフィールドになりました。 これは、ストアによって生成され `readonly` たキーを使用できるようにするためのフィールドではありません。
 * その他のプロパティは、コンストラクターでのみ設定される読み取り専用プロパティです。
 * 主キーの値が EF によってのみ設定された場合、またはデータベースから読み取られた場合は、それをコンストラクターに含める必要はありません。 これにより、キー "プロパティ" は単純なフィールドとして残され、新しいブログや投稿を作成するときに明示的に設定する必要がないことがわかります。
 
@@ -215,10 +216,10 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 EF Core は、エンティティ型のコンストラクターに "services" を挿入することもできます。 たとえば、次のコードを挿入できます。
 
-* `DbContext`-現在のコンテキストインスタンス。派生した DbContext 型として型指定することもできます。
-* `ILazyLoader`-遅延読み込みサービス-詳細については、[遅延読み込みのドキュメント](../querying/related-data.md)を参照してください。
-* `Action<object, string>`-遅延読み込みデリゲート-詳細については、[遅延読み込みのドキュメント](../querying/related-data.md)を参照してください。
-* `IEntityType`-このエンティティ型に関連付けられた EF Core メタデータ
+* `DbContext` -現在のコンテキストインスタンス。派生した DbContext 型として型指定することもできます。
+* `ILazyLoader` -レイジー読み込みサービス-詳細については、 [遅延読み込みのドキュメント](xref:core/querying/related-data) を参照してください。
+* `Action<object, string>` -遅延読み込みデリゲート-詳細については、 [遅延読み込みのドキュメント](xref:core/querying/related-data) を参照してください。
+* `IEntityType` -このエンティティ型に関連付けられている EF Core メタデータ
 
 > [!NOTE]  
 > EF Core 2.1 の場合、EF Core によって認識されるサービスのみを挿入できます。 アプリケーションサービスの挿入のサポートは、今後のリリースで考慮されています。
@@ -265,7 +266,7 @@ public class Post
 これについては、次の点に注意してください。
 
 * コンストラクターは EF Core によって呼び出されるだけなのでプライベートです。一般に使用するための別のパブリックコンストラクターもあります。
-* 挿入されたサービス (コンテキスト) を使用するコードは、EF Core がインスタンスを作成していないケースを処理するために `null` されていることに対して防御されます。
+* 挿入されたサービスを使用するコード (つまり、コンテキスト) は、 `null` EF Core がインスタンスを作成していないケースを処理するために防御されます。
 * サービスは読み取り/書き込みプロパティに格納されるため、エンティティが新しいコンテキストインスタンスにアタッチされるときにリセットされます。
 
 > [!WARNING]  

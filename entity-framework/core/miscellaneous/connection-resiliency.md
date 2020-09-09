@@ -1,15 +1,16 @@
 ---
 title: 接続の回復性-EF Core
+description: 接続の回復性を使用して、失敗したコマンドを Entity Framework Core で自動的に再試行する
 author: rowanmiller
 ms.date: 11/15/2016
 ms.assetid: e079d4af-c455-4a14-8e15-a8471516d748
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 07646e6ead845c38537945a03367ac7f50784236
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 6dd3d3eadb218ab32f373e44e2013d017e2966d8
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414135"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617760"
 ---
 # <a name="connection-resiliency"></a>接続の回復
 
@@ -17,11 +18,11 @@ ms.locfileid: "78414135"
 
 例として、SQL Server プロバイダーには、SQL Server (SQL Azure を含む) に特化した実行方法が用意されています。 再試行できる例外の種類を認識しており、最大再試行回数、再試行間隔などの既定値があります。
 
-実行方法は、コンテキストのオプションを構成するときに指定します。 これは通常、派生コンテキストの `OnConfiguring` メソッドにあります。
+実行方法は、コンテキストのオプションを構成するときに指定します。 これは通常、 `OnConfiguring` 派生コンテキストのメソッドにあります。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#OnConfiguring)]
 
-または、`Startup.cs` で ASP.NET Core アプリケーションの場合は、次のようになります。
+`Startup.cs`ASP.NET Core アプリケーションの場合:
 
 ``` csharp
 public void ConfigureServices(IServiceCollection services)
@@ -49,9 +50,9 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ## <a name="execution-strategies-and-transactions"></a>実行戦略とトランザクション
 
-エラーに対して自動的に再試行を行う実行方法は、失敗した再試行ブロックで各操作を再生できる必要があります。 再試行が有効になっている場合、EF Core 経由で実行する各操作が独自の再試行可能な操作になります。 つまり、一時的な障害が発生した場合、各クエリと `SaveChanges()` の各呼び出しが1つの単位として再試行されます。
+エラーに対して自動的に再試行を行う実行方法は、失敗した再試行ブロックで各操作を再生できる必要があります。 再試行が有効になっている場合、EF Core 経由で実行する各操作が独自の再試行可能な操作になります。 つまり、一時的な障害が発生した場合、各クエリとの各呼び出し `SaveChanges()` が1つの単位として再試行されます。
 
-ただし、コードがを使用してトランザクションを開始する場合 `BeginTransaction()`、1つの単位として処理する必要がある独自の操作グループを定義する場合、トランザクション内のすべてのものを再生する必要がある場合は、エラーが発生します。 実行戦略を使用しているときに、次のような例外が発生します。
+ただし、コードがを使用してトランザクションを開始する場合、 `BeginTransaction()` 1 つの単位として処理する必要がある独自の操作グループを定義する場合は、トランザクション内のすべてのものを再生して、エラーが発生する必要があります。 実行戦略を使用しているときに、次のような例外が発生します。
 
 > InvalidOperationException: 構成された実行方法 ' SqlServerRetryingExecutionStrategy ' は、ユーザーが開始したトランザクションをサポートしていません。 'DbContext.Database.CreateExecutionStrategy()' から返された実行戦略を使用して、再試行可能なユニットとしてトランザクション内のすべての操作を実行します。
 
@@ -67,7 +68,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 一般に、接続エラーが発生した場合は、現在のトランザクションがロールバックされます。 ただし、トランザクションのコミット中に接続が切断された場合、トランザクションの結果の状態は不明になります。 
 
-既定では、トランザクションがロールバックされた場合と同様に操作が再試行されますが、その場合、新しいデータベースの状態に互換性がない場合、または自動生成されたキー値を使用して新しい行を挿入する場合など、操作が特定の状態に依存してい**ない場合は**、例外が発生します。
+既定では、トランザクションがロールバックされた場合と同様に操作が再試行されますが、その場合、新しいデータベースの状態に互換性がない場合、または自動生成されたキー値を使用して新しい行を挿入する場合など、操作が特定の状態に依存してい **ない場合は** 、例外が発生します。
 
 これに対処するには、いくつかの方法があります。
 
@@ -79,20 +80,20 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ### <a name="option-2---rebuild-application-state"></a>オプション 2-アプリケーションの状態を再構築する
 
-1. 現在の `DbContext`を破棄します。
-2. 新しい `DbContext` を作成し、データベースからアプリケーションの状態を復元します。
+1. 現在のを破棄 `DbContext` します。
+2. 新しいを作成 `DbContext` し、データベースからアプリケーションの状態を復元します。
 3. 最後の操作が正常に完了していない可能性があることをユーザーに通知します。
 
 ### <a name="option-3---add-state-verification"></a>オプション 3-状態検証の追加
 
-データベースの状態を変更するほとんどの操作では、成功したかどうかを確認するコードを追加できます。 EF には、これを簡単に `IExecutionStrategy.ExecuteInTransaction`できる拡張メソッドが用意されています。
+データベースの状態を変更するほとんどの操作では、成功したかどうかを確認するコードを追加できます。 EF には、これを簡単にするための拡張メソッドが用意されて `IExecutionStrategy.ExecuteInTransaction` います。
 
-このメソッドは、トランザクションを開始してコミットします。また、トランザクションのコミット中に一時的なエラーが発生したときに呼び出される `verifySucceeded` パラメーターの関数も受け入れます。
+このメソッドは、トランザクションを開始してコミットし `verifySucceeded` ます。また、トランザクションのコミット中に一時的なエラーが発生したときに呼び出されるパラメーターの関数も受け入れます。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#Verification)]
 
 > [!NOTE]
-> ここでは、`Unchanged` が成功した場合に `Blog` エンティティの状態が `SaveChanges` に変更されないように、`acceptAllChangesOnSuccess` を `false` に設定して `SaveChanges` が呼び出されます。 これにより、コミットが失敗し、トランザクションがロールバックされた場合に、が同じ操作を再試行することができます。
+> `SaveChanges`が `acceptAllChangesOnSuccess` に設定されて `false` いる場合は、エンティティの状態が `Blog` `Unchanged` 成功した場合にに変更されないように、をに設定し `SaveChanges` ます。 これにより、コミットが失敗し、トランザクションがロールバックされた場合に、が同じ操作を再試行することができます。
 
 ### <a name="option-4---manually-track-the-transaction"></a>オプション 4-トランザクションを手動で追跡する
 

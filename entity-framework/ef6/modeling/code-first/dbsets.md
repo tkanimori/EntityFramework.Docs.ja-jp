@@ -1,14 +1,16 @@
 ---
 title: 定義 (DbSets を)-EF6
+description: Entity Framework 6 での DbSets の定義
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 4528a509-ace7-4dfb-8065-1b833f5e03a0
-ms.openlocfilehash: 045b22d2b9d26804948689dd7c9dd694baadda7e
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/code-first/dbsets
+ms.openlocfilehash: 55742c507e0d6b898a0cac18f34af84e736d771d
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415779"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617056"
 ---
 # <a name="defining-dbsets"></a>定義 (DbSets を)
 Code First ワークフローを使用して開発する場合は、データベースとのセッションを表す派生 DbContext を定義し、モデルの型ごとに Dbcontext を公開します。 このトピックでは、DbSet プロパティを定義するさまざまな方法について説明します。  

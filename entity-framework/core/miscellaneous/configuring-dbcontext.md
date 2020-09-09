@@ -1,15 +1,16 @@
 ---
 title: DbContext の構成-EF Core
+description: Entity Framework Core を使用した DbContexts の構成方法
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d7a22b5a-4c5b-4e3b-9897-4d7320fcd13f
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 9614449f6ead393b514f42b718b4cae5f97dfc98
-ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
+ms.openlocfilehash: 3e45199e6fc0c8c105ccb0bb03175b4b08716b3f
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526421"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617794"
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext の構成
 
@@ -19,7 +20,7 @@ ms.locfileid: "87526421"
 
 [移行](xref:core/managing-schemas/migrations/index)などのデザイン時ツールでは、 `DbContext` アプリケーションのエンティティ型についての詳細を収集し、データベーススキーマにマップする方法について、型の動作するインスタンスを検出して作成できる必要があります。 EF Core このプロセスは、実行時に構成するのと同じように構成されるように、ツールがを簡単に作成できる限り、自動的に行うことができます `DbContext` 。
 
-に必要な構成情報を提供するパターンは `DbContext` 実行時に動作しますが、デザイン時にを使用する必要があるツール `DbContext` は、限られた数のパターンでのみ機能します。 これらの詳細については、「[デザイン時コンテキストの作成](xref:core/miscellaneous/cli/dbcontext-creation)」セクションで説明します。
+に必要な構成情報を提供するパターンは `DbContext` 実行時に動作しますが、デザイン時にを使用する必要があるツール `DbContext` は、限られた数のパターンでのみ機能します。 これらの詳細については、「 [デザイン時コンテキストの作成](xref:core/miscellaneous/cli/dbcontext-creation) 」セクションで説明します。
 
 ## <a name="configuring-dbcontextoptions"></a>DbContextOptions の構成
 
@@ -30,7 +31,7 @@ ms.locfileid: "87526421"
 - プロバイダーレベルの任意の動作セレクター。通常は、プロバイダーの選択メソッドの呼び出しの内側にもチェーンされます。
 - 一般的な EF Core 動作セレクター。通常は、プロバイダーセレクターメソッドの後または前にチェーンされます。
 
-次の例では、 `DbContextOptions` SQL Server プロバイダー、変数に含まれる接続、 `connectionString` プロバイダーレベルのコマンドタイムアウト、および既定ではすべてのクエリを `DbContext` [非追跡](xref:core/querying/tracking#no-tracking-queries)で実行する EF Core 動作セレクターを使用するようにを構成します。
+次の例では、 `DbContextOptions` SQL Server プロバイダー、変数に含まれる接続、 `connectionString` プロバイダーレベルのコマンドタイムアウト、および既定ではすべてのクエリを `DbContext` [非追跡](xref:core/querying/tracking#no-tracking-queries) で実行する EF Core 動作セレクターを使用するようにを構成します。
 
 ``` csharp
 optionsBuilder
@@ -109,9 +110,9 @@ using (var context = new BloggingContext())
 
 EF Core `DbContext` は、依存関係挿入コンテナーでのの使用をサポートしています。 DbContext 型は、メソッドを使用してサービスコンテナーに追加でき `AddDbContext<TContext>` ます。
 
-`AddDbContext<TContext>`は、DbContext 型、 `TContext` 、および対応するを、 `DbContextOptions<TContext>` サービスコンテナーからの挿入に使用できるようにします。
+`AddDbContext<TContext>` は、DbContext 型、 `TContext` 、および対応するを、 `DbContextOptions<TContext>` サービスコンテナーからの挿入に使用できるようにします。
 
-依存関係の挿入の詳細については[、以下を](#more-reading)参照してください。
+依存関係の挿入の詳細については [、以下を](#more-reading) 参照してください。
 
 `DbContext`を依存関係の挿入に追加します。
 
@@ -122,7 +123,7 @@ public void ConfigureServices(IServiceCollection services)
 }
 ```
 
-これを行うには、を受け入れる DbContext 型に[コンストラクター引数](#constructor-argument)を追加する必要があり `DbContextOptions<TContext>` ます。
+これを行うには、を受け入れる DbContext 型に [コンストラクター引数](#constructor-argument) を追加する必要があり `DbContextOptions<TContext>` ます。
 
 コンテキストコード:
 
@@ -194,5 +195,5 @@ EF Core がインスタンスを同時に使用しようとしたことを検出
 
 ## <a name="more-reading"></a>その他の参考資料
 
-- DI の使用方法の詳細については、「[依存関係の挿入](/aspnet/core/fundamentals/dependency-injection)」を参照してください。
-- 詳細については、「[テスト](testing/index.md)」を参照してください。
+- DI の使用方法の詳細については、「 [依存関係の挿入](/aspnet/core/fundamentals/dependency-injection) 」を参照してください。
+- 詳細については、「 [テスト](xref:core/miscellaneous/testing/index) 」を参照してください。
