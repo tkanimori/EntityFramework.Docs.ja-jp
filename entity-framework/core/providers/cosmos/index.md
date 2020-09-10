@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 74284bf78f404e376436a1ef5d5933186c85ae49
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 0d88e0a4876755656626621fd9a4ca01d18b5b64
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413057"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619317"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダー
 
@@ -54,7 +54,7 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 > [!WARNING]
 > ここでは、わかりやすくするためにエンドポイントとキーをハードコードしていますが、運用アプリでは、これらは[安全に格納](/aspnet/core/security/app-secrets#secret-manager)する必要があります。
 
-この例では、`Order` は、[所有型](../../modeling/owned-entities.md) `StreetAddress` への参照を持つ単純なエンティティです。
+この例では、`Order` は、[所有型](xref:core/modeling/owned-entities) `StreetAddress` への参照を持つ単純なエンティティです。
 
 [!code-csharp[Order](../../../../samples/core/Cosmos/ModelBuilding/Order.cs?name=Order)]
 
@@ -65,7 +65,7 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 [!code-csharp[HelloCosmos](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=HelloCosmos)]
 
 > [!IMPORTANT]
-> 必須のコンテナーを作成し、モデル内に[シード データ](../../modeling/data-seeding.md)が存在する場合は挿入するようにするためには、[EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) を呼び出す必要があります。 ただし、`EnsureCreatedAsync` は、パフォーマンスの問題を引き起こす可能性があるため、通常の操作ではなく、配置時にのみ呼び出す必要があります。
+> 必須のコンテナーを作成し、モデル内に[シード データ](xref:core/modeling/data-seeding)が存在する場合は挿入するようにするためには、[EnsureCreatedAsync](/dotnet/api/Microsoft.EntityFrameworkCore.Storage.IDatabaseCreator.EnsureCreatedAsync) を呼び出す必要があります。 ただし、`EnsureCreatedAsync` は、パフォーマンスの問題を引き起こす可能性があるため、通常の操作ではなく、配置時にのみ呼び出す必要があります。
 
 ## <a name="cosmos-specific-model-customization"></a>Cosmos 固有のモデルのカスタマイズ
 
@@ -77,7 +77,7 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 
 [!code-csharp[Container](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=Container)]
 
-EF Core では、派生エンティティ型がない場合でも、特定の項目が表すエンティティ型の識別に識別子の値が追加されます。 識別子の名前と値は[変更できます](../../modeling/inheritance.md)。
+EF Core では、派生エンティティ型がない場合でも、特定の項目が表すエンティティ型の識別に識別子の値が追加されます。 識別子の名前と値は[変更できます](xref:core/modeling/inheritance)。
 
 他のエンティティ型が同じコンテナーに格納されることがない場合は、[HasNoDiscriminator](/dotnet/api/Microsoft.EntityFrameworkCore.Metadata.Builders.EntityTypeBuilder.HasNoDiscriminator) を呼び出すことで、その識別子を削除できます。
 
@@ -164,7 +164,7 @@ EF Core には、追跡対象のすべてのエンティティに対して、内
 
 ## <a name="working-with-disconnected-entities"></a>接続解除エンティティの使用
 
-すべてのアイテムには、特定のパーティション キーに対して一意な `id` 値が必要です。 既定では、EF Core は、' | ' を区切り記号として使用して、識別子と主キーの値を連結して値を生成します。 このキー値は、エンティティが `Added` 状態になったときにのみ生成されます。 これは、.NET 型にその値を保存する `id` プロパティがない場合に[エンティティをアタッチするとき](../../saving/disconnected-entities.md)に問題になる場合があります。
+すべてのアイテムには、特定のパーティション キーに対して一意な `id` 値が必要です。 既定では、EF Core は、' | ' を区切り記号として使用して、識別子と主キーの値を連結して値を生成します。 このキー値は、エンティティが `Added` 状態になったときにのみ生成されます。 これは、.NET 型にその値を保存する `id` プロパティがない場合に[エンティティをアタッチするとき](xref:core/saving/disconnected-entities)に問題になる場合があります。
 
 この制限を回避するには、`id` 値を手動で作成して設定するか、エンティティをまず追加済みとしてマークして、その後目的の状態に変更します。
 

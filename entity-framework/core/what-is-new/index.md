@@ -4,12 +4,12 @@ description: 現在の EF Core のリリースと、今後のリリースのス�
 author: ajcvickers
 ms.date: 06/11/2020
 uid: core/what-is-new/index
-ms.openlocfilehash: 7d4f37c227feec0fad9f828999680f834ddd2d4e
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: 4424f9233016edbc8d98e8df840091f2adaf1ee9
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370241"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618593"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core のリリースと計画
 
@@ -18,14 +18,14 @@ ms.locfileid: "85370241"
 | リリース | [対象とする Framework] | サポート期限 | リンク
 |:--------|------------------|-----------------|------
 | [EF Core 3.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) | .NET Standard 2.0 | 2022 年 12 月 3 日 (LTS) | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
-| ~~[EF Core 3.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.3)~~ | .NET Standard 2.1 | 2020 年 3 月 3 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/) / [破壊的変更](ef-core-3.0/breaking-changes.md)
+| ~~[EF Core 3.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.3)~~ | .NET Standard 2.1 | 2020 年 3 月 3 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/) / [破壊的変更](xref:core/what-is-new/ef-core-3.x/breaking-changes)
 | ~~[EF Core 2.2](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.6)~~ | .NET Standard 2.0 | 2019 年 12 月 23 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-2/)
 | [EF Core 2.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.1.14) | .NET Standard 2.0 | 2021 年 8 月 21 日 (LTS) | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-1/)
 | ~~[EF Core 2.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.0.3)~~ | .NET Standard 2.0 | 2018 年 10 月 1 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-0/)
 | ~~[EF Core 1.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.1.6)~~ | .NET Standard 1.3 | 2019 年 6 月 27 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-1-1/)
 | ~~[EF Core 1.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.0.6)~~ | .NET Standard 1.3 | 2019 年 6 月 27 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/entity-framework-core-1-0-0-available/)
 
-各 EF Core リリースでサポートされている特定のプラットフォームの詳細については、「[サポートされているプラットフォーム](../platforms/index.md)」を参照してください。
+各 EF Core リリースでサポートされている特定のプラットフォームの詳細については、「[サポートされているプラットフォーム](xref:core/platforms/index)」を参照してください。
 
 サポートの有効期限と長期的なサポート (LTS) のリリースについては、[.NET のサポート ポリシー](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)を参照してください。
 
@@ -42,14 +42,14 @@ EF Core のリリースは、[.NET Core の出荷スケジュール](https://git
 通常、修正プログラムのリリースは月単位で出荷されますが、長いリード タイムがあります。
 Microsoft では、これを改善するために取り組んでいます。
 
-各リリースで出荷される内容の決定方法の詳細については、「[リリースの計画プロセス](release-planning.md)」を参照してください。
+各リリースで出荷される内容の決定方法の詳細については、「[リリースの計画プロセス](xref:core/what-is-new/release-planning)」を参照してください。
 通常、次のメジャー リリースまたはマイナー リリースよりもさらに詳細な計画を行うことはありません。
 
 ## <a name="ef-core-50"></a>EF Core 5.0
 
 次に予定されている安定版リリースは、2020 年 11 月にスケジュールされている **EF Core 5.0** です。
 
-[EF Core 5.0 の大まかな計画](xref:core/what-is-new/ef-core-5.0/plan)は、[リリース計画プロセス](release-planning.md)のドキュメントに従って作成されています。
+[EF Core 5.0 の大まかな計画](xref:core/what-is-new/ef-core-5.0/plan)は、[リリース計画プロセス](xref:core/what-is-new/release-planning)のドキュメントに従って作成されています。
 
 計画に関するフィードバックは重要です。
 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指 👍) することです。
