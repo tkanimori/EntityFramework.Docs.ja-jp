@@ -1,20 +1,22 @@
 ---
 title: 依存関係の解決-EF6
+description: Entity Framework 6 の依存関係の解決
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
-ms.openlocfilehash: 6082124481f5795bbcb62fff2bb6a58ecdcb48e4
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/configuring/dependency-resolution
+ms.openlocfilehash: c23253dc5a413077e3980fcfa18ea83b5fc3970e
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414795"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618423"
 ---
-# <a name="dependency-resolution"></a><span data-ttu-id="020b5-102">依存関係の解決</span><span class="sxs-lookup"><span data-stu-id="020b5-102">Dependency resolution</span></span>
+# <a name="dependency-resolution"></a><span data-ttu-id="f3306-103">依存関係の解決</span><span class="sxs-lookup"><span data-stu-id="f3306-103">Dependency resolution</span></span>
 > [!NOTE]
-> <span data-ttu-id="020b5-103">**EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="020b5-103">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="020b5-104">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="020b5-104">If you are using an earlier version, some or all of the information does not apply.</span></span>  
+> <span data-ttu-id="f3306-104">**EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。</span><span class="sxs-lookup"><span data-stu-id="f3306-104">**EF6 Onwards Only** - The features, APIs, etc. discussed in this page were introduced in Entity Framework 6.</span></span> <span data-ttu-id="f3306-105">以前のバージョンを使用している場合、一部またはすべての情報は適用されません。</span><span class="sxs-lookup"><span data-stu-id="f3306-105">If you are using an earlier version, some or all of the information does not apply.</span></span>  
 
-<span data-ttu-id="020b5-105">EF6 以降、Entity Framework には、必要なサービスの実装を取得するための汎用機構が含まれています。</span><span class="sxs-lookup"><span data-stu-id="020b5-105">Starting with EF6, Entity Framework contains a general-purpose mechanism for obtaining implementations of services that it requires.</span></span> <span data-ttu-id="020b5-106">つまり、EF が一部のインターフェイスまたは基本クラスのインスタンスを使用する場合、使用するインターフェイスまたは基本クラスの具象実装を要求します。</span><span class="sxs-lookup"><span data-stu-id="020b5-106">That is, when EF uses an instance of some interfaces or base classes it will ask for a concrete implementation of the interface or base class to use.</span></span> <span data-ttu-id="020b5-107">これは、IDbDependencyResolver インターフェイスを使用して実現されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-107">This is achieved through use of the IDbDependencyResolver interface:</span></span>  
+<span data-ttu-id="f3306-106">EF6 以降、Entity Framework には、必要なサービスの実装を取得するための汎用機構が含まれています。</span><span class="sxs-lookup"><span data-stu-id="f3306-106">Starting with EF6, Entity Framework contains a general-purpose mechanism for obtaining implementations of services that it requires.</span></span> <span data-ttu-id="f3306-107">つまり、EF が一部のインターフェイスまたは基本クラスのインスタンスを使用する場合、使用するインターフェイスまたは基本クラスの具象実装を要求します。</span><span class="sxs-lookup"><span data-stu-id="f3306-107">That is, when EF uses an instance of some interfaces or base classes it will ask for a concrete implementation of the interface or base class to use.</span></span> <span data-ttu-id="f3306-108">これは、IDbDependencyResolver インターフェイスを使用して実現されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-108">This is achieved through use of the IDbDependencyResolver interface:</span></span>  
 
 ``` csharp
 public interface IDbDependencyResolver
@@ -23,186 +25,186 @@ public interface IDbDependencyResolver
 }
 ```  
 
-<span data-ttu-id="020b5-108">GetService メソッドは、通常 EF によって呼び出され、EF またはアプリケーションによって提供される IDbDependencyResolver の実装によって処理されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-108">The GetService method is typically called by EF and is handled by an implementation of IDbDependencyResolver provided either by EF or by the application.</span></span> <span data-ttu-id="020b5-109">型引数が呼び出されると、要求されているサービスのインターフェイスまたは基本クラスの型になります。キーオブジェクトは、null または要求されたサービスに関するコンテキスト情報を提供するオブジェクトのいずれかになります。</span><span class="sxs-lookup"><span data-stu-id="020b5-109">When called, the type argument is the interface or base class type of the service being requested, and the key object is either null or an object providing contextual information about the requested service.</span></span>  
+<span data-ttu-id="f3306-109">GetService メソッドは、通常 EF によって呼び出され、EF またはアプリケーションによって提供される IDbDependencyResolver の実装によって処理されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-109">The GetService method is typically called by EF and is handled by an implementation of IDbDependencyResolver provided either by EF or by the application.</span></span> <span data-ttu-id="f3306-110">型引数が呼び出されると、要求されているサービスのインターフェイスまたは基本クラスの型になります。キーオブジェクトは、null または要求されたサービスに関するコンテキスト情報を提供するオブジェクトのいずれかになります。</span><span class="sxs-lookup"><span data-stu-id="f3306-110">When called, the type argument is the interface or base class type of the service being requested, and the key object is either null or an object providing contextual information about the requested service.</span></span>  
 
-<span data-ttu-id="020b5-110">特に指定がない限り、返されるオブジェクトはシングルトンとして使用できるため、スレッドセーフである必要があります。</span><span class="sxs-lookup"><span data-stu-id="020b5-110">Unless otherwise stated any object returned must be thread-safe since it can be used as a singleton.</span></span> <span data-ttu-id="020b5-111">多くの場合、返されるオブジェクトはファクトリであり、ファクトリ自体はスレッドセーフである必要がありますが、ファクトリから返されるオブジェクトは、使用するたびにファクトリから新しいインスタンスが要求されるため、スレッドセーフである必要はありません。</span><span class="sxs-lookup"><span data-stu-id="020b5-111">In many cases the object returned is a factory in which case the factory itself must be thread-safe but the object returned from the factory does not need to be thread-safe since a new instance is requested from the factory for each use.</span></span>
+<span data-ttu-id="f3306-111">特に指定がない限り、返されるオブジェクトはシングルトンとして使用できるため、スレッドセーフである必要があります。</span><span class="sxs-lookup"><span data-stu-id="f3306-111">Unless otherwise stated any object returned must be thread-safe since it can be used as a singleton.</span></span> <span data-ttu-id="f3306-112">多くの場合、返されるオブジェクトはファクトリであり、ファクトリ自体はスレッドセーフである必要がありますが、ファクトリから返されるオブジェクトは、使用するたびにファクトリから新しいインスタンスが要求されるため、スレッドセーフである必要はありません。</span><span class="sxs-lookup"><span data-stu-id="f3306-112">In many cases the object returned is a factory in which case the factory itself must be thread-safe but the object returned from the factory does not need to be thread-safe since a new instance is requested from the factory for each use.</span></span>
 
-<span data-ttu-id="020b5-112">この記事には、IDbDependencyResolver を実装する方法に関する完全な詳細は含まれていませんが、代わりに、EF が GetService を呼び出すサービスの種類 (インターフェイスと基本クラスの型)、およびこれらのそれぞれのキーオブジェクトのセマンティクスを参照として機能します。依頼.</span><span class="sxs-lookup"><span data-stu-id="020b5-112">This article does not contain full details on how to implement IDbDependencyResolver, but instead acts as a reference for the service types (that is, the interface and base class types) for which EF calls GetService and the semantics of the key object for each of these calls.</span></span>
+<span data-ttu-id="f3306-113">この記事には、IDbDependencyResolver を実装する方法の詳細は含まれていませんが、代わりに、EF が GetService を呼び出すサービスの種類 (インターフェイスと基本クラスの型)、およびこれらの各呼び出しのキーオブジェクトのセマンティクスを参照として機能します。</span><span class="sxs-lookup"><span data-stu-id="f3306-113">This article does not contain full details on how to implement IDbDependencyResolver, but instead acts as a reference for the service types (that is, the interface and base class types) for which EF calls GetService and the semantics of the key object for each of these calls.</span></span>
 
-## <a name="systemdataentityidatabaseinitializertcontext"></a><span data-ttu-id="020b5-113">< TContext\> の system.object. IDatabaseInitializer</span><span class="sxs-lookup"><span data-stu-id="020b5-113">System.Data.Entity.IDatabaseInitializer<TContext\></span></span>  
+## <a name="systemdataentityidatabaseinitializertcontext"></a><span data-ttu-id="f3306-114">Data. Entity. IDatabaseInitializer<TContext\></span><span class="sxs-lookup"><span data-stu-id="f3306-114">System.Data.Entity.IDatabaseInitializer<TContext\></span></span>  
 
-<span data-ttu-id="020b5-114">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-114">**Version introduced**: EF6.0.0</span></span>  
+<span data-ttu-id="f3306-115">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-115">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-115">**返されたオブジェクト**: 指定されたコンテキスト型のデータベース初期化子</span><span class="sxs-lookup"><span data-stu-id="020b5-115">**Object returned**: A database initializer for the given context type</span></span>  
+<span data-ttu-id="f3306-116">**返されたオブジェクト**: 指定されたコンテキスト型のデータベース初期化子</span><span class="sxs-lookup"><span data-stu-id="f3306-116">**Object returned**: A database initializer for the given context type</span></span>  
 
-<span data-ttu-id="020b5-116">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="020b5-116">**Key**: Not used; will be null</span></span>  
+<span data-ttu-id="f3306-117">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="f3306-117">**Key**: Not used; will be null</span></span>  
 
-## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a><span data-ttu-id="020b5-117">Func は MigrationSqlGenerator\> を < します。</span><span class="sxs-lookup"><span data-stu-id="020b5-117">Func<System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\></span></span>  
+## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a><span data-ttu-id="f3306-118">Func は MigrationSqlGenerator を<します。\></span><span class="sxs-lookup"><span data-stu-id="f3306-118">Func<System.Data.Entity.Migrations.Sql.MigrationSqlGenerator\></span></span>  
 
-<span data-ttu-id="020b5-118">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-118">**Version introduced**: EF6.0.0</span></span>
+<span data-ttu-id="f3306-119">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-119">**Version introduced**: EF6.0.0</span></span>
 
-<span data-ttu-id="020b5-119">**返されるオブジェクト**: データベースを作成するために使用できる SQL ジェネレーターを作成するファクトリ (データベース初期化子を使用したデータベースの作成など)。</span><span class="sxs-lookup"><span data-stu-id="020b5-119">**Object returned**: A factory to create a SQL generator that can be used for Migrations and other actions that cause a database to be created, such as database creation with database initializers.</span></span>  
+<span data-ttu-id="f3306-120">**返されるオブジェクト**: データベースを作成するために使用できる SQL ジェネレーターを作成するファクトリ (データベース初期化子を使用したデータベースの作成など)。</span><span class="sxs-lookup"><span data-stu-id="f3306-120">**Object returned**: A factory to create a SQL generator that can be used for Migrations and other actions that cause a database to be created, such as database creation with database initializers.</span></span>  
 
-<span data-ttu-id="020b5-120">**Key**: SQL が生成されるデータベースの種類を指定する ADO.NET プロバイダーの不変名を含む文字列。</span><span class="sxs-lookup"><span data-stu-id="020b5-120">**Key**: A string containing the ADO.NET provider invariant name specifying the type of database for which SQL will be generated.</span></span> <span data-ttu-id="020b5-121">たとえば、キー "system.string" に対して SQL Server SQL ジェネレーターが返されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-121">For example, the SQL Server SQL generator is returned for the key "System.Data.SqlClient".</span></span>  
-
->[!NOTE]
-> <span data-ttu-id="020b5-122">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-122">For more details on provider-related services in EF6 see the [EF6 provider model](~/ef6/fundamentals/providers/provider-model.md) section.</span></span>  
-
-## <a name="systemdataentitycorecommondbproviderservices"></a><span data-ttu-id="020b5-123">DbProviderServices.............</span><span class="sxs-lookup"><span data-stu-id="020b5-123">System.Data.Entity.Core.Common.DbProviderServices</span></span>  
-
-<span data-ttu-id="020b5-124">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-124">**Version introduced**: EF6.0.0</span></span>  
-
-<span data-ttu-id="020b5-125">**返されたオブジェクト**: 指定したプロバイダーの不変名に使用する EF プロバイダー</span><span class="sxs-lookup"><span data-stu-id="020b5-125">**Object returned**: The EF provider to use for a given provider invariant name</span></span>  
-
-<span data-ttu-id="020b5-126">**Key**: プロバイダーが必要なデータベースの種類を指定する ADO.NET プロバイダーの不変名を含む文字列。</span><span class="sxs-lookup"><span data-stu-id="020b5-126">**Key**: A string containing the ADO.NET provider invariant name specifying the type of database for which a provider is needed.</span></span> <span data-ttu-id="020b5-127">たとえば、キー "system.string" に対して SQL Server プロバイダーが返されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-127">For example, the SQL Server provider is returned for the key "System.Data.SqlClient".</span></span>  
+<span data-ttu-id="f3306-121">**Key**: SQL が生成されるデータベースの種類を指定する ADO.NET プロバイダーの不変名を含む文字列。</span><span class="sxs-lookup"><span data-stu-id="f3306-121">**Key**: A string containing the ADO.NET provider invariant name specifying the type of database for which SQL will be generated.</span></span> <span data-ttu-id="f3306-122">たとえば、キー "system.string" に対して SQL Server SQL ジェネレーターが返されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-122">For example, the SQL Server SQL generator is returned for the key "System.Data.SqlClient".</span></span>  
 
 >[!NOTE]
-> <span data-ttu-id="020b5-128">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-128">For more details on provider-related services in EF6 see the [EF6 provider model](~/ef6/fundamentals/providers/provider-model.md) section.</span></span>  
+> <span data-ttu-id="f3306-123">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-123">For more details on provider-related services in EF6 see the [EF6 provider model](xref:ef6/fundamentals/providers/provider-model) section.</span></span>  
 
-## <a name="systemdataentityinfrastructureidbconnectionfactory"></a><span data-ttu-id="020b5-129">IDbConnectionFactory (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="020b5-129">System.Data.Entity.Infrastructure.IDbConnectionFactory</span></span>  
+## <a name="systemdataentitycorecommondbproviderservices"></a><span data-ttu-id="f3306-124">DbProviderServices.............</span><span class="sxs-lookup"><span data-stu-id="f3306-124">System.Data.Entity.Core.Common.DbProviderServices</span></span>  
 
-<span data-ttu-id="020b5-130">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-130">**Version introduced**: EF6.0.0</span></span>  
+<span data-ttu-id="f3306-125">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-125">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-131">**返されるオブジェクト**: EF が規約に従ってデータベース接続を作成するときに使用される接続ファクトリ。</span><span class="sxs-lookup"><span data-stu-id="020b5-131">**Object returned**: The connection factory that will be used when EF creates a database connection by convention.</span></span> <span data-ttu-id="020b5-132">つまり、EF に接続文字列または接続文字列が指定されておらず、app.config または web.config に接続文字列が見つからない場合は、このサービスを使用して、規則に従って接続を作成します。</span><span class="sxs-lookup"><span data-stu-id="020b5-132">That is, when no connection or connection string is given to EF, and no connection string can be found in the app.config or web.config, then this service is used to create a connection by convention.</span></span> <span data-ttu-id="020b5-133">接続ファクトリを変更すると、EF が既定で別の種類のデータベース (SQL Server Compact Edition など) を使用できるようになります。</span><span class="sxs-lookup"><span data-stu-id="020b5-133">Changing the connection factory can allow EF to use a different type of database (for example, SQL Server Compact Edition) by default.</span></span>  
+<span data-ttu-id="f3306-126">**返されたオブジェクト**: 指定したプロバイダーの不変名に使用する EF プロバイダー</span><span class="sxs-lookup"><span data-stu-id="f3306-126">**Object returned**: The EF provider to use for a given provider invariant name</span></span>  
 
-<span data-ttu-id="020b5-134">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="020b5-134">**Key**: Not used; will be null</span></span>  
-
->[!NOTE]
-> <span data-ttu-id="020b5-135">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-135">For more details on provider-related services in EF6 see the [EF6 provider model](~/ef6/fundamentals/providers/provider-model.md) section.</span></span>  
-
-## <a name="systemdataentityinfrastructureimanifesttokenservice"></a><span data-ttu-id="020b5-136">IManifestTokenService (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="020b5-136">System.Data.Entity.Infrastructure.IManifestTokenService</span></span>  
-
-<span data-ttu-id="020b5-137">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-137">**Version introduced**: EF6.0.0</span></span>  
-
-<span data-ttu-id="020b5-138">**返されるオブジェクト**: 接続からプロバイダーマニフェストトークンを生成できるサービス。</span><span class="sxs-lookup"><span data-stu-id="020b5-138">**Object returned**: A service that can generate a provider manifest token from a connection.</span></span> <span data-ttu-id="020b5-139">通常、このサービスは2つの方法で使用されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-139">This service is typically used in two ways.</span></span> <span data-ttu-id="020b5-140">まず、モデルを構築するときにデータベースに接続する Code First を避けるために使用できます。</span><span class="sxs-lookup"><span data-stu-id="020b5-140">First, it can be used to avoid Code First connecting to the database when building a model.</span></span> <span data-ttu-id="020b5-141">次に、特定のデータベースバージョンのモデルを強制的に Code First するために使用できます。たとえば、SQL Server 2008 が使用されている場合でも、SQL Server 2005 のモデルを強制的に作成することができます。</span><span class="sxs-lookup"><span data-stu-id="020b5-141">Second, it can be used to force Code First to build a model for a specific database version -- for example, to force a model for SQL Server 2005 even if sometimes SQL Server 2008 is used.</span></span>  
-
-<span data-ttu-id="020b5-142">**オブジェクトの有効期間**: シングルトン: 同じオブジェクトが複数回使用され、異なるスレッドによって同時に使用される場合があります。</span><span class="sxs-lookup"><span data-stu-id="020b5-142">**Object lifetime**: Singleton -- the same object may be used multiple times and concurrently by different threads</span></span>  
-
-<span data-ttu-id="020b5-143">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="020b5-143">**Key**: Not used; will be null</span></span>  
-
-## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a><span data-ttu-id="020b5-144">IDbProviderFactoryService (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="020b5-144">System.Data.Entity.Infrastructure.IDbProviderFactoryService</span></span>  
-
-<span data-ttu-id="020b5-145">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-145">**Version introduced**: EF6.0.0</span></span>  
-
-<span data-ttu-id="020b5-146">**返されたオブジェクト**: 特定の接続からプロバイダーファクトリを取得できるサービス。</span><span class="sxs-lookup"><span data-stu-id="020b5-146">**Object returned**: A service that can obtain a provider factory from a given connection.</span></span> <span data-ttu-id="020b5-147">.NET 4.5 では、プロバイダーは接続からパブリックにアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="020b5-147">On .NET 4.5 the provider is publicly accessible from the connection.</span></span> <span data-ttu-id="020b5-148">.NET 4 では、このサービスの既定の実装は、特定のヒューリスティックを使用して一致するプロバイダーを検索します。</span><span class="sxs-lookup"><span data-stu-id="020b5-148">On .NET 4 the default implementation of this service uses some heuristics to find the matching provider.</span></span> <span data-ttu-id="020b5-149">これらのエラーが発生した場合は、適切な解決策を提供するために、このサービスの新しい実装を登録できます。</span><span class="sxs-lookup"><span data-stu-id="020b5-149">If these fail then a new implementation of this service can be registered to provide an appropriate resolution.</span></span>  
-
-<span data-ttu-id="020b5-150">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="020b5-150">**Key**: Not used; will be null</span></span>  
-
-## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a><span data-ttu-id="020b5-151">Func < DbContext、IDbModelCacheKey\> を行います。</span><span class="sxs-lookup"><span data-stu-id="020b5-151">Func<DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\></span></span>  
-
-<span data-ttu-id="020b5-152">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-152">**Version introduced**: EF6.0.0</span></span>  
-
-<span data-ttu-id="020b5-153">**返さ**れたオブジェクト: 特定のコンテキストのモデルキャッシュキーを生成するファクトリ。</span><span class="sxs-lookup"><span data-stu-id="020b5-153">**Object returned**: A factory that will generate a model cache key for a given context.</span></span> <span data-ttu-id="020b5-154">既定では、EF は、プロバイダーごとに DbContext 型ごとに1つのモデルをキャッシュします。</span><span class="sxs-lookup"><span data-stu-id="020b5-154">By default, EF caches one model per DbContext type per provider.</span></span> <span data-ttu-id="020b5-155">このサービスの別の実装を使用して、スキーマ名などの他の情報をキャッシュキーに追加できます。</span><span class="sxs-lookup"><span data-stu-id="020b5-155">A different implementation of this service can be used to add other information, such as schema name, to the cache key.</span></span>  
-
-<span data-ttu-id="020b5-156">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="020b5-156">**Key**: Not used; will be null</span></span>  
-
-## <a name="systemdataentityspatialdbspatialservices"></a><span data-ttu-id="020b5-157">DbSpatialServices (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="020b5-157">System.Data.Entity.Spatial.DbSpatialServices</span></span>  
-
-<span data-ttu-id="020b5-158">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-158">**Version introduced**: EF6.0.0</span></span>  
-
-<span data-ttu-id="020b5-159">**返されるオブジェクト**: geography および geometry 空間型の基本 ef プロバイダーにサポートを追加する ef 空間プロバイダー。</span><span class="sxs-lookup"><span data-stu-id="020b5-159">**Object returned**: An EF spatial provider that adds support to the basic EF provider for geography and geometry spatial types.</span></span>  
-
-<span data-ttu-id="020b5-160">**キー**: dbsptialservices は2つの方法で要求されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-160">**Key**: DbSptialServices is asked for in two ways.</span></span> <span data-ttu-id="020b5-161">最初に、キーとして DbProviderInfo オブジェクト (不変名とマニフェストトークンを含む) を使用して、プロバイダー固有の空間サービスが要求されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-161">First, provider-specific spatial services are requested using a DbProviderInfo object (which contains invariant name and manifest token) as the key.</span></span> <span data-ttu-id="020b5-162">2つ目は、キーなしで DbSpatialServices を要求できることです。</span><span class="sxs-lookup"><span data-stu-id="020b5-162">Second, DbSpatialServices can be asked for with no key.</span></span> <span data-ttu-id="020b5-163">これは、スタンドアロンの DbGeography 型または Dbgeography 型を作成するときに使用される "グローバル空間プロバイダー" を解決するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-163">This is used to resolve the "global spatial provider" which is used when creating stand-alone DbGeography or DbGeometry types.</span></span>  
+<span data-ttu-id="f3306-127">**Key**: プロバイダーが必要なデータベースの種類を指定する ADO.NET プロバイダーの不変名を含む文字列。</span><span class="sxs-lookup"><span data-stu-id="f3306-127">**Key**: A string containing the ADO.NET provider invariant name specifying the type of database for which a provider is needed.</span></span> <span data-ttu-id="f3306-128">たとえば、キー "system.string" に対して SQL Server プロバイダーが返されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-128">For example, the SQL Server provider is returned for the key "System.Data.SqlClient".</span></span>  
 
 >[!NOTE]
-> <span data-ttu-id="020b5-164">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-164">For more details on provider-related services in EF6 see the [EF6 provider model](~/ef6/fundamentals/providers/provider-model.md) section.</span></span>  
+> <span data-ttu-id="f3306-129">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-129">For more details on provider-related services in EF6 see the [EF6 provider model](xref:ef6/fundamentals/providers/provider-model) section.</span></span>  
 
-## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a><span data-ttu-id="020b5-165">Func は IDbExecutionStrategy\> を < します。</span><span class="sxs-lookup"><span data-stu-id="020b5-165">Func<System.Data.Entity.Infrastructure.IDbExecutionStrategy\></span></span>  
+## <a name="systemdataentityinfrastructureidbconnectionfactory"></a><span data-ttu-id="f3306-130">IDbConnectionFactory (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="f3306-130">System.Data.Entity.Infrastructure.IDbConnectionFactory</span></span>  
 
-<span data-ttu-id="020b5-166">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-166">**Version introduced**: EF6.0.0</span></span>  
+<span data-ttu-id="f3306-131">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-131">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-167">**返されるオブジェクト**: データベースに対してクエリとコマンドが実行されたときに、プロバイダーが再試行またはその他の動作を実装できるようにするサービスを作成するファクトリ。</span><span class="sxs-lookup"><span data-stu-id="020b5-167">**Object returned**: A factory to create a service that allows a provider to implement retries or other behavior when queries and commands are executed against the database.</span></span> <span data-ttu-id="020b5-168">実装が指定されていない場合、EF は単にコマンドを実行し、スローされた例外をすべて伝達します。</span><span class="sxs-lookup"><span data-stu-id="020b5-168">If no implementation is provided, then EF will simply execute the commands and propagate any exceptions thrown.</span></span> <span data-ttu-id="020b5-169">SQL Server は、このサービスを使用して再試行ポリシーを提供します。これは、SQL Azure などのクラウドベースのデータベースサーバーに対して実行する場合に特に便利です。</span><span class="sxs-lookup"><span data-stu-id="020b5-169">For SQL Server this service is used to provide a retry policy which is especially useful when running against cloud-based database servers such as SQL Azure.</span></span>  
+<span data-ttu-id="f3306-132">**返されるオブジェクト**: EF が規約に従ってデータベース接続を作成するときに使用される接続ファクトリ。</span><span class="sxs-lookup"><span data-stu-id="f3306-132">**Object returned**: The connection factory that will be used when EF creates a database connection by convention.</span></span> <span data-ttu-id="f3306-133">つまり、EF に接続文字列または接続文字列が指定されておらず、app.config または web.config に接続文字列が見つからない場合は、このサービスを使用して、規則に従って接続を作成します。</span><span class="sxs-lookup"><span data-stu-id="f3306-133">That is, when no connection or connection string is given to EF, and no connection string can be found in the app.config or web.config, then this service is used to create a connection by convention.</span></span> <span data-ttu-id="f3306-134">接続ファクトリを変更すると、EF が既定で別の種類のデータベース (SQL Server Compact Edition など) を使用できるようになります。</span><span class="sxs-lookup"><span data-stu-id="f3306-134">Changing the connection factory can allow EF to use a different type of database (for example, SQL Server Compact Edition) by default.</span></span>  
 
-<span data-ttu-id="020b5-170">**Key**: プロバイダーの不変名と、必要に応じて実行戦略を使用するサーバー名を含む ExecutionStrategyKey オブジェクトです。</span><span class="sxs-lookup"><span data-stu-id="020b5-170">**Key**: An ExecutionStrategyKey object that contains the provider invariant name and optionally a server name for which the execution strategy will be used.</span></span>  
-
->[!NOTE]
-> <span data-ttu-id="020b5-171">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-171">For more details on provider-related services in EF6 see the [EF6 provider model](~/ef6/fundamentals/providers/provider-model.md) section.</span></span>  
-
-## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a><span data-ttu-id="020b5-172">Func < DbConnection、string、system.string、またはの各コンテキスト\></span><span class="sxs-lookup"><span data-stu-id="020b5-172">Func<DbConnection, string, System.Data.Entity.Migrations.History.HistoryContext\></span></span>  
-
-<span data-ttu-id="020b5-173">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-173">**Version introduced**: EF6.0.0</span></span>  
-
-<span data-ttu-id="020b5-174">**返されるオブジェクト**: プロバイダーが、EF の移行で使用される `__MigrationHistory` テーブルへの履歴コンテキストのマッピングを構成できるようにするファクトリ。</span><span class="sxs-lookup"><span data-stu-id="020b5-174">**Object returned**: A factory that allows a provider to configure the mapping of the HistoryContext to the `__MigrationHistory` table used by EF Migrations.</span></span> <span data-ttu-id="020b5-175">履歴コンテキストは Code First DbContext であり、テーブルの名前や列マッピングの仕様などを変更するために通常の fluent API を使用して構成できます。</span><span class="sxs-lookup"><span data-stu-id="020b5-175">The HistoryContext is a Code First DbContext and can be configured using the normal fluent API to change things like the name of the table and the column mapping specifications.</span></span>  
-
-<span data-ttu-id="020b5-176">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="020b5-176">**Key**: Not used; will be null</span></span>  
+<span data-ttu-id="f3306-135">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="f3306-135">**Key**: Not used; will be null</span></span>  
 
 >[!NOTE]
-> <span data-ttu-id="020b5-177">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-177">For more details on provider-related services in EF6 see the [EF6 provider model](~/ef6/fundamentals/providers/provider-model.md) section.</span></span>  
+> <span data-ttu-id="f3306-136">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-136">For more details on provider-related services in EF6 see the [EF6 provider model](xref:ef6/fundamentals/providers/provider-model) section.</span></span>  
 
-## <a name="systemdatacommondbproviderfactory"></a><span data-ttu-id="020b5-178">DbProviderFactory (システム)</span><span class="sxs-lookup"><span data-stu-id="020b5-178">System.Data.Common.DbProviderFactory</span></span>  
+## <a name="systemdataentityinfrastructureimanifesttokenservice"></a><span data-ttu-id="f3306-137">IManifestTokenService (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="f3306-137">System.Data.Entity.Infrastructure.IManifestTokenService</span></span>  
 
-<span data-ttu-id="020b5-179">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-179">**Version introduced**: EF6.0.0</span></span>  
+<span data-ttu-id="f3306-138">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-138">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-180">**返されたオブジェクト**: 指定したプロバイダーの不変名に使用する ADO.NET プロバイダー。</span><span class="sxs-lookup"><span data-stu-id="020b5-180">**Object returned**: The ADO.NET provider to use for a given provider invariant name.</span></span>  
+<span data-ttu-id="f3306-139">**返されるオブジェクト**: 接続からプロバイダーマニフェストトークンを生成できるサービス。</span><span class="sxs-lookup"><span data-stu-id="f3306-139">**Object returned**: A service that can generate a provider manifest token from a connection.</span></span> <span data-ttu-id="f3306-140">通常、このサービスは2つの方法で使用されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-140">This service is typically used in two ways.</span></span> <span data-ttu-id="f3306-141">まず、モデルを構築するときにデータベースに接続する Code First を避けるために使用できます。</span><span class="sxs-lookup"><span data-stu-id="f3306-141">First, it can be used to avoid Code First connecting to the database when building a model.</span></span> <span data-ttu-id="f3306-142">次に、特定のデータベースバージョンのモデルを強制的に Code First するために使用できます。たとえば、SQL Server 2008 が使用されている場合でも、SQL Server 2005 のモデルを強制的に作成することができます。</span><span class="sxs-lookup"><span data-stu-id="f3306-142">Second, it can be used to force Code First to build a model for a specific database version -- for example, to force a model for SQL Server 2005 even if sometimes SQL Server 2008 is used.</span></span>  
 
-<span data-ttu-id="020b5-181">**Key**: ADO.NET プロバイダーの不変名を含む文字列</span><span class="sxs-lookup"><span data-stu-id="020b5-181">**Key**: A string containing the ADO.NET provider invariant name</span></span>  
+<span data-ttu-id="f3306-143">**オブジェクトの有効期間**: シングルトン: 同じオブジェクトが複数回使用され、異なるスレッドによって同時に使用される場合があります。</span><span class="sxs-lookup"><span data-stu-id="f3306-143">**Object lifetime**: Singleton -- the same object may be used multiple times and concurrently by different threads</span></span>  
+
+<span data-ttu-id="f3306-144">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="f3306-144">**Key**: Not used; will be null</span></span>  
+
+## <a name="systemdataentityinfrastructureidbproviderfactoryservice"></a><span data-ttu-id="f3306-145">IDbProviderFactoryService (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="f3306-145">System.Data.Entity.Infrastructure.IDbProviderFactoryService</span></span>  
+
+<span data-ttu-id="f3306-146">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-146">**Version introduced**: EF6.0.0</span></span>  
+
+<span data-ttu-id="f3306-147">**返されたオブジェクト**: 特定の接続からプロバイダーファクトリを取得できるサービス。</span><span class="sxs-lookup"><span data-stu-id="f3306-147">**Object returned**: A service that can obtain a provider factory from a given connection.</span></span> <span data-ttu-id="f3306-148">.NET 4.5 では、プロバイダーは接続からパブリックにアクセスできます。</span><span class="sxs-lookup"><span data-stu-id="f3306-148">On .NET 4.5 the provider is publicly accessible from the connection.</span></span> <span data-ttu-id="f3306-149">.NET 4 では、このサービスの既定の実装は、特定のヒューリスティックを使用して一致するプロバイダーを検索します。</span><span class="sxs-lookup"><span data-stu-id="f3306-149">On .NET 4 the default implementation of this service uses some heuristics to find the matching provider.</span></span> <span data-ttu-id="f3306-150">これらのエラーが発生した場合は、適切な解決策を提供するために、このサービスの新しい実装を登録できます。</span><span class="sxs-lookup"><span data-stu-id="f3306-150">If these fail then a new implementation of this service can be registered to provide an appropriate resolution.</span></span>  
+
+<span data-ttu-id="f3306-151">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="f3306-151">**Key**: Not used; will be null</span></span>  
+
+## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a><span data-ttu-id="f3306-152">Func<DbContext、IDbModelCacheKey になります。\></span><span class="sxs-lookup"><span data-stu-id="f3306-152">Func<DbContext, System.Data.Entity.Infrastructure.IDbModelCacheKey\></span></span>  
+
+<span data-ttu-id="f3306-153">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-153">**Version introduced**: EF6.0.0</span></span>  
+
+<span data-ttu-id="f3306-154">**返さ**れたオブジェクト: 特定のコンテキストのモデルキャッシュキーを生成するファクトリ。</span><span class="sxs-lookup"><span data-stu-id="f3306-154">**Object returned**: A factory that will generate a model cache key for a given context.</span></span> <span data-ttu-id="f3306-155">既定では、EF は、プロバイダーごとに DbContext 型ごとに1つのモデルをキャッシュします。</span><span class="sxs-lookup"><span data-stu-id="f3306-155">By default, EF caches one model per DbContext type per provider.</span></span> <span data-ttu-id="f3306-156">このサービスの別の実装を使用して、スキーマ名などの他の情報をキャッシュキーに追加できます。</span><span class="sxs-lookup"><span data-stu-id="f3306-156">A different implementation of this service can be used to add other information, such as schema name, to the cache key.</span></span>  
+
+<span data-ttu-id="f3306-157">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="f3306-157">**Key**: Not used; will be null</span></span>  
+
+## <a name="systemdataentityspatialdbspatialservices"></a><span data-ttu-id="f3306-158">DbSpatialServices (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="f3306-158">System.Data.Entity.Spatial.DbSpatialServices</span></span>  
+
+<span data-ttu-id="f3306-159">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-159">**Version introduced**: EF6.0.0</span></span>  
+
+<span data-ttu-id="f3306-160">**返されるオブジェクト**: geography および geometry 空間型の基本 ef プロバイダーにサポートを追加する ef 空間プロバイダー。</span><span class="sxs-lookup"><span data-stu-id="f3306-160">**Object returned**: An EF spatial provider that adds support to the basic EF provider for geography and geometry spatial types.</span></span>  
+
+<span data-ttu-id="f3306-161">**キー**: dbsptialservices は2つの方法で要求されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-161">**Key**: DbSptialServices is asked for in two ways.</span></span> <span data-ttu-id="f3306-162">最初に、キーとして DbProviderInfo オブジェクト (不変名とマニフェストトークンを含む) を使用して、プロバイダー固有の空間サービスが要求されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-162">First, provider-specific spatial services are requested using a DbProviderInfo object (which contains invariant name and manifest token) as the key.</span></span> <span data-ttu-id="f3306-163">2つ目は、キーなしで DbSpatialServices を要求できることです。</span><span class="sxs-lookup"><span data-stu-id="f3306-163">Second, DbSpatialServices can be asked for with no key.</span></span> <span data-ttu-id="f3306-164">これは、スタンドアロンの DbGeography 型または Dbgeography 型を作成するときに使用される "グローバル空間プロバイダー" を解決するために使用されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-164">This is used to resolve the "global spatial provider" which is used when creating stand-alone DbGeography or DbGeometry types.</span></span>  
 
 >[!NOTE]
-> <span data-ttu-id="020b5-182">既定の実装では通常の ADO.NET プロバイダー登録が使用されるため、このサービスは通常は直接変更されません。</span><span class="sxs-lookup"><span data-stu-id="020b5-182">This service is not usually changed directly since the default implementation uses the normal ADO.NET provider registration.</span></span> <span data-ttu-id="020b5-183">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-183">For more details on provider-related services in EF6 see the [EF6 provider model](~/ef6/fundamentals/providers/provider-model.md) section.</span></span>  
+> <span data-ttu-id="f3306-165">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-165">For more details on provider-related services in EF6 see the [EF6 provider model](xref:ef6/fundamentals/providers/provider-model) section.</span></span>  
 
-## <a name="systemdataentityinfrastructureiproviderinvariantname"></a><span data-ttu-id="020b5-184">IProviderInvariantName (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="020b5-184">System.Data.Entity.Infrastructure.IProviderInvariantName</span></span>  
+## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a><span data-ttu-id="f3306-166">Func は IDbExecutionStrategy を<します。\></span><span class="sxs-lookup"><span data-stu-id="f3306-166">Func<System.Data.Entity.Infrastructure.IDbExecutionStrategy\></span></span>  
 
-<span data-ttu-id="020b5-185">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-185">**Version introduced**: EF6.0.0</span></span>  
+<span data-ttu-id="f3306-167">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-167">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-186">**返されたオブジェクト**: 特定の種類の DbProviderFactory に対してプロバイダーの不変名を決定するために使用されるサービス。</span><span class="sxs-lookup"><span data-stu-id="020b5-186">**Object returned**: a service that is used to determine a provider invariant name for a given type of DbProviderFactory.</span></span> <span data-ttu-id="020b5-187">このサービスの既定の実装では、ADO.NET プロバイダーの登録が使用されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-187">The default implementation of this service uses the ADO.NET provider registration.</span></span> <span data-ttu-id="020b5-188">これは、DbProviderFactory が EF によって解決されているために ADO.NET プロバイダーが通常の方法で登録されていない場合にも、このサービスを解決する必要があることを意味します。</span><span class="sxs-lookup"><span data-stu-id="020b5-188">This means that if the ADO.NET provider is not registered in the normal way because DbProviderFactory is being resolved by EF, then it will also be necessary to resolve this service.</span></span>  
+<span data-ttu-id="f3306-168">**返されるオブジェクト**: データベースに対してクエリとコマンドが実行されたときに、プロバイダーが再試行またはその他の動作を実装できるようにするサービスを作成するファクトリ。</span><span class="sxs-lookup"><span data-stu-id="f3306-168">**Object returned**: A factory to create a service that allows a provider to implement retries or other behavior when queries and commands are executed against the database.</span></span> <span data-ttu-id="f3306-169">実装が指定されていない場合、EF は単にコマンドを実行し、スローされた例外をすべて伝達します。</span><span class="sxs-lookup"><span data-stu-id="f3306-169">If no implementation is provided, then EF will simply execute the commands and propagate any exceptions thrown.</span></span> <span data-ttu-id="f3306-170">SQL Server は、このサービスを使用して再試行ポリシーを提供します。これは、SQL Azure などのクラウドベースのデータベースサーバーに対して実行する場合に特に便利です。</span><span class="sxs-lookup"><span data-stu-id="f3306-170">For SQL Server this service is used to provide a retry policy which is especially useful when running against cloud-based database servers such as SQL Azure.</span></span>  
 
-<span data-ttu-id="020b5-189">**キー**: 不変名を必要とする DbProviderFactory インスタンス。</span><span class="sxs-lookup"><span data-stu-id="020b5-189">**Key**: The DbProviderFactory instance for which an invariant name is required.</span></span>  
+<span data-ttu-id="f3306-171">**Key**: プロバイダーの不変名と、必要に応じて実行戦略を使用するサーバー名を含む ExecutionStrategyKey オブジェクトです。</span><span class="sxs-lookup"><span data-stu-id="f3306-171">**Key**: An ExecutionStrategyKey object that contains the provider invariant name and optionally a server name for which the execution strategy will be used.</span></span>  
 
 >[!NOTE]
-> <span data-ttu-id="020b5-190">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-190">For more details on provider-related services in EF6 see the [EF6 provider model](~/ef6/fundamentals/providers/provider-model.md) section.</span></span>  
+> <span data-ttu-id="f3306-172">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-172">For more details on provider-related services in EF6 see the [EF6 provider model](xref:ef6/fundamentals/providers/provider-model) section.</span></span>  
 
-## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a><span data-ttu-id="020b5-191">System.string...............................</span><span class="sxs-lookup"><span data-stu-id="020b5-191">System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache</span></span>  
+## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a><span data-ttu-id="f3306-173">Func<DbConnection、string、または system.string です。履歴コンテキスト\></span><span class="sxs-lookup"><span data-stu-id="f3306-173">Func<DbConnection, string, System.Data.Entity.Migrations.History.HistoryContext\></span></span>  
 
-<span data-ttu-id="020b5-192">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-192">**Version introduced**: EF6.0.0</span></span>  
+<span data-ttu-id="f3306-174">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-174">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-193">**返されたオブジェクト**: 事前に生成されたビューを含むアセンブリのキャッシュ。</span><span class="sxs-lookup"><span data-stu-id="020b5-193">**Object returned**: a cache of the assemblies that contain pre-generated views.</span></span> <span data-ttu-id="020b5-194">置換は通常、検出を行わずに、事前に生成されたビューを含むアセンブリを EF に知らせるために使用されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-194">A replacement is typically used to let EF know which assemblies contain pre-generated views without doing any discovery.</span></span>  
+<span data-ttu-id="f3306-175">**返されるオブジェクト**: プロバイダーが、 `__MigrationHistory` EF の移行で使用されるテーブルへの履歴コンテキストのマッピングを構成できるようにするファクトリ。</span><span class="sxs-lookup"><span data-stu-id="f3306-175">**Object returned**: A factory that allows a provider to configure the mapping of the HistoryContext to the `__MigrationHistory` table used by EF Migrations.</span></span> <span data-ttu-id="f3306-176">履歴コンテキストは Code First DbContext であり、テーブルの名前や列マッピングの仕様などを変更するために通常の fluent API を使用して構成できます。</span><span class="sxs-lookup"><span data-stu-id="f3306-176">The HistoryContext is a Code First DbContext and can be configured using the normal fluent API to change things like the name of the table and the column mapping specifications.</span></span>  
 
-<span data-ttu-id="020b5-195">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="020b5-195">**Key**: Not used; will be null</span></span>  
+<span data-ttu-id="f3306-177">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="f3306-177">**Key**: Not used; will be null</span></span>  
 
-## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a><span data-ttu-id="020b5-196">複数形化. IPluralizationService (その他)</span><span class="sxs-lookup"><span data-stu-id="020b5-196">System.Data.Entity.Infrastructure.Pluralization.IPluralizationService</span></span>
+>[!NOTE]
+> <span data-ttu-id="f3306-178">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-178">For more details on provider-related services in EF6 see the [EF6 provider model](xref:ef6/fundamentals/providers/provider-model) section.</span></span>  
 
-<span data-ttu-id="020b5-197">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-197">**Version introduced**: EF6.0.0</span></span>  
+## <a name="systemdatacommondbproviderfactory"></a><span data-ttu-id="f3306-179">DbProviderFactory (システム)</span><span class="sxs-lookup"><span data-stu-id="f3306-179">System.Data.Common.DbProviderFactory</span></span>  
 
-<span data-ttu-id="020b5-198">**返されたオブジェクト**: EF によって複数化と単数の名前に使用されるサービス。</span><span class="sxs-lookup"><span data-stu-id="020b5-198">**Object returned**: a service used by EF to pluralize and singularize names.</span></span> <span data-ttu-id="020b5-199">既定では、英語の複数形化サービスが使用されます。</span><span class="sxs-lookup"><span data-stu-id="020b5-199">By default an English pluralization service is used.</span></span>  
+<span data-ttu-id="f3306-180">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-180">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-200">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="020b5-200">**Key**: Not used; will be null</span></span>  
+<span data-ttu-id="f3306-181">**返されたオブジェクト**: 指定したプロバイダーの不変名に使用する ADO.NET プロバイダー。</span><span class="sxs-lookup"><span data-stu-id="f3306-181">**Object returned**: The ADO.NET provider to use for a given provider invariant name.</span></span>  
 
-## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a><span data-ttu-id="020b5-201">IDbInterceptor のようになります。</span><span class="sxs-lookup"><span data-stu-id="020b5-201">System.Data.Entity.Infrastructure.Interception.IDbInterceptor</span></span>  
+<span data-ttu-id="f3306-182">**Key**: ADO.NET プロバイダーの不変名を含む文字列</span><span class="sxs-lookup"><span data-stu-id="f3306-182">**Key**: A string containing the ADO.NET provider invariant name</span></span>  
 
-<span data-ttu-id="020b5-202">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-202">**Version introduced**: EF6.0.0</span></span>
+>[!NOTE]
+> <span data-ttu-id="f3306-183">既定の実装では通常の ADO.NET プロバイダー登録が使用されるため、このサービスは通常は直接変更されません。</span><span class="sxs-lookup"><span data-stu-id="f3306-183">This service is not usually changed directly since the default implementation uses the normal ADO.NET provider registration.</span></span> <span data-ttu-id="f3306-184">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-184">For more details on provider-related services in EF6 see the [EF6 provider model](xref:ef6/fundamentals/providers/provider-model) section.</span></span>  
 
-<span data-ttu-id="020b5-203">**返されるオブジェクト**: アプリケーションの起動時に登録する必要があるインターセプター。</span><span class="sxs-lookup"><span data-stu-id="020b5-203">**Objects returned**: Any interceptors that should be registered when the application starts.</span></span> <span data-ttu-id="020b5-204">これらのオブジェクトは GetServices 呼び出しを使用して要求され、依存関係競合回避モジュールによって返されるすべてのインターセプターが登録されることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="020b5-204">Note that these objects are requested using the GetServices call and all interceptors returned by any dependency resolver will registered.</span></span>
+## <a name="systemdataentityinfrastructureiproviderinvariantname"></a><span data-ttu-id="f3306-185">IProviderInvariantName (システムのデータ)</span><span class="sxs-lookup"><span data-stu-id="f3306-185">System.Data.Entity.Infrastructure.IProviderInvariantName</span></span>  
 
-<span data-ttu-id="020b5-205">**キー**: 使用されていません。null になります。</span><span class="sxs-lookup"><span data-stu-id="020b5-205">**Key**: Not used; will be null.</span></span>  
+<span data-ttu-id="f3306-186">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-186">**Version introduced**: EF6.0.0</span></span>  
 
-## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a><span data-ttu-id="020b5-206">Func < system.object。 DbContext、Action < string\>、system.string. DatabaseLogFormatter\> を実行しています。</span><span class="sxs-lookup"><span data-stu-id="020b5-206">Func<System.Data.Entity.DbContext, Action<string\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\></span></span>  
+<span data-ttu-id="f3306-187">**返されたオブジェクト**: 特定の種類の DbProviderFactory に対してプロバイダーの不変名を決定するために使用されるサービス。</span><span class="sxs-lookup"><span data-stu-id="f3306-187">**Object returned**: a service that is used to determine a provider invariant name for a given type of DbProviderFactory.</span></span> <span data-ttu-id="f3306-188">このサービスの既定の実装では、ADO.NET プロバイダーの登録が使用されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-188">The default implementation of this service uses the ADO.NET provider registration.</span></span> <span data-ttu-id="f3306-189">これは、DbProviderFactory が EF によって解決されているために ADO.NET プロバイダーが通常の方法で登録されていない場合にも、このサービスを解決する必要があることを意味します。</span><span class="sxs-lookup"><span data-stu-id="f3306-189">This means that if the ADO.NET provider is not registered in the normal way because DbProviderFactory is being resolved by EF, then it will also be necessary to resolve this service.</span></span>  
 
-<span data-ttu-id="020b5-207">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="020b5-207">**Version introduced**: EF6.0.0</span></span>  
+<span data-ttu-id="f3306-190">**キー**: 不変名を必要とする DbProviderFactory インスタンス。</span><span class="sxs-lookup"><span data-stu-id="f3306-190">**Key**: The DbProviderFactory instance for which an invariant name is required.</span></span>  
 
-<span data-ttu-id="020b5-208">**返されるオブジェクト**: コンテキストで使用されるデータベースログフォーマッタを作成するために使用されるファクトリ。指定されたコンテキストに対してデータベース .Log プロパティが設定されています。</span><span class="sxs-lookup"><span data-stu-id="020b5-208">**Object returned**: A factory that will be used to create the database log formatter that will be used when the context.Database.Log property is set on the given context.</span></span>  
+>[!NOTE]
+> <span data-ttu-id="f3306-191">EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-191">For more details on provider-related services in EF6 see the [EF6 provider model](xref:ef6/fundamentals/providers/provider-model) section.</span></span>  
 
-<span data-ttu-id="020b5-209">**キー**: 使用されていません。null になります。</span><span class="sxs-lookup"><span data-stu-id="020b5-209">**Key**: Not used; will be null.</span></span>  
+## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a><span data-ttu-id="f3306-192">System.string...............................</span><span class="sxs-lookup"><span data-stu-id="f3306-192">System.Data.Entity.Core.Mapping.ViewGeneration.IViewAssemblyCache</span></span>  
 
-## <a name="funcsystemdataentitydbcontext"></a><span data-ttu-id="020b5-210">Func < system.object. DbContext\></span><span class="sxs-lookup"><span data-stu-id="020b5-210">Func<System.Data.Entity.DbContext\></span></span>  
+<span data-ttu-id="f3306-193">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-193">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-211">**導入**されたバージョン: ef 6.1.0</span><span class="sxs-lookup"><span data-stu-id="020b5-211">**Version introduced**: EF6.1.0</span></span>  
+<span data-ttu-id="f3306-194">**返されたオブジェクト**: 事前に生成されたビューを含むアセンブリのキャッシュ。</span><span class="sxs-lookup"><span data-stu-id="f3306-194">**Object returned**: a cache of the assemblies that contain pre-generated views.</span></span> <span data-ttu-id="f3306-195">置換は通常、検出を行わずに、事前に生成されたビューを含むアセンブリを EF に知らせるために使用されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-195">A replacement is typically used to let EF know which assemblies contain pre-generated views without doing any discovery.</span></span>  
 
-<span data-ttu-id="020b5-212">**返されるオブジェクト**: コンテキストにアクセス可能なパラメーターなしのコンストラクターがない場合に、移行用のコンテキストインスタンスを作成するために使用されるファクトリ。</span><span class="sxs-lookup"><span data-stu-id="020b5-212">**Object returned**: A factory that will be used to create context instances for Migrations when the context does not have an accessible parameterless constructor.</span></span>  
+<span data-ttu-id="f3306-196">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="f3306-196">**Key**: Not used; will be null</span></span>  
 
-<span data-ttu-id="020b5-213">**Key**: ファクトリが必要な派生 dbcontext の型の型オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="020b5-213">**Key**: The Type object for the type of the derived DbContext for which a factory is needed.</span></span>  
+## <a name="systemdataentityinfrastructurepluralizationipluralizationservice"></a><span data-ttu-id="f3306-197">複数形化. IPluralizationService (その他)</span><span class="sxs-lookup"><span data-stu-id="f3306-197">System.Data.Entity.Infrastructure.Pluralization.IPluralizationService</span></span>
 
-## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a><span data-ttu-id="020b5-214">Func は IMetadataAnnotationSerializer\> を < しています。</span><span class="sxs-lookup"><span data-stu-id="020b5-214">Func<System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\></span></span>  
+<span data-ttu-id="f3306-198">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-198">**Version introduced**: EF6.0.0</span></span>  
 
-<span data-ttu-id="020b5-215">**導入**されたバージョン: ef 6.1.0</span><span class="sxs-lookup"><span data-stu-id="020b5-215">**Version introduced**: EF6.1.0</span></span>  
+<span data-ttu-id="f3306-199">**返されたオブジェクト**: EF によって複数化と単数の名前に使用されるサービス。</span><span class="sxs-lookup"><span data-stu-id="f3306-199">**Object returned**: a service used by EF to pluralize and singularize names.</span></span> <span data-ttu-id="f3306-200">既定では、英語の複数形化サービスが使用されます。</span><span class="sxs-lookup"><span data-stu-id="f3306-200">By default an English pluralization service is used.</span></span>  
 
-<span data-ttu-id="020b5-216">**返されたオブジェクト**: 厳密に型指定されたカスタム注釈をシリアル化するためにシリアライザーを作成するために使用されるファクトリ。 Code First Migrations で使用するために、XML にシリアル化して destを認識することができます。</span><span class="sxs-lookup"><span data-stu-id="020b5-216">**Object returned**: A factory that will be used to create serializers for serialization of strongly-typed custom annotations such that they can be serialized and desterilized into XML for use in Code First Migrations.</span></span>  
+<span data-ttu-id="f3306-201">**キー**: 使用されていません。null になります</span><span class="sxs-lookup"><span data-stu-id="f3306-201">**Key**: Not used; will be null</span></span>  
 
-<span data-ttu-id="020b5-217">**キー**: シリアル化または逆シリアル化される注釈の名前。</span><span class="sxs-lookup"><span data-stu-id="020b5-217">**Key**: The name of the annotation that is being serialized or deserialized.</span></span>  
+## <a name="systemdataentityinfrastructureinterceptionidbinterceptor"></a><span data-ttu-id="f3306-202">IDbInterceptor のようになります。</span><span class="sxs-lookup"><span data-stu-id="f3306-202">System.Data.Entity.Infrastructure.Interception.IDbInterceptor</span></span>  
 
-## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a><span data-ttu-id="020b5-218">Func < system.object. Infrastructure. Entity.\></span><span class="sxs-lookup"><span data-stu-id="020b5-218">Func<System.Data.Entity.Infrastructure.TransactionHandler\></span></span>  
+<span data-ttu-id="f3306-203">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-203">**Version introduced**: EF6.0.0</span></span>
 
-<span data-ttu-id="020b5-219">**導入**されたバージョン: ef 6.1.0</span><span class="sxs-lookup"><span data-stu-id="020b5-219">**Version introduced**: EF6.1.0</span></span>  
+<span data-ttu-id="f3306-204">**返されるオブジェクト**: アプリケーションの起動時に登録する必要があるインターセプター。</span><span class="sxs-lookup"><span data-stu-id="f3306-204">**Objects returned**: Any interceptors that should be registered when the application starts.</span></span> <span data-ttu-id="f3306-205">これらのオブジェクトは GetServices 呼び出しを使用して要求され、依存関係競合回避モジュールによって返されるすべてのインターセプターが登録されることに注意してください。</span><span class="sxs-lookup"><span data-stu-id="f3306-205">Note that these objects are requested using the GetServices call and all interceptors returned by any dependency resolver will registered.</span></span>
 
-<span data-ttu-id="020b5-220">**返されるオブジェクト**: トランザクションのハンドラーを作成するために使用されるファクトリ。これにより、コミットエラーの処理などの状況に対して特別な処理を適用できます。</span><span class="sxs-lookup"><span data-stu-id="020b5-220">**Object returned**: A factory that will be used to create handlers for transactions so that special handling can be applied for situations such as handling commit failures.</span></span>  
+<span data-ttu-id="f3306-206">**キー**: 使用されていません。null になります。</span><span class="sxs-lookup"><span data-stu-id="f3306-206">**Key**: Not used; will be null.</span></span>  
 
-<span data-ttu-id="020b5-221">**Key**: ExecutionStrategyKey オブジェクト。プロバイダーの不変名と、必要に応じて、トランザクションハンドラーを使用するサーバー名を格納します。</span><span class="sxs-lookup"><span data-stu-id="020b5-221">**Key**: An ExecutionStrategyKey object that contains the provider invariant name and optionally a server name for which the transaction handler will be used.</span></span>  
+## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a><span data-ttu-id="f3306-207">Func<system.object。 DbContext、Action<string、system.string、. \> DatabaseLogFormatter ですが、この関数は\></span><span class="sxs-lookup"><span data-stu-id="f3306-207">Func<System.Data.Entity.DbContext, Action<string\>, System.Data.Entity.Infrastructure.Interception.DatabaseLogFormatter\></span></span>  
+
+<span data-ttu-id="f3306-208">**導入**されたバージョン: ef 6.0.0</span><span class="sxs-lookup"><span data-stu-id="f3306-208">**Version introduced**: EF6.0.0</span></span>  
+
+<span data-ttu-id="f3306-209">**返されるオブジェクト**: コンテキストで使用されるデータベースログフォーマッタを作成するために使用されるファクトリ。指定されたコンテキストに対してデータベース .Log プロパティが設定されています。</span><span class="sxs-lookup"><span data-stu-id="f3306-209">**Object returned**: A factory that will be used to create the database log formatter that will be used when the context.Database.Log property is set on the given context.</span></span>  
+
+<span data-ttu-id="f3306-210">**キー**: 使用されていません。null になります。</span><span class="sxs-lookup"><span data-stu-id="f3306-210">**Key**: Not used; will be null.</span></span>  
+
+## <a name="funcsystemdataentitydbcontext"></a><span data-ttu-id="f3306-211">Func<system.object の DbContext\></span><span class="sxs-lookup"><span data-stu-id="f3306-211">Func<System.Data.Entity.DbContext\></span></span>  
+
+<span data-ttu-id="f3306-212">**導入**されたバージョン: ef 6.1.0</span><span class="sxs-lookup"><span data-stu-id="f3306-212">**Version introduced**: EF6.1.0</span></span>  
+
+<span data-ttu-id="f3306-213">**返されるオブジェクト**: コンテキストにアクセス可能なパラメーターなしのコンストラクターがない場合に、移行用のコンテキストインスタンスを作成するために使用されるファクトリ。</span><span class="sxs-lookup"><span data-stu-id="f3306-213">**Object returned**: A factory that will be used to create context instances for Migrations when the context does not have an accessible parameterless constructor.</span></span>  
+
+<span data-ttu-id="f3306-214">**Key**: ファクトリが必要な派生 dbcontext の型の型オブジェクト。</span><span class="sxs-lookup"><span data-stu-id="f3306-214">**Key**: The Type object for the type of the derived DbContext for which a factory is needed.</span></span>  
+
+## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a><span data-ttu-id="f3306-215">Func は IMetadataAnnotationSerializer を<しています。\></span><span class="sxs-lookup"><span data-stu-id="f3306-215">Func<System.Data.Entity.Core.Metadata.Edm.IMetadataAnnotationSerializer\></span></span>  
+
+<span data-ttu-id="f3306-216">**導入**されたバージョン: ef 6.1.0</span><span class="sxs-lookup"><span data-stu-id="f3306-216">**Version introduced**: EF6.1.0</span></span>  
+
+<span data-ttu-id="f3306-217">**返されたオブジェクト**: 厳密に型指定されたカスタム注釈をシリアル化するためにシリアライザーを作成するために使用されるファクトリ。 Code First Migrations で使用するために、XML にシリアル化して destを認識することができます。</span><span class="sxs-lookup"><span data-stu-id="f3306-217">**Object returned**: A factory that will be used to create serializers for serialization of strongly-typed custom annotations such that they can be serialized and desterilized into XML for use in Code First Migrations.</span></span>  
+
+<span data-ttu-id="f3306-218">**キー**: シリアル化または逆シリアル化される注釈の名前。</span><span class="sxs-lookup"><span data-stu-id="f3306-218">**Key**: The name of the annotation that is being serialized or deserialized.</span></span>  
+
+## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a><span data-ttu-id="f3306-219">Func<system.object... Entity. Infrastructure\></span><span class="sxs-lookup"><span data-stu-id="f3306-219">Func<System.Data.Entity.Infrastructure.TransactionHandler\></span></span>  
+
+<span data-ttu-id="f3306-220">**導入**されたバージョン: ef 6.1.0</span><span class="sxs-lookup"><span data-stu-id="f3306-220">**Version introduced**: EF6.1.0</span></span>  
+
+<span data-ttu-id="f3306-221">**返されるオブジェクト**: トランザクションのハンドラーを作成するために使用されるファクトリ。これにより、コミットエラーの処理などの状況に対して特別な処理を適用できます。</span><span class="sxs-lookup"><span data-stu-id="f3306-221">**Object returned**: A factory that will be used to create handlers for transactions so that special handling can be applied for situations such as handling commit failures.</span></span>  
+
+<span data-ttu-id="f3306-222">**Key**: ExecutionStrategyKey オブジェクト。プロバイダーの不変名と、必要に応じて、トランザクションハンドラーを使用するサーバー名を格納します。</span><span class="sxs-lookup"><span data-stu-id="f3306-222">**Key**: An ExecutionStrategyKey object that contains the provider invariant name and optionally a server name for which the transaction handler will be used.</span></span>  
