@@ -1,14 +1,15 @@
 ---
 title: Entity Framework のケーススタディ-EF6
+description: Entity Framework 6 のケーススタディ
 author: divega
 ms.date: 10/23/2016
 ms.assetid: cd5d3ae3-717d-4095-a2ef-0e8fd72b1a2f
-ms.openlocfilehash: d7982a3f89ac1e57b48039d828f287adf6dc5068
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: f6cabe34cfbdc5f15758678f458b2c0898198137
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414459"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620240"
 ---
 # <a name="microsoft-case-studies-for-entity-framework"></a>Entity Framework のための Microsoft のケーススタディ
 このページのケーススタディでは、Entity Framework を採用した実際の実稼働プロジェクトをいくつか取り上げています。
@@ -33,23 +34,23 @@ Entity Framework 4.0 を使用して、これらの目標を達成し、開発�
 ツールが改善され、概念モデル、ストレージモデル、およびこれらのモデル間のマッピングを定義する .edmx ファイルを簡単に操作できるようになりました。Entity Framework を使用すると、データアクセス層を1日で動作させることができます。
 Entity Framework は事実上、データアクセス層です。だれかがそれを使用しない理由はわかりません。 " – Joe McBride、シニア開発者
 
-## <a name="nec-display-solutions-of-america"></a>アメリカ合衆国の NEC 表示ソリューション
+## <a name="nec-display-solutions-of-america"></a>NEC の表示ソリューション (NEC)
 NEC は、広告やネットワークの所有者にメリットをもたらすソリューションを使用して、デジタルプレースベースの広告を市場に投入することを望んでいます。
 これを実現するために、従来の ad キャンペーンで必要とされる手動プロセスを自動化する web アプリケーションのペアを開始しました。
 サイトは、ASP.NET、Silverlight 3、AJAX、WCF を使用して構築されており、データアクセス層の Entity Framework と SQL Server 2008 と通信します。
 
-> 「SQL Server では、データをリアルタイムで提供するために必要なスループットを取得し、ミッションクリティカルなアプリケーションの情報が常に利用可能であることを保証するために信頼性を確保することができました。IT ディレクター
+> 「SQL Server では、データをリアルタイムで提供するために必要なスループットを取得し、ミッションクリティカルなアプリケーションの情報が常に利用可能であることを保証するために、信頼性を確保することができました。
 
 ## <a name="darwin-dimensions"></a>ダーウィンディメンション
 Microsoft のさまざまなテクノロジを使用して、ダーウィンのチームは Evolver-オンラインアバターポータルを作成しました。コンシューマーはこのポータルを使用して、ゲーム、アニメーション、ソーシャルネットワークの各ページで使用するための、魅力的でリアルなアバターを作成できます。
-Entity Framework の生産性向上と、Windows Workflow Foundation (WF) や Windows Server AppFabric (拡張性の高いメモリ内アプリケーションキャッシュ) などのコンポーネントを利用することで、チームはすばらしい製品を35% 少ないレベルで提供できました。開発時間。
+Entity Framework の生産性向上と、Windows Workflow Foundation (WF) や Windows Server AppFabric (拡張性の高いメモリ内アプリケーションキャッシュ) などのコンポーネントを利用することで、チームは35% の開発時間ですばらしい製品を提供できました。
 チームメンバーが複数の国にわたって分割されていても、チームは週単位のリリースでアジャイル開発プロセスに従っています。
 
  > 「テクノロジを作成しようとしていません。 起動時には、時間と費用を節約するテクノロジを活用することが重要です。
  .NET は、高速で費用対効果の高い開発に適しています。」 – Zachary Olsen、アーキテクト  
 
 ## <a name="silverware"></a>Silverware
-小規模および中規模のレストラングループのために、販売時点管理 (POS) ソリューションの開発には15年以上の経験があります。 Silverware の開発チームは、より多くのエンタープライズレベルの機能で製品を強化するように設定されています。レストランのチェーン。
+小規模および中規模のレストラングループのために、販売時点管理 (POS) ソリューションの開発には15年以上の経験がありますが、Silverware の開発チームは、より大きなレストランのチェーンを惹き付けるために、より多くのエンタープライズレベルの機能で製品を強化するように設定されています。
 最新バージョンの Microsoft 開発ツールを使用すると、新しいソリューションを以前よりも4倍速くビルドできました。
 LINQ や Entity Framework などの重要な新機能により、データストレージとレポートのニーズに応じて、Crystal Reports から SQL Server 2008 および SQL Server Reporting Services (SSRS) に移行しやすくなりました。
 

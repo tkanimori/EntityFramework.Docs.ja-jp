@@ -1,18 +1,20 @@
 ---
 title: テーブル値関数 (Tvf)-EF6
+description: Entity Framework 6 のテーブル値関数 (Tvf)
 author: divega
 ms.date: 10/23/2016
 ms.assetid: f019c97b-87b0-4e93-98f4-2c539f77b2dc
-ms.openlocfilehash: 35684196dcd7b708a8feeb1eca3096e8d4e555ec
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/designer/advanced/tvfs
+ms.openlocfilehash: 1575526fb46f9ddd3ad43c7c4ac0304aefa1d5d3
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415449"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620557"
 ---
 # <a name="table-valued-functions-tvfs"></a>テーブル値関数 (Tvf)
 > [!NOTE]
-> **EF5**以降: このページで説明した機能、api などは、Entity Framework 5 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
+> **EF5** 以降: このページで説明した機能、api などは、Entity Framework 5 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
 
 ビデオとステップバイステップのチュートリアルでは、Entity Framework Designer を使用してテーブル値関数 (Tvf) をマップする方法について説明します。 また、LINQ クエリから TVF を呼び出す方法についても説明します。
 
@@ -26,27 +28,27 @@ Tvf はストアドプロシージャとよく似ていますが、1つの重要
 
 **表示者**: ジュリアつい
 
-[Wmv](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv) | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v) | [wmv (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
+[WMV](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.wmv)  | [MP4](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-mp4video-tvf.m4v)  | [WMV (ZIP)](https://download.microsoft.com/download/6/0/A/60A6E474-5EF3-4E1E-B9EA-F51D2DDB446A/HDI-ITPro-MSDN-winvideo-tvf.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
 このチュートリアルを完了するには、次の手順を実行する必要があります。
 
-- [School データベース](~/ef6/resources/school-database.md)をインストールします。
+- [School データベース](xref:ef6/resources/school-database)をインストールします。
 
 - Visual Studio の最新バージョンがあること
 
 ## <a name="set-up-the-project"></a>プロジェクトを設定する
 
-1.  Visual Studio を開きます
-2.  **[ファイル]** メニューの **[新規作成]** をポイントし、 **[プロジェクト]** をクリックします。
-3.  左側のウィンドウで、[ **Visual C\#** ] をクリックし、**コンソール**テンプレートを選択します。
+1.  Visual Studio を開く
+2.  [**ファイル**] メニューの [**新規作成**] をポイントし、[**プロジェクト**] をクリックします。
+3.  左側のウィンドウで、[ **Visual C \# **] をクリックし、**コンソール**テンプレートを選択します。
 4.  プロジェクトの名前として「 **TVF** 」と入力し、[ **OK]** をクリックします。
 
 ## <a name="add-a-tvf-to-the-database"></a>TVF をデータベースに追加する
 
--   [**ビュー-&gt; の**選択] SQL Server オブジェクトエクスプローラー
--   LocalDB がサーバーの一覧にない場合: **SQL Server**を右クリックし、[追加] を選択**SQL Server**既定の**Windows 認証**を使用して localdb サーバーに接続する
+-   **ビュー &gt; SQL Server オブジェクトエクスプローラーの**選択
+-   LocalDB がサーバーの一覧にない場合: **SQL Server** を右クリックし、[追加] を選択 **SQL Server** 既定の **Windows 認証** を使用して localdb サーバーに接続する
 -   LocalDB ノードを展開します。
 -   [データベース] ノードで、School データベースノードを右クリックし、[ **新しいクエリ**] を選択します。
 -   T-sql エディターで、次の TVF 定義を貼り付けます。
@@ -74,16 +76,16 @@ RETURN
 
 ## <a name="create-a-model"></a>モデルの作成
 
-1.  ソリューションエクスプローラーでプロジェクト名を右クリックし、 **[追加]** をポイントして、 **[新しい項目]** をクリックします。
-2.  左側のメニューから **[データ]** を選択し、 **[テンプレート]** ペインで **[ADO.NET Entity Data Model]** を選択します。
-3.  ファイル名として「TVFModel」と入力し、 **[追加]** をクリックし**ます。**
+1.  ソリューションエクスプローラーでプロジェクト名を右クリックし、[**追加**] をポイントして、[**新しい項目**] をクリックします。
+2.  左側のメニューから [**データ**] を選択し、[**テンプレート**] ペインで [ **ADO.NET Entity Data Model** ] を選択します。
+3.  ファイル名として「TVFModel」と入力し、[**追加**] をクリックし**ます。**
 4.  [モデルのコンテンツの選択] ダイアログボックスで、[ **データベースから生成**] を選択し、[ **次へ**] をクリックします。
-5.  [ **新しい接続**] をクリックして、[サーバー名] テキストボックスに「mssqllocaldb」と入力し、データベース名として「 **School** を入力します。 [ **OK]** をクリックします **\\。**
-6.  [データベースオブジェクトの選択] ダイアログボックスの [ **テーブル** ] ノードで、 **Person**、 **StudentGrade**、および **Course** の各テーブルを選択します。
-7.  [ **ストアドプロシージャと関数** ] ノードの下にある **GetStudentGradesForCourse**関数を選択します。これは Visual Studio 2012 以降、Entity Designer では、ストアドプロシージャと関数を一括インポートできます。
+5.  [ **新しい接続**] をクリックします。 [サーバー名] ボックスに**School**「 ** \\ mssqllocaldb** 」と入力し、   データベース名として「School」と入力します。 [ **OK]** をクリックします。
+6.  [データベースオブジェクトの選択] ダイアログボックスの [ **テーブル**] ノードで、    **Person**、 **StudentGrade**、および **Course**の各テーブルを選択します。  
+7.  [ **ストアドプロシージャと関数**] ノードの下にある **GetStudentGradesForCourse**関数を選択します。これは、   Visual Studio Entity Designer 2012 以降では、ストアドプロシージャと関数をバッチインポートすることができます。
 8.  [ **完了**] をクリック
-9.  モデルを編集するためのデザイン画面を提供する Entity Designer が表示されます。 [ **データベースオブジェクトの選択** ] ダイアログボックスで選択したすべてのオブジェクトがモデルに追加されます。
-10. 既定では、インポートされた各ストアドプロシージャまたは関数の結果構造は、自動的にエンティティモデルの新しい複合型になります。 ただし、GetStudentGradesForCourse 関数の結果を StudentGrade エンティティにマップする必要があります。デザイン画面を右クリックし、モデルブラウザーで  **モデルブラウザー**  を選択し、 **関数**インポート を選択します。次に、関数インポートの編集 ダイアログボックスで **GetStudentGradesForCourse**関数をダブルクリックし、 **エンティティ** を選択して  **StudentGrade**  を選択します。
+9.  モデルを編集するためのデザイン画面を提供する Entity Designer が表示されます。 [ **データベースオブジェクトの選択**] ダイアログボックスで選択したすべてのオブジェクト   がモデルに追加されます。
+10. 既定では、インポートされた各ストアドプロシージャまたは関数の結果構造は、自動的にエンティティモデルの新しい複合型になります。 ただし、GetStudentGradesForCourse 関数の結果を StudentGrade エンティティにマップする必要があります。デザイン画面を右クリックし、モデルブラウザーで [ **モデルブラウザー** ] を選択し、[ **関数**インポート] を選択します。次に、[関数インポートの編集] ダイアログボックスで **GetStudentGradesForCourse**関数をダブルクリックし、[ **エンティティ**] を選択し   て [ **StudentGrade** ] を選択します。
 
 ## <a name="persist-and-retrieve-data"></a>データの永続化と取得
 
@@ -124,6 +126,6 @@ Couse: Microeconomics, Student: Arturo Anand
 Couse: Microeconomics, Student: Carson Bryant
 ```
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 このチュートリアルでは、Entity Framework Designer を使用してテーブル値関数 (Tvf) をマップする方法について説明しました。 また、LINQ クエリから TVF を呼び出す方法についても説明します。

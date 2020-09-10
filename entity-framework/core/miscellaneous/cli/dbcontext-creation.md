@@ -1,25 +1,26 @@
 ---
 title: デザイン時 DbContext の作成-EF Core
+description: Entity Framework Core を使用したデザイン時の DbContext の作成方法
 author: bricelam
 ms.author: bricelam
 ms.date: 09/16/2019
 uid: core/miscellaneous/cli/dbcontext-creation
-ms.openlocfilehash: 0b0271dcabea63a2529c091cc14cb9059d56ac8d
-ms.sourcegitcommit: 59e3d5ce7dfb284457cf1c991091683b2d1afe9d
+ms.openlocfilehash: ef2eba93827e04a9731ba960c40e9a50168ca8ff
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 05/20/2020
-ms.locfileid: "83672965"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619453"
 ---
 # <a name="design-time-dbcontext-creation"></a>デザイン時 DbContext 作成
 
-一部の EF Core ツールコマンド (たとえば、[移行][1]コマンド) では、 `DbContext` アプリケーションのエンティティ型に関する詳細情報を収集し、データベーススキーマにマップする方法に基づいて、デザイン時に派生インスタンスを作成する必要があります。 ほとんどの場合、 `DbContext` 作成されるは実行時[に構成][2]するのと同様の方法で構成することをお勧めします。
+一部の EF Core ツールコマンド (たとえば、 [移行][1] コマンド) では、 `DbContext` アプリケーションのエンティティ型に関する詳細情報を収集し、データベーススキーマにマップする方法に基づいて、デザイン時に派生インスタンスを作成する必要があります。 ほとんどの場合、 `DbContext` 作成されるは実行時 [に構成][2]するのと同様の方法で構成することをお勧めします。
 
 ツールでは、さまざまな方法でを作成し `DbContext` ます。
 
 ## <a name="from-application-services"></a>アプリケーションサービスから
 
-スタートアッププロジェクトで[ASP.NET Core Web ホスト][3]または[.Net Core 汎用ホスト][4]が使用されている場合、ツールはアプリケーションのサービスプロバイダーから dbcontext オブジェクトを取得しようとします。
+スタートアッププロジェクトで [ASP.NET Core Web ホスト][3] または [.Net Core 汎用ホスト][4]が使用されている場合、ツールはアプリケーションのサービスプロバイダーから dbcontext オブジェクトを取得しようとします。
 
 ツールは、まずを呼び出し、を呼び出して、プロパティにアクセスすることで、サービスプロバイダーを取得しようとし `Program.CreateHostBuilder()` `Build()` `Services` ます。
 
@@ -41,7 +42,7 @@ DbContext をアプリケーションサービスプロバイダーから取得�
 [!code-csharp[Main](../../../../samples/core/Miscellaneous/CommandLine/BloggingContextFactory.cs)]
 
 > [!NOTE]
-> EFCore 5.0 より前では、 `args` パラメーターは使用されていませんでした ([この問題][8]を参照してください)。
+> EFCore 5.0 より前では、 `args` パラメーターは使用されていませんでした ( [この問題][8]を参照してください)。
 > これは EFCore 5.0 で修正され、追加のデザイン時引数は、そのパラメーターを通じてアプリケーションに渡されます。
 
 デザイン時のファクトリは、実行時とは異なる方法で DbContext をデザイン時に構成する必要がある場合、コンストラクターが DI に登録されていない場合、 `DbContext` di を使用していない場合、または何らかの理由で `BuildWebHost` ASP.NET Core アプリケーションのクラスにメソッドを使用しない場合に特に便利です `Main` 。

@@ -1,15 +1,16 @@
 ---
 title: 移行の適用-EF Core
+description: Entity Framework Core を使用して、運用データベースと開発データベースにスキーマの移行を適用する方法
 author: bricelam
 ms.author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/applying
-ms.openlocfilehash: f83a014651fdf2262a603fb91da7984672690197
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: c83194057d58f8278bfbb5264623858e6c022d8f
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238727"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619454"
 ---
 # <a name="applying-migrations"></a>移行の適用
 
@@ -94,7 +95,7 @@ Script-Migration AddNewTables AddAuditTable
 
 ## <a name="idempotent-sql-scripts"></a>べき等 SQL スクリプト
 
-上記で生成した SQL スクリプトは、ある移行から別の移行にスキーマを変更する場合にのみ適用できます。スクリプトは適切に適用する必要があり、適切な移行状態のデータベースのみに適用することをお勧めします。 EF Core では、**べき等**スクリプトの生成もサポートしています。このスクリプトでは、(移行履歴テーブルを使用して) 既に適用されている移行を内部で確認し、不足しているもののみを適用します これは、データベースに最後に適用された移行の内容を正確に把握していない場合、またはそれぞれが異なる移行に配置されている複数のデータベースに配置する場合に便利です。
+上記で生成した SQL スクリプトは、ある移行から別の移行にスキーマを変更する場合にのみ適用できます。スクリプトは適切に適用する必要があり、適切な移行状態のデータベースのみに適用することをお勧めします。 EF Core では、 **べき等** スクリプトの生成もサポートしています。このスクリプトでは、(移行履歴テーブルを使用して) 既に適用されている移行を内部で確認し、不足しているもののみを適用します これは、データベースに最後に適用された移行の内容を正確に把握していない場合、またはそれぞれが異なる移行に配置されている複数のデータベースに配置する場合に便利です。
 
 次の例では、べき等移行が生成されます。
 
@@ -112,7 +113,7 @@ Script-Migration -Idempotent
 
 ***
 
-## <a name="command-line-tools"></a>コマンドライン ツール
+## <a name="command-line-tools"></a>コマンド ライン ツール
 
 EF コマンドラインツールを使用すると、データベースに移行を適用できます。 移行のローカル開発とテストの生産性を維持しながら、この方法は運用データベースの管理には適していません。
 

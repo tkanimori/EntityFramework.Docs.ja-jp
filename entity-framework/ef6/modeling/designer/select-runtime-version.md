@@ -1,14 +1,15 @@
 ---
 title: EF デザイナーモデルに Entity Framework ランタイムバージョンを選択する-EF6
+description: Entity Framework 6 の EF デザイナーモデルで Entity Framework ランタイムバージョンを選択する
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 7ace90a6-46f8-4f55-a88c-7cad9620085c
-ms.openlocfilehash: 40ad05c1f015e6a51150d04eee8d9aa581d72c33
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 77830aaa3c7365e05e867d4ced88bdb8a11e7d6b
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414993"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620391"
 ---
 # <a name="selecting-entity-framework-runtime-version-for-ef-designer-models"></a>EF デザイナーモデルの Entity Framework ランタイムバージョンの選択
 > [!NOTE]
@@ -16,8 +17,7 @@ ms.locfileid: "78414993"
 
 EF6 以降では、次の画面が EF デザイナーに追加され、モデルの作成時に対象とするランタイムのバージョンを選択できるようになりました。 この画面は、最新バージョンの Entity Framework がプロジェクトにまだインストールされていない場合に表示されます。 最新バージョンが既にインストールされている場合は、既定でのみ使用されます。
 
-![画面](~/ef6/media/screen.png)
-
+![ランタイムバージョンの選択](~/ef6/media/screen.png)
 
 ## <a name="targeting-ef6x"></a>EF6 をターゲットにする
 
@@ -25,10 +25,10 @@ EF6 以降では、次の画面が EF デザイナーに追加され、モデル
 
 以前のバージョンの EF が既にインストールされている場合、EF6 は無効になります (同じプロジェクトから複数のバージョンのランタイムを対象にすることはできません)。 ここで EF6 オプションが有効になっていない場合は、次の手順に従ってプロジェクトを EF6 にアップグレードします。
 
-1.  ソリューションエクスプローラーでプロジェクトを右クリックし、 **[NuGet パッケージの管理]** を選択します。
+1.  ソリューションエクスプローラーでプロジェクトを右クリックし、[ **NuGet パッケージの管理**] を選択します。
 2.  **更新プログラム**の選択
 3.  **Entityframework**を選択します (必要なバージョンに更新することを確認してください)
-4.  **[Update]\(更新\)** をクリックします。
+4.  [**更新**] をクリック
 
  
 
@@ -38,7 +38,7 @@ EF6 以降では、次の画面が EF デザイナーに追加され、モデル
 
 EF4 バージョンのランタイムが既にインストールされている場合は、EF5 ではなく、そのバージョンの EF が画面に表示されます。 このような状況では、次の手順を使用して EF5 にアップグレードできます。
 
-1.  **ツールの選択-&gt; ライブラリパッケージマネージャー-&gt; パッケージマネージャーコンソール**
+1.  **ツール- &gt; ライブラリパッケージマネージャー- &gt; パッケージマネージャーコンソールの**選択
 2.  **インストールパッケージ EntityFramework の実行-バージョン 5.0.0**
 
  
@@ -47,5 +47,5 @@ EF4 バージョンのランタイムが既にインストールされている�
 
 EF4 ランタイムをプロジェクトにインストールするには、次の手順を実行します。
 
-1.  **ツールの選択-&gt; ライブラリパッケージマネージャー-&gt; パッケージマネージャーコンソール**
+1.  **ツール- &gt; ライブラリパッケージマネージャー- &gt; パッケージマネージャーコンソールの**選択
 2.  **Install-Package EntityFramework-version 4.3.0 を**実行します。

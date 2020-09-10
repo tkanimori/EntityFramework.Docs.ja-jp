@@ -1,14 +1,16 @@
 ---
 title: 関連エンティティを読み込んでいます-EF6
+description: Entity Framework 6 で関連エンティティを読み込んでいます
 author: divega
 ms.date: 10/23/2016
 ms.assetid: c8417e18-a2ee-499c-9ce9-2a48cc5b468a
-ms.openlocfilehash: c359d8d32a88049213fd5e98e99fe49d7e3121a3
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/querying/related-data
+ms.openlocfilehash: 9b4e8ecda618e11e87cd595502210234b1f3e27d
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414465"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620263"
 ---
 # <a name="loading-related-entities"></a>関連エンティティを読み込んでいます
 
@@ -120,7 +122,7 @@ public class Blog
 }
 ```
 
-Post コレクションの読み込みは、一括読み込みを使用して行うことができます (上記の「*集中的の読み込み*」を参照してください)。または Load メソッドを使用します (以下の「*明示的な読み込み*」を参照)。
+Post コレクションの読み込みは、一括読み込みを使用して行うことができます (上記の「 *集中的の読み込み* 」を参照してください)。または Load メソッドを使用します (以下の「 *明示的な読み込み* 」を参照)。
 
 ### <a name="turn-off-lazy-loading-for-all-entities"></a>すべてのエンティティの遅延読み込みをオフにする
 
@@ -136,7 +138,7 @@ public class BloggingContext : DbContext
 }
 ```
 
-関連エンティティの読み込みは、一括読み込みを使用して実行できます (上記の「*集中的の読み込み*」を参照してください)。または Load メソッドを使用します (以下の「*明示的な読み込み*」を参照)。
+関連エンティティの読み込みは、一括読み込みを使用して実行できます (上記の「 *集中的の読み込み* 」を参照してください)。または Load メソッドを使用します (以下の「 *明示的な読み込み* 」を参照)。
 
 ## <a name="explicitly-loading"></a>明示的な読み込み
 

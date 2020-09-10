@@ -1,14 +1,16 @@
 ---
 title: 同時実行の競合の処理-EF6
+description: Entity Framework 6 での同時実行の競合の処理
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2318e4d3-f561-4720-bbc3-921556806476
-ms.openlocfilehash: 4d29fd7a4d9b6003f71bc8411cea2d863a4c5429
-ms.sourcegitcommit: d85263b5d5d665dbaf94de8832e2917bce048b34
+uid: ef6/saving/concurrency
+ms.openlocfilehash: 1cec47ce346e8a6c86338747c01fba4d030e7388
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86451243"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619876"
 ---
 # <a name="handling-concurrency-conflicts-ef6"></a>同時実行の競合の処理 (EF6)
 
@@ -16,7 +18,7 @@ ms.locfileid: "86451243"
 
 この投稿は、オプティミスティック同時実行制御を完全に説明するための適切な場所ではありません。 以下のセクションでは、同時実行の解決についての知識を前提とし、一般的なタスクのパターンを示します。  
 
-これらのパターンの多くは、「[プロパティ値の操作](~/ef6/saving/change-tracking/property-values.md)」で説明されているトピックを使用します。  
+これらのパターンの多くは、「 [プロパティ値の操作](xref:ef6/saving/change-tracking/property-values)」で説明されているトピックを使用します。  
 
 独立した関連付け (外部キーがエンティティのプロパティにマップされていない場合) を使用する場合の同時実行の問題の解決は、外部キーの関連付けを使用する場合よりもはるかに困難です。 したがって、アプリケーションで同時実行の解決を行う場合は、常に外部キーをエンティティにマップすることをお勧めします。 以下のすべての例では、外部キーの関連付けを使用していることを前提としています。  
 
@@ -64,7 +66,7 @@ DbUpdateConcurrencyException の Entries メソッドは、更新に失敗した
 
 ## <a name="resolving-optimistic-concurrency-exceptions-as-client-wins"></a>クライアント優先としてのオプティミスティック同時実行例外の解決  
 
-再読み込みを使用する上記の例は、データベースの値によってエンティティ内の値が上書きされるため、データベースの優先またはストアの優先と呼ばれることがあります。 場合によっては、逆の処理を行い、現在エンティティ内にある値を使用してデータベースの値を上書きすることが必要になることがあります。 これは、クライアント優先とも呼ばれ、現在のデータベース値を取得し、エンティティの元の値として設定することによって実行できます。 (現在の値と元の値の詳細については、「[プロパティ値の使用](~/ef6/saving/change-tracking/property-values.md)」を参照してください)。例えば：  
+再読み込みを使用する上記の例は、データベースの値によってエンティティ内の値が上書きされるため、データベースの優先またはストアの優先と呼ばれることがあります。 場合によっては、逆の処理を行い、現在エンティティ内にある値を使用してデータベースの値を上書きすることが必要になることがあります。 これは、クライアント優先とも呼ばれ、現在のデータベース値を取得し、エンティティの元の値として設定することによって実行できます。 (現在の値と元の値の詳細については、「 [プロパティ値の使用](xref:ef6/saving/change-tracking/property-values) 」を参照してください)。例えば：  
 
 ``` csharp
 using (var context = new BloggingContext())

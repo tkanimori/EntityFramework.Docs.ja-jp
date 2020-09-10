@@ -1,21 +1,22 @@
 ---
 title: 過去のリリースの Entity Framework-EF6
+description: 過去のリリースの Entity Framework
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 1060bb99-765f-4f32-aaeb-d6635d3dbd3e
 uid: ef6/what-is-new/past-releases
-ms.openlocfilehash: b7181334cd125c5cbf296d5b3674c0b5f087f438
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: e9dce5c545027658a98b375e7ffa15ebbb77369c
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/15/2020
-ms.locfileid: "79402121"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619727"
 ---
 # <a name="past-releases-of-entity-framework"></a>過去のリリースの Entity Framework
 
 Entity Framework の最初のバージョンは、.NET Framework 3.5 SP1 と Visual Studio 2008 SP1 の一部として2008にリリースされました。
 
-EF 4.1 リリース以降、 [Entityframework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/)として出荷されました。現在、NuGet.org で最も人気のあるパッケージの1つです。
+EF 4.1 リリース以降、 [Entityframework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/) として出荷されました。現在、NuGet.org で最も人気のあるパッケージの1つです。
 
 バージョン4.1 と5.0 の間で、EntityFramework NuGet パッケージは .NET Framework の一部として出荷された EF ライブラリを拡張しています。
 
@@ -69,13 +70,13 @@ EF ef6.1.3 runtime は2015年10月に NuGet にリリースされました。
 ## <a name="ef-612"></a>EF 6.1.2
 EF 6.1.2 runtime は、2014年12月に NuGet にリリースされました。
 このバージョンは、ほとんどがバグの修正に関するものです。 また、コミュニティのメンバーから、いくつかの注目すべき変更が認められています。
-- **クエリキャッシュパラメーターは、アプリ/web 構成ファイルから構成できます。**
+- **クエリキャッシュパラメーターは、app/web.configuration ファイルから構成できます。**
     ``` xml
     <entityFramework>
       <queryCache size='1000' cleaningIntervalInSeconds='-1'/>
     </entityFramework>
     ```
-- **DbMigration の Sqlfile メソッドと Sqlfile メソッド**を使用すると、ファイルまたは埋め込みリソースとして格納されている SQL スクリプトを実行できます。
+- **DbMigration の Sqlfile メソッドと Sqlfile メソッド** を使用すると、ファイルまたは埋め込みリソースとして格納されている SQL スクリプトを実行できます。
 
 ## <a name="ef-611"></a>EF 6.1.1
 EF 6.1.1 runtime は、2014年6月に NuGet にリリースされました。
@@ -87,13 +88,13 @@ EF 6.1.1 runtime は、2014年6月に NuGet にリリースされました。
 EF 6.1.0 runtime は2014年3月に NuGet にリリースされました。
 このマイナー更新には、多くの新機能が含まれています。
 
-- **ツールの統合**により、新しい EF モデルを一貫した方法で作成できます。 この機能[は、ADO.NET Entity Data Model ウィザードを拡張して](~/ef6/modeling/code-first/workflows/existing-database.md)、既存のデータベースからのリバースエンジニアリングを含む Code First モデルの作成をサポートします。 これらの機能は、以前は EF パワーツールのベータ品質で使用できました。
-- **[トランザクションのコミットエラーの処理](~/ef6/fundamentals/connection-resiliency/commit-failures.md)** では、トランザクション操作をインターセプトする新しく導入された機能を使用する CommitFailureHandler が提供されます。 CommitFailureHandler を使用すると、トランザクションのコミット中に、接続エラーからの自動復旧を行うことができます。
-- **[Indexattribute](~/ef6/modeling/code-first/data-annotations.md)** を使用すると、Code First モデルのプロパティ (またはプロパティ) に `[Index]` 属性を配置することで、インデックスを指定できます。 Code First によって、データベースに対応するインデックスが作成されます。
-- **パブリックマッピング API は**、プロパティおよび型をデータベース内の列およびテーブルにマップする方法について、EF が使用する情報にアクセスできるようにします。 過去のリリースでは、この API は内部的でした。
-- **[アプリ/web.config ファイルを使用してインターセプターを構成する機能](~/ef6/fundamentals/configuring/config-file.md)** を使用すると、アプリケーションを再コンパイルしなくてもインターセプターを追加できます。
-- System.string は、すべてのデータベース操作をファイルに簡単に記録できるようにする新しいインターセプターとなって**います。** 以前の機能と組み合わせて使用すると、配置された[アプリケーションのデータベース操作のログ記録](~/ef6/fundamentals/configuring/config-file.md)を簡単に切り替えることができ、再コンパイルする必要はありません。
-- **移行モデル変更の検出**が改善され、スキャフォールディングの移行がより正確になりました。また、変更検出プロセスのパフォーマンスも向上しています。
+- **ツールの統合** により、新しい EF モデルを一貫した方法で作成できます。 この機能 [は、ADO.NET Entity Data Model ウィザードを拡張して](xref:ef6/modeling/code-first/workflows/existing-database)、既存のデータベースからのリバースエンジニアリングを含む Code First モデルの作成をサポートします。 これらの機能は、以前は EF パワーツールのベータ品質で使用できました。
+- **[トランザクションのコミットエラーの処理](xref:ef6/fundamentals/connection-resiliency/commit-failures)** では、トランザクション操作をインターセプトする新しく導入された機能を使用する CommitFailureHandler が提供されます。 CommitFailureHandler を使用すると、トランザクションのコミット中に、接続エラーからの自動復旧を行うことができます。
+- **[Indexattribute](xref:ef6/modeling/code-first/data-annotations)** を使用すると `[Index]` 、Code First モデルのプロパティ (またはプロパティ) に属性を配置することで、インデックスを指定できます。 Code First によって、データベースに対応するインデックスが作成されます。
+- **パブリックマッピング API は** 、プロパティおよび型をデータベース内の列およびテーブルにマップする方法について、EF が使用する情報にアクセスできるようにします。 過去のリリースでは、この API は内部的でした。
+- **[アプリ/Web.config ファイルを使用してインターセプターを構成する機能](xref:ef6/fundamentals/configuring/config-file)** により、アプリケーションを再コンパイルしなくてもインターセプターを追加できます。
+- System.string は、すべてのデータベース操作をファイルに簡単に記録できるようにする新しいインターセプターとなって**います。** 以前の機能と組み合わせて使用すると、配置された [アプリケーションのデータベース操作のログ記録](xref:ef6/fundamentals/configuring/config-file)を簡単に切り替えることができ、再コンパイルする必要はありません。
+- **移行モデル変更の検出** が改善され、スキャフォールディングの移行がより正確になりました。また、変更検出プロセスのパフォーマンスも向上しています。
 - 初期化中のデータベース操作の削減、LINQ クエリでの null 等値比較の最適化、より多くのシナリオでのより高速なビュー生成 (モデルの作成)、複数のアソシエーションを持つ追跡対象エンティティのより効率的な具体化など、**パフォーマンスの向上**。
 
 ## <a name="ef-602"></a>EF 6.0.2
@@ -108,39 +109,39 @@ EF 6.0.1 ランタイムは、2013年10月に、EF 6.0.0 と同時に NuGet に�
 
 ## <a name="ef-60"></a>EF 6.0
 EF 6.0.0 runtime は2013年10月に NuGet にリリースされました。
-これは、完全な EF ランタイムが[Entityframework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/)に含まれている最初のバージョンです。これは、.NET Framework の一部である ef ビットに依存しません。
+これは、完全な EF ランタイムが [Entityframework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/) に含まれている最初のバージョンです。これは、.NET Framework の一部である ef ビットに依存しません。
 ランタイムの残りの部分を NuGet パッケージに移動するには、既存のコードに多くの重大な変更を加える必要があります。
-アップグレードに必要な手動手順の詳細については、 [Entity Framework 6 へのアップグレード](upgrading-to-ef6.md)に関するセクションを参照してください。
+アップグレードに必要な手動手順の詳細については、 [Entity Framework 6 へのアップグレード](xref:ef6/what-is-new/upgrading-to-ef6) に関するセクションを参照してください。
 
 このリリースには、多くの新機能が含まれています。
 Code First または EF デザイナーで作成されたモデルでは、次の機能が使用できます。
 
-- **[非同期クエリと保存](~/ef6/fundamentals/async.md)** では、.net 4.5 で導入されたタスクベースの非同期パターンのサポートが追加されます。
-- **[接続の回復性](~/ef6/fundamentals/connection-resiliency/retry-logic.md)** を使用すると、一時的な接続エラーからの自動復旧が可能になります。
-- **[コードベースの構成](~/ef6/fundamentals/configuring/code-based.md)** では、構成を実行するオプションが用意されています。これは、従来は構成ファイルで実行されていたコードです。
-- **[依存関係の解決](~/ef6/fundamentals/configuring/dependency-resolution.md)** では、サービスロケーターパターンのサポートが導入されており、カスタム実装に置き換えることができるいくつかの機能を考慮しています。
-- **[インターセプトと sql のログ記録](~/ef6/fundamentals/logging-and-interception.md)** は、上位に構築された単純な SQL ログを使用して、EF 操作を傍受するための低レベルの構成ブロックを提供します。
-- テストの容易性の**向上**により、[モックフレームワークを使用](~/ef6/fundamentals/testing/mocking.md)する場合や[独自のテスト double](~/ef6/fundamentals/testing/writing-test-doubles.md)を作成する場合に、dbcontext および dbcontext のテスト代替を簡単に作成できるようになりました。
-- **[既に開かれている DbConnection を使用して Dbcontext を作成できるようになりまし](~/ef6/fundamentals/connection-management.md)** た。これにより、コンテキストの作成時に接続を開くことができた場合 (接続の状態を保証できないコンポーネント間の接続の共有など) に役立つシナリオが有効になります。
-- **[トランザクションサポートの強化](~/ef6/saving/transactions.md)** により、フレームワークの外部にあるトランザクションのサポートに加え、フレームワーク内でトランザクションを作成するための向上した方法が提供されます。
-- **.Net 4.0 での列挙型、空間、およびパフォーマンスの向上**-.NET Framework に含まれていたコアコンポーネントを EF NuGet パッケージに移動することで、enum サポート、空間データ型、.net 4.0 での EF5 のパフォーマンス向上を実現できるようになりました。
+- **[非同期クエリと保存](xref:ef6/fundamentals/async)** では、.net 4.5 で導入されたタスクベースの非同期パターンのサポートが追加されます。
+- **[接続の回復性](xref:ef6/fundamentals/connection-resiliency/retry-logic)** を使用すると、一時的な接続エラーからの自動復旧が可能になります。
+- **[コードベースの構成](xref:ef6/fundamentals/configuring/code-based)** では、構成を実行するオプションが用意されています。これは、従来は構成ファイルで実行されていたコードです。
+- **[依存関係の解決](xref:ef6/fundamentals/configuring/dependency-resolution)** では、サービスロケーターパターンのサポートが導入されており、カスタム実装に置き換えることができるいくつかの機能を考慮しています。
+- **[インターセプトと sql のログ記録](xref:ef6/fundamentals/logging-and-interception)** は、上位に構築された単純な SQL ログを使用して、EF 操作を傍受するための低レベルの構成ブロックを提供します。
+- テストの容易性の**向上**により、[モックフレームワークを使用](xref:ef6/fundamentals/testing/mocking)する場合や[独自のテスト double](xref:ef6/fundamentals/testing/writing-test-doubles)を作成する場合に、dbcontext および dbcontext のテスト代替を簡単に作成できるようになりました。
+- **[既に開かれている DbConnection を使用して Dbcontext を作成できるようになりまし](xref:ef6/fundamentals/connection-management)** た。これにより、コンテキストの作成時に接続を開くことができた場合 (接続の状態を保証できないコンポーネント間の接続の共有など) に役立つシナリオが有効になります。
+- **[トランザクションサポートの強化](xref:ef6/saving/transactions)** により、フレームワークの外部にあるトランザクションのサポートに加え、フレームワーク内でトランザクションを作成するための向上した方法が提供されます。
+- **.Net 4.0 での列挙型、空間、およびパフォーマンスの向上** -.NET Framework に含まれていたコアコンポーネントを EF NuGet パッケージに移動することで、enum サポート、空間データ型、.net 4.0 での EF5 のパフォーマンス向上を実現できるようになりました。
 - **列挙型のパフォーマンスが向上しました。 LINQ クエリでが含まれています。**
-- 特に大規模なモデルでの**ウォームアップ時間の向上 (ビュー生成)** 。
+- 特に大規模なモデルでの**ウォームアップ時間の向上 (ビュー生成)**。
 - **プラグ可能な複数形化 &amp; 単数サービス**。
 - エンティティクラスの**Equals または GetHashCode のカスタム実装**がサポートされるようになりました。
-- **Dbset. AddRange/removerange**よって、セットから複数のエンティティを追加または削除するための最適化された方法が提供されます。
-- **Dbchangetracker. HasChanges**を使用すると、データベースに保存されている保留中の変更があるかどうかを簡単かつ効率的に確認できます。
-- **SqlCeFunctions**は、sqlfunctions に相当する SQL Compact を提供します。
+- **Dbset. AddRange/removerange** よって、セットから複数のエンティティを追加または削除するための最適化された方法が提供されます。
+- **Dbchangetracker. HasChanges** を使用すると、データベースに保存されている保留中の変更があるかどうかを簡単かつ効率的に確認できます。
+- **SqlCeFunctions** は、sqlfunctions に相当する SQL Compact を提供します。
 
 次の機能は Code First にのみ適用されます。
 
-- **[カスタム Code First 規則](~/ef6/modeling/code-first/conventions/custom.md)** を使用すると、繰り返し構成を避けるために独自の規則を記述できます。 簡易規則用の単純な API と、より複雑な規則を作成できるようにする複雑な構成要素が用意されています。
-- **[ストアドプロシージャの挿入/更新/削除への Code First のマッピング](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md)** がサポートされるようになりました。
-- **[べき等移行スクリプト](~/ef6/modeling/code-first/migrations/index.md)** を使用すると、最新バージョンまでの任意のバージョンのデータベースをアップグレードできる SQL スクリプトを生成できます。
-- **[構成可能な移行履歴テーブル](~/ef6/modeling/code-first/migrations/history-customization.md)** を使用すると、移行履歴テーブルの定義をカスタマイズできます。 これは、適切なデータ型を必要とするデータベースプロバイダーや、移行履歴テーブルが正常に機能するように指定するために特に便利です。
+- **[カスタム Code First 規則](xref:ef6/modeling/code-first/conventions/custom)** を使用すると、繰り返し構成を避けるために独自の規則を記述できます。 簡易規則用の単純な API と、より複雑な規則を作成できるようにする複雑な構成要素が用意されています。
+- **[ストアドプロシージャの挿入/更新/削除への Code First のマッピング](xref:ef6/modeling/code-first/fluent/cud-stored-procedures)** がサポートされるようになりました。
+- **[べき等移行スクリプト](xref:ef6/modeling/code-first/migrations/index)** を使用すると、最新バージョンまでの任意のバージョンのデータベースをアップグレードできる SQL スクリプトを生成できます。
+- **[構成可能な移行履歴テーブル](xref:ef6/modeling/code-first/migrations/history-customization)** を使用すると、移行履歴テーブルの定義をカスタマイズできます。 これは、適切なデータ型を必要とするデータベースプロバイダーや、移行履歴テーブルが正常に機能するように指定するために特に便利です。
 - 1つのデータベースに**複数のコンテキスト**がある場合、移行を使用する場合、またはデータベースを自動的に作成 Code First 場合に、データベースごとに1つの Code First モデルの以前の制限が削除されます。
-- **[Dbmodelbuilder. HasDefaultSchema](~/ef6/modeling/code-first/fluent/types-and-properties.md)** は、Code First モデルの既定のデータベーススキーマを1か所で構成できる新しい Code First API です。 以前は、Code First の既定のスキーマは &quot;dbo&quot; にハードコーディングされており、テーブルが属していたスキーマを構成する唯一の方法は ToTable API を使用していました。
-- **AddFromAssembly メソッド**を使用すると、CODE FIRST Fluent API で構成クラスを使用している場合に、アセンブリで定義されているすべての構成クラスを簡単に追加できます。
+- **[Dbmodelbuilder. HasDefaultSchema](xref:ef6/modeling/code-first/fluent/types-and-properties)** は、Code First モデルの既定のデータベーススキーマを1か所で構成できる新しい Code First API です。 以前は、Code First の既定のスキーマは dbo にハードコーディングされ &quot; &quot; ており、テーブルが属しているスキーマを構成する唯一の方法は ToTable API を使用していました。
+- **DbModelBuilder.Configurations います。AddFromAssembly メソッド** を使用すると、Code First FLUENT API で構成クラスを使用している場合に、アセンブリで定義されているすべての構成クラスを簡単に追加できます。
 - **[カスタム移行操作](https://romiller.com/2013/02/27/ef6-writing-your-own-code-first-migration-operations/)** を使用すると、コードベースの移行で使用する操作を追加できます。
 - Code First を使用して作成されたデータベースで**は、既定のトランザクション分離レベルが READ_COMMITTED_SNAPSHOT に変更**されます。これにより、スケーラビリティが向上し、デッドロックが減少します。
 - **エンティティ型と複合型を nestedinside クラスにすることができるようになりました**。
@@ -155,64 +156,64 @@ EF 5 リリース専用にまとめられたコンテンツの一覧を次に示
 
 -   [EF 5 リリース投稿](https://blogs.msdn.com/b/adonet/archive/2012/08/15/ef5-released.aspx)
 -   EF5 の新機能
-    -   [Code First での列挙のサポート](~/ef6/modeling/code-first/data-types/enums.md)
-    -   [EF デザイナーでの列挙のサポート](~/ef6/modeling/designer/data-types/enums.md)
-    -   [Code First の空間データ型](~/ef6/modeling/code-first/data-types/spatial.md)
-    -   [EF デザイナーの空間データ型](~/ef6/modeling/designer/data-types/spatial.md)
-    -   [空間型のプロバイダーサポート](~/ef6/fundamentals/providers/spatial-support.md)
-    -   [テーブル値関数](~/ef6/modeling/designer/advanced/tvfs.md)
-    -   [モデルごとに複数のダイアグラム](~/ef6/modeling/designer/multiple-diagrams.md)
+    -   [Code First での列挙のサポート](xref:ef6/modeling/code-first/data-types/enums)
+    -   [EF デザイナーでの列挙のサポート](xref:ef6/modeling/designer/data-types/enums)
+    -   [Code First の空間データ型](xref:ef6/modeling/code-first/data-types/spatial)
+    -   [EF デザイナーの空間データ型](xref:ef6/modeling/designer/data-types/spatial)
+    -   [空間型のプロバイダーサポート](xref:ef6/fundamentals/providers/spatial-support)
+    -   [テーブル値関数](xref:ef6/modeling/designer/advanced/tvfs)
+    -   [モデルごとに複数のダイアグラム](xref:ef6/modeling/designer/multiple-diagrams)
 -   モデルの設定
-    -   [モデルの作成](~/ef6/modeling/index.md)
-    -   [接続とモデル](~/ef6/fundamentals/configuring/connection-strings.md)
-    -   [パフォーマンスに関する考慮事項](~/ef6/fundamentals/performance/perf-whitepaper.md)
-    -   [Microsoft SQL Azure の使用](~/ef6/fundamentals/connection-resiliency/retry-logic.md)
-    -   [構成ファイルの設定](~/ef6/fundamentals/configuring/config-file.md)
-    -   [用語集](~/ef6/resources/glossary.md)
+    -   [モデルの作成](xref:ef6/modeling/index)
+    -   [接続とモデル](xref:ef6/fundamentals/configuring/connection-strings)
+    -   [パフォーマンスに関する考慮事項](xref:ef6/fundamentals/performance/perf-whitepaper)
+    -   [Microsoft SQL Azure の使用](xref:ef6/fundamentals/connection-resiliency/retry-logic)
+    -   [構成ファイルの設定](xref:ef6/fundamentals/configuring/config-file)
+    -   [用語集](xref:ef6/resources/glossary)
     -   Code First
-        -   [新しいデータベースへの Code First (チュートリアルとビデオ)](~/ef6/modeling/code-first/workflows/new-database.md)
-        -   [既存のデータベースへの Code First (チュートリアルとビデオ)](~/ef6/modeling/code-first/workflows/existing-database.md)
-        -   [規則](~/ef6/modeling/code-first/conventions/built-in.md)
-        -   [データの注釈](~/ef6/modeling/code-first/data-annotations.md)
-        -   [Fluent API-型 & プロパティの構成/マッピング](~/ef6/modeling/code-first/fluent/types-and-properties.md)
-        -   [Fluent API-リレーションシップの構成](~/ef6/modeling/code-first/fluent/relationships.md)
-        -   [VB.NET を使用した Fluent API](~/ef6/modeling/code-first/fluent/vb.md)
-        -   [Code First Migrations](~/ef6/modeling/code-first/migrations/index.md)
-        -   [自動 Code First Migrations](~/ef6/modeling/code-first/migrations/automatic.md)
-        -   [移行 .exe](~/ef6/modeling/code-first/migrations/migrate-exe.md)
-        -   [定義 (DbSets を)](~/ef6/modeling/code-first/dbsets.md)
+        -   [新しいデータベースへの Code First (チュートリアルとビデオ)](xref:ef6/modeling/code-first/workflows/new-database)
+        -   [既存のデータベースへの Code First (チュートリアルとビデオ)](xref:ef6/modeling/code-first/workflows/existing-database)
+        -   [規約](xref:ef6/modeling/code-first/conventions/built-in)
+        -   [データの注釈](xref:ef6/modeling/code-first/data-annotations)
+        -   [Fluent API-型 & プロパティの構成/マッピング](xref:ef6/modeling/code-first/fluent/types-and-properties)
+        -   [Fluent API-リレーションシップの構成](xref:ef6/modeling/code-first/fluent/relationships)
+        -   [VB.NET を使用した Fluent API](xref:ef6/modeling/code-first/fluent/vb)
+        -   [Code First Migrations](xref:ef6/modeling/code-first/migrations/index)
+        -   [自動 Code First Migrations](xref:ef6/modeling/code-first/migrations/automatic)
+        -   [Migrate.exe](xref:ef6/modeling/code-first/migrations/migrate-exe)
+        -   [定義 (DbSets を)](xref:ef6/modeling/code-first/dbsets)
     -   EF デザイナー
-        -   [Model First (チュートリアルとビデオ)](~/ef6/modeling/designer/workflows/model-first.md)
-        -   [Database First (チュートリアルとビデオ)](~/ef6/modeling/designer/workflows/database-first.md)
-        -   [複合型](~/ef6/modeling/designer/data-types/complex-types.md)
-        -   [アソシエーション/リレーションシップ](~/ef6/modeling/designer/relationships.md)
-        -   [TPT 継承パターン](~/ef6/modeling/designer/inheritance/tpt.md)
-        -   [TPH 継承パターン](~/ef6/modeling/designer/inheritance/tph.md)
-        -   [ストアドプロシージャを使用したクエリ](~/ef6/modeling/designer/stored-procedures/query.md)
-        -   [複数の結果セットを持つストアドプロシージャ](~/ef6/modeling/designer/advanced/multiple-result-sets.md)
-        -   [ストアドプロシージャを使用した Insert、Update & Delete](~/ef6/modeling/designer/stored-procedures/cud.md)
-        -   [複数のテーブルへのエンティティのマップ (エンティティ分割)](~/ef6/modeling/designer/entity-splitting.md)
-        -   [複数のエンティティを1つのテーブルにマップする (テーブル分割)](~/ef6/modeling/designer/table-splitting.md)
-        -   [クエリの定義](~/ef6/modeling/designer/advanced/defining-query.md)
-        -   [コード生成テンプレート](~/ef6/modeling/designer/codegen/index.md)
-        -   [ObjectContext に戻す](~/ef6/modeling/designer/codegen/legacy-objectcontext.md)
+        -   [Model First (チュートリアルとビデオ)](xref:ef6/modeling/designer/workflows/model-first)
+        -   [Database First (チュートリアルとビデオ)](xref:ef6/modeling/designer/workflows/database-first)
+        -   [複合型](xref:ef6/modeling/designer/data-types/complex-types)
+        -   [アソシエーション/リレーションシップ](xref:ef6/modeling/designer/relationships)
+        -   [TPT 継承パターン](xref:ef6/modeling/designer/inheritance/tpt)
+        -   [TPH 継承パターン](xref:ef6/modeling/designer/inheritance/tph)
+        -   [ストアドプロシージャを使用したクエリ](xref:ef6/modeling/designer/stored-procedures/query)
+        -   [複数の結果セットを持つストアドプロシージャ](xref:ef6/modeling/designer/advanced/multiple-result-sets)
+        -   [ストアドプロシージャを使用した Insert、Update & Delete](xref:ef6/modeling/designer/stored-procedures/cud)
+        -   [複数のテーブルへのエンティティのマップ (エンティティ分割)](xref:ef6/modeling/designer/entity-splitting)
+        -   [複数のエンティティを1つのテーブルにマップする (テーブル分割)](xref:ef6/modeling/designer/table-splitting)
+        -   [クエリの定義](xref:ef6/modeling/designer/advanced/defining-query)
+        -   [コード生成テンプレート](xref:ef6/modeling/designer/codegen/index)
+        -   [ObjectContext に戻す](xref:ef6/modeling/designer/codegen/legacy-objectcontext)
 -   モデルの使用
-    -   [DbContext の操作](~/ef6/fundamentals/working-with-dbcontext.md)
-    -   [エンティティの照会/検索](~/ef6/querying/index.md)
-    -   [リレーションシップの操作](~/ef6/fundamentals/relationships.md)
-    -   [関連エンティティを読み込んでいます](~/ef6/querying/related-data.md)
-    -   [ローカルデータの操作](~/ef6/querying/local-data.md)
-    -   [N 層アプリケーション](~/ef6/fundamentals/disconnected-entities/index.md)
-    -   [生 SQL クエリ](~/ef6/querying/raw-sql.md)
-    -   [オプティミスティック同時実行制御パターン](~/ef6/saving/concurrency.md)
-    -   [プロキシの使用](~/ef6/fundamentals/proxies.md)
-    -   [自動検出の変更](~/ef6/saving/change-tracking/auto-detect-changes.md)
-    -   [追跡なしのクエリ](~/ef6/querying/no-tracking.md)
-    -   [Load メソッド](~/ef6/querying/load-method.md)
-    -   [追加/アタッチとエンティティの状態](~/ef6/saving/change-tracking/entity-state.md)
-    -   [プロパティ値の操作](~/ef6/saving/change-tracking/property-values.md)
-    -   [WPF を使用したデータバインディング (Windows Presentation Foundation)](~/ef6/fundamentals/databinding/wpf.md)
-    -   [WinForms を使用したデータバインディング (Windows フォーム)](~/ef6/fundamentals/databinding/winforms.md)
+    -   [DbContext の操作](xref:ef6/fundamentals/working-with-dbcontext)
+    -   [エンティティの照会/検索](xref:ef6/querying/index)
+    -   [リレーションシップの使用](xref:ef6/fundamentals/relationships)
+    -   [関連エンティティを読み込んでいます](xref:ef6/querying/related-data)
+    -   [ローカルデータの操作](xref:ef6/querying/local-data)
+    -   [N 層アプリケーション](xref:ef6/fundamentals/disconnected-entities/index)
+    -   [生の SQL クエリ](xref:ef6/querying/raw-sql)
+    -   [オプティミスティック同時実行制御パターン](xref:ef6/saving/concurrency)
+    -   [プロキシの使用](xref:ef6/fundamentals/proxies)
+    -   [自動検出の変更](xref:ef6/saving/change-tracking/auto-detect-changes)
+    -   [追跡なしのクエリ](xref:ef6/querying/no-tracking)
+    -   [Load メソッド](xref:ef6/querying/load-method)
+    -   [追加/アタッチとエンティティの状態](xref:ef6/saving/change-tracking/entity-state)
+    -   [プロパティ値の操作](xref:ef6/saving/change-tracking/property-values)
+    -   [WPF を使用したデータバインディング (Windows Presentation Foundation)](xref:ef6/fundamentals/databinding/wpf)
+    -   [WinForms を使用したデータバインディング (Windows フォーム)](xref:ef6/fundamentals/databinding/winforms)
 
 ## <a name="ef-431"></a>EF 4.3.1
 Ef 4.3.1 ランタイムは、EF 4.3.0 の後すぐに2012年2月に NuGet にリリースされました。
@@ -234,7 +235,7 @@ Ef 4.3 リリース専用にまとめたコンテンツの一覧を次に示し�
 ## <a name="ef-42"></a>EF 4.2
 EF 4.2.0 ランタイムは、2011年11月に NuGet にリリースされました。
 このリリースには、EF 4.1.1 リリースのバグ修正が含まれています。
-このリリースにはバグ修正が含まれているだけなので、EF 4.1.2 patch リリースになっている可能性がありますが、4.2 に移行することにしました。これにより、4.1 リリースで使用していた日付ベースのパッチバージョン番号から移動し、セマンティックバージョン管理[のセマンティックバージョン](https://semver.org)を採用します。
+このリリースにはバグ修正が含まれているだけなので、EF 4.1.2 patch リリースになっている可能性がありますが、4.2 に移行することにしました。これにより、4.1 リリースで使用していた日付ベースのパッチバージョン番号から移動し、セマンティックバージョン管理 [のセマンティックバージョン](https://semver.org) を採用します。
 
 Ef 4.2 リリース専用にまとめたコンテンツの一覧を次に示します。 ef 4.1 用に提供されているコンテンツは、ef 4.2 にも引き続き適用されます。
 
@@ -262,7 +263,7 @@ EF 4.1.10331 runtime は、2011年4月に NuGet で公開される最初のラ�
 予期しないバージョン番号4.1.10331 が表示されます。これは、実際には4.1 である必要があります。 さらに、4.1.10311 のバージョンがあります。これは、4.1.0-rc である必要があります (' rc ' は ' リリース候補 ' を表します)。
 [セマンティックバージョン管理](https://semver.org)を採用する前に、日付ベースのパッチバージョンを使用することにしました。
 
-4\.1 リリース用にまとめたコンテンツの一覧を次に示します。 その多くは、Entity Framework の今後のリリースにも適用されます。
+4.1 リリース用にまとめたコンテンツの一覧を次に示します。 その多くは、Entity Framework の今後のリリースにも適用されます。
 
 -   [EF 4.1 リリースの投稿](https://blogs.msdn.com/b/adonet/archive/2011/04/11/ef-4-1-released.aspx)
 -   [Code First チュートリアル](https://blogs.msdn.com/b/adonet/archive/2011/03/15/ef-4-1-code-first-walkthrough.aspx)
@@ -278,7 +279,7 @@ Entity Framework の2番目のリリースでしたが、それに付属して�
 
 それ以降のバージョンの .NET Framework には、含まれている EF ビットに対する重要な更新プログラムが付属しています。
 実際、EF 5.0 の新機能の多くは、これらのビットの機能強化として実装されています。
-ただし、EF のバージョン管理のストーリーを合理化するために、ef 4.0 ランタイムとして .NET Framework の一部である EF ビットを引き続き参照しますが、新しいバージョンはすべて[Entityframework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/)で構成されています。
+ただし、EF のバージョン管理のストーリーを合理化するために、ef 4.0 ランタイムとして .NET Framework の一部である EF ビットを引き続き参照しますが、新しいバージョンはすべて [Entityframework NuGet パッケージ](https://www.nuget.org/packages/EntityFramework/)で構成されています。
 
 ## <a name="ef-35"></a>EF 3.5
 Entity Framework の初期バージョンは、3.5 2008 年8月にリリースされた .NET Service Pack 1 および Visual Studio 2008 SP1 に含まれていました。

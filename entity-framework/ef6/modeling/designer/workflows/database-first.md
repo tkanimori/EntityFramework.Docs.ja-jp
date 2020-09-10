@@ -1,14 +1,16 @@
 ---
 title: Database First-EF6
+description: Entity Framework 6 の Database First
 author: divega
 ms.date: 10/23/2016
 ms.assetid: cc6ffdb3-388d-4e79-a201-01ec2577c949
-ms.openlocfilehash: d40cff4ddccf43a394ef4f244653372a5a89b05a
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/designer/workflows/database-first
+ms.openlocfilehash: 095fc6d6882df306816e65995ff314f1a0e7178a
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415173"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620447"
 ---
 # <a name="database-first"></a>Database First
 このビデオとステップバイステップのチュートリアルでは、Entity Framework を使用した Database First 開発の概要について説明します。 Database First を使用すると、既存のデータベースからモデルをリバースエンジニアリングできます。 モデルは EDMX ファイル (.edmx 拡張子) に格納されており、Entity Framework Designer で表示および編集できます。 アプリケーションで対話するクラスは、EDMX ファイルから自動的に生成されます。
@@ -18,13 +20,13 @@ ms.locfileid: "78415173"
 
 **提供**: [Rowan Miller](https://romiller.com/)
 
-**ビデオ**: [wmv](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv) | [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v) | [wmv (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
+**ビデオ**: [WMV](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.wmv)  |  [MP4](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-mp4video-databasefirst.m4v)  |  [WMV (ZIP)](https://download.microsoft.com/download/8/F/0/8F0B5F63-4939-4DC8-A726-FF139B37F8D8/HDI-ITPro-MSDN-winvideo-databasefirst.zip)
 
 ## <a name="pre-requisites"></a>前提条件
 
 このチュートリアルを完了するには、少なくとも Visual Studio 2010 または Visual Studio 2012 がインストールされている必要があります。
 
-Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)もインストールする必要があります。
+Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) もインストールする必要があります。
 
  
 
@@ -35,18 +37,18 @@ Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudi
 Visual Studio と共にインストールされるデータベースサーバーは、インストールされている Visual Studio のバージョンによって異なります。
 
 -   Visual Studio 2010 を使用している場合は、SQL Express データベースを作成します。
--   Visual Studio 2012 を使用している場合は、 [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx)データベースを作成します。
+-   Visual Studio 2012 を使用している場合は、 [LocalDB](https://msdn.microsoft.com/library/hh510202(v=sql.110).aspx) データベースを作成します。
 
  
 
 では、データベースを生成してみましょう。
 
--   Visual Studio を開きます
--   **ビュー&gt; サーバーエクスプローラー**
--   **[データ接続]** を右クリックし&gt; [接続の追加] をクリックします。
+-   Visual Studio を開く
+-   **ビュー- &gt; サーバーエクスプローラー**
+-   [**データ接続-接続の &gt; 追加**] を右クリックします。
 -   サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして Microsoft SQL Server を選択する必要があります。
 
-    ![データ ソースの選択](~/ef6/media/selectdatasource.png)
+    ![データ ソースを選択する](~/ef6/media/selectdatasource.png)
 
 -   インストールされているものに応じて LocalDB または SQL Express に接続し、データベース名として「Databasefirst」と入力し**ます。**
 
@@ -54,12 +56,12 @@ Visual Studio と共にインストールされるデータベースサーバー
 
     ![LocalDB 接続 DF](~/ef6/media/localdbconnectiondf.png)
 
--   [ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 **[はい]** を選択します。
+-   [ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 [**はい**] を選択します。
 
     ![データベースの作成ダイアログ](~/ef6/media/createdatabasedialog.png)
 
--   新しいデータベースがサーバーエクスプローラーに表示され、右クリックして **[新しいクエリ]** を選択します。
--   次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[実行]** を選択します。
+-   新しいデータベースがサーバーエクスプローラーに表示され、右クリックして [**新しいクエリ**] を選択します。
+-   次の SQL を新しいクエリにコピーし、クエリを右クリックして、[**実行**] を選択します。
 
 ``` SQL
 CREATE TABLE [dbo].[Blogs] (
@@ -83,9 +85,9 @@ CREATE TABLE [dbo].[Posts] (
 
 単純にするために、Database First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。
 
--   Visual Studio を開きます
--   **ファイル&gt; 新規&gt; プロジェクト...**
--   左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。
+-   Visual Studio を開く
+-   **ファイル- &gt; 新規 &gt; プロジェクト...**
+-   左側のメニューと**コンソールアプリケーション**から [ **Windows** ] を選択します。
 -   名前として「 **Databasefirstsample** 」と入力します。
 -   **[OK]** を選択します。
 
@@ -95,15 +97,15 @@ CREATE TABLE [dbo].[Posts] (
 
 ここでは、Visual Studio の一部として含まれている Entity Framework Designer を使用して、モデルを作成します。
 
--   **プロジェクト-新しい項目の追加&gt;...**
--   左側のメニューから **データ** を選択し、ADO.NET をクリックし**Entity Data Model**
+-   **プロジェクト- &gt; 新しい項目の追加...**
+-   左側のメニューから [ **データ** ] を選択し、[ADO.NET] をクリックし **Entity Data Model**
 -   名前として「 **Bのログインモデル**」と入力し、[ **OK]** をクリックします。
 -   **Entity Data Model ウィザード**が起動します。
--   **[データベースから生成]** を選択し、 **[次へ]** をクリックします。
+-   [**データベースから生成**] を選択し、[**次へ**] をクリックします。
 
     ![ウィザードの手順 1.](~/ef6/media/wizardstep1.png)
 
--   最初のセクションで作成したデータベースへの接続を選択し、接続文字列の名前として「 **Bのログインコンテキスト**」と入力して、 **[次へ]** をクリックします。
+-   最初のセクションで作成したデータベースへの接続を選択し、接続文字列の名前として「 **Bのログインコンテキスト**」と入力して、[**次へ**] をクリックします。
 
     ![ウィザードの手順 2.](~/ef6/media/wizardstep2.png)
 
@@ -113,7 +115,7 @@ CREATE TABLE [dbo].[Posts] (
 
  
 
-リバースエンジニアリングプロセスが完了すると、新しいモデルがプロジェクトに追加され、Entity Framework Designer で表示できるように開かれます。 App.config ファイルも、データベースの接続の詳細と共にプロジェクトに追加されています。
+リバースエンジニアリングプロセスが完了すると、新しいモデルがプロジェクトに追加され、Entity Framework Designer で表示できるように開かれます。 データベースの接続の詳細を含む App.config ファイルもプロジェクトに追加されています。
 
 ![モデルの初期](~/ef6/media/modelinitial.png)
 
@@ -123,17 +125,17 @@ Visual Studio 2010 で作業している場合、Entity Framework の最新バ�
 
 まず、NuGet から最新バージョンの Entity Framework を取得する必要があります。
 
--   **プロジェクト–&gt; NuGet パッケージの管理...** 
-     ***[nuget パッケージの管理...]** オプションがない場合は、[最新バージョンの nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があり*ます。
--   **[オンライン]** タブを選択します。
+-   **プロジェクト– &gt;NuGet パッケージの管理...** 
+     *[ **Nuget パッケージの管理...** ] オプションがない場合は、[最新バージョンの nuget](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があり*ます。
+-   [ **オンライン** ] タブを選択します。
 -   **Entityframework**パッケージを選択します
--   **[インストール]** をクリックします。
+-   **[Install]** (インストール) をクリックします。
 
 次に、モデルをスワップして、新しいバージョンの Entity Framework で導入された DbContext API を使用するコードを生成する必要があります。
 
--   EF デザイナーでモデルの空の場所を右クリックし、 **[コード生成項目の追加...]** を選択します。
--   左側のメニューから **[オンラインテンプレート]** を選択し、 **dbcontext**を検索します。
--   **C\#の EF 5.X DbContext ジェネレーター**を選択し、名前として「 **bを**使用したモデル」と入力して **[追加]** をクリックします。
+-   EF デザイナーでモデルの空の場所を右クリックし、[**コード生成項目の追加...** ] を選択します。
+-   左側のメニューから [**オンラインテンプレート**] を選択し、 **dbcontext**を検索します。
+-   **C \# の EF 5.X Dbcontext ジェネレーター**を選択し、名前として「 **bの出力モデル**」と入力して、[**追加**] をクリックします。
 
     ![DbContext テンプレート](~/ef6/media/dbcontexttemplate.png)
 
@@ -200,8 +202,8 @@ Press any key to exit...
 
 最初の手順では、データベーススキーマにいくつかの変更を行います。 ここでは、ユーザーテーブルをスキーマに追加します。
 
--   サーバーエクスプローラーで**Databasefirst. ブログ**データベースを右クリックし、 **[新しいクエリ]** を選択します。
--   次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[実行]** を選択します。
+-   サーバーエクスプローラーで**Databasefirst. ブログ**データベースを右クリックし、[**新しいクエリ**] を選択します。
+-   次の SQL を新しいクエリにコピーし、クエリを右クリックして、[**実行**] を選択します。
 
 ``` SQL
 CREATE TABLE [dbo].[Users]
@@ -227,6 +229,6 @@ CREATE TABLE [dbo].[Users]
 
 ![更新されたモデル](~/ef6/media/modelupdated.png)
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 このチュートリアルでは Database First 開発について説明しました。これにより、既存のデータベースに基づいて EF デザイナーでモデルを作成できるようになりました。 次に、そのモデルを使用して、データベースのデータの読み取りと書き込みを行います。 最後に、データベーススキーマに加えられた変更を反映するようにモデルを更新しました。

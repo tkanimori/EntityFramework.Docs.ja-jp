@@ -1,21 +1,22 @@
 ---
 title: Entity Framework 用語集-EF6
+description: Entity Framework 6 用語集
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
 uid: ef6/resources/glossary
-ms.openlocfilehash: df0da4a68b3d2c882d9673417ee5fe335eccae2b
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 19d5e9e3a480337c2bcb93be5f989cc622b67dad
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/15/2020
-ms.locfileid: "79402145"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620197"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework 用語集
 ## <a name="code-first"></a>Code First
 コードを使用して Entity Framework モデルを作成する。 モデルでは、既存のデータベースまたは新しいデータベースを対象にすることができます。
 
-## <a name="context"></a>Context
+## <a name="context"></a>コンテキスト
 データベースとのセッションを表すクラス。これにより、データのクエリと保存を行うことができます。 コンテキストは、DbContext または ObjectContext クラスから派生します。
 
 ## <a name="convention-code-first"></a>規則 (Code First)
@@ -33,7 +34,7 @@ EF デザイナーを使用して、既存のデータベースを対象とす�
 ## <a name="entity"></a>Entity
 顧客、製品、注文などのアプリケーション データを表すクラスまたはオブジェクト。
 
-## <a name="entity-data-model"></a>Entity Data Model
+## <a name="entity-data-model"></a>エンティティ データ モデル
 エンティティとその間のリレーションシップを記述するモデル。 EF では、EDM を使用して、開発者がプログラムを実行する概念モデルを記述します。 EDM は、Dr. Peter Chen によって導入されたエンティティリレーションシップモデルに基づいて構築されます。 EDM は、Microsoft の開発者およびサーバーテクノロジのスイート全体で共通のデータモデルになるという主な目標を使用して開発されました。 EDM は、OData プロトコルの一部としても使用されます。
 
 ## <a name="explicit-loading"></a>明示的読み込み
@@ -46,7 +47,7 @@ Code First モデルを構成するために使用できる API。
 外部キーを表すプロパティが依存エンティティのクラスに含まれるエンティティ間のアソシエーション。 たとえば、Product には CategoryId プロパティが含まれています。
 
 ## <a name="identifying-relationship"></a>リレーションシップの識別
-プリンシパル エンティティの主キーが、依存エンティティの主キーの一部であるリレーションシップ。 この種のリレーションシップでは、依存エンティティはプリンシパル エンティティなしに存在できません。
+プリンシパル エンティティの主キーが依存エンティティの主キーの一部であるリレーションシップ。 このようなリレーションシップでは、プリンシパル エンティティが存在しないと、依存エンティティは存在できません。
 
 ## <a name="independent-association"></a>独立関連付け
 依存エンティティのクラスの外部キーを表すプロパティがないエンティティ間のアソシエーション。 たとえば、Product クラスには Category へのリレーションシップが含まれていますが、CategoryId プロパティはありません。 Entity Framework は、2つのアソシエーション end のエンティティの状態に関係なく、関連付けの状態を追跡します。

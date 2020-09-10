@@ -1,21 +1,22 @@
 ---
 title: EF Core ツールリファレンス (.NET CLI)-EF Core
+description: Entity Framework Core .NET Core CLI ツールのリファレンスガイド
 author: bricelam
 ms.author: bricelam
 ms.date: 07/11/2019
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: 8ff2f3481c7f0c255def3272ca53370faba33e95
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: b5f4941b1a1cf5674d9cc998dd0aed0c0469ff27
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238178"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619433"
 ---
 # <a name="entity-framework-core-tools-reference---net-core-cli"></a>Entity Framework Core ツールリファレンス-.NET Core CLI
 
-Entity Framework Core 用のコマンドラインインターフェイス (CLI) ツールは、デザイン時の開発タスクを実行します。 たとえば、既存のデータベースに基づいて、[移行](/aspnet/core/data/ef-mvc/migrations?view=aspnetcore-2.0)を作成し、移行を適用し、モデルのコードを生成します。 コマンドは、 [.NET Core SDK](https://www.microsoft.com/net/core)の一部であるクロスプラットフォーム[dotnet](/dotnet/core/tools)コマンドの拡張機能です。 これらのツールは、.NET Core プロジェクトで動作します。
+Entity Framework Core 用のコマンドラインインターフェイス (CLI) ツールは、デザイン時の開発タスクを実行します。 たとえば、既存のデータベースに基づいて、 [移行](/aspnet/core/data/ef-mvc/migrations)を作成し、移行を適用し、モデルのコードを生成します。 コマンドは、 [.NET Core SDK](https://www.microsoft.com/net/core)の一部であるクロスプラットフォーム[dotnet](/dotnet/core/tools)コマンドの拡張機能です。 これらのツールは、.NET Core プロジェクトで動作します。
 
-Visual Studio を使用している場合は、代わりに[パッケージマネージャーコンソールツール](powershell.md)を使用することをお勧めします。
+Visual Studio を使用している場合は、代わりに [パッケージマネージャーコンソールツール](xref:core/miscellaneous/cli/powershell) を使用することをお勧めします。
 
 * **パッケージマネージャーコンソール**で選択した現在のプロジェクトと自動的に連動します。ディレクトリを手動で切り替える必要はありません。
 * コマンドが完了すると、コマンドによって生成されたファイルが自動的に開かれます。
@@ -31,13 +32,13 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 ### <a name="ef-core-3x"></a>EF Core 3.x
 
-* `dotnet ef`は、グローバルまたはローカルのツールとしてインストールする必要があります。 ほとんどの開発者は `dotnet ef` 、次のコマンドを使用して、をグローバルツールとしてインストールします。
+* `dotnet ef` は、グローバルまたはローカルのツールとしてインストールする必要があります。 ほとんどの開発者は `dotnet ef` 、次のコマンドを使用して、をグローバルツールとしてインストールします。
 
   ```dotnetcli
   dotnet tool install --global dotnet-ef
   ```
 
-  を `dotnet ef` ローカルツールとして使用することもできます。 ローカルツールとして使用するには、[ツールマニフェストファイル](https://github.com/dotnet/cli/issues/10288)を使用して、ツールの依存関係として宣言するプロジェクトの依存関係を復元します。
+  を `dotnet ef` ローカルツールとして使用することもできます。 ローカルツールとして使用するには、 [ツールマニフェストファイル](https://github.com/dotnet/cli/issues/10288)を使用して、ツールの依存関係として宣言するプロジェクトの依存関係を復元します。
 
 * [.NET Core SDK](https://www.microsoft.com/net/download/core) のインストール。
 
@@ -49,7 +50,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 ### <a name="aspnet-core-21"></a>ASP.NET Core 2.1 以降
 
-* 現在の[.NET Core SDK](https://www.microsoft.com/net/download/core)をインストールします。 SDK は、Visual Studio 2017 の最新バージョンがある場合でもインストールする必要があります。
+* 現在の [.NET Core SDK](https://www.microsoft.com/net/download/core)をインストールします。 SDK は、Visual Studio 2017 の最新バージョンがある場合でもインストールする必要があります。
 
   `Microsoft.EntityFrameworkCore.Design`パッケージは[AspNetCore メタパッケージ](/aspnet/core/fundamentals/metapackage-app)に含まれているため、これは ASP.NET Core 2.1 以降で必要なことです。
 
@@ -57,7 +58,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 `dotnet ef`コマンドは .NET Core SDK に含まれていますが、パッケージをインストールするために必要なコマンドを有効にし `Microsoft.EntityFrameworkCore.Design` ます。
 
-* 現在の[.NET Core SDK](https://www.microsoft.com/net/download/core)をインストールします。 最新バージョンの Visual Studio がインストールされている場合でも、SDK をインストールする必要があります。
+* 現在の [.NET Core SDK](https://www.microsoft.com/net/download/core)をインストールします。 最新バージョンの Visual Studio がインストールされている場合でも、SDK をインストールする必要があります。
 
 * 最新の安定したパッケージをインストール `Microsoft.EntityFrameworkCore.Design` します。
 
@@ -69,7 +70,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
 * .NET Core SDK バージョン2.1.200 をインストールします。 以降のバージョンは、EF Core 1.0 および1.1 の CLI ツールと互換性がありません。
 
-* ファイル[のglobal.js](/dotnet/core/tools/global-json)を変更して、2.1.200 SDK バージョンを使用するようにアプリケーションを構成します。 通常、このファイルはソリューションディレクトリ (プロジェクトの1つ上) に含まれています。
+* ファイル [ のglobal.js](/dotnet/core/tools/global-json) を変更して、2.1.200 SDK バージョンを使用するようにアプリケーションを構成します。 通常、このファイルはソリューションディレクトリ (プロジェクトの1つ上) に含まれています。
 
 * プロジェクトファイルを編集し、 `Microsoft.EntityFrameworkCore.Tools.DotNet` アイテムとしてを追加し `DotNetCliToolReference` ます。 最新の1.x バージョンを指定します (例: 1.1.6)。 このセクションの最後にあるプロジェクトファイルの例を参照してください。
 
@@ -101,7 +102,7 @@ Visual Studio を使用している場合は、代わりに[パッケージマ�
 
   を含むパッケージ参照は、 `PrivateAssets="All"` このプロジェクトを参照するプロジェクトに公開されません。 この制限は、開発時にのみ使用されるパッケージに特に役立ちます。
 
-### <a name="verify-installation"></a>インストールの検証
+### <a name="verify-installation"></a>インストールを確認する
 
 次のコマンドを実行して EF Core CLI ツールが正しくインストールされていることを確認します。
 
@@ -128,7 +129,7 @@ Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
 
 ## <a name="updating-the-tools"></a>ツールの更新
 
-を使用して、 `dotnet tool update --global dotnet-ef` グローバルツールを利用可能な最新バージョンに更新します。プロジェクトにローカルにインストールしたツールを使用する場合は、を使用 `dotnet tool update dotnet-ef` します。 コマンドにを追加して、特定のバージョンをインストールし `--version <VERSION>` ます。 詳細については、dotnet tool のドキュメントの[更新](/dotnet/core/tools/dotnet-tool-update)に関するセクションを参照してください。
+を使用して、 `dotnet tool update --global dotnet-ef` グローバルツールを利用可能な最新バージョンに更新します。プロジェクトにローカルにインストールしたツールを使用する場合は、を使用 `dotnet tool update dotnet-ef` します。 コマンドにを追加して、特定のバージョンをインストールし `--version <VERSION>` ます。 詳細については、dotnet tool のドキュメントの [更新](/dotnet/core/tools/dotnet-tool-update) に関するセクションを参照してください。
 
 ## <a name="using-the-tools"></a>ツールの使用
 
@@ -136,7 +137,7 @@ Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
 
 ### <a name="target-project-and-startup-project"></a>ターゲットプロジェクトとスタートアッププロジェクト
 
-これらのコマンドは、*プロジェクト*と*スタートアッププロジェクト*を参照します。
+これらのコマンドは、 *プロジェクト* と *スタートアッププロジェクト*を参照します。
 
 * *プロジェクト*は*ターゲットプロジェクト*とも呼ばれます。これは、コマンドによってファイルが追加または削除されるためです。 既定では、現在のディレクトリ内のプロジェクトはターゲットプロジェクトです。 オプションを使用して、別のプロジェクトをターゲットプロジェクトとして指定でき <nobr>`--project`</nobr> ます。
 
@@ -147,7 +148,7 @@ Entity Framework Core .NET Command-line Tools 2.1.3-rtm-32065
 * EF Core コンテキストとエンティティクラスは、.NET Core クラスライブラリにあります。
 * .NET Core コンソールアプリまたは web アプリはクラスライブラリを参照します。
 
-また、[移行コードを EF Core コンテキストとは別のクラスライブラリに配置](xref:core/managing-schemas/migrations/projects)することもできます。
+また、 [移行コードを EF Core コンテキストとは別のクラスライブラリに配置](xref:core/managing-schemas/migrations/projects)することもできます。
 
 ### <a name="other-target-frameworks"></a>その他のターゲットフレームワーク
 
@@ -157,7 +158,7 @@ CLI ツールは、.NET Core プロジェクトと .NET Framework プロジェ�
 
 ### <a name="aspnet-core-environment"></a>ASP.NET Core 環境
 
-ASP.NET Core プロジェクトの環境を指定するには、コマンドを実行する前に**ASPNETCORE_ENVIRONMENT**環境変数を設定します。
+ASP.NET Core プロジェクトの環境を指定するには、コマンドを実行する前に **ASPNETCORE_ENVIRONMENT** 環境変数を設定します。
 
 ## <a name="common-options"></a>共通オプション
 
@@ -194,7 +195,7 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 | 引数                   | 説明                                                                                                                                                                                                                                                     |
 |:---------------------------|:----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>`<MIGRATION>`</nobr> | ターゲットの移行。 移行は、名前または ID で識別できます。 数値0は、*最初の移行の前に*特別なケースであり、すべての移行が元に戻されます。 移行が指定されていない場合、コマンドは既定で最後の移行になります。 |
+| <nobr>`<MIGRATION>`</nobr> | ターゲットの移行。 移行は、名前または ID で識別できます。 数値0は、 *最初の移行の前に* 特別なケースであり、すべての移行が元に戻されます。 移行が指定されていない場合、コマンドは既定で最後の移行になります。 |
 
 オプション:
 
@@ -244,7 +245,7 @@ dotnet ef database update 20180904195021_InitialCreate --connection your_connect
 | `--use-database-names`                   |                   | テーブル名と列名は、データベースに表示されるとおりに使用します。 このオプションを省略した場合、データベース名は、C# の名前のスタイル規則により厳密に準拠するように変更されます。 |
 | `--no-onconfiguring`                     |                   | 生成されたクラスのメソッドの生成を抑制し `OnConfiguring` `DbContext` ます。 (EFCore 5.0.0 以降から利用できます。)                                                 |
 
-次の例では、すべてのスキーマとテーブルをスキャフォールディングし、新しいファイルを [*モデル*] フォルダーに配置します。
+次の例では、すべてのスキーマとテーブルをスキャフォールディングし、新しいファイルを [ *モデル* ] フォルダーに配置します。
 
 ```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -o Models
@@ -295,7 +296,7 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 
 | 引数              | 説明                                                                                                                                                   |
 |:----------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| <nobr>`<FROM>`</nobr> | 移行を開始しています。 移行は、名前または ID で識別できます。 数値0は、*最初の移行の前に*特別なケースです。 既定値は 0 です。 |
+| <nobr>`<FROM>`</nobr> | 移行を開始しています。 移行は、名前または ID で識別できます。 数値0は、 *最初の移行の前に*特別なケースです。 既定値は 0 です。 |
 | `<TO>`                | 移行を終了しています。 既定では、最後の移行になります。                                                                                                         |
 
 オプション:

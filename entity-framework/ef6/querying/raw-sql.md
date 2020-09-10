@@ -1,14 +1,16 @@
 ---
 title: 生の SQL クエリ-EF6
+description: Entity Framework 6 の生の SQL クエリ
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 9e1ee76e-2499-408c-81e8-9b6c5d1945a0
-ms.openlocfilehash: d336066b982e682e81067bbdac5b3781524cf6be
-ms.sourcegitcommit: d85263b5d5d665dbaf94de8832e2917bce048b34
+uid: ef6/querying/raw-sql
+ms.openlocfilehash: 0db5069b23ff9aa65ced2dbe48694e4f20c98e51
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/17/2020
-ms.locfileid: "86451217"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620278"
 ---
 # <a name="raw-sql-queries-ef6"></a>生の SQL クエリ (EF6)
 
@@ -83,4 +85,4 @@ ExecuteSqlCommand を使用してデータベース内のデータに加えら�
 
 ### <a name="output-parameters"></a>出力パラメーター  
 
-出力パラメーターが使用されている場合、結果が完全に読み取られるまで、値は使用できません。 これは、DbDataReader の基になる動作に起因します。詳細については、「 [DataReader を使用したデータの取得](https://go.microsoft.com/fwlink/?LinkID=398589)」を参照してください。  
+出力パラメーターが使用されている場合、結果が完全に読み取られるまで、値は使用できません。 これは、DbDataReader の基になる動作に起因します。詳細については、「 [DataReader を使用したデータの取得](https://go.microsoft.com/fwlink/?LinkID=398589) 」を参照してください。  

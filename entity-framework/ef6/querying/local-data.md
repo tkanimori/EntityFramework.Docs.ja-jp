@@ -1,14 +1,16 @@
 ---
 title: ローカルデータ-EF6
+description: Entity Framework 6 のローカルデータ
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 2eda668b-1e5d-487d-9a8c-0e3beef03fcb
-ms.openlocfilehash: efd646348d8a18bbeed2d0a0e708d4d36eb26eac
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/querying/local-data
+ms.openlocfilehash: f7c4c8904a2985901491e423f655d4aea79f666d
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414483"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620311"
 ---
 # <a name="local-data"></a>ローカル データ
 DbSet に対して LINQ クエリを直接実行すると、常にクエリがデータベースに送信されますが、現在、DbSet. Local プロパティを使用してメモリ内にあるデータにアクセスできます。 また、DbContext. Entry メソッドと DbContext. ChangeTracker メソッドを使用して、エンティティに関する追加情報 EF が追跡している情報にアクセスすることもできます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -73,7 +75,7 @@ Found 2: The Visual Studio Blog with state Unchanged
 
 ## <a name="using-local-to-add-and-remove-entities-from-the-context"></a>ローカルを使用してコンテキストのエンティティを追加および削除する  
 
-DbSet の Local プロパティは、コンテキストのコンテンツと同期したままになるように、イベントがフックされた[system.collections.objectmodel.observablecollection](https://msdn.microsoft.com/library/ms668604.aspx)を返します。 これは、ローカルコレクションまたは DbSet からエンティティを追加または削除できることを意味します。 また、新しいエンティティをコンテキストに取り込むクエリによって、そのエンティティでローカルコレクションが更新されることも意味します。 次に例を示します。  
+DbSet の Local プロパティは、コンテキストのコンテンツと同期したままになるように、イベントがフックされた [system.collections.objectmodel.observablecollection](https://msdn.microsoft.com/library/ms668604.aspx) を返します。 これは、ローカルコレクションまたは DbSet からエンティティを追加または削除できることを意味します。 また、新しいエンティティをコンテキストに取り込むクエリによって、そのエンティティでローカルコレクションが更新されることも意味します。 次に例を示します。  
 
 ``` csharp
 using (var context = new BloggingContext())
@@ -196,7 +198,7 @@ public override int SaveChanges()
 
 ## <a name="using-local-and-tobindinglist-for-windows-forms-data-binding"></a>Windows フォームデータバインディングにローカルと ToBindingList を使用する  
 
-Windows フォームは、System.collections.objectmodel.observablecollection を直接使用した忠実度の高いデータバインディングをサポートしていません。 ただし、前のセクションで説明したすべての利点を取得するには、データバインディングに対して DbSet ローカルプロパティを使用することもできます。 これは、ローカルの System.collections.objectmodel.observablecollection によってサポートされる[IBindingList](https://msdn.microsoft.com/library/system.componentmodel.ibindinglist.aspx)実装を作成する ToBindingList 拡張メソッドを使用して実現されます。  
+Windows フォームは、System.collections.objectmodel.observablecollection を直接使用した忠実度の高いデータバインディングをサポートしていません。 ただし、前のセクションで説明したすべての利点を取得するには、データバインディングに対して DbSet ローカルプロパティを使用することもできます。 これは、ローカルの System.collections.objectmodel.observablecollection によってサポートされる [IBindingList](https://msdn.microsoft.com/library/system.componentmodel.ibindinglist.aspx) 実装を作成する ToBindingList 拡張メソッドを使用して実現されます。  
 
 これは、完全 Windows フォームデータバインディングサンプルには適していませんが、主な要素は次のとおりです。  
 

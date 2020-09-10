@@ -1,39 +1,41 @@
 ---
 title: School サンプルデータベース-EF6
+description: Entity Framework 6 の School サンプルデータベース
 author: divega
 ms.date: 10/23/2016
 ms.assetid: e83a6a06-e63b-4530-8656-614bf609b12b
-ms.openlocfilehash: 1e9dc98edb8590021bbf3393e9edda1929d505e0
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/resources/school-database
+ms.openlocfilehash: c1576bdeaa3247c7c5c8fd5547c8402b4e301402
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414393"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620005"
 ---
 # <a name="school-sample-database"></a>School サンプル データベース
 このトピックには、School データベースのスキーマとデータが含まれています。 サンプル School データベースは、Entity Framework のドキュメントを通じてさまざまな場所で使用されています。  
 
 > [!NOTE]
-> Visual Studio と共にインストールされるデータベースサーバーは、使用する Visual Studio のバージョンによって異なります。 使用する内容の詳細については、「 [Visual Studio のリリース](~/ef6/what-is-new/visual-studio.md)」を参照してください。  
+> Visual Studio と共にインストールされるデータベースサーバーは、使用する Visual Studio のバージョンによって異なります。 使用する内容の詳細については、「 [Visual Studio のリリース](xref:ef6/what-is-new/visual-studio) 」を参照してください。  
 
 次に、データベースを作成する手順を示します。
 
-- Visual Studio を開きます  
--  -> **サーバーエクスプローラー**の**表示**  
-- **[データ接続]** を右クリックし ->  **[接続の追加]** をクリックします。  
-- サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして**Microsoft SQL Server**を選択する必要があります。  
+- Visual Studio を開く  
+- **ビュー**  -> **サーバーエクスプローラー**  
+- [**データ接続**] [  ->  **接続の追加**] を右クリックします。  
+- サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして **Microsoft SQL Server** を選択する必要があります。  
 - インストールされているものに応じて、LocalDB または SQL Express に接続します。  
 - データベース名として「 **School** 」と入力します。  
-- [ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 **[はい]** を選択します。  
+- [ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 [**はい**] を選択します。  
 - 新しいデータベースがに表示されるようになりサーバーエクスプローラー  
 - Visual Studio 2012 以降を使用している場合
-    - サーバーエクスプローラーでデータベースを右クリックし、 **[新しいクエリ]** を選択します。  
-    - 次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[実行]** を選択します。  
+    - [サーバー エクスプローラー] でこのデータベースを右クリックし、**[新しいクエリ]** を選択します。  
+    - 次の SQL を新しいクエリにコピーし、クエリを右クリックして、[**実行**] を選択します。  
 - Visual Studio 2010 を使用している場合  
-    - **データ** -> **Transact SQL エディター** -> **新しいクエリ接続の**選択...  
+    - **Data**  ->  **Transact SQL エディター**の [  ->  **新しいクエリ接続**] を選択します。  
     - サーバー名として「 **.\SQLEXPRESS** 」と入力し、[ **OK]** をクリックします。  
-    - クエリエディターの上部にあるドロップダウンから**STESample**データベースを選択します。  
-    - 次の SQL を新しいクエリにコピーし、クエリを右クリックして、 **[sql の実行]** を選択します。  
+    - クエリエディターの上部にあるドロップダウンから **STESample** データベースを選択します。  
+    - 次の SQL を新しいクエリにコピーし、クエリを右クリックして、[ **sql の実行**] を選択します。  
 
 ``` SQL  
 SET ANSI_NULLS ON
