@@ -1,19 +1,20 @@
 ---
 title: 移行の管理-EF Core
+description: Entity Framework Core を使用したデータベーススキーマの移行の追加、削除、および管理
 author: bricelam
 ms.author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/managing
-ms.openlocfilehash: 2097d3cc9232d448191dbebbe3d14d86e80b91fe
-ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
+ms.openlocfilehash: 366824cecab57a0f1744fa58cc12e5d3f6675723
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526434"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617965"
 ---
 # <a name="managing-migrations"></a>移行の管理
 
-モデルが変更されると、通常の開発の一環として移行が追加および削除され、移行ファイルがプロジェクトのソース管理にチェックインされます。 移行を管理するには、まず[EF Core コマンドラインツール](xref:core/miscellaneous/cli/index)をインストールする必要があります。
+モデルが変更されると、通常の開発の一環として移行が追加および削除され、移行ファイルがプロジェクトのソース管理にチェックインされます。 移行を管理するには、まず [EF Core コマンドラインツール](xref:core/miscellaneous/cli/index)をインストールする必要があります。
 
 > [!TIP]
 > `DbContext` がスタートアップ プロジェクトとは異なるアセンブリに含まれている場合、ターゲットとスタートアップ プロジェクトは[パッケージ マネージャー コンソール ツール](xref:core/miscellaneous/cli/powershell#target-and-startup-project)または [.NET Core CLI ツール](xref:core/miscellaneous/cli/dotnet#target-project-and-startup-project)のいずれかに明示的に指定できます。
@@ -36,7 +37,7 @@ Add-Migration AddBlogCreatedTimestamp
 
 ***
 
-移行名は、バージョン管理システムのコミット メッセージのように使用できます。 たとえば、変更がエンティティの新しいプロパティである場合、 *Addブログ*のような名前を選択でき `CreatedTimestamp` `Blog` ます。
+移行名は、バージョン管理システムのコミット メッセージのように使用できます。 たとえば、変更がエンティティの新しいプロパティである場合、 *Addブログ* のような名前を選択でき `CreatedTimestamp` `Blog` ます。
 
 **[移行]** ディレクトリの下で 3 つのファイルがプロジェクトに追加されます。
 
@@ -198,7 +199,7 @@ dotnet ef migrations list
 
 ## <a name="resetting-all-migrations"></a>すべての移行をリセットしています
 
-極端なケースでは、すべての移行を削除してからやり直すことが必要になる場合があります。 これは、**移行**フォルダーを削除して、データベースを削除することで簡単に行うことができます。この時点で、新しい初期移行を作成できます。これには、現在のスキーマ全体が含まれます。
+極端なケースでは、すべての移行を削除してからやり直すことが必要になる場合があります。 これは、 **移行** フォルダーを削除して、データベースを削除することで簡単に行うことができます。この時点で、新しい初期移行を作成できます。これには、現在のスキーマ全体が含まれます。
 
 すべての移行をリセットし、データを失うことなく1つの移行を作成することもできます。 これは "スカッシュ" と呼ばれることもあり、手動での作業が必要です。
 

@@ -1,20 +1,22 @@
 ---
 title: 自動 Code First Migrations-EF6
+description: Entity Framework 6 の自動 Code First Migrations
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 0eb86787-2161-4cb4-9cb8-67c5d6e95650
-ms.openlocfilehash: 2713afaf09707b7696e90464aac9945c2d82d274
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/code-first/migrations/automatic
+ms.openlocfilehash: 541adf5aed517685b54d675730996c12ff0c824a
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415701"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618083"
 ---
 # <a name="automatic-code-first-migrations"></a>自動 Code First Migrations
 自動移行を使用すると、変更ごとにプロジェクトにコードファイルを作成しなくても Code First Migrations を使用できます。 すべての変更を自動的に適用できるわけではありません。たとえば、列の名前を変更するには、コードベースの移行を使用する必要があります。
 
 > [!NOTE]
-> この記事では、基本的なシナリオでの Code First Migrations の使用方法を理解していることを前提としています。 そうでない場合は、続行する前に[Code First Migrations](~/ef6/modeling/code-first/migrations/index.md)を読む必要があります。
+> この記事では、基本的なシナリオでの Code First Migrations の使用方法を理解していることを前提としています。 そうでない場合は、続行する前に [Code First Migrations](xref:ef6/modeling/code-first/migrations/index) を読む必要があります。
 
 ## <a name="recommendation-for-team-environments"></a>チーム環境の推奨事項
 
@@ -24,7 +26,7 @@ ms.locfileid: "78415701"
 
 移行の使用を開始する前に、使用するプロジェクトと Code First モデルが必要です。 このチュートリアルでは、正規の **Blog** と **Post** モデルを使用します。
 
--   新しい**MigrationsAutomaticDemo**コンソールアプリケーションを作成する
+-   新しい **MigrationsAutomaticDemo** コンソールアプリケーションを作成する
 -   プロジェクトに最新バージョンの **EntityFramework** NuGet パッケージを追加する
     -   **ツール -&gt; ライブラリ パッケージ マネージャー -&gt; パッケージ マネージャー コンソール**
     -   **Install-Package EntityFramework** コマンドを実行する
@@ -83,7 +85,7 @@ ms.locfileid: "78415701"
       }
   ```
 
--   アプリケーションを実行すると、 **MigrationsAutomaticCodeDemo コンテキスト**データベースが作成されていることがわかります。
+-   アプリケーションを実行すると、 **MigrationsAutomaticCodeDemo コンテキスト** データベースが作成されていることがわかります。
 
     ![データベース LocalDB](~/ef6/media/databaselocaldb.png)
 
@@ -97,11 +99,11 @@ ms.locfileid: "78415701"
     public string Url { get; set; }
 ```
 
-アプリケーションをもう一度実行すると、*データベースの作成後に ' ブログのコンテキスト ' コンテキストが変更されたモデルを示す InvalidOperationException が表示されます。Code First Migrations を使用してデータベースを更新することを検討してください (* [ *http://go.microsoft.com/fwlink/?LinkId=238269* ](https://go.microsoft.com/fwlink/?LinkId=238269) *)。*
+アプリケーションをもう一度実行すると、*データベースの作成後に ' ブログのコンテキスト ' コンテキストが変更されたモデルを示す InvalidOperationException が表示されます。Code First Migrations を使用してデータベースを更新することを検討してください (* [*http://go.microsoft.com/fwlink/?LinkId=238269*](https://go.microsoft.com/fwlink/?LinkId=238269) *)。*
 
-例外で示されているように、Code First Migrations の使用を開始します。 自動移行を使用するため、 **– enable自動移行**スイッチを指定します。
+例外で示されているように、Code First Migrations の使用を開始します。 自動移行を使用するため、 **– enable自動移行** スイッチを指定します。
 
--   パッケージマネージャーコンソールで、 **[移行の有効化-Enable自動移行]** コマンドを実行します。このコマンドにより、 **[移行]** フォルダーがプロジェクトに追加されました。 この新しいフォルダーには、次のファイルが1つ含まれています:
+-   パッケージマネージャーコンソールで、[ **移行の有効化-Enable自動移行** ] コマンドを実行します。このコマンドにより、[ **移行** ] フォルダーがプロジェクトに追加されました。 この新しいフォルダーには、次のファイルが1つ含まれています:
 
 -   **構成クラス**。 このクラスでは、Migrations がコンテキストに対してどのように動作するかを構成できます。 このチュートリアルでは、既定の構成を使用します。
     *プロジェクト内の Code First コンテキストは 1 つのみのため、Enable-Migrations ではこの構成が適用されるコンテキストの種類を自動的に入力します。*
@@ -117,7 +119,7 @@ Code First Migrations には、よく使うことになる 2 つのプライマ�
 
 (本当に必要な場合を除き) 追加移行を使用しないようにし、Code First Migrations によって自動的に計算され、変更が適用されるようにします。 **更新データベース**を使用して、モデル (新しい**Blog. Ur**l プロパティ) への変更をデータベースにプッシュ Code First Migrations を取得してみましょう。
 
--   パッケージマネージャーコンソールで、**データベースの更新**コマンドを実行します。
+-   パッケージマネージャーコンソールで、 **データベースの更新** コマンドを実行します。
 
 これで、 **MigrationsAutomaticDemo コンテキスト**データベースが更新され、**ブログ**テーブルに**Url**列が含まれるようになりました。
 
@@ -148,7 +150,7 @@ Code First Migrations には、よく使うことになる 2 つのプライマ�
     public virtual List<Post> Posts { get; set; }
 ```
 
-次に、データベースを最新の状態にするために、データベースを**更新**します。 今回は、Code First Migrations が実行している SQL を確認できるように、 **–Verbose** フラグを指定します。
+次に、データベースを最新の状態にするために、データベースを **更新** します。 今回は、Code First Migrations が実行している SQL を確認できるように、**–Verbose** フラグを指定します。
 
 -   パッケージ マネージャー コンソールで **Update-Database –Verbose** コマンドを実行します。
 
@@ -162,10 +164,10 @@ Code First Migrations には、よく使うことになる 2 つのプライマ�
     public int Rating { get; set; }
 ```
 
-これらの変更をデータベースにプッシュするには、 **Update データベース**を実行するだけです。 ただし、null 非許容のブログを追加**しています。評価**列には、テーブルに既存のデータがある場合は、新しい列のデータ型の CLR の既定値が割り当てられます (評価は整数であり、 **0**になります)。 ただし、**Blogs** テーブルの既存の行が適切な評価で開始されるように、既定値の **3** を指定する必要があります。
-ここでは、[移行の追加] コマンドを使用して、コードベースの移行にこの変更を書き込んで、編集できるようにしましょう。 **[移行の追加]** コマンドを使用すると、これらの移行に名前を付けることができます。私たちの**AddBlogRating**を呼び出すだけです。
+これらの変更をデータベースにプッシュするには、 **Update データベース** を実行するだけです。 ただし、null 非許容のブログを追加 **しています。評価** 列には、テーブルに既存のデータがある場合は、新しい列のデータ型の CLR の既定値が割り当てられます (評価は整数であり、 **0**になります)。 ただし、**Blogs** テーブルの既存の行が適切な評価で開始されるように、既定値の **3** を指定する必要があります。
+ここでは、[移行の追加] コマンドを使用して、コードベースの移行にこの変更を書き込んで、編集できるようにしましょう。 [ **移行の追加** ] コマンドを使用すると、これらの移行に名前を付けることができます。私たちの **AddBlogRating**を呼び出すだけです。
 
--   パッケージマネージャーコンソールで、 **[AddBlogRating の追加と移行]** コマンドを実行します。
+-   パッケージマネージャーコンソールで、[ **AddBlogRating の追加と移行** ] コマンドを実行します。
 -   **移行**フォルダーに、新しい**AddBlogRating**移行が追加されました。 移行ファイル名は、順序付けを支援するタイムスタンプで事前に固定されています。 生成されたコードを編集して、ブログの既定値3を指定してみましょう (下のコードの10行目)
 
 *移行には、いくつかのメタデータをキャプチャする分離コードファイルもあります。このメタデータにより、Code First Migrations は、このコードベースの移行の前に実行した自動移行をレプリケートできます。これは、別の開発者が移行を実行する場合、またはアプリケーションをデプロイする時期がある場合に重要です。*
@@ -193,7 +195,7 @@ Code First Migrations には、よく使うことになる 2 つのプライマ�
 
 編集した移行は問題なさそうなので、**Update-Database** を使用してデータベースを最新の状態にします。
 
--   パッケージマネージャーコンソールで、**データベースの更新**コマンドを実行します。
+-   パッケージマネージャーコンソールで、 **データベースの更新** コマンドを実行します。
 
 ## <a name="back-to-automatic-migrations"></a>自動移行に戻る
 
@@ -205,10 +207,10 @@ Code First Migrations には、よく使うことになる 2 つのプライマ�
     public string Abstract { get; set; }
 ```
 
-これで、**更新データベース**を使用して、自動移行を使用してこの変更をデータベースにプッシュ Code First Migrations を取得できるようになりました。
+これで、 **更新データベース** を使用して、自動移行を使用してこの変更をデータベースにプッシュ Code First Migrations を取得できるようになりました。
 
--   パッケージマネージャーコンソールで、**データベースの更新**コマンドを実行します。
+-   パッケージマネージャーコンソールで、 **データベースの更新** コマンドを実行します。
 
-## <a name="summary"></a>まとめ
+## <a name="summary"></a>要約
 
 このチュートリアルでは、自動移行を使用してモデルの変更をデータベースにプッシュする方法を説明しました。 さらに制御が必要な場合に、自動移行の間にコードベースの移行をスキャフォールディングして実行する方法についても説明しました。

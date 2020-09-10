@@ -1,19 +1,20 @@
 ---
 title: Api の作成と削除-EF Core
+description: Entity Framework Core を使用してデータベースを作成および削除するための Api
 author: bricelam
 ms.author: bricelam
 ms.date: 11/07/2018
 uid: core/managing-schemas/ensure-created
-ms.openlocfilehash: 32ac6cd043df73cd041780ec4c8805675adc5ab1
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 25e7352269531e881e83e44ea90108f12d4dcbea
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414321"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619230"
 ---
 # <a name="create-and-drop-apis"></a>Create API と Drop API
 
-EnsureCreated メソッドと EnsureDeleted メソッドは、データベーススキーマを管理するための[移行](migrations/index.md)のための軽量な代替手段を提供します。 これらのメソッドは、データが一時的なもので、スキーマが変更されたときに削除できる場合に便利です。 たとえば、プロトタイプの場合、テストの場合は、ローカルキャッシュの場合はです。
+EnsureCreated メソッドと EnsureDeleted メソッドは、データベーススキーマを管理するための [移行](xref:core/managing-schemas/migrations/index) のための軽量な代替手段を提供します。 これらのメソッドは、データが一時的なもので、スキーマが変更されたときに削除できる場合に便利です。 たとえば、プロトタイプの場合、テストの場合は、ローカルキャッシュの場合はです。
 
 一部のプロバイダー (特に非リレーショナル) は、移行をサポートしていません。 これらのプロバイダーでは、多くの場合、EnsureCreated はデータベーススキーマを初期化する最も簡単な方法です。
 

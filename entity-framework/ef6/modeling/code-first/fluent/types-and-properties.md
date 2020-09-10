@@ -1,19 +1,21 @@
 ---
 title: Fluent API-プロパティと型の構成とマッピング-EF6
+description: Fluent API-Entity Framework 6 でのプロパティと型の構成とマッピング
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 648ed274-c501-4630-88e0-d728ab5c4057
-ms.openlocfilehash: 7371cc99142ccf8fc6bea237d7d58d1e67fcecec
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/code-first/fluent/types-and-properties
+ms.openlocfilehash: d49da416b2df5828fce5618cc196e22dfbc2bd34
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415755"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618054"
 ---
 # <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Fluent API-プロパティと型の構成とマッピング
 Entity Framework を使用する場合 Code First 既定の動作では、EF に組み込まれている一連の規則を使用して、POCO クラスをテーブルにマップします。 ただし、これらの規則に従うことができない場合や、規則に従っていないエンティティにエンティティをマップする必要がある場合があります。  
 
-規則以外のものを使用するように EF を構成するには、次の2つの主な方法があります。つまり、[注釈](~/ef6/modeling/code-first/data-annotations.md)または EFs fluent API です。 注釈には fluent API の機能のサブセットのみが含まれているので、注釈を使用して実現できないマッピングシナリオがあります。 この記事は、fluent API を使用してプロパティを構成する方法を示すことを目的としています。  
+規則以外のものを使用するように EF を構成するには、次の2つの主な方法があります。つまり、 [注釈](xref:ef6/modeling/code-first/data-annotations) または EFs fluent API です。 注釈には fluent API の機能のサブセットのみが含まれているので、注釈を使用して実現できないマッピングシナリオがあります。 この記事は、fluent API を使用してプロパティを構成する方法を示すことを目的としています。  
 
 Code first fluent API は、派生した[Dbcontext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx)で[onmodelcreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx)メソッドをオーバーライドすることによって最も一般的にアクセスされます。 次のサンプルは、fluent api を使用してさまざまなタスクを実行する方法を示しています。また、モデルに合わせてコードをコピーしてカスタマイズすることもできます。そのまま使用できるモデルを確認する場合は、この記事の最後に記載します。  
 
@@ -29,9 +31,9 @@ modelBuilder.HasDefaultSchema("sales");
 
 ### <a name="custom-conventions-ef6-onwards"></a>カスタム規則 (EF6 以降)  
 
-EF6 以降では、独自の規則を作成して、Code First に含まれる規則を補うことができます。 詳細については、「[カスタム Code First 規則](~/ef6/modeling/code-first/conventions/custom.md)」を参照してください。  
+EF6 以降では、独自の規則を作成して、Code First に含まれる規則を補うことができます。 詳細については、「 [カスタム Code First 規則](xref:ef6/modeling/code-first/conventions/custom)」を参照してください。  
 
-## <a name="property-mapping"></a>プロパティのマッピング  
+## <a name="property-mapping"></a>プロパティ マッピング  
 
 [プロパティ](https://msdn.microsoft.com/library/system.data.entity.infrastructure.dbentityentry.property.aspx)メソッドは、エンティティ型または複合型に属する各プロパティの属性を構成するために使用されます。 プロパティメソッドは、指定されたプロパティの構成オブジェクトを取得するために使用されます。 構成オブジェクトのオプションは、構成されている型に固有です。IsUnicode は、文字列プロパティでのみ使用できます。たとえば、のようになります。  
 
@@ -67,7 +69,7 @@ modelBuilder.Entity<Department>().Property(t => t.DepartmentID)
 
 ### <a name="specifying-the-maximum-length-on-a-property"></a>プロパティの最大長の指定  
 
-次の例では、Name プロパティは50文字以内である必要があります。 50文字を超える値を指定すると、 [Dbentityvalidationexception](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx)例外が発生します。 Code First がこのモデルからデータベースを作成する場合は、Name 列の最大長も50文字に設定します。  
+次の例では、Name プロパティは50文字以内である必要があります。 50文字を超える値を指定すると、 [Dbentityvalidationexception](https://msdn.microsoft.com/library/system.data.entity.validation.dbentityvalidationexception.aspx) 例外が発生します。 Code First がこのモデルからデータベースを作成する場合は、Name 列の最大長も50文字に設定します。  
 
 ``` csharp
 modelBuilder.Entity<Department>().Property(t => t.Name).HasMaxLength(50);
@@ -87,11 +89,11 @@ modelBuilder.Entity<Department>().Property(t => t.Name).IsRequired();
 ### <a name="configuring-an-index-on-one-or-more-properties"></a>1つまたは複数のプロパティのインデックスの構成  
 
 > [!NOTE]
-> **Ef 6.1 以降のみ**-Index 属性が Entity Framework 6.1 で導入されました。 以前のバージョンを使用している場合、このセクションの情報は適用されません。  
+> **Ef 6.1 以降のみ** -Index 属性が Entity Framework 6.1 で導入されました。 以前のバージョンを使用している場合、このセクションの情報は適用されません。  
 
-インデックスの作成は、Fluent API ではネイティブでサポートされていませんが、Fluent API を使用して**Indexattribute**のサポートを利用できます。 インデックスの属性は、モデルの注釈をモデルに含めることによって処理され、その後、パイプラインの後の方でデータベースのインデックスに変換されます。 Fluent API を使用して、これらの同じ注釈を手動で追加できます。  
+インデックスの作成は、Fluent API ではネイティブでサポートされていませんが、Fluent API を使用して **Indexattribute** のサポートを利用できます。 インデックスの属性は、モデルの注釈をモデルに含めることによって処理され、その後、パイプラインの後の方でデータベースのインデックスに変換されます。 Fluent API を使用して、これらの同じ注釈を手動で追加できます。  
 
-これを行う最も簡単な方法は、新しいインデックスのすべての設定を含む**Indexattribute**のインスタンスを作成することです。 その後、 **Indexannotation**のインスタンスを作成できます。このインスタンスは、ef モデルに格納できるモデル注釈に**indexannotation**設定を変換する ef 固有の型です。 これらは、Fluent API の**Hascolumnannotation**メソッドに渡すことができ、注釈の名前の**インデックス**を指定します。  
+これを行う最も簡単な方法は、新しいインデックスのすべての設定を含む **Indexattribute** のインスタンスを作成することです。 その後、 **Indexannotation** のインスタンスを作成できます。このインスタンスは、ef モデルに格納できるモデル注釈に **indexannotation** 設定を変換する ef 固有の型です。 これらは、Fluent API の **Hascolumnannotation** メソッドに渡すことができ、注釈の名前の **インデックス** を指定します。  
 
 ``` csharp
 modelBuilder
@@ -100,9 +102,9 @@ modelBuilder
     .HasColumnAnnotation("Index", new IndexAnnotation(new IndexAttribute()));
 ```  
 
-**Indexattribute**で使用できる設定の完全な一覧については、「 [Code First データ注釈](~/ef6/modeling/code-first/data-annotations.md)」の「 *Index* 」セクションを参照してください。 これには、インデックス名のカスタマイズ、一意のインデックスの作成、複数列のインデックスの作成が含まれます。  
+**Indexattribute**で使用できる設定の完全な一覧については、「 [Code First データ注釈](xref:ef6/modeling/code-first/data-annotations)」の「 *Index* 」セクションを参照してください。 これには、インデックス名のカスタマイズ、一意のインデックスの作成、複数列のインデックスの作成が含まれます。  
 
-Indexattribute のコンストラクターに**Indexattribute**の配列を渡すことにより、1つのプロパティに対して複数のインデックス注釈を指定できます。  
+Indexattribute のコンストラクターに**Indexattribute**の配列を渡すことにより、1つのプロパティに対し**IndexAnnotation**て複数のインデックス注釈を指定できます。  
 
 ``` csharp
 modelBuilder
@@ -321,7 +323,7 @@ modelBuilder.Entity<OfficeAssignment>().ToTable("Instructor");
 
 ### <a name="mapping-an-entity-type-to-insertupdatedelete-stored-procedures-ef6-onwards"></a>ストアドプロシージャの挿入/更新/削除へのエンティティ型のマッピング (EF6 以降)  
 
-EF6 以降では、insert update および delete のストアドプロシージャを使用するようにエンティティをマップできます。 詳細については、「[ストアドプロシージャの挿入/更新/削除 Code First](~/ef6/modeling/code-first/fluent/cud-stored-procedures.md)」を参照してください。  
+EF6 以降では、insert update および delete のストアドプロシージャを使用するようにエンティティをマップできます。 詳細については、「 [ストアドプロシージャの挿入/更新/削除 Code First](xref:ef6/modeling/code-first/fluent/cud-stored-procedures)」を参照してください。  
 
 ## <a name="model-used-in-samples"></a>サンプルで使用されるモデル  
 

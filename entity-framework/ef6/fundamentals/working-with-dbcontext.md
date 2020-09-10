@@ -1,20 +1,22 @@
 ---
 title: DbContext の使用-EF6
+description: Entity Framework 6 での DbContext の使用
 author: divega
 ms.date: 10/23/2016
 ms.assetid: b0e6bddc-8a87-4d51-b1cb-7756df938c23
-ms.openlocfilehash: d961ffd8bed7f5b2f82dcfa30fc0241b7437be50
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/working-with-dbcontext
+ms.openlocfilehash: 7845d401cb0b8910cbfbba80eca2fd098c051b7d
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78413883"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618221"
 ---
 # <a name="working-with-dbcontext"></a>DbContext の操作
 
-Entity Framework を使用して .NET オブジェクトを使用してデータのクエリ、挿入、更新、および削除を行うには、まず、モデルで定義されているエンティティとリレーションシップをデータベース内のテーブルにマップする[モデルを作成](~/ef6/modeling/index.md)する必要があります。
+Entity Framework を使用して .NET オブジェクトを使用してデータのクエリ、挿入、更新、および削除を行うには、まず、モデルで定義されているエンティティとリレーションシップをデータベース内のテーブルにマップする [モデルを作成](xref:ef6/modeling/index) する必要があります。
 
-モデルを作成すると、アプリケーションが対話するプライマリクラスが `System.Data.Entity.DbContext` (多くの場合、コンテキストクラスと呼ばれます) になります。 モデルに関連付けられている DbContext を使用して、次のことを行うことができます。
+モデルを作成すると、アプリケーションが対話するプライマリクラスは `System.Data.Entity.DbContext` (多くの場合、コンテキストクラスと呼ばれます) になります。 モデルに関連付けられている DbContext を使用して、次のことを行うことができます。
 - クエリの作成と実行   
 - クエリ結果をエンティティオブジェクトとして具体化する
 - これらのオブジェクトに加えられた変更を追跡する
@@ -35,16 +37,16 @@ public class ProductContext : DbContext
 }
 ```  
 
-コンテキストがわかれば、これらのプロパティを使用してクエリを実行したり、(`Add` または `Attach` メソッドを使用して) 追加したり、コンテキストでエンティティを削除 `Remove`したりできます。 コンテキストオブジェクトの `DbSet` プロパティへのアクセスは、指定された型のすべてのエンティティを返す開始クエリを表します。 プロパティにアクセスするだけではクエリが実行されないことに注意してください。 クエリは次の場合に実行されます。  
+コンテキストを取得した後は、これらのプロパティを使用して、コンテキスト内のエンティティを照会、追加 ( `Add` またはメソッドを使用 `Attach` ) または削除 (を使用 `Remove` ) できます。 コンテキストオブジェクトのプロパティへのアクセスは、 `DbSet` 指定された型のすべてのエンティティを返す開始クエリを表します。 プロパティにアクセスするだけではクエリが実行されないことに注意してください。 クエリは次の場合に実行されます。  
 
 - `foreach` (C#) または `For Each` (Visual Basic) ステートメントによって列挙された場合。  
-- `ToArray`、`ToDictionary`、`ToList`などのコレクション操作によって列挙されます。  
-- `First` や `Any` などの LINQ 演算子は、クエリの最も外側の部分で指定されます。  
-- 次のいずれかのメソッドが呼び出されます。指定したキーを持つエンティティがコンテキストに既に読み込まれていない場合、`Load` 拡張メソッド、`DbEntityEntry.Reload`、`Database.ExecuteSqlCommand`、および `DbSet<T>.Find`です。  
+- これは、、、などのコレクション操作によって列挙され `ToArray` `ToDictionary` `ToList` ます。  
+- やなどの LINQ `First` 演算子 `Any` は、クエリの最も外側の部分で指定されます。  
+- 次のいずれかのメソッドが呼び出されます。 `Load` `DbEntityEntry.Reload`  `Database.ExecuteSqlCommand` `DbSet<T>.Find` 指定したキーを持つエンティティがコンテキストに既に読み込まれていない場合は、拡張メソッド、、、および。  
 
 ## <a name="lifetime"></a>有効期間  
 
-コンテキストの有効期間は、インスタンスが作成されると開始され、インスタンスが破棄またはガベージコレクトされるときに終了します。 コンテキストで制御されるすべてのリソースをブロックの最後に破棄する場合は、**を**使用します。 **を**使用すると、コンパイラは自動的に try/finally ブロックを作成し、 **finally**ブロックで dispose を呼び出します。  
+コンテキストの有効期間は、インスタンスが作成されると開始され、インスタンスが破棄またはガベージコレクトされるときに終了します。 コンテキストで制御されるすべてのリソースをブロックの最後に破棄する場合は、 **を** 使用します。 **を**使用すると、コンパイラは自動的に try/finally ブロックを作成し、 **finally**ブロックで dispose を呼び出します。  
 
 ``` csharp
 public void UseProducts()

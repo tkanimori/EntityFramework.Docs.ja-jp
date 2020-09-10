@@ -1,15 +1,16 @@
 ---
 title: 複数のプロバイダーを使用した移行-EF Core
+description: Entity Framework Core で複数のデータベースプロバイダーを対象とする場合に、移行を使用してデータベーススキーマを管理する
 author: bricelam
 ms.author: bricelam
 ms.date: 11/08/2017
 uid: core/managing-schemas/migrations/providers
-ms.openlocfilehash: 388829992687e626648889a47130cc61df1c0d1f
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: df38af6ac700a530894b98e1f29bbe804831bad5
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370621"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619189"
 ---
 # <a name="migrations-with-multiple-providers"></a>複数のプロバイダーを使用した移行
 
@@ -19,7 +20,7 @@ ms.locfileid: "85370621"
 
 最初の方法では、モデルの変更ごとに2つの移行を生成します。
 
-これを行う1つの方法は、各移行セットを[個別のアセンブリに][2]配置し、2つの移行を追加する間に、アクティブなプロバイダー (および移行アセンブリ) を手動で切り替えることです。
+これを行う1つの方法は、各移行セットを [個別のアセンブリに][2] 配置し、2つの移行を追加する間に、アクティブなプロバイダー (および移行アセンブリ) を手動で切り替えることです。
 
 ツールを簡単に操作できるもう1つの方法は、DbContext から派生した新しい型を作成し、アクティブなプロバイダーをオーバーライドすることです。 この型は、移行を追加または適用するときに、デザイン時に使用されます。
 
@@ -78,5 +79,5 @@ if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer"
 }
 ```
 
-  [1]: ../../miscellaneous/cli/index.md
-  [2]: projects.md
+  [1]: xref:core/miscellaneous/cli/index
+  [2]: xref:core/managing-schemas/migrations/projects

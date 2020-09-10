@@ -1,29 +1,31 @@
 ---
 title: コードベースの構成-EF6
+description: Entity Framework 6 のコードベースの構成
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 13886d24-2c74-4a00-89eb-aa0dee328d83
-ms.openlocfilehash: 079a4ab30af74eac8b1f51ece5801ff40a867a29
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/configuring/code-based
+ms.openlocfilehash: 643aefff1d8a143e7df8251eff4e5051e2c6bd08
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414801"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618496"
 ---
 # <a name="code-based-configuration"></a>コードベースの構成
 > [!NOTE]
 > **EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。  
 
-Entity Framework アプリケーションの構成は、構成ファイル (app.config または web.config) またはコードを使用して指定できます。 後者は、コードベースの構成と呼ばれます。  
+Entity Framework アプリケーションの構成は、構成ファイル (app.config/web.config) またはコードを使用して指定できます。 後者は、コードベースの構成と呼ばれます。  
 
-構成ファイルの構成については、[別の記事](config-file.md)で説明します。 構成ファイルは、コードベースの構成よりも優先されます。 つまり、構成オプションがコードと構成ファイルの両方で設定されている場合、構成ファイルの設定が使用されます。  
+構成ファイルの構成については、 [別の記事](xref:ef6/fundamentals/configuring/config-file)で説明します。 構成ファイルは、コードベースの構成よりも優先されます。 つまり、構成オプションがコードと構成ファイルの両方で設定されている場合、構成ファイルの設定が使用されます。  
 
 ## <a name="using-dbconfiguration"></a>DbConfiguration の使用  
 
-EF6 以降のコードベースの構成は、system.object のサブクラスを作成することによって実現されます。 DbConfiguration をサブクラス化する場合は、次のガイドラインに従う必要があります。  
+EF6 以降のコードベースの構成は、System.Data.Entity.Config のサブクラスを作成することによって実現されます。DbConfiguration. DbConfiguration をサブクラス化する場合は、次のガイドラインに従う必要があります。  
 
 - アプリケーションの DbConfiguration クラスを1つだけ作成します。 このクラスは、アプリドメイン全体の設定を指定します。  
-- DbConfiguration クラスを Dbconfiguration クラスと同じアセンブリに配置します。 (これを変更する場合は、「 *DbConfiguration の移動*」セクションを参照してください)。  
+- DbConfiguration クラスを Dbconfiguration クラスと同じアセンブリに配置します。 (これを変更する場合は、「 *DbConfiguration の移動* 」セクションを参照してください)。  
 - DbConfiguration クラスにパブリックのパラメーターなしのコンストラクターを指定します。  
 - このコンストラクター内から保護された DbConfiguration メソッドを呼び出すことによって、構成オプションを設定します。  
 
@@ -94,7 +96,7 @@ DbContext 型を使用する前に構成が必要になる状況もあります�
 
 このような状況では、EF は構成を自動的に検出できないため、代わりに次のいずれかを実行する必要があります。  
 
-- 上の「 *DbConfiguration の移動*」セクションで説明したように、構成ファイルで dbconfiguration 型を設定します。
+- 上の「 *DbConfiguration の移動* 」セクションで説明したように、構成ファイルで dbconfiguration 型を設定します。
 - アプリケーションの起動時に、静的な DbConfiguration. SetConfiguration メソッドを呼び出します。  
 
 ## <a name="overriding-dbconfiguration"></a>DbConfiguration のオーバーライド  

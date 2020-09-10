@@ -1,17 +1,18 @@
 ---
 title: インデックス-EF Core
+description: Entity Framework Core モデルでのインデックスの構成
 author: roji
 ms.date: 12/16/2019
 ms.assetid: 85b92003-b692-417d-ac1d-76d40dce664b
 uid: core/modeling/indexes
-ms.openlocfilehash: 9565b499ababace3595153e7159e017d2df1cc5a
-ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
+ms.openlocfilehash: 1ce40a9219dde56478b1ff8891841b53d9ba1934
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526746"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619353"
 ---
-# <a name="indexes"></a>インデックス
+# <a name="indexes"></a>Indexes
 
 インデックスは、多くのデータストアで共通の概念です。 データストアでの実装は異なる場合がありますが、列または列のセットに基づいて参照を作成するために使用されます。
 
@@ -46,7 +47,7 @@ Fluent API を使用して、データベースに作成されたインデック
 
 ## <a name="index-filter"></a>インデックスフィルター
 
-一部のリレーショナルデータベースでは、フィルター処理されたインデックスまたは部分的なインデックスを指定できます。 これにより、列の値のサブセットにのみインデックスを作成し、インデックスのサイズを小さくして、パフォーマンスとディスク領域の使用率を向上させることができます。 フィルター選択されたインデックス SQL Server の詳細については、[のドキュメントを参照してください](/sql/relational-databases/indexes/create-filtered-indexes)。
+一部のリレーショナルデータベースでは、フィルター処理されたインデックスまたは部分的なインデックスを指定できます。 これにより、列の値のサブセットにのみインデックスを作成し、インデックスのサイズを小さくして、パフォーマンスとディスク領域の使用率を向上させることができます。 フィルター選択されたインデックス SQL Server の詳細については、 [のドキュメントを参照してください](/sql/relational-databases/indexes/create-filtered-indexes)。
 
 Fluent API を使用して、SQL 式として指定されたインデックスにフィルターを指定できます。
 
@@ -58,7 +59,7 @@ SQL Server プロバイダー EF を使用すると、 `'IS NOT NULL'` 一意の
 
 ## <a name="included-columns"></a>[付加列]
 
-一部のリレーショナルデータベースでは、インデックスに含まれるが、"キー" の一部ではない列のセットを構成できます。 これにより、テーブル自体にアクセスする必要がないため、クエリ内のすべての列がキー列または非キー列としてインデックスに含まれる場合、クエリのパフォーマンスが大幅に向上します。 付加列 SQL Server の詳細については、[のドキュメントを参照してください](/sql/relational-databases/indexes/create-indexes-with-included-columns)。
+一部のリレーショナルデータベースでは、インデックスに含まれるが、"キー" の一部ではない列のセットを構成できます。 これにより、テーブル自体にアクセスする必要がないため、クエリ内のすべての列がキー列または非キー列としてインデックスに含まれる場合、クエリのパフォーマンスが大幅に向上します。 付加列 SQL Server の詳細については、 [のドキュメントを参照してください](/sql/relational-databases/indexes/create-indexes-with-included-columns)。
 
 次の例では、 `Url` 列がインデックスキーの一部であるため、その列に対するクエリフィルター処理でインデックスを使用できます。 さらに、 `Title` 列と列にのみアクセス `PublishedOn` するクエリは、テーブルにアクセスする必要がなく、より効率的に実行されます。
 

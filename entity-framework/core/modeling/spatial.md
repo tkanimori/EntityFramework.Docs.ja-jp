@@ -1,23 +1,24 @@
 ---
 title: 空間データ-EF Core
+description: Entity Framework Core モデルでの空間データの使用
 author: bricelam
 ms.author: bricelam
 ms.date: 11/01/2018
 ms.assetid: 2BDE29FC-4161-41A0-841E-69F51CCD9341
 uid: core/modeling/spatial
-ms.openlocfilehash: 85124b7e252797ccd952d0d332e7309eff97ba56
-ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
+ms.openlocfilehash: 42386fb132f135d725a2068d91dc49c7f613e277
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526668"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616701"
 ---
 # <a name="spatial-data"></a>空間データ
 
 > [!NOTE]
 > この機能は EF Core 2.2 で追加されました。
 
-空間データは、オブジェクトの物理的な位置と形状を表します。 多くのデータベースでは、この種類のデータをサポートしているため、他のデータと共にインデックスを作成してクエリを実行できます。 一般的なシナリオとしては、ある場所からの特定の距離にあるオブジェクトのクエリ、または特定の場所を含む罫線を持つオブジェクトの選択などがあります。 EF Core では、 [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite)空間ライブラリを使用した空間データ型へのマッピングがサポートされています。
+空間データは、オブジェクトの物理的な位置と形状を表します。 多くのデータベースでは、この種類のデータをサポートしているため、他のデータと共にインデックスを作成してクエリを実行できます。 一般的なシナリオとしては、ある場所からの特定の距離にあるオブジェクトのクエリ、または特定の場所を含む罫線を持つオブジェクトの選択などがあります。 EF Core では、 [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) 空間ライブラリを使用した空間データ型へのマッピングがサポートされています。
 
 ## <a name="installing"></a>インストール
 
@@ -32,7 +33,7 @@ Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore](https://
 
 ## <a name="reverse-engineering"></a>リバースエンジニアリング
 
-空間 NuGet パッケージでは、空間プロパティを使用してモデルの[リバースエンジニアリング](../managing-schemas/scaffolding.md)を行うこともできますが、またはを実行する***前***にパッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
+空間 NuGet パッケージでは、空間プロパティを使用してモデルの [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) を行うこともできますが、またはを実行する ***前*** にパッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
 ## <a name="nettopologysuite-nts"></a>NetTopologySuite (NTS)
 
@@ -101,11 +102,11 @@ var currentLocation = geometryFactory.CreatePoint(new Coordinate(-122.121512, 47
 
 ### <a name="longitude-and-latitude"></a>経度と緯度
 
-NTS 内の座標は、X 値と Y 値で表現されます。 経度と緯度を表すには、経度には X、緯度には Y を使用します。 これは、通常、これらの値が表示されるのとは**逆**の形式であることに注意して `latitude, longitude` ください。
+NTS 内の座標は、X 値と Y 値で表現されます。 経度と緯度を表すには、経度には X、緯度には Y を使用します。 これは、通常、これらの値が表示されるのとは **逆** の形式であることに注意して `latitude, longitude` ください。
 
 ### <a name="srid-ignored-during-client-operations"></a>クライアント操作中に SRID が無視されました
 
-NTS は、操作中に SRID の値を無視します。 平面座標系を前提としています。 これは、経度と緯度の観点で座標を指定した場合、クライアントによって評価される値 (距離、長さ、領域など) は、メーターではなく、度数で表されることを意味します。 意味のある値については、まず、 [ProjNet4GeoAPI](https://github.com/NetTopologySuite/ProjNet4GeoAPI)のようなライブラリを使用して、これらの値を計算する前に、別の座標系の座標を射影する必要があります。
+NTS は、操作中に SRID の値を無視します。 平面座標系を前提としています。 これは、経度と緯度の観点で座標を指定した場合、クライアントによって評価される値 (距離、長さ、領域など) は、メーターではなく、度数で表されることを意味します。 意味のある値については、まず、 [ProjNet4GeoAPI](https://github.com/NetTopologySuite/ProjNet4GeoAPI) のようなライブラリを使用して、これらの値を計算する前に、別の座標系の座標を射影する必要があります。
 
 操作が SQL を介して EF Core によってサーバーによって評価される場合、結果の単位はデータベースによって決定されます。
 
@@ -213,7 +214,7 @@ SQL Server を使用している場合は、注意が必要な点がいくつか
 
 ### <a name="geography-or-geometry"></a>Geography または geometry
 
-既定では、空間プロパティは SQL Server の列にマップされ `geography` ます。 を使用するには `geometry` 、モデルの[列の型を構成](xref:core/modeling/entity-properties#column-data-types)します。
+既定では、空間プロパティは SQL Server の列にマップされ `geography` ます。 を使用するには `geometry` 、モデルの [列の型を構成](xref:core/modeling/entity-properties#column-data-types) します。
 
 ### <a name="geography-polygon-rings"></a>Geography polygon リング
 
@@ -242,7 +243,7 @@ apt-get install libsqlite3-mod-spatialite
 brew install libspatialite
 ```
 
-残念ながら、新しいバージョンの PROJ (SpatiaLite の依存関係) は EF の既定の[SQLitePCLRaw バンドル](/dotnet/standard/data/sqlite/custom-versions#bundles)と互換性がありません。 この問題を回避するには、システム SQLite ライブラリを使用するカスタム[SQLitePCLRaw プロバイダー](/dotnet/standard/data/sqlite/custom-versions#sqlitepclraw-providers)を作成するか、または SpatiaLite のカスタムビルドをインストールして、PROJ サポートを無効にします。
+残念ながら、新しいバージョンの PROJ (SpatiaLite の依存関係) は EF の既定の [SQLitePCLRaw バンドル](/dotnet/standard/data/sqlite/custom-versions#bundles)と互換性がありません。 この問題を回避するには、システム SQLite ライブラリを使用するカスタム [SQLitePCLRaw プロバイダー](/dotnet/standard/data/sqlite/custom-versions#sqlitepclraw-providers) を作成するか、または SpatiaLite のカスタムビルドをインストールして、PROJ サポートを無効にします。
 
 ``` sh
 curl https://www.gaia-gis.it/gaia-sins/libspatialite-4.3.0a.tar.gz | tar -xz
@@ -343,7 +344,7 @@ ExteriorRing | ✔ | ✔ | ✔ | ✔
 GetInteriorRingN (int) | ✔ | ✔ | ✔ | ✔
 NumInteriorRings | ✔ | ✔ | ✔ | ✔
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他のリソース
 
 * [SQL Server の空間データ](/sql/relational-databases/spatial/spatial-data-sql-server)
 * [SpatiaLite ホームページ](https://www.gaia-gis.it/fossil/libspatialite)

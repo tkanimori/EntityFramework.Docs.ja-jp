@@ -1,23 +1,25 @@
 ---
 title: 既存のデータベースを使用した Code First Migrations-EF6
+description: Entity Framework 6 の既存のデータベースを使用して Code First Migrations する
 author: divega
 ms.date: 10/23/2016
 ms.assetid: f0cc4f93-67dd-4664-9753-0a9f913814db
-ms.openlocfilehash: eb7948eafb1322cabcf69b47bd5411f762fe8498
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/code-first/migrations/existing-database
+ms.openlocfilehash: f7638cac17bf9152c829ae415fc941aa0a0c6cab
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415695"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616936"
 ---
 # <a name="code-first-migrations-with-an-existing-database"></a>既存のデータベースでの Code First Migrations
 > [!NOTE]
-> **Ef 4.3 以降のみ**-このページで説明した機能、api などが Entity Framework 4.1 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
+> **Ef 4.3 以降のみ** -このページで説明した機能、api などが Entity Framework 4.1 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
 
 この記事では、Entity Framework によって作成されていない既存のデータベースで Code First Migrations を使用する方法について説明します。
 
 > [!NOTE]
-> この記事では、基本的なシナリオでの Code First Migrations の使用方法を理解していることを前提としています。 そうでない場合は、続行する前に[Code First Migrations](~/ef6/modeling/code-first/migrations/index.md)を読む必要があります。
+> この記事では、基本的なシナリオでの Code First Migrations の使用方法を理解していることを前提としています。 そうでない場合は、続行する前に [Code First Migrations](xref:ef6/modeling/code-first/migrations/index) を読む必要があります。
 
 ## <a name="screencasts"></a>キャスト
 
@@ -25,7 +27,7 @@ ms.locfileid: "78415695"
 
 ### <a name="video-one-migrations---under-the-hood"></a>ビデオ 1: "移行-内部"
 
-[このスクリーンキャスト](https://channel9.msdn.com/blogs/ef/migrations-under-the-hood)では、モデルの変更を検出するために、移行によってモデルに関する情報を追跡および使用する方法について説明します。
+[このスクリーンキャスト](https://channel9.msdn.com/blogs/ef/migrations-under-the-hood) では、モデルの変更を検出するために、移行によってモデルに関する情報を追跡および使用する方法について説明します。
 
 ### <a name="video-two-migrations---existing-databases"></a>ビデオ 2: "移行-既存のデータベース"
 
@@ -33,16 +35,16 @@ ms.locfileid: "78415695"
 
 ## <a name="step-1-create-a-model"></a>手順 1: モデルを作成する
 
-最初の手順として、既存のデータベースを対象とする Code First モデルを作成します。 この方法の詳細なガイダンスについては、「[既存のデータベースへの Code First](~/ef6/modeling/code-first/workflows/existing-database.md) 」を参照してください。
+最初の手順として、既存のデータベースを対象とする Code First モデルを作成します。 この方法の詳細なガイダンスについては、「 [既存のデータベースへの Code First](xref:ef6/modeling/code-first/workflows/existing-database) 」を参照してください。
 
 >[!NOTE]
 > データベーススキーマを変更する必要があるモデルに変更を加える前に、このトピックの残りの手順に従うことが重要です。 次の手順では、モデルをデータベーススキーマと同期させる必要があります。
 
 ## <a name="step-2-enable-migrations"></a>手順 2: 移行を有効にする
 
-次の手順では、移行を有効にします。 これを行うには、パッケージマネージャーコンソールで [**移行を有効に**する] コマンドを実行します。
+次の手順では、移行を有効にします。 これを行うには、パッケージマネージャーコンソールで [ **移行を有効に** する] コマンドを実行します。
 
-このコマンドを実行すると、移行という名前のフォルダーがソリューションに作成され、Configuration という名前の単一のクラスが配置されます。 構成クラスでは、アプリケーションの移行を構成します。詳細については、 [Code First Migrations](~/ef6/modeling/code-first/migrations/index.md)のトピックを参照してください。
+このコマンドを実行すると、移行という名前のフォルダーがソリューションに作成され、Configuration という名前の単一のクラスが配置されます。 構成クラスでは、アプリケーションの移行を構成します。詳細については、 [Code First Migrations](xref:ef6/modeling/code-first/migrations/index) のトピックを参照してください。
 
 ## <a name="step-3-add-an-initial-migration"></a>手順 3: 初期移行を追加する
 
@@ -53,18 +55,18 @@ ms.locfileid: "78415695"
 
 ### <a name="option-one-use-existing-schema-as-a-starting-point"></a>オプション 1: 既存のスキーマを開始点として使用する
 
-Code First Migrations は、最新の移行に格納されているモデルのスナップショットを使用して、モデルに対する変更を検出します (詳細については、「[チーム環境の Code First Migrations](~/ef6/modeling/code-first/migrations/teams.md)」を参照してください)。 現在のモデルのスキーマがデータベースに既に存在することを前提としているため、現在のモデルをスナップショットとして持つ空 (op なし) の移行を生成します。
+Code First Migrations は、最新の移行に格納されているモデルのスナップショットを使用して、モデルに対する変更を検出します (詳細については、「 [チーム環境の Code First Migrations](xref:ef6/modeling/code-first/migrations/teams)」を参照してください)。 現在のモデルのスキーマがデータベースに既に存在することを前提としているため、現在のモデルをスナップショットとして持つ空 (op なし) の移行を生成します。
 
-1.  パッケージマネージャーコンソールで、[**移行の追加と初期化]** コマンドを実行します。 これにより、現在のモデルをスナップショットとして使用した空の移行が作成されます。
-2.  パッケージマネージャーコンソールで、**データベースの更新**コマンドを実行します。 これにより、データベースへの InitialCreate 移行が適用されます。 実際の移行には変更は含まれていないため、この移行が既に適用されていることを示す \_\_MigrationsHistory テーブルに行を追加するだけです。
+1.  パッケージマネージャーコンソールで、[ **移行の追加と初期化]** コマンドを実行します。 これにより、現在のモデルをスナップショットとして使用した空の移行が作成されます。
+2.  パッケージマネージャーコンソールで、 **データベースの更新** コマンドを実行します。 これにより、データベースへの InitialCreate 移行が適用されます。 実際の移行には変更は含まれていないため、MigrationsHistory テーブルに行を追加するだけで、 \_ \_ この移行が既に適用されていることが示されます。
 
 ### <a name="option-two-use-empty-database-as-a-starting-point"></a>オプション 2: 開始点として空のデータベースを使用する
 
 このシナリオでは、ローカルデータベースに既に存在するテーブルを含めて、データベース全体を最初から作成できるように移行する必要があります。 既存のスキーマを作成するロジックを含む InitialCreate 移行を生成します。 次に、この移行が既に適用されているように、既存のデータベースを表示します。
 
-1.  パッケージマネージャーコンソールで、移行  **InitialCreate** コマンドを実行します。 これにより、既存のスキーマを作成するための移行が作成されます。
+1.  パッケージマネージャーコンソールで、[移行] [ **InitialCreate** ] コマンドを実行します。 これにより、既存のスキーマを作成するための移行が作成されます。
 2.  新しく作成された移行の Up メソッドのすべてのコードをコメントアウトします。 これにより、既に存在しているすべてのテーブルを再作成することなく、ローカルデータベースへの移行を "適用" できます。
-3.  パッケージマネージャーコンソールで、**データベースの更新**コマンドを実行します。 これにより、データベースへの InitialCreate 移行が適用されます。 実際の移行には変更が含まれていないため (一時的にコメントアウトされているため)、\_\_MigrationsHistory テーブルに行を追加するだけで、この移行が既に適用されていることがわかります。
+3.  パッケージマネージャーコンソールで、 **データベースの更新** コマンドを実行します。 これにより、データベースへの InitialCreate 移行が適用されます。 実際の移行には変更が含まれていないため (一時的にコメントアウトされているため)、MigrationsHistory テーブルに行を追加するだけで、 \_ \_ この移行が既に適用されていることがわかります。
 4.  Up メソッドのコードのコメントを解除します。 これは、この移行が今後のデータベースに適用されるときに、ローカルデータベースに既に存在していたスキーマが移行によって作成されることを意味します。
 
 ## <a name="things-to-be-aware-of"></a>注意事項
@@ -80,7 +82,7 @@ Code First Migrations は、最新の移行に格納されているモデルの�
 **"オプション 1: 既存のスキーマを開始点として使用する (手順 3:**
 
 -   モデルの今後の変更で、別の名前のデータベースオブジェクトを変更または削除する必要がある場合は、スキャフォールディングの移行を変更して正しい名前を指定する必要があります。 移行 Api には、これを可能にするオプションの Name パラメーターがあります。
-    たとえば、既存のスキーマには、IndexFk という名前のインデックスを持つブログ Id 外部キー列を含む Post テーブルが含まれる場合があります\_ブログ Id です。 ただし、既定の移行では、このインデックスの名前が IX\_ブログ Id と想定されます。 このインデックスを削除するようにモデルを変更した場合は、スキャフォールディング DropIndex 呼び出しを変更して、IndexFk\_のブログ Id 名を指定する必要があります。
+    たとえば、既存のスキーマに、IndexFk ブログ id という名前のインデックスを持つブログ Id 外部キー列を含む Post テーブルがあるとし \_ ます。 ただし、既定の移行では、このインデックスの名前は IX \_ ブログ id と見なされます。 このインデックスを削除するようにモデルを変更した場合は、スキャフォールディング DropIndex 呼び出しを変更して IndexFk のブログ id 名を指定する必要があり \_ ます。
 
 **' オプション 2: 手順 3. の開始点として空のデータベースを使用する:**
 
@@ -98,4 +100,4 @@ Code First Migrations は、最新の移行に格納されているモデルの�
 
 -   [手順 3] で選択したオプションに関係なく、モデルの将来の変更によってこれらの追加オブジェクトが変更または削除される必要がある場合、これらの変更を行うことはできません。 たとえば、追加のインデックスを持つ列を削除した場合、そのインデックスを削除することはできません。 これをスキャフォールディング移行に手動で追加する必要があります。
 -   [オプション 2: 開始点として空のデータベースを使用する] を使用した場合、これらの追加のオブジェクトは初期移行の上の方法では作成されません。
-    必要に応じて、これらの追加のオブジェクトを処理するために、上または下のメソッドを変更できます。 移行 API でネイティブにサポートされていないオブジェクト (ビューなど) の場合は、 [sql](https://msdn.microsoft.com/library/system.data.entity.migrations.dbmigration.sql.aspx)メソッドを使用して、未加工の sql を実行し、それらを作成/削除することができます。
+    必要に応じて、これらの追加のオブジェクトを処理するために、上または下のメソッドを変更できます。 移行 API でネイティブにサポートされていないオブジェクト (ビューなど) の場合は、 [sql](https://msdn.microsoft.com/library/system.data.entity.migrations.dbmigration.sql.aspx) メソッドを使用して、未加工の sql を実行し、それらを作成/削除することができます。

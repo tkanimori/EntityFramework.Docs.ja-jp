@@ -1,14 +1,16 @@
 ---
 title: リレーションシップ、ナビゲーションプロパティ、および外部キー-EF6
+description: Entity Framework 6 のリレーションシップ、ナビゲーションプロパティ、および外部キー
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 8a21ae73-6d9b-4b50-838a-ec1fddffcf37
-ms.openlocfilehash: 5807f7aeeb68328821cf45ac4f8c28efa17ed399
-ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
+uid: ef6/fundamentals/relationships
+ms.openlocfilehash: 63349d9a81065ea4e15a5f97ef5298cb3dc67339
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84664196"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618390"
 ---
 # <a name="relationships-navigation-properties-and-foreign-keys"></a>リレーションシップ、ナビゲーション プロパティ、および外部キー
 
@@ -28,11 +30,11 @@ Entity Framework では、アソシエーションまたはリレーションシ
 
 データベース内の外部キーにマップされるプロパティをモデルに含めることをお勧めします。 外部キー プロパティを含めることにより、依存オブジェクトの外部キーの値を変更してリレーションシップを作成または変更することができます。 このような種類のアソシエーションは外部キー アソシエーションと呼ばれます。 外部キーの使用は、切断されたエンティティを操作する場合にもさらに重要です。 これは、1対1または1対0の操作を行う場合に注意してください。1リレーションシップ、個別の外部キー列はありません。主キープロパティは外部キーとして機能し、常にモデルに含まれます。
 
-外部キー列がモデルに含まれていない場合、関連情報は独立したオブジェクトとして管理されます。 リレーションシップは、外部キープロパティではなく、オブジェクト参照によって追跡されます。 この種類の関連付けは、独立した*関連付け*と呼ばれます。 *独立アソシエーション*を変更する最も一般的な方法は、アソシエーションに参加する各エンティティに対して生成されるナビゲーションプロパティを変更することです。
+外部キー列がモデルに含まれていない場合、関連情報は独立したオブジェクトとして管理されます。 リレーションシップは、外部キープロパティではなく、オブジェクト参照によって追跡されます。 この種類の関連付けは、独立した *関連付け*と呼ばれます。 *独立アソシエーション*を変更する最も一般的な方法は、アソシエーションに参加する各エンティティに対して生成されるナビゲーションプロパティを変更することです。
 
 モデルでは 1 つまたは両方のアソシエーションを使用するよう選択することができます。 ただし、外部キーのみを含む結合テーブルによって接続される純粋多対多リレーションシップがある場合、EF は、このような多対多リレーションシップを管理するために独立した関連付けを使用します。   
 
-次の図は、Entity Framework Designer で作成された概念モデルを示しています。 モデルには、一対多のリレーションシップに参加する2つのエンティティが含まれています。 両方のエンティティにナビゲーションプロパティがあります。 **Course**は依存エンティティであり、 **DepartmentID**外部キープロパティが定義されています。
+次の図は、Entity Framework Designer で作成された概念モデルを示しています。 モデルには、一対多のリレーションシップに参加する2つのエンティティが含まれています。 両方のエンティティにナビゲーションプロパティがあります。 **Course** は依存エンティティであり、 **DepartmentID** 外部キープロパティが定義されています。
 
 ![ナビゲーションプロパティがある部門テーブルとコーステーブル](~/ef6/media/relationshipefdesigner.png)
 
@@ -67,8 +69,8 @@ public class Department
 
 このページの残りの部分では、リレーションシップを使用してデータにアクセスし、操作する方法について説明します。 モデルでのリレーションシップの設定の詳細については、次のページを参照してください。
 
--   Code First でリレーションシップを構成するには、「[データ注釈](~/ef6/modeling/code-first/data-annotations.md)」と「 [Fluent API –リレーションシップ](~/ef6/modeling/code-first/fluent/relationships.md)」を参照してください。
--   Entity Framework Designer を使用してリレーションシップを構成するには、「 [EF Designer とのリレーションシップ](~/ef6/modeling/designer/relationships.md)」を参照してください。
+-   Code First でリレーションシップを構成するには、「 [データ注釈](xref:ef6/modeling/code-first/data-annotations) 」と「 [Fluent API –リレーションシップ](xref:ef6/modeling/code-first/fluent/relationships)」を参照してください。
+-   Entity Framework Designer を使用してリレーションシップを構成するには、「 [EF Designer とのリレーションシップ](xref:ef6/modeling/designer/relationships)」を参照してください。
 
 ## <a name="creating-and-modifying-relationships"></a>リレーションシップの作成と変更
 
@@ -81,7 +83,7 @@ public class Department
   course.DepartmentID = newCourse.DepartmentID;
   ```
 
-- 次のコードでは、外部キーを**null**に設定してリレーションシップを削除します。 外部キープロパティは null 値が許容される必要があることに注意してください。  
+- 次のコードでは、外部キーを **null**に設定してリレーションシップを削除します。 外部キープロパティは null 値が許容される必要があることに注意してください。  
   ``` csharp
   course.DepartmentID = null;
   ```
@@ -105,12 +107,12 @@ public class Department
   context.Entry(course).Reference(c => c.Department).CurrentValue = null;
   ```
 
-- エンティティ コレクションのオブジェクトを削除または追加する。 たとえば、型のオブジェクトをコレクションに追加でき `Course` `department.Courses` ます。 この操作では、特定の**コース**と特定のの間のリレーションシップを作成し `department` ます。 オブジェクトがコンテキストにアタッチされている場合は、 **course**オブジェクトの department 参照と外部キープロパティが適切なに設定され `department` ます。  
+- エンティティ コレクションのオブジェクトを削除または追加する。 たとえば、型のオブジェクトをコレクションに追加でき `Course` `department.Courses` ます。 この操作では、特定の **コース** と特定のの間のリレーションシップを作成し `department` ます。 オブジェクトがコンテキストにアタッチされている場合は、 **course** オブジェクトの department 参照と外部キープロパティが適切なに設定され `department` ます。  
   ``` csharp
   department.Courses.Add(newCourse);
   ```
 
-- メソッドを使用して、 `ChangeRelationshipState` 2 つのエンティティオブジェクト間の指定したリレーションシップの状態を変更します。 このメソッドは、N 層アプリケーションと独立した*関連付け*(外部キーの関連付けでは使用できません) を操作する場合に最もよく使用されます。 また、このメソッドを使用するには、 `ObjectContext` 次の例に示すように、にドロップダウンする必要があります。  
+- メソッドを使用して、 `ChangeRelationshipState` 2 つのエンティティオブジェクト間の指定したリレーションシップの状態を変更します。 このメソッドは、N 層アプリケーションと独立した *関連付け* (外部キーの関連付けでは使用できません) を操作する場合に最もよく使用されます。 また、このメソッドを使用するには、 `ObjectContext` 次の例に示すように、にドロップダウンする必要があります。  
 次の例では、インストラクターとコースの間に多対多のリレーションシップがあります。 メソッドを呼び出し、 `ChangeRelationshipState` `EntityState.Added` パラメーターを渡すことにより、 `SchoolContext` 2 つのオブジェクトの間にリレーションシップが追加されたことを確認できます。
   ``` csharp
 
@@ -129,9 +131,9 @@ public class Department
 
 ## <a name="synchronizing-the-changes-between-the-foreign-keys-and-navigation-properties"></a>外部キーとナビゲーションプロパティの間の変更の同期
 
-上記のいずれかの方法を使用してコンテキストにアタッチされているオブジェクトのリレーションシップを変更する場合、Entity Framework は外部キー、参照、およびコレクションを同期させておく必要があります。Entity Framework は、プロキシを持つ POCO エンティティについて、この同期 (リレーションシップの修正とも呼ばれます) を自動的に管理します。 詳細については、「[プロキシの使用](~/ef6/fundamentals/proxies.md)」を参照してください。
+上記のいずれかの方法を使用してコンテキストにアタッチされているオブジェクトのリレーションシップを変更する場合、Entity Framework は外部キー、参照、およびコレクションを同期させておく必要があります。Entity Framework は、プロキシを持つ POCO エンティティについて、この同期 (リレーションシップの修正とも呼ばれます) を自動的に管理します。 詳細については、「 [プロキシの使用](xref:ef6/fundamentals/proxies)」を参照してください。
 
-プロキシなしで POCO エンティティを使用している場合は、コンテキスト内の関連オブジェクトを同期するために、"検出された**変更**" メソッドが呼び出されるようにする必要があります。 次の Api では、検出された**変更**の呼び出しが自動的にトリガーされることに注意してください。
+プロキシなしで POCO エンティティを使用している場合は、コンテキスト内の関連オブジェクトを同期するために、"検出された **変更** " メソッドが呼び出されるようにする必要があります。 次の Api では、検出された **変更** の呼び出しが自動的にトリガーされることに注意してください。
 
 -   `DbSet.Add`
 -   `DbSet.AddRange`
@@ -144,11 +146,11 @@ public class Department
 -   `DbContext.GetValidationErrors`
 -   `DbContext.Entry`
 -   `DbChangeTracker.Entries`
--   に対する LINQ クエリの実行`DbSet`
+-   に対する LINQ クエリの実行 `DbSet`
 
 ## <a name="loading-related-objects"></a>関連オブジェクトの読み込み
 
-Entity Framework では、通常、ナビゲーションプロパティを使用して、定義されたアソシエーションによって返されるエンティティに関連するエンティティを読み込みます。 詳しくは、「[関連オブジェクトの読み込み](~/ef6/querying/related-data.md)」をご覧ください。
+Entity Framework では、通常、ナビゲーションプロパティを使用して、定義されたアソシエーションによって返されるエンティティに関連するエンティティを読み込みます。 詳しくは、「[関連オブジェクトの読み込み](xref:ef6/querying/related-data)」をご覧ください。
 
 > [!NOTE]
 > 外部キー アソシエーションで依存オブジェクトの関連 End を読み込むと、現在メモリ内にある依存の外部キー値に基づいて関連オブジェクトが読み込まれます。
@@ -173,7 +175,7 @@ Entity Framework では、通常、ナビゲーションプロパティを使用
 
 同時実行のチェックと解決に参加するエンティティを操作する場合は、常に外部キーの関連付けを使用することをお勧めします。
 
-詳細については、「[同時実行の競合の処理](~/ef6/saving/concurrency.md)」を参照してください。
+詳細については、「 [同時実行の競合の処理](xref:ef6/saving/concurrency)」を参照してください。
 
 ## <a name="working-with-overlapping-keys"></a>重複するキーの操作
 

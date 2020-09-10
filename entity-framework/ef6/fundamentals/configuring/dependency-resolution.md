@@ -1,14 +1,16 @@
 ---
 title: 依存関係の解決-EF6
+description: Entity Framework 6 の依存関係の解決
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 32d19ac6-9186-4ae1-8655-64ee49da55d0
-ms.openlocfilehash: 6082124481f5795bbcb62fff2bb6a58ecdcb48e4
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/configuring/dependency-resolution
+ms.openlocfilehash: c23253dc5a413077e3980fcfa18ea83b5fc3970e
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414795"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618423"
 ---
 # <a name="dependency-resolution"></a>依存関係の解決
 > [!NOTE]
@@ -27,9 +29,9 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 
 特に指定がない限り、返されるオブジェクトはシングルトンとして使用できるため、スレッドセーフである必要があります。 多くの場合、返されるオブジェクトはファクトリであり、ファクトリ自体はスレッドセーフである必要がありますが、ファクトリから返されるオブジェクトは、使用するたびにファクトリから新しいインスタンスが要求されるため、スレッドセーフである必要はありません。
 
-この記事には、IDbDependencyResolver を実装する方法に関する完全な詳細は含まれていませんが、代わりに、EF が GetService を呼び出すサービスの種類 (インターフェイスと基本クラスの型)、およびこれらのそれぞれのキーオブジェクトのセマンティクスを参照として機能します。依頼.
+この記事には、IDbDependencyResolver を実装する方法の詳細は含まれていませんが、代わりに、EF が GetService を呼び出すサービスの種類 (インターフェイスと基本クラスの型)、およびこれらの各呼び出しのキーオブジェクトのセマンティクスを参照として機能します。
 
-## <a name="systemdataentityidatabaseinitializertcontext"></a>< TContext\> の system.object. IDatabaseInitializer  
+## <a name="systemdataentityidatabaseinitializertcontext"></a>Data. Entity. IDatabaseInitializer<TContext\>  
 
 **導入**されたバージョン: ef 6.0.0  
 
@@ -37,7 +39,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 
 **キー**: 使用されていません。null になります  
 
-## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func は MigrationSqlGenerator\> を < します。  
+## <a name="funcsystemdataentitymigrationssqlmigrationsqlgenerator"></a>Func は MigrationSqlGenerator を<します。\>  
 
 **導入**されたバージョン: ef 6.0.0
 
@@ -46,7 +48,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 **Key**: SQL が生成されるデータベースの種類を指定する ADO.NET プロバイダーの不変名を含む文字列。 たとえば、キー "system.string" に対して SQL Server SQL ジェネレーターが返されます。  
 
 >[!NOTE]
-> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。  
+> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。  
 
 ## <a name="systemdataentitycorecommondbproviderservices"></a>DbProviderServices.............  
 
@@ -57,7 +59,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 **Key**: プロバイダーが必要なデータベースの種類を指定する ADO.NET プロバイダーの不変名を含む文字列。 たとえば、キー "system.string" に対して SQL Server プロバイダーが返されます。  
 
 >[!NOTE]
-> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。  
+> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。  
 
 ## <a name="systemdataentityinfrastructureidbconnectionfactory"></a>IDbConnectionFactory (システムのデータ)  
 
@@ -68,7 +70,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 **キー**: 使用されていません。null になります  
 
 >[!NOTE]
-> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。  
+> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。  
 
 ## <a name="systemdataentityinfrastructureimanifesttokenservice"></a>IManifestTokenService (システムのデータ)  
 
@@ -88,7 +90,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 
 **キー**: 使用されていません。null になります  
 
-## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func < DbContext、IDbModelCacheKey\> を行います。  
+## <a name="funcdbcontext-systemdataentityinfrastructureidbmodelcachekey"></a>Func<DbContext、IDbModelCacheKey になります。\>  
 
 **導入**されたバージョン: ef 6.0.0  
 
@@ -105,9 +107,9 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 **キー**: dbsptialservices は2つの方法で要求されます。 最初に、キーとして DbProviderInfo オブジェクト (不変名とマニフェストトークンを含む) を使用して、プロバイダー固有の空間サービスが要求されます。 2つ目は、キーなしで DbSpatialServices を要求できることです。 これは、スタンドアロンの DbGeography 型または Dbgeography 型を作成するときに使用される "グローバル空間プロバイダー" を解決するために使用されます。  
 
 >[!NOTE]
-> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。  
+> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。  
 
-## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func は IDbExecutionStrategy\> を < します。  
+## <a name="funcsystemdataentityinfrastructureidbexecutionstrategy"></a>Func は IDbExecutionStrategy を<します。\>  
 
 **導入**されたバージョン: ef 6.0.0  
 
@@ -116,18 +118,18 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 **Key**: プロバイダーの不変名と、必要に応じて実行戦略を使用するサーバー名を含む ExecutionStrategyKey オブジェクトです。  
 
 >[!NOTE]
-> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。  
+> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。  
 
-## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func < DbConnection、string、system.string、またはの各コンテキスト\>  
+## <a name="funcdbconnection-string-systemdataentitymigrationshistoryhistorycontext"></a>Func<DbConnection、string、または system.string です。履歴コンテキスト\>  
 
 **導入**されたバージョン: ef 6.0.0  
 
-**返されるオブジェクト**: プロバイダーが、EF の移行で使用される `__MigrationHistory` テーブルへの履歴コンテキストのマッピングを構成できるようにするファクトリ。 履歴コンテキストは Code First DbContext であり、テーブルの名前や列マッピングの仕様などを変更するために通常の fluent API を使用して構成できます。  
+**返されるオブジェクト**: プロバイダーが、 `__MigrationHistory` EF の移行で使用されるテーブルへの履歴コンテキストのマッピングを構成できるようにするファクトリ。 履歴コンテキストは Code First DbContext であり、テーブルの名前や列マッピングの仕様などを変更するために通常の fluent API を使用して構成できます。  
 
 **キー**: 使用されていません。null になります  
 
 >[!NOTE]
-> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。  
+> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。  
 
 ## <a name="systemdatacommondbproviderfactory"></a>DbProviderFactory (システム)  
 
@@ -138,7 +140,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 **Key**: ADO.NET プロバイダーの不変名を含む文字列  
 
 >[!NOTE]
-> 既定の実装では通常の ADO.NET プロバイダー登録が使用されるため、このサービスは通常は直接変更されません。 EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。  
+> 既定の実装では通常の ADO.NET プロバイダー登録が使用されるため、このサービスは通常は直接変更されません。 EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。  
 
 ## <a name="systemdataentityinfrastructureiproviderinvariantname"></a>IProviderInvariantName (システムのデータ)  
 
@@ -149,7 +151,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 **キー**: 不変名を必要とする DbProviderFactory インスタンス。  
 
 >[!NOTE]
-> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](~/ef6/fundamentals/providers/provider-model.md)に関するセクションを参照してください。  
+> EF6 のプロバイダー関連サービスの詳細については、 [EF6 プロバイダーモデル](xref:ef6/fundamentals/providers/provider-model) に関するセクションを参照してください。  
 
 ## <a name="systemdataentitycoremappingviewgenerationiviewassemblycache"></a>System.string...............................  
 
@@ -175,7 +177,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 
 **キー**: 使用されていません。null になります。  
 
-## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func < system.object。 DbContext、Action < string\>、system.string. DatabaseLogFormatter\> を実行しています。  
+## <a name="funcsystemdataentitydbcontext-actionstring-systemdataentityinfrastructureinterceptiondatabaselogformatter"></a>Func<system.object。 DbContext、Action<string、system.string、. \> DatabaseLogFormatter ですが、この関数は\>  
 
 **導入**されたバージョン: ef 6.0.0  
 
@@ -183,7 +185,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 
 **キー**: 使用されていません。null になります。  
 
-## <a name="funcsystemdataentitydbcontext"></a>Func < system.object. DbContext\>  
+## <a name="funcsystemdataentitydbcontext"></a>Func<system.object の DbContext\>  
 
 **導入**されたバージョン: ef 6.1.0  
 
@@ -191,7 +193,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 
 **Key**: ファクトリが必要な派生 dbcontext の型の型オブジェクト。  
 
-## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func は IMetadataAnnotationSerializer\> を < しています。  
+## <a name="funcsystemdataentitycoremetadataedmimetadataannotationserializer"></a>Func は IMetadataAnnotationSerializer を<しています。\>  
 
 **導入**されたバージョン: ef 6.1.0  
 
@@ -199,7 +201,7 @@ GetService メソッドは、通常 EF によって呼び出され、EF また�
 
 **キー**: シリアル化または逆シリアル化される注釈の名前。  
 
-## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func < system.object. Infrastructure. Entity.\>  
+## <a name="funcsystemdataentityinfrastructuretransactionhandler"></a>Func<system.object... Entity. Infrastructure\>  
 
 **導入**されたバージョン: ef 6.1.0  
 

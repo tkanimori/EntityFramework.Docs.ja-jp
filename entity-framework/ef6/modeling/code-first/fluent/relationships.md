@@ -1,18 +1,20 @@
 ---
 title: Fluent API-リレーションシップ-EF6
+description: Fluent API-Entity Framework 6 のリレーションシップ
 author: divega
 ms.date: 10/23/2016
 ms.assetid: fd73b4f8-16d5-40f1-9640-885ceafe67a1
-ms.openlocfilehash: 05f282c02699f8bf3c71197ac5e01000f1855917
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/code-first/fluent/relationships
+ms.openlocfilehash: 8cc56f7341df6da7f60f649308ea7042ef23b537
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415761"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616997"
 ---
 # <a name="fluent-api---relationships"></a>Fluent API-リレーションシップ
 > [!NOTE]
-> このページでは、fluent API を使用して Code First モデル内のリレーションシップを設定する方法について説明します。 EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「[リレーションシップ & ナビゲーションプロパティ](~/ef6/fundamentals/relationships.md)」を参照してください。  
+> このページでは、fluent API を使用して Code First モデル内のリレーションシップを設定する方法について説明します。 EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「 [リレーションシップ & ナビゲーションプロパティ](xref:ef6/fundamentals/relationships)」を参照してください。  
 
 Code First を使用する場合は、ドメイン CLR クラスを定義してモデルを定義します。 既定では、Entity Framework は Code First 規約を使用して、クラスをデータベーススキーマにマップします。 Code First 名前付け規則を使用する場合、ほとんどの場合、Code First に依存して、クラスで定義する外部キーとナビゲーションプロパティに基づいてテーブル間のリレーションシップを設定できます。 クラスの定義時に規則に従っていない場合、または規則の動作を変更する場合は、fluent API またはデータ注釈を使用してクラスを構成し、Code First がテーブル間のリレーションシップをマップできるようにすることができます。  
 
@@ -95,8 +97,8 @@ WillCascadeOnDelete メソッドを使用して、リレーションシップに
 
 これらの連鎖削除規則は、次を使用して削除できます。  
 
-modelBuilder. 規則\<OneToManyCascadeDeleteConvention\>() を削除します。  
-modelBuilder. 規則\<ManyToManyCascadeDeleteConvention\>() を削除します。  
+modelBuilder. 規則。削除 \<OneToManyCascadeDeleteConvention\> ()  
+modelBuilder. 規則。削除 \<ManyToManyCascadeDeleteConvention\> ()  
 
 次のコードでは、必要となるリレーションシップを構成してから、cascade delete を無効にしています。  
 

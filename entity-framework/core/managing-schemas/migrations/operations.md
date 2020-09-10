@@ -1,19 +1,20 @@
 ---
 title: カスタム移行操作-EF Core
+description: Entity Framework Core を使用したデータベーススキーマ管理のためのカスタムおよび生の SQL 移行の管理
 author: bricelam
 ms.author: bricelam
 ms.date: 11/07/2017
 uid: core/managing-schemas/migrations/operations
-ms.openlocfilehash: bd2bfdc24977a47eaf7a6756a88b758b563d818a
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: 708894d8d567a4644be3a4ace98cc837465710e0
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414327"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617950"
 ---
 # <a name="custom-migrations-operations"></a>カスタム移行操作
 
-MigrationBuilder API を使用すると、移行中にさまざまな種類の操作を実行できますが、これは包括的なものではありません。 ただし、API を拡張して、独自の操作を定義することもできます。 API を拡張するには、`Sql()` メソッドを使用する方法と、カスタム `MigrationOperation` オブジェクトを定義する方法の2つの方法があります。
+MigrationBuilder API を使用すると、移行中にさまざまな種類の操作を実行できますが、これは包括的なものではありません。 ただし、API を拡張して、独自の操作を定義することもできます。 API を拡張するには、メソッドを使用する方法と、 `Sql()` カスタムオブジェクトを定義する方法の2つの方法があります。 `MigrationOperation`
 
 例として、各方法を使用してデータベースユーザーを作成する操作を実装する方法を見てみましょう。 この移行では、次のコードを記述できるようにします。
 
@@ -23,7 +24,7 @@ migrationBuilder.CreateUser("SQLUser1", "Password");
 
 ## <a name="using-migrationbuildersql"></a>MigrationBuilder () の使用
 
-カスタム操作を実装する最も簡単な方法は、`MigrationBuilder.Sql()`を呼び出す拡張メソッドを定義することです。 次に、適切な Transact-sql を生成する例を示します。
+カスタム操作を実装する最も簡単な方法は、を呼び出す拡張メソッドを定義することです `MigrationBuilder.Sql()` 。 次に、適切な Transact-sql を生成する例を示します。
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -33,7 +34,7 @@ static MigrationBuilder CreateUser(
     => migrationBuilder.Sql($"CREATE USER {name} WITH PASSWORD '{password}';");
 ```
 
-移行で複数のデータベースプロバイダーをサポートする必要がある場合は、`MigrationBuilder.ActiveProvider` プロパティを使用できます。 Microsoft SQL Server と PostgreSQL の両方をサポートする例を次に示します。
+移行で複数のデータベースプロバイダーをサポートする必要がある場合は、プロパティを使用でき `MigrationBuilder.ActiveProvider` ます。 Microsoft SQL Server と PostgreSQL の両方をサポートする例を次に示します。
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -60,7 +61,7 @@ static MigrationBuilder CreateUser(
 
 ## <a name="using-a-migrationoperation"></a>MigrationOperation を使用する
 
-SQL からカスタム操作を分離するには、独自の `MigrationOperation` を定義してそれを表すことができます。 次に、操作がプロバイダーに渡され、生成する適切な SQL を決定できるようになります。
+SQL からカスタム操作を分離するには、独自のを定義してそれを表すことができ `MigrationOperation` ます。 次に、操作がプロバイダーに渡され、生成する適切な SQL を決定できるようになります。
 
 ``` csharp
 class CreateUserOperation : MigrationOperation
@@ -70,7 +71,7 @@ class CreateUserOperation : MigrationOperation
 }
 ```
 
-この方法では、拡張メソッドは、これらの操作のいずれかを `MigrationBuilder.Operations`に追加するだけで済みます。
+この方法では、拡張メソッドでこれらの操作のいずれかをに追加するだけで済み `MigrationBuilder.Operations` ます。
 
 ``` csharp
 static MigrationBuilder CreateUser(
@@ -89,7 +90,7 @@ static MigrationBuilder CreateUser(
 }
 ```
 
-この方法では、各プロバイダーが `IMigrationsSqlGenerator` サービスでこの操作の SQL を生成する方法を知る必要があります。 新しい操作を処理するために SQL Server のジェネレーターをオーバーライドする例を次に示します。
+この方法では、各プロバイダーがサービスでこの操作の SQL を生成する方法を知る必要があり `IMigrationsSqlGenerator` ます。 新しい操作を処理するために SQL Server のジェネレーターをオーバーライドする例を次に示します。
 
 ``` csharp
 class MyMigrationsSqlGenerator : SqlServerMigrationsSqlGenerator

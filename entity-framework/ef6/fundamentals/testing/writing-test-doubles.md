@@ -1,14 +1,16 @@
 ---
 title: 独自のテストの倍精度のテスト (EF6)
+description: Entity Framework 6 で独自のテスト double を使用したテスト
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 16a8b7c0-2d23-47f4-9cc0-e2eb2e738ca3
-ms.openlocfilehash: 3d8933fb5e17f8c01f3971495a1fcdb5b8cfab57
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/testing/writing-test-doubles
+ms.openlocfilehash: 5c8e50247c0e6ed4081e2403ba60e0738051312b
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78413889"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618236"
 ---
 # <a name="testing-with-your-own-test-doubles"></a>独自のテストの倍精度でテストする
 > [!NOTE]
@@ -20,14 +22,14 @@ ms.locfileid: "78413889"
 
 インメモリバージョンのコンテキストを作成するには、2つの異なる方法を使用できます。  
 
-- **独自のテスト double を作成**する–この方法では、独自のコンテキストと dbsets のインメモリ実装を記述します。 これにより、クラスの動作を細かく制御できますが、適切な量のコードを記述して所有することができます。  
-- **モックフレームワークを使用してテスト代替を作成する**–モックフレームワーク (moq など) を使用すると、コンテキストのインメモリ実装と、実行時に動的に作成される設定を使用できます。  
+- **独自のテスト double を作成** する–この方法では、独自のコンテキストと dbsets のインメモリ実装を記述します。 これにより、クラスの動作を細かく制御できますが、適切な量のコードを記述して所有することができます。  
+- **モックフレームワークを使用してテスト代替を作成する** –モックフレームワーク (moq など) を使用すると、コンテキストのインメモリ実装と、実行時に動的に作成される設定を使用できます。  
 
-この記事では、独自のテスト double を作成する方法について説明します。 モックフレームワークの使用方法の詳細について[は、「モックフレームワークを使用したテスト](mocking.md)」を参照してください。  
+この記事では、独自のテスト double を作成する方法について説明します。 モックフレームワークの使用方法の詳細について [は、「モックフレームワークを使用したテスト](xref:ef6/fundamentals/testing/mocking)」を参照してください。  
 
 ## <a name="testing-with-pre-ef6-versions"></a>EF6 バージョンでのテスト  
 
-この記事に示されているコードは、EF6 と互換性があります。 EF5 以前のバージョンでのテストについて[は、「偽のコンテキストを使用したテスト](https://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/)」を参照してください。  
+この記事に示されているコードは、EF6 と互換性があります。 EF5 以前のバージョンでのテストについて [は、「偽のコンテキストを使用したテスト](https://romiller.com/2012/02/14/testing-with-a-fake-dbcontext/)」を参照してください。  
 
 ## <a name="limitations-of-ef-in-memory-test-doubles"></a>EF のメモリ内テストの2倍の制限事項  
 
@@ -102,7 +104,7 @@ namespace TestingDemo
 
 このコンテキストでは、Ibのコンテキストインターフェイスが実装されていることに注意してください。  
 
-Code First を使用している場合は、コンテキストを直接編集して、インターフェイスを実装できます。 EF デザイナーを使用している場合は、コンテキストを生成する T4 テンプレートを編集する必要があります。 \<model_name\>を開きます。Edmx ファイルの下に入れ子になっている Context.tt ファイルで、次のコードのフラグメントを検索し、次に示すようにインターフェイスにを追加します。  
+Code First を使用している場合は、コンテキストを直接編集して、インターフェイスを実装できます。 EF デザイナーを使用している場合は、コンテキストを生成する T4 テンプレートを編集する必要があります。 を開き \<model_name\> ます。Edmx ファイルの下に入れ子になっている Context.tt ファイルで、次のコードのフラグメントを検索し、次に示すようにインターフェイスにを追加します。  
 
 ``` csharp  
 <#=Accessibility.ForType(container)#> partial class <#=code.Escape(container)#> : DbContext, IBloggingContext
@@ -454,7 +456,7 @@ namespace TestingDemo
 }
 ```  
 
-最後に、非同期メソッドを使用して、 [Testdbset](#creating-the-in-memory-test-doubles)に含まれている非同期インフラストラクチャが動作することを確認するテストをもう1つ作成します。  
+最後に、非同期メソッドを使用して、 [Testdbset](#creating-the-in-memory-test-doubles) に含まれている非同期インフラストラクチャが動作することを確認するテストをもう1つ作成します。  
 
 ``` csharp
 using Microsoft.VisualStudio.TestTools.UnitTesting;

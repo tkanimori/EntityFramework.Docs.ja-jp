@@ -5,18 +5,18 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 6ff98d005c0a868d420509571378756c56edc54a
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: f65c07c79daf38e733c76f328843c90466c657f5
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238126"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619328"
 ---
 # <a name="owned-entity-types"></a>所有されているエンティティ型
 
-EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、_所有エンティティ型_と呼ばれます。 所有エンティティ型を含むエンティティは、その_所有者_です。
+EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、 _所有エンティティ型_と呼ばれます。 所有エンティティ型を含むエンティティは、その _所有者_です。
 
-所有されているエンティティは、本質的に所有者の一部であり、存在しない場合は、概念的には[集計](https://martinfowler.com/bliki/DDD_Aggregate.html)に似ています。 つまり、所有されているエンティティは、所有者とのリレーションシップの依存側の定義によって決まります。
+所有されているエンティティは、本質的に所有者の一部であり、存在しない場合は、概念的には [集計](https://martinfowler.com/bliki/DDD_Aggregate.html)に似ています。 つまり、所有されているエンティティは、所有者とのリレーションシップの依存側の定義によって決まります。
 
 ## <a name="explicit-configuration"></a>明示的な構成
 
@@ -38,13 +38,13 @@ EF Core を使用すると、他のエンティティ型のナビゲーション
 
 [!code-csharp[OwnsOneString](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneString)]
 
-詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities)を参照してください。
+詳細なコンテキストについては、 [完全なサンプルプロジェクト](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) を参照してください。
 
 ## <a name="implicit-keys"></a>暗黙のキー
 
 参照ナビゲーションを使用して構成された所有型 `OwnsOne` は、常に所有者との一対一のリレーションシップを持ちます。したがって、外部キーの値が一意であるため、独自のキー値は必要ありません。 前の例では、 `StreetAddress` 型はキープロパティを定義する必要はありません。  
 
-EF Core がこれらのオブジェクトを追跡する方法を理解するには、主キーが所有型の[シャドウプロパティ](xref:core/modeling/shadow-properties)として作成されていることを把握しておくと便利です。 所有されている型のインスタンスのキーの値は、所有者インスタンスのキーの値と同じになります。
+EF Core がこれらのオブジェクトを追跡する方法を理解するには、主キーが所有型の [シャドウプロパティ](xref:core/modeling/shadow-properties) として作成されていることを把握しておくと便利です。 所有されている型のインスタンスのキーの値は、所有者インスタンスのキーの値と同じになります。
 
 ## <a name="collections-of-owned-types"></a>所有型のコレクション
 
@@ -75,7 +75,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>所有型のテーブル分割へのマッピング
 
-リレーショナルデータベースを使用する場合、既定では、参照所有型は、所有者と同じテーブルにマップされます。 そのためには、テーブルを2つの列に分割する必要があります。つまり、所有者のデータを格納するために使用される列と、所有されているエンティティのデータを格納するために使用される列があります。 これは、[テーブル分割](table-splitting.md)と呼ばれる一般的な機能です。
+リレーショナルデータベースを使用する場合、既定では、参照所有型は、所有者と同じテーブルにマップされます。 そのためには、テーブルを2つの列に分割する必要があります。つまり、所有者のデータを格納するために使用される列と、所有されているエンティティのデータを格納するために使用される列があります。 これは、 [テーブル分割](xref:core/modeling/table-splitting)と呼ばれる一般的な機能です。
 
 既定では、EF Core は、 _Navigation_OwnedEntityProperty_のパターンに従って、所有されているエンティティ型のプロパティのデータベース列に名前を指定します。 そのため、' `StreetAddress` Orders ' テーブルには ' ShippingAddress_Street ' と ' ShippingAddress_City ' という名前のプロパティが表示されます。
 
@@ -90,7 +90,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 
 所有されているエンティティ型は、他の所有エンティティ型と同じ .NET 型にすることができます。したがって、.NET 型は所有型を特定するのに十分ではない可能性があります。
 
-そのような場合は、所有者から所有されているエンティティを指すプロパティが、所有されているエンティティ型の_ナビゲーションを定義_するようになります。 EF Core の観点から見ると、定義のナビゲーションは、.NET 型と共に型の id の一部になります。
+そのような場合は、所有者から所有されているエンティティを指すプロパティが、所有されているエンティティ型の _ナビゲーションを定義_ するようになります。 EF Core の観点から見ると、定義のナビゲーションは、.NET 型と共に型の id の一部になります。
 
 たとえば、次のクラスで `ShippingAddress` は、との `BillingAddress` 両方が同じ .net 型です `StreetAddress` 。
 
@@ -122,7 +122,7 @@ EF Core がこれらのオブジェクトの追跡対象インスタンスを区
 
 また `OwnedAttribute` 、との両方でを使用して、この結果を実現することもでき `OrderDetails` `StreetAddress` ます。
 
-また、の呼び出しに注意して `Navigation` ください。 EFCore 5.0 では、所有されている型へのナビゲーションプロパティを、所有され[ていないナビゲーションプロパティのため](relationships.md#configuring-navigation-properties)にさらに構成できます。
+また、の呼び出しに注意して `Navigation` ください。 EFCore 5.0 では、所有されている型へのナビゲーションプロパティを、所有され [ていないナビゲーションプロパティのため](xref:core/modeling/relationships#configuring-navigation-properties)にさらに構成できます。
 
 ## <a name="storing-owned-types-in-separate-tables"></a>個別のテーブルへの所有型の格納
 

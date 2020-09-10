@@ -1,14 +1,16 @@
 ---
 title: 接続文字列とモデル-EF6
+description: Entity Framework 6 の接続文字列とモデル
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 294bb138-978f-4fe2-8491-fdf3cd3c60c4
-ms.openlocfilehash: 2c9f084107e4de7f5439bf0082b46a3b538496e0
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/fundamentals/configuring/connection-strings
+ms.openlocfilehash: 2203d7f2168dc9d4ae5a6b1914742c7c2b6fbf77
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415953"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618428"
 ---
 # <a name="connection-strings-and-models"></a>接続文字列とモデル
 このトピックでは、Entity Framework 使用するデータベース接続とその変更方法について説明します。 Code First と EF デザイナーで作成されたモデルについては、このトピックで説明します。  
@@ -44,7 +46,7 @@ Visual Studio 2010 には、既定では SQL Express が含まれており、Vis
 
 ## <a name="use-code-first-with-connection-by-convention-and-specified-database-name"></a>規則による接続とデータベース名を指定して Code First を使用する  
 
-アプリケーションで他の構成を実行していない場合は、使用するデータベース名を指定して DbContext の文字列コンストラクターを呼び出すと、次のデータベースに規約によって作成されたデータベース接続を使用して、Code First モードで DbContext が実行されます。その名前。 次に例を示します。  
+アプリケーションで他の構成を実行していない場合は、使用するデータベース名を指定して DbContext の文字列コンストラクターを呼び出すと、その名前のデータベースに対して規則によって作成されたデータベース接続を使用して、DbContext が Code First モードで実行されます。 次に例を示します。  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -58,9 +60,9 @@ public class BloggingContext : DbContext
 
 この例では、DbContext はデータベース名として "Bのデータベース名" を使用し、このデータベースの接続文字列を作成します (Visual Studio 2010 と共にインストールされた) か、LocalDB (Visual Studio 2012 と共にインストールされます) を使用します。 両方がインストールされている場合は、SQL Express が使用されます。  
 
-## <a name="use-code-first-with-connection-string-in-appconfigwebconfig-file"></a>App.config/web.config ファイルで接続文字列を使用して Code First を使用する  
+## <a name="use-code-first-with-connection-string-in-appconfigwebconfig-file"></a>app.config/web.config ファイルで接続文字列を使用して Code First を使用する  
 
-App.config ファイルまたは web.config ファイルに接続文字列を配置することを選択できます。 次に例を示します。  
+app.config または web.config ファイルに接続文字列を配置することもできます。 次に例を示します。  
 
 ``` xml  
 <configuration>
@@ -86,7 +88,7 @@ public class BloggingContext : DbContext
 }
 ```  
 
-または、DbContext コンストラクターに渡された文字列に対して "name =\<connection string name\>" という形式を使用することもできます。 次に例を示します。  
+または、 \<connection string name\> DbContext コンストラクターに渡される文字列に "name =" という形式を使用することもできます。 次に例を示します。  
 
 ``` csharp  
 public class BloggingContext : DbContext
@@ -100,11 +102,11 @@ public class BloggingContext : DbContext
 
 この形式を使用すると、構成ファイルに接続文字列が見つかると想定されます。 指定した名前の接続文字列が見つからない場合、例外がスローされます。  
 
-## <a name="databasemodel-first-with-connection-string-in-appconfigwebconfig-file"></a>App.config/web.config ファイルの接続文字列を使用したデータベース/Model First  
+## <a name="databasemodel-first-with-connection-string-in-appconfigwebconfig-file"></a>app.config/web.config ファイルの接続文字列を使用したデータベース/Model First  
 
 EF デザイナーで作成されたモデルは、モデルが既に存在していて、アプリケーションの実行時にコードから生成されないという Code First とは異なります。 モデルは通常、プロジェクト内の EDMX ファイルとして存在します。  
 
-デザイナーによって、EF 接続文字列が app.config または web.config ファイルに追加されます。 この接続文字列は、EDMX ファイル内の情報を検索する方法に関する情報が含まれていることに特に注意してください。 次に例を示します。  
+デザイナーは、app.config または web.config ファイルに EF 接続文字列を追加します。 この接続文字列は、EDMX ファイル内の情報を検索する方法に関する情報が含まれていることに特に注意してください。 次に例を示します。  
 
 ``` xml  
 <configuration>  

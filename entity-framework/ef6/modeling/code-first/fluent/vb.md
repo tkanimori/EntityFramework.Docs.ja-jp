@@ -1,36 +1,38 @@
 ---
 title: VB.NET を使用した Fluent API-EF6
+description: Entity Framework 6 の VB.NET を使用した Fluent API
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
-ms.openlocfilehash: 1c889877b827408919c6170cf997e8805cc607cf
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+uid: ef6/modeling/code-first/fluent/vb
+ms.openlocfilehash: d6430ee254c6f0d5f093961d25902326022226cd
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78415749"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616977"
 ---
 # <a name="fluent-api-with-vbnet"></a>VB.NET を使用した Fluent API
-Code First では、C\# または VB.NET クラスを使用してモデルを定義できます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。 このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。
+Code First では、C または VB.NET クラスを使用してモデルを定義でき \# ます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。 このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。
 
 このページでは、Code First についての基本的な知識があることを前提としています。 Code First の詳細については、次のチュートリアルを参照してください。
 
--   [新しいデータベースの Code First](~/ef6/modeling/code-first/workflows/new-database.md)
--   [既存のデータベースへの Code First](~/ef6/modeling/code-first/workflows/existing-database.md)
+-   [新しいデータベースの Code First](xref:ef6/modeling/code-first/workflows/new-database)
+-   [既存のデータベースへの Code First](xref:ef6/modeling/code-first/workflows/existing-database)
 
 ## <a name="pre-requisites"></a>前提条件
 
 このチュートリアルを完了するには、少なくとも Visual Studio 2010 または Visual Studio 2012 がインストールされている必要があります。
 
-Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)もインストールする必要があります。
+Visual Studio 2010 を使用している場合は、 [NuGet](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c) もインストールする必要があります。
 
 ## <a name="create-the-application"></a>アプリケーションを作成する
 
 単純にするために、Code First を使用してデータアクセスを実行する基本的なコンソールアプリケーションを構築します。
 
--   Visual Studio を開きます
--   **ファイル&gt; 新規&gt; プロジェクト...**
--   左側のメニューと**コンソールアプリケーション**から **[Windows]** を選択します。
+-   Visual Studio を開く
+-   **ファイル- &gt; 新規 &gt; プロジェクト...**
+-   左側のメニューと**コンソールアプリケーション**から [ **Windows** ] を選択します。
 -   名前として「 **Codefirstvbsample** 」と入力します。
 -   **[OK]** を選択します。
 
@@ -137,14 +139,14 @@ End Class
 
 Entity Framework の型の使用を開始しようとしています。 EntityFramework NuGet パッケージを追加する必要があります。
 
--   \* * プロジェクト–&gt; **NuGet パッケージの管理...**
+-   * * プロジェクト– &gt; **NuGet パッケージの管理...**
 > [!NOTE]
-> **NuGet パッケージの管理...** オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります
--   **[オンライン]** タブを選択します。
+> [ **NuGet パッケージの管理...** オプション[NuGet の最新バージョン](https://visualstudiogallery.msdn.microsoft.com/27077b70-9dad-4c64-adcf-c7cf6bc9970c)をインストールする必要があります
+-   [ **オンライン** ] タブを選択します。
 -   **Entityframework**パッケージを選択します
--   **[インストール]** をクリックします。
+-   **[Install]** (インストール) をクリックします。
 
-次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。 ここでは、TEntity から派生し、モデル内のクラスごとに型指定された Dbcontext&lt;&gt; を公開するコンテキストを定義します。
+次に、データベースとのセッションを表す派生コンテキストを定義します。これにより、データのクエリと保存が可能になります。 ここでは、TEntity から派生し、 &lt; &gt; モデル内のクラスごとに型指定された dbcontext を公開するコンテキストを定義します。
 
 -   新しいクラスをプロジェクトに追加し、クラス名として「 **schoolcontext.cs** 」と入力します。
 -   新しいクラスの内容を次のコードに置き換えます。
@@ -171,7 +173,7 @@ End Class
 
 ## <a name="configuring-with-the-fluent-api"></a>Fluent API を使用したの構成
 
-このセクションでは、fluent Api を使用して、テーブルマッピングの種類、列マッピングのプロパティ、モデル内の\\型のテーブル間のリレーションシップを構成する方法について説明します。 Fluent API は**Dbmodelbuilder**型によって公開され、 **Dbcontext**で**onmodelcreating**メソッドをオーバーライドすることによって最も一般的にアクセスされます。
+このセクションでは、fluent Api を使用して、テーブルマッピングの種類、列マッピングのプロパティ、モデル内のテーブル型間のリレーションシップを構成する方法について説明し \\ ます。 Fluent API は**Dbmodelbuilder**型によって公開され、 **Dbcontext**で**onmodelcreating**メソッドをオーバーライドすることによって最も一般的にアクセスされます。
 
 -   次のコードをコピーし、 **schoolcontext.cs**クラスで定義されている**onmodelcreating**メソッドに追加します。コメントは、各マッピングの内容を説明します。
 
