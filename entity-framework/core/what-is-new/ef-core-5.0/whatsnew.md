@@ -4,12 +4,12 @@ description: EF Core 5.0 の新機能の概要
 author: ajcvickers
 ms.date: 07/20/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew
-ms.openlocfilehash: f822e3ae776778749a654377cbd9d9814ca40972
-ms.sourcegitcommit: 12d257db4786487a0c28e9ddd79f176f7cf6edb1
+ms.openlocfilehash: b4551a3c593694b104a750d500d81eb170a83dc0
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/28/2020
-ms.locfileid: "89043598"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618597"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -41,7 +41,7 @@ public class Pet : Animal
 
 public class Cat : Pet
 {
-    public string EdcuationLevel { get; set; }
+    public string EducationLevel { get; set; }
 }
 
 public class Dog : Pet
@@ -492,7 +492,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ### <a name="savepoints"></a>セーブポイント
 
-EF Core では、複数の操作を実行するトランザクションをより細かく制御する、[セーブポイント](/SQL/t-sql/language-elements/save-transaction-transact-sql?view=sql-server-ver15#remarks)がサポートされるようになりました。
+EF Core では、複数の操作を実行するトランザクションをより細かく制御する、[セーブポイント](/sql/t-sql/language-elements/save-transaction-transact-sql#remarks)がサポートされるようになりました。
 
 セーブポイントは、手動で作成、解放、ロールバックすることができます。 次に例を示します。
 
@@ -738,7 +738,7 @@ dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog
 Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring
 ```
 
-[名前付き接続文字列と、ユーザー シークレットのようなセキュリティで保護されたストレージ](/core/managing-schemas/scaffolding?tabs=vs#configuration-and-user-secrets)を使用することをお勧めします。
+[名前付き接続文字列と、ユーザー シークレットのようなセキュリティで保護されたストレージ](xref:core/managing-schemas/scaffolding#configuration-and-user-secrets)を使用することをお勧めします。
 
 ### <a name="translations-for-firstordefault-on-strings"></a>文字列の FirstOrDefault の変換
 
@@ -846,7 +846,7 @@ WHERE [u].[Name] COLLATE French_CI_AS = N'Jean-Michel Jarre'
 
 ### <a name="flow-arguments-into-idesigntimedbcontextfactory"></a>引数を IDesignTimeDbContextFactory にフローする
 
-引数は、コマンド ラインから [IDesignTimeDbContextFactory](/dotnet/api/microsoft.entityframeworkcore.design.idesigntimedbcontextfactory-1?view=efcore-3.1)の `CreateDbContext` メソッドにフローされるようになりました。 たとえば、これが開発ビルドであることを示すために、カスタム引数 (`dev` など) をコマンド ラインで渡すことができます。
+引数は、コマンド ラインから [IDesignTimeDbContextFactory](/dotnet/api/microsoft.entityframeworkcore.design.idesigntimedbcontextfactory-1)の `CreateDbContext` メソッドにフローされるようになりました。 たとえば、これが開発ビルドであることを示すために、カスタム引数 (`dev` など) をコマンド ラインで渡すことができます。
 
 ```
 dotnet ef migrations add two --verbose --dev
@@ -968,7 +968,7 @@ modelBuilder.Entity<Blog>().Navigation(e => e.Posts).HasField("_myposts");
 
 移行とスキャフォールディングでは、コマンド ラインで名前空間を指定できるようになりました。 たとえば、別の名前空間にコンテキスト クラスとモデル クラスを配置するデータベースをリバース エンジニアリングするには、次を実行します。
 
-```
+```dotnetcli
 dotnet ef dbcontext scaffold "connection string" Microsoft.EntityFrameworkCore.SqlServer --context-namespace "My.Context" --namespace "My.Model"
 ```
 
@@ -977,7 +977,7 @@ dotnet ef dbcontext scaffold "connection string" Microsoft.EntityFrameworkCore.S
 ---
 また、接続文字列を `database-update` コマンドに渡すことができるようになりました。
 
-```
+```dotnetcli
 dotnet ef database update --connection "connection string"
 ```
 
@@ -992,6 +992,7 @@ VS パッケージ マネージャー コンソールで使用される PowerShe
 `EnableDetailedErrors` を使用すると、クエリに null チェックがさらに追加されます。パフォーマンスのオーバーヘッドが小さいため、これらのエラーでは、根本原因まで簡単に追跡できるようになります。
 
 次に例を示します。
+
 ```CSharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
@@ -1017,6 +1018,7 @@ await context.Set<Customer>()
 ### <a name="support-for-the-sql-server-datalength-function"></a>SQL Server DATALENGTH 関数のサポート
 
 これには、新しい `EF.Functions.DataLength` メソッドを使用してアクセスできます。 次に例を示します。
+
 ```CSharp
 var count = context.Orders.Count(c => 100 < EF.Functions.DataLength(c.OrderDate));
 ```
@@ -1047,7 +1049,7 @@ public class Blog
 
 ### <a name="complete-discriminator-mapping"></a>完全な識別子マッピング
 
-EF Core では、[継承階層の TPH マッピング](/ef/core/modeling/inheritance)のために識別子列が使用されます。 識別子に利用できるすべての値が EF Core で認識されている限り、パフォーマンスを一部改善できます。 EF Core 5.0 にはこのような機能強化が実装されました。
+EF Core では、[継承階層の TPH マッピング](xref:core/modeling/inheritance)のために識別子列が使用されます。 識別子に利用できるすべての値が EF Core で認識されている限り、パフォーマンスを一部改善できます。 EF Core 5.0 にはこのような機能強化が実装されました。
 
 たとえば、EF Core の前バージョンでは、ある階層内のすべての型を返すクエリにこの SQL が常に生成されました。
 
@@ -1117,7 +1119,7 @@ public class Address
 
 ### <a name="change-tracking-proxies"></a>変更追跡のプロキシ
 
-EF Core で、[INotifyPropertyChanging](/dotnet/api/system.componentmodel.inotifypropertychanging?view=netcore-3.1) および [INotifyPropertyChanged](/dotnet/api/system.componentmodel.inotifypropertychanged?view=netcore-3.1) を自動的に実装するランタイム プロキシを生成できるようになりました。 これにより、エンティティ プロパティの値の変更が EF Core に直接報告されるため、変更をスキャンする必要がなくなります。 ただし、プロキシには独自の制限のセットが付属しているため、すべてのユーザーが使用できるわけではありません
+EF Core で、[INotifyPropertyChanging](/dotnet/api/system.componentmodel.inotifypropertychanging) および [INotifyPropertyChanged](/dotnet/api/system.componentmodel.inotifypropertychanged) を自動的に実装するランタイム プロキシを生成できるようになりました。 これにより、エンティティ プロパティの値の変更が EF Core に直接報告されるため、変更をスキャンする必要がなくなります。 ただし、プロキシには独自の制限のセットが付属しているため、すべてのユーザーが使用できるわけではありません
 
 ドキュメントは、イシュー [#2076](https://github.com/dotnet/EntityFramework.Docs/issues/2076) で追跡されます。
 
@@ -1175,7 +1177,7 @@ Azure Cosmos DB データベース プロバイダーで、Etag を使用した�
 builder.Entity<Customer>().Property(c => c.ETag).IsEtagConcurrency();
 ```
 
-SaveChanges はコンカレンシーの競合に対して `DbUpdateConcurrencyException` をスローします。これを[処理して](/ef/core/saving/concurrency)、たとえば再試行を実装することができます。
+SaveChanges はコンカレンシーの競合に対して `DbUpdateConcurrencyException` をスローします。これを[処理して](xref:core/saving/concurrency)、たとえば再試行を実装することができます。
 
 ドキュメントは、イシュー [#2099](https://github.com/dotnet/EntityFramework.Docs/issues/2099) で追跡されます。
 
