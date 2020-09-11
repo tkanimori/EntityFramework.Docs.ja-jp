@@ -1,14 +1,15 @@
 ---
 title: サポートされている .NET 実装 - EF Core
+description: Entity Framework Core の各バージョンでサポートされているプラットフォームに関する情報
 author: bricelam
 ms.date: 06/26/2020
 uid: core/platforms/index
-ms.openlocfilehash: f7e7a4f7993061aa46c1f9c648169158f7a35193
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: f57002af869c16eeedf931085f5e5ff9e72e2984
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238048"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616658"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>EF Core でサポートされている .NET 実装
 

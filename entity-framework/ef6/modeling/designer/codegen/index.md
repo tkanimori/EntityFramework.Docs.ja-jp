@@ -1,14 +1,16 @@
 ---
 title: デザイナー コード生成テンプレート - EF6
+description: Entity Framework 6 でのデザイナー コード生成テンプレート
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 56e00fa2-f9f0-48b3-8006-f8266ca7e74b
-ms.openlocfilehash: e4e99a86e7c273682c85eba06042af9a2a837d12
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+uid: ef6/modeling/designer/codegen/index
+ms.openlocfilehash: edc8fe3c269336d59d5bb7a10582881584215b1c
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413287"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620561"
 ---
 # <a name="designer-code-generation-templates"></a>デザイナー コード生成テンプレート
 Entity Framework Designer を使用してモデルを作成するときには、クラスと派生コンテキストは自動的に生成されます。 既定のコードの生成に加えて、生成されるコードをカスタマイズするために使用できる多数のテンプレートも提供します。 これらのテンプレートは、T4 テキスト テンプレートとして提供され、必要な場合は、テンプレートをカスタマイズすることができます。
@@ -30,11 +32,11 @@ Entity Framework チームによって次のテンプレートが提供されま
 
 このテンプレートは、単純な POCO エンティティ クラスと、EF6 を使用して DbContext から派生したコンテキストを生成します。
 これは、以下に示すその他のテンプレートのいずれかを使用する理由がない限り、推奨されるテンプレートです。
-最新バージョンの Visual Studio (Visual Studio 2013 以降) を使用している場合は、既定で取得するコード生成テンプレートでもあります。新しいモデルを作成すると、既定でこのテンプレートが使用され、T4 ファイル (.tt) は .edmx ファイルの下に入れ子になります。
+これは、最近のバージョンの Visual Studio (Visual Studio 2013 以降) を使用している場合に既定で取得するコード生成テンプレートでもあります。新しいモデルを作成するときに、このテンプレートが既定で使用され、T4 ファイル (.tt) は、.edmx ファイルの下に入れ子になります。
 
 #### <a name="older-versions-of-visual-studio"></a>旧バージョンの Visual Studio
-- **Visual Studio 2012:** **EF 6.x DbContextGenerator** テンプレートを取得するには、最新バージョンの **Entity Framework Tools for Visual Studio** をインストールする必要があります。詳細については、[Entity Framework の取得](~/ef6/fundamentals/install.md)に関するページを参照してください。
-- **Visual Studio 2010:** **EF 6.x DbContextGenerator** テンプレートは Visual Studio 2010 では使用できません。
+- **Visual Studio 2012:****EF 6.x DbContextGenerator** テンプレートを取得するには、最新バージョンの **Entity Framework Tools for Visual Studio** をインストールする必要があります。詳細については、[Entity Framework の取得](xref:ef6/fundamentals/install)に関するページを参照してください。
+- **Visual Studio 2010:****EF 6.x DbContextGenerator** テンプレートは Visual Studio 2010 では使用できません。
 
 #### <a name="dbcontext-generator-for-ef-5x"></a>EF 5.x DbContext ジェネレーター
 
@@ -42,7 +44,7 @@ Entity Framework チームによって次のテンプレートが提供されま
 
 Visual Studio 2013 または 2012 を使用している場合は、このテンプレートが既にインストールされています。
 
-Visual Studio 2010 を使用している場合は、Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、 **[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。 以降のバージョンの Visual Studio にはテンプレートが含まれているため、ギャラリーのバージョンは Visual Studio 2010 でのみインストールできます。
+Visual Studio 2010 を使用している場合は、Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、**[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。 以降のバージョンの Visual Studio にはテンプレートが含まれているため、ギャラリーのバージョンは Visual Studio 2010 でのみインストールできます。
 
 - [C# 用 EF 5.x DbContext ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/da740968-02f9-42a9-9ee4-1a9a06d896a2)
 - [C# Web サイト用 EF 5.x DbContext ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/5d01a981-91b8-492c-b42c-c771c3f31e03)
@@ -69,7 +71,7 @@ DbContext ジェネレーターは、新しいアプリケーションの推奨�
 
 **Visual Studio 2010、2012 &amp; 2013**
 
-Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、 **[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。
+Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、**[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。
 
 - [C# 用 EF 6.x EntityObject ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/66612113-549c-4a9e-a14a-f629ceb3f89a)
 - [C# Web サイト用 EF 6.x EntityObject ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/076140f3-6dbe-451f-a0e0-16b6d2bd8996)
@@ -79,25 +81,25 @@ Visual Studio ギャラリーからテンプレートをダウンロードして
 **EF 5.x EntityObject ジェネレーター**
 
 
-Visual Studio 2012 または 2013 を使用している場合は、Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、 **[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。 Visual Studio 2010 にはテンプレートが含まれているため、ギャラリーのバージョンは Visual Studio 2012 &amp; 2013 でのみインストールできます。
+Visual Studio 2012 または 2013 を使用している場合は、Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、**[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。 Visual Studio 2010 にはテンプレートが含まれているため、ギャラリーのバージョンは Visual Studio 2012 &amp; 2013 でのみインストールできます。
 
 - [C# 用 EF 5.x EntityObject ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/1da40393-b5ec-404a-a000-6a7e6e911339)
 - [C# Web サイト用 EF 5.x EntityObject ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/94b48556-fcf0-4b9b-8615-20f9066ae9ac)
 - [VB.NET 用 EF 5.x EntityObject ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/92c0129e-40dc-488c-a836-7e30846dfb30)
 - [VB.NET Web サイト用 EF 5.x EntityObject ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/5dd7f75c-8c98-4eb7-b4bc-06f0d0b03b41)
 
-ObjectContext コードの生成のみが必要で、テンプレートを編集する必要がない場合、[EntityObject コードの生成を元に戻す](~/ef6/modeling/designer/codegen/legacy-objectcontext.md)ことができます。
+ObjectContext コードの生成のみが必要で、テンプレートを編集する必要がない場合、[EntityObject コードの生成を元に戻す](xref:ef6/modeling/designer/codegen/legacy-objectcontext)ことができます。
 
 Visual Studio 2010 を使用している場合は、このテンプレートが既にインストールされています。 Visual Studio 2010 で新しいモデルを作成する場合、このテンプレートは、既定で使用されますが、.tt ファイルがプロジェクトに含まれていません。 テンプレートをカスタマイズする場合は、これをプロジェクトに追加する必要があります。
 
 ### <a name="self-tracking-entities-ste-generator"></a>自己追跡エンティティ (STE) ジェネレーター
 
-このテンプレートは、自己追跡エンティティ クラスと、ObjectContext から派生したコンテキストを生成します。 EF アプリケーションでは、エンティティの変更はコンテキストによって追跡されます。 ただし、n 層シナリオでは、エンティティを変更する層でコンテキストを利用できない場合があります。 自己追跡エンティティでは、任意の層での変更を追跡するのに役立ちます。 詳細については、「[自己追跡エンティティ](~/ef6/fundamentals/disconnected-entities/self-tracking-entities/index.md)」を参照してください。
+このテンプレートは、自己追跡エンティティ クラスと、ObjectContext から派生したコンテキストを生成します。 EF アプリケーションでは、エンティティの変更はコンテキストによって追跡されます。 ただし、n 層シナリオでは、エンティティを変更する層でコンテキストを利用できない場合があります。 自己追跡エンティティでは、任意の層での変更を追跡するのに役立ちます。 詳細については、「[自己追跡エンティティ](xref:ef6/fundamentals/disconnected-entities/self-tracking-entities/index)」を参照してください。
 
 > [!NOTE]
 > STE テンプレートはお勧めしません
 
-新しいアプリケーションでの STE のテンプレートの使用は推奨されませんが、既存のアプリケーションをサポートするために引き続き使用できます。 n 層シナリオで推奨されるその他のオプションについては、[切り離されたエンティティの記事](~/ef6/fundamentals/disconnected-entities/index.md)を参照してください。
+新しいアプリケーションでの STE のテンプレートの使用は推奨されませんが、既存のアプリケーションをサポートするために引き続き使用できます。 n 層シナリオで推奨されるその他のオプションについては、[切り離されたエンティティの記事](xref:ef6/fundamentals/disconnected-entities/index)を参照してください。
 
 > [!NOTE]
 > STE テンプレートの EF 6.x バージョンはありません。
@@ -108,7 +110,7 @@ Visual Studio 2010 を使用している場合は、このテンプレートが�
 
 ### <a name="visual-studio-2012"></a>Visual Studio 2012
 
-Visual Studio 2012 を使用している場合は、Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、 **[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。 Visual Studio 2010 にはテンプレートが含まれているため、ギャラリーのバージョンは Visual Studio 2012 でのみインストールできます。
+Visual Studio 2012 を使用している場合は、Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、**[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。 Visual Studio 2010 にはテンプレートが含まれているため、ギャラリーのバージョンは Visual Studio 2012 でのみインストールできます。
 
 - [C# 用 EF 5.x STE ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/a3ac10a5-9365-4096-bb58-d9a1ba71db8f)
 - [C# Web サイト用 EF 5.x STE ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/1b55ab82-eeb4-47ba-8d35-3c7c8b5f5a8c)
@@ -136,7 +138,7 @@ DbContext ジェネレーターは、新しいアプリケーションで POCO �
 
 #### <a name="visual-studio-2012-amp-visual-studio-2010"></a>Visual Studio 2012 &amp; Visual Studio 2010
 
-Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、 **[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。
+Visual Studio ギャラリーからテンプレートをダウンロードしてテンプレートを追加するときに、**[オンライン]** タブを選択する必要があります。 または、テンプレートを事前に Visual Studio ギャラリーから直接インストールできます。
 
 - [C# 用 EF 4.x POCO ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/23df0450-5677-4926-96cc-173d02752313)
 - [C# Web サイト用 EF 4.x POCO ジェネレーター](https://visualstudiogallery.msdn.microsoft.com/fe568da5-aa1a-4178-a2a5-48813c707a7f)
@@ -155,11 +157,11 @@ Visual Studio ギャラリーからテンプレートをダウンロードして
 
 使用するテンプレートをインストールしてある場合 (または Visual Studio に含まれている場合)、左側のメニューの **[コード]** または **[データ]** セクションで使用できます。
 
-![インストール済み](~/ef6/media/installed.png)
+![インストール済みテンプレート](~/ef6/media/installed.png)
 
 まだテンプレートをインストールしていない場合は、左側のメニューから **[オンライン]** を選択し、目的のテンプレートを検索します。
 
-![検索](~/ef6/media/search.png) 
+![検索テンプレート](~/ef6/media/search.png) 
 
 Visual Studio 2012 を使用している場合は、新しい .tt ファイルが .edmx ファイルの下に入れ子になります。*
 

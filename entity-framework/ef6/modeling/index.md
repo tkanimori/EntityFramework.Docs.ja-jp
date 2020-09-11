@@ -1,14 +1,16 @@
 ---
 title: モデルの作成 - EF6
+description: Entity Framework 6 でのモデルの作成
 author: divega
 ms.date: 07/05/2018
 ms.assetid: 4890228E-CEA1-4595-B8AD-CA81253F8767
-ms.openlocfilehash: bd9843a93121f53518a307c9d2d43b68ae03369c
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+uid: ef6/modeling/index
+ms.openlocfilehash: 417671d5313bb95bb97d5de85b25b09d687c5c3d
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413467"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620346"
 ---
 # <a name="creating-a-model"></a>モデルの作成
 
@@ -25,8 +27,8 @@ EF モデルは、アプリケーションのクラスとプロパティがデ�
 
 |                                           | コードを記述したい...                                                                                                                   | デザイナーを使いたい...                                                                                                                        |
 |:------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------|
-| **新しいデータベースを作成している**          | [**Code First** を使ってコードでモデルを定義してから、データベースを生成します。](~/ef6/modeling/code-first/workflows/new-database.md)           | [**Model First** を使ってボックスと線でモデルを定義してから、データベースを生成します。](~/ef6/modeling/designer/workflows/model-first.md)   |
-| **既存のデータベースにアクセスする必要がある** | [**Code First** を使って、既存のデータベースにマップするコードベースのモデルを作成します。](~/ef6/modeling/code-first/workflows/existing-database.md) | [**Database First** を使って、既存のデータベースにマップする、ボックスと線のモデルを作成します。](~/ef6/modeling/designer/workflows/database-first.md) |
+| **新しいデータベースを作成している**          | [**Code First** を使ってコードでモデルを定義してから、データベースを生成します。](xref:ef6/modeling/code-first/workflows/new-database)           | [**Model First** を使ってボックスと線でモデルを定義してから、データベースを生成します。](xref:ef6/modeling/designer/workflows/model-first)   |
+| **既存のデータベースにアクセスする必要がある** | [**Code First** を使って、既存のデータベースにマップするコードベースのモデルを作成します。](xref:ef6/modeling/code-first/workflows/existing-database) | [**Database First** を使って、既存のデータベースにマップする、ボックスと線のモデルを作成します。](xref:ef6/modeling/designer/workflows/database-first) |
 
 ### <a name="watch-the-video-what-ef-workflow-should-i-use"></a>ビデオを見る: どのような EF のワークフローを使用する必要がありますか。
 
@@ -44,7 +46,7 @@ Code First と EF Designer のどちらを使っても、EF モデルには常�
 
 - アプリケーションのドメイン オブジェクト、またはエンティティ型自体。 これはしばしば、オブジェクト レイヤーと呼ばれます
 
-- [Entity Data Model](~/ef6/resources/glossary.md#entity-data-model) で説明される、ドメイン固有のエンティティ型とリレーションシップで構成される概念モデル。 このレイヤーはしばしば、文字 "C" (_概念_) で表されます。
+- [Entity Data Model](xref:ef6/resources/glossary#entity-data-model) で説明される、ドメイン固有のエンティティ型とリレーションシップで構成される概念モデル。 このレイヤーはしばしば、文字 "C" (_概念_) で表されます。
 
 - データベースで定義されているテーブル、列およびリレーションシップを表すストレージ モデル。 このレイヤーはしばしば、文字 "S" (_ストレージ_) で表されます。  
 

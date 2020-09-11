@@ -1,21 +1,22 @@
 ---
 title: モデルの作成と構成 - EF Core
+description: Entity Framework Core を使用したモデルの作成と構成の概要
 author: rowanmiller
 ms.date: 11/05/2019
 ms.assetid: 88253ff3-174e-485c-b3f8-768243d01ee1
 uid: core/modeling/index
-ms.openlocfilehash: 0f44d9684ca5c8435d83085f9038860309bd82a2
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: e980f11b08bee7b07156a80c6bead829e7a8b654
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78412777"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616759"
 ---
 # <a name="creating-and-configuring-a-model"></a>モデルの作成と構成
 
 Entity Framework では、一連の規則を利用し、エンティティ クラスの形状に基づいてモデルがビルドされます。 規則にあるものを捕捉する/オーバーライドする目的で、追加構成を指定できます。
 
-この記事では、あらゆるデータ ストアをターゲットにするモデルに適用できる構成、あらゆるリレーショナル データベースをターゲットにするときに適用できる構成について取り上げます。 プロバイダーも、特定のデータ ストアに固有の構成を有効にできます。 プロバイダー固有の構成については、「 [データベース プロバイダー](../providers/index.md) 」セクションを参照してください。
+この記事では、あらゆるデータ ストアをターゲットにするモデルに適用できる構成、あらゆるリレーショナル データベースをターゲットにするときに適用できる構成について取り上げます。 プロバイダーも、特定のデータ ストアに固有の構成を有効にできます。 プロバイダー固有の構成については、「 [データベース プロバイダー](xref:core/providers/index) 」セクションを参照してください。
 
 > [!TIP]  
 > この記事の [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples) は GitHub で確認できます。

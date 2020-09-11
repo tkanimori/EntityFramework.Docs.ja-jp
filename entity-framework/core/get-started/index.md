@@ -1,15 +1,16 @@
 ---
 title: 概要 - EF Core
+description: Entity Framework Core の概要チュートリアル
 author: rick-anderson
 ms.date: 09/17/2019
 ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: 7181df6ee73b09f196940178ffed38d96b075258
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: e33a18c8d3d72078eaaeba9c8cf0a1afca0cb66c
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370319"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618010"
 ---
 # <a name="getting-started-with-ef-core"></a>EF Core の概要
 
@@ -19,9 +20,9 @@ ms.locfileid: "85370319"
 
 [この記事のサンプルは GitHub で確認してください](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/GetStarted)。
 
-## <a name="prerequisites"></a>必須コンポーネント
+## <a name="prerequisites"></a>前提条件
 
-以下のソフトウェアをインストールします。
+次のソフトウェアをインストールします。
 
 ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -54,7 +55,7 @@ cd EFGetStarted
 
 ## <a name="install-entity-framework-core"></a>Entity Framework Core をインストールする
 
-EF Core をインストールするには、対象となる EF Core データベース プロバイダーのパッケージをインストールします。 このチュートリアルでは、.NET Core がサポートしているすべてのプラットフォームで実行できるため、SQLite を使用しています。 使用可能なプロバイダーの一覧については、「[Database Providers](../providers/index.md)」 (データベース プロバイダー) をご覧ください。
+EF Core をインストールするには、対象となる EF Core データベース プロバイダーのパッケージをインストールします。 このチュートリアルでは、.NET Core がサポートしているすべてのプラットフォームで実行できるため、SQLite を使用しています。 使用可能なプロバイダーの一覧については、「[Database Providers](xref:core/providers/index)」 (データベース プロバイダー) をご覧ください。
 
 ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/netcore-cli)
 
@@ -93,9 +94,9 @@ dotnet add package Microsoft.EntityFrameworkCore.Sqlite
 
 [!code-csharp[Main](../../../samples/core/GetStarted/Model.cs)]
 
-EF Core では、既存のデータベースからモデルを[リバース エンジニアリング](../managing-schemas/scaffolding.md)することもできます。
+EF Core では、既存のデータベースからモデルを[リバース エンジニアリング](xref:core/managing-schemas/scaffolding)することもできます。
 
-ヒント :このアプリケーションでは、わかりやすくするために意図的に事をシンプルにしています。 運用アプリケーションのコードに、[接続文字列](../miscellaneous/connection-strings.md) は格納しないでください。 また、各 C# クラスを独自のファイルに分割することが必要な場合もあります。
+ヒント :このアプリケーションでは、わかりやすくするために意図的に事をシンプルにしています。 運用アプリケーションのコードに、[接続文字列](xref:core/miscellaneous/connection-strings) は格納しないでください。 また、各 C# クラスを独自のファイルに分割することが必要な場合もあります。
 
 ## <a name="create-the-database"></a>データベースの作成
 
@@ -112,7 +113,7 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
   dotnet ef database update
   ```
 
-  これにより、プロジェクトでコマンドを実行するために必要な [dotnet ef](../miscellaneous/cli/dotnet.md) と設計パッケージがインストールされます。 この `migrations` では、モデルの最初のテーブル セットを作成する移行がスキャフォールディングされます。 `database update` コマンドではデータベースが作成され、それに新しい移行が適用されます。
+  これにより、プロジェクトでコマンドを実行するために必要な [dotnet ef](xref:core/miscellaneous/cli/dotnet) と設計パッケージがインストールされます。 この `migrations` では、モデルの最初のテーブル セットを作成する移行がスキャフォールディングされます。 `database update` コマンドではデータベースが作成され、それに新しい移行が適用されます。
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/visual-studio)
 
@@ -124,7 +125,7 @@ EF Core では、既存のデータベースからモデルを[リバース エ�
   Update-Database
   ```
 
-  これにより [EF Core 用の PMC ツール](../miscellaneous/cli/powershell.md)がインストールされます。 この `Add-Migration` では、モデルの最初のテーブル セットを作成する移行がスキャフォールディングされます。 `Update-Database` コマンドではデータベースが作成され、それに新しい移行が適用されます。
+  これにより [EF Core 用の PMC ツール](xref:core/miscellaneous/cli/powershell)がインストールされます。 この `Add-Migration` では、モデルの最初のテーブル セットを作成する移行がスキャフォールディングされます。 `Update-Database` コマンドではデータベースが作成され、それに新しい移行が適用されます。
 
 ---
 

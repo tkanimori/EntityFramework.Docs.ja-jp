@@ -1,15 +1,16 @@
 ---
 title: SQLite データベース プロバイダー - EF Core
+description: Entity Framework Core SQLite データベース プロバイダーに関する情報
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 3e2f7698-fec2-4cec-9e2d-2e3e0074120c
 uid: core/providers/sqlite/index
-ms.openlocfilehash: e8c3d675322b163fdf1e2e7e01f3815e28f427a2
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 8620f0e37825368cb3d7965a05118ab1297fb9e8
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413137"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616564"
 ---
 # <a name="sqlite-ef-core-database-provider"></a>SQLite EF Core データベース プロバイダー
 
@@ -39,4 +40,4 @@ Install-Package Microsoft.EntityFrameworkCore.Sqlite
 
 ## <a name="limitations"></a>制限事項
 
-SQLite プロバイダーの重要な制限事項については、[SQLite の制限事項](limitations.md)をご覧ください。
+SQLite プロバイダーの重要な制限事項については、[SQLite の制限事項](xref:core/providers/sqlite/limitations)をご覧ください。

@@ -1,21 +1,22 @@
 ---
 title: 新機能 - EF6
+description: Entity Framework 6 の新機能
 author: divega
 ms.date: 09/12/2019
 ms.assetid: 41d1f86b-ce66-4bf2-8963-48514406fb4c
 uid: ef6/what-is-new/index
-ms.openlocfilehash: e0367aeefd682434bf520301776bcff4f0e72e06
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 71854e0a7009b35742a70724210708a284f50a3d
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "80136136"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619754"
 ---
 # <a name="whats-new-in-ef6"></a>EF6 の新機能
 
 最新の機能と最高の信頼性を得るには、最新リリース バージョンの Entity Framework を使用することを強くお勧めします。
 ただし、前のバージョンを使用しなければならないことや、新しい改善点を最新のプレリリースで試さなければならないこともあります。
-特定のバージョンの EF をインストールする場合は、「[Get Entity Framework](~/ef6/fundamentals/install.md)」(Entity Framework の取得) を参照してください。
+特定のバージョンの EF をインストールする場合は、「[Get Entity Framework](xref:ef6/fundamentals/install)」(Entity Framework の取得) を参照してください。
 
 ## <a name="ef-640"></a>EF 6.4.0
 
@@ -56,4 +57,4 @@ EDMX ファイルが EntityDeploy ビルド アクションにリンクされて
 
 ## <a name="past-releases"></a>以前のリリース
 
-[以前のリリース](past-releases.md)のページには、EF の過去のすべてのバージョンのアーカイブと、各リリースで導入された主要機能が含まれています。
+[以前のリリース](xref:ef6/what-is-new/past-releases)のページには、EF の過去のすべてのバージョンのアーカイブと、各リリースで導入された主要機能が含まれています。

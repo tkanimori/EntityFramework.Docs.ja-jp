@@ -1,15 +1,16 @@
 ---
 title: Entiy Framework Core のインストール - EF Core
+description: Entity Framework Core のインストール手順
 author: divega
 ms.date: 08/06/2017
 ms.assetid: 608cc774-c570-4809-8a3e-cd2c8446b8b2
 uid: core/get-started/install/index
-ms.openlocfilehash: 6575b1ac028f8b67b49ca7f4e49d6f19500be98f
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 1cc6f8f73739e61adefb375ee37a830933903470
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "80136179"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617994"
 ---
 # <a name="installing-entity-framework-core"></a>Entiy Framework Core のインストール
 

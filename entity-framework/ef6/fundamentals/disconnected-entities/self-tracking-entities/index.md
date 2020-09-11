@@ -1,14 +1,16 @@
 ---
 title: 自己追跡エンティティ - EF6
+description: Entity Framework 6 での自己追跡エンティティ
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 5e60f5be-7bbb-4bf8-835e-0ac808d6c84a
-ms.openlocfilehash: 3bb9759d89fbd0c10b911625aa7d0afd7747de14
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+uid: ef6/fundamentals/disconnected-entities/self-tracking-entities/index
+ms.openlocfilehash: 0e771c0f147589112779359ab8c06344eb05b8fc
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413357"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616183"
 ---
 # <a name="self-tracking-entities"></a>自己追跡エンティティ
 
@@ -21,12 +23,12 @@ STE エンティティは、オブジェクト グラフに対する変更が行
 
 このテンプレート項目は、2 つの .tt (テキスト テンプレート) ファイルを生成します。  
 
-- **\<モデル名\>.tt** ファイルは、エンティティ型と、自己追跡エンティティが使用する変更追跡ロジックおよび自己追跡エンティティで状態設定が可能な拡張メソッドを含むヘルパー クラスを生成します。  
-- **\<モデル名\>.Context.tt** ファイルは、派生コンテキストと、**ObjectContext** および **ObjectSet** クラスの **ApplyChanges** メソッドを含む拡張クラスを生成します。 これらのメソッドは、自己追跡エンティティのグラフに含まれている変更追跡情報を検証して、データベースに変更内容を保存するために実行しなければならない一連の操作を推論します。  
+- **\<model name\>.tt** ファイルによって、エンティティ型と、自己追跡エンティティが使用する変更追跡ロジックおよび自己追跡エンティティで状態設定が可能な拡張メソッドを含むヘルパー クラスが生成されます。  
+- **\<model name\>.Context.tt** ファイルによって、派生コンテキストと、**ObjectContext** および **ObjectSet** クラスの **ApplyChanges** メソッドを含む拡張クラスが生成されます。 これらのメソッドは、自己追跡エンティティのグラフに含まれている変更追跡情報を検証して、データベースに変更内容を保存するために実行しなければならない一連の操作を推論します。  
 
-## <a name="get-started"></a>はじめに  
+## <a name="get-started"></a>開始するには  
 
-最初に、「[Self-Tracking Entities Walkthrough](walkthrough.md)」(自己追跡エンティティ チュートリアル) ページを参照してください。  
+最初に、「[Self-Tracking Entities Walkthrough](xref:ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough)」(自己追跡エンティティ チュートリアル) ページを参照してください。  
 
 ## <a name="functional-considerations-when-working-with-self-tracking-entities"></a>自己追跡エンティティの使用に関する機能上の考慮事項  
 > [!IMPORTANT]
@@ -46,7 +48,7 @@ STE エンティティは、オブジェクト グラフに対する変更が行
 - 自己追跡エンティティは遅延読み込みを実行できません。  
 - バイナリ シリアル化および ASP.NET 状態管理オブジェクトへのシリアル化は自己追跡エンティティによってサポートされていません。 ただし、バイナリ シリアル化のサポートを追加するようにテンプレートをカスタマイズできます。 詳細については、「[自己追跡エンティティでのバイナリ シリアル化および ViewState の使用](https://go.microsoft.com/fwlink/?LinkId=199208)」を参照してください。  
 
-## <a name="security-considerations"></a>セキュリティの考慮事項  
+## <a name="security-considerations"></a>セキュリティに関する考慮事項  
 
 次のセキュリティに関する考慮事項は、自己追跡エンティティを使用する場合に考慮する必要があります。  
 

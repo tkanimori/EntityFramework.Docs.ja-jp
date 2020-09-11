@@ -1,14 +1,15 @@
 ---
 title: データベース プロバイダー - EF Core
+description: 特定のサポートされている Entity Framework Core プロバイダーおよび一般的なプロバイダーに関する情報
 author: ajcvickers
 ms.date: 12/17/2019
 uid: core/providers/index
-ms.openlocfilehash: 7970636ab68b04d4d8583a4c126864ecc27ce6b2
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: 99e1b162cb610b8f086501d0af3896ffa4635358
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238165"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618986"
 ---
 # <a name="database-providers"></a>データベース プロバイダー
 
@@ -22,7 +23,7 @@ Entity Framework Core は、データベース プロバイダーと呼ばれる
 > [!IMPORTANT]  
 > 通常、EF Core プロバイダーはマイナー バージョン間では動作しますが、メジャー バージョン間では動作しません。 たとえば、EF Core 2.1 用にリリースされたプロバイダーは EF Core 2.2 では動作しますが、EF Core 3.0 では動作しません。 
 
-| NuGet パッケージ                                                                                                                                                                         | サポートされているデータベース エンジン | メンテナンス/仕入先                                                           | メモ/要件     | ビルドの対象バージョン | 役に立つリンク                                                                                                                                                                                       |
+| NuGet パッケージ                                                                                                                                                                         | サポートされているデータベース エンジン | メンテナンス/仕入先                                                           | メモ/要件     | ビルドの対象バージョン | 便利なリンク                                                                                                                                                                                       |
 |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------|:------------------------------------------------------------------------------|:-------------------------|:------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | [Microsoft.EntityFrameworkCore.SqlServer](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.SqlServer)                                                                     | SQL Server 2012 以降    | [EF Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore/) (Microsoft) |                          | 3.1               | [docs](xref:core/providers/sql-server/index)                                                                                                                                                       |
 | [Microsoft.EntityFrameworkCore.Sqlite](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite)                                                                           | SQLite 3.7 以降         | [EF Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore/) (Microsoft) |                          | 3.1               | [docs](xref:core/providers/sqlite/index)                                                                                                                                                           |

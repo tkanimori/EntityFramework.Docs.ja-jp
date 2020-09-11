@@ -1,14 +1,16 @@
 ---
 title: Code First Migrations - EF6
+description: Entity Framework 6 での Code First Migrations
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 36591d8f-36e1-4835-8a51-90f34f633d1e
-ms.openlocfilehash: e5a91af73bab9d45b0f1f4242ce503c6b6f407f6
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+uid: ef6/modeling/code-first/migrations/index
+ms.openlocfilehash: b2200a91b087cf6f2dff0803b710e2518193af40
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413307"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616962"
 ---
 # <a name="code-first-migrations"></a>Code First Migrations
 Code First Migrations は、Code First ワークフローを使用している場合に、アプリケーションのデータベース スキーマを進化させるために推奨される方法です。 移行では次を許可するツール セットを提供します。
@@ -17,7 +19,7 @@ Code First Migrations は、Code First ワークフローを使用している�
 2. EF モデルに行った変更の記録を保持するために移行を生成する
 2. これらの変更でデータベースを最新の状態に保つ
 
-次のチュートリアルでは、Entity Framework での Code First Migrations の概要を示します。 チュートリアル全体を完了するか、関心のあるトピックにスキップするかのいずれかを行うことができます。 次のトピックについて説明します。
+次のチュートリアルでは、Entity Framework での Code First Migrations の概要を示します。 チュートリアル全体を完了するか、関心のあるトピックにスキップするかのいずれかを行うことができます。 次のトピックが含まれています。
 
 ## <a name="building-an-initial-model--database"></a>初期モデルとデータベースをビルドする
 
@@ -235,7 +237,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
     }
 ```
 
-編集済みの移行の準備ができたので、**Update-Database** を使用してデータベースを最新の状態にします。 今回は、Code First Migrations が実行している SQL を確認できるように、 **–Verbose** フラグを指定します。
+編集済みの移行の準備ができたので、**Update-Database** を使用してデータベースを最新の状態にします。 今回は、Code First Migrations が実行している SQL を確認できるように、**–Verbose** フラグを指定します。
 
 -   パッケージ マネージャー コンソールで **Update-Database –Verbose** コマンドを実行します。
 
@@ -278,7 +280,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
     }
 ```
 
-編集した移行は問題なさそうなので、**Update-Database** を使用してデータベースを最新の状態にします。 このデータベースに対して実行を開始する SQL を確認できるように、 **–Verbose** フラグを指定します。
+編集した移行は問題なさそうなので、**Update-Database** を使用してデータベースを最新の状態にします。 このデータベースに対して実行を開始する SQL を確認できるように、**–Verbose** フラグを指定します。
 
 -   パッケージ マネージャー コンソールで **Update-Database –Verbose** コマンドを実行します。
 
@@ -288,7 +290,7 @@ Code First Migrations では、これらの変更のスキャフォールディ�
 
 **AddBlogUrl** 移行を実行した後、データベースを以前の状態に移行する必要があるとします。 **–TargetMigration** スイッチを使用して、この移行にダウングレードすることができます。
 
--   パッケージ マネージャー コンソールで **Update-Database –TargetMigration:AddBlogUrl** コマンドを実行します。
+-   パッケージ マネージャー コンソールで **Update-Database –TargetMigration: AddBlogUrl** コマンドを実行します。
 
 このコマンドでは、**AddBlogAbstract** 移行と **AddPostClass** 移行に対して Down スクリプトが実行されます。
 
@@ -298,15 +300,15 @@ Code First Migrations では、これらの変更のスキャフォールディ�
 
 別の開発者が使用しているマシン上でこれらの変更が必要な場合は、ソース管理への変更を確認したときに同期することができます。 新しい移行が用意できたら、Update-Database コマンドを実行するだけで、変更をローカルに適用できます。 ただし、これらの変更をテスト サーバーにプッシュし、最終的に実稼働環境のサーバーにプッシュする必要がある場合は、DBA にハンドオフできる SQL スクリプトが必要な場合があります。
 
--   **Update-Database** コマンドを実行しますが、今回は **–Script** フラグを指定するため、変更は適用されずにスクリプトに書き込まれます。 スクリプトを生成するソース移行とターゲット移行も指定します。 空のデータベース ( **$InitialDatabase**) から最新バージョン (移行 **AddPostAbstract**) に移動するスクリプトが必要です。
+-   **Update-Database** コマンドを実行しますが、今回は **–Script** フラグを指定するため、変更は適用されずにスクリプトに書き込まれます。 スクリプトを生成するソース移行とターゲット移行も指定します。 空のデータベース (**$InitialDatabase**) から最新バージョン (移行 **AddPostAbstract**) に移動するスクリプトが必要です。
     *ターゲット移行を指定しない場合、Migrations ではターゲットとして最新の移行を使用します。ソース移行を指定しない場合は、Migrations ではデータベースの現在の状態を使用します。*
--   パッケージ マネージャー コンソールで **Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration:AddPostAbstract** コマンドを実行します
+-   パッケージ マネージャー コンソールで **Update-Database -Script -SourceMigration: $InitialDatabase -TargetMigration: AddPostAbstract** コマンドを実行します
 
 Code First Migrations では、実際に変更を適用するのではなく、移行パイプラインを実行しますが、これにより変更が .sql ファイルに書き込まれます。 スクリプトが生成されると、表示または保存できるように、Visual Studio で開かれます。
 
 ### <a name="generating-idempotent-scripts"></a>べき等スクリプトを生成する
 
-EF6 以降、 **–SourceMigration $InitialDatabase** を指定した場合、生成されたスクリプトは "べき等" になります。 べき等スクリプトでは、任意のバージョンのデータベースを最新バージョン (または、 **–TargetMigration** を使用する場合、指定されたバージョン) にアップグレードできます。 生成されたスクリプトには、 **\_\_MigrationsHistory** テーブルを確認し、以前に適用されている変更のみを適用するロジックが含まれます。
+EF6 以降、**–SourceMigration $InitialDatabase** を指定した場合、生成されたスクリプトは "べき等" になります。 べき等スクリプトでは、任意のバージョンのデータベースを最新バージョン (または、**–TargetMigration** を使用する場合、指定されたバージョン) にアップグレードできます。 生成されたスクリプトには、 **\_\_MigrationsHistory** テーブルを確認し、以前に適用されている変更のみを適用するロジックが含まれます。
 
 ## <a name="automatically-upgrading-on-application-startup-migratedatabasetolatestversion-initializer"></a>アプリケーションの起動で自動的にアップグレードする (MigrateDatabaseToLatestVersion 初期化子)
 

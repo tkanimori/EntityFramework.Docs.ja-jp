@@ -1,14 +1,16 @@
 ---
 title: エンティティのクエリおよび検索 - EF6
+description: Entity Framework 6 でのエンティティのクエリおよび検索
 author: divega
 ms.date: 10/23/2016
 ms.assetid: 65bb3db2-2226-44af-8864-caa575cf1b46
-ms.openlocfilehash: 29a86817e250a2f53ecaa73e8fa4bf93452f0497
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+uid: ef6/querying/index
+ms.openlocfilehash: 4bfdc59527ab75e7a2e08dc743a1974246643aa3
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78412977"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89620332"
 ---
 # <a name="querying-and-finding-entities"></a>エンティティのクエリおよび検索
 このトピックでは、Entity Framework を使用した、LINQ および Find メソッドを含むデータのさまざまなクエリ方法について説明します。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -41,7 +43,7 @@ using (var context = new BloggingContext())
 
 データベースから結果が返されると、コンテキストに存在しないオブジェクトはコンテキストにアタッチされます。 オブジェクトが既にコンテキストに存在する場合、既存のオブジェクトが返されます (エントリに格納されているオブジェクトのプロパティの現在の値と元の値が、データ ソースの値で上書きされることは**ありません**)。  
 
-データベースにはまだ保存されていないコンテキストに追加されたエンティティは、クエリの実行では結果セットの一部として返されません。 コンテキスト内のデータを取得するには、「[ローカル データ](~/ef6/querying/local-data.md)」を参照してください。  
+データベースにはまだ保存されていないコンテキストに追加されたエンティティは、クエリの実行では結果セットの一部として返されません。 コンテキスト内のデータを取得するには、「[ローカル データ](xref:ef6/querying/local-data)」を参照してください。  
 
 クエリによってデータベースから行が返されない場合、結果は **null** ではなく空のコレクションになります。  
 
