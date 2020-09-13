@@ -1,15 +1,16 @@
 ---
 title: クライアントとサーバーの評価 - EF Core
+description: Entity Framework Core を使用した、クライアントおよびサーバーでのクエリの評価
 author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 8b6697cc-7067-4dc2-8007-85d80503d123
 uid: core/querying/client-eval
-ms.openlocfilehash: 429fec2d2da6eb8910ac20531455ec8183096ec6
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+ms.openlocfilehash: 61a9f4d69b78f6cb42f4d367948f93230370d7f2
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370423"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616467"
 ---
 # <a name="client-vs-server-evaluation"></a>クライアントとサーバーの評価
 

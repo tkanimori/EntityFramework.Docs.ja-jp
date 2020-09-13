@@ -1,14 +1,15 @@
 ---
 title: コンカレンシーの競合の処理 - EF Core
+description: 同じデータが Entity Framework Core と同時に更新された場合の競合の管理
 author: rowanmiller
 ms.date: 03/03/2018
 uid: core/saving/concurrency
-ms.openlocfilehash: a1d1a5a11d482f9104691aa3c072dbd1c548e9f1
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 7e3781879b39e6c30a0c981b5e0b74baf2b2863b
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413649"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617305"
 ---
 # <a name="handling-concurrency-conflicts"></a>コンカレンシーの競合の処理
 

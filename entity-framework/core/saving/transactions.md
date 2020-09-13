@@ -1,19 +1,20 @@
 ---
 title: トランザクション - EF Core
+description: Entity Framework Core でデータを保存する場合の原子性に関するトランザクションの管理
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: d3e6515b-8181-482c-a790-c4a6778748c1
 uid: core/saving/transactions
-ms.openlocfilehash: 390d89398ebfdf015804749e71ff0b61d3f278d3
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 2674fdc59cb08e5faf2302270629c446abc2670c
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413619"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618922"
 ---
 # <a name="using-transactions"></a>トランザクションの使用
 
-トランザクションは、複数のデータベース操作をアトミックな方法で処理することを可能にします。 トランザクションがコミットされる場合は、すべての操作がデータベースに正常に適用されます。 トランザクションがロールバックされる場合、データベースに適用される操作はありません。
+トランザクションは、複数のデータベース操作をアトミックな方法で処理することを可能にします。 トランザクションがコミットされる場合は、すべての操作がデータベースに正常に適用されます。 トランザクションがロールバックされるる場合、データベースに適用される操作はありません。
 
 > [!TIP]  
 > この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/Transactions/)は GitHub で確認できます。

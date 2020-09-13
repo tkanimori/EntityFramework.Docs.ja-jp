@@ -1,18 +1,19 @@
 ---
 title: Entity Framework Core 5.0 の計画
+description: Entity Framework Core 5.0 で計画されている機能
 author: ajcvickers
 ms.date: 08/22/2020
 uid: core/what-is-new/ef-core-5.0/plan
-ms.openlocfilehash: a0d41d6df844c9ca2c8a2dc8ba50ca669e23dced
-ms.sourcegitcommit: 6f7af3f138bf7c724cbdda261f97e5cf7035e8d7
+ms.openlocfilehash: 5ac7a48a70959b625b7c602ee48dc08a360bee73
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/25/2020
-ms.locfileid: "88847580"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618667"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Entity Framework Core 5.0 の計画
 
-[計画プロセス](xref:core/what-is-new/release_planning)で説明されているように、EF Core 5.0 リリースの暫定的な計画には関係者からの意見が取り込まれています。
+[計画プロセス](xref:core/what-is-new/release-planning)で説明されているように、EF Core 5.0 リリースの暫定的な計画には関係者からの意見が取り込まれています。
 
 > [!IMPORTANT]
 > この計画はまだ進行中です。 ここで説明されている内容は確約されたものではありません。 この計画は、さらに学習して発展する出発点となります。 現在、5.0 に対して計画されていない機能が盛り込まれる可能性があります。 現在、5.0 に対して計画されている機能が除外される可能性があります。
@@ -309,4 +310,4 @@ EF チームも、Microsoft.Data.Sqlite ADO.NET プロバイダーを所有し�
 
 ## <a name="suggestions"></a>推奨事項
 
-計画に関するフィードバックは重要です。 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指) することです。 このデータが、次のリリースの[計画プロセス](xref:core/what-is-new/release_planning)に取り込まれます。
+計画に関するフィードバックは重要です。 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指) することです。 このデータが、次のリリースの[計画プロセス](xref:core/what-is-new/release-planning)に取り込まれます。

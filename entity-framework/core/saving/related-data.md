@@ -1,15 +1,16 @@
 ---
 title: 関連データの保存 - EF Core
+description: 関連エンティティのグラフの保存と Entity Framework Core でのリレーションシップの管理に関する情報
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
 uid: core/saving/related-data
-ms.openlocfilehash: 86d32b6172ee21c12a15e9ed4bb0142afc99c8bd
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 118d5933dd543a03bbe16fd8be1f00b7304e39c4
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413613"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618884"
 ---
 # <a name="saving-related-data"></a>関連データの保存
 
@@ -53,9 +54,9 @@ ms.locfileid: "78413613"
 
 必須リレーションシップでは、連鎖削除動作が既定で構成され、子/依存エンティティがデータベースから削除されます。 省略可能なリレーションシップでは、連鎖削除は既定では構成されていませんが、外部キー プロパティが null 設定されます。
 
-リレーションシップが必須かどうかを構成する方法については、「[Required and Optional Relationships](../modeling/relationships.md#required-and-optional-relationships)」(必須リレーションシップと省略可能なリレーションシップ) を参照してください。
+リレーションシップが必須かどうかを構成する方法については、「[Required and Optional Relationships](xref:core/modeling/relationships#required-and-optional-relationships)」(必須リレーションシップと省略可能なリレーションシップ) を参照してください。
 
-連鎖削除の動作方法、それらを明示的に構成する方法、および慣例に従った選択方法については、「[連鎖削除](cascade-delete.md)」を参照してください。
+連鎖削除の動作方法、それらを明示的に構成する方法、および慣例に従った選択方法については、「[連鎖削除](xref:core/saving/cascade-delete)」を参照してください。
 
 次の例では、`Blog` と `Post` 間のリレーションシップに連鎖削除が構成されているため、`post` エンティティがデータベースから削除されます。
 

@@ -1,15 +1,16 @@
 ---
 title: WPF の使用を開始する - EF Core
+description: Entity Framework Core で WPF を使用するための概要チュートリアル
 author: jeremylikness
 ms.author: jeliknes
 ms.date: 07/24/2020
 uid: core/get-started/wpf
-ms.openlocfilehash: 958fc579a72a9bf3c97c5551d55777df6c32293f
-ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
+ms.openlocfilehash: 1198da5c9564663ca26392b33462c727275a432d
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87535591"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89619304"
 ---
 # <a name="getting-started-with-wpf"></a>WPF の概要
 
@@ -81,14 +82,14 @@ DbContext の派生型のインスタンスによって、実行時にエンテ�
 [!code-csharp[](../../../samples/core/WPF/GetStartedWPF/GetStartedWPF/ProductContext.cs)]
 
 * `DbSet` により、データベースにマップする必要のある C# エンティティが EF Core に示されます。
-* EF Core の `DbContext` を構成するには、さまざまな方法があります。 詳しくは次を参照してください: 「[DbContext の構成](/ef/core/miscellaneous/configuring-dbcontext)」。
+* EF Core の `DbContext` を構成するには、さまざまな方法があります。 詳しくは次を参照してください: 「[DbContext の構成](xref:core/miscellaneous/configuring-dbcontext)」。
 * この例では、`OnConfiguring` のオーバーライドを使用して、Sqlite データ ファイルを指定します。
 * `UseLazyLoadingProxies` の呼び出しにより、遅延読み込みを実装するよう EF Core に指示されるため、子エンティティは親からアクセスされた時点で自動的に読み込まれます。
 
 **Ctrl + Shift + B** キーを押すか、 **[ビルド] &gt; [ソリューションのビルド]** に移動して、プロジェクトをコンパイルします。
 
 > [!TIP]
-> データベースと EF Core モデルの同期を維持するためのさまざまな方法について確認します: 「[データベース スキーマを管理する](/ef/core/managing-schemas)」。
+> データベースと EF Core モデルの同期を維持するためのさまざまな方法について確認します: 「[データベース スキーマを管理する](xref:core/managing-schemas/index)」。
 
 ## <a name="lazy-loading"></a>遅延読み込み
 
@@ -149,7 +150,7 @@ EF Core を使用すると、ナビゲーション プロパティに初めて�
 [!code-csharp[](../../../samples/core/WPF/GetStartedWPF/GetStartedWPF/MainWindow.xaml.cs)]
 
 > [!NOTE]
-> このコードでは、`EnsureCreated()` の呼び出しを使用して、最初の実行時にデータベースを構築します。 これはデモでは許されますが、運用アプリでは、[移行](/ef/core/managing-schemas/migrations/)を調べてスキーマを管理する必要があります。 また、このコードは、ローカルの SQLite データベースを使用しているため、同期的に実行されます。 リモート サーバーが含まれるのが一般的である運用シナリオでは、`Load` および `SaveChanges` メソッドの非同期バージョンを使用することを検討します。
+> このコードでは、`EnsureCreated()` の呼び出しを使用して、最初の実行時にデータベースを構築します。 これはデモでは許されますが、運用アプリでは、[移行](xref:core/managing-schemas/migrations/index)を調べてスキーマを管理する必要があります。 また、このコードは、ローカルの SQLite データベースを使用しているため、同期的に実行されます。 リモート サーバーが含まれるのが一般的である運用シナリオでは、`Load` および `SaveChanges` メソッドの非同期バージョンを使用することを検討します。
 
 ## <a name="test-the-wpf-application"></a>WPF アプリケーションをテストする
 
@@ -159,18 +160,18 @@ EF Core を使用すると、ナビゲーション プロパティに初めて�
 
 ## <a name="property-change-notification"></a>プロパティの変更通知
 
-この例では、4 つのステップでエンティティと UI を同期させています。 
+この例では、4 つのステップでエンティティと UI を同期させています。
 
 1. 最初の `_context.Categories.Load()` の呼び出しで、カテゴリ データが読み込まれます。
 1. 遅延読み込みプロキシにより、依存製品データが読み込まれます。
 1. `_context.SaveChanges()` を呼び出すと、EF Core に組み込まれている変更追跡により、挿入や削除など、エンティティに対して必要な変更が行われます。
 1. `DataGridView.Items.Refresh()` を呼び出すと、新しく生成された ID で強制的に再読み込みが行われます。
 
-これは、この作業開始サンプルには使用できますが、他のシナリオでは追加のコードが必要になる場合があります。 WPF コントロールにより、エンティティのフィールドとプロパティが読み取られて、UI がレンダリングされます。 ユーザー インターフェイス (UI) で値を編集すると、その値がエンティティに渡されます。 データベースから読み込むなどして、エンティティのプロパティの値を直接変更すると、WPF によって変更が UI にすぐには反映されません。 レンダリング エンジンに変更が通知される必要があります。 このプロジェクトでは、手動で `Refresh()` を呼び出すことによってこれを行いました。 この通知を自動化する簡単な方法は、[INotifyPropertyChanged](/dotnet/api/system.componentmodel.inotifypropertychanged) インターフェイスを実装することです。 WPF のコンポーネントにより、自動的にインターフェイスが検出されて、変更イベントに登録されます。 エンティティでは、これらのイベントを発生させる必要があります。 
+これは、この作業開始サンプルには使用できますが、他のシナリオでは追加のコードが必要になる場合があります。 WPF コントロールにより、エンティティのフィールドとプロパティが読み取られて、UI がレンダリングされます。 ユーザー インターフェイス (UI) で値を編集すると、その値がエンティティに渡されます。 データベースから読み込むなどして、エンティティのプロパティの値を直接変更すると、WPF によって変更が UI にすぐには反映されません。 レンダリング エンジンに変更が通知される必要があります。 このプロジェクトでは、手動で `Refresh()` を呼び出すことによってこれを行いました。 この通知を自動化する簡単な方法は、[INotifyPropertyChanged](/dotnet/api/system.componentmodel.inotifypropertychanged) インターフェイスを実装することです。 WPF のコンポーネントにより、自動的にインターフェイスが検出されて、変更イベントに登録されます。 エンティティでは、これらのイベントを発生させる必要があります。
 
 > [!TIP]
 > 変更の処理方法の詳細については、以下を参照してください: [プロパティ変更通知の実装方法](/dotnet/framework/wpf/data/how-to-implement-property-change-notification)に関するページ。
 
 ## <a name="next-steps"></a>次の手順
 
-[DbContext の構成](/ef/core/miscellaneous/configuring-dbcontext)の詳細について確認します。
+[DbContext の構成](xref:core/miscellaneous/configuring-dbcontext)の詳細について確認します。

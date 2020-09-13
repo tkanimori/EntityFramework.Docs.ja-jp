@@ -1,15 +1,16 @@
 ---
 title: 基本の保存 - EF Core
+description: Entity Framework Core を使用したデータの追加、更新、削除に関する基本情報
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: 850d842e-3fad-4ef2-be17-053768e97b9e
 uid: core/saving/basic
-ms.openlocfilehash: 066d67d6104316832a33f5a3648f1f2fa6cc9c50
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 21a9be10d081591a7d3b33a8e9cc48552c95fb6c
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413685"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617435"
 ---
 # <a name="basic-save"></a>基本の保存
 
@@ -25,7 +26,7 @@ ms.locfileid: "78413685"
 [!code-csharp[Main](../../../samples/core/Saving/Basics/Sample.cs#Add)]
 
 > [!TIP]  
-> Add、Attach、および Update メソッドは、そのすべてが「[関連データ](related-data.md)」で説明するように、すべてのエンティティで動作します。 EntityEntry.State プロパティを使用して、単一のエンティティの状態を設定できます。 たとえば、「 `context.Entry(blog).State = EntityState.Modified` 」のように入力します。
+> Add、Attach、および Update メソッドは、そのすべてが「[関連データ](xref:core/saving/related-data)」で説明するように、すべてのエンティティで動作します。 EntityEntry.State プロパティを使用して、単一のエンティティの状態を設定できます。 たとえば、「 `context.Entry(blog).State = EntityState.Modified` 」のように入力します。
 
 ## <a name="updating-data"></a>データの更新
 

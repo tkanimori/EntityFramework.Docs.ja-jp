@@ -1,15 +1,16 @@
 ---
 title: 関連データの読み込み - EF Core
+description: Entity Framework Core で関連データを読み込むためのさまざまな方法
 author: rowanmiller
 ms.date: 10/27/2016
 ms.assetid: f9fb64e2-6699-4d70-a773-592918c04c19
 uid: core/querying/related-data
-ms.openlocfilehash: d3a1810599771befb451715d93454fff63949771
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: 43b8cbac1e36a37bc85c953319407b3814d7d327
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238308"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618920"
 ---
 # <a name="loading-related-data"></a>関連データの読み込み
 
@@ -19,7 +20,7 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 * **明示的読み込み**。後でデータベースから明示的に関連データが読み込まれることを意味します。
 * **遅延読み込み**。ナビゲーション プロパティにアクセスしたときに、データベースから透過的に関連データが読み込まれることを意味します。
 
-> [!TIP]  
+> [!TIP]
 > この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
 ## <a name="eager-loading"></a>一括読み込み
@@ -28,7 +29,7 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#SingleInclude)]
 
-> [!TIP]  
+> [!TIP]
 > Entity Framework Core は、以前にコンテキスト インスタンスに読み込まれた他のエンティティに対して、ナビゲーション プロパティを自動的に修正します。 そのため、ナビゲーション プロパティのデータを明示的に含めていない場合でも、関連エンティティの一部またはすべてが以前に読み込まれていれば、プロパティを設定することができます。
 
 複数のリレーションシップの関連データを 1 つのクエリに含めることができます。
@@ -45,18 +46,17 @@ Entity Framework Core を使用すると、モデル内でナビゲーション 
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleThenIncludes)]
 
-このすべてを組み合わせて、複数のレベルと複数のルートの関連データを同じクエリ内に含めることができます。
+これらのすべての呼び出しを組み合わせて、複数のレベルと複数のルートの関連データを同じクエリ内に含めることができます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#IncludeTree)]
 
-含まれているエンティティの 1 つについて複数の関連エンティティを含めることができます。 たとえば、`Blogs` をクエリするときに、`Posts` を含め、さらに `Posts` の `Author` と `Tags` の両方を含めたい場合があります。 この場合、ルートから始まる各インクルード パスを指定する必要があります。 たとえば、`Blog -> Posts -> Author` と`Blog -> Posts -> Tags` です。 これで冗長的な結合を実現することにはならず、ほとんどの場合、SQL を生成するときに EF で結合は統合されます。
+含まれているエンティティの 1 つについて複数の関連エンティティを含めることができます。 たとえば、`Blogs` をクエリするときに、`Posts` を含め、さらに `Posts` の `Author` と `Tags` の両方を含めたい場合があります。 両方を含めるには、ルートから始まる各インクルード パスを指定する必要があります。 たとえば、`Blog -> Posts -> Author` や `Blog -> Posts -> Tags`す。 これで冗長的な結合を実現することにはならず、ほとんどの場合、SQL を生成するときに EF で結合は組み合わされます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludes)]
 
 ### <a name="single-and-split-queries"></a>単一クエリと分割クエリ
 
-> [!NOTE]
-> この機能は EF Core 5.0 で導入されています。
+#### <a name="single-queries"></a>単一のクエリ
 
 リレーショナル データベースでは、JOIN を導入するとすべての関連エンティティが既定で読み込まれます。
 
@@ -67,7 +67,12 @@ LEFT JOIN [Post] AS [p] ON [b].[BlogId] = [p].[BlogId]
 ORDER BY [b].[BlogId], [p].[PostId]
 ```
 
-一般的なブログに複数の関連する投稿がある場合、これらの投稿の行によってブログの情報が複製され、いわゆる "デカルト爆発" の問題が発生します。 さらに一対多リレーションシップが読み込まれると、重複するデータの量が増加し、アプリケーションのパフォーマンスに悪影響を及ぼす可能性があります。
+一般的なブログに複数の関連する投稿がある場合、これらの投稿の行によってブログの情報が複製され、いわゆる "デカルト爆発" の問題が発生します。 さらに一対多リレーションシップが読み込まれると、重複するデータの量が増加し、アプリケーションのパフォーマンスに悪影響を及ぼす可能性があります。 既定で EF Core では、パフォーマンスの問題の原因となる可能性があるコレクション インクルードを読み込んでいるクエリが検出されると、警告が出力されます。
+
+#### <a name="split-queries"></a>分割クエリ
+
+> [!NOTE]
+> この機能は EF Core 5.0 で導入されています。
 
 EF では、特定の LINQ クエリを複数の SQL クエリに "*分割*" するように指定できます。 JOIN の代わりに、分割クエリでは、含まれている一対多のナビゲーションごとに追加の SQL クエリが実行されます。
 
@@ -86,20 +91,30 @@ INNER JOIN [Post] AS [p] ON [b].[BlogId] = [p].[BlogId]
 ORDER BY [b].[BlogId]
 ```
 
-これによって JOIN とデカルト爆発に関連するパフォーマンス上の問題が回避されますが、いくつかの欠点もあります。
+> [!NOTE]
+> 一対一の関連エンティティは、常に同じクエリ内で JOIN によって読み込まれます。パフォーマンス上の影響がないためです。
 
-* ほとんどのデータベースでは単一クエリに対してデータの整合性が保証されますが、複数クエリに対してこのような保証は存在しません。 つまり、クエリの実行中に同時にデータベースが更新される場合、結果として得られるデータの整合性が失われる可能性があります。 これはシリアル化可能なトランザクションまたはスナップショット トランザクションでクエリをラップすることで軽減できる場合がありますが、それ自体のパフォーマンス上の問題が発生する可能性があります。 詳細については、お使いのデータベースのドキュメントを参照してください。
-* 現在、各クエリによりデータベースに対する追加のネットワーク ラウンドトリップが発生します。これによって、特にデータベースの待ち時間が長い場合 (クラウド サービスなど)、パフォーマンスが低下する可能性があります。 EF Core では今後、クエリを 1 回のラウンドトリップにバッチ処理することによって、これを改善する予定です。
-* 一部のデータベースでは、複数のクエリの結果を同時に使用することが許可されていますが (SQL Server と MARS、Sqlite)、ほとんどの場合、特定の時点でアクティブにできるクエリは 1 つだけです。 つまり、後のクエリを実行する前に前のクエリの結果をすべてアプリケーションのメモリにバッファーし、メモリ要件を潜在的にかなり大きくする必要があります。
+#### <a name="enabling-split-queries-globally"></a>分割クエリをグローバルに有効にする
+
+分割クエリは、アプリケーションのコンテキストで既定値として構成することもできます。
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/SplitQueriesBloggingContext.cs?name=QuerySplittingBehaviorSplitQuery&highlight=6)]
+
+分割クエリが既定値として構成されている場合でも、特定のクエリを単一のクエリとして実行するように構成することができます。
+
+[!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs?name=AsSplitQuery&highlight=5)]
+
+クエリ分割モードが明示的に指定されておらず (グローバルでも、クエリ上でも)、単一のクエリによって複数のコレクション インクルードが読み込まれることが EF Core で検出された場合は、結果として生じる可能性のあるパフォーマンスの問題に注意するよう警告が出力されます。 クエリ モードを SingleQuery に設定すると、警告は生成されません。
+
+#### <a name="characteristics-of-split-queries"></a>分割クエリの特性
+
+分割クエリによって JOIN とデカルト爆発に関連するパフォーマンス上の問題が回避されますが、いくつかの欠点もあります。
+
+* ほとんどのデータベースでは単一クエリに対してデータの整合性が保証されますが、複数クエリに対してこのような保証は存在しません。 クエリの実行と同時にデータベースが更新された場合、生成されるデータの整合性が失われる可能性があります。 これはシリアル化可能なトランザクションまたはスナップショット トランザクションでクエリをラップすることで軽減できますが、これにより、それ自体のパフォーマンス上の問題が発生する可能性があります。 詳細については、ご利用のデータベースのドキュメントを参照してください。
+* 現在、各クエリは、データベースに対する追加のネットワーク ラウンドトリップを意味します。 特にデータベースの待機時間が長い場合 (クラウド サービスなど)、複数のネットワーク ラウンドトリップによってパフォーマンスが低下する可能性があります。
+* 一部のデータベースでは、複数のクエリの結果を同時に使用することが許可されていますが (SQL Server と MARS、Sqlite)、ほとんどの場合、特定の時点でアクティブにできるクエリは 1 つだけです。 そのため、後のクエリを実行する前に、前のクエリの結果をすべてアプリケーションのメモリにバッファーする必要があります。これにより、メモリ要件が大きくなります。
 
 残念ながら、すべてのシナリオに適合する関連エンティティの読み込み方法はありません。 単一クエリと分割クエリの長所と短所を慎重に検討し、ご自身のニーズに合うものを選択してください。
-
-> [!NOTE]
-> 一対一の関連エンティティは常に JOIN によって読み込まれます。パフォーマンス上の影響がないためです。
->
-> 現時点では、SQL Server でクエリの分割を使用するには、接続文字列で `MultipleActiveResultSets=true` を設定する必要があります。 この要件は、今後のプレビューで削除される予定です。
->
-> EF Core 5.0 の今後のプレビューでは、コンテキストの既定値としてクエリの分割を指定できるようになる予定です。
 
 ### <a name="filtered-include"></a>フィルター処理されたインクルード
 
@@ -114,23 +129,23 @@ ORDER BY [b].[BlogId]
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#FilteredInclude)]
 
-インクルードされている各ナビゲーションでは、フィルター操作の一意のセットが 1 つだけ許可されます。 特定のコレクション ナビゲーション (次の例では `blog.Posts`) に複数のインクルード操作が適用されている場合、フィルター操作はそのいずれかでのみ指定できます。 
+インクルードされている各ナビゲーションでは、フィルター操作の一意のセットが 1 つだけ許可されます。 特定のコレクション ナビゲーション (次の例では `blog.Posts`) に複数のインクルード操作が適用されている場合、フィルター操作はそのいずれかでのみ指定できます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludesFiltered1)]
 
-また、複数回インクルードされているナビゲーションごとに、同一の操作を適用することもできます。
+代わりに、複数回インクルードされているナビゲーションごとに、同一の操作を適用することもできます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#MultipleLeafIncludesFiltered2)]
 
 > [!CAUTION]
-> クエリの追跡では、[ナビゲーション修正](tracking.md)により、フィルター処理されたインクルードの結果が予期しないものになることがあります。 以前にクエリされ、変更トラッカーに格納されていた関連エンティティはすべて、フィルターの要件を満たしていなくても、フィルター処理されたインクルードのクエリの結果に表示されます。 そのような状況でフィルター処理されたインクルードを使用する場合は、`NoTracking` クエリを使用するか、DbContext を再作成することを検討してください。
+> クエリの追跡では、[ナビゲーション修正](xref:core/querying/tracking)により、フィルター処理されたインクルードの結果が予期しないものになることがあります。 以前にクエリされ、変更トラッカーに格納されていた関連エンティティはすべて、フィルターの要件を満たしていなくても、フィルター処理されたインクルードのクエリの結果に表示されます。 そのような状況でフィルター処理されたインクルードを使用する場合は、`NoTracking` クエリを使用するか、DbContext を再作成することを検討してください。
 
 例:
 
 ```csharp
 var orders = context.Orders.Where(o => o.Id > 1000).ToList();
 
-// customer entities will have references to all orders where Id > 1000, rathat than > 5000
+// customer entities will have references to all orders where Id > 1000, rather than > 5000
 var filtered = context.Customers.Include(c => c.Orders.Where(o => o.Id > 5000)).ToList();
 ```
 
@@ -198,13 +213,13 @@ public class School
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#Eager)]
 
-また、関連エンティティを返す個別のクエリを実行することで、ナビゲーション プロパティを明示的に読み込むこともできます。 変更の追跡が有効な場合、エンティティを読み込むと、EF Core は、既に読み込まれているエンティティがあれば参照するように、新しく読み込まれたエンティティのナビゲーション プロパティを自動的に設定します。また、新しく読み込まれたエンティティを参照するように、既に読み込まれているエンティティのナビゲーション プロパティを自動的に設定します。
+また、関連エンティティを返す個別のクエリを実行することで、ナビゲーション プロパティを明示的に読み込むこともできます。 変更の追跡が有効な場合、クエリによってエンティティが具現化されると、EF Core では、既に読み込まれているエンティティがあれば参照するように、新しく読み込まれたエンティティのナビゲーション プロパティが自動的に設定されます。また、新しく読み込まれたエンティティを参照するように、既に読み込まれているエンティティのナビゲーション プロパティが自動的に設定されます。
 
 ### <a name="querying-related-entities"></a>関連エンティティのクエリ
 
 また、ナビゲーション プロパティの内容を表す LINQ クエリを取得することもできます。
 
-そのため、関連エンティティをメモリに読み込まずに集計演算子を実行するなどの操作を行うことができます。
+これにより、クエリに追加の演算子を適用できます。 たとえば、関連エンティティをメモリに読み込まずに集計演算子を適用できます。
 
 [!code-csharp[Main](../../../samples/core/Querying/RelatedData/Sample.cs#NavQueryAggregate)]
 
@@ -254,7 +269,7 @@ public class Post
 
 ### <a name="lazy-loading-without-proxies"></a>プロキシを使用しない遅延読み込み
 
-遅延読み込みプロキシは、[エンティティ型コンストラクター](../modeling/constructors.md)に関するページで説明されているように、エンティティに `ILazyLoader` サービスを挿入することで機能します。 次に例を示します。
+遅延読み込みプロキシは、[エンティティ型コンストラクター](xref:core/modeling/constructors)に関するページで説明されているように、エンティティに `ILazyLoader` サービスを挿入することで機能します。 次に例を示します。
 
 ```csharp
 public class Blog
@@ -309,7 +324,7 @@ public class Post
 }
 ```
 
-この場合、エンティティ型を継承したり、ナビゲーション プロパティを仮想にしたりする必要はありません。コンテキストにアタッチされたときに、`new` で作成されたエンティティ インスタンスの遅延読み込みを実行することができます。 ただし、これには、[Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) パッケージで定義される `ILazyLoader` サービスが必要です。 このパッケージに含まれる型のセットは、それに依存してもほとんど影響がないように、最低限のセットになっています。 しかし、エンティティ型で EF Core パッケージへの依存を完全に回避するには、デリゲートとして `ILazyLoader.Load` メソッドを挿入することが可能です。 次に例を示します。
+このメソッドでは、エンティティ型を継承したり、ナビゲーション プロパティを仮想にしたりする必要はありません。コンテキストにアタッチされたときに、`new` で作成されたエンティティ インスタンスの遅延読み込みを実行することができます。 ただし、これには、[Microsoft.EntityFrameworkCore.Abstractions](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Abstractions/) パッケージで定義される `ILazyLoader` サービスが必要です。 このパッケージに含まれる型のセットは、それに依存してもほとんど影響がないように、最低限のセットになっています。 しかし、エンティティ型で EF Core パッケージへの依存を完全に回避するには、デリゲートとして `ILazyLoader.Load` メソッドを挿入することが可能です。 次に例を示します。
 
 ```csharp
 public class Blog
@@ -383,18 +398,18 @@ public static class PocoLoadingExtensions
 }
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > 遅延読み込みデリゲートのコンストラクター パラメーターは、"lazyLoader" と指定する必要があります。 これとは別の名前を使用する構成が今後のリリースで計画されています。
 
 ## <a name="related-data-and-serialization"></a>関連データとシリアル化
 
-EF Core はナビゲーション プロパティを自動的に修正するので、最終的にオブジェクト グラフの循環が生じる可能性があります。 たとえば、ブログとその関連する投稿を読み込むと、投稿のコレクションを参照するブログ オブジェクトになります。 これらの各投稿には元のブログへの参照が含まれることになります。
+EF Core ではナビゲーション プロパティの修復が自動的に行われるので、最終的にオブジェクト グラフの循環が生じる可能性があります。 たとえば、ブログとその関連する投稿を読み込むと、投稿のコレクションを参照するブログ オブジェクトになります。 これらの各投稿には元のブログへの参照が含まれることになります。
 
-一部のシリアル化フレームワークでは、このような循環は許可されていません。 たとえば、Json.NET では、循環が発生した場合に次の例外をスローします。
+一部のシリアル化フレームワークでは、このような循環は許可されていません。 たとえば、Json.NET では、循環が発生した場合に次の例外がスローされます。
 
 > Newtonsoft.Json.JsonSerializationException:Self referencing loop detected for property 'Blog' with type 'MyApplication.Models.Blog'.
 
-ASP.NET Core を使用している場合は、オブジェクト グラフで見つかった循環を無視するように Json.NET を構成できます。 この操作は、`Startup.cs` の `ConfigureServices(...)` メソッドで実行します。
+ASP.NET Core を使用している場合は、オブジェクト グラフで見つかった循環を無視するように Json.NET を構成できます。 この構成は、`Startup.cs` の `ConfigureServices(...)` メソッドで行われます。
 
 ```csharp
 public void ConfigureServices(IServiceCollection services)

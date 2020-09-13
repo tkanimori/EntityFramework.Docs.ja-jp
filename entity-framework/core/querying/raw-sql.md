@@ -1,15 +1,16 @@
 ---
 title: 生 SQL クエリ - EF Core
+description: Entity Framework Core のクエリに対する生 SQL の使用
 author: smitpatel
 ms.date: 10/08/2019
 ms.assetid: 70aae9b5-8743-4557-9c5d-239f688bf418
 uid: core/querying/raw-sql
-ms.openlocfilehash: a54bb67c0fce9d621382f6372e70fe4cdca48a20
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 3b95c15b2b07d1eeecf1603e6bfbb29f4931d5cc
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413715"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617516"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
@@ -55,6 +56,9 @@ Entity Framework Core を使用すると、リレーショナル データベー
 `FromSqlRaw` では、SQL クエリ文字列で名前付きパラメーターを使用できます。これはストアド プロシージャに省略可能なパラメーターがある場合に便利です。
 
 [!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureNamedSqlParameter)]
+
+> [!NOTE]
+> **パラメーターの順序付け** `SqlParameter[]` 配列の順序に基づいて、Entity Framework Core によってパラメーターが渡されます。 複数の `SqlParameter` を渡す場合の SQL 文字列内の順序付けは、ストアド プロシージャの定義内のパラメーターの順序と一致する必要があります。 この手順を行わないと、そのプロシージャが実行されるときに、型変換の例外や予期しない動作が発生する可能性があります。
 
 ## <a name="composing-with-linq"></a>LINQ による作成
 

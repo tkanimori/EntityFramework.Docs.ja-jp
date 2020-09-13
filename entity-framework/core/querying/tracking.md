@@ -1,15 +1,16 @@
 ---
 title: 追跡と追跡なしのクエリ - EF Core
+description: Entity Framework Core の追跡クエリと非追跡クエリに関する情報
 author: smitpatel
 ms.date: 10/10/2019
 ms.assetid: e17e060c-929f-4180-8883-40c438fbcc01
 uid: core/querying/tracking
-ms.openlocfilehash: a6c71c12f429f1324abe91d1b2cef96312bec051
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: f49c6a3e1dc84dff72d80e3ef0f9bbe149d58a72
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413697"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89617424"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 

@@ -1,15 +1,16 @@
 ---
 title: 複雑なクエリ演算子 - EF Core
+description: Entity Framework Core を使用する場合の複雑な LINQ クエリ演算子に関する詳細情報
 author: smitpatel
 ms.date: 10/03/2019
 ms.assetid: 2e187a2a-4072-4198-9040-aaad68e424fd
 uid: core/querying/complex-query-operators
-ms.openlocfilehash: 44c2695ea003da043925740a52596fd27da638f8
-ms.sourcegitcommit: 9b562663679854c37c05fca13d93e180213fb4aa
+ms.openlocfilehash: 61a46361cc4bc1635174aaf2ca3260fa67fc6aaf
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 04/07/2020
-ms.locfileid: "78413775"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89616438"
 ---
 # <a name="complex-query-operators"></a>複雑なクエリ演算子
 
@@ -18,7 +19,7 @@ ms.locfileid: "78413775"
 > [!TIP]
 > この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
 
-## <a name="join"></a>結合
+## <a name="join"></a>Join
 
 LINQ Join 演算子を使用すると、各ソースのキー セレクターに基づいて 2 つのデータ ソースを接続でき、キーが一致したときに値のタプルが生成されます。 リレーショナル データベースでは、必然的に `INNER JOIN` に変換されます。 LINQ Join には外部および内部のキー セレクターがありますが、データベースには単一の結合条件が必要です。 したがって、EF Core では、外部キー セレクターと内部キー セレクターが等価であるかどうかを比較して、結合条件を生成します。 さらに、キー セレクターが匿名型である場合、EF Core では、等価要素ごとに比較する結合条件を生成します。
 
