@@ -172,14 +172,24 @@
           items:
             - name: 概要
               href: core/querying/index.md
+            - name: 関連データを読み込む
+              items:
+                - name: 概要
+                  href: core/querying/related-data/index.md
+                - name: 一括読み込み
+                  href: core/querying/related-data/eager.md
+                - name: 明示的読み込み
+                  href: core/querying/related-data/explicit.md
+                - name: 遅延読み込み
+                  href: core/querying/related-data/lazy.md
+                - name: 関連データとシリアル化
+                  href: core/querying/related-data/serialization.md
             - name: クライアントとサーバーの評価
               href: core/querying/client-eval.md
             - name: 追跡と非追跡
               href: core/querying/tracking.md
             - name: 複雑なクエリ演算子
               href: core/querying/complex-query-operators.md
-            - name: 関連データを読み込む
-              href: core/querying/related-data.md
             - name: 生 SQL クエリ
               href: core/querying/raw-sql.md
             - name: グローバル クエリ フィルター
@@ -530,7 +540,7 @@
                       href: ef6/resources/licenses/ef5/fra.md
                     - name: イタリア語
                       href: ef6/resources/licenses/ef5/ita.md
-                    - name: Japanese
+                    - name: 日本語
                       href: ef6/resources/licenses/ef5/jpn.md
                     - name: 韓国語
                       href: ef6/resources/licenses/ef5/kor.md
@@ -558,7 +568,7 @@
                       href: ef6/resources/licenses/ef6/fra.md
                     - name: イタリア語
                       href: ef6/resources/licenses/ef6/ita.md
-                    - name: Japanese
+                    - name: 日本語
                       href: ef6/resources/licenses/ef6/jpn.md
                     - name: 韓国語
                       href: ef6/resources/licenses/ef6/kor.md
