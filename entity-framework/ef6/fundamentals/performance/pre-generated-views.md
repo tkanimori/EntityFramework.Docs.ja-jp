@@ -3,14 +3,13 @@ title: 事前に生成されたマッピングビュー-EF6
 description: Entity Framework 6 で事前に生成されたマッピングビュー
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 917ba9c8-6ddf-4631-ab8c-c4fb378c2fcd
 uid: ef6/fundamentals/performance/pre-generated-views
-ms.openlocfilehash: 8318030603339c45c5c8459db580b7a8de5febda
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: b69c1eea1e219d76a8de1b2cf3b88de2cf74c8f0
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89615853"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073553"
 ---
 # <a name="pre-generated-mapping-views"></a>事前に生成されたマッピングビュー
 Entity Framework がクエリを実行したり、データソースへの変更を保存したりする前に、データベースにアクセスするための一連のマッピングビューを生成する必要があります。 これらのマッピングビューは、データベースを抽象的な方法で表す一連の Entity SQL ステートメントであり、アプリケーションドメインごとにキャッシュされるメタデータの一部です。 同じアプリケーションドメイン内に同じコンテキストの複数のインスタンスを作成すると、キャッシュされたメタデータからのマッピングビューが再生成されるのではなく再利用されます。 マッピングビューの生成は最初のクエリの実行にかかる全体的なコストの重要な部分であるため、Entity Framework を使用すると、マッピングビューを事前に生成し、コンパイル済みのプロジェクトに含めることができます。詳細については、「  [パフォーマンスに関する考慮事項 (Entity Framework)](xref:ef6/fundamentals/performance/perf-whitepaper)」を参照してください。

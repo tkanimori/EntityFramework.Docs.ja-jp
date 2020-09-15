@@ -3,13 +3,12 @@ title: 検証-EF6
 description: Entity Framework 6 での検証
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 77d6a095-c0d0-471e-80b9-8f9aea6108b2
-ms.openlocfilehash: 0e0f5c581681e7b21b6591ade1541d774e7280bc
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 29f5e22d7f2e388d6e8271a35d10bbf6e318eafa
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619811"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073692"
 ---
 # <a name="data-validation"></a>データ検証
 > [!NOTE]
@@ -236,7 +235,7 @@ Entity Framework 検証を使用する場合は、次の点を考慮する必要
   - 複合型プロパティのプロパティレベルの検証
   - 複合型の検証を含む複合型の型レベルの検証 `IValidatableObject`
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 Entity Framework の検証 API は、MVC でのクライアント側の検証に非常に適していますが、クライアント側の検証に依存する必要はありません。 Entity Framework は、code first Fluent API で適用した DataAnnotations または構成のサーバー側での検証を処理します。
 

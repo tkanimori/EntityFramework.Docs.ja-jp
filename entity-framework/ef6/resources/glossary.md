@@ -3,20 +3,19 @@ title: Entity Framework 用語集-EF6
 description: Entity Framework 6 用語集
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 3f05ffdd-49bc-499c-9732-4a368bf5d2d7
 uid: ef6/resources/glossary
-ms.openlocfilehash: 19d5e9e3a480337c2bcb93be5f989cc622b67dad
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 819bdda133b427fa6f8fc1915cde07560e6ca568
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620197"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072890"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework 用語集
 ## <a name="code-first"></a>Code First
 コードを使用して Entity Framework モデルを作成する。 モデルでは、既存のデータベースまたは新しいデータベースを対象にすることができます。
 
-## <a name="context"></a>コンテキスト
+## <a name="context"></a>Context
 データベースとのセッションを表すクラス。これにより、データのクエリと保存を行うことができます。 コンテキストは、DbContext または ObjectContext クラスから派生します。
 
 ## <a name="convention-code-first"></a>規則 (Code First)
@@ -31,7 +30,7 @@ EF デザイナーを使用して、既存のデータベースを対象とす�
 ## <a name="ef-designer"></a>EF デザイナー
 ボックスと行を使用して Entity Framework モデルを作成できる Visual Studio のビジュアルデザイナー。
 
-## <a name="entity"></a>Entity
+## <a name="entity"></a>エンティティ
 顧客、製品、注文などのアプリケーション データを表すクラスまたはオブジェクト。
 
 ## <a name="entity-data-model"></a>エンティティ データ モデル

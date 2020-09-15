@@ -3,14 +3,13 @@ title: プロパティ値の操作-EF6
 description: Entity Framework 6 でのプロパティ値の使用
 author: divega
 ms.date: 10/23/2016
-ms.assetid: e3278b4b-9378-4fdb-923d-f64d80aaae70
 uid: ef6/saving/change-tracking/property-values
-ms.openlocfilehash: 53c0829920c77768eae26d23c3da7d0553f44b62
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 30c8e7dbd59f0eb3ec15c0f57f022afd90fd80f8
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619967"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073757"
 ---
 # <a name="working-with-property-values"></a>プロパティ値の操作
 ほとんどの場合 Entity Framework は、エンティティインスタンスのプロパティの状態、元の値、および現在の値の追跡を行います。 ただし、接続が切断されたシナリオなど、EF がプロパティについての情報を表示または操作する場合もあります。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  

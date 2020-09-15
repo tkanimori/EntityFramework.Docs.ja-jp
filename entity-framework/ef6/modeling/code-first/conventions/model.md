@@ -3,14 +3,13 @@ title: モデルベースの規則-EF6
 description: Entity Framework 6 のモデルベースの規則
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 0fc4eef8-29b8-4192-9c77-08fd33d3db3a
 uid: ef6/modeling/code-first/conventions/model
-ms.openlocfilehash: 30a79f505939220b3d4040778397eab972e6a712
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: bcb7a88f4d9fc994b51300ac30ec58671be370c8
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89617183"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90074004"
 ---
 # <a name="model-based-conventions"></a>モデルベースの規則
 > [!NOTE]
@@ -209,6 +208,6 @@ public class BlogContext : DbContext
 }
 ```  
 
-## <a name="notes"></a>Notes  
+## <a name="notes"></a>メモ  
 
 Entity Framework によって現在適用されている規則の一覧については、MSDN ドキュメントの「」を参照して [http://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx](https://msdn.microsoft.com/library/system.data.entity.modelconfiguration.conventions.aspx) ください。  このリストは、ソースコードから直接プルされます。  Entity Framework 6 のソースコードは [GitHub](https://github.com/aspnet/entityframework6/) で入手でき、Entity Framework によって使用される規則の多くは、カスタムモデルベースの規則の出発点として適しています。  

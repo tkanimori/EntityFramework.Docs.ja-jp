@@ -3,14 +3,13 @@ title: 複合型-EF デザイナー-EF6
 description: 複合型-Entity Framework 6 の EF デザイナー
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 9a8228ef-acfd-4575-860d-769d2c0e18a1
 uid: ef6/modeling/designer/data-types/complex-types
-ms.openlocfilehash: 87b62c119894486cbb54adfc8d3af6208a6618a8
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 6ebba9ea36ddad1a25b21bf98a6ac3090c327144
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620599"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073514"
 ---
 # <a name="complex-types---ef-designer"></a>複合型-EF デザイナー
 このトピックでは、複合型を Entity Framework Designer (EF デザイナー) にマップする方法と、複合型のプロパティを含むエンティティに対してクエリを実行する方法について説明します。

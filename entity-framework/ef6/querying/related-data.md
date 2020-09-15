@@ -3,14 +3,13 @@ title: 関連エンティティを読み込んでいます-EF6
 description: Entity Framework 6 で関連エンティティを読み込んでいます
 author: divega
 ms.date: 10/23/2016
-ms.assetid: c8417e18-a2ee-499c-9ce9-2a48cc5b468a
 uid: ef6/querying/related-data
-ms.openlocfilehash: 9b4e8ecda618e11e87cd595502210234b1f3e27d
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: d1bf04f9d9017291ef3f5ec0809095df856329cd
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620263"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073874"
 ---
 # <a name="loading-related-entities"></a>関連エンティティを読み込んでいます
 

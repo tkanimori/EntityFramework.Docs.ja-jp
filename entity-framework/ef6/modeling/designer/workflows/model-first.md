@@ -3,14 +3,13 @@ title: Model First-EF6
 description: Entity Framework 6 の Model First
 author: divega
 ms.date: 10/23/2016
-ms.assetid: e1b9c319-bb8a-4417-ac94-7890f257e7f6
 uid: ef6/modeling/designer/workflows/model-first
-ms.openlocfilehash: e995072f0f4ac23b755acc193719e5571e18f544
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 13c5e173182ad0781a674ce3d10f7374c4443bf9
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620406"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073163"
 ---
 # <a name="model-first"></a>Model First
 このビデオとステップバイステップのチュートリアルでは、Entity Framework を使用した Model First 開発の概要について説明します。 Model First を使用すると、Entity Framework Designer を使用して新しいモデルを作成し、モデルからデータベーススキーマを生成できます。 モデルは EDMX ファイル (.edmx 拡張子) に格納されており、Entity Framework Designer で表示および編集できます。 アプリケーションで対話するクラスは、EDMX ファイルから自動的に生成されます。
@@ -197,6 +196,6 @@ Press any key to exit...
     *生成されたスクリプトは、既存のすべてのテーブルを削除してから、スキーマを最初から再作成します。これは、ローカルでの開発では機能しますが、既に配置されているデータベースに変更をプッシュする場合には有効ではありません。既に配置されているデータベースに変更を発行する必要がある場合は、スクリプトを編集するか、スキーマ比較ツールを使用して移行スクリプトを計算する必要があります。*
 -   スクリプトを右クリックして [ **実行**] を選択すると、接続先のデータベースを指定するように求められます。使用している Visual Studio のバージョンに応じて、LocalDB または SQL Server Express を指定します。
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 このチュートリアルでは Model First の開発について説明しました。これにより、EF デザイナーでモデルを作成し、そのモデルからデータベースを生成することができました。 次に、モデルを使用して、データベースのデータの読み取りと書き込みを行います。 最後に、モデルを更新した後、モデルに一致するようにデータベーススキーマを再作成しました。

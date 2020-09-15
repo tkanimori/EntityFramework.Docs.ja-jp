@@ -3,14 +3,13 @@ title: 自動検出変更-EF6
 description: Entity Framework 6 での変更の自動検出
 author: divega
 ms.date: 10/23/2016
-ms.assetid: a8d1488d-9a54-4623-a76b-e81329ff2756
 uid: ef6/saving/change-tracking/auto-detect-changes
-ms.openlocfilehash: 938af809ac89d3490da9885497fc5601453e1c34
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: aa8b94d843d99a8f040bdb065297d2e19b4770d7
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619991"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073783"
 ---
 # <a name="automatic-detect-changes"></a>自動検出の変更
 ほとんどの POCO エンティティを使用する場合、エンティティがどのように変更されたか (そのため、どの更新をデータベースに送信する必要があるか) は、[変更の検出] アルゴリズムによって処理されます。 変更の検出は、エンティティの現在のプロパティ値と、エンティティがクエリまたはアタッチされたときにスナップショットに格納されている元のプロパティ値との違いを検出することによって機能します。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  

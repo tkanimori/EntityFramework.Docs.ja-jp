@@ -3,14 +3,13 @@ title: WinForms を使用したデータバインド-EF6
 description: Entity Framework 6 の WinForms を使用したデータバインド
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 80fc5062-2f1c-4dbd-ab6e-b99496784b36
 uid: ef6/fundamentals/databinding/winforms
-ms.openlocfilehash: 934ea2ae488a7df128746a0607037d85e9b23771
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: b316aea0a36edc8586a81427825ed4ee11fc9ef3
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616334"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073228"
 ---
 # <a name="databinding-with-winforms"></a>WinForms とのデータバインド
 このステップバイステップチュートリアルでは、POCO 型を "マスター/詳細" フォームでウィンドウフォーム (WinForms) コントロールにバインドする方法について説明します。 アプリケーションでは、Entity Framework を使用して、データベースのデータをオブジェクトに読み込み、変更を追跡し、データベースにデータを保持します。
@@ -280,7 +279,7 @@ POCO エンティティ型を使用する場合、EF は、実行時に派生プ
 -   [データソースの種類を選択] ウィンドウで、[**オブジェクト**] を選択し、[**次へ**] をクリックします。
 -   [データオブジェクトの選択] ダイアログで、 **Winフォーム Withefsample** を2回展開し、[ **カテゴリ** ] を選択します。製品データソースを選択する必要はありません。これは、カテゴリデータソースで製品のプロパティを使用して取得するからです。
 
-    ![データ ソース](~/ef6/media/datasource.png)
+    ![Data Source](~/ef6/media/datasource.png)
 
 -   **[完了]** をクリックします。
     [データソース] ウィンドウが表示されていない場合は、[表示]、[ ** &gt; その他のウィンドウ- &gt; データソース**] を選択します。

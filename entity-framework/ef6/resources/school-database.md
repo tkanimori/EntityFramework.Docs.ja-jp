@@ -3,14 +3,13 @@ title: School サンプルデータベース-EF6
 description: Entity Framework 6 の School サンプルデータベース
 author: divega
 ms.date: 10/23/2016
-ms.assetid: e83a6a06-e63b-4530-8656-614bf609b12b
 uid: ef6/resources/school-database
-ms.openlocfilehash: c1576bdeaa3247c7c5c8fd5547c8402b4e301402
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 38dfbf074200617f11d70ef1d8cead69223135b3
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620005"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073809"
 ---
 # <a name="school-sample-database"></a>School サンプル データベース
 このトピックには、School データベースのスキーマとデータが含まれています。 サンプル School データベースは、Entity Framework のドキュメントを通じてさまざまな場所で使用されています。  

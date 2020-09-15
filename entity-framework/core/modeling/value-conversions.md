@@ -3,14 +3,13 @@ title: 値の変換-EF Core
 description: Entity Framework Core モデルでの値コンバーターの構成
 author: ajcvickers
 ms.date: 02/19/2018
-ms.assetid: 3154BF3C-1749-4C60-8D51-AE86773AA116
 uid: core/modeling/value-conversions
-ms.openlocfilehash: 79e54392bf5503b4b651f25ce6e5fc63d418df90
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 1d347eb6a7fcdcb55239e1fa854f6c38ab081b21
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616666"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072552"
 ---
 # <a name="value-conversions"></a>値変換
 
@@ -19,7 +18,7 @@ ms.locfileid: "89616666"
 
 値コンバーターを使用すると、データベースに対して読み取りまたは書き込みを行うときに、プロパティ値を変換できます。 この変換は、1つの値から同じ型の別の型 (文字列の暗号化など) にすることも、1つの型の値から別の型の値に変換することもできます (たとえば、列挙値をデータベース内の文字列に変換するなど)。
 
-## <a name="fundamentals"></a>Fundamentals
+## <a name="fundamentals"></a>基礎
 
 値コンバーターは、との観点で指定され `ModelClrType` てい `ProviderClrType` ます。 モデルの種類は、エンティティ型のプロパティの .NET 型です。 プロバイダーの種類は、データベースプロバイダーによって認識される .NET 型です。 たとえば、列挙型を文字列としてデータベースに保存する場合、モデルの種類は列挙型の型であり、プロバイダーの型は `String` です。 これらの2つの型は同じにすることができます。
 

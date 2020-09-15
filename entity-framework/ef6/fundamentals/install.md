@@ -3,14 +3,13 @@ title: Entity Framework の取得-EF6
 description: Entity Framework 6 を取得する
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 122c38a2-f9e8-4ecc-9c72-a83bc9af7814
 uid: ef6/fundamentals/install
-ms.openlocfilehash: bfd016a93de73ada4487a454ec7abd9251aeecfe
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 9254f835f5007a213c49557165f6830c30711f1f
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616248"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072786"
 ---
 # <a name="get-entity-framework"></a>Entity Framework を取得する
 Entity Framework は、EF Tools for Visual Studio と EF Runtime で構成されています。

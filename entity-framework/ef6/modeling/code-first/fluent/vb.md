@@ -3,14 +3,13 @@ title: VB.NET を使用した Fluent API-EF6
 description: Entity Framework 6 の VB.NET を使用した Fluent API
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 763dc6a2-764a-4600-896c-f6f13abf56ec
 uid: ef6/modeling/code-first/fluent/vb
-ms.openlocfilehash: d6430ee254c6f0d5f093961d25902326022226cd
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: d59e685578fb151aea2ae0b41a933f3e13de6c50
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616977"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072578"
 ---
 # <a name="fluent-api-with-vbnet"></a>VB.NET を使用した Fluent API
 Code First では、C または VB.NET クラスを使用してモデルを定義でき \# ます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。 このチュートリアルでは、VB.NET を使用して fluent API 構成を実行する方法について説明します。

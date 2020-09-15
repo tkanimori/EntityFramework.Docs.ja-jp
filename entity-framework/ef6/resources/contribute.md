@@ -3,13 +3,12 @@ title: Entity Framework に貢献する-EF6
 description: Entity Framework 6 に投稿する
 author: divega
 ms.date: 07/05/2018
-ms.assetid: EFA3C3F5-79A4-4A0A-BB37-035C31FC7372
-ms.openlocfilehash: 4280fe4be875074b635e573a57c5e51f40374b48
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 7043f911c5f01de33964e122c5f0a7f7e42049f2
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620217"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073835"
 ---
 # <a name="contribute-to-entity-framework-6"></a>Entity Framework 6 に投稿する
 Entity Framework 6 は、GitHub でオープンソースモデルを使用して開発されています。 Microsoft での Entity Framework チームの主な目的は Entity Framework Core に新機能を追加することですが、Entity Framework 6 に主要な機能を追加することは期待されていませんが、引き続き投稿を受け入れます。

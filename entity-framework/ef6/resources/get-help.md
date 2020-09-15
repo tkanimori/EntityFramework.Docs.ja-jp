@@ -3,14 +3,13 @@ title: Entity Framework を使用したヘルプの表示-EF6
 description: Entity Framework 6 を使用してヘルプを表示する
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 592cae61-02e1-485a-bbb0-a508ade9c67d
 uid: ef6/resources/get-help
-ms.openlocfilehash: 7d0e90a79596233d0d58b9dea31bc79465e985bc
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: e027293169895c0d9a4041e9fb367d49c9b3ce57
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620222"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073848"
 ---
 # <a name="get-help-using-entity-framework"></a>Entity Framework の使用に関するヘルプを表示する
 ## <a name="stackoverflow-questions-questions-about-using-ef"></a>![StackOverflow の質問](~/ef6/media/stackoverflow.png) EF の使用に関する質問  

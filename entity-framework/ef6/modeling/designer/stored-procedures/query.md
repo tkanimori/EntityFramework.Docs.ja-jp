@@ -3,14 +3,13 @@ title: デザイナークエリストアドプロシージャ-EF6
 description: Entity Framework 6 のデザイナークエリストアドプロシージャ
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 9554ed25-c5c1-43be-acad-5da37739697f
 uid: ef6/modeling/designer/stored-procedures/query
-ms.openlocfilehash: c647516e1c6ea010c791df6857782b2304ceed1c
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 4976c7d4f788e6e9524055a508f9c906b47c9ebb
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620358"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073202"
 ---
 # <a name="designer-query-stored-procedures"></a>デザイナークエリのストアドプロシージャ
 このステップバイステップチュートリアルでは、Entity Framework Designer (EF デザイナー) を使用してストアドプロシージャをモデルにインポートし、インポートされたストアドプロシージャを呼び出して結果を取得する方法について説明します。 

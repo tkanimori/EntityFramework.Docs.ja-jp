@@ -3,14 +3,13 @@ title: デザイナー TPT 継承-EF6
 description: Entity Framework 6 でのデザイナーの継承
 author: divega
 ms.date: 10/23/2016
-ms.assetid: efc78c31-b4ea-4ea3-a0cd-c69eb507020e
 uid: ef6/modeling/designer/inheritance/tpt
-ms.openlocfilehash: cb686a9f51b14651c210102845de495906318747
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: e60965550db3f140dfebf4c1952b3901b9b00aab
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620468"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073371"
 ---
 # <a name="designer-tpt-inheritance"></a>デザイナーの TPT 継承
 このステップバイステップチュートリアルでは、Entity Framework Designer (EF デザイナー) を使用してモデルにテーブル単位 (TPT) の継承を実装する方法を示します。 Table-Per-Type 継承は、データベース内の別個のテーブルを使用して、非継承プロパティと継承階層のそれぞれの型のキー プロパティのデータを維持します。

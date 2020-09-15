@@ -3,14 +3,13 @@ title: 空間 Code First-EF6
 description: Entity Framework 6 の空間 Code First
 author: divega
 ms.date: 10/23/2016
-ms.assetid: d617aed1-15f2-48a9-b187-186991c666e3
 uid: ef6/modeling/code-first/data-types/spatial
-ms.openlocfilehash: 8c2d47a66979a228fdc4902857df999a21945547
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 5d18624cdcef8db3e604277aeef1c3a2d05bfcab
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618154"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073965"
 ---
 # <a name="spatial---code-first"></a>空間 Code First
 > [!NOTE]
@@ -152,6 +151,6 @@ The closest University to you is: School of Fine Art.
 4.  [ **データベース** ] フォルダーを展開して新しいデータベースを表示し、[ **大学** ] テーブルを参照します。
 5.  データを表示するには、テーブルを右クリックし、[**データの表示**] を選択します。
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 このチュートリアルでは、Entity Framework Code First で空間型を使用する方法について説明しました。 

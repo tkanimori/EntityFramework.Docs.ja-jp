@@ -3,14 +3,13 @@ title: 既存のデータベースへの Code First-EF6
 description: Entity Framework 6 の既存のデータベースへの Code First
 author: divega
 ms.date: 10/23/2016
-ms.assetid: a7e60b74-973d-4480-868f-500a3899932e
 uid: ef6/modeling/code-first/workflows/existing-database
-ms.openlocfilehash: 7cb58495ea287c59f46e804882cdc089d0f09e7b
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: d26c5f2ced6b327615cc78bcb2bb6d188b012c14
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616927"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073991"
 ---
 # <a name="code-first-to-an-existing-database"></a>既存のデータベースへの Code First
 このビデオとステップバイステップのチュートリアルでは、既存のデータベースを対象とした Code First 開発の概要について説明します。 Code First では、C または VB.Net クラスを使用してモデルを定義でき \# ます。 必要に応じて、クラスとプロパティの属性、または fluent API を使用して、追加の構成を行うことができます。
@@ -225,6 +224,6 @@ Press any key to exit...
 
 既存のデータベースで Code First Migrations を使用する場合は、「 [既存のデータベースへの Code First Migrations](xref:ef6/modeling/code-first/migrations/existing-database)」を参照してください。
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 このチュートリアルでは、既存のデータベースを使用した Code First 開発について説明しました。 Entity Framework Tools for Visual Studio を使用して、データベースにマップされた一連のクラスをリバースエンジニアリングし、データの格納と取得に使用しました。
