@@ -3,39 +3,38 @@ title: School サンプルデータベース-EF6
 description: Entity Framework 6 の School サンプルデータベース
 author: divega
 ms.date: 10/23/2016
-ms.assetid: e83a6a06-e63b-4530-8656-614bf609b12b
 uid: ef6/resources/school-database
-ms.openlocfilehash: c1576bdeaa3247c7c5c8fd5547c8402b4e301402
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 38dfbf074200617f11d70ef1d8cead69223135b3
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620005"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073809"
 ---
-# <a name="school-sample-database"></a><span data-ttu-id="8dbc9-103">School サンプル データベース</span><span class="sxs-lookup"><span data-stu-id="8dbc9-103">School Sample Database</span></span>
-<span data-ttu-id="8dbc9-104">このトピックには、School データベースのスキーマとデータが含まれています。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-104">This topic contains the schema and data for the School database.</span></span> <span data-ttu-id="8dbc9-105">サンプル School データベースは、Entity Framework のドキュメントを通じてさまざまな場所で使用されています。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-105">The sample School database is used in various places throughout the Entity Framework documentation.</span></span>  
+# <a name="school-sample-database"></a><span data-ttu-id="a8856-103">School サンプル データベース</span><span class="sxs-lookup"><span data-stu-id="a8856-103">School Sample Database</span></span>
+<span data-ttu-id="a8856-104">このトピックには、School データベースのスキーマとデータが含まれています。</span><span class="sxs-lookup"><span data-stu-id="a8856-104">This topic contains the schema and data for the School database.</span></span> <span data-ttu-id="a8856-105">サンプル School データベースは、Entity Framework のドキュメントを通じてさまざまな場所で使用されています。</span><span class="sxs-lookup"><span data-stu-id="a8856-105">The sample School database is used in various places throughout the Entity Framework documentation.</span></span>  
 
 > [!NOTE]
-> <span data-ttu-id="8dbc9-106">Visual Studio と共にインストールされるデータベースサーバーは、使用する Visual Studio のバージョンによって異なります。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-106">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you use.</span></span> <span data-ttu-id="8dbc9-107">使用する内容の詳細については、「 [Visual Studio のリリース](xref:ef6/what-is-new/visual-studio) 」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-107">See [Visual Studio Releases](xref:ef6/what-is-new/visual-studio) for details on what to use.</span></span>  
+> <span data-ttu-id="a8856-106">Visual Studio と共にインストールされるデータベースサーバーは、使用する Visual Studio のバージョンによって異なります。</span><span class="sxs-lookup"><span data-stu-id="a8856-106">The database server that is installed with Visual Studio is different depending on the version of Visual Studio you use.</span></span> <span data-ttu-id="a8856-107">使用する内容の詳細については、「 [Visual Studio のリリース](xref:ef6/what-is-new/visual-studio) 」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="a8856-107">See [Visual Studio Releases](xref:ef6/what-is-new/visual-studio) for details on what to use.</span></span>  
 
-<span data-ttu-id="8dbc9-108">次に、データベースを作成する手順を示します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-108">Here are the steps to create the database:</span></span>
+<span data-ttu-id="a8856-108">次に、データベースを作成する手順を示します。</span><span class="sxs-lookup"><span data-stu-id="a8856-108">Here are the steps to create the database:</span></span>
 
-- <span data-ttu-id="8dbc9-109">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="8dbc9-109">Open Visual Studio</span></span>  
-- <span data-ttu-id="8dbc9-110">**ビュー**  -> **サーバーエクスプローラー**</span><span class="sxs-lookup"><span data-stu-id="8dbc9-110">**View** -> **Server Explorer**</span></span>  
-- <span data-ttu-id="8dbc9-111">[**データ接続**] [  ->  **接続の追加**] を右クリックします。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-111">Right click on **Data Connections** -> **Add Connection…**</span></span>  
-- <span data-ttu-id="8dbc9-112">サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして **Microsoft SQL Server** を選択する必要があります。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-112">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>  
-- <span data-ttu-id="8dbc9-113">インストールされているものに応じて、LocalDB または SQL Express に接続します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-113">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>  
-- <span data-ttu-id="8dbc9-114">データベース名として「 **School** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-114">Enter **School** as the database name</span></span>  
-- <span data-ttu-id="8dbc9-115">[ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 [**はい**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-115">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>  
-- <span data-ttu-id="8dbc9-116">新しいデータベースがに表示されるようになりサーバーエクスプローラー</span><span class="sxs-lookup"><span data-stu-id="8dbc9-116">The new database will now appear in Server Explorer</span></span>  
-- <span data-ttu-id="8dbc9-117">Visual Studio 2012 以降を使用している場合</span><span class="sxs-lookup"><span data-stu-id="8dbc9-117">If you are using Visual Studio 2012 or newer</span></span>
-    - <span data-ttu-id="8dbc9-118">[サーバー エクスプローラー] でこのデータベースを右クリックし、**[新しいクエリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-118">Right-click on the database in Server Explorer and select **New Query**</span></span>  
-    - <span data-ttu-id="8dbc9-119">次の SQL を新しいクエリにコピーし、クエリを右クリックして、[**実行**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-119">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>  
-- <span data-ttu-id="8dbc9-120">Visual Studio 2010 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="8dbc9-120">If you are using Visual Studio 2010</span></span>  
-    - <span data-ttu-id="8dbc9-121">**Data**  ->  **Transact SQL エディター**の [  ->  **新しいクエリ接続**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-121">Select **Data** -> **Transact SQL Editor** -> **New Query Connection...**</span></span>  
-    - <span data-ttu-id="8dbc9-122">サーバー名として「 **.\SQLEXPRESS** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-122">Enter **.\SQLEXPRESS** as the server name and click **OK**</span></span>  
-    - <span data-ttu-id="8dbc9-123">クエリエディターの上部にあるドロップダウンから **STESample** データベースを選択します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-123">Select the **STESample** database from the drop down at the top of the query editor</span></span>  
-    - <span data-ttu-id="8dbc9-124">次の SQL を新しいクエリにコピーし、クエリを右クリックして、[ **sql の実行**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="8dbc9-124">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>  
+- <span data-ttu-id="a8856-109">Visual Studio を開く</span><span class="sxs-lookup"><span data-stu-id="a8856-109">Open Visual Studio</span></span>  
+- <span data-ttu-id="a8856-110">**ビュー**  -> **サーバーエクスプローラー**</span><span class="sxs-lookup"><span data-stu-id="a8856-110">**View** -> **Server Explorer**</span></span>  
+- <span data-ttu-id="a8856-111">[**データ接続**] [  ->  **接続の追加**] を右クリックします。</span><span class="sxs-lookup"><span data-stu-id="a8856-111">Right click on **Data Connections** -> **Add Connection…**</span></span>  
+- <span data-ttu-id="a8856-112">サーバーエクスプローラーからデータベースに接続していない場合は、データソースとして **Microsoft SQL Server** を選択する必要があります。</span><span class="sxs-lookup"><span data-stu-id="a8856-112">If you haven’t connected to a database from Server Explorer before you’ll need to select **Microsoft SQL Server** as the data source</span></span>  
+- <span data-ttu-id="a8856-113">インストールされているものに応じて、LocalDB または SQL Express に接続します。</span><span class="sxs-lookup"><span data-stu-id="a8856-113">Connect to either LocalDB or SQL Express, depending on which one you have installed</span></span>  
+- <span data-ttu-id="a8856-114">データベース名として「 **School** 」と入力します。</span><span class="sxs-lookup"><span data-stu-id="a8856-114">Enter **School** as the database name</span></span>  
+- <span data-ttu-id="a8856-115">[ **OK]** を選択すると、新しいデータベースを作成するかどうかを確認するメッセージが表示されます。 [**はい**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="a8856-115">Select **OK** and you will be asked if you want to create a new database, select **Yes**</span></span>  
+- <span data-ttu-id="a8856-116">新しいデータベースがに表示されるようになりサーバーエクスプローラー</span><span class="sxs-lookup"><span data-stu-id="a8856-116">The new database will now appear in Server Explorer</span></span>  
+- <span data-ttu-id="a8856-117">Visual Studio 2012 以降を使用している場合</span><span class="sxs-lookup"><span data-stu-id="a8856-117">If you are using Visual Studio 2012 or newer</span></span>
+    - <span data-ttu-id="a8856-118">[サーバー エクスプローラー] でこのデータベースを右クリックし、**[新しいクエリ]** を選択します。</span><span class="sxs-lookup"><span data-stu-id="a8856-118">Right-click on the database in Server Explorer and select **New Query**</span></span>  
+    - <span data-ttu-id="a8856-119">次の SQL を新しいクエリにコピーし、クエリを右クリックして、[**実行**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="a8856-119">Copy the following SQL into the new query, then right-click on the query and select **Execute**</span></span>  
+- <span data-ttu-id="a8856-120">Visual Studio 2010 を使用している場合</span><span class="sxs-lookup"><span data-stu-id="a8856-120">If you are using Visual Studio 2010</span></span>  
+    - <span data-ttu-id="a8856-121">**Data**  ->  **Transact SQL エディター**の [  ->  **新しいクエリ接続**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="a8856-121">Select **Data** -> **Transact SQL Editor** -> **New Query Connection...**</span></span>  
+    - <span data-ttu-id="a8856-122">サーバー名として「 **.\SQLEXPRESS** 」と入力し、[ **OK]** をクリックします。</span><span class="sxs-lookup"><span data-stu-id="a8856-122">Enter **.\SQLEXPRESS** as the server name and click **OK**</span></span>  
+    - <span data-ttu-id="a8856-123">クエリエディターの上部にあるドロップダウンから **STESample** データベースを選択します。</span><span class="sxs-lookup"><span data-stu-id="a8856-123">Select the **STESample** database from the drop down at the top of the query editor</span></span>  
+    - <span data-ttu-id="a8856-124">次の SQL を新しいクエリにコピーし、クエリを右クリックして、[ **sql の実行**] を選択します。</span><span class="sxs-lookup"><span data-stu-id="a8856-124">Copy the following SQL into the new query, then right-click on the query and select **Execute SQL**</span></span>  
 
 ``` SQL  
 SET ANSI_NULLS ON
