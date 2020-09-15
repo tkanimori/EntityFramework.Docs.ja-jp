@@ -3,14 +3,13 @@ title: Entity Framework プロバイダー - EF6
 description: Entity Framework 6 の Entity Framework プロバイダー
 author: divega
 ms.date: 06/27/2018
-ms.assetid: 7BFB7763-CD6C-4520-93A2-7B265F5FA586
 uid: ef6/fundamentals/providers/index
-ms.openlocfilehash: 5140fefeb118b6e70ac27ab010d813d03ec7000c
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: bb573cb0666556de8fb37802f465af97fc40673a
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89615869"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90073150"
 ---
 # <a name="entity-framework-6-providers"></a>Entity Framework 6 プロバイダー
 > [!NOTE]

@@ -3,14 +3,13 @@ title: データの保存 - EF Core
 description: Entity Framework Core を使用したデータ保存の概要
 author: rowanmiller
 ms.date: 10/27/2016
-ms.assetid: ef044629-feca-4fd1-a48f-d208daedaf92
 uid: core/saving/index
-ms.openlocfilehash: 13e7c470e71f9cf9a1112aad18a8902e2235cef1
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 98a23fd4956a8646e9760f9ecb0b48166ad6caa1
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616309"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072474"
 ---
 # <a name="saving-data"></a>データの保存
 

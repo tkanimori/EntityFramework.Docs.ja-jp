@@ -3,14 +3,13 @@ title: 接続解除エンティティの使用 - EF6
 description: Entity Framework 6 での接続解除エンティティの使用
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 12138003-a373-4817-b1b7-724130202f5f
 uid: ef6/fundamentals/disconnected-entities/index
-ms.openlocfilehash: 5465ba3c800e4f55d1f787cc3d3e22b55e9a68b0
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 5e9f0ffbf0150500b0162ce7ead83a87a29b641a
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616119"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072760"
 ---
 # <a name="working-with-disconnected-entities"></a>接続解除エンティティの使用
 

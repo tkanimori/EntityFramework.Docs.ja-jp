@@ -3,14 +3,13 @@ title: エンティティのクエリおよび検索 - EF6
 description: Entity Framework 6 でのエンティティのクエリおよび検索
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 65bb3db2-2226-44af-8864-caa575cf1b46
 uid: ef6/querying/index
-ms.openlocfilehash: 4bfdc59527ab75e7a2e08dc743a1974246643aa3
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: d55c88280bcf164457da89ec58c180e9aa1ad12d
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620332"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072994"
 ---
 # <a name="querying-and-finding-entities"></a>エンティティのクエリおよび検索
 このトピックでは、Entity Framework を使用した、LINQ および Find メソッドを含むデータのさまざまなクエリ方法について説明します。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  

@@ -3,14 +3,13 @@ title: 概要 - EF Core
 description: Entity Framework Core の概要チュートリアル
 author: rick-anderson
 ms.date: 09/17/2019
-ms.assetid: 3c88427c-20c6-42ec-a736-22d3eccd5071
 uid: core/get-started/index
-ms.openlocfilehash: e33a18c8d3d72078eaaeba9c8cf0a1afca0cb66c
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 9f0bb1eb99cb7f4cb7542c444ad86480917bdd0f
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618010"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90071980"
 ---
 # <a name="getting-started-with-ef-core"></a>EF Core の概要
 
@@ -162,7 +161,7 @@ Visual Studio で、.NET Core コンソール アプリの実行時に使用さ�
 
 ---
 
-## <a name="next-steps"></a>次の手順
+## <a name="next-steps"></a>次のステップ
 
 * Web アプリでの EF Core の使用には、[ASP.NET Core のチュートリアル](/aspnet/core/data/ef-rp/intro)のページを参照してください
 * [LINQ クエリ式](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)について参照してください

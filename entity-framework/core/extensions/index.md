@@ -3,14 +3,13 @@ title: ツールと拡張機能 - EF Core
 description: Entity Framework Core の外部ツールと拡張機能
 author: ErikEJ
 ms.date: 04/11/2020
-ms.assetid: 14fffb6c-a687-4881-a094-af4a1359a296
 uid: core/extensions/index
-ms.openlocfilehash: e8198e0b0a51968336be97ea7d7a4b65e856d32f
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 7c29203d802e801170ed10dca26e693d8ed19d2b
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618020"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072002"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
