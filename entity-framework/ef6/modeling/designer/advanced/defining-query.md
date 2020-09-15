@@ -3,14 +3,13 @@ title: クエリの定義-EF デザイナー-EF6
 description: Entity Framework 6 でのクエリ EF デザイナーの定義
 author: divega
 ms.date: 10/23/2016
-ms.assetid: e52a297e-85aa-42f6-a922-ba960f8a4b22
 uid: ef6/modeling/designer/advanced/defining-query
-ms.openlocfilehash: e1962a80c3a94fb17bacf28969629ce949b117a0
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: b5d24b9f6c047eb8681a0343c768d1ffa70ca6b8
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616839"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90070342"
 ---
 # <a name="defining-query---ef-designer"></a>クエリの定義-EF デザイナー
 このチュートリアルでは、EF デザイナーを使用して、定義クエリとそれに対応するエンティティ型をモデルに追加する方法について説明します。 定義クエリは、データベースビューと同様の機能を提供するために一般的に使用されますが、ビューはデータベースではなくモデルで定義されます。 定義クエリを使用すると、.edmx ファイルの **DefiningQuery**要素で指定された SQL ステートメントを実行できます   。 詳細については、「 **DefiningQuery** In The [SSDL Specification](xref:ef6/modeling/designer/advanced/edmx/ssdl-spec)」を参照してください。

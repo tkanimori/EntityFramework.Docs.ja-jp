@@ -3,14 +3,13 @@ title: 接続文字列-EF Core
 description: Entity Framework Core を使用したさまざまな環境での接続文字列の管理
 author: rowanmiller
 ms.date: 10/27/2016
-ms.assetid: aeb0f5f8-b212-4f89-ae83-c642a5190ba0
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: 5b37daa9ba2869ee58c1b95ad9cbaf6b2b491391
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: e4283ada88a557e4f1e3eeea3de2634a7d0dce61
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89617757"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90071681"
 ---
 # <a name="connection-strings"></a>接続文字列
 
@@ -34,7 +33,7 @@ WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト�
 > [!TIP]  
 > `providerName`データベースプロバイダーがコードによって構成されているため、App.config に格納されている EF Core 接続文字列では、この設定は必要ありません。
 
-その後、 `ConfigurationManager` コンテキストのメソッドで API を使用して接続文字列を読み取ることができ `OnConfiguring` ます。 この API を使用できるようにするには、フレームワークアセンブリへの参照を追加する必要がある場合があり `System.Configuration` ます。
+その後、 `ConfigurationManager` コンテキストのメソッドで API を使用して接続文字列を読み取ることができ `OnConfiguring` ます。 この API を使用できるようにするには、`System.Configuration` フレームワーク アセンブリに参照を追加しなければならない場合があります。
 
 ``` csharp
 public class BloggingContext : DbContext

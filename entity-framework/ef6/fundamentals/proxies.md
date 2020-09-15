@@ -3,14 +3,13 @@ title: プロキシの使用-EF6
 description: Entity Framework 6 でのプロキシの使用
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 869ee4dc-06f1-471d-8e0e-0a1a2bc59c30
 uid: ef6/fundamentals/proxies
-ms.openlocfilehash: 26493ecf1a894a1cd421f574de38678661f324a0
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: e626a7dff67497a2fbb3dcd169704814ea4cf2cf
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618372"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90070498"
 ---
 # <a name="working-with-proxies"></a>プロキシの使用
 POCO エンティティ型のインスタンスを作成する場合、Entity Framework は、多くの場合、エンティティのプロキシとして機能する動的に生成された派生型のインスタンスを作成します。 このプロキシは、プロパティにアクセスしたときにアクションを自動的に実行するフックを挿入するために、エンティティの一部の仮想プロパティをオーバーライドします。 たとえば、このメカニズムは、リレーションシップの遅延読み込みをサポートするために使用されます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  

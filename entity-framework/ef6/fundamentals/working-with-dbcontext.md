@@ -3,14 +3,13 @@ title: DbContext の使用-EF6
 description: Entity Framework 6 での DbContext の使用
 author: divega
 ms.date: 10/23/2016
-ms.assetid: b0e6bddc-8a87-4d51-b1cb-7756df938c23
 uid: ef6/fundamentals/working-with-dbcontext
-ms.openlocfilehash: 7845d401cb0b8910cbfbba80eca2fd098c051b7d
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 83f3f318c6cd1b0ea440bd472a651ff4454716f1
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618221"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072149"
 ---
 # <a name="working-with-dbcontext"></a>DbContext の操作
 

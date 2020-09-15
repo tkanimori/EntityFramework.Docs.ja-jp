@@ -1,14 +1,15 @@
 ---
 title: EF Core のリリースの計画
+description: Entity Framework Core の計画とリリースの方法に関する情報
 author: ajcvickers
 ms.date: 01/28/2020
-uid: core/what-is-new/release_planning
-ms.openlocfilehash: df933ac2462fcc18c53f49d862836fd2d6a4dd99
-ms.sourcegitcommit: ebfd3382fc583bc90f0da58e63d6e3382b30aa22
+uid: core/what-is-new/release-planning
+ms.openlocfilehash: 91a130b4ddae66f626bcff8e70283a7e03192542
+ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/25/2020
-ms.locfileid: "85370189"
+ms.lasthandoff: 09/09/2020
+ms.locfileid: "89618557"
 ---
 # <a name="release-planning-process"></a>リリースの計画プロセス
 
@@ -97,7 +98,7 @@ GitHub 上の問題には、次の情報があります。
   * バージョン番号が付けられたマイルストーン内の対応済みの問題は、そのバージョンで完了した問題です。 バージョンがまだリリースされていない可能性があることに注意してください。 たとえば、[これらは EF Core 3.0 で完了した問題です](https://github.com/dotnet/efcore/issues?q=is%3Aissue+milestone%3A3.0.0+is%3Aclosed)。
 * 投票
   * 投票は、ある問題が自分にとって重要であるということを示す、最善の方法です。
-  * 投票するには、その問題に対して "上向きの親指" 👍を追加するだけです。 たとえば、[これらが投票数の多い問題です](https://github.com/dotnet/efcore/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
+  * 投票するには、その問題に対して "上向きの親指" 👍 を追加するだけです。 たとえば、[これらが投票数の多い問題です](https://github.com/dotnet/efcore/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
   * また、そうすることで効果が生まれると思われる場合は、機能を必要とする具体的な理由についてコメントしてください。 「+ 1」などのコメントを付けても、効果は生まれません。
 
 ### <a name="the-planning-process"></a>計画プロセス

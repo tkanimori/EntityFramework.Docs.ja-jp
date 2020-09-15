@@ -3,14 +3,13 @@ title: チーム環境での Code First Migrations-EF6
 description: Entity Framework 6 のチーム環境での Code First Migrations
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 4c2d9a95-de6f-4e97-9738-c1f8043eff69
 uid: ef6/modeling/code-first/migrations/teams
-ms.openlocfilehash: ec382ecb0b7c99e57447ee50119fc3699fe1f324
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: c3f12788f2aba85f54dc062bdb6a7919be47b56d
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89617047"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072227"
 ---
 # <a name="code-first-migrations-in-team-environments"></a>チーム環境での Code First Migrations
 > [!NOTE]
@@ -177,7 +176,7 @@ Developer \# 1 と developer \# 2 では、ローカルコードベースで EF 
 
 ![更新されたメタデータ](~/ef6/media/updatedmetadata.png)
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 チーム環境で Code First Migrations を使用する場合、いくつかの課題があります。 ただし、移行のしくみ、およびマージの競合を解決するための簡単な方法についての理解を深めることで、これらの課題を簡単に克服できます。
 

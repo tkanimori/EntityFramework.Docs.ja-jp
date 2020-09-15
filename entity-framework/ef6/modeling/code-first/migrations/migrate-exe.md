@@ -3,14 +3,13 @@ title: migrate.exe-EF6 の使用
 description: Entity Framework 6 での migrate.exe の使用
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 989ea862-e936-4c85-926a-8cfbef5df5b8
 uid: ef6/modeling/code-first/migrations/migrate-exe
-ms.openlocfilehash: e35907ed421d95111ca956aa928d65ece2c9a116
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 421b0a186afabdaa225816e0e5967633a95de959
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616984"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072175"
 ---
 # <a name="using-migrateexe"></a>migrate.exe の使用
 Code First Migrations は、visual studio 内からデータベースを更新するために使用できますが、コマンドラインツール migrate.exe を使用して実行することもできます。 このページでは、migrate.exe を使用してデータベースに対して移行を実行する方法の概要を簡単に説明します。
@@ -85,7 +84,7 @@ Migrate.exe BlogDemo.dll /connectionString="Data Source=localhost;Initial Catalo
 
 ## <a name="common-problems"></a>一般的な問題
 
-| エラー メッセージ                                                                                                                                                                                                                                                                                                                      | 解決策                                                                                                                                                                                                                                                                                             |
+| エラー メッセージ                                                                                                                                                                                                                                                                                                                      | ソリューション                                                                                                                                                                                                                                                                                             |
 |:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | ハンドルされない例外: FileLoadException: ファイルまたはアセンブリ ' EntityFramework、Version = 5.0.0.0、Culture = ニュートラル、PublicKeyToken = b77a5c561934e089 '、またはその依存関係の1つを読み込むことができませんでした。 見つかったアセンブリのマニフェスト定義がアセンブリ参照と一致しません。 (HRESULT からの例外: 0x80131040)         | これは、通常、Redirect.config ファイルを使用せずに .NET 4 アプリケーションを実行していることを意味します。 Redirect.config を migrate.exe と同じ場所にコピーし、名前を migrate.exe.config に変更する必要があります。                                                                                       |
 | ハンドルされない例外: FileLoadException: ファイルまたはアセンブリ ' EntityFramework、Version = 4.4.0.0、Culture = ニュートラル、PublicKeyToken = b77a5c561934e089 '、またはその依存関係の1つを読み込むことができませんでした。 見つかったアセンブリのマニフェスト定義がアセンブリ参照と一致しません。 (HRESULT からの例外: 0x80131040)          | この例外は、Redirect.config が migrate.exe の場所にコピーされた .NET 4.5 アプリケーションを実行していることを意味します。 アプリが .NET 4.5 の場合、構成ファイルが内にリダイレクトされる必要はありません。 migrate.exe.config ファイルを削除します。                                    |

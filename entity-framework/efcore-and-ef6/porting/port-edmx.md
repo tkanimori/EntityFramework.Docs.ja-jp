@@ -3,14 +3,13 @@ title: EF6 から EF Core への移植 - EDMX ベース モデルの移植 - EF
 description: Entity Framework 6 つの EDMX ベース モデル アプリケーションを Entity Framework Core に移植する方法に関する固有の情報
 author: rowanmiller
 ms.date: 10/27/2016
-ms.assetid: 63003709-f1ec-4bdc-8083-65a60c4826d2
 uid: efcore-and-ef6/porting/port-edmx
-ms.openlocfilehash: 3767b1dc083ec886115cea9b0750101fb49ad84c
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 7bd832f459ae3893e6a90e8483c95a41ca13f9ab
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619609"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90070004"
 ---
 # <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>EF Core への EF6 EDMX ベース モデルの移植
 

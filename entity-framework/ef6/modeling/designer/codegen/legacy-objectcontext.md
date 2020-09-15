@@ -3,14 +3,13 @@ title: Entity Framework Designer の ObjectContext に戻す-EF6
 description: Entity Framework 6 の Entity Framework Designer の ObjectContext に戻す
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 36550569-a1de-47cb-ba6d-544794ffd500
 uid: ef6/modeling/designer/codegen/legacy-objectcontext
-ms.openlocfilehash: e09cdfe994033bc8dea26bb09c4560788dd746f8
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 9ceb8ef43e4df083fe3cc5e63862ba2eb338f659
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620539"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90069965"
 ---
 # <a name="reverting-to-objectcontext-in-entity-framework-designer"></a>Entity Framework Designer 内の ObjectContext に戻す
 以前のバージョンの Entity Framework は、EF デザイナーで作成されたモデルが、EntityObject から派生した ObjectContext およびエンティティクラスから派生したコンテキストを生成します。

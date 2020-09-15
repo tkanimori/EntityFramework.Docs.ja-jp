@@ -3,14 +3,13 @@ title: 接続文字列とモデル-EF6
 description: Entity Framework 6 の接続文字列とモデル
 author: divega
 ms.date: 10/23/2016
-ms.assetid: 294bb138-978f-4fe2-8491-fdf3cd3c60c4
 uid: ef6/fundamentals/configuring/connection-strings
-ms.openlocfilehash: 2203d7f2168dc9d4ae5a6b1914742c7c2b6fbf77
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 45db461b18cde3bc1f1fccadec3c8ece6dd16832
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618428"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90070784"
 ---
 # <a name="connection-strings-and-models"></a>接続文字列とモデル
 このトピックでは、Entity Framework 使用するデータベース接続とその変更方法について説明します。 Code First と EF デザイナーで作成されたモデルについては、このトピックで説明します。  

@@ -3,28 +3,27 @@ title: エンティティ型-EF Core
 description: Entity Framework Core を使用してエンティティ型を構成およびマップする方法
 author: roji
 ms.date: 12/03/2019
-ms.assetid: cbe6935e-2679-4b77-8914-a8d772240cf1
 uid: core/modeling/entity-types
-ms.openlocfilehash: b3d9ad753637d021d9aa52965da38091ae690f77
-ms.sourcegitcommit: cc0ff36e46e9ed3527638f7208000e8521faef2e
+ms.openlocfilehash: fead7f9e37efb7f674f429acbfd16c2ca78480d4
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 03/06/2020
-ms.locfileid: "78414579"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90071512"
 ---
 # <a name="entity-types"></a>エンティティ型
 
-型の DbSet をコンテキストに含めることは、それが EF Core のモデルに含まれることを意味します。通常、このような型は*エンティティ*として参照されます。 EF Core は、データベースとの間でエンティティインスタンスの読み取りと書き込みを行うことができます。リレーショナルデータベースを使用している場合は、EF Core によって、移行によってエンティティのテーブルを作成できます。
+型の DbSet をコンテキストに含めることは、それが EF Core のモデルに含まれることを意味します。通常、このような型は *エンティティ*として参照されます。 EF Core は、データベースとの間でエンティティインスタンスの読み取りと書き込みを行うことができます。リレーショナルデータベースを使用している場合は、EF Core によって、移行によってエンティティのテーブルを作成できます。
 
 ## <a name="including-types-in-the-model"></a>モデルに型を含める
 
-慣例により、コンテキストの DbSet プロパティで公開される型は、エンティティとしてモデルに含まれます。 `OnModelCreating` メソッドに指定されているエンティティ型は、他の検出されたエンティティ型のナビゲーションプロパティを再帰的に調べることによって検出される型と同様にも含まれます。
+慣例により、コンテキストの DbSet プロパティで公開される型は、エンティティとしてモデルに含まれます。 メソッドに指定されているエンティティ型は `OnModelCreating` 、他の検出されたエンティティ型のナビゲーションプロパティを再帰的に調べることによって検出される型と同様にも含まれます。
 
 以下のコードサンプルでは、すべての型が含まれています。
 
 * `Blog` は、コンテキストの DbSet プロパティで公開されているため、含まれています。
-* `Post` は、`Blog.Posts` ナビゲーションプロパティを使用して検出されるため、含まれています。
-* `OnModelCreating`に指定されているため、`AuditEntry` します。
+* `Post` は、ナビゲーションプロパティを使用して検出されるため、含まれてい `Blog.Posts` ます。
+* `AuditEntry` はで指定されているため `OnModelCreating` です。
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/EntityTypes.cs?name=EntityTypes&highlight=3,7,16)]
 
@@ -60,7 +59,7 @@ ms.locfileid: "78414579"
 
 ## <a name="table-schema"></a>テーブル スキーマ
 
-リレーショナルデータベースを使用する場合、テーブルはデータベースの既定のスキーマで作成されます。 たとえば、Microsoft SQL Server は `dbo` スキーマを使用します (SQLite はスキーマをサポートしていません)。
+リレーショナルデータベースを使用する場合、テーブルはデータベースの既定のスキーマで作成されます。 たとえば、Microsoft SQL Server はスキーマを使用し `dbo` ます (SQLite はスキーマをサポートしていません)。
 
 次のように、特定のスキーマで作成されるテーブルを構成できます。
 

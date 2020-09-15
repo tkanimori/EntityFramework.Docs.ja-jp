@@ -3,14 +3,13 @@ title: エンティティのプロパティ-EF Core
 description: Entity Framework Core を使用してエンティティのプロパティを構成およびマップする方法
 author: lajones
 ms.date: 05/27/2020
-ms.assetid: e9dff604-3469-4a05-8f9e-18ac281d82a9
 uid: core/modeling/entity-properties
-ms.openlocfilehash: d4e4c50d8c7febf5e42e9aa39352c0bb6a6bd409
-ms.sourcegitcommit: 31536e52b838a84680d2e93e5bb52fb16df72a97
+ms.openlocfilehash: 3b76454bde153d3a6ddd035cefa00a55f47d2d7b
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 07/10/2020
-ms.locfileid: "86238217"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90071499"
 ---
 # <a name="entity-properties"></a>エンティティのプロパティ
 
@@ -50,7 +49,7 @@ ms.locfileid: "86238217"
 
 ## <a name="column-data-types"></a>列のデータ型
 
-リレーショナルデータベースを使用する場合、データベースプロバイダーは、プロパティの .NET 型に基づいてデータ型を選択します。 また、構成された[最大長](#maximum-length)、プロパティが主キーの一部であるかどうかなど、他のメタデータも考慮する必要があります。
+リレーショナルデータベースを使用する場合、データベースプロバイダーは、プロパティの .NET 型に基づいてデータ型を選択します。 また、構成された [最大長](#maximum-length)、プロパティが主キーの一部であるかどうかなど、他のメタデータも考慮する必要があります。
 
 たとえば、SQL Server は、プロパティを列に、プロパティを列にマップし `DateTime` `datetime2(7)` `string` `nvarchar(max)` ます (または、 `nvarchar(450)` キーとして使用されるプロパティの場合)。
 
@@ -117,7 +116,7 @@ EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点�
 
 慣例により、.NET 型に null を含めることができるプロパティはオプションとして構成されますが、.NET 型に null を含めることができないプロパティは必要に応じて構成されます。 たとえば、.net 値の型 (、、など) を持つすべてのプロパティは必須として構成され、 `int` `decimal` `bool` null 許容型の .net 値型 (、、など) を持つすべてのプロパティ `int?` `decimal?` `bool?` はオプションとして構成されます。
 
-C# 8 では、null[許容参照型](/dotnet/csharp/tutorials/nullable-reference-types)と呼ばれる新しい機能が導入されました。これにより、参照型に注釈を付けて、null を含むかどうかを示すことができます。 この機能は既定で無効になっています。有効にすると、EF Core の動作が次のように変更されます。
+C# 8 では、null [許容参照型](/dotnet/csharp/tutorials/nullable-reference-types)と呼ばれる新しい機能が導入されました。これにより、参照型に注釈を付けて、null を含むかどうかを示すことができます。 この機能は既定で無効になっています。有効にすると、EF Core の動作が次のように変更されます。
 
 * Null 許容の参照型が無効になっている場合 (既定)、.NET 参照型を持つすべてのプロパティは、規約によってオプションとして構成されます (たとえば、 `string` )。
 * Null 値を許容する参照型が有効になっている場合、プロパティは、その .NET 型の C# の null 値の許容属性に基づいて構成されます。 `string?` オプションとして構成されますが、必要に応じて構成されます `string` 。
@@ -139,7 +138,7 @@ C# コードで表される null 値の許容を EF Core のモデルとデー�
 > [!NOTE]
 > 既存のプロジェクトで null 値を許容する参照型を有効にする場合は注意してください。以前にオプションとして構成されていた参照型プロパティは、明示的に null 値が指定されていない限り、必須として構成されます。 リレーショナルデータベーススキーマを管理する場合、これにより、データベース列の null 値の許容属性を変更する移行が生成される可能性があります。
 
-Null 許容型の参照型と EF Core での使用方法の詳細については、[この機能の専用ドキュメントに関するページを参照してください](xref:core/miscellaneous/nullable-reference-types)。
+Null 許容型の参照型と EF Core での使用方法の詳細については、 [この機能の専用ドキュメントに関するページを参照してください](xref:core/miscellaneous/nullable-reference-types)。
 
 ### <a name="explicit-configuration"></a>明示的な構成
 
@@ -166,4 +165,4 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 
 データベース内のすべての列で特定の照合順序を使用する必要がある場合は、代わりにデータベースレベルで照合順序を定義します。
 
-照合順序のサポート EF Core に関する一般情報については、[照合順序のドキュメントページ](xref:core/miscellaneous/collations-and-case-sensitivity)を参照してください。
+照合順序のサポート EF Core に関する一般情報については、 [照合順序のドキュメントページ](xref:core/miscellaneous/collations-and-case-sensitivity)を参照してください。

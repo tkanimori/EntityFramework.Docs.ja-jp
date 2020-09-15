@@ -5,12 +5,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/applying
-ms.openlocfilehash: c83194057d58f8278bfbb5264623858e6c022d8f
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 50937f96e63f9bda2ffcf5e94dabf688ee2ba1f3
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619454"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90071890"
 ---
 # <a name="applying-migrations"></a>移行の適用
 
@@ -117,7 +117,7 @@ Script-Migration -Idempotent
 
 EF コマンドラインツールを使用すると、データベースに移行を適用できます。 移行のローカル開発とテストの生産性を維持しながら、この方法は運用データベースの管理には適していません。
 
-* SQL コマンドはツールによって直接適用されます。開発者は、これらのコマンドを検査または変更することはできません。 これは、運用環境では危険である可能性があります。
+* SQL コマンドはツールによって直接適用されます。開発者はこのコマンドを検査または変更することはできません。 これは、運用環境では危険である可能性があります。
 * .NET SDK と EF ツールは、実稼働サーバーにインストールする必要があります。
 
 ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
@@ -170,7 +170,7 @@ Update-Database AddNewTables
 * 同様に、別のアプリケーションが移行している間にアプリケーションがデータベースにアクセスしている場合は、重大な問題が発生する可能性があります。
 * データベーススキーマを変更するには、アプリケーションに昇格されたアクセス権が必要です。 一般に、運用環境でアプリケーションのデータベースのアクセス許可を制限することをお勧めします。
 * 問題が発生した場合は、適用された移行をロールバックできることが重要です。 その他の戦略では、簡単にそのまま使用できます。
-* SQL コマンドはプログラムによって直接適用されます。開発者は、これらのコマンドを検査または変更することはできません。 これは、運用環境では危険である可能性があります。
+* SQL コマンドはプログラムによって直接適用されるので、開発者はそれを検査または変更することはできません。 これは、運用環境では危険である可能性があります。
 
 プログラムによって移行を適用するには、を呼び出し `context.Database.Migrate()` ます。 たとえば、一般的な ASP.NET アプリケーションでは、次の操作を実行できます。
 

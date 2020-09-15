@@ -3,14 +3,13 @@ title: 接続管理-EF6
 description: Entity Framework 6 での接続管理
 author: divega
 ms.date: 10/23/2016
-ms.assetid: ecaa5a27-b19e-4bf9-8142-a3fb00642270
 uid: ef6/fundamentals/connection-management
-ms.openlocfilehash: c352e761a9891b5c275f32752f10de13222bf48e
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: e2097f5ed0471d309292625990cc5f9a598c5b2a
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89617224"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90070563"
 ---
 # <a name="connection-management"></a>接続管理
 このページでは、コンテキストへの接続の受け渡しと、 **データベース. Connection. Open ()** API の機能に関して、Entity Framework の動作について説明します。  

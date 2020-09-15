@@ -3,14 +3,13 @@ title: テーブル値関数 (Tvf)-EF6
 description: Entity Framework 6 のテーブル値関数 (Tvf)
 author: divega
 ms.date: 10/23/2016
-ms.assetid: f019c97b-87b0-4e93-98f4-2c539f77b2dc
 uid: ef6/modeling/designer/advanced/tvfs
-ms.openlocfilehash: 1575526fb46f9ddd3ad43c7c4ac0304aefa1d5d3
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 727c6c7ff5947e78bf8eb489194e355e2fd157c9
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620557"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90070162"
 ---
 # <a name="table-valued-functions-tvfs"></a>テーブル値関数 (Tvf)
 > [!NOTE]
@@ -126,6 +125,6 @@ Couse: Microeconomics, Student: Arturo Anand
 Couse: Microeconomics, Student: Carson Bryant
 ```
 
-## <a name="summary"></a>要約
+## <a name="summary"></a>まとめ
 
 このチュートリアルでは、Entity Framework Designer を使用してテーブル値関数 (Tvf) をマップする方法について説明しました。 また、LINQ クエリから TVF を呼び出す方法についても説明します。
