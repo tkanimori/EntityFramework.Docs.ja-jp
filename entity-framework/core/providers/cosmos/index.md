@@ -5,12 +5,12 @@ author: AndriySvyryd
 ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 0d88e0a4876755656626621fd9a4ca01d18b5b64
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 188c5b10aefa784715c0bbf2d50337d65c21fd62
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619317"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90071369"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダー
 
@@ -98,7 +98,7 @@ EF Core では、派生エンティティ型がない場合でも、特定の項
 
 ## <a name="embedded-entities"></a>埋め込みエンティティ
 
-Cosmos 所有エンティティは、所有者と同じアイテムに埋め込まれます。 プロパティ名を変更するには、[ToJsonProperty](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToJsonProperty) を使います。
+Cosmos の場合、所有エンティティは所有者と同じアイテムに埋め込まれます。 プロパティ名を変更するには、[ToJsonProperty](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.ToJsonProperty) を使います。
 
 [!code-csharp[PropertyNames](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=PropertyNames)]
 
