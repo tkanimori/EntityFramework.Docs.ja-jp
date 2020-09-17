@@ -3,14 +3,13 @@ title: EF Core 1.1 の新機能 - EF Core
 description: Entity Framework Core 1.1 での変更点と改善点
 author: divega
 ms.date: 10/27/2016
-ms.assetid: C7FE8C85-445A-4F0C-97EC-CC3F7F1D6F5E
 uid: core/what-is-new/ef-core-1.1
-ms.openlocfilehash: 89dfe4b4772e9e6dc232860f38f07c94654af437
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 5f81e8b25feba5cdf5ae5e84b1d3362912ab5b26
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618809"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072409"
 ---
 # <a name="new-features-in-ef-core-11"></a>EF Core 1.1 の新機能
 

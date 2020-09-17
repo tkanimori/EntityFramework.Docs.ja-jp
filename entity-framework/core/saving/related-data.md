@@ -3,14 +3,13 @@ title: 関連データの保存 - EF Core
 description: 関連エンティティのグラフの保存と Entity Framework Core でのリレーションシップの管理に関する情報
 author: rowanmiller
 ms.date: 10/27/2016
-ms.assetid: 07b6680f-ffcf-412c-9857-f997486b386c
 uid: core/saving/related-data
-ms.openlocfilehash: 118d5933dd543a03bbe16fd8be1f00b7304e39c4
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 0ae6477032109787e63cae498bda7148dcaa5abe
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618884"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90070979"
 ---
 # <a name="saving-related-data"></a>関連データの保存
 
