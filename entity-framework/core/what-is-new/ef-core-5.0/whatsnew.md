@@ -2,22 +2,664 @@
 title: EF Core 5.0 の新機能
 description: EF Core 5.0 の新機能の概要
 author: ajcvickers
-ms.date: 07/20/2020
+ms.date: 09/10/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew
-ms.openlocfilehash: b4551a3c593694b104a750d500d81eb170a83dc0
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 0605d021b46066c6af7b631c99e86c0e53caa8db
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618597"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90070758"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
-EF Core 5.0 は現在開発中です。 このページには、各プレビューで導入された耳寄りな変更の概要が記載されています。
+EF Core 5.0 に予定されていたすべての機能が揃いました。 このページには、各プレビューで導入された耳寄りな変更の概要が記載されています。
 
 このページには [EF Core 5.0 のプラン](xref:core/what-is-new/ef-core-5.0/plan)を記載していません。 このプランでは、最終リリースの出荷前に含めようとしているものすべてを含めた、EF Core 5.0 のテーマ全体について説明します。
 
-公開されている公式ドキュメントについては、リンクが追加されます。
+## <a name="rc1"></a>RC1
+
+### <a name="many-to-many"></a>多対多
+
+結合テーブルを明示的にマッピングしなくても、EF Core 5.0 によって多対多のリレーションシップがサポートされています。
+
+たとえば、次のようなエンティティ型を考えてみます。
+
+```C#
+public class Post
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public ICollection<Tag> Tags { get; set; }
+}
+
+public class Tag
+{
+    public int Id { get; set; }
+    public string Text { get; set; }
+    public ICollection<Post> Posts { get; set; }
+}
+```
+
+`Post` に `Tags` のコレクションが含まれており、`Tag` に `Posts` のコレクションが含まれていることに注目してください。 EF Core 5.0 では、規則に従って多対多のリレーションシップとしてこれが認識されます。 これは、`OnModelCreating` にコードが必要ないことを意味します。
+
+```C#
+public class BlogContext : DbContext
+{
+    public DbSet<Post> Posts { get; set; }
+    public DbSet<Blog> Blogs { get; set; }
+}
+```
+
+データベースの作成に移行 (または `EnsureCreated`) を使用すると、EF Core によって結合テーブルが自動的に作成されます。 たとえば、このモデルの SQL Server では、EF Core によって次が生成されます。
+
+```sql
+CREATE TABLE [Posts] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NULL,
+    CONSTRAINT [PK_Posts] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [Tag] (
+    [Id] int NOT NULL IDENTITY,
+    [Text] nvarchar(max) NULL,
+    CONSTRAINT [PK_Tag] PRIMARY KEY ([Id])
+);
+
+CREATE TABLE [PostTag] (
+    [PostsId] int NOT NULL,
+    [TagsId] int NOT NULL,
+    CONSTRAINT [PK_PostTag] PRIMARY KEY ([PostsId], [TagsId]),
+    CONSTRAINT [FK_PostTag_Posts_PostsId] FOREIGN KEY ([PostsId]) REFERENCES [Posts] ([Id]) ON DELETE CASCADE,
+    CONSTRAINT [FK_PostTag_Tag_TagsId] FOREIGN KEY ([TagsId]) REFERENCES [Tag] ([Id]) ON DELETE CASCADE
+);
+
+CREATE INDEX [IX_PostTag_TagsId] ON [PostTag] ([TagsId]);
+```
+
+`Blog` エンティティと `Post` エンティティを作成して関連付けると、結合テーブルの更新が自動的に行われます。 次に例を示します。
+
+```C#
+var beginnerTag = new Tag {Text = "Beginner"};
+var advancedTag = new Tag {Text = "Advanced"};
+var efCoreTag = new Tag {Text = "EF Core"};
+
+context.AddRange(
+    new Post {Name = "EF Core 101", Tags = new List<Tag> {beginnerTag, efCoreTag}},
+    new Post {Name = "Writing an EF database provider", Tags = new List<Tag> {advancedTag, efCoreTag}},
+    new Post {Name = "Savepoints in EF Core", Tags = new List<Tag> {beginnerTag, efCoreTag}});
+
+context.SaveChanges();
+```
+
+Post と Tag を挿入すると、EF によって結合テーブルに行が自動的に作成されます。 たとえば、SQL Server の場合は次のようになります。
+
+```sql
+SET NOCOUNT ON;
+INSERT INTO [PostTag] ([PostsId], [TagsId])
+VALUES (@p6, @p7),
+(@p8, @p9),
+(@p10, @p11),
+(@p12, @p13),
+(@p14, @p15),
+(@p16, @p17);
+```
+
+クエリの場合、Include およびその他のクエリ操作は、他のリレーションシップと同様に機能します。 次に例を示します。
+
+```C#
+foreach (var post in context.Posts.Include(e => e.Tags))
+{
+    Console.Write($"Post \"{post.Name}\" has tags");
+
+    foreach (var tag in post.Tags)
+    {
+        Console.Write($" '{tag.Text}'");
+    }
+}
+```
+
+生成された SQL により、結合テーブルが自動的に使用されて、関連するすべての Tag が返されます。
+
+```sql
+SELECT [p].[Id], [p].[Name], [t0].[PostsId], [t0].[TagsId], [t0].[Id], [t0].[Text]
+FROM [Posts] AS [p]
+LEFT JOIN (
+    SELECT [p0].[PostsId], [p0].[TagsId], [t].[Id], [t].[Text]
+    FROM [PostTag] AS [p0]
+    INNER JOIN [Tag] AS [t] ON [p0].[TagsId] = [t].[Id]
+) AS [t0] ON [p].[Id] = [t0].[PostsId]
+ORDER BY [p].[Id], [t0].[PostsId], [t0].[TagsId], [t0].[Id]
+```
+
+EF6 とは異なり、EF Core では結合テーブルの完全なカスタマイズが可能です。 たとえば、次のコードは、結合エンティティへのナビゲーションも持つ多対多のリレーションシップを構成します。結合エンティティにはペイロード プロパティが含まれています。
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder
+        .Entity<Community>()
+        .HasMany(e => e.Members)
+        .WithMany(e => e.Memberships)
+        .UsingEntity<PersonCommunity>(
+            b => b.HasOne(e => e.Member).WithMany().HasForeignKey(e => e.MembersId),
+            b => b.HasOne(e => e.Membership).WithMany().HasForeignKey(e => e.MembershipsId))
+        .Property(e => e.MemberSince).HasDefaultValueSql("CURRENT_TIMESTAMP");
+}
+```
+
+### <a name="map-entity-types-to-queries"></a>エンティティ型をクエリにマップする
+
+エンティティ型は通常、その型に対してクエリを実行するときに、EF Core によってテーブルまたはビューの内容がプルバックされるようなテーブルまたはビューにマップされます。 EF Core 5.0 では、エンティティ型を "クエリの定義" にマップできます (これは以前のバージョンでは部分的にサポートされていましたが、大幅に改善され、EF Core 5.0 では構文が異なります)。
+
+たとえば、2 つのテーブルについて考えてみます。1 つには最新の投稿が含まれ、もう 1 つには従来の投稿が含まれています。 最新の投稿テーブルにはいくつかの列が追加されていますが、このアプリケーションの目的のために、最新の投稿と従来の投稿の両方を組み合わせて、必要なすべてのプロパティを持つエンティティ型にマップする必要があります。
+
+```c#
+public class Post
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+    public string Category { get; set; }
+    public int BlogId { get; set; }
+    public Blog Blog { get; set; }
+}
+```
+
+EF Core 5.0 では、`ToSqlQuery` を使用して、このエンティティ型を、両方のテーブルから行をプルして結合するクエリにマップできます。
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Post>().ToSqlQuery(
+        @"SELECT Id, Name, Category, BlogId FROM posts
+          UNION ALL
+          SELECT Id, Name, ""Legacy"", BlogId from legacy_posts");
+}
+```
+
+`legacy_posts` テーブルには `Category` 列がないことに注目してください。そのため、従来のすべての投稿に対して既定値を合成します。
+
+こうすると、このエンティティ型が、LINQ クエリの通常の方法で使用できるようになります。 次に例を示します。 LINQ クエリ:
+
+```c#
+var posts = context.Posts.Where(e => e.Blog.Name.Contains("Unicorn")).ToList();
+```
+
+SQLite で次の SQL が生成されます。
+
+```sql
+SELECT "p"."Id", "p"."BlogId", "p"."Category", "p"."Name"
+FROM (
+    SELECT Id, Name, Category, BlogId FROM posts
+    UNION ALL
+    SELECT Id, Name, "Legacy", BlogId from legacy_posts
+) AS "p"
+INNER JOIN "Blogs" AS "b" ON "p"."BlogId" = "b"."Id"
+WHERE ('Unicorn' = '') OR (instr("b"."Name", 'Unicorn') > 0)
+```
+
+エンティティ型用に構成されたクエリが、完全な LINQ クエリの作成の開始として使用されていることに注目してください。
+
+### <a name="event-counters"></a>イベント カウンター
+
+[.NET イベント カウンター](https://devblogs.microsoft.com/dotnet/introducing-diagnostics-improvements-in-net-core-3-0/)は、アプリケーションからパフォーマンス メトリックを効率的に公開するための手段です。 EF Core 5.0 には、`Microsoft.EntityFrameworkCore` カテゴリの下にイベント カウンターが含まれています。 次に例を示します。
+
+```
+dotnet counters monitor Microsoft.EntityFrameworkCore -p 49496
+```
+
+これは、プロセス 49496 の EF Core イベントの収集を開始するように dotnet カウンターに指示します。 これにより、コンソールに次のような出力が生成されます。
+
+```
+[Microsoft.EntityFrameworkCore]
+    Active DbContexts                                               1
+    Execution Strategy Operation Failures (Count / 1 sec)           0
+    Execution Strategy Operation Failures (Total)                   0
+    Optimistic Concurrency Failures (Count / 1 sec)                 0
+    Optimistic Concurrency Failures (Total)                         0
+    Queries (Count / 1 sec)                                     1,755
+    Queries (Total)                                            98,402
+    Query Cache Hit Rate (%)                                      100
+    SaveChanges (Count / 1 sec)                                     0
+    SaveChanges (Total)                                             1
+```
+
+### <a name="property-bags"></a>プロパティ バッグ
+
+EF Core 5.0 を使用すると、同じ CLR 型を複数の異なるエンティティ型にマップできます。 このような型は、共有型のエンティティ型と呼ばれます。 この機能と (Preview 1 に含まれていた) インデクサー プロパティを組み合わせることで、プロパティ バッグをエンティティ型として使用できるようになります。
+
+たとえば、次の DbContext は、BCL 型 `Dictionary<string, object>` を製品とカテゴリの両方の共有型のエンティティ型として構成します。
+
+```c#
+public class ProductsContext : DbContext
+{
+    public DbSet<Dictionary<string, object>> Products => Set<Dictionary<string, object>>("Product");
+    public DbSet<Dictionary<string, object>> Categories => Set<Dictionary<string, object>>("Category");
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Category", b =>
+        {
+            b.IndexerProperty<string>("Description");
+            b.IndexerProperty<int>("Id");
+            b.IndexerProperty<string>("Name").IsRequired();
+        });
+
+        modelBuilder.SharedTypeEntity<Dictionary<string, object>>("Product", b =>
+        {
+            b.IndexerProperty<int>("Id");
+            b.IndexerProperty<string>("Name").IsRequired();
+            b.IndexerProperty<string>("Description");
+            b.IndexerProperty<decimal>("Price");
+            b.IndexerProperty<int?>("CategoryId");
+
+            b.HasOne("Category", null).WithMany();
+        });
+    }
+}
+```
+
+ディクショナリ オブジェクト ("プロパティ バッグ") をエンティティ インスタンスとしてコンテキストに追加し、保存できるようになりました。 次に例を示します。
+
+```c#
+var beverages = new Dictionary<string, object>
+{
+    ["Name"] = "Beverages",
+    ["Description"] = "Stuff to sip on"
+};
+
+context.Categories.Add(beverages);
+
+context.SaveChanges();
+```
+
+これらのエンティティは、その後、通常の方法でクエリおよび更新できます。
+
+```c#
+var foods = context.Categories.Single(e => e["Name"] == "Foods");
+var marmite = context.Products.Single(e => e["Name"] == "Marmite");
+
+marmite["CategoryId"] = foods["Id"];
+marmite["Description"] = "Yummy when spread _thinly_ on buttered Toast!";
+
+context.SaveChanges();
+```
+
+### <a name="savechanges-interception-and-events"></a>SaveChanges インターセプトとイベント
+
+EF Core 5.0 には、SaveChanges が呼び出されたときにトリガーされる、.NET イベントと EF Core インターセプターの両方が導入されています。
+
+イベントの使用は簡単です。次に例を示します。
+
+```c#
+context.SavingChanges += (sender, args) =>
+{
+    Console.WriteLine($"Saving changes for {((DbContext)sender).Database.GetConnectionString()}");
+};
+
+context.SavedChanges += (sender, args) =>
+{
+    Console.WriteLine($"Saved {args.EntitiesSavedCount} changes for {((DbContext)sender).Database.GetConnectionString()}");
+};
+```
+
+次のことに注意してください。
+* イベントの送信元は `DbContext` インスタンス
+* `SavedChanges` イベントの引数には、データベースに保存されたエンティティの数が含まれている
+
+インターセプターは `ISaveChangesInterceptor` で定義されますが、すべてのメソッドの実装を回避するために、`SaveChangesInterceptor` から継承すると便利な場合がよくあります。 次に例を示します。
+
+```c#
+public class MySaveChangesInterceptor : SaveChangesInterceptor
+{
+    public override InterceptionResult<int> SavingChanges(
+        DbContextEventData eventData,
+        InterceptionResult<int> result)
+    {
+        Console.WriteLine($"Saving changes for {eventData.Context.Database.GetConnectionString()}");
+
+        return result;
+    }
+
+    public override ValueTask<InterceptionResult<int>> SavingChangesAsync(
+        DbContextEventData eventData,
+        InterceptionResult<int> result,
+        CancellationToken cancellationToken = new CancellationToken())
+    {
+        Console.WriteLine($"Saving changes asynchronously for {eventData.Context.Database.GetConnectionString()}");
+
+        return new ValueTask<InterceptionResult<int>>(result);
+    }
+}
+```
+
+次のことに注意してください。
+* インターセプターには同期と非同期の両方のメソッドがあります。 これは、監査サーバーへの書き込みなど、非同期 I/O を実行する必要がある場合に便利です。
+* インターセプターでは、すべてのインターセプターに共通の `InterceptionResult` メカニズムを使用して SaveChanges をスキップできます。
+
+インターセプターの欠点は、構築時に DbContext に登録する必要があることです。 次に例を示します。
+
+```c#
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+        => optionsBuilder
+            .AddInterceptors(new MySaveChangesInterceptor())
+            .UseSqlite("Data Source = test.db");
+```
+
+これに対し、イベントは、いつでも DbContext インスタンスに登録できます。
+
+### <a name="exclude-tables-from-migrations"></a>移行からテーブルを除外する
+
+1 つのエンティティ型を複数の DbContexts にマップすると便利な場合があります。 これは、[境界付けられたコンテキスト](https://www.martinfowler.com/bliki/BoundedContext.html)を使用する場合に特に当てはまります。境界付けられたコンテキストでは、それぞれ異なる DbContext 型を持つことが一般的です。
+
+たとえば、`User` 型は承認コンテキストとレポート コンテキストの両方で必要になる場合があります。 `User` 型に変更が加えられると、両方の DbContexts の移行でデータベースの更新が試行されます。 これを回避するには、いずれかのコンテキストのモデルを、その移行からテーブルを除外するように構成できます。
+
+次のコードでは、`AuthorizationContext` は `Users` テーブルに対する変更の移行を生成しますが、`ReportingContext` は生成しないため、移行の競合を防ぐことができます。
+
+```C#
+public class AuthorizationContext : DbContext
+{
+    public DbSet<User> Users { get; set; }
+}
+
+public class ReportingContext : DbContext
+{
+    public DbSet<User> Users { get; set; }
+
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<User>().ToTable("Users", t => t.ExcludeFromMigrations());
+    }
+}
+```
+
+### <a name="required-11-dependents"></a>必要な一対一の依存
+
+EF Core 3.1 では、一対一のリレーションシップの依存側は常に省略可能と見なされていました。 これは、所有エンティティを使用する場合に最も顕著でした。 たとえば、次のモデルと構成について考えてみます。
+
+```c#
+public class Person
+{
+    public int Id { get; set; }
+    public string Name { get; set; }
+
+    public Address HomeAddress { get; set; }
+    public Address WorkAddress { get; set; }
+}
+
+public class Address
+{
+    public string Line1 { get; set; }
+    public string Line2 { get; set; }
+    public string City { get; set; }
+    public string Region { get; set; }
+    public string Country { get; set; }
+    public string Postcode { get; set; }
+}
+```
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Person>(b =>
+    {
+        b.OwnsOne(e => e.HomeAddress,
+            b =>
+            {
+                b.Property(e => e.Line1).IsRequired();
+                b.Property(e => e.City).IsRequired();
+                b.Property(e => e.Region).IsRequired();
+                b.Property(e => e.Postcode).IsRequired();
+            });
+
+        b.OwnsOne(e => e.WorkAddress);
+    });
+}
+```
+
+この結果、移行によって SQLite 用に次のテーブルが作成されます。
+
+```sql
+CREATE TABLE "People" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_People" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NULL,
+    "HomeAddress_Line1" TEXT NULL,
+    "HomeAddress_Line2" TEXT NULL,
+    "HomeAddress_City" TEXT NULL,
+    "HomeAddress_Region" TEXT NULL,
+    "HomeAddress_Country" TEXT NULL,
+    "HomeAddress_Postcode" TEXT NULL,
+    "WorkAddress_Line1" TEXT NULL,
+    "WorkAddress_Line2" TEXT NULL,
+    "WorkAddress_City" TEXT NULL,
+    "WorkAddress_Region" TEXT NULL,
+    "WorkAddress_Country" TEXT NULL,
+    "WorkAddress_Postcode" TEXT NULL
+);
+```
+
+一部の `HomeAddress` プロパティは必要に応じて構成されていますが、すべての列が Null 許容であることに注目してください。 また、`Person` に対してクエリを実行するときに、自宅または勤務先のアドレスのすべての列が null 値の場合、EF Core では、`HomeAddress` プロパティと `WorkAddress` プロパティの両方またはいずれかが null 値のままになり、`Address` の空のインスタンスは設定されません。
+
+EF Core 5.0 では、`HomeAddress` ナビゲーションを必要な依存として構成できるようになりました。 次に例を示します。
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Person>(b =>
+    {
+        b.OwnsOne(e => e.HomeAddress,
+            b =>
+            {
+                b.Property(e => e.Line1).IsRequired();
+                b.Property(e => e.City).IsRequired();
+                b.Property(e => e.Region).IsRequired();
+                b.Property(e => e.Postcode).IsRequired();
+            });
+        b.Navigation(e => e.HomeAddress).IsRequired();
+
+        b.OwnsOne(e => e.WorkAddress);
+    });
+}
+```
+
+移行によって作成されたテーブルには、必要な依存の必須プロパティに null 非許容の列が含まれるようになりました。
+
+```sql
+CREATE TABLE "People" (
+    "Id" INTEGER NOT NULL CONSTRAINT "PK_People" PRIMARY KEY AUTOINCREMENT,
+    "Name" TEXT NULL,
+    "HomeAddress_Line1" TEXT NOT NULL,
+    "HomeAddress_Line2" TEXT NULL,
+    "HomeAddress_City" TEXT NOT NULL,
+    "HomeAddress_Region" TEXT NOT NULL,
+    "HomeAddress_Country" TEXT NULL,
+    "HomeAddress_Postcode" TEXT NOT NULL,
+    "WorkAddress_Line1" TEXT NULL,
+    "WorkAddress_Line2" TEXT NULL,
+    "WorkAddress_City" TEXT NULL,
+    "WorkAddress_Region" TEXT NULL,
+    "WorkAddress_Country" TEXT NULL,
+    "WorkAddress_Postcode" TEXT NULL
+);
+```
+
+また、null 値の必要な依存を持つ所有者を保存しようとすると、EF Core によって例外がスローされるようになりました。 この例では、null 値の `HomeAddress` で `Person` を保存しようとすると、EF Core によってスローされます。
+
+必要な依存のすべての列に null 値が含まれている場合でも、最終的には、EF Core によって必要な依存のインスタンスが作成されます。
+
+### <a name="options-for-migration-generation"></a>移行生成のオプション
+
+EF Core 5.0 によって、さまざまな目的のために移行の生成をより細かく制御できます。 メソッドによって実行できるタスクを次に示します。
+
+* スクリプトまたは即時実行に対して移行が生成されているかどうかを把握する
+* べき等スクリプトが生成されているかどうかを把握する
+* スクリプトでトランザクション ステートメントを除外する必要があるかどうかを把握する (以下の「_トランザクションを使用したスクリプトの移行_」を参照)
+
+この動作は `MigrationsSqlGenerationOptions` 列挙型によって指定され、`IMigrator.GenerateScript` に渡すことができるようになりました。
+
+また、この作業には、必要に応じて SQL Server で `EXEC` を呼び出すことによる、より優れたべき等スクリプトの生成も含まれています。 これにより、PostgreSQL など、他のデータベース プロバイダーによって生成されたスクリプトにも同様の機能強化が可能になります。
+
+### <a name="migrations-scripts-with-transactions"></a>トランザクションを使用したスクリプトの移行
+
+移行から生成された SQL スクリプトには、移行に必要なトランザクションを開始およびコミットするステートメントが含まれるようになりました。 たとえば、次の移行スクリプトは 2 つの移行から生成されています。 各移行がトランザクション内で適用されるようになったことに注目してください。
+
+```sql
+BEGIN TRANSACTION;
+GO
+
+CREATE TABLE [Groups] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NULL,
+    CONSTRAINT [PK_Groups] PRIMARY KEY ([Id])
+);
+GO
+
+CREATE TABLE [Members] (
+    [Id] int NOT NULL IDENTITY,
+    [Name] nvarchar(max) NULL,
+    [GroupId] int NULL,
+    CONSTRAINT [PK_Members] PRIMARY KEY ([Id]),
+    CONSTRAINT [FK_Members_Groups_GroupId] FOREIGN KEY ([GroupId]) REFERENCES [Groups] ([Id]) ON DELETE NO ACTION
+);
+GO
+
+CREATE INDEX [IX_Members_GroupId] ON [Members] ([GroupId]);
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20200910194835_One', N'6.0.0-alpha.1.20460.2');
+GO
+
+COMMIT;
+GO
+
+BEGIN TRANSACTION;
+GO
+
+EXEC sp_rename N'[Groups].[Name]', N'GroupName', N'COLUMN';
+GO
+
+INSERT INTO [__EFMigrationsHistory] ([MigrationId], [ProductVersion])
+VALUES (N'20200910195234_Two', N'6.0.0-alpha.1.20460.2');
+GO
+
+COMMIT;
+```
+
+前のセクションで説明したように、トランザクションを別の方法で処理する必要がある場合は、このトランザクションの使用を無効にすることができます。
+
+### <a name="see-pending-migrations"></a>保留中の移行を表示する
+
+この機能は、[@Psypher9](https://github.com/Psypher9) によってコミュニティから提供されました。 投稿に感謝します。
+
+`dotnet ef migrations list` コマンドを使用すると、データベースにまだ適用されていない移行が表示されるようになりました。 次に例を示します。
+
+```
+ajcvickers@avickers420u:~/AllTogetherNow/Daily$ dotnet ef migrations list
+Build started...
+Build succeeded.
+20200910201647_One
+20200910201708_Two
+20200910202050_Three (Pending)
+ajcvickers@avickers420u:~/AllTogetherNow/Daily$
+```
+
+さらに、同じ機能を備えたパッケージ マネージャー コンソール用の `Get-Migration` コマンドが追加されました。
+
+### <a name="modelbuilder-api-for-value-comparers"></a>値の比較演算子用の ModelBuilder API
+
+カスタムの可変型の EF Core プロパティには、プロパティの変更を正しく検出するために[値の比較演算子が必要](xref:core/modeling/value-comparers)です。 これは、型の値変換の構成の一部として指定できるようになりました。 次に例を示します。
+
+```c#
+modelBuilder
+    .Entity<EntityType>()
+    .Property(e => e.MyProperty)
+    .HasConversion(
+        v => JsonSerializer.Serialize(v, null),
+        v => JsonSerializer.Deserialize<List<int>>(v, null),
+        new ValueComparer<List<int>>(
+            (c1, c2) => c1.SequenceEqual(c2),
+            c => c.Aggregate(0, (a, v) => HashCode.Combine(a, v.GetHashCode())),
+            c => c.ToList()));
+```
+
+### <a name="entityentry-trygetvalue-methods"></a>EntityEntry TryGetValue メソッド
+
+この機能は、[@m4ss1m0g](https://github.com/m4ss1m0g) によってコミュニティから提供されました。 投稿に感謝します。
+
+`TryGetValue` メソッドが `EntityEntry.CurrentValues` と `EntityEntry.OriginalValues` に追加されました。 これにより、プロパティが EF モデルでマップされているかどうかを最初に確認することなく、プロパティの値を要求することができます。 次に例を示します。
+
+```c#
+if (entry.CurrentValues.TryGetValue(propertyName, out var value))
+{
+    Console.WriteLine(value);
+}
+```
+
+### <a name="default-max-batch-size-for-sql-server"></a>SQL Server の既定の最大バッチ サイズ
+
+EF Core 5.0 から、SQL Server の SaveChanges の既定の最大バッチ サイズが 42 になりました。 よく知られているように、これは生命、宇宙、そして万物についての究極の疑問の答えでもあります。 しかし、この値は、[バッチ処理のパフォーマンスの分析](https://github.com/dotnet/efcore/issues/9270)を通じて得られたものであるため、おそらく偶然でしょう。 究極の疑問の形式を発見したとは思っていませんが、SQL Server がなぜそのように機能するのかを理解するために地球が作られたというのは、多少もっともらしく思われます。
+
+### <a name="default-environment-to-development"></a>開発の既定の環境
+
+EF Core コマンド ライン ツールによって、環境変数 `ASPNETCORE_ENVIRONMENT` "_および_" `DOTNET_ENVIRONMENT` が "Development" に自動的に構成されるようになりました。 これにより、汎用ホストを使用する場合のエクスペリエンスと、開発時の ASP.NET Core のエクスペリエンスが一致するようになります。 [#19903](https://github.com/dotnet/efcore/issues/19903) を参照してください。
+
+### <a name="better-migrations-column-ordering"></a>移行列の順序付けの改善
+
+マップされていない基底クラスの列が、マップされたエンティティ型の他の列の後に並べ替えられるようになりました。 これは、新しく作成されたテーブルにのみ影響します。 既存のテーブルの列の順序は変更されません。 [#11314](https://github.com/dotnet/efcore/issues/11314) を参照してください。
+
+### <a name="query-improvements"></a>クエリの機能強化
+
+EF Core 5.0 RC1 には、クエリ変換の機能強化がいくつか追加されています。
+
+* Cosmos での `is` の翻訳-- [#16391](https://github.com/dotnet/efcore/issues/16391) を参照
+* null 値の反映を制御するためにユーザーマップ関数に注釈を付けられるようになりました-- [#19609](https://github.com/dotnet/efcore/issues/19609) を参照
+* 条件付き集計による GroupBy の翻訳のサポート-- [#11711](https://github.com/dotnet/efcore/issues/11711) を参照
+* 集計前の group 要素に対する Distinct 演算子の翻訳-- [#17376](https://github.com/dotnet/efcore/issues/17376) を参照
+
+### <a name="model-building-for-fields"></a>フィールドのモデル構築
+
+最後に RC1 で、EF Core により ModelBuilder でフィールドとプロパティに対して、ラムダ メソッドを使用できるようになりました。 たとえば、あなたが何らかの理由でプロパティを嫌っていて、パブリック フィールドを使用することにした場合、これらのフィールドをラムダ ビルダーを使用してマッピングできるようになりました。
+
+```c#
+public class Post
+{
+    public int Id;
+    public string Name;
+    public string Category;
+    public int BlogId;
+    public Blog Blog;
+}
+
+public class Blog
+{
+    public int Id;
+    public string Name;
+    public ICollection<Post> Posts;
+}
+```
+
+```c#
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<Blog>(b =>
+    {
+        b.Property(e => e.Id);
+        b.Property(e => e.Name);
+    });
+
+    modelBuilder.Entity<Post>(b =>
+    {
+        b.Property(e => e.Id);
+        b.Property(e => e.Name);
+        b.Property(e => e.Category);
+        b.Property(e => e.BlogId);
+        b.HasOne(e => e.Blog).WithMany(e => e.Posts);
+    });
+}
+```
+
+可能になったとはいえ、これを行うことは推奨されていません。 また、これによって EF Core にフィールド マッピング機能が追加されることはなく、常に文字列メソッドを必要とする代わりにラムダ メソッドを使用できるようになるだけだということにご注意ください。 フィールドが公開されることはめったにないので、これはあまり役に立ちません。
 
 ## <a name="preview-8"></a>Preview 8
 

@@ -4,12 +4,12 @@ description: Entity Framework Core 3.x に導入された破壊的変更の完�
 author: ajcvickers
 ms.date: 09/05/2020
 uid: core/what-is-new/ef-core-3.x/breaking-changes
-ms.openlocfilehash: 644e61994dab4e9993c6a78792ff584c57fbe48a
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: e348cb630d91ebe4536b73b9a7bd9a7b6a46db79
+ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620683"
+ms.lasthandoff: 09/14/2020
+ms.locfileid: "90072240"
 ---
 # <a name="breaking-changes-included-in-ef-core-3x"></a>EF Core 3.x に含まれる破壊的変更
 
@@ -178,7 +178,7 @@ ASP.NET Core 3.0 アプリケーションまたはその他のサポートされ
     $ dotnet tool install --global dotnet-ef
   ```
 
-[ツール マニフェスト ファイル](https://github.com/dotnet/cli/issues/10288)を使用してツールの依存関係として宣言するプロジェクトの依存関係を復元するときに、ローカルなツールとして取得することもできます。
+[ツール マニフェスト ファイル](/dotnet/core/tools/global-tools#install-a-local-tool)を使用してツールの依存関係として宣言するプロジェクトの依存関係を復元するときに、ローカルなツールとして取得することもできます。
 
 <a name="fromsql"></a>
 ### <a name="fromsql-executesql-and-executesqlasync-have-been-renamed"></a>FromSql、ExecuteSql、および ExecuteSqlAsync の名前変更
@@ -478,6 +478,9 @@ API の以下の部分は使用されなくなりました。
 * **`DbQuery<>`** - 代わりに `DbSet<>` を使用する必要があります。
 * **`DbContext.Query<>()`** - 代わりに `DbContext.Set<>()` を使用する必要があります。
 * **`IQueryTypeConfiguration<TQuery>`** - 代わりに `IEntityTypeConfiguration<TEntity>`** を使用する必要があります。
+
+> [!NOTE]
+> プロパティがすべて `null` に設定されているキーなしエンティティのクエリを実行する場合に発生する [3.x の問題](https://github.com/dotnet/efcore/issues/19537)により、エンティティではなく `null` が返されます。この問題がご自身のシナリオに当てはまる場合は、ロジックを追加して、結果に含まれる `null` の処理も行ってください。
 
 <a name="config"></a>
 ### <a name="configuration-api-for-owned-type-relationships-has-changed"></a>所有型のリレーションシップ用の構成 API が変更された
