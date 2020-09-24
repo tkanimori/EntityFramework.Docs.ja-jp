@@ -4,12 +4,12 @@ description: 接続の回復性を使用して、失敗したコマンドを Ent
 author: rowanmiller
 ms.date: 11/15/2016
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: f4077672a9234bf66dc488d7450f437452e542b6
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 25b754334edd15532780cb4e40682bc211620c76
+ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071707"
+ms.lasthandoff: 09/24/2020
+ms.locfileid: "91210294"
 ---
 # <a name="connection-resiliency"></a>接続の回復
 
@@ -55,7 +55,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 > InvalidOperationException: 構成された実行方法 ' SqlServerRetryingExecutionStrategy ' は、ユーザーが開始したトランザクションをサポートしていません。 'DbContext.Database.CreateExecutionStrategy()' から返された実行戦略を使用して、再試行可能なユニットとしてトランザクション内のすべての操作を実行します。
 
-これを解決するには、実行する必要があるすべてを表すデリゲートを使用して、手動で実行戦略を呼び出します。 一時的な障害が発生した場合、実行戦略は、デリゲートをもう一度呼び出します。
+これを解決するには、実行する必要があるすべてを表すデリゲートを使用して、手動で実行戦略を呼び出します。 一時的なエラーが発生した場合、実行戦略によってデリゲートが再び呼び出されます。
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/ConnectionResiliency/Program.cs#ManualTransaction)]
 
@@ -107,3 +107,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 > [!NOTE]
 > 検証に使用されるコンテキストに、トランザクションのコミット中に失敗した場合の検証中に再び失敗する可能性があるという実行方法が定義されていることを確認します。
+
+## <a name="additional-resources"></a>その他の技術情報
+
+* [Azure SQL Database と SQL Managed Instance での一時的な接続エラーのトラブルシューティング](/azure/azure-sql/database/troubleshoot-common-connectivity-issues)

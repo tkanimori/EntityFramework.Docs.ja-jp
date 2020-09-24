@@ -5,12 +5,12 @@ author: bricelam
 ms.author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/applying
-ms.openlocfilehash: 50937f96e63f9bda2ffcf5e94dabf688ee2ba1f3
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: cde83a944e1e698a7f8a00c4692c0ce08a87b5ab
+ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071890"
+ms.lasthandoff: 09/24/2020
+ms.locfileid: "91210407"
 ---
 # <a name="applying-migrations"></a>移行の適用
 
@@ -193,5 +193,5 @@ public static void Main(string[] args)
 
 > [!WARNING]
 >
-> * 実稼働環境でこの方法を使用する前に、慎重に検討してください。 この展開戦略の単純化は、作成される問題によって上回るされていることがわかりました。 代わりに SQL スクリプトを使用することを検討してください。
+> * 実稼働環境でこの方法を使用する前に、慎重に検討してください。 この展開戦略の単純化は、作成される問題によって上回るされていることがわかりました。 代わりに、移行から SQL スクリプトを生成することを検討してください。
 > * `Migrate()` の前に `EnsureCreated()` を呼び出さないでください。 `EnsureCreated()` は移行をバイパスしてスキーマを作成し、`Migrate()` が失敗します。
