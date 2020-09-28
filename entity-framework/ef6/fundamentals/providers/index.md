@@ -4,12 +4,12 @@ description: Entity Framework 6 の Entity Framework プロバイダー
 author: divega
 ms.date: 06/27/2018
 uid: ef6/fundamentals/providers/index
-ms.openlocfilehash: bb573cb0666556de8fb37802f465af97fc40673a
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 7d448f749448e35702c2440717593221324508fa
+ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073150"
+ms.lasthandoff: 09/24/2020
+ms.locfileid: "91210329"
 ---
 # <a name="entity-framework-6-providers"></a>Entity Framework 6 プロバイダー
 > [!NOTE]
@@ -41,6 +41,8 @@ Entity Framework は現在、オープンソース ライセンスで開発さ�
     *   Npgsql は [NuGet パッケージ](https://www.nuget.org/packages/EntityFramework6.Npgsql/)として入手できます。
 *   **Oracle**
     *   ODP.NET は [NuGet パッケージ](https://www.nuget.org/packages/Oracle.ManagedDataAccess.EntityFramework/)として入手できます。
+*   **SQLite**
+    *   System.Data.SQLite は [NuGet パッケージ](https://www.nuget.org/packages/System.Data.SQLite/)として入手できます
 
 この一覧に含まれていることは、EF6 用のビルドが使用可能になっていることのみを示し、特定のプロバイダーの機能またはサポートのレベルを示しているわけではないことに注意してください。
 

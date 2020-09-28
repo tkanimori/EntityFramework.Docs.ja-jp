@@ -77,6 +77,8 @@
               href: core/miscellaneous/async.md
             - name: ログの記録
               href: core/miscellaneous/logging.md
+            - name: コンテキスト プール
+              href: core/miscellaneous/context-pooling.md
             - name: 接続の復元性
               href: core/miscellaneous/connection-resiliency.md
             - name: テスト
