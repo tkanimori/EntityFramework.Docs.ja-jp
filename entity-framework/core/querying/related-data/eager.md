@@ -4,12 +4,12 @@ description: Entity Framework Core による関連データの一括読み込み
 author: roji
 ms.date: 9/8/2020
 uid: core/querying/related-data/eager
-ms.openlocfilehash: f7e33895293e1d7b8b32a135d60b58dd1f050621
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 5ac15a85b28f21588639f34cbaa9ef76f366f7b5
+ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90078878"
+ms.lasthandoff: 09/24/2020
+ms.locfileid: "91210468"
 ---
 # <a name="eager-loading-of-related-data"></a>関連データの一括読み込み
 
@@ -92,7 +92,7 @@ ORDER BY [b].[BlogId]
 
 分割クエリが既定値として構成されている場合でも、特定のクエリを単一のクエリとして実行するように構成することができます。
 
-[!code-csharp[Main](../../../../samples/core/Querying/RelatedData/Sample.cs?name=AsSplitQuery&highlight=5)]
+[!code-csharp[Main](../../../../samples/core/Querying/RelatedData/Sample.cs?name=AsSingleQuery&highlight=5)]
 
 クエリ分割モードが明示的に指定されておらず (グローバルでも、クエリ上でも)、単一のクエリによって複数のコレクション インクルードが読み込まれることが EF Core で検出された場合は、結果として生じる可能性のあるパフォーマンスの問題に注意するよう警告が出力されます。 クエリ モードを SingleQuery に設定すると、警告は生成されません。
 
