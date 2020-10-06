@@ -4,12 +4,12 @@ description: Entity Framework Core 5.0 で導入された重大な変更の完�
 author: bricelam
 ms.date: 09/09/2020
 uid: core/what-is-new/ef-core-5.0/breaking-changes
-ms.openlocfilehash: 63fd1d1a01b7a72fd34bb9a0130191131306426c
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 8e9df4e2ff81e20cf5a36855247c5aff89ea2394
+ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070797"
+ms.lasthandoff: 09/24/2020
+ms.locfileid: "91210368"
 ---
 # <a name="breaking-changes-in-ef-core-50"></a>EF Core 5.0 での破壊的変更
 
@@ -29,6 +29,7 @@ ms.locfileid: "90070797"
 | [エンティティの状態が Detached から Unchanged、Updated、または Deleted に変更されると、値ジェネレーターが呼び出されます](#non-added-generation) | 低        |
 | [IMigrationsModelDiffer で IRelationalModel が使用されるようになりました](#relational-model)                                                                 | 低        |
 | [識別子が読み取り専用です](#read-only-discriminators)                                                                             | Low        |
+| [プロバイダー固有の EF.Functions メソッドによって InMemory プロバイダーに対してスローされます](#no-client-methods)                                              | Low        |
 
 <a name="geometric-sqlite"></a>
 
@@ -193,7 +194,7 @@ byte[] 型のプロパティは、base64 文字列として格納されるよう
 
 **新しい動作**
 
-古い API は廃止され、新しいメソッド `GetJsonPropertyName` と `SetJsonPropertyName` が追加されました
+古い API は削除され、新しいメソッドである `GetJsonPropertyName` と `SetJsonPropertyName` が追加されました
 
 **理由**
 
@@ -201,7 +202,7 @@ byte[] 型のプロパティは、base64 文字列として格納されるよう
 
 **軽減策**
 
-新しい API を使用するか、古い警告を一時的に中断します。
+新しい API を使用します。
 
 <a name="non-added-generation"></a>
 
@@ -320,3 +321,25 @@ modelBuilder.Entity<BaseEntity>()
 
 リレーショナル プロバイダーの場合は、`OnModelCreating` で `ToSqlQuery` メソッドを使用し、エンティティ型に使用する SQL 文字列を渡します。
 メモリ内プロバイダーの場合は、`OnModelCreating` で `ToInMemoryQuery` メソッドを使用し、エンティティ型に使用する LINQ クエリを渡します。
+
+<a name="no-client-methods"></a>
+
+### <a name="provider-specific-effunctions-methods-throw-for-inmemory-provider"></a>プロバイダー固有の EF.Functions メソッドによって InMemory プロバイダーに対してスローされます
+
+[問題 #20294 の追跡](https://github.com/dotnet/efcore/issues/20294)
+
+**以前の動作**
+
+プロバイダー固有の EF.Functions メソッドには、InMemory プロバイダーでのその実行が可能な、クライアント実行の実装が含まれていました。 たとえば、`EF.Functions.DateDiffDay` は、Sql Server 固有のメソッドであり、InMemory プロバイダーで動作します。
+
+**新しい動作**
+
+プロバイダー固有のメソッドは、クライアント側で評価されることをブロックするために、メソッド本体で例外をスローするように更新されました。
+
+**理由**
+
+プロバイダー固有のメソッドは、データベース関数にマップされます。 マップされたデータベース関数によって実行される計算は、LINQ のクライアント側で常にレプリケートされるとは限りません。 クライアントで同じメソッドを実行すると、サーバーからの結果が異なる場合があります。 これらのメソッドは、特定のデータベース関数への変換を目的として LINQ で使用されるため、クライアント側での評価は必要ありません。 InMemory プロバイダーは "*データベース*" が異なるため、このプロバイダーにはこれらのメソッドを使用できません。 InMemory プロバイダー、またはこれらのメソッドを変換しない他のプロバイダーに対してこれらを実行しようとすると、例外がスローされます。
+
+**軽減策**
+
+データベース関数の動作を正確に模倣する方法がないため、それらが含まれるクエリを、実稼働環境と同じ種類のデータベースに対してテストする必要があります。
