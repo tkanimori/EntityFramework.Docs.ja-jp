@@ -1,15 +1,15 @@
 ---
 title: EF6 から EF Core への移植 - コードベース モデルの移植 - EF
 description: Entity Framework 6 つのコードベース モデル アプリケーションを Entity Framework Core に移植する方法に関する固有の情報
-author: rowanmiller
+author: ajcvickers
 ms.date: 10/27/2016
 uid: efcore-and-ef6/porting/port-code
-ms.openlocfilehash: a5bbdc2ee95ea6bea96e24bee4588b524e0ffc58
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 819c3bc0eba140c023cdcd5038a4cd63c300ed4c
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073579"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064225"
 ---
 # <a name="porting-an-ef6-code-based-model-to-ef-core"></a>EF Core への EF6 コードベース モデルの移植
 
@@ -33,7 +33,7 @@ EF6 で使用する API のほとんどは、`System.Data.Entity` 名前空間 (
 
 ほとんどの EF6 アプリケーションでは、接続文字列がアプリケーションの `App/Web.config` ファイルに格納されます。 EF Core では、`ConfigurationManager` API を使用してこの接続文字列を読み取ります。 この API を使用できるようにするには、`System.Configuration` フレームワーク アセンブリに参照を追加しなければならない場合があります。
 
-``` csharp
+```csharp
 public class BloggingContext : DbContext
 {
     public DbSet<Blog> Blogs { get; set; }

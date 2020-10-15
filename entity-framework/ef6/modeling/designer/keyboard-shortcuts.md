@@ -1,14 +1,14 @@
 ---
 title: Entity Framework Designer のキーボードショートカット-EF6
 description: Entity Framework 6 の Entity Framework Designer キーボードショートカット
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
-ms.openlocfilehash: 3552f2b9bfc499654bc1dce4a81d37cacc8b7996
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 90589419a52a198747eadee740775e2761bc757c
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073384"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064888"
 ---
 # <a name="entity-framework-designer-keyboard-shortcuts"></a>Entity Framework Designer のキーボードショートカット
 このページでは、Visual Studio Entity Framework Tools のさまざまな画面で使用できるキーボード shorcuts の一覧を示します。
@@ -118,7 +118,7 @@ ms.locfileid: "90073384"
 | ショートカット                  | アクション         | メモ                                                                                                                                 |
 |:--------------------------|:---------------|:--------------------------------------------------------------------------------------------------------------------------------------|
 | **タブ**                   | コンテキストの切り替え | メインウィンドウ領域と左側のツールバーを切り替える                                                                     |
-| **方向キー**            | ナビゲーション     | メインウィンドウ領域の上下左右の列に移動します。 左側のツールバーのボタン間を移動します。 |
+| **方向キー**            | ［ナビゲーション］     | メインウィンドウ領域の上下左右の列に移動します。 左側のツールバーのボタン間を移動します。 |
 | **Enter** <br/> **行間** | Select         | 左側のツールバーでボタンを選択します。                                                                                          |
 | **Alt + ↓**      | リストを開く      | ドロップダウンリストを持つセルが選択されている場合は、一覧をドロップダウンします。                                                                     |
 | **Enter**                 | リストの選択    | ドロップダウンリスト内の要素を選択します。                                                                                               |

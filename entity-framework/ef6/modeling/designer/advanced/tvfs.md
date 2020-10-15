@@ -1,17 +1,17 @@
 ---
-title: テーブル値関数 (Tvf)-EF6
-description: Entity Framework 6 のテーブル値関数 (Tvf)
-author: divega
+title: Table-Valued 関数 (Tvf)-EF6
+description: Entity Framework 6 の Table-Valued 関数 (Tvf)
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/advanced/tvfs
-ms.openlocfilehash: 727c6c7ff5947e78bf8eb489194e355e2fd157c9
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 2c699cad3ace253842d17aca4eca4df2318c4795
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070162"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066201"
 ---
-# <a name="table-valued-functions-tvfs"></a>テーブル値関数 (Tvf)
+# <a name="table-valued-functions-tvfs"></a>Table-Valued 関数 (Tvf)
 > [!NOTE]
 > **EF5** 以降: このページで説明した機能、api などは、Entity Framework 5 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。
 

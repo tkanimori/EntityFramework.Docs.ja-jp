@@ -1,17 +1,17 @@
 ---
-title: 自己追跡エンティティのチュートリアル-EF6
+title: Self-Tracking エンティティのチュートリアル-EF6
 description: Entity Framework 6 の自己追跡エンティティのチュートリアル
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/disconnected-entities/self-tracking-entities/walkthrough
-ms.openlocfilehash: 398be11d330f5a7413f5a84424217ea3eda446ef
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 7c50bbc9fad10a474728b03e79b685c549cf675d
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072799"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065603"
 ---
-# <a name="self-tracking-entities-walkthrough"></a>自己追跡エンティティのチュートリアル
+# <a name="self-tracking-entities-walkthrough"></a>Self-Tracking エンティティのチュートリアル
 > [!IMPORTANT]
 > 自己追跡エンティティ テンプレートの使用は現在お勧めしていません。 既存のアプリケーションをサポートするためにのみ引き続き使用できます。 アプリケーションで、エンティティの切断されたグラフを操作する必要がある場合は、代替の方法を検討してください。たとえば、コミュニティによってより積極的に開発された自己追跡エンティティに似たテクノロジである[追跡可能なエンティティ](https://trackableentities.github.io/)を使用するか、または、低レベルの変更追跡 API を使用してカスタム コードを記述してください。
 
@@ -23,7 +23,7 @@ ms.locfileid: "90072799"
 
 -   アクセスするデータベースを作成します。
 -   モデルを含むクラスライブラリを作成します。
--   自己追跡エンティティジェネレーターテンプレートにスワップします。
+-   Self-Tracking エンティティジェネレーターテンプレートにスワップします。
 -   エンティティクラスを別のプロジェクトに移動します。
 -   エンティティを照会および保存する操作を公開する WCF サービスを作成します。
 -   サービスを使用するクライアントアプリケーション (コンソールと WPF) を作成します。
@@ -104,7 +104,7 @@ Visual Studio と共にインストールされるデータベースサーバー
 
 ## <a name="swap-to-ste-code-generation"></a>貼り付けコード生成にスワップする
 
-ここで、既定のコード生成を無効にし、自己追跡エンティティにスワップする必要があります。
+ここで、既定のコード生成を無効にして Self-Tracking エンティティに切り替える必要があります。
 
 ### <a name="if-you-are-using-visual-studio-2012"></a>Visual Studio 2012 を使用している場合
 
@@ -118,13 +118,13 @@ Visual Studio と共にインストールされるデータベースサーバー
 ### <a name="if-you-are-using-visual-studio-2010"></a>Visual Studio 2010 を使用している場合
 
 -   EF デザイナー画面で空の領域を右クリックし、[**コード生成項目の追加...** ] を選択します。
--   左ペインで [**コード**] を選択し、[ **ADO.NET エンティティジェネレーター** ] をクリックします。
+-   左側のウィンドウの [Code] \ (**コード**\) を選択してから**Self-Tracking エンティティジェネレーター** ] を選択します。
 -   名前として「 **Stetemplate** 」と入力し、[**追加**] をクリックします。
 -   **STETemplate.tt**ファイルと**STETemplate.Context.tt**ファイルがプロジェクトに直接追加されます。
 
 ## <a name="move-entity-types-into-separate-project"></a>エンティティ型を別のプロジェクトに移動する
 
-自己追跡エンティティを使用するには、クライアントアプリケーションは、モデルから生成されたエンティティクラスにアクセスする必要があります。 モデル全体をクライアントアプリケーションに公開する必要がないため、エンティティクラスを別のプロジェクトに移動します。
+Self-Tracking エンティティを使用するには、クライアントアプリケーションは、モデルから生成されたエンティティクラスにアクセスする必要があります。 モデル全体をクライアントアプリケーションに公開する必要がないため、エンティティクラスを別のプロジェクトに移動します。
 
 最初の手順では、既存のプロジェクトでのエンティティクラスの生成を停止します。
 

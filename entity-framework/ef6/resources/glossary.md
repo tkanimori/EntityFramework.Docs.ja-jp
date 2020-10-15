@@ -1,15 +1,15 @@
 ---
 title: Entity Framework 用語集-EF6
 description: Entity Framework 6 用語集
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/resources/glossary
-ms.openlocfilehash: 819bdda133b427fa6f8fc1915cde07560e6ca568
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 6c11b45978ad8efaf70bb640567c79b60ff7a708
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072890"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064654"
 ---
 # <a name="entity-framework-glossary"></a>Entity Framework 用語集
 ## <a name="code-first"></a>Code First
@@ -30,7 +30,7 @@ EF デザイナーを使用して、既存のデータベースを対象とす�
 ## <a name="ef-designer"></a>EF デザイナー
 ボックスと行を使用して Entity Framework モデルを作成できる Visual Studio のビジュアルデザイナー。
 
-## <a name="entity"></a>エンティティ
+## <a name="entity"></a>Entity
 顧客、製品、注文などのアプリケーション データを表すクラスまたはオブジェクト。
 
 ## <a name="entity-data-model"></a>エンティティ データ モデル
@@ -61,7 +61,7 @@ EF デザイナーを使用して Entity Framework モデルを作成し、そ�
 別のエンティティを参照するエンティティのプロパティ。 たとえば、Product に Category ナビゲーションプロパティが含まれていて、Category に Products ナビゲーションプロパティが含まれているとします。
 
 ## <a name="poco"></a>POCO
-Plain Old CLR Object の頭字語。 任意のフレームワークとの依存関係を持たない単純なユーザークラス。 EF のコンテキストでは、EntityObject から派生していないエンティティクラスは、任意のインターフェイスを実装するか、EF で定義されているすべての属性を保持します。 永続化フレームワークから切り離されたこのようなエンティティクラスは、"永続化に依存しない" とも呼ばれます。  
+Plain-Old CLR オブジェクトの頭字語。 任意のフレームワークとの依存関係を持たない単純なユーザークラス。 EF のコンテキストでは、EntityObject から派生していないエンティティクラスは、任意のインターフェイスを実装するか、EF で定義されているすべての属性を保持します。 永続化フレームワークから切り離されたこのようなエンティティクラスは、"永続化に依存しない" とも呼ばれます。  
 
 ## <a name="relationship-inverse"></a>リレーションシップの逆
 リレーションシップの反対側 (product など)。カテゴリとカテゴリ。梱包.

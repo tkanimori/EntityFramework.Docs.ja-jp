@@ -1,15 +1,15 @@
 ---
 title: デザイナーのテーブル分割-EF6
 description: Entity Framework 6 でのデザイナーのテーブル分割
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/table-splitting
-ms.openlocfilehash: 6fdb5050ab4d3860184f19ea056a0f2257e20a3c
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 8f6db22913fb3ac8a4254c29b5f986eb6e14f18e
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073111"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066045"
 ---
 # <a name="designer-table-splitting"></a>デザイナーのテーブル分割
 このチュートリアルでは、Entity Framework Designer (EF Designer) を使用してモデルを変更することで、複数のエンティティ型を1つのテーブルにマップする方法について説明します。
@@ -66,7 +66,7 @@ ms.locfileid: "90073111"
 -   **Person**と**hireinfo**の間の関連付けを作成します。 これを行うには、デザイン画面の空の領域を右クリックし、[ **新規追加**] をポイントして、[ **関連付け**] をクリックします。
 -   [ **アソシエーションの追加**   ] ダイアログボックスが表示されます。 既定では、 **個人情報** の名前が指定されています。
 -   リレーションシップの両方の end で多重度 **1 (1)** を指定します。
--   **[OK]** を押します。
+-   **[OK]** をクリックします。
 
 次の手順では、[ **マッピングの詳細**   ] ウィンドウが必要です。 このウィンドウが表示されない場合は、デザイン画面を右クリックし、[ **マッピングの詳細**] を選択します。
 
@@ -80,7 +80,7 @@ ms.locfileid: "90073111"
 -   デザイン画面でアソシエーションを右クリックし、[ **プロパティ**] を選択します。
 -   [ **プロパティ** ] ウィンドウで、[ **参照** に関する制約] プロパティを選択し、省略記号ボタンをクリックします。
 -   [**プリンシパル**] ドロップダウンリストから [ **Person** ] を選択します。
--   **[OK]** を押します。
+-   **[OK]** をクリックします。
 
  
 

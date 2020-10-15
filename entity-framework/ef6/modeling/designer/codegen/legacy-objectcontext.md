@@ -1,15 +1,15 @@
 ---
 title: Entity Framework Designer の ObjectContext に戻す-EF6
 description: Entity Framework 6 の Entity Framework Designer の ObjectContext に戻す
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/codegen/legacy-objectcontext
-ms.openlocfilehash: 9ceb8ef43e4df083fe3cc5e63862ba2eb338f659
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 563c1defd12a72836a158d9c2398202c421dd6f3
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90069965"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064940"
 ---
 # <a name="reverting-to-objectcontext-in-entity-framework-designer"></a>Entity Framework Designer 内の ObjectContext に戻す
 以前のバージョンの Entity Framework は、EF デザイナーで作成されたモデルが、EntityObject から派生した ObjectContext およびエンティティクラスから派生したコンテキストを生成します。
@@ -30,7 +30,7 @@ VB.NET を使用している場合は、[ **すべてのファイルを表示** 
 
 ![すべてのファイルを表示](~/ef6/media/showallfiles.png)
 
-### <a name="2-re-enable-objectcontext-code-generation"></a>2. ObjectContext コード生成を再度有効にする
+### <a name="2-re-enable-objectcontext-code-generation"></a>2. ObjectContext コード生成の Re-Enable
 
 EF デザイナーでモデルを開き、デザイン画面の空白部分を右クリックして、[ **プロパティ**] を選択します。
 

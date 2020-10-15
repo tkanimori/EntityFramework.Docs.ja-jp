@@ -1,15 +1,15 @@
 ---
 title: EF6 から EF Core への移植 - EDMX ベース モデルの移植 - EF
 description: Entity Framework 6 つの EDMX ベース モデル アプリケーションを Entity Framework Core に移植する方法に関する固有の情報
-author: rowanmiller
+author: ajcvickers
 ms.date: 10/27/2016
 uid: efcore-and-ef6/porting/port-edmx
-ms.openlocfilehash: 7bd832f459ae3893e6a90e8483c95a41ca13f9ab
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 27b37ad1c2e3436ae96a71bc97e953763c48ee50
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070004"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064264"
 ---
 # <a name="porting-an-ef6-edmx-based-model-to-ef-core"></a>EF Core への EF6 EDMX ベース モデルの移植
 
@@ -25,13 +25,13 @@ EF Core では EDMX ファイル形式のモデルをサポートしていませ
 
 パッケージ マネージャー コンソールで [ツール]、[NuGet パッケージ マネージャー]、[パッケージ マネージャー コンソール] のコマンドを実行します。 テーブルのサブセットをスキャフォールディングするコマンド オプションなどについては、[Visual Studio のパッケージ マネージャー コンソール](xref:core/miscellaneous/cli/powershell)を参照してください。
 
-``` powershell
+```powershell
 Scaffold-DbContext "<connection string>" <database provider name>
 ```
 
 たとえば、SQL Server LocalDB インスタンスのブログ データベースからモデルをスキャフォールディングするコマンドを次に示します。
 
-``` powershell
+```powershell
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
 ```
 

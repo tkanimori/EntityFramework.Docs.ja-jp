@@ -1,15 +1,15 @@
 ---
 title: Load メソッド-EF6
 description: Entity Framework 6 の Load メソッド
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/querying/load-method
-ms.openlocfilehash: 1e6dd172eebdc177dad8ef312c8d14083a409410
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 055d7dd6957a31cb876904af55a1126bb944d338
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072968"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065896"
 ---
 # <a name="the-load-method"></a>Load メソッド
 いくつかのシナリオでは、エンティティをすぐに実行することなく、データベースからコンテキストにエンティティを読み込むことができます。 この例では、「 [ローカルデータ](xref:ef6/querying/local-data)」で説明されているように、データバインディングのエンティティを読み込んでいます。 これを行う一般的な方法の1つは、LINQ クエリを記述し、そのクエリで ToList を呼び出して、作成されたリストを直ちに破棄することです。 Load 拡張メソッドは、リストの作成を完全に回避することを除けば、ToList と同じように動作します。  

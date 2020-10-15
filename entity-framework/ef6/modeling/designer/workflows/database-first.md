@@ -1,15 +1,15 @@
 ---
 title: Database First-EF6
 description: Entity Framework 6 の Database First
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/workflows/database-first
-ms.openlocfilehash: 412d83b37ed5f3e2b863dca0913746e61ecdef76
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 4046144ff3f1ecb4a3c9e7d4cb5d6c462c3782c7
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073176"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066110"
 ---
 # <a name="database-first"></a>Database First
 このビデオとステップバイステップのチュートリアルでは、Entity Framework を使用した Database First 開発の概要について説明します。 Database First を使用すると、既存のデータベースからモデルをリバースエンジニアリングできます。 モデルは EDMX ファイル (.edmx 拡張子) に格納されており、Entity Framework Designer で表示および編集できます。 アプリケーションで対話するクラスは、EDMX ファイルから自動的に生成されます。

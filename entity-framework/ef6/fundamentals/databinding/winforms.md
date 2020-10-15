@@ -1,15 +1,15 @@
 ---
 title: WinForms を使用したデータバインド-EF6
 description: Entity Framework 6 の WinForms を使用したデータバインド
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/databinding/winforms
-ms.openlocfilehash: b316aea0a36edc8586a81427825ed4ee11fc9ef3
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: ef2f19831cd5ce8b1faefeb51f23faef4e167529
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073228"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065681"
 ---
 # <a name="databinding-with-winforms"></a>WinForms とのデータバインド
 このステップバイステップチュートリアルでは、POCO 型を "マスター/詳細" フォームでウィンドウフォーム (WinForms) コントロールにバインドする方法について説明します。 アプリケーションでは、Entity Framework を使用して、データベースのデータをオブジェクトに読み込み、変更を追跡し、データベースにデータを保持します。
@@ -298,7 +298,7 @@ POCO エンティティ型を使用する場合、EF は、実行時に派生プ
     -   DataGridView コントロールを右クリックし、[ **列の編集...**] を選択します。
     -   **ProductId**列を選択し、 **ReadOnly**を**True**に設定します。
     -   **CategoryId**列を選択し、[**削除**] をクリックします。 **Category**列でも同じ操作を行います。
-    -   **[OK]** を押します。
+    -   **[OK]** をクリックします。
 
     ここまでで、DataGridView コントロールはデザイナーの BindingSource コンポーネントに関連付けられていました。 次のセクションでは、コードを分離コードに追加して、現在 DbContext によって追跡されているエンティティのコレクションにカテゴリ Bindingsource を設定します。 カテゴリの下から製品をドラッグアンドドロップした場合、WinForms プロパティを Category Bindingsource に設定し、Products に製品を設定することが処理されました。 このバインドにより、現在選択されているカテゴリに属する製品だけが productDataGridView に表示されます。
 -   ナビゲーションツールバーの [ **保存** ] ボタンを有効にするには、マウスの右ボタンをクリックし、[ **有効**] を選択します。

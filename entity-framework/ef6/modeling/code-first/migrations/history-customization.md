@@ -1,15 +1,15 @@
 ---
 title: 移行履歴テーブルのカスタマイズ-EF6
 description: Entity Framework 6 で移行履歴テーブルをカスタマイズする
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/migrations/history-customization
-ms.openlocfilehash: b71ac7635d6804af2db9bf00acf7e8f4b2a11033
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: f0f474507659d5fbe43ecf2ed7216fb5d1a86779
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073462"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066396"
 ---
 # <a name="customizing-the-migrations-history-table"></a>移行履歴テーブルのカスタマイズ
 > [!NOTE]
@@ -88,6 +88,6 @@ ms.locfileid: "90073462"
     }
 ```
 
-これは非常に簡単です。 これで、パッケージマネージャーコンソールに移動し、移行、追加、および更新を行うことができます。 これにより、履歴コンテキストの派生クラスで指定した詳細に従って、構成された移行履歴テーブルがデータベースに追加されます。
+これは非常に簡単です。 これで、パッケージマネージャーコンソールにアクセスし、を有効にし、Add-Migration、最後にデータベースを更新できます。 これにより、履歴コンテキストの派生クラスで指定した詳細に従って、構成された移行履歴テーブルがデータベースに追加されます。
 
 ![移行履歴テーブル](~/ef6/media/database.png)

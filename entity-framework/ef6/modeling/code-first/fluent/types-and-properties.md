@@ -1,15 +1,15 @@
 ---
 title: Fluent API-プロパティと型の構成とマッピング-EF6
 description: Fluent API-Entity Framework 6 でのプロパティと型の構成とマッピング
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/fluent/types-and-properties
-ms.openlocfilehash: ddd56ff280b72adbfd2247a4f1a85e37bf2f4879
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 821672bcb797314c96189443ace7f875a79c8582
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072591"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065148"
 ---
 # <a name="fluent-api---configuring-and-mapping-properties-and-types"></a>Fluent API-プロパティと型の構成とマッピング
 Entity Framework を使用する場合 Code First 既定の動作では、EF に組み込まれている一連の規則を使用して、POCO クラスをテーブルにマップします。 ただし、これらの規則に従うことができない場合や、規則に従っていないエンティティにエンティティをマップする必要がある場合があります。  
@@ -18,7 +18,7 @@ Entity Framework を使用する場合 Code First 既定の動作では、EF に
 
 Code first fluent API は、派生した[Dbcontext](https://msdn.microsoft.com/library/system.data.entity.dbcontext.aspx)で[onmodelcreating](https://msdn.microsoft.com/library/system.data.entity.dbcontext.onmodelcreating.aspx)メソッドをオーバーライドすることによって最も一般的にアクセスされます。 次のサンプルは、fluent api を使用してさまざまなタスクを実行する方法を示しています。また、モデルに合わせてコードをコピーしてカスタマイズすることもできます。そのまま使用できるモデルを確認する場合は、この記事の最後に記載します。  
 
-## <a name="model-wide-settings"></a>モデル全体の設定  
+## <a name="model-wide-settings"></a>Model-Wide の設定  
 
 ### <a name="default-schema-ef6-onwards"></a>既定のスキーマ (EF6 以降)  
 

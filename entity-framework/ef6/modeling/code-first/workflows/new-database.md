@@ -1,15 +1,15 @@
 ---
 title: 新しいデータベースへの Code First-EF6
 description: Entity Framework 6 の新しいデータベースへの Code First
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/workflows/new-database
-ms.openlocfilehash: 96d76162383149c045178954196e1294331918a8
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 9d0082ac5226fff066d3e18c9164e2230c84b285
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070368"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065020"
 ---
 # <a name="code-first-to-a-new-database"></a>新しいデータベースの Code First
 このビデオとステップバイステップのチュートリアルでは、新しいデータベースを対象とした Code First 開発の概要について説明します。 このシナリオには、存在しないデータベースのターゲット設定、Code First 作成されるデータベース、または Code First が新しいテーブルを追加する空のデータベースが対象となります。 Code First では、C または VB.Net クラスを使用してモデルを定義でき \# ます。 追加の構成は、必要に応じて、クラスやプロパティの属性、または fluent API を使用して実行できます。
@@ -238,7 +238,7 @@ public class Blog
 ```
 
 -   パッケージマネージャーコンソールで、[ **追加-移行] AddUrl** コマンドを実行します。
-    [移行の追加] コマンドは、前回の移行以降に行われた変更を確認し、検出された変更を含む新しい移行をスキャフォールディングします。 移行に名前を付けることができます。この例では、移行 ' AddUrl ' を呼び出しています。
+    Add-Migration コマンドは、前回の移行以降に行われた変更を確認し、見つかった変更を含む新しい移行をスキャフォールディングします。 移行に名前を付けることができます。この例では、移行 ' AddUrl ' を呼び出しています。
     スキャフォールディングコードは、文字列データを保持できる Url 列を dbo に追加する必要があることを示しています。ブログテーブル。 必要に応じて、スキャフォールディングコードを編集することもできますが、この場合は必要ありません。
 
 ``` csharp
@@ -263,7 +263,7 @@ namespace CodeFirstNewDatabaseSample.Migrations
 ```
 
 -   パッケージマネージャーコンソールで、 **データベースの更新** コマンドを実行します。 このコマンドを実行すると、保留中の移行がデータベースに適用されます。 InitialCreate 移行は既に適用されているので、移行によって新しい AddUrl 移行が適用されます。
-    ヒント: データベースに対して実行されている SQL を表示するには、 **-Verbose** スイッチを使用して、データベースに対して実行される SQL を確認します。
+    ヒント: Update-Database を呼び出すときに **– Verbose** スイッチを使用して、データベースに対して実行される SQL を確認できます。
 
 これで、新しい Url 列がデータベースのブログテーブルに追加されました。
 

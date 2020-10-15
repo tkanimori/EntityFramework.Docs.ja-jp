@@ -1,15 +1,15 @@
 ---
 title: デザイナーエンティティ分割-EF6
 description: Entity Framework 6 でのデザイナーエンティティの分割
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/entity-splitting
-ms.openlocfilehash: fa25629bae1a35b2d792e2b890e87db6c99c37ab
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 8fdb9037fc49045089016e6630316d05c8726ad8
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073137"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064901"
 ---
 # <a name="designer-entity-splitting"></a>デザイナーエンティティの分割
 このチュートリアルでは、Entity Framework Designer (EF Designer) を使用してモデルを変更することによって、エンティティ型を2つのテーブルにマップする方法について説明します。 エンティティを複数のテーブルにマップできるのは、それらのテーブルのキーが共通している場合です。 エンティティ型を 2 つのテーブルにマップする場合に適用される概念は、エンティティ型を 3 つ以上のテーブルにマップする場合にも簡単に応用できます。

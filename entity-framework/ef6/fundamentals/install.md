@@ -1,22 +1,22 @@
 ---
 title: Entity Framework の取得-EF6
 description: Entity Framework 6 を取得する
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/install
-ms.openlocfilehash: 9254f835f5007a213c49557165f6830c30711f1f
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 7dc4c560cc4eb24a1c5d5dac0c9e28883de471b0
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072786"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065460"
 ---
 # <a name="get-entity-framework"></a>Entity Framework を取得する
 Entity Framework は、EF Tools for Visual Studio と EF Runtime で構成されています。
 
 ## <a name="ef-tools-for-visual-studio"></a>EF Tools for Visual Studio
 
-Visual Studio の Entity Framework Tools には、EF デザイナーと EF モデルウィザードが含まれており、データベースの最初のワークフローとモデルの最初のワークフローに必要です。 EF ツールは、すべての最新バージョンの Visual Studio に含まれています。 Visual Studio のカスタムインストールを実行する場合は、項目を含むワークロードを選択するか、個々のコンポーネントとして選択することで、項目 "Entity Framework 6 ツール" が選択されていることを確認する必要があります。
+[Visual Studio の Entity Framework Tools](/visualstudio/data-tools/entity-data-model-tools-in-visual-studio)には、ef デザイナーと Ef モデルウィザードが含まれており、データベースの最初のワークフローとモデルの最初のワークフローに必要です。 EF ツールは、すべての最新バージョンの Visual Studio に含まれています。 Visual Studio のカスタムインストールを実行する場合は、項目を含むワークロードを選択するか、個々のコンポーネントとして選択することで、項目 "Entity Framework 6 ツール" が選択されていることを確認する必要があります。
 
 以前のバージョンの Visual Studio では、更新された EF ツールはダウンロードとして入手できます。 お使いのバージョンの Visual Studio で使用できる EF ツールの最新バージョンを入手する方法については、「 [Visual studio のバージョン](xref:ef6/what-is-new/visual-studio) 」を参照してください。
 

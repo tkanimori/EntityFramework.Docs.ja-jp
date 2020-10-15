@@ -1,15 +1,15 @@
 ---
 title: 空間-EF デザイナー-EF6
 description: Entity Framework 6 の空間 EF デザイナー
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/data-types/spatial
-ms.openlocfilehash: 6524e3d2be6d5028ab12d6bfd7c65ce3a232a07a
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 298666e558ad5bb531948e6a0bbcf3d71141df0b
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073085"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064914"
 ---
 # <a name="spatial---ef-designer"></a>空間-EF デザイナー
 > [!NOTE]

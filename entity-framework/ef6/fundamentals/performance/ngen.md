@@ -1,15 +1,15 @@
 ---
 title: NGen を使用した起動時のパフォーマンスの向上-EF6
 description: Entity Framework 6 での NGen による起動時のパフォーマンスの向上
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/performance/ngen
-ms.openlocfilehash: d3417067cca5837920449420ed13014f21c5b46c
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: a58ffc1a4da1cdb0ae12366ab1ec0139141b3a7f
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072643"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065421"
 ---
 # <a name="improving-startup-performance-with-ngen"></a>NGen を使用した起動時のパフォーマンスの向上
 > [!NOTE]

@@ -1,15 +1,15 @@
 ---
 title: 過去のリリースの Entity Framework-EF6
 description: 過去のリリースの Entity Framework
-author: divega
+author: ajcvickers
 ms.date: 09/12/2019
 uid: ef6/what-is-new/past-releases
-ms.openlocfilehash: 97ad8015f5302adbe98a63132f1b34009aa68468
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 990b543b2baff0a70e32bf3d5ce624b419c925b8
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073644"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064316"
 ---
 # <a name="past-releases-of-entity-framework"></a>過去のリリースの Entity Framework
 
@@ -228,7 +228,7 @@ EF 4.3.0 ランタイムは、2012年2月に NuGet にリリースされまし�
 
 Ef 4.3 リリース専用にまとめたコンテンツの一覧を次に示します。 ef 4.1 用に提供されているコンテンツの大部分は、ef 4.3 にも適用されます。
 -   [EF 4.3 リリースの投稿](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-released.aspx)
--   [EF 4.3 コードベースの移行のチュートリアル](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-code-based-migrations-walkthrough.aspx)
+-   [EF 4.3 Code-Based 移行のチュートリアル](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-code-based-migrations-walkthrough.aspx)
 -   [EF 4.3 自動移行のチュートリアル](https://blogs.msdn.com/b/adonet/archive/2012/02/09/ef-4-3-automatic-migrations-walkthrough.aspx)
 
 ## <a name="ef-42"></a>EF 4.2

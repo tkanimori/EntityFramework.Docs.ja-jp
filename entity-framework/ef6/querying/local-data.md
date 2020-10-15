@@ -1,15 +1,15 @@
 ---
 title: ローカルデータ-EF6
 description: Entity Framework 6 のローカルデータ
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/querying/local-data
-ms.openlocfilehash: 5763424ab295ed6ceec655368fe3565a10c911d3
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: cff3612072ad9caa057d8589d47cc75ae32be8db
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073913"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065876"
 ---
 # <a name="local-data"></a>ローカル データ
 DbSet に対して LINQ クエリを直接実行すると、常にクエリがデータベースに送信されますが、現在、DbSet. Local プロパティを使用してメモリ内にあるデータにアクセスできます。 また、DbContext. Entry メソッドと DbContext. ChangeTracker メソッドを使用して、エンティティに関する追加情報 EF が追跡している情報にアクセスすることもできます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  

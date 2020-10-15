@@ -1,15 +1,15 @@
 ---
 title: デザイナー TPH 継承-EF6
 description: Entity Framework 6 でのデザイナーの継承
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/inheritance/tph
-ms.openlocfilehash: 39675f9533dfef0ddad1867e3b70cd13b30708ea
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: bf689e02a76e46e5eee5a64cb9825e667c8cd65c
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073397"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064849"
 ---
 # <a name="designer-tph-inheritance"></a>デザイナーの TPH 継承
 このステップバイステップチュートリアルでは、Entity Framework Designer (EF デザイナー) を使用して概念モデルに階層構造 (TPH) の継承を実装する方法について説明します。 TPH 継承では、1つのデータベーステーブルを使用して、継承階層内のすべてのエンティティ型のデータを保持します。

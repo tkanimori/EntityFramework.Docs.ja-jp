@@ -1,14 +1,14 @@
 ---
 title: Entity Framework のケーススタディ-EF6
 description: Entity Framework 6 のケーススタディ
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
-ms.openlocfilehash: 342929f70aa09704c934bd1d89e177f6953bfc43
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: ca2315ac8aad8d28240f4bef6c962de0f63ac0df
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073822"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064667"
 ---
 # <a name="microsoft-case-studies-for-entity-framework"></a>Entity Framework のための Microsoft のケーススタディ
 このページのケーススタディでは、Entity Framework を採用した実際の実稼働プロジェクトをいくつか取り上げています。
@@ -17,7 +17,7 @@ ms.locfileid: "90073822"
 
 ## <a name="epicor"></a>E絵文字または
 E絵文字またはは、150を超える国で企業向けのエンタープライズリソースプランニング (ERP) ソリューションを開発する大規模なグローバルソフトウェア企業です (400 開発者を対象としています)。
-これらの主力製品である E絵文字または9は、.NET Framework を使用するサービス指向アーキテクチャ (SOA) に基づいています。
+これらの主力製品である E絵文字または9は、.NET Framework を使用した Service-Oriented アーキテクチャ (SOA) に基づいています。
 統合言語クエリ (LINQ) をサポートする多くの顧客要求に直面しています。また、バックエンド SQL サーバーの負荷を軽減するために、チームは Visual Studio 2010 および .NET Framework 4.0 にアップグレードすることを決定しました。
 Entity Framework 4.0 を使用して、これらの目標を達成し、開発と保守を大幅に簡素化することができました。
 特に、Entity Framework の豊富な T4 サポートによって、生成されたコードを完全に制御し、コンパイル済みのクエリやキャッシュなどのパフォーマンスを節約する機能を自動的に構築することが可能になりました。

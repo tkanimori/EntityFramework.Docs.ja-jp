@@ -1,15 +1,15 @@
 ---
 title: Model First-EF6
 description: Entity Framework 6 の Model First
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/workflows/model-first
-ms.openlocfilehash: 13c5e173182ad0781a674ce3d10f7374c4443bf9
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: b47c5805a63a1ea94baad4fb5eb137b633f6be1d
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073163"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066032"
 ---
 # <a name="model-first"></a>Model First
 このビデオとステップバイステップのチュートリアルでは、Entity Framework を使用した Model First 開発の概要について説明します。 Model First を使用すると、Entity Framework Designer を使用して新しいモデルを作成し、モデルからデータベーススキーマを生成できます。 モデルは EDMX ファイル (.edmx 拡張子) に格納されており、Entity Framework Designer で表示および編集できます。 アプリケーションで対話するクラスは、EDMX ファイルから自動的に生成されます。

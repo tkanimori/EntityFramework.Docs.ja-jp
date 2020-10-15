@@ -1,15 +1,15 @@
 ---
 title: 複数の結果セットを持つストアドプロシージャ-EF6
 description: Entity Framework 6 で複数の結果セットを持つストアドプロシージャ
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/advanced/multiple-result-sets
-ms.openlocfilehash: 6b213b944ca06a7ca141746d86f1127be2fd7d87
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 8c80e2b8c861a763b7f63ea2523194028498dace
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070225"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066279"
 ---
 # <a name="stored-procedures-with-multiple-result-sets"></a>複数の結果セットを持つストアドプロシージャ
 ストアドプロシージャを使用する場合、複数の結果セットを返す必要がある場合があります。 このシナリオは、1つの画面を作成するために必要なデータベースラウンドトリップの数を減らすためによく使用されます。EF5 より前の Entity Framework では、ストアドプロシージャを呼び出すことができますが、呼び出し元のコードに返されるのは最初の結果セットだけです。

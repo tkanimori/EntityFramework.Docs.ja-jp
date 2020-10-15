@@ -1,15 +1,15 @@
 ---
 title: WPF を使用したデータバインド-EF6
 description: Entity Framework 6 での WPF を使用したデータバインド
-author: divega
+author: ajcvickers
 ms.date: 05/19/2020
 uid: ef6/fundamentals/databinding/wpf
-ms.openlocfilehash: 85aea308d89241f1da9633ef60f4bc8c3997561d
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: b6dc484d09340671dfcd841e34234d55e9808af2
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072981"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065655"
 ---
 # <a name="databinding-with-wpf"></a>WPF とのデータバインド
 
@@ -257,7 +257,7 @@ POCO エンティティ型を使用する場合、EF は、実行時に派生プ
 - [データソース] ウィンドウが表示されていない場合は、Mainwindow.xaml ウィンドウの横に開かれます。 [データソース] ウィンドウが表示されて*いない場合は、[表示]、[ ** &gt; その他のウィンドウ- &gt; データソース**] を選択し*ます。
 - [データソース] ウィンドウが自動的に非表示にならないように、ピンアイコンを押します。 ウィンドウが既に表示されている場合は、[更新] ボタンをクリックしなければならないことがあります。
 
-    ![ソリューション エクスプローラー](~/ef6/media/datasources.png)
+    ![Data Sources](~/ef6/media/datasources.png)
 
 -  **カテゴリ**データソースを選択し、フォーム上にドラッグします。
 

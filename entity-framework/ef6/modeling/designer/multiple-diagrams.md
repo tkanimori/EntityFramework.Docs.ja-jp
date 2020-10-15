@@ -1,15 +1,15 @@
 ---
 title: モデルごとの複数のダイアグラム-EF6
 description: Entity Framework 6 のモデルあたりの複数のダイアグラム
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/multiple-diagrams
-ms.openlocfilehash: d934a1b709c93fe8e6b57d40dd874b564885b19f
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 625cb932d23805f6bd22b658e4cddab1a487751c
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073332"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066214"
 ---
 # <a name="multiple-diagrams-per-model"></a>モデルごとに複数のダイアグラム
 > [!NOTE]
