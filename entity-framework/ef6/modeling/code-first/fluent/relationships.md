@@ -1,31 +1,31 @@
 ---
 title: Fluent API-リレーションシップ-EF6
 description: Fluent API-Entity Framework 6 のリレーションシップ
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/fluent/relationships
-ms.openlocfilehash: 73e910279540fc93845aeebdfd79af9b95c60fae
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 7c62dfd788afda41f4c940836152b9114aa545e1
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073926"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065161"
 ---
-# <a name="fluent-api---relationships"></a><span data-ttu-id="17299-103">Fluent API-リレーションシップ</span><span class="sxs-lookup"><span data-stu-id="17299-103">Fluent API - Relationships</span></span>
+# <a name="fluent-api---relationships"></a><span data-ttu-id="e97a2-103">Fluent API-リレーションシップ</span><span class="sxs-lookup"><span data-stu-id="e97a2-103">Fluent API - Relationships</span></span>
 > [!NOTE]
-> <span data-ttu-id="17299-104">このページでは、fluent API を使用して Code First モデル内のリレーションシップを設定する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="17299-104">This page provides information about setting up relationships in your Code First model using the fluent API.</span></span> <span data-ttu-id="17299-105">EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「 [リレーションシップ & ナビゲーションプロパティ](xref:ef6/fundamentals/relationships)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="17299-105">For general information about relationships in EF and how to access and manipulate data using relationships, see [Relationships & Navigation Properties](xref:ef6/fundamentals/relationships).</span></span>  
+> <span data-ttu-id="e97a2-104">このページでは、fluent API を使用して Code First モデル内のリレーションシップを設定する方法について説明します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-104">This page provides information about setting up relationships in your Code First model using the fluent API.</span></span> <span data-ttu-id="e97a2-105">EF のリレーションシップに関する一般的な情報と、リレーションシップを使用してデータにアクセスして操作する方法については、「 [リレーションシップ & ナビゲーションプロパティ](xref:ef6/fundamentals/relationships)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="e97a2-105">For general information about relationships in EF and how to access and manipulate data using relationships, see [Relationships & Navigation Properties](xref:ef6/fundamentals/relationships).</span></span>  
 
-<span data-ttu-id="17299-106">Code First を使用する場合は、ドメイン CLR クラスを定義してモデルを定義します。</span><span class="sxs-lookup"><span data-stu-id="17299-106">When working with Code First, you define your model by defining your domain CLR classes.</span></span> <span data-ttu-id="17299-107">既定では、Entity Framework は Code First 規約を使用して、クラスをデータベーススキーマにマップします。</span><span class="sxs-lookup"><span data-stu-id="17299-107">By default, Entity Framework uses the Code First conventions to map your classes to the database schema.</span></span> <span data-ttu-id="17299-108">Code First 名前付け規則を使用する場合、ほとんどの場合、Code First に依存して、クラスで定義する外部キーとナビゲーションプロパティに基づいてテーブル間のリレーションシップを設定できます。</span><span class="sxs-lookup"><span data-stu-id="17299-108">If you use the Code First naming conventions, in most cases you can rely on Code First to set up relationships between your tables based on the foreign keys and navigation properties that you define on the classes.</span></span> <span data-ttu-id="17299-109">クラスの定義時に規則に従っていない場合、または規則の動作を変更する場合は、fluent API またはデータ注釈を使用してクラスを構成し、Code First がテーブル間のリレーションシップをマップできるようにすることができます。</span><span class="sxs-lookup"><span data-stu-id="17299-109">If you do not follow the conventions when defining your classes, or if you want to change the way the conventions work, you can use the fluent API or data annotations to configure your classes so Code First can map the relationships between your tables.</span></span>  
+<span data-ttu-id="e97a2-106">Code First を使用する場合は、ドメイン CLR クラスを定義してモデルを定義します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-106">When working with Code First, you define your model by defining your domain CLR classes.</span></span> <span data-ttu-id="e97a2-107">既定では、Entity Framework は Code First 規約を使用して、クラスをデータベーススキーマにマップします。</span><span class="sxs-lookup"><span data-stu-id="e97a2-107">By default, Entity Framework uses the Code First conventions to map your classes to the database schema.</span></span> <span data-ttu-id="e97a2-108">Code First 名前付け規則を使用する場合、ほとんどの場合、Code First に依存して、クラスで定義する外部キーとナビゲーションプロパティに基づいてテーブル間のリレーションシップを設定できます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-108">If you use the Code First naming conventions, in most cases you can rely on Code First to set up relationships between your tables based on the foreign keys and navigation properties that you define on the classes.</span></span> <span data-ttu-id="e97a2-109">クラスの定義時に規則に従っていない場合、または規則の動作を変更する場合は、fluent API またはデータ注釈を使用してクラスを構成し、Code First がテーブル間のリレーションシップをマップできるようにすることができます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-109">If you do not follow the conventions when defining your classes, or if you want to change the way the conventions work, you can use the fluent API or data annotations to configure your classes so Code First can map the relationships between your tables.</span></span>  
 
-## <a name="introduction"></a><span data-ttu-id="17299-110">はじめに</span><span class="sxs-lookup"><span data-stu-id="17299-110">Introduction</span></span>  
+## <a name="introduction"></a><span data-ttu-id="e97a2-110">はじめに</span><span class="sxs-lookup"><span data-stu-id="e97a2-110">Introduction</span></span>  
 
-<span data-ttu-id="17299-111">Fluent API とのリレーションシップを構成する場合は、まず EntityTypeConfiguration インスタンスを作成し、次に HasRequired、Hasrequired、または Hasrequired メソッドを使用して、このエンティティが参加するリレーションシップの種類を指定します。</span><span class="sxs-lookup"><span data-stu-id="17299-111">When configuring a relationship with the fluent API, you start with the EntityTypeConfiguration instance and then use the HasRequired, HasOptional, or HasMany method to specify the type of relationship this entity participates in.</span></span> <span data-ttu-id="17299-112">HasRequired メソッドと Hasrequired メソッドは、参照ナビゲーションプロパティを表すラムダ式を受け取ります。</span><span class="sxs-lookup"><span data-stu-id="17299-112">The HasRequired and HasOptional methods take a lambda expression that represents a reference navigation property.</span></span> <span data-ttu-id="17299-113">HasMany メソッドは、コレクションナビゲーションプロパティを表すラムダ式を受け取ります。</span><span class="sxs-lookup"><span data-stu-id="17299-113">The HasMany method takes a lambda expression that represents a collection navigation property.</span></span> <span data-ttu-id="17299-114">次に、WithRequired、Withrequired、および Withrequired メソッドを使用して、逆ナビゲーションプロパティを構成できます。</span><span class="sxs-lookup"><span data-stu-id="17299-114">You can then configure an inverse navigation property by using the WithRequired, WithOptional, and WithMany methods.</span></span> <span data-ttu-id="17299-115">これらのメソッドには、引数を受け取らないオーバーロードがあり、一方向のナビゲーションでカーディナリティを指定するために使用できます。</span><span class="sxs-lookup"><span data-stu-id="17299-115">These methods have overloads that do not take arguments and can be used to specify cardinality with unidirectional navigations.</span></span>  
+<span data-ttu-id="e97a2-111">Fluent API とのリレーションシップを構成する場合は、まず EntityTypeConfiguration インスタンスを作成し、次に HasRequired、Hasrequired、または Hasrequired メソッドを使用して、このエンティティが参加するリレーションシップの種類を指定します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-111">When configuring a relationship with the fluent API, you start with the EntityTypeConfiguration instance and then use the HasRequired, HasOptional, or HasMany method to specify the type of relationship this entity participates in.</span></span> <span data-ttu-id="e97a2-112">HasRequired メソッドと Hasrequired メソッドは、参照ナビゲーションプロパティを表すラムダ式を受け取ります。</span><span class="sxs-lookup"><span data-stu-id="e97a2-112">The HasRequired and HasOptional methods take a lambda expression that represents a reference navigation property.</span></span> <span data-ttu-id="e97a2-113">HasMany メソッドは、コレクションナビゲーションプロパティを表すラムダ式を受け取ります。</span><span class="sxs-lookup"><span data-stu-id="e97a2-113">The HasMany method takes a lambda expression that represents a collection navigation property.</span></span> <span data-ttu-id="e97a2-114">次に、WithRequired、Withrequired、および Withrequired メソッドを使用して、逆ナビゲーションプロパティを構成できます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-114">You can then configure an inverse navigation property by using the WithRequired, WithOptional, and WithMany methods.</span></span> <span data-ttu-id="e97a2-115">これらのメソッドには、引数を受け取らないオーバーロードがあり、一方向のナビゲーションでカーディナリティを指定するために使用できます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-115">These methods have overloads that do not take arguments and can be used to specify cardinality with unidirectional navigations.</span></span>  
 
-<span data-ttu-id="17299-116">その後、HasForeignKey メソッドを使用して、外部キープロパティを構成できます。</span><span class="sxs-lookup"><span data-stu-id="17299-116">You can then configure foreign key properties by using the HasForeignKey method.</span></span> <span data-ttu-id="17299-117">このメソッドは、外部キーとして使用されるプロパティを表すラムダ式を受け取ります。</span><span class="sxs-lookup"><span data-stu-id="17299-117">This method takes a lambda expression that represents the property to be used as the foreign key.</span></span>  
+<span data-ttu-id="e97a2-116">その後、HasForeignKey メソッドを使用して、外部キープロパティを構成できます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-116">You can then configure foreign key properties by using the HasForeignKey method.</span></span> <span data-ttu-id="e97a2-117">このメソッドは、外部キーとして使用されるプロパティを表すラムダ式を受け取ります。</span><span class="sxs-lookup"><span data-stu-id="e97a2-117">This method takes a lambda expression that represents the property to be used as the foreign key.</span></span>  
 
-## <a name="configuring-a-required-to-optional-relationship-one-tozero-or-one"></a><span data-ttu-id="17299-118">必須からオプションのリレーションシップを構成する (1 対0または1つ)</span><span class="sxs-lookup"><span data-stu-id="17299-118">Configuring a Required-to-Optional Relationship (One-to–Zero-or-One)</span></span>  
+## <a name="configuring-a-required-to-optional-relationship-one-tozero-or-one"></a><span data-ttu-id="e97a2-118">必須からオプションのリレーションシップを構成する (1 対0または1つ)</span><span class="sxs-lookup"><span data-stu-id="e97a2-118">Configuring a Required-to-Optional Relationship (One-to–Zero-or-One)</span></span>  
 
-<span data-ttu-id="17299-119">次の例では、一対ゼロまたは一対一のリレーションシップを構成します。</span><span class="sxs-lookup"><span data-stu-id="17299-119">The following example configures a one-to-zero-or-one relationship.</span></span> <span data-ttu-id="17299-120">OfficeAssignment には、主キーと外部キーの InstructorID プロパティがあります。これは、プロパティの名前が規則に従っていないためです。これは、プライマリキーの構成に HasKey メソッドが使用されるためです。</span><span class="sxs-lookup"><span data-stu-id="17299-120">The OfficeAssignment has the InstructorID property that is a primary key and a foreign key, because the name of the property does not follow the convention the HasKey method is used to configure the primary key.</span></span>  
+<span data-ttu-id="e97a2-119">次の例では、一対ゼロまたは一対一のリレーションシップを構成します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-119">The following example configures a one-to-zero-or-one relationship.</span></span> <span data-ttu-id="e97a2-120">OfficeAssignment には、主キーと外部キーの InstructorID プロパティがあります。これは、プロパティの名前が規則に従っていないためです。これは、プライマリキーの構成に HasKey メソッドが使用されるためです。</span><span class="sxs-lookup"><span data-stu-id="e97a2-120">The OfficeAssignment has the InstructorID property that is a primary key and a foreign key, because the name of the property does not follow the convention the HasKey method is used to configure the primary key.</span></span>  
 
 ``` csharp
 // Configure the primary key for the OfficeAssignment
@@ -38,9 +38,9 @@ modelBuilder.Entity<OfficeAssignment>()
     .WithOptional(t => t.OfficeAssignment);
 ```  
 
-## <a name="configuring-a-relationship-where-both-ends-are-required-one-to-one"></a><span data-ttu-id="17299-121">両端が必要なリレーションシップを構成する (1 対 1)</span><span class="sxs-lookup"><span data-stu-id="17299-121">Configuring a Relationship Where Both Ends Are Required (One-to-One)</span></span>  
+## <a name="configuring-a-relationship-where-both-ends-are-required-one-to-one"></a><span data-ttu-id="e97a2-121">両端が必要なリレーションシップを構成する (1 対 1)</span><span class="sxs-lookup"><span data-stu-id="e97a2-121">Configuring a Relationship Where Both Ends Are Required (One-to-One)</span></span>  
 
-<span data-ttu-id="17299-122">ほとんどの場合 Entity Framework は、依存している型と、リレーションシップのプリンシパルである型を推論できます。</span><span class="sxs-lookup"><span data-stu-id="17299-122">In most cases Entity Framework can infer which type is the dependent and which is the principal in a relationship.</span></span> <span data-ttu-id="17299-123">ただし、リレーションシップの両端が必要である場合、または両方の側が省略可能な場合 Entity Framework は依存関係とプリンシパルを識別できません。</span><span class="sxs-lookup"><span data-stu-id="17299-123">However, when both ends of the relationship are required or both sides are optional Entity Framework cannot identify the dependent and principal.</span></span> <span data-ttu-id="17299-124">リレーションシップの両方の end が必要な場合は、HasRequired メソッドの後に WithRequiredPrincipal または Withrequiredprincipal を使用します。</span><span class="sxs-lookup"><span data-stu-id="17299-124">When both ends of the relationship are required, use WithRequiredPrincipal or WithRequiredDependent after the HasRequired method.</span></span> <span data-ttu-id="17299-125">リレーションシップの両方の end が省略可能な場合は、HasOptional メソッドの後に、Withoptional Principal または Withoptional を使用します。</span><span class="sxs-lookup"><span data-stu-id="17299-125">When both ends of the relationship are optional, use WithOptionalPrincipal or WithOptionalDependent after the HasOptional method.</span></span>  
+<span data-ttu-id="e97a2-122">ほとんどの場合 Entity Framework は、依存している型と、リレーションシップのプリンシパルである型を推論できます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-122">In most cases Entity Framework can infer which type is the dependent and which is the principal in a relationship.</span></span> <span data-ttu-id="e97a2-123">ただし、リレーションシップの両端が必要である場合、または両方の側が省略可能な場合 Entity Framework は依存関係とプリンシパルを識別できません。</span><span class="sxs-lookup"><span data-stu-id="e97a2-123">However, when both ends of the relationship are required or both sides are optional Entity Framework cannot identify the dependent and principal.</span></span> <span data-ttu-id="e97a2-124">リレーションシップの両方の end が必要な場合は、HasRequired メソッドの後に WithRequiredPrincipal または Withrequiredprincipal を使用します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-124">When both ends of the relationship are required, use WithRequiredPrincipal or WithRequiredDependent after the HasRequired method.</span></span> <span data-ttu-id="e97a2-125">リレーションシップの両方の end が省略可能な場合は、HasOptional メソッドの後に、Withoptional Principal または Withoptional を使用します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-125">When both ends of the relationship are optional, use WithOptionalPrincipal or WithOptionalDependent after the HasOptional method.</span></span>  
 
 ``` csharp
 // Configure the primary key for the OfficeAssignment
@@ -52,9 +52,9 @@ modelBuilder.Entity<Instructor>()
     .WithRequiredPrincipal(t => t.Instructor);
 ```  
 
-## <a name="configuring-a-many-to-many-relationship"></a><span data-ttu-id="17299-126">多対多リレーションシップの構成</span><span class="sxs-lookup"><span data-stu-id="17299-126">Configuring a Many-to-Many Relationship</span></span>  
+## <a name="configuring-a-many-to-many-relationship"></a><span data-ttu-id="e97a2-126">多対多リレーションシップの構成</span><span class="sxs-lookup"><span data-stu-id="e97a2-126">Configuring a Many-to-Many Relationship</span></span>  
 
-<span data-ttu-id="17299-127">次のコードでは、コースとインストラクターの型の間に多対多のリレーションシップを構成しています。</span><span class="sxs-lookup"><span data-stu-id="17299-127">The following code configures a many-to-many relationship between the Course and Instructor types.</span></span> <span data-ttu-id="17299-128">次の例では、既定の Code First 規約を使用して、結合テーブルを作成します。</span><span class="sxs-lookup"><span data-stu-id="17299-128">In the following example, the default Code First conventions are used to create a join table.</span></span> <span data-ttu-id="17299-129">その結果、Course_CourseID と Instructor_InstructorID 列を含む CourseInstructor テーブルが作成されます。</span><span class="sxs-lookup"><span data-stu-id="17299-129">As a result the CourseInstructor table is created with Course_CourseID and Instructor_InstructorID columns.</span></span>  
+<span data-ttu-id="e97a2-127">次のコードでは、コースとインストラクターの型の間に多対多のリレーションシップを構成しています。</span><span class="sxs-lookup"><span data-stu-id="e97a2-127">The following code configures a many-to-many relationship between the Course and Instructor types.</span></span> <span data-ttu-id="e97a2-128">次の例では、既定の Code First 規約を使用して、結合テーブルを作成します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-128">In the following example, the default Code First conventions are used to create a join table.</span></span> <span data-ttu-id="e97a2-129">その結果、Course_CourseID と Instructor_InstructorID 列を含む CourseInstructor テーブルが作成されます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-129">As a result the CourseInstructor table is created with Course_CourseID and Instructor_InstructorID columns.</span></span>  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -62,7 +62,7 @@ modelBuilder.Entity<Course>()
     .WithMany(t => t.Courses)
 ```  
 
-<span data-ttu-id="17299-130">テーブル内の結合テーブル名と列名を指定する場合は、Map メソッドを使用して追加の構成を行う必要があります。</span><span class="sxs-lookup"><span data-stu-id="17299-130">If you want to specify the join table name and the names of the columns in the table you need to do additional configuration by using the Map method.</span></span> <span data-ttu-id="17299-131">次のコードでは、CourseID 列と InstructorID 列を含む CourseInstructor テーブルが生成されます。</span><span class="sxs-lookup"><span data-stu-id="17299-131">The following code generates the CourseInstructor table with CourseID and InstructorID columns.</span></span>  
+<span data-ttu-id="e97a2-130">テーブル内の結合テーブル名と列名を指定する場合は、Map メソッドを使用して追加の構成を行う必要があります。</span><span class="sxs-lookup"><span data-stu-id="e97a2-130">If you want to specify the join table name and the names of the columns in the table you need to do additional configuration by using the Map method.</span></span> <span data-ttu-id="e97a2-131">次のコードでは、CourseID 列と InstructorID 列を含む CourseInstructor テーブルが生成されます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-131">The following code generates the CourseInstructor table with CourseID and InstructorID columns.</span></span>  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -76,9 +76,9 @@ modelBuilder.Entity<Course>()
     });
 ```  
 
-## <a name="configuring-a-relationship-with-one-navigation-property"></a><span data-ttu-id="17299-132">1つのナビゲーションプロパティを使用したリレーションシップの構成</span><span class="sxs-lookup"><span data-stu-id="17299-132">Configuring a Relationship with One Navigation Property</span></span>  
+## <a name="configuring-a-relationship-with-one-navigation-property"></a><span data-ttu-id="e97a2-132">1つのナビゲーションプロパティを使用したリレーションシップの構成</span><span class="sxs-lookup"><span data-stu-id="e97a2-132">Configuring a Relationship with One Navigation Property</span></span>  
 
-<span data-ttu-id="17299-133">一方向 (一方向とも呼ばれます) のリレーションシップは、ナビゲーションプロパティがいずれかのリレーションシップの両端でのみ定義されていて、両方ではない場合です。</span><span class="sxs-lookup"><span data-stu-id="17299-133">A one-directional (also called unidirectional) relationship is when a navigation property is defined on only one of the relationship ends and not on both.</span></span> <span data-ttu-id="17299-134">慣例により、Code First は常に一対多として一方向の関係を解釈します。</span><span class="sxs-lookup"><span data-stu-id="17299-134">By convention, Code First always interprets a unidirectional relationship as one-to-many.</span></span> <span data-ttu-id="17299-135">たとえば、インストラクターと OfficeAssignment の間に1対1のリレーションシップが必要な場合に、インストラクターの種類に対してのみナビゲーションプロパティがある場合は、fluent API を使用してこのリレーションシップを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="17299-135">For example, if you want a one-to-one relationship between Instructor and OfficeAssignment, where you have a navigation property on only the Instructor type, you need to use the fluent API to configure this relationship.</span></span>  
+<span data-ttu-id="e97a2-133">一方向 (一方向とも呼ばれます) のリレーションシップは、ナビゲーションプロパティがいずれかのリレーションシップの両端でのみ定義されていて、両方ではない場合です。</span><span class="sxs-lookup"><span data-stu-id="e97a2-133">A one-directional (also called unidirectional) relationship is when a navigation property is defined on only one of the relationship ends and not on both.</span></span> <span data-ttu-id="e97a2-134">慣例により、Code First は常に一対多として一方向の関係を解釈します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-134">By convention, Code First always interprets a unidirectional relationship as one-to-many.</span></span> <span data-ttu-id="e97a2-135">たとえば、インストラクターと OfficeAssignment の間に1対1のリレーションシップが必要な場合に、インストラクターの種類に対してのみナビゲーションプロパティがある場合は、fluent API を使用してこのリレーションシップを構成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e97a2-135">For example, if you want a one-to-one relationship between Instructor and OfficeAssignment, where you have a navigation property on only the Instructor type, you need to use the fluent API to configure this relationship.</span></span>  
 
 ``` csharp
 // Configure the primary Key for the OfficeAssignment
@@ -90,16 +90,16 @@ modelBuilder.Entity<Instructor>()
     .WithRequiredPrincipal();
 ```  
 
-## <a name="enabling-cascade-delete"></a><span data-ttu-id="17299-136">連鎖削除の有効化</span><span class="sxs-lookup"><span data-stu-id="17299-136">Enabling Cascade Delete</span></span>  
+## <a name="enabling-cascade-delete"></a><span data-ttu-id="e97a2-136">連鎖削除の有効化</span><span class="sxs-lookup"><span data-stu-id="e97a2-136">Enabling Cascade Delete</span></span>  
 
-<span data-ttu-id="17299-137">WillCascadeOnDelete メソッドを使用して、リレーションシップに対して連鎖削除を構成できます。</span><span class="sxs-lookup"><span data-stu-id="17299-137">You can configure cascade delete on a relationship by using the WillCascadeOnDelete method.</span></span> <span data-ttu-id="17299-138">依存エンティティの外部キーが null 値を許容しない場合、Code First はリレーションシップに対して連鎖削除を設定します。</span><span class="sxs-lookup"><span data-stu-id="17299-138">If a foreign key on the dependent entity is not nullable, then Code First sets cascade delete on the relationship.</span></span> <span data-ttu-id="17299-139">依存エンティティの外部キーが null 許容である場合、Code First はリレーションシップに対して連鎖削除を設定しません。また、プリンシパルが削除されると、外部キーは null に設定されます。</span><span class="sxs-lookup"><span data-stu-id="17299-139">If a foreign key on the dependent entity is nullable, Code First does not set cascade delete on the relationship, and when the principal is deleted the foreign key will be set to null.</span></span>  
+<span data-ttu-id="e97a2-137">WillCascadeOnDelete メソッドを使用して、リレーションシップに対して連鎖削除を構成できます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-137">You can configure cascade delete on a relationship by using the WillCascadeOnDelete method.</span></span> <span data-ttu-id="e97a2-138">依存エンティティの外部キーが null 値を許容しない場合、Code First はリレーションシップに対して連鎖削除を設定します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-138">If a foreign key on the dependent entity is not nullable, then Code First sets cascade delete on the relationship.</span></span> <span data-ttu-id="e97a2-139">依存エンティティの外部キーが null 許容である場合、Code First はリレーションシップに対して連鎖削除を設定しません。また、プリンシパルが削除されると、外部キーは null に設定されます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-139">If a foreign key on the dependent entity is nullable, Code First does not set cascade delete on the relationship, and when the principal is deleted the foreign key will be set to null.</span></span>  
 
-<span data-ttu-id="17299-140">これらの連鎖削除規則は、次を使用して削除できます。</span><span class="sxs-lookup"><span data-stu-id="17299-140">You can remove these cascade delete conventions by using:</span></span>  
+<span data-ttu-id="e97a2-140">これらの連鎖削除規則は、次を使用して削除できます。</span><span class="sxs-lookup"><span data-stu-id="e97a2-140">You can remove these cascade delete conventions by using:</span></span>  
 
-<span data-ttu-id="17299-141">modelBuilder. 規則。削除 \<OneToManyCascadeDeleteConvention\> ()</span><span class="sxs-lookup"><span data-stu-id="17299-141">modelBuilder.Conventions.Remove\<OneToManyCascadeDeleteConvention\>()</span></span>  
-<span data-ttu-id="17299-142">modelBuilder. 規則。削除 \<ManyToManyCascadeDeleteConvention\> ()</span><span class="sxs-lookup"><span data-stu-id="17299-142">modelBuilder.Conventions.Remove\<ManyToManyCascadeDeleteConvention\>()</span></span>  
+<span data-ttu-id="e97a2-141">modelBuilder. 規則。削除 \<OneToManyCascadeDeleteConvention\> ()</span><span class="sxs-lookup"><span data-stu-id="e97a2-141">modelBuilder.Conventions.Remove\<OneToManyCascadeDeleteConvention\>()</span></span>  
+<span data-ttu-id="e97a2-142">modelBuilder. 規則。削除 \<ManyToManyCascadeDeleteConvention\> ()</span><span class="sxs-lookup"><span data-stu-id="e97a2-142">modelBuilder.Conventions.Remove\<ManyToManyCascadeDeleteConvention\>()</span></span>  
 
-<span data-ttu-id="17299-143">次のコードでは、必要となるリレーションシップを構成してから、cascade delete を無効にしています。</span><span class="sxs-lookup"><span data-stu-id="17299-143">The following code configures the relationship to be required and then disables cascade delete.</span></span>  
+<span data-ttu-id="e97a2-143">次のコードでは、必要となるリレーションシップを構成してから、cascade delete を無効にしています。</span><span class="sxs-lookup"><span data-stu-id="e97a2-143">The following code configures the relationship to be required and then disables cascade delete.</span></span>  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -109,9 +109,9 @@ modelBuilder.Entity<Course>()
     .WillCascadeOnDelete(false);
 ```  
 
-## <a name="configuring-a-composite-foreign-key"></a><span data-ttu-id="17299-144">複合外部キーの構成</span><span class="sxs-lookup"><span data-stu-id="17299-144">Configuring a Composite Foreign Key</span></span>  
+## <a name="configuring-a-composite-foreign-key"></a><span data-ttu-id="e97a2-144">複合外部キーの構成</span><span class="sxs-lookup"><span data-stu-id="e97a2-144">Configuring a Composite Foreign Key</span></span>  
 
-<span data-ttu-id="17299-145">Department 型の主キーが DepartmentID および Name プロパティで構成されている場合は、次のように、学科の主キーとコースの種類の外部キーを構成します。</span><span class="sxs-lookup"><span data-stu-id="17299-145">If the primary key on the Department type consisted of DepartmentID and Name properties, you would configure the primary key for the Department and the foreign key on the Course types as follows:</span></span>  
+<span data-ttu-id="e97a2-145">Department 型の主キーが DepartmentID および Name プロパティで構成されている場合は、次のように、学科の主キーとコースの種類の外部キーを構成します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-145">If the primary key on the Department type consisted of DepartmentID and Name properties, you would configure the primary key for the Department and the foreign key on the Course types as follows:</span></span>  
 
 ``` csharp
 // Composite primary key
@@ -125,9 +125,9 @@ modelBuilder.Entity<Course>()
     .HasForeignKey(d => new { d.DepartmentID, d.DepartmentName });
 ```  
 
-## <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a><span data-ttu-id="17299-146">モデルで定義されていない外部キーの名前変更</span><span class="sxs-lookup"><span data-stu-id="17299-146">Renaming a Foreign Key That Is Not Defined in the Model</span></span>  
+## <a name="renaming-a-foreign-key-that-is-not-defined-in-the-model"></a><span data-ttu-id="e97a2-146">モデルで定義されていない外部キーの名前変更</span><span class="sxs-lookup"><span data-stu-id="e97a2-146">Renaming a Foreign Key That Is Not Defined in the Model</span></span>  
 
-<span data-ttu-id="17299-147">CLR 型で外部キーを定義しないことを選択したが、データベースに必要な名前を指定する場合は、次の手順を実行します。</span><span class="sxs-lookup"><span data-stu-id="17299-147">If you choose not to define a foreign key on the CLR type, but want to specify what name it should have in the database, do the following:</span></span>  
+<span data-ttu-id="e97a2-147">CLR 型で外部キーを定義しないことを選択したが、データベースに必要な名前を指定する場合は、次の手順を実行します。</span><span class="sxs-lookup"><span data-stu-id="e97a2-147">If you choose not to define a foreign key on the CLR type, but want to specify what name it should have in the database, do the following:</span></span>  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -136,9 +136,9 @@ modelBuilder.Entity<Course>()
     .Map(m => m.MapKey("ChangedDepartmentID"));
 ```  
 
-## <a name="configuring-a-foreign-key-name-that-does-not-follow-the-code-first-convention"></a><span data-ttu-id="17299-148">Code First 規約に従っていない外部キー名の構成</span><span class="sxs-lookup"><span data-stu-id="17299-148">Configuring a Foreign Key Name That Does Not Follow the Code First Convention</span></span>  
+## <a name="configuring-a-foreign-key-name-that-does-not-follow-the-code-first-convention"></a><span data-ttu-id="e97a2-148">Code First 規約に従っていない外部キー名の構成</span><span class="sxs-lookup"><span data-stu-id="e97a2-148">Configuring a Foreign Key Name That Does Not Follow the Code First Convention</span></span>  
 
-<span data-ttu-id="17299-149">Course クラスの外部キープロパティが DepartmentID ではなく SomeDepartmentID と呼ばれていた場合は、次の手順を実行して、SomeDepartmentID を外部キーにするように指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="17299-149">If the foreign key property on the Course class was called SomeDepartmentID instead of DepartmentID, you would need to do the following to specify that you want SomeDepartmentID to be the foreign key:</span></span>  
+<span data-ttu-id="e97a2-149">Course クラスの外部キープロパティが DepartmentID ではなく SomeDepartmentID と呼ばれていた場合は、次の手順を実行して、SomeDepartmentID を外部キーにするように指定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="e97a2-149">If the foreign key property on the Course class was called SomeDepartmentID instead of DepartmentID, you would need to do the following to specify that you want SomeDepartmentID to be the foreign key:</span></span>  
 
 ``` csharp
 modelBuilder.Entity<Course>()
@@ -147,9 +147,9 @@ modelBuilder.Entity<Course>()
          .HasForeignKey(c => c.SomeDepartmentID);
 ```  
 
-## <a name="model-used-in-samples"></a><span data-ttu-id="17299-150">サンプルで使用されるモデル</span><span class="sxs-lookup"><span data-stu-id="17299-150">Model Used in Samples</span></span>  
+## <a name="model-used-in-samples"></a><span data-ttu-id="e97a2-150">サンプルで使用されるモデル</span><span class="sxs-lookup"><span data-stu-id="e97a2-150">Model Used in Samples</span></span>  
 
-<span data-ttu-id="17299-151">このページのサンプルには、次の Code First モデルが使用されています。</span><span class="sxs-lookup"><span data-stu-id="17299-151">The following Code First model is used for the samples on this page.</span></span>  
+<span data-ttu-id="e97a2-151">このページのサンプルには、次の Code First モデルが使用されています。</span><span class="sxs-lookup"><span data-stu-id="e97a2-151">The following Code First model is used for the samples on this page.</span></span>  
 
 ``` csharp
 using System.Data.Entity;
