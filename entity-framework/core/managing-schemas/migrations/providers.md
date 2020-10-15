@@ -2,29 +2,28 @@
 title: 複数のプロバイダーを使用した移行-EF Core
 description: Entity Framework Core で複数のデータベースプロバイダーを対象とする場合に、移行を使用してデータベーススキーマを管理する
 author: bricelam
-ms.author: bricelam
 ms.date: 11/08/2017
 uid: core/managing-schemas/migrations/providers
-ms.openlocfilehash: df38af6ac700a530894b98e1f29bbe804831bad5
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: f44abb5156ea3a175c68c1a0ec23ff41a9d13452
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619189"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92061984"
 ---
-# <a name="migrations-with-multiple-providers"></a><span data-ttu-id="05e99-103">複数のプロバイダーを使用した移行</span><span class="sxs-lookup"><span data-stu-id="05e99-103">Migrations with Multiple Providers</span></span>
+# <a name="migrations-with-multiple-providers"></a><span data-ttu-id="d2c7f-103">複数のプロバイダーを使用した移行</span><span class="sxs-lookup"><span data-stu-id="d2c7f-103">Migrations with Multiple Providers</span></span>
 
-<span data-ttu-id="05e99-104">[EF Core ツール][1]は、アクティブなプロバイダーの移行のみをスキャフォールディングします。</span><span class="sxs-lookup"><span data-stu-id="05e99-104">The [EF Core Tools][1] only scaffold migrations for the active provider.</span></span> <span data-ttu-id="05e99-105">ただし、場合によっては、DbContext を使用して、複数のプロバイダー (Microsoft SQL Server や SQLite など) を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="05e99-105">Sometimes, however, you may want to use more than one provider (for example Microsoft SQL Server and SQLite) with your DbContext.</span></span> <span data-ttu-id="05e99-106">移行でこれを処理する方法は2つあります。</span><span class="sxs-lookup"><span data-stu-id="05e99-106">There are two ways to handle this with Migrations.</span></span> <span data-ttu-id="05e99-107">2つの移行セット (プロバイダーごとに1つ) を維持することも、両方で動作する1つのセットに統合することもできます。</span><span class="sxs-lookup"><span data-stu-id="05e99-107">You can maintain two sets of migrations--one for each provider--or merge them into a single set that can work on both.</span></span>
+<span data-ttu-id="d2c7f-104">[EF Core ツール][1]は、アクティブなプロバイダーの移行のみをスキャフォールディングします。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-104">The [EF Core Tools][1] only scaffold migrations for the active provider.</span></span> <span data-ttu-id="d2c7f-105">ただし、場合によっては、DbContext を使用して、複数のプロバイダー (Microsoft SQL Server や SQLite など) を使用することもできます。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-105">Sometimes, however, you may want to use more than one provider (for example Microsoft SQL Server and SQLite) with your DbContext.</span></span> <span data-ttu-id="d2c7f-106">移行でこれを処理する方法は2つあります。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-106">There are two ways to handle this with Migrations.</span></span> <span data-ttu-id="d2c7f-107">2つの移行セット (プロバイダーごとに1つ) を維持することも、両方で動作する1つのセットに統合することもできます。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-107">You can maintain two sets of migrations--one for each provider--or merge them into a single set that can work on both.</span></span>
 
-## <a name="two-migration-sets"></a><span data-ttu-id="05e99-108">2つの移行セット</span><span class="sxs-lookup"><span data-stu-id="05e99-108">Two migration sets</span></span>
+## <a name="two-migration-sets"></a><span data-ttu-id="d2c7f-108">2つの移行セット</span><span class="sxs-lookup"><span data-stu-id="d2c7f-108">Two migration sets</span></span>
 
-<span data-ttu-id="05e99-109">最初の方法では、モデルの変更ごとに2つの移行を生成します。</span><span class="sxs-lookup"><span data-stu-id="05e99-109">In the first approach, you generate two migrations for each model change.</span></span>
+<span data-ttu-id="d2c7f-109">最初の方法では、モデルの変更ごとに2つの移行を生成します。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-109">In the first approach, you generate two migrations for each model change.</span></span>
 
-<span data-ttu-id="05e99-110">これを行う1つの方法は、各移行セットを [個別のアセンブリに][2] 配置し、2つの移行を追加する間に、アクティブなプロバイダー (および移行アセンブリ) を手動で切り替えることです。</span><span class="sxs-lookup"><span data-stu-id="05e99-110">One way to do this is to put each migration set [in a separate assembly][2] and manually switch the active provider (and migrations assembly) between adding the two migrations.</span></span>
+<span data-ttu-id="d2c7f-110">これを行う1つの方法は、各移行セットを [個別のアセンブリに][2] 配置し、2つの移行を追加する間に、アクティブなプロバイダー (および移行アセンブリ) を手動で切り替えることです。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-110">One way to do this is to put each migration set [in a separate assembly][2] and manually switch the active provider (and migrations assembly) between adding the two migrations.</span></span>
 
-<span data-ttu-id="05e99-111">ツールを簡単に操作できるもう1つの方法は、DbContext から派生した新しい型を作成し、アクティブなプロバイダーをオーバーライドすることです。</span><span class="sxs-lookup"><span data-stu-id="05e99-111">Another approach that makes working with the tools easier is to create a new type that derives from your DbContext and overrides the active provider.</span></span> <span data-ttu-id="05e99-112">この型は、移行を追加または適用するときに、デザイン時に使用されます。</span><span class="sxs-lookup"><span data-stu-id="05e99-112">This type is used at design time when adding or applying migrations.</span></span>
+<span data-ttu-id="d2c7f-111">ツールを簡単に操作できるもう1つの方法は、DbContext から派生した新しい型を作成し、アクティブなプロバイダーをオーバーライドすることです。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-111">Another approach that makes working with the tools easier is to create a new type that derives from your DbContext and overrides the active provider.</span></span> <span data-ttu-id="d2c7f-112">この型は、移行を追加または適用するときに、デザイン時に使用されます。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-112">This type is used at design time when adding or applying migrations.</span></span>
 
-``` csharp
+```csharp
 class MySqliteDbContext : MyDbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -33,20 +32,20 @@ class MySqliteDbContext : MyDbContext
 ```
 
 > [!NOTE]
-> <span data-ttu-id="05e99-113">各移行セットは独自の DbContext 型を使用するため、この方法では個別の移行アセンブリを使用する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="05e99-113">Since each migration set uses its own DbContext types, this approach doesn't require using a separate migrations assembly.</span></span>
+> <span data-ttu-id="d2c7f-113">各移行セットは独自の DbContext 型を使用するため、この方法では個別の移行アセンブリを使用する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-113">Since each migration set uses its own DbContext types, this approach doesn't require using a separate migrations assembly.</span></span>
 
-<span data-ttu-id="05e99-114">新しい移行を追加する場合は、コンテキストの種類を指定します。</span><span class="sxs-lookup"><span data-stu-id="05e99-114">When adding new migration, specify the context types.</span></span>
+<span data-ttu-id="d2c7f-114">新しい移行を追加する場合は、コンテキストの種類を指定します。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-114">When adding new migration, specify the context types.</span></span>
 
-### <a name="net-core-cli"></a>[<span data-ttu-id="05e99-115">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="05e99-115">.NET Core CLI</span></span>](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[<span data-ttu-id="d2c7f-115">.NET Core CLI</span><span class="sxs-lookup"><span data-stu-id="d2c7f-115">.NET Core CLI</span></span>](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations add InitialCreate --context MyDbContext --output-dir Migrations/SqlServerMigrations
 dotnet ef migrations add InitialCreate --context MySqliteDbContext --output-dir Migrations/SqliteMigrations
 ```
 
-### <a name="visual-studio"></a>[<span data-ttu-id="05e99-116">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="05e99-116">Visual Studio</span></span>](#tab/vs)
+### <a name="visual-studio"></a>[<span data-ttu-id="d2c7f-116">Visual Studio</span><span class="sxs-lookup"><span data-stu-id="d2c7f-116">Visual Studio</span></span>](#tab/vs)
 
-``` powershell
+```powershell
 Add-Migration InitialCreate -Context MyDbContext -OutputDir Migrations\SqlServerMigrations
 Add-Migration InitialCreate -Context MySqliteDbContext -OutputDir Migrations\SqliteMigrations
 ```
@@ -54,24 +53,24 @@ Add-Migration InitialCreate -Context MySqliteDbContext -OutputDir Migrations\Sql
 ***
 
 > [!TIP]
-> <span data-ttu-id="05e99-117">後続の移行では、最後のディレクトリの兄弟として作成されるため、出力ディレクトリを指定する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="05e99-117">You don't need to specify the output directory for subsequent migrations since they are created as siblings to the last one.</span></span>
+> <span data-ttu-id="d2c7f-117">後続の移行では、最後のディレクトリの兄弟として作成されるため、出力ディレクトリを指定する必要はありません。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-117">You don't need to specify the output directory for subsequent migrations since they are created as siblings to the last one.</span></span>
 
-## <a name="one-migration-set"></a><span data-ttu-id="05e99-118">1つの移行セット</span><span class="sxs-lookup"><span data-stu-id="05e99-118">One migration set</span></span>
+## <a name="one-migration-set"></a><span data-ttu-id="d2c7f-118">1つの移行セット</span><span class="sxs-lookup"><span data-stu-id="d2c7f-118">One migration set</span></span>
 
-<span data-ttu-id="05e99-119">2つの移行セットを作成したくない場合は、両方のプロバイダーに適用できる1つのセットに手動で組み合わせることができます。</span><span class="sxs-lookup"><span data-stu-id="05e99-119">If you don't like having two sets of migrations, you can manually combine them into a single set that can be applied to both providers.</span></span>
+<span data-ttu-id="d2c7f-119">2つの移行セットを作成したくない場合は、両方のプロバイダーに適用できる1つのセットに手動で組み合わせることができます。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-119">If you don't like having two sets of migrations, you can manually combine them into a single set that can be applied to both providers.</span></span>
 
-<span data-ttu-id="05e99-120">認識できない注釈がプロバイダーによって無視されるため、注釈を共存させることができます。</span><span class="sxs-lookup"><span data-stu-id="05e99-120">Annotations can coexist since a provider ignores any annotations that it doesn't understand.</span></span> <span data-ttu-id="05e99-121">たとえば、Microsoft SQL Server と SQLite の両方で動作する主キー列は、次のようになります。</span><span class="sxs-lookup"><span data-stu-id="05e99-121">For example, a primary key column that works with both Microsoft SQL Server and SQLite might look like this.</span></span>
+<span data-ttu-id="d2c7f-120">認識できない注釈がプロバイダーによって無視されるため、注釈を共存させることができます。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-120">Annotations can coexist since a provider ignores any annotations that it doesn't understand.</span></span> <span data-ttu-id="d2c7f-121">たとえば、Microsoft SQL Server と SQLite の両方で動作する主キー列は、次のようになります。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-121">For example, a primary key column that works with both Microsoft SQL Server and SQLite might look like this.</span></span>
 
-``` csharp
+```csharp
 Id = table.Column<int>(nullable: false)
     .Annotation("SqlServer:ValueGenerationStrategy",
         SqlServerValueGenerationStrategy.IdentityColumn)
     .Annotation("Sqlite:Autoincrement", true),
 ```
 
-<span data-ttu-id="05e99-122">操作を1つのプロバイダーに対してのみ適用できる場合、またはプロバイダー間で異なる場合は、プロパティを使用して、 `ActiveProvider` どのプロバイダーがアクティブであるかを確認します。</span><span class="sxs-lookup"><span data-stu-id="05e99-122">If operations can be applied only for one provider, or they're different between providers, use the `ActiveProvider` property to determine which provider is active:</span></span>
+<span data-ttu-id="d2c7f-122">操作を1つのプロバイダーに対してのみ適用できる場合、またはプロバイダー間で異なる場合は、プロパティを使用して、 `ActiveProvider` どのプロバイダーがアクティブであるかを確認します。</span><span class="sxs-lookup"><span data-stu-id="d2c7f-122">If operations can be applied only for one provider, or they're different between providers, use the `ActiveProvider` property to determine which provider is active:</span></span>
 
-``` csharp
+```csharp
 if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
 {
     migrationBuilder.CreateSequence(
