@@ -1,15 +1,15 @@
 ---
 title: カスタム Code First 規則-EF6
 description: Entity Framework 6 のカスタム Code First 規則
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/conventions/custom
-ms.openlocfilehash: 19f22d311438b8c7d3ac9d270017f3ea4907efda
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 5142f58d229dd7743fd4d5c7f0004c080e22c9e4
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90074030"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066461"
 ---
 # <a name="custom-code-first-conventions"></a>カスタム Code First 規則
 > [!NOTE]
@@ -20,7 +20,7 @@ Code First を使用する場合、モデルは一連の規則を使用してク
 これらの既定の規則は、モデルに最適ではない場合があります。また、データ注釈または Fluent API を使用して多数の個々のエンティティを構成することによって回避する必要があります。 カスタム Code First 規則を使用すると、モデルの構成の既定値を提供する独自の規則を定義できます。 このチュートリアルでは、さまざまな種類のカスタム規則と、それぞれの作成方法について説明します。
 
 
-## <a name="model-based-conventions"></a>モデルベースの規則
+## <a name="model-based-conventions"></a>Model-Based 規則
 
 このページでは、カスタム規則の DbModelBuilder API について説明します。 ほとんどのカスタム規則を作成するには、この API が十分である必要があります。 ただし、作成された最終的なモデルを操作し、高度なシナリオに対応するために、モデルベースの規則を作成することもできます。 詳細については、「 [モデルベースの規則](xref:ef6/modeling/code-first/conventions/model)」を参照してください。
 
@@ -213,7 +213,7 @@ IsKey メソッドの興味深い機能は、付加的な機能です。 つま�
 
 ``` csharp
     modelBuilder.Properties()
-                .Having(x =>x.GetCustomAttributes(false).OfType<IsUnicode>().FirstOrDefault())
+                .Having(x => x.GetCustomAttributes(false).OfType<IsUnicode>().FirstOrDefault())
                 .Configure((config, att) => config.IsUnicode(att.Unicode));
 ```
 

@@ -1,17 +1,17 @@
 ---
-title: モデルベースの規則-EF6
-description: Entity Framework 6 のモデルベースの規則
-author: divega
+title: Model-Based 規則-EF6
+description: Entity Framework 6 の Model-Based 規則
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/conventions/model
-ms.openlocfilehash: bcb7a88f4d9fc994b51300ac30ec58671be370c8
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: c4978277ced72cc5c017af5f69b8760f316087d5
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90074004"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066435"
 ---
-# <a name="model-based-conventions"></a>モデルベースの規則
+# <a name="model-based-conventions"></a>Model-Based 規則
 > [!NOTE]
 > **EF6 以降のみ** - このページで説明する機能、API などは、Entity Framework 6 で導入されました。 以前のバージョンを使用している場合、一部またはすべての情報は適用されません。  
 

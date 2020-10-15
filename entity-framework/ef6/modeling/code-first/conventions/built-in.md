@@ -1,15 +1,15 @@
 ---
 title: Code First 規則-EF6
 description: Entity Framework 6 の Code First 規則
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/conventions/built-in
-ms.openlocfilehash: 71e865d674d6bef7aaf65d95abe1b1add96d890f
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: d5b7419258a9e45af5437fae5084a78ebc05f115
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072605"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066448"
 ---
 # <a name="code-first-conventions"></a>Code First 規則
 Code First を使用すると、C# または Visual Basic .NET クラスを使用してモデルを記述できます。 モデルの基本図形は、規約を使用して検出されます。 規則は、Code First を操作するときに、クラス定義に基づいて概念モデルを自動的に構成するために使用される規則のセットです。 規則は、system.string 名前空間で定義されています。  

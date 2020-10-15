@@ -1,15 +1,15 @@
 ---
 title: 既存のデータベースへの Code First-EF6
 description: Entity Framework 6 の既存のデータベースへの Code First
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/workflows/existing-database
-ms.openlocfilehash: d26c5f2ced6b327615cc78bcb2bb6d188b012c14
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 2305236f68cfdc9f6e1582cca1163abf380b4075
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073991"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066422"
 ---
 # <a name="code-first-to-an-existing-database"></a>既存のデータベースへの Code First
 このビデオとステップバイステップのチュートリアルでは、既存のデータベースを対象とした Code First 開発の概要について説明します。 Code First では、C または VB.Net クラスを使用してモデルを定義でき \# ます。 必要に応じて、クラスとプロパティの属性、または fluent API を使用して、追加の構成を行うことができます。

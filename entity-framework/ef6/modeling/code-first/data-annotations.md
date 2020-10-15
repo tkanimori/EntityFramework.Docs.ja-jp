@@ -1,15 +1,15 @@
 ---
 title: データ注釈の Code First-EF6
 description: Entity Framework 6 のデータ注釈の Code First
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/data-annotations
-ms.openlocfilehash: dd91ddf674f2235190e50beb847e569a898ad59b
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: f6bf063ab99c5b7ef01993aec8fd6bdd06dd8f7d
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90074065"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066474"
 ---
 # <a name="code-first-data-annotations"></a>Code First Data Annotations (Code First のデータ注釈)
 > [!NOTE]
@@ -370,7 +370,7 @@ Code first でデータベースを生成しているときに、バイト列ま
     }
 ```
 
-### <a name="multiple-column-indexes"></a>複数列のインデックス
+### <a name="multiple-column-indexes"></a>Multiple-Column インデックス
 
 複数の列にまたがるインデックスは、指定されたテーブルの複数のインデックス注釈で同じ名前を使用して指定されます。 複数列のインデックスを作成する場合は、インデックス内の列の順序を指定する必要があります。 たとえば、次のコードでは、に複数列のインデックスを作成 `Rating` し、 `BlogId` **IX \_ ブログ idand格付け**という名前を付けています。 `BlogId` はインデックスの最初の列で、 `Rating` は2番目の列です。
 

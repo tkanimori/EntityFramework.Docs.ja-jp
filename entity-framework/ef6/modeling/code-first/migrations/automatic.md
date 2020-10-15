@@ -1,15 +1,15 @@
 ---
 title: 自動 Code First Migrations-EF6
 description: Entity Framework 6 の自動 Code First Migrations
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/migrations/automatic
-ms.openlocfilehash: e7bd9ff7d9dcecb7fecf213306047a53fc04135c
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 8152cdf642258a30d98f3750bf1ca4ccd2859978
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072565"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066409"
 ---
 # <a name="automatic-code-first-migrations"></a>自動 Code First Migrations
 自動移行を使用すると、変更ごとにプロジェクトにコードファイルを作成しなくても Code First Migrations を使用できます。 すべての変更を自動的に適用できるわけではありません。たとえば、列の名前を変更するには、コードベースの移行を使用する必要があります。
@@ -116,7 +116,7 @@ Code First Migrations には、よく使うことになる 2 つのプライマ�
 -   **Add-Migration** では、最後の移行が作成されてからモデルに加えた変更に基づいて、次の移行をスキャフォールディングします
 -   **Update-Database** では、保留中の移行をデータベースに適用します
 
-(本当に必要な場合を除き) 追加移行を使用しないようにし、Code First Migrations によって自動的に計算され、変更が適用されるようにします。 **更新データベース**を使用して、モデル (新しい**Blog. Ur**l プロパティ) への変更をデータベースにプッシュ Code First Migrations を取得してみましょう。
+ここでは、Add-Migration (本当に必要な場合を除き) を使用しないようにし、Code First Migrations によって自動的に計算され、変更が適用されるようにします。 **更新データベース**を使用して、モデル (新しい**Blog. Ur**l プロパティ) への変更をデータベースにプッシュ Code First Migrations を取得してみましょう。
 
 -   パッケージマネージャーコンソールで、 **データベースの更新** コマンドを実行します。
 
@@ -164,7 +164,7 @@ Code First Migrations には、よく使うことになる 2 つのプライマ�
 ```
 
 これらの変更をデータベースにプッシュするには、 **Update データベース** を実行するだけです。 ただし、null 非許容のブログを追加 **しています。評価** 列には、テーブルに既存のデータがある場合は、新しい列のデータ型の CLR の既定値が割り当てられます (評価は整数であり、 **0**になります)。 ただし、**Blogs** テーブルの既存の行が適切な評価で開始されるように、既定値の **3** を指定する必要があります。
-ここでは、[移行の追加] コマンドを使用して、コードベースの移行にこの変更を書き込んで、編集できるようにしましょう。 [ **移行の追加** ] コマンドを使用すると、これらの移行に名前を付けることができます。私たちの **AddBlogRating**を呼び出すだけです。
+Add-Migration コマンドを使用して、コードベースの移行にこの変更を書き込んで、編集できるようにしましょう。 [ **移行の追加** ] コマンドを使用すると、これらの移行に名前を付けることができます。私たちの **AddBlogRating**を呼び出すだけです。
 
 -   パッケージマネージャーコンソールで、[ **AddBlogRating の追加と移行** ] コマンドを実行します。
 -   **移行**フォルダーに、新しい**AddBlogRating**移行が追加されました。 移行ファイル名は、順序付けを支援するタイムスタンプで事前に固定されています。 生成されたコードを編集して、ブログの既定値3を指定してみましょう (下のコードの10行目)
