@@ -1,15 +1,15 @@
 ---
 title: 以前のバージョンから EF Core 2 へのアップグレード - EF Core
 description: Entity Framework Core 2.0 へのアップグレードの手順と注意事項
-author: divega
+author: ajcvickers
 ms.date: 08/13/2017
 uid: core/what-is-new/ef-core-2.0/upgrade
-ms.openlocfilehash: bdc0cfe8c0be4a83f8c78ba2ac66bb1e18cea0f7
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: c7c736629209da99f191ceb0d4000d19f40414b9
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072344"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063440"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 へのアプリケーションのアップグレード
 
@@ -37,7 +37,7 @@ ASP.NET Core Web アプリケーションに推奨されるパターンは、2.0
 
 新しいデザイン時フックが ASP.NET Core 2.0 の既定のテンプレートに追加されました。 静的メソッド `Program.BuildWebHost` を使用すると、デザイン時に EF Core がアプリケーションのサービスプロバイダーにアクセスするのを可能にすることができます。 ASP.NET Core 1.x アプリケーションをアップグレードする場合は、次のように `Program` クラスを更新する必要があります。
 
-``` csharp
+```csharp
 using Microsoft.AspNetCore;
 using Microsoft.AspNetCore.Hosting;
 
@@ -108,13 +108,13 @@ ID もまた、Microsoft.EntityFrameworkCore.Infrastructure から新しい Micr
 
 EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](/dotnet/api/microsoft.entityframeworkcore.metadata.imodel) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、_一般的なリレーショナル メタデータ コンセプト_へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。たとえば、次のような 1.1.x コードがあるとします。
 
-``` csharp
+```csharp
 var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName;
 ```
 
 次のように記述されるようになります。
 
-``` csharp
+```csharp
 var tableName = context.Model.FindEntityType(typeof(User)).Relational().TableName;
 ```
 
@@ -137,7 +137,7 @@ EF Core では、その内部実装に内部 `IServiceProvider` (依存関係挿
 
 名前のないグローバルなインメモリ データベースは削除されているので、代わりに、すべてのインメモリ データベースに名前を付ける必要があります。 次に例を示します。
 
-``` csharp
+```csharp
 optionsBuilder.UseInMemoryDatabase("MyDatabase");
 ```
 
@@ -161,7 +161,7 @@ optionsBuilder.UseInMemoryDatabase("MyDatabase");
 
 EF Core 2.0 で `Scaffold-DbContext` または `dotnet ef dbcontext scaffold` を有効にするには、1 つのプロバイダー パッケージを参照するだけで済みます。
 
-``` xml
+```xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.SqlServer"
     Version="2.0.0" />
 <PackageReference Include="Microsoft.EntityFrameworkCore.Tools"

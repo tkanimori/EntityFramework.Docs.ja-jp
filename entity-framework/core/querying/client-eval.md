@@ -4,12 +4,12 @@ description: Entity Framework Core を使用した、クライアントおよび
 author: smitpatel
 ms.date: 10/03/2019
 uid: core/querying/client-eval
-ms.openlocfilehash: 41be7da26423f50017f57a7686f65bd8baf69ef5
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: f2e80541439de8cc824c182e52400f730dd2af48
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071174"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062712"
 ---
 # <a name="client-vs-server-evaluation"></a>クライアントとサーバーの評価
 
@@ -19,21 +19,21 @@ ms.locfileid: "90071174"
 > バージョン 3.0 より前では、Entity Framework Core で、クエリ内の任意の場所でのクライアント評価がサポートされていました。 詳細については、[以前のバージョンに関するセクション](#previous-versions)を参照してください。
 
 > [!TIP]
-> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying/ClientEvaluation)は GitHub で確認できます。
 
 ## <a name="client-evaluation-in-the-top-level-projection"></a>最上位レベルのプロジェクションでのクライアント評価
 
 次の例では、SQL Server データベースから返される、ブログの URL を標準化するために、ヘルパー メソッドが使用されています。 SQL Server プロバイダーではこのメソッドの実装方法が把握されないため、SQL に変換することはできません。 クエリの他の側面はすべてデータベースで評価されますが、このメソッド経由で返された `URL` の受け渡しはクライアント上で行われます。
 
-[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientProjection)]
+[!code-csharp[Main](../../../samples/core/Querying/ClientEvaluation/Program.cs#ClientProjection)]
 
-[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientMethod)]
+[!code-csharp[Main](../../../samples/core/Querying/ClientEvaluation/Program.cs#ClientMethod)]
 
 ## <a name="unsupported-client-evaluation"></a>サポートされていないクライアント評価
 
 クライアント評価は便利ですが、パフォーマンスが低下する可能性があります。 次のクエリについて考えてみます。ここでは、ヘルパー メソッドが where フィルターで使用されています。 フィルターはデータベースで適用できないため、クライアントにフィルターを適用するには、すべてのデータをメモリに取り込む必要があります。 フィルターとサーバー上のデータの量に基づいて、クライアント評価でパフォーマンスが低下する可能性があります。 そのため、Entity Framework Core ではこのようなクライアント評価をブロックし、ランタイム例外をスローします。
 
-[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ClientWhere)]
+[!code-csharp[Main](../../../samples/core/Querying/ClientEvaluation/Program.cs#ClientWhere)]
 
 ## <a name="explicit-client-evaluation"></a>明示的なクライアント評価
 
@@ -44,7 +44,7 @@ ms.locfileid: "90071174"
 
 このような場合は、`AsEnumerable` または `ToList` (非同期の場合は `AsAsyncEnumerable` または `ToListAsync`) のようなメソッドを呼び出すことにより、クライアント評価を明示的に選択することができます。 `AsEnumerable` を使用すると、結果をストリーミングすることになりますが、`ToList` を使用すると、リストを作成することによってバッファリングが発生し、追加のメモリも必要になります。 複数回列挙する場合でも、データベースに対するクエリは 1 つのみであるため、結果をリストに格納するのがより有効です。 特定の使用方法に応じて、ケースにより有効なメソッドを評価する必要があります。
 
-[!code-csharp[Main](../../../samples/core/Querying/ClientEval/Sample.cs#ExplicitClientEval)]
+[!code-csharp[Main](../../../samples/core/Querying/ClientEvaluation/Program.cs#ExplicitClientEvaluation)]
 
 ## <a name="potential-memory-leak-in-client-evaluation"></a>クライアント評価での潜在的なメモリ リーク
 

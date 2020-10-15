@@ -1,15 +1,15 @@
 ---
 title: 基本の保存 - EF Core
 description: Entity Framework Core を使用したデータの追加、更新、削除に関する基本情報
-author: rowanmiller
+author: ajcvickers
 ms.date: 10/27/2016
 uid: core/saving/basic
-ms.openlocfilehash: ea73ff86d8843acf8226f9d6696b79b99da9dab7
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: c6288fc8ca79b78b6c377f25e3874211b38059b2
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070953"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063635"
 ---
 # <a name="basic-save"></a>基本の保存
 

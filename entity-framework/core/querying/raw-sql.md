@@ -4,29 +4,29 @@ description: Entity Framework Core のクエリに対する生 SQL の使用
 author: smitpatel
 ms.date: 10/08/2019
 uid: core/querying/raw-sql
-ms.openlocfilehash: 13f5cbfbd7a110394402bff74d51b5fcda04c642
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 9c480d13c46c7c84554996bcb581627a1df318dd
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071135"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062595"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
 Entity Framework Core を使用すると、リレーショナル データベースを操作するときに生 SQL クエリにドロップ ダウンすることができます。 生 SQL クエリは、必要なクエリが LINQ を使用して表現できない場合に便利です。 また、生 SQL クエリは、LINQ クエリを使うと、効率の悪い SQL クエリになる場合にも使用されます。 生 SQL クエリは、通常のエンティティ型か、モデルの一部である[キーレス エンティティ型](xref:core/modeling/keyless-entity-types)を返すことができます。
 
 > [!TIP]  
-> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying/)は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying/RawSQL)は GitHub で確認できます。
 
 ## <a name="basic-raw-sql-queries"></a>基本的な生 SQL クエリ
 
 `FromSqlRaw` 拡張メソッドを使用して、生 SQL クエリに基づいた LINQ クエリを開始できます。 `FromSqlRaw` は、`DbSet<>` に直接配置されている、クエリ ルートでのみ使用できます。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRaw)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlRaw)]
 
 生 SQL クエリを使用してストアド プロシージャを実行できます。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedure)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlRawStoredProcedure)]
 
 ## <a name="passing-parameters"></a>パラメーターを渡す
 
@@ -39,22 +39,22 @@ Entity Framework Core を使用すると、リレーショナル データベー
 
 次の例では、パラメーターのプレースホルダーを SQL クエリ文字列に含め、追加の引数を指定することによって、ストアド プロシージャに 1 つのパラメーターを渡しています。 この構文は `String.Format` 構文のように見えるかもしれませんが、提供された値は `DbParameter` にラップされ、生成されたパラメーター名は、`{0}` プレースホルダーが指定された場所に挿入されます。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureParameter)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlRawStoredProcedureParameter)]
 
 `FromSqlInterpolated` は `FromSqlRaw` に似ていますが、文字列補間構文を使用できます。 `FromSqlRaw` と同じように、`FromSqlInterpolated` はクエリ ルートでのみ使用できます。 前の例と同様に、値は `DbParameter` に変換され、SQL インジェクションに対して脆弱ではありません。
 
 > [!NOTE]
 > バージョン 3.0 より前では、`FromSqlRaw` と `FromSqlInterpolated` は、`FromSql` という名前の 2 つのオーバーロードでした。 詳細については、[以前のバージョンに関するセクション](#previous-versions)を参照してください。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedStoredProcedureParameter)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlInterpolatedStoredProcedureParameter)]
 
 また、DbParameter を構築し、それをパラメーター値として指定することもできます。 文字列のプレースホルダーではなく、通常の SQL パラメーターのプレースホルダーが使用されるため、`FromSqlRaw` を安全に使用できます。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureSqlParameter)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlRawStoredProcedureSqlParameter)]
 
 `FromSqlRaw` では、SQL クエリ文字列で名前付きパラメーターを使用できます。これはストアド プロシージャに省略可能なパラメーターがある場合に便利です。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlRawStoredProcedureNamedSqlParameter)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlRawStoredProcedureNamedSqlParameter)]
 
 > [!NOTE]
 > **パラメーターの順序付け** `SqlParameter[]` 配列の順序に基づいて、Entity Framework Core によってパラメーターが渡されます。 複数の `SqlParameter` を渡す場合の SQL 文字列内の順序付けは、ストアド プロシージャの定義内のパラメーターの順序と一致する必要があります。 この手順を行わないと、そのプロシージャが実行されるときに、型変換の例外や予期しない動作が発生する可能性があります。
@@ -63,7 +63,7 @@ Entity Framework Core を使用すると、リレーショナル データベー
 
 LINQ 演算子を使用して、最初の生 SQL クエリに基づいて構成することができます。 EF Core では、これをサブクエリとして扱い、データベースで構成します。 次の例では、テーブル値関数 (TVF) から選択する生 SQL クエリを使用します。 その後、LINQ を使用してそれを構成し、フィルター処理と並べ替えを行います。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedComposed)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlInterpolatedComposed)]
 
 上記のクエリでは、次の SQL が生成されます。
 
@@ -80,7 +80,7 @@ ORDER BY [b].[Rating] DESC
 
 `Include` メソッドを使用して、他の LINQ クエリと同様に、関連データを含めることができます。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedInclude)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlInterpolatedInclude)]
 
 EF Core では提供された SQL がサブクエリとして扱われるため、LINQ を使用して構成するには、生 SQL クエリがコンポーザブルである必要があります。 `SELECT` キーワードで始まる SQL クエリを作成できます。 さらに、次のような、サブクエリでは無効な文字やオプションを、渡される SQL に含めることはできません。
 
@@ -96,7 +96,7 @@ SQL Server ではストアド プロシージャ呼び出しを構成するこ�
 
 次の例では、テーブル値関数 (TVF) から選択し、`AsNoTracking` の呼び出しを使用して変更追跡を無効にする生 SQL クエリを使用しています。
 
-[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Sample.cs#FromSqlInterpolatedAsNoTracking)]
+[!code-csharp[Main](../../../samples/core/Querying/RawSQL/Program.cs#FromSqlInterpolatedAsNoTracking)]
 
 ## <a name="limitations"></a>制限事項
 

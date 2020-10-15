@@ -1,15 +1,15 @@
 ---
 title: EF Core 2.2 の新機能 - EF Core
 description: Entity Framework Core 2.2 での変更点と改善点
-author: divega
+author: ajcvickers
 ms.date: 11/14/2018
 uid: core/what-is-new/ef-core-2.2
-ms.openlocfilehash: 68e3cbd5c7345330a47f1457c9b096fee5dd49e9
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: ca71c7479254b25fe932e6abf43fe0fd8f1781b3
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072330"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065694"
 ---
 # <a name="new-features-in-ef-core-22"></a>EF Core 2.2 の新機能
 
@@ -27,7 +27,7 @@ EF Core 2.2 では、[NetTopologySuite](https://github.com/NetTopologySuite/NetT
 
 プロバイダーの拡張機能をインストールすると、サポートされている型のプロパティをエンティティに追加できます。 次に例を示します。
 
-``` csharp
+```csharp
 using NetTopologySuite.Geometries;
 
 namespace MyApp
@@ -36,7 +36,7 @@ namespace MyApp
   {
     [Key]
     public string Name { get; set; }
-  
+
     [Required]
     public Point Location { get; set; }
   }
@@ -45,7 +45,7 @@ namespace MyApp
 
 その後、空間データを含むエンティティを保持できます。
 
-``` csharp
+```csharp
 using (var context = new MyDbContext())
 {
     context.Add(
@@ -60,11 +60,11 @@ using (var context = new MyDbContext())
 
 さらに、空間のデータと操作に基づくデータベース クエリを実行できます。
 
-``` csharp
-  var nearestFriends =
-      (from f in context.Friends
-      orderby f.Location.Distance(myLocation) descending
-      select f).Take(5).ToList();
+```csharp
+var nearestFriends =
+    (from f in context.Friends
+    orderby f.Location.Distance(myLocation) descending
+    select f).Take(5).ToList();
 ```
 
 この機能について詳しくは、[空間型に関するドキュメント](xref:core/modeling/spatial)をご覧ください。
@@ -85,7 +85,7 @@ EF Core 2.2 では、所有権を表す機能が一対多の関連付けに拡�
 
 この機能を使用するには、新しい OwnsMany() API を呼び出します。
 
-``` csharp
+```csharp
 modelBuilder.Entity<Customer>().OwnsMany(c => c.Addresses);
 ```
 
@@ -98,16 +98,16 @@ modelBuilder.Entity<Customer>().OwnsMany(c => c.Addresses);
 クエリのタグを利用するには、新しい TagWith() メソッドを使用して LINQ クエリに注釈を付けます。
 前の例の空間クエリを使用します。
 
-``` csharp
-  var nearestFriends =
-      (from f in context.Friends.TagWith(@"This is my spatial query!")
-      orderby f.Location.Distance(myLocation) descending
-      select f).Take(5).ToList();
+```csharp
+var nearestFriends =
+    (from f in context.Friends.TagWith(@"This is my spatial query!")
+    orderby f.Location.Distance(myLocation) descending
+    select f).Take(5).ToList();
 ```
 
 この LINQ クエリは次の SQL 出力を生成します。
 
-``` sql
+```sql
 -- This is my spatial query!
 
 SELECT TOP(@__p_1) [f].[Name], [f].[Location]

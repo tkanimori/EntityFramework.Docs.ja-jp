@@ -4,12 +4,12 @@ description: Entity Framework Core 3.x に導入された破壊的変更の完�
 author: ajcvickers
 ms.date: 09/05/2020
 uid: core/what-is-new/ef-core-3.x/breaking-changes
-ms.openlocfilehash: e348cb630d91ebe4536b73b9a7bd9a7b6a46db79
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: a656f3182c57689fea076ed2c7731e37fe1c4a28
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072240"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065668"
 ---
 # <a name="breaking-changes-included-in-ef-core-3x"></a>EF Core 3.x に含まれる破壊的変更
 
@@ -110,7 +110,7 @@ ms.locfileid: "90072240"
 
 [問題 #15498 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/15498)
 
-> [!IMPORTANT] 
+> [!IMPORTANT]
 > EF Core 3.1 では .NET Standard 2.0 が再度ターゲットにされています。 このため、.NET Framework のサポートが復活します。
 
 **以前の動作**
@@ -144,7 +144,8 @@ ASP.NET Core 3.0 より前では、パッケージ参照を `Microsoft.AspNetCor
 
 **理由**
 
-この変更の前では、アプリケーションのターゲットが ASP.NET Core であるか SQL Server であるかに応じて、EF Core を取得するには異なる手順が必要でした。 また、ASP.NET Core のアップグレードでは、必ずしも適切だとは言えない、EF Core と SQL Server プロバイダーのアップグレードが強制されました。
+この変更の前では、アプリケーションのターゲットが ASP.NET Core であるか SQL Server であるかに応じて、EF Core を取得するには異なる手順が必要でした。
+また、ASP.NET Core のアップグレードでは、必ずしも適切だとは言えない、EF Core と SQL Server プロバイダーのアップグレードが強制されました。
 
 この変更では、EF Core の取得のエクスペリエンスは、.NET の実装とアプリケーションの種類がサポートされる、すべてのプロバイダーで同じになります。
 また、開発者は、EF Core と EF Core データ プロバイダーのアップグレードのタイミングを正確に制御できるようになりました。
@@ -160,11 +161,11 @@ ASP.NET Core 3.0 アプリケーションまたはその他のサポートされ
 
 **以前の動作**
 
-3\.0 より前は `dotnet ef` ツールが .NET Core SDK に含まれており、追加の手順を必要とせずに、任意のプロジェクトのコマンド ラインから簡単に使用できました。 
+3\.0 より前は `dotnet ef` ツールが .NET Core SDK に含まれており、追加の手順を必要とせずに、任意のプロジェクトのコマンド ラインから簡単に使用できました。
 
 **新しい動作**
 
-3\.0 以降は .NET SDK に `dotnet ef` ツールが含まれないため、これを使用するにはローカルまたはグローバルなツールとして明示的にインストールする必要があります。 
+3\.0 以降は .NET SDK に `dotnet ef` ツールが含まれないため、これを使用するにはローカルまたはグローバルなツールとして明示的にインストールする必要があります。
 
 **理由**
 
@@ -174,8 +175,8 @@ ASP.NET Core 3.0 アプリケーションまたはその他のサポートされ
 
 移行の管理や `DbContext` のスキャフォールディングを行えるようにするには、`dotnet-ef` をグローバル ツールとしてインストールします。
 
-  ``` console
-    $ dotnet tool install --global dotnet-ef
+  ```dotnetcli
+  dotnet tool install --global dotnet-ef
   ```
 
 [ツール マニフェスト ファイル](/dotnet/core/tools/global-tools#install-a-local-tool)を使用してツールの依存関係として宣言するプロジェクトの依存関係を復元するときに、ローカルなツールとして取得することもできます。
@@ -327,7 +328,7 @@ EF Core 3.0 より前では、後で実際の値がデータベースによっ�
 
 **理由**
 
-この変更は、何らかの `DbContext` インスタンスによって以前に追跡されたエンティティが、別の `DbContext` インスタンスに移動されるときに、一時キーの値が誤って永続的なものにならないようにするために行われました。 
+この変更は、何らかの `DbContext` インスタンスによって以前に追跡されたエンティティが、別の `DbContext` インスタンスに移動されるときに、一時キーの値が誤って永続的なものにならないようにするために行われました。
 
 **軽減策**
 
@@ -491,7 +492,7 @@ API の以下の部分は使用されなくなりました。
 
 **以前の動作**
 
-EF Core 3.0 より前では、所有リレーションシップの構成は、`OwnsOne` または `OwnsMany` の呼び出し直後に実行されました。 
+EF Core 3.0 より前では、所有リレーションシップの構成は、`OwnsOne` または `OwnsMany` の呼び出し直後に実行されました。
 
 **新しい動作**
 
@@ -512,7 +513,7 @@ modelBuilder.Entity<Order>.OwnsOne(e => e.Details, eb =>
         eb.WithOwner()
             .HasForeignKey(e => e.AlternateId)
             .HasConstraintName("FK_OrderDetails");
-            
+
         eb.ToTable("OrderDetails");
         eb.HasKey(e => e.AlternateId);
         eb.HasIndex(e => e.Id);
@@ -1136,7 +1137,7 @@ EF Core 3.0 より前では、異常な数の内部サービス プロバイダ�
 
 **新しい動作**
 
-EF Core 3.0 以降では、この警告はエラーと見なされるようになり、例外がスローされます。 
+EF Core 3.0 以降では、この警告はエラーと見なされるようになり、例外がスローされます。
 
 **理由**
 
@@ -1246,13 +1247,13 @@ modelBuilder.Entity<Samurai>().HasOne("Some.Entity.Type.Name", null).WithOne();
 これにより、一般的ではない、注釈として直接型マッピングにアクセスするアプリケーションのみが中断されるようになります。
 問題を解決するための最も適切なアクションは、注釈を直接使用するのではなく、API サーフェスを使用して型マッピングにアクセスすることです。
 
-### <a name="totable-on-a-derived-type-throws-an-exception"></a>派生型の ToTable で例外がスローされる 
+### <a name="totable-on-a-derived-type-throws-an-exception"></a>派生型の ToTable で例外がスローされる
 
 [問題 #11811 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/11811)
 
 **以前の動作**
 
-EF Core 3.0 より前では、唯一の継承マッピング方法が TPH であり、これが有効でない場合には、派生型で呼び出された `ToTable()` が無視されていました。 
+EF Core 3.0 より前では、唯一の継承マッピング方法が TPH であり、これが有効でない場合には、派生型で呼び出された `ToTable()` が無視されていました。
 
 **新しい動作**
 
@@ -1267,7 +1268,7 @@ EF Core 3.0 以降、および今後のリリースでの TPT と TPC のサポ�
 
 派生型を他のテーブルにマップしないようにします。
 
-### <a name="forsqlserverhasindex-replaced-with-hasindex"></a>ForSqlServerHasIndex が HasIndex に置き換えられた 
+### <a name="forsqlserverhasindex-replaced-with-hasindex"></a>ForSqlServerHasIndex が HasIndex に置き換えられた
 
 [問題 #12366 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/12366)
 
@@ -1397,7 +1398,7 @@ GUID のバイナリ形式は標準化されていません。 値をテキス�
 
 次のように SQL を実行すると、既存のデータベースを新しい形式に移行することができます。
 
-``` sql
+```sql
 UPDATE MyTable
 SET GuidColumn = hex(substr(GuidColumn, 4, 1)) ||
                  hex(substr(GuidColumn, 3, 1)) ||
@@ -1414,7 +1415,7 @@ WHERE typeof(GuidColumn) == 'blob';
 
 EF Core では、このようなプロパティで値コンバーターを構成することで、以前の動作を使い続けることもできます。
 
-``` csharp
+```csharp
 modelBuilder
     .Entity<MyEntity>()
     .Property(e => e.GuidProperty)
@@ -1447,7 +1448,7 @@ Char の値はテキストとして格納されるようになりました。
 
 次のように SQL を実行すると、既存のデータベースを新しい形式に移行することができます。
 
-``` sql
+```sql
 UPDATE MyTable
 SET CharColumn = char(CharColumn)
 WHERE typeof(CharColumn) = 'integer';
@@ -1455,7 +1456,7 @@ WHERE typeof(CharColumn) = 'integer';
 
 EF Core では、このようなプロパティで値コンバーターを構成することで、以前の動作を使い続けることもできます。
 
-``` csharp
+```csharp
 modelBuilder
     .Entity<MyEntity>()
     .Property(e => e.CharProperty)
@@ -1490,7 +1491,7 @@ Microsoft.Data.Sqlite では、引き続き整数とテキストの両方の列�
 
 移行 ID は、移行のデザイナー ファイルの移行属性にあります。
 
-``` diff
+```diff
  [DbContext(typeof(MyDbContext))]
 -[Migration("25620318122820_MyMigration")]
 +[Migration("20190318122820_MyMigration")]
@@ -1500,7 +1501,7 @@ Microsoft.Data.Sqlite では、引き続き整数とテキストの両方の列�
 
 移行履歴テーブルも更新する必要があります。
 
-``` sql
+```sql
 UPDATE __EFMigrationsHistory
 SET MigrationId = CONCAT(LEFT(MigrationId, 4)  - 543, SUBSTRING(MigrationId, 4, 150))
 ```
@@ -1517,7 +1518,7 @@ EF Core 3.0 より前では、`UseRowNumberForPaging` を使って、SQL Server 
 
 **新しい動作**
 
-EF Core 3.0 以降では、EF によって生成できるのは、それ以降のバージョンの SQL Server とのみ互換性があるページング用の SQL のみとなります。 
+EF Core 3.0 以降では、EF によって生成できるのは、それ以降のバージョンの SQL Server とのみ互換性があるページング用の SQL のみとなります。
 
 **理由**
 
@@ -1643,7 +1644,7 @@ EF Core 3.0 以降、これは DevelopmentDependency パッケージになりま
 
 EF Core のデザイン時の動作をオーバーライドするためにこのパッケージを参照する必要がある場合は、プロジェクトの PackageReference 項目メタデータを更新することができます。
 
-``` xml
+```xml
 <PackageReference Include="Microsoft.EntityFrameworkCore.Design" Version="3.0.0">
   <PrivateAssets>all</PrivateAssets>
   <!-- Remove IncludeAssets to allow compiling against the assembly -->
@@ -1722,7 +1723,7 @@ Always Encrypted などの重要な機能は、Microsoft.Data.SqlClient での�
 
 <a name="mersa"></a>
 
-### <a name="multiple-ambiguous-self-referencing-relationships-must-be-configured"></a>複数のあいまいな自己参照リレーションシップを構成する必要がある 
+### <a name="multiple-ambiguous-self-referencing-relationships-must-be-configured"></a>複数のあいまいな自己参照リレーションシップを構成する必要がある
 
 [イシュー #13573 の追跡](https://github.com/aspnet/EntityFrameworkCore/issues/13573)
 
@@ -1731,7 +1732,7 @@ Always Encrypted などの重要な機能は、Microsoft.Data.SqlClient での�
 複数の自己参照型一方向ナビゲーション プロパティと一致する FK を持つエンティティ型が、1 つのリレーションシップとして正しく構成されませんでした。 次に例を示します。
 
 ```csharp
-public class User 
+public class User
 {
         public Guid Id { get; set; }
         public User CreatedBy { get; set; }
@@ -1758,7 +1759,7 @@ modelBuilder
      .Entity<User>()
      .HasOne(e => e.CreatedBy)
      .WithMany();
- 
+
  modelBuilder
      .Entity<User>()
      .HasOne(e => e.UpdatedBy)

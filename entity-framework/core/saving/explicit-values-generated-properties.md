@@ -1,15 +1,15 @@
 ---
 title: 生成されるプロパティに明示的な値を設定する - EF Core
 description: Entity Framework Core で生成されるように構成されたプロパティでの値の明示的な設定に関する情報
-author: rowanmiller
+author: ajcvickers
 ms.date: 10/27/2016
 uid: core/saving/explicit-values-generated-properties
-ms.openlocfilehash: efaa87356a78c4ec7e11d57c1effad776bd01cba
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: b3a31d8139b244bec72347cf20600b6c2b65c7d2
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072487"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062998"
 ---
 # <a name="setting-explicit-values-for-generated-properties"></a>生成されるプロパティに明示的な値を設定する
 
@@ -17,7 +17,7 @@ ms.locfileid: "90072487"
 
 プロパティを生成するのではなく、生成されるプロパティに明示的な値を設定したいという場合があります。
 
-> [!TIP]  
+> [!TIP]
 > この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/ExplicitValuesGenerateProperties/)は GitHub で確認できます。
 
 ## <a name="the-model"></a>Model
@@ -41,7 +41,7 @@ ms.locfileid: "90072487"
 
 1 人目の従業員に対してはデータベースが値を生成したこと、また、2 人目の従業員に対しては明示的な値が使用されたことが、出力に表示されます。
 
-``` Console
+```output
 1: John Doe, 1/26/2017 12:00:00 AM
 2: Jane Doe, 1/1/2000 12:00:00 AM
 ```
@@ -52,14 +52,14 @@ ms.locfileid: "90072487"
 
 ほとんどの状況で、上述した方法がキー プロパティに対して有効です。 しかし、SQL Server の `IDENTITY` 列に明示的な値を挿入するには、`SaveChanges()` を呼び出す前に `IDENTITY_INSERT` を手動で有効にする必要があります。
 
-> [!NOTE]  
+> [!NOTE]
 > SQL Server プロバイダー内で自動的にこれを行うための[機能要求](https://github.com/aspnet/EntityFramework/issues/703)が、バックログに用意されています。
 
 [!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/Sample.cs#EmployeeId)]
 
 指定された ID がデータベースに保存されたことが、出力に表示されます。
 
-``` Console
+```output
 100: John Doe
 101: Jane Doe
 ```
@@ -70,11 +70,8 @@ ms.locfileid: "90072487"
 
 [!code-csharp[Main](../../../samples/core/Saving/ExplicitValuesGenerateProperties/EmployeeContext.cs#LastPayRaise)]
 
-> [!NOTE]  
+> [!NOTE]
 > 既定では、更新中に生成されるように構成されたプロパティに明示的な値の保存を試行しようとすると、EF Core は例外をスローします。 これを回避するには、下位レベルのメタデータ API にドロップダウンして、`AfterSaveBehavior` を設定する必要があります (上記を参照)。
-
-> [!NOTE]  
-> **EF Core 2.0 での変更:** 前のリリースでは、保存後の動作は `IsReadOnlyAfterSave` フラグ経由で制御されていました。 このフラグは廃止され、`AfterSaveBehavior` に置き換えられました。
 
 また、データベースには、`UPDATE` 操作中に `LastPayRaise` 列の値を生成するためのトリガーがあります。
 
@@ -89,7 +86,7 @@ ms.locfileid: "90072487"
 
 1 人目の従業員に対してはデータベースが値を生成したこと、また、2 人目の従業員に対しては明示的な値が使用されたことが、出力に表示されます。
 
-``` Console
+```output
 1: John Doe, 1/26/2017 12:00:00 AM
 2: Jane Doe, 1/19/2017 12:00:00 AM
 ```

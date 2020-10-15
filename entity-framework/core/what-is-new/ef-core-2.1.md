@@ -1,15 +1,15 @@
 ---
 title: EF Core 2.1 の新機能 - EF Core
 description: Entity Framework Core 2.1 での変更点と改善点
-author: divega
+author: ajcvickers
 ms.date: 02/20/2018
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: b3d44fe344155df1d814e189b533010673754089
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: c98a44f9bc06447bb41f0278c59b412f770c5bd4
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072318"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065707"
 ---
 # <a name="new-features-in-ef-core-21"></a>EF Core 2.1 の新機能
 
@@ -35,7 +35,7 @@ EF Core に、すべてのユーザーが自身のナビゲーション プロ�
 - 符号なし整数と SQL Server とのマッピング
 - プロパティ値の自動での暗号化と復号化
 
-このトピックの詳細については、[値変換のセクション](xref:core/modeling/value-conversions)をご覧ください。  
+このトピックの詳細については、[値変換のセクション](xref:core/modeling/value-conversions)をご覧ください。
 
 ## <a name="linq-groupby-translation"></a>LINQ GroupBy 変換
 
@@ -43,7 +43,7 @@ EF Core 2.1 より前のバージョンでは、GroupBy LINQ 演算子は常に�
 
 この例では、さまざまな集計関数の計算に使用される GroupBy を使用したクエリを示しています。
 
-``` csharp
+```csharp
 var query = context.Orders
     .GroupBy(o => new { o.CustomerId, o.EmployeeId })
     .Select(g => new
@@ -59,7 +59,7 @@ var query = context.Orders
 
 対応する SQL 変換は、次のようになります。
 
-``` SQL
+```sql
 SELECT [o].[CustomerId], [o].[EmployeeId],
     SUM([o].[Amount]), MIN([o].[Amount]), MAX([o].[Amount]), AVG([o].[Amount])
 FROM [Orders] AS [o]
@@ -72,11 +72,11 @@ GROUP BY [o].[CustomerId], [o].[EmployeeId];
 
 次の例に示すように、これを使用して `OnModelCreating` の Post にシード データを構成できます。
 
-``` csharp
+```csharp
 modelBuilder.Entity<Post>().HasData(new Post{ Id = 1, Text = "Hello World!" });
 ```
 
-このトピックの詳細については、[データのシード処理に関するセクション](xref:core/modeling/data-seeding)をご覧ください。  
+このトピックの詳細については、[データのシード処理に関するセクション](xref:core/modeling/data-seeding)をご覧ください。
 
 ## <a name="query-types"></a>クエリ型
 
@@ -93,7 +93,7 @@ EF Core モデルにクエリ型を含めることができるようになりま
 
 `Include` メソッドの式を記述する際に、派生型でのみ定義されているナビゲーション プロパティを指定できるようになりました。 `Include` の厳密に型指定されたバージョンについては、明示的なキャストまたは `as` 演算子を使用してサポートします。 また、`Include` の文字列バージョンの派生型で定義されているナビゲーション プロパティの名前の参照もサポートされるようになりました。
 
-``` csharp
+```csharp
 var option1 = context.People.Include(p => ((Student)p).School);
 var option2 = context.People.Include(p => (p as Student).School);
 var option3 = context.People.Include("School");
@@ -117,14 +117,14 @@ TransactionScope などの System.Transactions 機能が使用できるように
 
 例として、次のクエリは、通常、Customers (顧客) の 1 つのクエリに加え、Orders の N 個 ("N" は返された顧客の数) の個別のクエリに変換されます。
 
-``` csharp
+```csharp
 var query = context.Customers.Select(
     c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount));
 ```
 
 適切な場所に `ToList()` を含めることで、最適化を有効にするバッファリングが Orders に適していることを示します。
 
-``` csharp
+```csharp
 var query = context.Customers.Select(
     c => c.Orders.Where(o => o.Amount  > 100).Select(o => o.Amount).ToList());
 ```
@@ -135,7 +135,7 @@ var query = context.Customers.Select(
 
 `[Owned]` で型に注釈を付けるだけで、[所有エンティティ型](xref:core/modeling/owned-entities)を構成して、所有者エンティティをモデルに確実に追加できるようになりました。
 
-``` csharp
+```csharp
 [Owned]
 public class StreetAddress
 {
@@ -168,7 +168,7 @@ _dotnet-ef_ コマンドは .NET Core SDK の一部になりました。した�
 
 EF Core に組み込まれた新しいコード アナライザーは、`FromSql` や `ExecuteSqlCommand` などの生 SQL API の安全ではない可能性がある使用法を検出します。 たとえば次のクエリでは、_minAge_ がパラメーター化されていないため、警告が発生します。
 
-``` csharp
+```csharp
 var sql = $"SELECT * FROM People WHERE Age > {minAge}";
 var query = context.People.FromSql(sql);
 ```

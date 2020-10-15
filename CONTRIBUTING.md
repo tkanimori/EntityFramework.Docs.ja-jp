@@ -4,9 +4,9 @@
 
 ## <a name="how-to-make-a-simple-correction-or-suggestion"></a>簡単な修正や提案を行う方法
 
-記事は、マークダウン ファイルとしてリポジトリに格納されます。 マークダウン ファイルのコンテンツに対して簡単な変更を行うには、ブラウザー ウィンドウの右上隅にある **[編集]** リンクをクリックします。 場合によっては、**オプション** バーを展開して、 **[編集]** リンクを表示する必要があります。 指示に従って pull request (PR) を作成します。 EF チームによって、PR がレビューされ、受け入れられるか変更が提案されます。
+記事は、マークダウン ファイルとしてリポジトリに格納されます。 マークダウン ファイルのコンテンツに対して簡単な変更を行うには、ブラウザー ウィンドウの右上隅にある **[編集]** リンクをクリックします。 場合によっては、**オプション** バーを展開して、**[編集]** リンクを表示する必要があります。 指示に従って pull request (PR) を作成します。 EF チームによって、PR がレビューされ、受け入れられるか変更が提案されます。
 
-## <a name="how-to-make-a-more-complex-submission"></a>もっと複雑な提案を行う方法
+## <a name="how-to-make-a-more-complex-submission"></a>もっと複雑な投稿を行う方法
 
 [Git と GitHub.com](https://guides.github.com/activities/hello-world/) の基本的な理解が必要です。
 
@@ -15,7 +15,7 @@
 * 変更内容を記載した pull request (PR) をマスターに送信します。
 * PR のフィードバックに対応します。
 
-## <a name="markdown-syntax"></a>Markdown の構文
+## <a name="markdown-syntax"></a>マークダウンの構文
 
 記事は [DocFX Flavored Markdown (DFM)](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html) で書かれています。これは [GitHub flavored Markdown (GFM)](https://guides.github.com/features/mastering-markdown/) のスーパーセットです。 EF ドキュメントでよく使用される UI 機能についての DFM 構文およびメタデータの例については、.NET Core リポジトリ スタイル ガイドの「[Metadata and Markdown Template](https://github.com/dotnet/docs/blob/master/styleguide/template.md)」(メタデータおよび Markdown テンプレート) を参照してください。
 
@@ -31,35 +31,35 @@
 
 [DFM コード スニペットの構文](http://dotnet.github.io/docfx/spec/docfx_flavored_markdown.html#code-snippet)の例を次に示します。
 
-コード ファイル全体をスニペットとしてレンダリングするには:
+コード ファイル全体をスニペットとして表示するには:
 
-``` none
+```none
 [!code-csharp[Main](../../../samples/core/saving/Program.cs)]
 ```
 
-行番号を使用してファイルの一部をスニペットとして表示するには:
+行番号を使用してファイルの一部をスニペットとしてレンダリングするには:
 
-``` none
+```none
 [!code-csharp[Main](../../../samples/core/saving/Program.cs?range=1-10]
 ```
 
 C# スニペットの場合は、[C# の領域](https://msdn.microsoft.com/library/9a1ybwek.aspx)を参照できます。 行番号ではなく領域を使用してください。 コード ファイル内の行番号は変更されて、Markdown での行番号参照と同期しなくなることがよくあるためです。 C# の領域は入れ子にすることができます。 外側の領域を参照した場合、内側の `#region` と `#endregion` ディレクティブはスニペットにレンダリングされません。
 
-C# の "snippet_Example" という名前の領域を表示するには:
+"snippet_Example" という名前の C# 領域をレンダリングするには:
 
-``` none
+```none
 [!code-csharp[Main](../../../samples/core/saving/Program.cs?name=snippet_Example)]
 ```
 
-レンダリングされたスニペットで選択されている行を強調表示するには (通常は黄色の背景色でレンダリングされます):
+表示されたスニペットで選択されている行を強調表示するには (通常は黄色の背景色で表示されます):
 
-``` none
+```none
 [!code-csharp[Main](../../../samples/core/saving/Program.cs?name=snippet_Example&highlight=1-3,10,20-25)]
 ```
 
 ## <a name="test-your-changes-with-docfx"></a>DocFX で変更をテストする
 
-[DocFX コマンド ライン ツール](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html#2-use-docfx-as-a-command-line-tool)を使用して変更をテストします。このツールは、ローカルにホストされたバージョンのサイトを作成します。 DocFX では、docs.microsoft.com 用に作成されたスタイルやサイトの拡張機能はレンダリングされません。
+[DocFX コマンド ライン ツール](https://dotnet.github.io/docfx/tutorial/docfx_getting_started.html#2-use-docfx-as-a-command-line-tool)を使用して変更をテストします。このツールは、ローカルにホストされたバージョンのサイトを作成します。 DocFX では、docs.microsoft.com 用に作成されたスタイルやサイトの拡張機能は表示されません。
 
 DocFX には、Windows または、Linux または macOS 用の Mono 上の .NET Framework が必要です。
 
@@ -69,20 +69,20 @@ DocFX には、Windows または、Linux または macOS 用の Mono 上の .NET
 * DocFX を PATH に追加します。
 * コマンド ライン ウィンドウで、複製されたリポジトリ (ここには *docfx.json* ファイルが格納される) に移動し、次のコマンドを実行します。
 
-   ``` console
+   ```console
    docfx -t default --serve
    ```
 
 * ブラウザーで、`http://localhost:8080` に移動します。
 
-### <a name="mono-instructions"></a>Mono での説明
+### <a name="mono-instructions"></a>Mono での手順
 
 * Homebrew を使用して Mono をインストールします (`brew install mono`)。
 * [最新バージョンの DocFX](https://github.com/dotnet/docfx/releases/tag/v2.7.2) をダウンロードします。
 * `\bin\docfx` に展開します。
 * **docfx** の別名を作成します。
 
-  ``` console
+  ```console
   function docfx {
     mono $HOME/bin/docfx/docfx.exe
   }
@@ -94,6 +94,6 @@ DocFX には、Windows または、Linux または macOS 用の Mono 上の .NET
 
 * 複製されたリポジトリ内の **docfx** を実行して、サイトを構築し、**docfx serve** を実行して、`http://localhost:8080` でサイトを表示します。
 
-## <a name="voice-and-tone"></a>スタイルとトーン
+## <a name="voice-and-tone"></a>ボイスとトーン
 
 目標は、できるかぎり幅広いユーザーにわかりやすいドキュメントを作成することです。 そのため、共同作成者に従っていただきたい文書のスタイルのガイドラインが設けられています。 詳細については、.NET Core リポジトリの「[Voice and tone guidelines](https://github.com/dotnet/docs/blob/master/styleguide/voice-tone.md)」(スタイルとトーンのガイドライン) を参照してください。
