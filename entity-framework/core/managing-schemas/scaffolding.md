@@ -2,15 +2,14 @@
 title: リバースエンジニアリング-EF Core
 description: Entity Framework Core を使用した既存のデータベースからのモデルのリバースエンジニアリング
 author: bricelam
-ms.author: bricelam
 ms.date: 11/13/2018
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: 86aa6d22ebe8e5c1d654c83d4c292a1ed5842ddd
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: e1b4ed8d5209688fbe5c89ae60cf0d981136305f
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071915"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92061971"
 ---
 # <a name="reverse-engineering"></a> リバース エンジニアリング
 
@@ -36,7 +35,7 @@ dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer
 ```
 
@@ -77,7 +76,7 @@ dotnet ef dbcontext scaffold ... --table Artist --table Album
 
 複数のテーブルを含めるには、次のように配列を使用します。
 
-``` powershell
+```powershell
 Scaffold-DbContext ... -Tables Artist, Album
 ```
 
@@ -93,7 +92,7 @@ Scaffold-DbContext ... -Tables Artist, Album
 
 たとえば、Fluent API を使用すると、次のようにスキャフォールディングます。
 
-``` csharp
+```csharp
 entity.Property(e => e.Title)
     .IsRequired()
     .HasMaxLength(160);
@@ -101,7 +100,7 @@ entity.Property(e => e.Title)
 
 データ注釈を使用すると、次のようにスキャフォールディングます。
 
-``` csharp
+```csharp
 [Required]
 [StringLength(160)]
 public string Title { get; set; }
@@ -133,13 +132,13 @@ dotnet ef dbcontext scaffold ... --namespace Your.Namespace --context-namespace 
 
 クラスがスキャフォールディングを使用しているディレクトリを指定することができます。また、このディレクトリを使用して、 `-OutputDir` `-ContextDir` エンティティ型クラスとは別のディレクトリに dbcontext クラスをスキャフォールディングできます。
 
-``` powershell
+```powershell
 Scaffold-DbContext ... -ContextDir Data -OutputDir Models
 ```
 
 既定では、名前空間は、ルート名前空間に、プロジェクトのルートディレクトリの下にあるサブディレクトリの名前を加えたものになります。 ただし、EFCore 5.0 以降では、を使用して、すべての出力クラスの名前空間をオーバーライドでき `-Namespace` ます。 また、を使用して、DbContext クラスの名前空間だけをオーバーライドすることもでき `-ContextNamespace` ます。
 
-``` powershell
+```powershell
 Scaffold-DbContext ... -Namespace Your.Namespace -ContextNamespace Your.DbContext.Namespace
 ```
 

@@ -2,15 +2,14 @@
 title: 所有されているエンティティ型-EF Core
 description: Entity Framework Core を使用するときに所有されているエンティティ型または集計を構成する方法
 author: AndriySvyryd
-ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: f65c07c79daf38e733c76f328843c90466c657f5
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: a49d9aab735232dfd5a3db456410d527f94f3c18
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619328"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063778"
 ---
 # <a name="owned-entity-types"></a>所有されているエンティティ型
 
@@ -20,7 +19,7 @@ EF Core を使用すると、他のエンティティ型のナビゲーション
 
 ## <a name="explicit-configuration"></a>明示的な構成
 
-所有エンティティ型は、規則によってモデル内の EF Core によって含まれることはありません。 でメソッドを使用する `OwnsOne` `OnModelCreating` か、(EF Core 2.1 の新) を使用して型に注釈を付け、型を `OwnedAttribute` 所有型として構成することができます。
+所有エンティティ型は、規則によってモデル内の EF Core によって含まれることはありません。 でメソッドを使用する `OwnsOne` `OnModelCreating` か、型に注釈を付け `OwnedAttribute` て、所有型として型を構成できます。
 
 この例で `StreetAddress` は、は id プロパティのない型です。 特定の注文の配送先住所を指定するために、Order 型のプロパティとして使用されます。
 
@@ -40,6 +39,9 @@ EF Core を使用すると、他のエンティティ型のナビゲーション
 
 詳細なコンテキストについては、 [完全なサンプルプロジェクト](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) を参照してください。
 
+> [!TIP]
+> 所有されているエンティティ型は、必須としてマークできます。詳細については、「 [1 対1の依存](xref:core/modeling/relationships#one-to-one) 関係」を参照してください。
+
 ## <a name="implicit-keys"></a>暗黙のキー
 
 参照ナビゲーションを使用して構成された所有型 `OwnsOne` は、常に所有者との一対一のリレーションシップを持ちます。したがって、外部キーの値が一意であるため、独自のキー値は必要ありません。 前の例では、 `StreetAddress` 型はキープロパティを定義する必要はありません。  
@@ -47,9 +49,6 @@ EF Core を使用すると、他のエンティティ型のナビゲーション
 EF Core がこれらのオブジェクトを追跡する方法を理解するには、主キーが所有型の [シャドウプロパティ](xref:core/modeling/shadow-properties) として作成されていることを把握しておくと便利です。 所有されている型のインスタンスのキーの値は、所有者インスタンスのキーの値と同じになります。
 
 ## <a name="collections-of-owned-types"></a>所有型のコレクション
-
-> [!NOTE]
-> これは EF Core 2.2 の新機能です。
 
 所有されている型のコレクションを構成するには、でを使用 `OwnsMany` `OnModelCreating` します。
 
@@ -66,12 +65,9 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 
 既定では、ナビゲーションプロパティで参照される所有型に使用される主キーはになり `ShippingCenters` `("DistributorId", "Id")` ます。ここで、 `"DistributorId"` は FK で、 `"Id"` は一意の `int` 値です。
 
-異なる PK 呼び出しを構成するには、次のようにし `HasKey` ます。
+異なる主キー呼び出しを構成するには `HasKey`
 
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
-
-> [!NOTE]
-> EF Core 3.0 `WithOwner()` メソッドが存在しない場合は、この呼び出しを削除する必要があります。 また、主キーが自動的に検出されないため、常に指定する必要がありました。
 
 ## <a name="mapping-owned-types-with-table-splitting"></a>所有型のテーブル分割へのマッピング
 
@@ -79,7 +75,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 
 既定では、EF Core は、 _Navigation_OwnedEntityProperty_のパターンに従って、所有されているエンティティ型のプロパティのデータベース列に名前を指定します。 そのため、' `StreetAddress` Orders ' テーブルには ' ShippingAddress_Street ' と ' ShippingAddress_City ' という名前のプロパティが表示されます。
 
-メソッドを使用して、 `HasColumnName` これらの列の名前を変更できます。
+これらの列の `HasColumnName` 名前を変更するには、メソッドを使用します。
 
 [!code-csharp[ColumnNames](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=ColumnNames)]
 
@@ -92,7 +88,7 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 
 そのような場合は、所有者から所有されているエンティティを指すプロパティが、所有されているエンティティ型の _ナビゲーションを定義_ するようになります。 EF Core の観点から見ると、定義のナビゲーションは、.NET 型と共に型の id の一部になります。
 
-たとえば、次のクラスで `ShippingAddress` は、との `BillingAddress` 両方が同じ .net 型です `StreetAddress` 。
+たとえば、次のクラスで `ShippingAddress` は、との `BillingAddress` 両方が同じ .net 型 `StreetAddress` です。
 
 [!code-csharp[OrderDetails](../../../samples/core/Modeling/OwnedEntities/OrderDetails.cs?name=OrderDetails)]
 
@@ -144,16 +140,15 @@ EF Core がこれらのオブジェクトの追跡対象インスタンスを区
 
 ### <a name="by-design-restrictions"></a>設計上の制限
 
-- 所有型のを作成することはできません。 `DbSet<T>`
-- `Entity<T>()`で所有型を使用してを呼び出すことはできません。`ModelBuilder`
+- 所有型のを作成することはできません `DbSet<T>` 。
+- `Entity<T>()`で所有型を使用してを呼び出すことはできません `ModelBuilder` 。
+- 所有されているエンティティ型のインスタンスは、複数の所有者が共有することはできません (これは、所有エンティティ型を使用して実装できない値オブジェクトの既知のシナリオです)。
 
 ### <a name="current-shortcomings"></a>現在の欠点
 
 - 所有エンティティ型に継承階層を含めることはできません
-- 所有されているエンティティ型への参照ナビゲーションは、所有者から別のテーブルに明示的にマップされていない限り、null にすることはできません
-- 所有されているエンティティ型のインスタンスを複数の所有者が共有することはできません (これは、所有エンティティ型を使用して実装できない値オブジェクトの既知のシナリオです)
 
 ### <a name="shortcomings-in-previous-versions"></a>以前のバージョンの欠点
 
-- EF Core 2.0 では、所有されているエンティティ型へのナビゲーションは、所有しているエンティティが所有者階層から別のテーブルに明示的にマップされている場合を除き、派生エンティティ型で宣言することはできません。 この制限は EF Core 2.1 で削除されました
-- EF Core 2.0 および2.1 では、所有型へのナビゲーションのみがサポートされていました。 この制限は EF Core 2.2 で削除されました
+- EF Core 2.x では、所有されているエンティティ型へのナビゲーションは、所有者から別のテーブルに明示的にマップされている場合を除き、null にすることはできません。
+- EF Core 3.x では、所有しているエンティティ型の列が所有者と同じテーブルにマップされている場合、常に null 値が許容されるとしてマークされます。

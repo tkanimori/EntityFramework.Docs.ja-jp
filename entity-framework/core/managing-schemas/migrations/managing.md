@@ -2,15 +2,14 @@
 title: 移行の管理-EF Core
 description: Entity Framework Core を使用したデータベーススキーマの移行の追加、削除、および管理
 author: bricelam
-ms.author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/managing
-ms.openlocfilehash: 366824cecab57a0f1744fa58cc12e5d3f6675723
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: fdfda6f3dea306fbbc343c1be3f4d5754d1f65c4
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89617965"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062062"
 ---
 # <a name="managing-migrations"></a>移行の管理
 
@@ -31,7 +30,7 @@ dotnet ef migrations add AddBlogCreatedTimestamp
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Add-Migration AddBlogCreatedTimestamp
 ```
 
@@ -59,7 +58,7 @@ dotnet ef migrations add InitialCreate --namespace Your.Namespace
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Add-Migration InitialCreate -Namespace Your.Namespace
 ```
 
@@ -73,7 +72,7 @@ EF Core 通常は正確な移行を作成しますが、コードを常に確認
 
 移行のカスタマイズが必要な例の1つは、プロパティの名前を変更する場合です。 たとえば、プロパティの名前をからに変更すると `Name` `FullName` 、EF Core によって次の移行が生成されます。
 
-```c#
+```csharp
 migrationBuilder.DropColumn(
     name: "Name",
     table: "Customers");
@@ -86,7 +85,7 @@ migrationBuilder.AddColumn<string>(
 
 EF Core は、通常、列を削除し、新しい列 (2 つの異なる変更) を作成し、列の名前を変更する必要があるかどうかを知ることができません。 上記の移行がそのように適用されている場合、顧客名はすべて失われます。 列の名前を変更するには、上記の生成された移行を次のように置き換えます。
 
-```c#
+```csharp
 migrationBuilder.RenameColumn(
     name: "Name",
     table: "Customers",
@@ -100,7 +99,7 @@ migrationBuilder.RenameColumn(
 
 列の名前の変更は、組み込みの API を使用して行うことができますが、多くの場合、可能ではありません。 たとえば、既存の `FirstName` `LastName` プロパティとプロパティを1つの新しいプロパティに置き換えることができ `FullName` ます。 EF Core によって生成される移行は、次のようになります。
 
-``` csharp
+```csharp
 migrationBuilder.DropColumn(
     name: "FirstName",
     table: "Customer");
@@ -117,7 +116,7 @@ migrationBuilder.AddColumn<string>(
 
 以前と同様に、望ましくないデータ損失が発生します。 古い列からデータを転送するには、次のように移行を再配置し、生の SQL 操作を導入します。
 
-``` csharp
+```csharp
 migrationBuilder.AddColumn<string>(
     name: "FullName",
     table: "Customer",
@@ -144,7 +143,7 @@ migrationBuilder.DropColumn(
 
 たとえば、次の移行では、SQL Server のストアドプロシージャが作成されます。
 
-```c#
+```csharp
 migrationBuilder.Sql(
 @"
     EXEC ('CREATE PROCEDURE getFullName
@@ -178,7 +177,7 @@ dotnet ef migrations remove
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Remove-Migration
 ```
 
@@ -206,4 +205,7 @@ dotnet ef migrations list
 * **マイグレーション**フォルダーの削除
 * 新しい移行を作成し、その移行用の SQL スクリプトを生成する
 * データベースで、移行履歴テーブルからすべての行を削除します。
-* 1つの行を移行履歴に挿入して、最初の移行が既に適用されていることを記録します。これは、テーブルが既に存在しているためです。 Insert SEQL は、上記で生成された SQL スクリプトの最後の操作です。
+* 1つの行を移行履歴に挿入して、最初の移行が既に適用されていることを記録します。これは、テーブルが既に存在しているためです。 Insert SQL は、上記で生成された SQL スクリプトの最後の操作です。
+
+> [!WARNING]
+> **移行フォルダーが**削除されると、[カスタム移行コード](#customize-migration-code)は失われます。  すべてのカスタマイズを保存するには、新しい初期移行に手動で適用する必要があります。

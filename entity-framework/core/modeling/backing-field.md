@@ -1,15 +1,15 @@
 ---
 title: バッキングフィールド-EF Core
 description: Entity Framework Core モデルでのプロパティのバッキングフィールドの構成
-author: rowanmiller
+author: ajcvickers
 ms.date: 10/27/2016
 uid: core/modeling/backing-field
-ms.openlocfilehash: 48ef28e7b880fee571cb1857601fb2cead535fbf
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 4f5680b14c7f0e1fa5128d366f2960c4ae9b3735
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071629"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063687"
 ---
 # <a name="backing-fields"></a>バッキング フィールド
 
@@ -17,7 +17,7 @@ ms.locfileid: "90071629"
 
 ## <a name="basic-configuration"></a>基本構成
 
-慣例により、次のフィールドは、特定のプロパティのバッキングフィールドとして検出されます (優先順位順に一覧表示されます)。 
+慣例により、次のフィールドは、特定のプロパティのバッキングフィールドとして検出されます (優先順位順に一覧表示されます)。
 
 * `_<camel-cased property name>`
 * `_<property name>`
@@ -63,6 +63,6 @@ EF は、指定された名前を持つ CLR プロパティを見つけようと
 
 LINQ クエリからはフィールドのみのプロパティを参照する必要がありますが、このようなフィールドは通常はプライベートです。 `EF.Property(...)`LINQ クエリでメソッドを使用して、フィールドを参照できます。
 
-``` csharp
+```csharp
 var blogs = db.blogs.OrderBy(b => EF.Property<string>(b, "_validatedUrl"));
 ```

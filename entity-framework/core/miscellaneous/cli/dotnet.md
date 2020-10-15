@@ -2,15 +2,14 @@
 title: EF Core ツールリファレンス (.NET CLI)-EF Core
 description: Entity Framework Core .NET Core CLI ツールのリファレンスガイド
 author: bricelam
-ms.author: bricelam
-ms.date: 09/17/2020
+ms.date: 10/13/2020
 uid: core/miscellaneous/cli/dotnet
-ms.openlocfilehash: ee1caebcda93f627d285878f8594688a0f08c194
-ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
+ms.openlocfilehash: 4056fb99659ee3390d16b18eca9b12cfc8a2dd03
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2020
-ms.locfileid: "91210394"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062517"
 ---
 # <a name="entity-framework-core-tools-reference---net-core-cli"></a>Entity Framework Core ツールリファレンス-.NET Core CLI
 
@@ -24,59 +23,37 @@ Visual Studio を使用する場合は、CLI ツールの代わりに [パッケ
 
 ## <a name="installing-the-tools"></a>ツールのインストール
 
-インストール手順は、プロジェクトの種類とバージョンによって異なります。
+`dotnet ef` は、グローバルまたはローカルのいずれかのツールとしてインストールできます。 ほとんどの開発者 `dotnet ef` は、次のコマンドを使用してをグローバルツールとしてインストールすることをお勧めします。
 
-* EF Core 3.x と5.x
-* ASP.NET Core バージョン2.1 以降
-* EF Core 2.x
+```dotnetcli
+dotnet tool install --global dotnet-ef
+```
 
-### <a name="ef-core-3x-and-5x"></a>EF Core 3.x と5.x
+ローカルツールとして使用するには、 [ツールマニフェストファイル](/dotnet/core/tools/global-tools#install-a-local-tool)を使用して、ツールの依存関係として宣言するプロジェクトの依存関係を復元します。
 
-* `dotnet ef` は、グローバルまたはローカルのツールとしてインストールする必要があります。 ほとんどの開発者 `dotnet ef` は、次のコマンドを使用してをグローバルツールとしてインストールすることをお勧めします。
+次のコマンドを使用してツールツールを更新します。
 
-  ```dotnetcli
-  dotnet tool install --global dotnet-ef
-  ```
+```dotnetcli
+dotnet tool update --global dotnet-ef
+```
 
-  `dotnet ef` をローカルツールとして使用することもできます。 ローカルツールとして使用するには、 [ツールマニフェストファイル](/dotnet/core/tools/global-tools#install-a-local-tool)を使用して、ツールの依存関係として宣言するプロジェクトの依存関係を復元します。
+特定のプロジェクトでツールを使用するには、その前にパッケージを追加する必要があり `Microsoft.EntityFrameworkCore.Design` ます。
 
-* [.NET Core SDK](https://www.microsoft.com/net/download/core) のインストール。
-* 最新のパッケージをインストール `Microsoft.EntityFrameworkCore.Design` します。
+```dotnetcli
+dotnet add package Microsoft.EntityFrameworkCore.Design
+```
 
-  ```dotnetcli
-  dotnet add package Microsoft.EntityFrameworkCore.Design
-  ```
-
-### <a name="aspnet-core-21"></a>ASP.NET Core 2.1 以降
-
-* 現在の [.NET Core SDK](https://www.microsoft.com/net/download/core)をインストールします。 最新バージョンの Visual Studio がインストールされている場合でも、SDK をインストールする必要があります。
-
-  `Microsoft.EntityFrameworkCore.Design`パッケージは[AspNetCore メタパッケージ](/aspnet/core/fundamentals/metapackage-app)に含まれているため、これは ASP.NET Core 2.1 以降で必要なことです。
-
-### <a name="ef-core-2x-not-aspnet-core"></a>EF Core 2.x (ASP.NET Core ではありません)
-
-`dotnet ef`コマンドは .NET Core SDK に含まれていますが、パッケージをインストールするために必要なコマンドを有効にし `Microsoft.EntityFrameworkCore.Design` ます。
-
-* 現在の [.NET Core SDK](https://www.microsoft.com/net/download/core)をインストールします。 最新バージョンの Visual Studio がインストールされている場合でも、SDK をインストールする必要があります。
-
-* 最新の安定したパッケージをインストール `Microsoft.EntityFrameworkCore.Design` します。
-
-  ```dotnetcli
-  dotnet add package Microsoft.EntityFrameworkCore.Design
-  ```
-
-### <a name="verify-installation"></a>インストールの確認
+### <a name="verify-installation"></a>インストールを確認する
 
 次のコマンドを実行して EF Core CLI ツールが正しくインストールされていることを確認します。
 
   ```dotnetcli
-  dotnet restore
   dotnet ef
   ```
 
 コマンドからの出力は、使用されているツールのバージョンを識別します。
 
-```console
+```output
 
                      _/\__
                ---==/    \\
@@ -125,7 +102,7 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 ## <a name="common-options"></a>共通オプション
 
-| オプション                                         | Short             | [説明]                                                                                                                                                                                                                                                   |
+| オプション                                         | Short             | 説明                                                                                                                                                                                                                                                   |
 |:-----------------------------------------------|:------------------|:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `--json`                                       |                   | JSON 出力を表示します。                                                                                                                                                                                                                                             |
 | `--context <DBCONTEXT>`                        | <nobr>`-c`</nobr> | 使用する `DbContext` クラス。 クラス名のみ、または名前空間で完全修飾されています。  このオプションを省略した場合、EF Core によってコンテキストクラスが検索されます。 複数のコンテキストクラスがある場合は、このオプションが必要です。                                            |
@@ -148,7 +125,7 @@ EF Core 5.0 以降では、追加の引数はアプリケーションに渡さ�
 
 オプション:
 
-| オプション                   | Short             | [説明]                                              |
+| オプション                   | Short             | 説明                                              |
 |:-------------------------|:------------------|:---------------------------------------------------------|
 | `--force`                | <nobr>`-f`</nobr> | 確認しないでください。                                           |
 | <nobr>`--dry-run`</nobr> |                   | 削除するデータベースを表示しますが、削除はしません。 |
@@ -167,7 +144,7 @@ EF Core 5.0 以降では、追加の引数はアプリケーションに渡さ�
 
 オプション:
 
-| オプション                                    | [説明]                                                                                                                      |
+| オプション                                    | 説明                                                                                                                      |
 |:------------------------------------------|:---------------------------------------------------------------------------------------------------------------------------------|
 |  <nobr>`--connection <CONNECTION>`</nobr> | データベースへの接続文字列。 既定値は、またはで指定されたもの `AddDbContext` `OnConfiguring` です。 EF Core 5.0 で追加されました。 |
 
@@ -205,7 +182,7 @@ dotnet ef database update 20180904195021_InitialCreate --connection your_connect
 
 オプション:
 
-| オプション                                   | Short             | [説明]                                                                                                                                                                    |
+| オプション                                   | Short             | 説明                                                                                                                                                                    |
 |:-----------------------------------------|:------------------|:-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | `--data-annotations`                     | <nobr>`-d`</nobr> | 属性を使用してモデルを構成します (可能な場合)。 このオプションを省略した場合は、fluent API のみが使用されます。                                                                |
 | `--context <NAME>`                       | `-c`              | `DbContext`生成するクラスの名前。                                                                                                                                 |
@@ -240,7 +217,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 オプション:
 
-| オプション                         | Short             | [説明]                      |
+| オプション                         | Short             | 説明                      |
 | ------------------------------ | ----------------- | -------------------------------- |
 | <nobr>`--output <FILE>`</nobr> | <nobr>`-o`</nobr> | 結果の書き込み先のファイル。 |
 
@@ -258,7 +235,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 オプション:
 
-| オプション                                 | Short             | [説明]                                                                                                            |
+| オプション                                 | Short             | 説明                                                                                                            |
 |:---------------------------------------|:------------------|:-----------------------------------------------------------------------------------------------------------------------|
 | `--output-dir <PATH>`                  | <nobr>`-o`</nobr> | ファイルの出力に使用するディレクトリ。 パスは、ターゲットプロジェクトディレクトリに対する相対パスです。 既定値は "移行" です。   |
 | <nobr>`--namespace <NAMESPACE>`</nobr> | `-n`              | 生成されたクラスに使用する名前空間。 既定値は、出力ディレクトリから生成されます。 EF Core 5.0 で追加されました。 |
@@ -271,7 +248,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 オプション:
 
-| オプション                                   | [説明]                                                                                                                  |
+| オプション                                   | 説明                                                                                                                  |
 | ---------------------------------------- | ---------------------------------------------------------------------------------------------------------------------------- |
 | <nobr>`--connection <CONNECTION>`</nobr> | データベースへの接続文字列。 既定値は、AddDbContext または OnConfiguring で指定されたものです。 EF Core 5.0 で追加されました。 |
 | `--no-connect`                           | データベースに接続しないでください。 EF Core 5.0 で追加されました。                                                                         |
@@ -284,7 +261,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 オプション:
 
-| オプション                 | Short             | [説明]                                                                     |
+| オプション                 | Short             | 説明                                                                     |
 |:-----------------------|:------------------|:--------------------------------------------------------------------------------|
 | <nobr>`--force`</nobr> | <nobr>`-f`</nobr> | 移行を元に戻します (データベースに適用された変更をロールバックします)。 |
 
@@ -303,7 +280,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 オプション:
 
-| オプション                           | Short             | [説明]                                                        |
+| オプション                           | Short             | 説明                                                        |
 |:---------------------------------|:------------------|:-------------------------------------------------------------------|
 | `--output <FILE>`                | <nobr>`-o`</nobr> | スクリプトの書き込み先のファイル。                                   |
 | `--idempotent`                   | `-i`              | 任意の移行時にデータベースで使用できるスクリプトを生成します。 |
@@ -323,7 +300,7 @@ dotnet ef migrations script 0 InitialCreate
 dotnet ef migrations script 20180904195021_InitialCreate
 ```
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他の資料
 
 * [移行](xref:core/managing-schemas/migrations/index)
 * [リバースエンジニアリング](xref:core/managing-schemas/scaffolding)

@@ -2,15 +2,14 @@
 title: カスタム移行履歴テーブル-EF Core
 description: Entity Framework Core を使用した移行に使用する履歴テーブルのカスタマイズ
 author: bricelam
-ms.author: bricelam
 ms.date: 11/07/2017
 uid: core/managing-schemas/migrations/history-table
-ms.openlocfilehash: deed86b2023557036eb14ca5a66f04ab5bb4139f
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 1f6dcb2fbb20e7dafed17160832ccec453839aa3
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89617978"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062309"
 ---
 # <a name="custom-migrations-history-table"></a>カスタム移行履歴テーブル
 

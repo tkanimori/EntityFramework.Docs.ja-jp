@@ -5,12 +5,12 @@ author: rick-anderson
 ms.author: riande
 ms.date: 9/19/2020
 uid: core/miscellaneous/context-pooling
-ms.openlocfilehash: fd5f53ff97a73895f0c4239439730dd8cb3ecc29
-ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
+ms.openlocfilehash: 8638c838511be85bd994751b9911b107974dfe2f
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2020
-ms.locfileid: "91215584"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92061958"
 ---
 # <a name="dbcontext-pooling"></a>DbContext プール
 
@@ -20,7 +20,7 @@ EF Core を使用する ASP.NET Core アプリの一般的なパターンには�
 
 <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContextPool%2A> 再利用可能なコンテキストインスタンスのプールを有効にします。 コンテキストプーリングを使用するには、 `AddDbContextPool` サービスの登録時にではなく、メソッドを使用し `AddDbContext` ます。
 
-``` csharp
+```csharp
 services.AddDbContextPool<BloggingContext>(
     options => options.UseSqlServer(connectionString));
 ```
@@ -37,7 +37,7 @@ services.AddDbContextPool<BloggingContext>(
 
 `AddDbContextPool` では、コンテキストのメソッドで実行できる内容にいくつかの制限があり `OnConfiguring` ます。
 
-> [!WARNING]  
+> [!WARNING]
 > 状態を維持するアプリでコンテキストプーリングを使用することは避けてください。 たとえば、要求間で共有しないようなコンテキストのプライベートフィールドです。 EF Core は、コンテキストインスタンスをプールに追加する前に、認識している状態のみをリセットします。
 
 コンテキストプーリングは、要求間で同じコンテキストインスタンスを再利用することによって機能します。 これは、インスタンス自体を使用して、永続化できるように、 [シングルトン](/aspnet/core/fundamentals/dependency-injection#service-lifetimes) として効果的に登録されることを意味します。

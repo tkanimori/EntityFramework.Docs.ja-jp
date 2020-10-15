@@ -4,28 +4,25 @@ description: コンストラクターを使用して Entity Framework Core モ�
 author: ajcvickers
 ms.date: 02/23/2018
 uid: core/modeling/constructors
-ms.openlocfilehash: 06d18f173275599ad1e547193363e13c48fc8dcf
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 9502d75072eebb80c37cf1805e21f7d112269ba1
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071590"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063713"
 ---
 # <a name="entity-types-with-constructors"></a>コンストラクターを使用したエンティティ型
 
-> [!NOTE]  
-> これは EF Core 2.1 の新機能です。
+パラメーターを使用してコンストラクターを定義し、エンティティのインスタンスを作成するときにこのコンストラクターを呼び出す EF Core ことができます。 コンストラクターのパラメーターは、マップされたプロパティ、またはさまざまな種類のサービスにバインドして、遅延読み込みなどの動作を容易にすることができます。
 
-EF Core 2.1 以降では、パラメーターを使用 EF Core してコンストラクターを定義し、エンティティのインスタンスを作成するときにこのコンストラクターを呼び出すことができるようになりました。 コンストラクターのパラメーターは、マップされたプロパティ、またはさまざまな種類のサービスにバインドして、遅延読み込みなどの動作を容易にすることができます。
-
-> [!NOTE]  
-> EF Core 2.1 の場合、すべてのコンストラクターのバインドは規約に従っています。 使用する特定のコンストラクターの構成は、将来のリリースで計画されています。
+> [!NOTE]
+> 現在、すべてのコンストラクターのバインドは規約によって行います。 使用する特定のコンストラクターの構成は、将来のリリースで計画されています。
 
 ## <a name="binding-to-mapped-properties"></a>マップされたプロパティへのバインド
 
 一般的なブログ/ポストモデルを考えてみましょう。
 
-``` csharp
+```csharp
 public class Blog
 {
     public int Id { get; set; }
@@ -50,7 +47,7 @@ public class Post
 
 EF Core は、クエリの結果など、これらの型のインスタンスを作成するときに、最初に既定のパラメーターなしのコンストラクターを呼び出し、次に各プロパティをデータベースの値に設定します。 ただし、パラメーター名と型がマップされたプロパティと一致するパラメーター化されたコンストラクターが EF Core によって検出された場合は、代わりに、これらのプロパティの値を使用してパラメーター化されたコンストラクターが呼び出され、各プロパティが明示的に設定されることはありません。 次に例を示します。
 
-``` csharp
+```csharp
 public class Blog
 {
     public Blog(int id, string name, string author)
@@ -103,7 +100,7 @@ public class Post
 
 これらの作業を回避する簡単な方法は、プライベート setter を使用することです。 次に例を示します。
 
-``` csharp
+```csharp
 public class Blog
 {
     public Blog(int id, string name, string author)
@@ -144,7 +141,7 @@ EF Core は、プライベート setter を持つプロパティを読み取り/
 
 プライベート setter を使用する代わりに、プロパティを実際に読み取り専用にし、OnModelCreating で明示的なマッピングを追加することもできます。 同様に、一部のプロパティを完全に削除し、フィールドのみに置き換えることができます。 たとえば、次のようなエンティティ型を考えてみます。
 
-``` csharp
+```csharp
 public class Blog
 {
     private int _id;
@@ -181,7 +178,7 @@ public class Post
 
 また、OnModelCreating のこの構成は次のように作成されます。
 
-``` csharp
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Blog>(
@@ -208,7 +205,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 * その他のプロパティは、コンストラクターでのみ設定される読み取り専用プロパティです。
 * 主キーの値が EF によってのみ設定された場合、またはデータベースから読み取られた場合は、それをコンストラクターに含める必要はありません。 これにより、キー "プロパティ" は単純なフィールドとして残され、新しいブログや投稿を作成するときに明示的に設定する必要がないことがわかります。
 
-> [!NOTE]  
+> [!NOTE]
 > このコードでは、フィールドが使用されていないことを示すコンパイラ警告 ' 169 ' が生成されます。 実際には、extralinguistic の方法でフィールドが使用されているため、これは無視でき EF Core。
 
 ## <a name="injecting-services"></a>サービスの挿入
@@ -220,12 +217,12 @@ EF Core は、エンティティ型のコンストラクターに "services" を
 * `Action<object, string>` -遅延読み込みデリゲート-詳細については、 [遅延読み込みのドキュメント](xref:core/querying/related-data) を参照してください。
 * `IEntityType` -このエンティティ型に関連付けられている EF Core メタデータ
 
-> [!NOTE]  
-> EF Core 2.1 の場合、EF Core によって認識されるサービスのみを挿入できます。 アプリケーションサービスの挿入のサポートは、今後のリリースで考慮されています。
+> [!NOTE]
+> 現時点では、EF Core によって認識されるサービスのみを挿入できます。 アプリケーションサービスの挿入のサポートは、今後のリリースで考慮されています。
 
 たとえば、挿入された DbContext を使用して、データベースに選択的にアクセスし、それらのエンティティをすべて読み込まずに関連エンティティに関する情報を取得することができます。 次の例では、投稿を読み込まずにブログ内の投稿数を取得するために使用されています。
 
-``` csharp
+```csharp
 public class Blog
 {
     public Blog()
@@ -268,5 +265,5 @@ public class Post
 * 挿入されたサービスを使用するコード (つまり、コンテキスト) は、 `null` EF Core がインスタンスを作成していないケースを処理するために防御されます。
 * サービスは読み取り/書き込みプロパティに格納されるため、エンティティが新しいコンテキストインスタンスにアタッチされるときにリセットされます。
 
-> [!WARNING]  
+> [!WARNING]
 > このような DbContext の挿入は、エンティティ型を EF Core に直接結合するため、多くの場合、アンチパターンと見なされます。 このようなサービスインジェクションを使用する前に、すべてのオプションを慎重に検討してください。

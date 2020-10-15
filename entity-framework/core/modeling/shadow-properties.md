@@ -1,17 +1,17 @@
 ---
-title: シャドウのプロパティ-EF Core
-description: Entity Framework Core モデルでのシャドウプロパティの構成
+title: シャドウとインデクサーのプロパティ-EF Core
+description: Entity Framework Core モデルでの shadow および indexer プロパティの構成
 author: AndriySvyryd
-ms.date: 01/03/2020
+ms.date: 10/09/2020
 uid: core/modeling/shadow-properties
-ms.openlocfilehash: 735659a1a8523e63afa908d4fe3904e62f46cbd0
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 417ab57a4a77ecf626e54eeca900744d84e3fe08
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071382"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063895"
 ---
-# <a name="shadow-properties"></a>シャドウ プロパティ
+# <a name="shadow-and-indexer-properties"></a>Shadow および Indexer プロパティ
 
 Shadow プロパティは、.NET エンティティクラスで定義されていないが、EF Core モデルでそのエンティティ型に対して定義されているプロパティです。 これらのプロパティの値と状態は、単に変更トラッカーに保持されます。 シャドウプロパティは、マップされたエンティティ型では公開できないデータがデータベースに存在する場合に便利です。
 
@@ -37,15 +37,24 @@ Fluent API を使用してシャドウプロパティを構成できます。 �
 
 シャドウプロパティの値は、API を使用して取得および変更でき `ChangeTracker` ます。
 
-``` csharp
+```csharp
 context.Entry(myBlog).Property("LastUpdated").CurrentValue = DateTime.Now;
 ```
 
 シャドウプロパティは、静的メソッドを使用して LINQ クエリで参照でき `EF.Property` ます。
 
-``` csharp
+```csharp
 var blogs = context.Blogs
     .OrderBy(b => EF.Property<DateTime>(b, "LastUpdated"));
 ```
 
 返されるエンティティは変更トラッカーによって追跡されないため、no tracking クエリの後にシャドウプロパティにアクセスすることはできません。
+
+## <a name="property-bag-entity-types"></a>プロパティバッグのエンティティ型
+
+> [!NOTE]
+> プロパティバッグエンティティ型のサポートは EF Core 5.0 で追加されました。
+
+インデクサープロパティのみを含むエンティティ型は、プロパティバッグエンティティ型と呼ばれます。 これらのエンティティ型には、シャドウプロパティはありません。 現時点 `Dictionary<string, object>` では、プロパティバッグエンティティ型としてのみサポートされています。 これは、一意の名前を持つ共有エンティティ型として構成する必要があり、対応する `DbSet` プロパティは呼び出しを使用して実装する必要があることを意味し `Set` ます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/SharedType.cs?name=SharedType&highlight=3,7)]

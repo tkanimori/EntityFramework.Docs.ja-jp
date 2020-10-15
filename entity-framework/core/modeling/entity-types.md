@@ -2,14 +2,14 @@
 title: エンティティ型-EF Core
 description: Entity Framework Core を使用してエンティティ型を構成およびマップする方法
 author: roji
-ms.date: 12/03/2019
+ms.date: 10/06/2020
 uid: core/modeling/entity-types
-ms.openlocfilehash: fead7f9e37efb7f674f429acbfd16c2ca78480d4
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: bfefa29c08679a1524c00769b3495d75a301e2d3
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071512"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062231"
 ---
 # <a name="entity-types"></a>エンティティ型
 
@@ -40,6 +40,19 @@ ms.locfileid: "90071512"
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IgnoreType.cs?name=IgnoreType&highlight=3)]
 
 ***
+
+### <a name="excluding-from-migrations"></a>移行から除外する
+
+> [!NOTE]
+> EF Core 5.0 では、移行からテーブルを除外する機能が追加されました。
+
+同じエンティティ型を複数の型にマップすると便利な場合があり `DbContext` ます。 これは、境界付けられたコンテキストごとに異なる型を使用することが一般的である、境界付けられた [コンテキスト](https://www.martinfowler.com/bliki/BoundedContext.html)を使用する場合に特に当てはまり `DbContext` ます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TableExcludeFromMigrations.cs?name=TableExcludeFromMigrations&highlight=4)]
+
+この構成を使用すると、テーブルは作成されませんが、 `blogs` `Blog` モデルに含まれ、通常どおりに使用できます。
+
+移行を使用してテーブルの管理を再開する必要がある場合は、が除外されないように新しい移行を作成する必要があり `blogs` ます。 次の移行には、テーブルに加えられた変更がすべて含まれるようになります。
 
 ## <a name="table-name"></a>テーブル名
 
@@ -78,3 +91,14 @@ ms.locfileid: "90071512"
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultSchema.cs?name=DefaultSchema&highlight=3)]
 
 既定のスキーマを設定すると、シーケンスなどの他のデータベースオブジェクトも影響を受けることに注意してください。
+
+## <a name="view-mapping"></a>マッピングの表示
+
+エンティティ型は、Fluent API を使用してデータベースビューにマップできます。
+
+> [!Note]
+> EF では、参照されているビューが既にデータベースに存在することを前提としています。このビューは、移行時に自動的に作成されません。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ViewNameAndSchema.cs?name=ViewNameAndSchema&highlight=1)]
+
+ ビューにマップすると、既定のテーブルマッピングが削除されますが、エンティティ型を明示的にテーブルにマップすることもできます。 この場合、クエリにはクエリマッピングが使用され、更新にはテーブルマッピングが使用されます。

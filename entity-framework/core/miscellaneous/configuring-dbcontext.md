@@ -1,15 +1,15 @@
 ---
 title: DbContext の構成-EF Core
 description: Entity Framework Core を使用した DbContexts の構成方法
-author: rowanmiller
+author: ajcvickers
 ms.date: 10/27/2016
 uid: core/miscellaneous/configuring-dbcontext
-ms.openlocfilehash: 95b855c01b4b0b721eb91d53e0257295527ea44e
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 3afad8d220acecbb01b15bbb855b52a895e6eb66
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071694"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062023"
 ---
 # <a name="configuring-a-dbcontext"></a>DbContext の構成
 
@@ -32,13 +32,13 @@ ms.locfileid: "90071694"
 
 次の例では、 `DbContextOptions` SQL Server プロバイダー、変数に含まれる接続、 `connectionString` プロバイダーレベルのコマンドタイムアウト、および既定ではすべてのクエリを `DbContext` [非追跡](xref:core/querying/tracking#no-tracking-queries) で実行する EF Core 動作セレクターを使用するようにを構成します。
 
-``` csharp
+```csharp
 optionsBuilder
     .UseSqlServer(connectionString, providerOptions=>providerOptions.CommandTimeout(60))
     .UseQueryTrackingBehavior(QueryTrackingBehavior.NoTracking);
 ```
 
-> [!NOTE]  
+> [!NOTE]
 > 前に説明したプロバイダーセレクターメソッドとその他の動作セレクターメソッドは、 `DbContextOptions` またはプロバイダー固有のオプションクラスの拡張メソッドです。 これらの拡張メソッドにアクセスできるようにするには、スコープ内に名前空間 (通常は) が必要であり、 `Microsoft.EntityFrameworkCore` プロジェクトにパッケージの依存関係が追加されている必要があります。
 
 は、 `DbContextOptions` メソッドをオーバーライドする `DbContext` か、 `OnConfiguring` コンストラクター引数を使用して外部からに渡すことによってに渡すことができます。
@@ -49,7 +49,7 @@ optionsBuilder
 
 コンストラクターは、次のようにを受け入れるだけです `DbContextOptions` 。
 
-``` csharp
+```csharp
 public class BloggingContext : DbContext
 {
     public BloggingContext(DbContextOptions<BloggingContext> options)
@@ -60,12 +60,12 @@ public class BloggingContext : DbContext
 }
 ```
 
-> [!TIP]  
+> [!TIP]
 > DbContext の基本コンストラクターは、非ジェネリックバージョンのを受け取ることもでき `DbContextOptions` ますが、複数のコンテキストタイプを持つアプリケーションでは、非ジェネリックバージョンを使用することは推奨されません。
 
 これで、アプリケーションは、コンテキストをインスタンス化するときに、次のようにを渡すことができます `DbContextOptions` 。
 
-``` csharp
+```csharp
 var optionsBuilder = new DbContextOptionsBuilder<BloggingContext>();
 optionsBuilder.UseSqlite("Data Source=blog.db");
 
@@ -81,7 +81,7 @@ using (var context = new BloggingContext(optionsBuilder.Options))
 
 コンテキスト内で初期化するには、 `DbContextOptions` メソッドをオーバーライド `OnConfiguring` し、指定されたでメソッドを呼び出し `DbContextOptionsBuilder` ます。
 
-``` csharp
+```csharp
 public class BloggingContext : DbContext
 {
     public DbSet<Blog> Blogs { get; set; }
@@ -95,7 +95,7 @@ public class BloggingContext : DbContext
 
 アプリケーションは、コンストラクターに何も渡さずにこのようなコンテキストをインスタンス化できます。
 
-``` csharp
+```csharp
 using (var context = new BloggingContext())
 {
   // do stuff
@@ -115,7 +115,7 @@ EF Core `DbContext` は、依存関係挿入コンテナーでのの使用をサ
 
 `DbContext`を依存関係の挿入に追加します。
 
-``` csharp
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddDbContext<BloggingContext>(options => options.UseSqlite("Data Source=blog.db"));
@@ -126,7 +126,7 @@ public void ConfigureServices(IServiceCollection services)
 
 コンテキストコード:
 
-``` csharp
+```csharp
 public class BloggingContext : DbContext
 {
     public BloggingContext(DbContextOptions<BloggingContext> options)
@@ -139,7 +139,7 @@ public class BloggingContext : DbContext
 
 アプリケーションコード (ASP.NET Core):
 
-``` csharp
+```csharp
 public class MyController
 {
     private readonly BloggingContext _context;
@@ -155,7 +155,7 @@ public class MyController
 
 アプリケーションコード (ServiceProvider を直接、あまり一般的ではない):
 
-``` csharp
+```csharp
 using (var context = serviceProvider.GetService<BloggingContext>())
 {
   // do stuff
@@ -180,7 +180,7 @@ EF Core がインスタンスを同時に使用しようとしたことを検出
 
 非同期メソッドを使用すると、ブロックしない方法でデータベースにアクセスする操作を開始 EF Core ことができます。 ただし、呼び出し元がこれらのメソッドのいずれかの完了を待機しておらず、に対して他の操作を実行しようとした場合、 `DbContext` の状態は `DbContext` (おそらく) 破損している可能性があります。
 
-常に非同期メソッド EF Core 待機します。  
+常に非同期メソッド EF Core 待機します。
 
 ### <a name="implicitly-sharing-dbcontext-instances-across-multiple-threads-via-dependency-injection"></a>依存関係の挿入によって複数のスレッド間で DbContext インスタンスを暗黙的に共有する
 

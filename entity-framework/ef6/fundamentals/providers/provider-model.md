@@ -1,15 +1,15 @@
 ---
 title: Entity Framework 6 プロバイダーモデル-EF6
 description: Entity Framework 6 の Entity Framework 6 プロバイダーモデル
-author: divega
+author: ajcvickers
 ms.date: 06/27/2018
 uid: ef6/fundamentals/providers/provider-model
-ms.openlocfilehash: 4fc45ba5fe916253be348182196be236729d685d
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 15b5443ff05b5c8704f80d4f2f83b4ed20edd1c0
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90074017"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063193"
 ---
 # <a name="the-entity-framework-6-provider-model"></a>Entity Framework 6 プロバイダーモデル
 
@@ -206,8 +206,8 @@ EF6 プロバイダーを利用できるようにする方法の1つは、NuGet 
 
 EntityFramework NuGet パッケージをインストールすると、プロバイダーパッケージに非常に便利な2つのコマンドを含む PowerShell モジュールが登録されます。
 
-*   [追加] を使用すると、ターゲットプロジェクトの構成ファイルにプロバイダーの新しいエンティティが追加され、登録されているプロバイダーの一覧の末尾にあることが確認されます。
-*   追加-EFDefaultConnectionFactory は、ターゲットプロジェクトの構成ファイルで defaultConnectionFactory の登録を追加または更新します。
+*   Add-EFProvider は、ターゲットプロジェクトの構成ファイルにプロバイダーの新しいエンティティを追加し、登録されているプロバイダーの一覧の末尾にあることを確認します。
+*   Add-EFDefaultConnectionFactory は、ターゲットプロジェクトの構成ファイルで defaultConnectionFactory の登録を追加または更新します。
 
 これらのコマンドはいずれも、entityFramework セクションを構成ファイルに追加し、必要に応じてプロバイダーコレクションを追加します。
 

@@ -2,15 +2,14 @@
 title: 複数のプロバイダーを使用した移行-EF Core
 description: Entity Framework Core で複数のデータベースプロバイダーを対象とする場合に、移行を使用してデータベーススキーマを管理する
 author: bricelam
-ms.author: bricelam
 ms.date: 11/08/2017
 uid: core/managing-schemas/migrations/providers
-ms.openlocfilehash: df38af6ac700a530894b98e1f29bbe804831bad5
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: f44abb5156ea3a175c68c1a0ec23ff41a9d13452
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619189"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92061984"
 ---
 # <a name="migrations-with-multiple-providers"></a>複数のプロバイダーを使用した移行
 
@@ -24,7 +23,7 @@ ms.locfileid: "89619189"
 
 ツールを簡単に操作できるもう1つの方法は、DbContext から派生した新しい型を作成し、アクティブなプロバイダーをオーバーライドすることです。 この型は、移行を追加または適用するときに、デザイン時に使用されます。
 
-``` csharp
+```csharp
 class MySqliteDbContext : MyDbContext
 {
     protected override void OnConfiguring(DbContextOptionsBuilder options)
@@ -46,7 +45,7 @@ dotnet ef migrations add InitialCreate --context MySqliteDbContext --output-dir 
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Add-Migration InitialCreate -Context MyDbContext -OutputDir Migrations\SqlServerMigrations
 Add-Migration InitialCreate -Context MySqliteDbContext -OutputDir Migrations\SqliteMigrations
 ```
@@ -62,7 +61,7 @@ Add-Migration InitialCreate -Context MySqliteDbContext -OutputDir Migrations\Sql
 
 認識できない注釈がプロバイダーによって無視されるため、注釈を共存させることができます。 たとえば、Microsoft SQL Server と SQLite の両方で動作する主キー列は、次のようになります。
 
-``` csharp
+```csharp
 Id = table.Column<int>(nullable: false)
     .Annotation("SqlServer:ValueGenerationStrategy",
         SqlServerValueGenerationStrategy.IdentityColumn)
@@ -71,7 +70,7 @@ Id = table.Column<int>(nullable: false)
 
 操作を1つのプロバイダーに対してのみ適用できる場合、またはプロバイダー間で異なる場合は、プロパティを使用して、 `ActiveProvider` どのプロバイダーがアクティブであるかを確認します。
 
-``` csharp
+```csharp
 if (migrationBuilder.ActiveProvider == "Microsoft.EntityFrameworkCore.SqlServer")
 {
     migrationBuilder.CreateSequence(

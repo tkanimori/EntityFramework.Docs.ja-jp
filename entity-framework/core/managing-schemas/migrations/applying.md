@@ -2,15 +2,14 @@
 title: 移行の適用-EF Core
 description: Entity Framework Core を使用して、運用データベースと開発データベースにスキーマの移行を適用する方法
 author: bricelam
-ms.author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/applying
-ms.openlocfilehash: cde83a944e1e698a7f8a00c4692c0ce08a87b5ab
-ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
+ms.openlocfilehash: 68d482a34e5f5c7acf968acdfd8825e1d21ecb13
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2020
-ms.locfileid: "91210407"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062348"
 ---
 # <a name="applying-migrations"></a>移行の適用
 
@@ -65,7 +64,7 @@ dotnet ef migrations script AddNewTables AddAuditTable
 
 次の例では、空のデータベースから最新の移行に SQL スクリプトを生成します。
 
-``` powershell
+```powershell
 Script-Migration
 ```
 
@@ -107,13 +106,13 @@ dotnet ef migrations script --idempotent
 
 #### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Script-Migration -Idempotent
 ```
 
 ***
 
-## <a name="command-line-tools"></a>コマンド ライン ツール
+## <a name="command-line-tools"></a>コマンドライン ツール
 
 EF コマンドラインツールを使用すると、データベースに移行を適用できます。 移行のローカル開発とテストの生産性を維持しながら、この方法は運用データベースの管理には適していません。
 
@@ -143,13 +142,13 @@ dotnet ef database update AddNewTables
 
 次の例では、データベースを最新の移行に更新します。
 
-``` powershell
+```powershell
 Update-Database
 ```
 
 次の例では、指定された移行にデータベースを更新します。
 
-``` powershell
+```powershell
 Update-Database AddNewTables
 ```
 
@@ -174,7 +173,7 @@ Update-Database AddNewTables
 
 プログラムによって移行を適用するには、を呼び出し `context.Database.Migrate()` ます。 たとえば、一般的な ASP.NET アプリケーションでは、次の操作を実行できます。
 
-```c#
+```csharp
 public static void Main(string[] args)
 {
     var host = CreateHostBuilder(args).Build();

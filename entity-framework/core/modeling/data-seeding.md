@@ -2,15 +2,14 @@
 title: データシード処理-EF Core
 description: データシード処理を使用した、Entity Framework Core を使用したデータベースへの初期データセットの読み込み
 author: AndriySvyryd
-ms.author: ansvyryd
 ms.date: 11/02/2018
 uid: core/modeling/data-seeding
-ms.openlocfilehash: 1d7adbe45c4cbc64a39485c76d8f516e32ffeba5
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: f8284d7473c6fbcafde25d01ec0709c2d50b666f
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071603"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063700"
 ---
 # <a name="data-seeding"></a>データのシード処理
 
@@ -23,9 +22,6 @@ EF Core では、次のいくつかの方法で実現できます。
 * カスタム初期化ロジック
 
 ## <a name="model-seed-data"></a>モデルシードデータ
-
-> [!NOTE]
-> これは EF Core 2.1 の新機能です。
 
 EF6 とは異なり、EF Core では、シード処理データをモデル構成の一部としてエンティティ型に関連付けることができます。 その後、EF Core の [移行](xref:core/managing-schemas/migrations/index) では、データベースを新しいバージョンのモデルにアップグレードするときに、挿入、更新、または削除操作をどのように適用する必要があるかを自動的に計算できます。
 

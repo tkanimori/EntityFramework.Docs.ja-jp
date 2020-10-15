@@ -2,15 +2,14 @@
 title: Api の作成と削除-EF Core
 description: Entity Framework Core を使用してデータベースを作成および削除するための Api
 author: bricelam
-ms.author: bricelam
 ms.date: 11/07/2018
 uid: core/managing-schemas/ensure-created
-ms.openlocfilehash: 25e7352269531e881e83e44ea90108f12d4dcbea
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: c23311fbb8254ba183a6fd1661bba915aedc9a97
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619230"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062335"
 ---
 # <a name="create-and-drop-apis"></a>Create API と Drop API
 
@@ -27,7 +26,7 @@ EnsureCreated から移行への移行は、シームレスなエクスペリエ
 
 EnsureDeleted メソッドは、データベースが存在する場合、そのデータベースを削除します。 適切なアクセス許可がない場合は、例外がスローされます。
 
-``` csharp
+```csharp
 // Drop the database if it exists
 dbContext.Database.EnsureDeleted();
 ```
@@ -36,7 +35,7 @@ dbContext.Database.EnsureDeleted();
 
 データベースが存在しない場合は、EnsureCreated によって作成され、データベーススキーマが初期化されます。 テーブルが存在する場合 (別の DbContext クラスのテーブルを含む)、スキーマは初期化されません。
 
-``` csharp
+```csharp
 // Create the database if it doesn't exist
 dbContext.Database.EnsureCreated();
 ```
@@ -48,7 +47,7 @@ dbContext.Database.EnsureCreated();
 
 EnsureCreated によって使用される SQL を取得するには、GenerateCreateScript メソッドを使用します。
 
-``` csharp
+```csharp
 var sql = dbContext.Database.GenerateCreateScript();
 ```
 
@@ -56,7 +55,7 @@ var sql = dbContext.Database.GenerateCreateScript();
 
 EnsureCreated は、データベース内にテーブルが存在しない場合にのみ機能します。 必要に応じて、独自のチェックを記述してスキーマを初期化する必要があるかどうかを確認し、基になる IRelationalDatabaseCreator サービスを使用してスキーマを初期化できます。
 
-``` csharp
+```csharp
 // TODO: Check whether the schema needs to be initialized
 
 // Initialize the schema for this DbContext

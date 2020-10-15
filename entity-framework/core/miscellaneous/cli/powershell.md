@@ -2,15 +2,14 @@
 title: EF Core ツールリファレンス (パッケージマネージャーコンソール)-EF Core
 description: Entity Framework Core Visual Studio パッケージマネージャーコンソールのリファレンスガイド
 author: bricelam
-ms.author: bricelam
-ms.date: 09/09/2020
+ms.date: 10/13/2020
 uid: core/miscellaneous/cli/powershell
-ms.openlocfilehash: 5dca397978c60c12610d9080caba972a66b079b6
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 3a9599288d74013bf4da910c64bc858539c0c32c
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071863"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062387"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core ツールリファレンス-Visual Studio のパッケージマネージャーコンソール
 
@@ -20,50 +19,15 @@ Visual Studio を使用していない場合は、代わりに [EF Core コマ�
 
 ## <a name="installing-the-tools"></a>ツールのインストール
 
-ツールのインストールと更新の手順は、ASP.NET Core 2.1 以降のバージョンまたはその他のプロジェクトの種類によって異なります。
-
-### <a name="aspnet-core-version-21-and-later"></a>ASP.NET Core バージョン2.1 以降
-
-`Microsoft.EntityFrameworkCore.Tools`パッケージは[AspNetCore メタパッケージ](/aspnet/core/fundamentals/metapackage-app)に含まれているので、ツールは ASP.NET Core 2.1 以降のプロジェクトに自動的に含まれます。
-
-そのため、ツールをインストールするために何もする必要はありませんが、次の操作を行う必要があります。
-
-* 新しいプロジェクトでツールを使用する前に、パッケージを復元します。
-* パッケージをインストールして、ツールを新しいバージョンに更新します。
-
-最新バージョンのツールを入手するには、次の手順も実行することをお勧めします。
-
-* *.Csproj*ファイルを編集し、最新バージョンの[Microsoft Entityframeworkcore. Tools](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Tools/)パッケージを指定する行を追加します。 たとえば、.csproj ファイルには、次のようなを含めることができ*ます。* `ItemGroup`
-
-  ```xml
-  <ItemGroup>
-    <PackageReference Include="Microsoft.AspNetCore.App" />
-    <PackageReference Include="Microsoft.EntityFrameworkCore.Tools" Version="3.1.3" />
-    <PackageReference Include="Microsoft.VisualStudio.Web.CodeGeneration.Design" Version="3.1.2" />
-  </ItemGroup>
-  ```
-
-次の例のようなメッセージが表示されたら、ツールを更新します。
-
-> EF Core ツールバージョン ' 2.1.1-30846 ' は、ランタイム ' 2.1.3-32065 ' より古いバージョンです。 最新の機能とバグ修正のためにツールを更新します。
-
-ツールを更新するには:
-
-* 最新の .NET Core SDK をインストールします。
-* Visual Studio を最新バージョンに更新します。
-* .Csproj ファイルを編集して、前に示したように、最新のツールパッケージへのパッケージ参照が含まれるようにし *ます* 。
-
-### <a name="other-versions-and-project-types"></a>その他のバージョンとプロジェクトの種類
-
 パッケージマネージャーコンソールで次のコマンドを実行して、パッケージマネージャーコンソールツールをインストールし**ます。**
 
-``` powershell
+```powershell
 Install-Package Microsoft.EntityFrameworkCore.Tools
 ```
 
 **パッケージマネージャーコンソール**で次のコマンドを実行して、ツールを更新します。
 
-``` powershell
+```powershell
 Update-Package Microsoft.EntityFrameworkCore.Tools
 ```
 
@@ -71,13 +35,13 @@ Update-Package Microsoft.EntityFrameworkCore.Tools
 
 次のコマンドを実行して、ツールがインストールされていることを確認します。
 
-``` powershell
+```powershell
 Get-Help about_EntityFrameworkCore
 ```
 
 出力は次のようになります (使用しているツールのバージョンはわかりません)。
 
-```console
+```output
 
                      _/\__
                ---==/    \\
@@ -145,7 +109,7 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 > [!TIP]
 > Context、Project、および StartupProject の各パラメーターでは、タブの展開がサポートされています。
 
-## <a name="add-migration"></a>移行の追加
+## <a name="add-migration"></a>Add-Migration
 
 新しい移行を追加します。
 
@@ -159,7 +123,7 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 [共通パラメーター](#common-parameters)は上記のとおりです。
 
-## <a name="drop-database"></a>Drop Database
+## <a name="drop-database"></a>Drop-Database
 
 データベースを削除します。
 
@@ -177,7 +141,7 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 [共通パラメーター](#common-parameters)は上記のとおりです。
 
-## <a name="get-migration"></a>取得-移行
+## <a name="get-migration"></a>Get-Migration
 
 使用可能な移行を一覧表示します。 EF Core 5.0 で追加されました。
 
@@ -202,7 +166,7 @@ ASP.NET Core プロジェクトの環境を指定するには、コマンドを�
 
 [共通パラメーター](#common-parameters)は上記のとおりです。
 
-## <a name="scaffold-dbcontext"></a>スキャフォールディング-DbContext
+## <a name="scaffold-dbcontext"></a>Scaffold-DbContext
 
 `DbContext`データベースのおよびエンティティ型のコードを生成します。 で `Scaffold-DbContext` エンティティ型を生成するには、データベーステーブルに主キーが必要です。
 
@@ -239,7 +203,7 @@ Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Conn
 Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer -OutputDir Models -Tables "Blog","Post" -ContextDir Context -Context BlogContext -ContextNamespace New.Namespace
 ```
 
-## <a name="script-dbcontext"></a>スクリプト-DbContext
+## <a name="script-dbcontext"></a>Script-DbContext
 
 DbContext から SQL スクリプトを生成します。 すべての移行をバイパスします。 EF Core 3.0 で追加されました。
 
@@ -251,7 +215,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 [共通パラメーター](#common-parameters)は上記のとおりです。
 
-## <a name="script-migration"></a>スクリプト-移行
+## <a name="script-migration"></a>Script-Migration
 
 選択した移行のすべての変更を、選択した別の移行に適用する SQL スクリプトを生成します。
 
@@ -282,7 +246,7 @@ Script-Migration -To InitialCreate
 Script-Migration -From 20180904195021_InitialCreate
 ```
 
-## <a name="update-database"></a>データベースの更新
+## <a name="update-database"></a>Update-Database
 
 最後に移行したデータベース、または指定した移行にデータベースを更新します。
 
@@ -309,7 +273,7 @@ Update-Database -Migration InitialCreate
 Update-Database -Migration 20180904195021_InitialCreate -Connection your_connection_string
 ```
 
-## <a name="additional-resources"></a>その他のリソース
+## <a name="additional-resources"></a>その他の資料
 
 * [移行](xref:core/managing-schemas/migrations/index)
 * [リバースエンジニアリング](xref:core/managing-schemas/scaffolding)

@@ -2,14 +2,14 @@
 title: SQLite データベースプロバイダー-制限事項-EF Core
 description: 他のプロバイダーと比較した場合の Entity Framework Core SQLite データベースプロバイダーの制限事項
 author: bricelam
-ms.date: 07/16/2020
+ms.date: 09/24/2020
 uid: core/providers/sqlite/limitations
-ms.openlocfilehash: 546910afb9c97a93a7cc471bb813be0b9874a4bd
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 3d696474d401e8fd6c26a78067d292f0bb97a457
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071226"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062738"
 ---
 # <a name="sqlite-ef-core-database-provider-limitations"></a>SQLite EF Core データベース プロバイダーの制限事項
 
@@ -35,7 +35,7 @@ SQLite では、次のデータ型はネイティブでサポートされてい�
 
 この `Decimal` 型は、高レベルの精度を提供します。 ただし、このレベルの精度が不要な場合は、代わりに double を使用することをお勧めします。 [値コンバーター](xref:core/modeling/value-conversions)を使用して、クラスで10進数の使用を続けることができます。
 
-``` csharp
+```csharp
 modelBuilder.Entity<MyEntity>()
     .Property(e => e.DecimalProperty)
     .HasConversion<double>();
@@ -47,34 +47,55 @@ SQLite データベースエンジンでは、他の多くのリレーショナ�
 
 特定の操作を実行するために再構築が試行されます。 再構築を行うことができるのは、EF Core モデルの一部であるデータベースアーティファクトだけです。 データベースアーティファクトがモデルの一部ではない場合 (たとえば、移行中に手動で作成された場合)、 `NotSupportedException` がまだスローされます。
 
-| 操作            | サポート対象かどうか  | バージョンが必要です |
+| 操作            | サポート対象  | バージョンが必要です |
 |:---------------------|:------------|:-----------------|
 | AddCheckConstraint   | ✔ (再構築) | 5.0              |
-| Table.addcolumn            | ✔           | 1.0              |
+| Table.addcolumn            | ✔           |                  |
 | AddForeignKey        | ✔ (再構築) | 5.0              |
 | AddPrimaryKey        | ✔ (再構築) | 5.0              |
 | AddUniqueConstraint  | ✔ (再構築) | 5.0              |
 | AlterColumn          | ✔ (再構築) | 5.0              |
-| CreateIndex          | ✔           | 1.0              |
-| CreateTable          | ✔           | 1.0              |
+| CreateIndex          | ✔           |                  |
+| CreateTable          | ✔           |                  |
 | DropCheckConstraint  | ✔ (再構築) | 5.0              |
 | DropColumn           | ✔ (再構築) | 5.0              |
 | DropForeignKey       | ✔ (再構築) | 5.0              |
-| DropIndex            | ✔           | 1.0              |
+| DropIndex            | ✔           |                  |
 | DropPrimaryKey       | ✔ (再構築) | 5.0              |
-| DropTable            | ✔           | 1.0              |
+| DropTable            | ✔           |                  |
 | DropUniqueConstraint | ✔ (再構築) | 5.0              |
-| RenameColumn         | ✔           | 2.2.2            |
-| RenameIndex          | ✔ (再構築) | 2.1              |
-| RenameTable          | ✔           | 1.0              |
-| EnsureSchema         | ✔ (非 op)   | 2.0              |
-| DropSchema           | ✔ (非 op)   | 2.0              |
-| 挿入               | ✔           | 2.0              |
-| 更新               | ✔           | 2.0              |
-| 削除               | ✔           | 2.0              |
+| RenameColumn         | ✔           | 2.2              |
+| RenameIndex          | ✔ (再構築) |                  |
+| RenameTable          | ✔           |                  |
+| EnsureSchema         | ✔ (非 op)   |                  |
+| DropSchema           | ✔ (非 op)   |                  |
+| 挿入               | ✔           |                  |
+| 更新               | ✔           |                  |
+| 削除               | ✔           |                  |
 
-## <a name="migrations-limitations-workaround"></a>移行の制限の回避策
+### <a name="migrations-limitations-workaround"></a>移行の制限の回避策
 
 再構築を実行するために、移行でコードを手動で記述することで、これらの制限の一部を回避できます。 テーブルの再構築では、新しいテーブルを作成し、新しいテーブルにデータをコピーし、古いテーブルを削除して、新しいテーブルの名前を変更します。 これらの手順の一部を実行するには、メソッドを使用する必要があり `Sql(string)` ます。
 
 詳細については、SQLite のドキュメントで [他の種類のテーブルスキーマ変更を行う](https://sqlite.org/lang_altertable.html#otheralter) 方法に関するドキュメントを参照してください。
+
+### <a name="idempotent-script-limitations"></a>べき等スクリプトの制限事項
+
+他のデータベースとは異なり、SQLite には手続き型の言語が含まれていません。 このため、べき等移行スクリプトに必要な if then ロジックを生成する方法はありません。
+
+最後の移行がデータベースに適用されていることがわかっている場合は、その移行から最新の移行にスクリプトを生成できます。
+
+```dotnetcli
+dotnet ef migrations script CurrentMigration
+```
+
+それ以外の場合は、を使用して移行を適用することをお勧めし `dotnet ef database update` ます。 EF Core 5.0 以降では、コマンドの実行時にデータベースファイルを指定できます。
+
+```dotnetcli
+dotnet ef database update --connection "Data Source=My.db"
+```
+
+## <a name="see-also"></a>関連項目
+
+* [Microsoft データ Sqlite の非同期の制限事項](/dotnet/standard/data/sqlite/async)
+* [ADO.NET の制限事項](/dotnet/standard/data/sqlite/adonet-limitations)

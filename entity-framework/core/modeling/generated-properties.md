@@ -2,15 +2,14 @@
 title: 生成された値-EF Core
 description: Entity Framework Core を使用する場合のプロパティの値生成の構成方法
 author: AndriySvyryd
-ms.author: ansvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
-ms.openlocfilehash: a10ed3522c255f18d31a75e237a5507fdba468a1
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: d89739cf8bd2612b97bbf338e9685e9888b6216b
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619367"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062218"
 ---
 # <a name="generated-values"></a>生成された値
 
@@ -71,7 +70,7 @@ ms.locfileid: "89619367"
 > [!WARNING]
 > これにより、追加されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。 詳細については、「追加」セクション [で生成された値](#value-generated-on-add) を参照してください。
 
-### <a name="default-values"></a>既定の値
+### <a name="default-values"></a>既定値
 
 リレーショナルデータベースでは、既定値を使用して列を構成できます。その列の値を指定せずに行が挿入されると、既定値が使用されます。
 

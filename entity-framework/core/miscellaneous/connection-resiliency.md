@@ -1,15 +1,15 @@
 ---
 title: 接続の回復性-EF Core
 description: 接続の回復性を使用して、失敗したコマンドを Entity Framework Core で自動的に再試行する
-author: rowanmiller
+author: AndriySvyryd
 ms.date: 11/15/2016
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: 25b754334edd15532780cb4e40682bc211620c76
-ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
+ms.openlocfilehash: db0666a49cbd41ef3eacf447eaeed1fb54ffcbf4
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2020
-ms.locfileid: "91210294"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92061919"
 ---
 # <a name="connection-resiliency"></a>接続の回復
 
@@ -23,7 +23,7 @@ ms.locfileid: "91210294"
 
 `Startup.cs`ASP.NET Core アプリケーションの場合:
 
-``` csharp
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddDbContext<PicnicContext>(
@@ -37,7 +37,7 @@ public void ConfigureServices(IServiceCollection services)
 
 既定値を変更する必要がある場合は、独自のカスタム実行戦略を登録するメカニズムがあります。
 
-``` csharp
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 {
     optionsBuilder
@@ -65,7 +65,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 ## <a name="transaction-commit-failure-and-the-idempotency-issue"></a>トランザクションのコミットエラーとべき等の問題
 
-一般に、接続エラーが発生した場合は、現在のトランザクションがロールバックされます。 ただし、トランザクションのコミット中に接続が切断された場合、トランザクションの結果の状態は不明になります。 
+一般に、接続エラーが発生した場合は、現在のトランザクションがロールバックされます。 ただし、トランザクションのコミット中に接続が切断された場合、トランザクションの結果の状態は不明になります。
 
 既定では、トランザクションがロールバックされた場合と同様に操作が再試行されますが、その場合、新しいデータベースの状態に互換性がない場合、または自動生成されたキー値を使用して新しい行を挿入する場合など、操作が特定の状態に依存してい **ない場合は** 、例外が発生します。
 
@@ -108,6 +108,6 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 > [!NOTE]
 > 検証に使用されるコンテキストに、トランザクションのコミット中に失敗した場合の検証中に再び失敗する可能性があるという実行方法が定義されていることを確認します。
 
-## <a name="additional-resources"></a>その他の技術情報
+## <a name="additional-resources"></a>その他の資料
 
 * [Azure SQL Database と SQL Managed Instance での一時的な接続エラーのトラブルシューティング](/azure/azure-sql/database/troubleshoot-common-connectivity-issues)

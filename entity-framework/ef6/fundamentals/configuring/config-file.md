@@ -1,20 +1,20 @@
 ---
 title: 構成ファイルの設定-EF6
 description: Entity Framework 6 の構成ファイル設定
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/configuring/config-file
-ms.openlocfilehash: b407ae7d64df18f6a8d80aa13703a8c243c6f3a2
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: fc991810e93840c27e6631dfb5bc1796c1328d37
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070719"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063323"
 ---
 # <a name="configuration-file-settings"></a>構成ファイルの設定
 Entity Framework では、構成ファイルからいくつかの設定を指定できます。 一般的な EF では、"構成よりも規約" の原則に従います。この投稿で説明されているすべての設定は既定の動作であるため、既定で要件を満たさなくなった場合にのみ設定を変更することを考慮する必要があります。  
 
-## <a name="a-code-based-alternative"></a>コードベースの代替手段  
+## <a name="a-code-based-alternative"></a>Code-Based 代替手段  
 
 これらの設定はすべて、コードを使用して適用することもできます。 EF6 以降では、コードから構成を適用するための一元的な方法を提供する [コードベースの構成](xref:ef6/fundamentals/configuring/code-based)が導入されました。 EF6 より前でも、構成はコードから適用できますが、さまざまな Api を使用してさまざまな領域を構成する必要があります。 [構成ファイル] オプションを使用すると、コードを更新しなくても、配置時にこれらの設定を簡単に変更できます。
 
@@ -71,7 +71,7 @@ EF デザイナーベースのモデルでは、特殊な EF 接続文字列を�
 </connectionStrings>
 ```
 
-## <a name="code-based-configuration-type-ef6-onwards"></a>コードベースの構成の種類 (EF6 以降)  
+## <a name="code-based-configuration-type-ef6-onwards"></a>Code-Based 構成の種類 (EF6 以降)  
 
 EF6 以降では、アプリケーションの [コードベースの構成](xref:ef6/fundamentals/configuring/code-based) に使用する EF の dbconfiguration を指定できます。 ほとんどの場合、EF によって自動的に DbConfiguration が検出されるため、この設定を指定する必要はありません。 構成ファイルで DbConfiguration を指定する必要がある場合の詳細については、「[コードベースの構成](xref:ef6/fundamentals/configuring/code-based)」の「 **Dbconfiguration の移動**」セクションを参照してください。  
 

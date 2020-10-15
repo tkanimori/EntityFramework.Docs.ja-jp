@@ -2,15 +2,14 @@
 title: Microsoft SQL Server データベースプロバイダー-インデックス-EF Core
 description: Entity Framework Core SQL Server プロバイダーに固有のインデックス機能
 author: roji
-ms.author: shrojans
 ms.date: 9/1/2020
 uid: core/providers/sql-server/indexes
-ms.openlocfilehash: 3830377562fcc6a59239cd2c09d1419bbd00922e
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: a01ab3d12f5bf5f05f0925c93d90c0ee40fe977c
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89620707"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92061867"
 ---
 # <a name="index-features-specific-to-the-entity-framework-core-sql-server-provider"></a>Entity Framework Core SQL Server プロバイダーに固有のインデックス機能
 

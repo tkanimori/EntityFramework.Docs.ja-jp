@@ -2,14 +2,14 @@
 title: リレーションシップ-EF Core
 description: Entity Framework Core を使用するときにエンティティ型間のリレーションシップを構成する方法
 author: AndriySvyryd
-ms.date: 11/21/2019
+ms.date: 10/01/2020
 uid: core/modeling/relationships
-ms.openlocfilehash: 9946b2190cb3c3973f245d44da7e359b60845541
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 71d960a15dfb938af1dcc7035dc2587df7ad4677
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619113"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063843"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -148,7 +148,10 @@ Fluent API でリレーションシップを構成するには、まず、リレ
 
 ### <a name="configuring-navigation-properties"></a>ナビゲーションプロパティの構成
 
-ナビゲーションプロパティが作成された後で、さらに構成する必要がある場合があります。 EFCore 5.0 では、新しい Fluent API が追加され、その構成を実行できるようになりました。
+> [!NOTE]
+> この機能は EF Core 5.0 で追加されました。
+
+ナビゲーションプロパティが作成された後で、さらに構成する必要がある場合があります。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/NavigationConfiguration.cs?name=NavigationConfiguration&highlight=7-9)]
 
@@ -224,6 +227,8 @@ Fluent API を使用して、特定のリレーションシップの複合外部
 
 Fluent API を使用して、リレーションシップが必須か省略可能かを構成できます。 これは最終的に、外部キープロパティが必須か省略可能かを制御します。 これは、シャドウ状態の外部キーを使用している場合に最も役立ちます。 エンティティクラスに外部キープロパティがある場合、リレーションシップの requiredness は、外部キープロパティが必須か省略可能かに基づいて決定されます (詳細については、 [必須プロパティと省略可能なプロパティ](xref:core/modeling/entity-properties#required-and-optional-properties) を参照してください)。
 
+外部キープロパティは依存エンティティ型にあるため、必要に応じて構成する場合は、すべての依存エンティティに対応するプリンシパルエンティティが必要であることを意味します。
+
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/Required.cs?name=Required&highlight=6)]
 
 > [!NOTE]
@@ -254,8 +259,69 @@ Fluent API との関係を構成する場合は、 `HasOne` メソッドとメ�
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/OneToOne.cs?name=OneToOne&highlight=11)]
 
+既定では、依存側は省略可能と見なされますが、必要に応じて構成できます。 ただし、依存エンティティが指定されているかどうかは EF によって検証されません。そのため、この構成では、データベースマッピングで適用が許可されている場合にのみ、違いがあります。 この一般的なシナリオは、既定でテーブル分割を使用する参照所有型です。
+
+[!code-csharp[Main](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=Required&highlight=11-12)]
+
+この構成では、に対応する列は、 `ShippingAddress` データベースで null 非許容としてマークされます。
+
+> [!NOTE]
+> [Null 非許容の参照型](/dotnet/csharp/nullable-references)を使用している場合は、を呼び出す `IsRequired` 必要はありません。
+
+> [!NOTE]
+> EF Core 5.0 に、依存関係が必要かどうかを構成する機能が追加されました。
+
 ### <a name="many-to-many"></a>多対多
 
-結合テーブルを表すエンティティクラスのない多対多リレーションシップは、まだサポートされていません。 ただし、結合テーブルのエンティティクラスを含め、2つの個別の一対多リレーションシップをマップすることで、多対多リレーションシップを表すことができます。
+多対多リレーションシップでは、両側にコレクションナビゲーションプロパティが必要です。 これらは、他の種類のリレーションシップと同様に規則によって検出されます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyShared.cs?name=ManyToManyShared)]
+
+このリレーションシップをデータベースで実装する方法は、との外部キーを含む結合テーブルによって行われ `Post` `Tag` ます。 たとえば、上記のモデルのリレーショナルデータベースに EF が作成されます。
+
+```sql
+CREATE TABLE [Posts] (
+    [PostId] int NOT NULL IDENTITY,
+    [Title] nvarchar(max) NULL,
+    [Content] nvarchar(max) NULL,
+    CONSTRAINT [PK_Posts] PRIMARY KEY ([PostId])
+);
+
+CREATE TABLE [Tags] (
+    [TagId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_Tags] PRIMARY KEY ([TagId])
+);
+
+CREATE TABLE [PostTag] (
+    [PostId] int NOT NULL,
+    [TagId] nvarchar(450) NOT NULL,
+    CONSTRAINT [PK_PostTag] PRIMARY KEY ([PostId], [TagId]),
+    CONSTRAINT [FK_PostTag_Posts_PostId] FOREIGN KEY ([PostId]) REFERENCES [Posts] ([PostId]) ON DELETE CASCADE,
+    CONSTRAINT [FK_PostTag_Tags_TagId] FOREIGN KEY ([TagId]) REFERENCES [Tags] ([TagId]) ON DELETE CASCADE
+);
+```
+
+内部的には、EF は、結合エンティティ型と呼ばれる結合テーブルを表すエンティティ型を作成します。 このに使用できる特定の CLR 型がないため、 `Dictionary<string, object>` が使用されます。 複数の多対多リレーションシップがモデルに存在する可能性があるため、結合エンティティ型には一意の名前を指定する必要があります (この場合は) `PostTag` 。 これを可能にする機能は、共有型のエンティティ型と呼ばれます。
+
+多対多のナビゲーションは、結合エンティティ型を効果的にスキップするため、"スキップナビゲーション" と呼ばれます。 一括構成を使用している場合は、すべてのスキップナビゲーションをから取得でき `GetSkipNavigations` ます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyShared.cs?name=Metadata)]
+
+結合エンティティ型に構成を適用するのは一般的です。 この操作は、を使用して実行でき `UsingEntity` ます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyShared.cs?name=SharedConfiguration)]
+
+[モデルシードデータ](xref:core/modeling/data-seeding) は、匿名型を使用して、結合エンティティ型に指定できます。 モデルデバッグビューを調べて、規則によって作成されたプロパティ名を確認できます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyShared.cs?name=Seeding)]
+
+結合エンティティ型には追加のデータを格納できますが、そのためにはオーダーメイド CLR 型を作成することをお勧めします。 カスタム結合エンティティ型を使用してリレーションシップを構成する場合は、両方の外部キーを明示的に指定する必要があります。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyPayload.cs?name=ManyToManyPayload)]
+
+> [!NOTE]
+> EF Core 5.0 では、多対多リレーションシップを構成する機能が追加されました。以前のバージョンでは、次の方法を使用します。
+
+結合エンティティ型を追加し、2つの個別の一対多リレーションシップをマッピングするだけで、多対多リレーションシップを表すこともできます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?name=ManyToMany&highlight=11-14,16-19,39-46)]

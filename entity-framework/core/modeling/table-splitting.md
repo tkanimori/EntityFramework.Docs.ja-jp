@@ -2,19 +2,18 @@
 title: テーブル分割-EF Core
 description: Entity Framework Core を使用してテーブル分割を構成する方法
 author: AndriySvyryd
-ms.author: ansvyryd
 ms.date: 01/03/2020
 uid: core/modeling/table-splitting
-ms.openlocfilehash: e7428bc516a69310b6a6f521acc49aee0ba9f802
-ms.sourcegitcommit: 949faaba02e07e44359e77d7935f540af5c32093
+ms.openlocfilehash: 71d332ec3f500f48e12863c71ac44ce4d60699f0
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 08/03/2020
-ms.locfileid: "87526500"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063037"
 ---
 # <a name="table-splitting"></a>テーブル分割
 
-EF Core を使用すると、複数のエンティティを1つの行にマップできます。 これは、_テーブル分割_または_テーブル共有_と呼ばれます。
+EF Core を使用すると、複数のエンティティを1つの行にマップできます。 これは、 _テーブル分割_ または _テーブル共有_と呼ばれます。
 
 ## <a name="configuration"></a>構成
 
@@ -33,9 +32,9 @@ EF Core を使用すると、複数のエンティティを1つの行にマッ�
 [!code-csharp[TableSplittingConfiguration](../../../samples/core/Modeling/TableSplitting/TableSplittingContext.cs?name=TableSplitting)]
 
 > [!TIP]
-> 詳細なコンテキストについては、[完全なサンプルプロジェクト](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting)を参照してください。
+> 詳細なコンテキストについては、 [完全なサンプルプロジェクト](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/TableSplitting) を参照してください。
 
-## <a name="usage"></a>使用法
+## <a name="usage"></a>使用方法
 
 テーブル分割を使用したエンティティの保存とクエリは、他のエンティティと同じ方法で実行されます。
 

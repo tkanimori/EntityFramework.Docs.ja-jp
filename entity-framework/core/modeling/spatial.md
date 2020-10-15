@@ -2,22 +2,21 @@
 title: 空間データ-EF Core
 description: Entity Framework Core モデルでの空間データの使用
 author: bricelam
-ms.author: bricelam
-ms.date: 11/01/2018
+ms.date: 10/02/2020
 uid: core/modeling/spatial
-ms.openlocfilehash: 8c08835f2d6211e6be5852b58b35f003f823bded
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 2c0cd7a8acf7e4b58eadf8805afa1fe4a1d6e949
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071434"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063934"
 ---
 # <a name="spatial-data"></a>空間データ
 
 > [!NOTE]
 > この機能は EF Core 2.2 で追加されました。
 
-空間データは、オブジェクトの物理的な位置と形状を表します。 多くのデータベースでは、この種類のデータをサポートしているため、他のデータと共にインデックスを作成してクエリを実行できます。 一般的なシナリオとしては、ある場所からの特定の距離にあるオブジェクトのクエリ、または特定の場所を含む罫線を持つオブジェクトの選択などがあります。 EF Core では、 [NetTopologySuite](https://github.com/NetTopologySuite/NetTopologySuite) 空間ライブラリを使用した空間データ型へのマッピングがサポートされています。
+空間データは、オブジェクトの物理的な位置と形状を表します。 多くのデータベースでは、この種類のデータをサポートしているため、他のデータと共にインデックスを作成してクエリを実行できます。 一般的なシナリオとしては、ある場所からの特定の距離にあるオブジェクトのクエリ、または特定の場所を含む罫線を持つオブジェクトの選択などがあります。 EF Core では、NetTopologySuite 空間ライブラリを使用した空間データ型へのマッピングがサポートされています。
 
 ## <a name="installing"></a>インストール
 
@@ -29,22 +28,19 @@ Microsoft.EntityFrameworkCore.SqlServer | [NetTopologySuite (Microsoft EntityFra
 Microsoft.EntityFrameworkCore.Sqlite    | [NetTopologySuite (Microsoft EntityFrameworkCore)](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Sqlite.NetTopologySuite)
 Microsoft.EntityFrameworkCore.InMemory  | [NetTopologySuite](https://www.nuget.org/packages/NetTopologySuite)
 Npgsql.EntityFrameworkCore.PostgreSQL   | [Npgsql. EntityFrameworkCore](https://www.nuget.org/packages/Npgsql.EntityFrameworkCore.PostgreSQL.NetTopologySuite)
+Pomelo.EntityFrameworkCore.MySql        | [Pomelo. MySql. NetTopologySuite](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MySql.NetTopologySuite)
+Devart.Data.MySql.EFCore                | [NetTopologySuite (devart. データ...](https://www.nuget.org/packages/Devart.Data.MySql.EFCore.NetTopologySuite)
+Devart.Data.PostgreSql.EFCore           | [NetTopologySuite (devart. データ...)](https://www.nuget.org/packages/Devart.Data.PostgreSql.EFCore.NetTopologySuite)
+Devart.Data.SQLite.EFCore               | [NetTopologySuite (devart. データ. SQLite)](https://www.nuget.org/packages/Devart.Data.SQLite.EFCore.NetTopologySuite)
+Teradata.EntityFrameworkCore            | [Teradata. EntityFrameworkCore. NetTopologySuite](https://www.nuget.org/packages/Teradata.EntityFrameworkCore.NetTopologySuite)
 
-## <a name="reverse-engineering"></a>リバースエンジニアリング
+## <a name="nettopologysuite"></a>NetTopologySuite
 
-空間 NuGet パッケージでは、空間プロパティを使用してモデルの [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) を行うこともできますが、またはを実行する ***前*** にパッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
-
-## <a name="nettopologysuite-nts"></a>NetTopologySuite (NTS)
-
-NetTopologySuite は、.NET 用の空間ライブラリです。 EF Core を使用すると、モデルの NTS 型を使用して、データベース内の空間データ型にマッピングできます。
+[NetTopologySuite](https://nettopologysuite.github.io/NetTopologySuite/) (NTS) は、.net 用の空間ライブラリです。 EF Core を使用すると、モデルの NTS 型を使用して、データベース内の空間データ型にマッピングできます。
 
 NTS 経由で空間型へのマッピングを有効にするには、プロバイダーの DbContext オプションビルダーで UseNetTopologySuite メソッドを呼び出します。 たとえば、SQL Server では、次のようにを呼び出します。
 
-``` csharp
-optionsBuilder.UseSqlServer(
-    @"Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=WideWorldImporters",
-    x => x.UseNetTopologySuite());
-```
+[!code-csharp[](../../../samples/core/Spatial/SqlServer/Models/WideWorldImportersContext.cs?name=snippet_UseNetTopologySuite)]
 
 空間データ型はいくつかあります。 使用する種類は、許可する図形の種類によって異なります。 ここでは、モデルのプロパティに使用できる NTS 型の階層を示します。 これらは名前空間内にあり `NetTopologySuite.Geometries` ます。
 
@@ -62,48 +58,29 @@ optionsBuilder.UseSqlServer(
 
 基本 Geometry 型を使用すると、プロパティによって任意の型の図形を指定できます。
 
-次のエンティティクラスは、 [Wide World のインポーターサンプルデータベース](https://go.microsoft.com/fwlink/?LinkID=800630)のテーブルにマップするために使用できます。
-
-``` csharp
-[Table("Cities", Schema = "Application"))]
-class City
-{
-    public int CityID { get; set; }
-
-    public string CityName { get; set; }
-
-    public Point Location { get; set; }
-}
-
-[Table("Countries", Schema = "Application"))]
-class Country
-{
-    public int CountryID { get; set; }
-
-    public string CountryName { get; set; }
-
-    // Database includes both Polygon and MultiPolygon values
-    public Geometry Border { get; set; }
-}
-```
-
-### <a name="creating-values"></a>値の作成
-
-コンストラクターを使用して、geometry オブジェクトを作成できます。ただし、NTS では、代わりに geometry ファクトリを使用することをお勧めします。 これにより、既定の SRID (座標によって使用される空間参照システム) を指定できます。また、精度モデル (計算時に使用される) や座標シーケンス (使用可能な次元とメジャーを決定) など、より高度なものを制御できます。
-
-``` csharp
-var geometryFactory = NtsGeometryServices.Instance.CreateGeometryFactory(srid: 4326);
-var currentLocation = geometryFactory.CreatePoint(new Coordinate(-122.121512, 47.6739882));
-```
-
-> [!NOTE]
-> 4326は、GPS などの地理的システムで使用される標準の WGS 84 を指します。
-
-### <a name="longitude-and-latitude"></a>経度と緯度
+## <a name="longitude-and-latitude"></a>経度と緯度
 
 NTS 内の座標は、X 値と Y 値で表現されます。 経度と緯度を表すには、経度には X、緯度には Y を使用します。 これは、通常、これらの値が表示されるのとは **逆** の形式であることに注意して `latitude, longitude` ください。
 
-### <a name="srid-ignored-during-client-operations"></a>クライアント操作中に SRID が無視されました
+## <a name="querying-data"></a>データのクエリ
+
+次のエンティティクラスは、 [Wide World のインポーターサンプルデータベース](https://go.microsoft.com/fwlink/?LinkID=800630)のテーブルにマップするために使用できます。
+
+[!code-csharp[](../../../samples/core/Spatial/SqlServer/Models/City.cs?name=snippet_City)]
+
+[!code-csharp[](../../../samples/core/Spatial/SqlServer/Models/Country.cs?name=snippet_Country)]
+
+LINQ では、データベース関数として使用できる NTS のメソッドとプロパティは、SQL に変換されます。 たとえば、Distance メソッドと Contains メソッドは、次のクエリでは変換されます。 サポートされているメソッドについては、プロバイダーのドキュメントを参照してください。
+
+[!code-csharp[](../../../samples/core/Spatial/SqlServer/Program.cs?name=snippet_Distance)]
+
+[!code-csharp[](../../../samples/core/Spatial/SqlServer/Program.cs?name=snippet_Contains)]
+
+## <a name="reverse-engineering"></a>リバースエンジニアリング
+
+空間 NuGet パッケージでは、空間プロパティを使用してモデルの [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) を行うこともできますが、またはを実行する ***前*** にパッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
+
+## <a name="srid-ignored-during-client-operations"></a>クライアント操作中に SRID が無視されました
 
 NTS は、操作中に SRID の値を無視します。 平面座標系を前提としています。 これは、経度と緯度の観点で座標を指定した場合、クライアントによって評価される値 (距離、長さ、領域など) は、メーターではなく、度数で表されることを意味します。 意味のある値については、まず、 [ProjNet4GeoAPI](https://github.com/NetTopologySuite/ProjNet4GeoAPI) のようなライブラリを使用して、これらの値を計算する前に、別の座標系の座標を射影する必要があります。
 
@@ -111,241 +88,18 @@ NTS は、操作中に SRID の値を無視します。 平面座標系を前提
 
 ProjNet4GeoAPI を使用して2つの都市間の距離を計算する例を次に示します。
 
-``` csharp
-static class GeometryExtensions
-{
-    static readonly CoordinateSystemServices _coordinateSystemServices
-        = new CoordinateSystemServices(
-            new CoordinateSystemFactory(),
-            new CoordinateTransformationFactory(),
-            new Dictionary<int, string>
-            {
-                // Coordinate systems:
+[!code-csharp[](../../../samples/core/Spatial/Projections/GeometryExtensions.cs?name=snippet_GeometryExtensions)]
 
-                [4326] = GeographicCoordinateSystem.WGS84.WKT,
+[!code-csharp[](../../../samples/core/Spatial/Projections/Program.cs?name=snippet_ProjectTo)]
 
-                // This coordinate system covers the area of our data.
-                // Different data requires a different coordinate system.
-                [2855] =
-                @"
-                    PROJCS[""NAD83(HARN) / Washington North"",
-                        GEOGCS[""NAD83(HARN)"",
-                            DATUM[""NAD83_High_Accuracy_Regional_Network"",
-                                SPHEROID[""GRS 1980"",6378137,298.257222101,
-                                    AUTHORITY[""EPSG"",""7019""]],
-                                AUTHORITY[""EPSG"",""6152""]],
-                            PRIMEM[""Greenwich"",0,
-                                AUTHORITY[""EPSG"",""8901""]],
-                            UNIT[""degree"",0.01745329251994328,
-                                AUTHORITY[""EPSG"",""9122""]],
-                            AUTHORITY[""EPSG"",""4152""]],
-                        PROJECTION[""Lambert_Conformal_Conic_2SP""],
-                        PARAMETER[""standard_parallel_1"",48.73333333333333],
-                        PARAMETER[""standard_parallel_2"",47.5],
-                        PARAMETER[""latitude_of_origin"",47],
-                        PARAMETER[""central_meridian"",-120.8333333333333],
-                        PARAMETER[""false_easting"",500000],
-                        PARAMETER[""false_northing"",0],
-                        UNIT[""metre"",1,
-                            AUTHORITY[""EPSG"",""9001""]],
-                        AUTHORITY[""EPSG"",""2855""]]
-                "
-            });
+> [!NOTE]
+> 4326は、GPS などの地理的システムで使用される標準の WGS 84 を指します。
 
-    public static Geometry ProjectTo(this Geometry geometry, int srid)
-    {
-        var transformation = _coordinateSystemServices.CreateTransformation(geometry.SRID, srid);
+## <a name="additional-resources"></a>その他の資料
 
-        var result = geometry.Copy();
-        result.Apply(new MathTransformFilter(transformation.MathTransform));
+空間データの操作の詳細については、プロバイダーのドキュメントを参照してください。
 
-        return result;
-    }
-
-    class MathTransformFilter : ICoordinateSequenceFilter
-    {
-        readonly MathTransform _transform;
-
-        public MathTransformFilter(MathTransform transform)
-            => _transform = transform;
-
-        public bool Done => false;
-        public bool GeometryChanged => true;
-
-        public void Filter(CoordinateSequence seq, int i)
-        {
-            var result = _transform.Transform(
-                new[]
-                {
-                    seq.GetOrdinate(i, Ordinate.X),
-                    seq.GetOrdinate(i, Ordinate.Y)
-                });
-            seq.SetOrdinate(i, Ordinate.X, result[0]);
-            seq.SetOrdinate(i, Ordinate.Y, result[1]);
-        }
-    }
-}
-```
-
-``` csharp
-var seattle = new Point(-122.333056, 47.609722) { SRID = 4326 };
-var redmond = new Point(-122.123889, 47.669444) { SRID = 4326 };
-
-var distance = seattle.ProjectTo(2855).Distance(redmond.ProjectTo(2855));
-```
-
-## <a name="querying-data"></a>データのクエリ
-
-LINQ では、データベース関数として使用できる NTS のメソッドとプロパティは、SQL に変換されます。 たとえば、Distance メソッドと Contains メソッドは、次のクエリでは変換されます。 この記事の最後にある表では、さまざまな EF Core プロバイダーでサポートされているメンバーについて説明します。
-
-``` csharp
-var nearestCity = db.Cities
-    .OrderBy(c => c.Location.Distance(currentLocation))
-    .FirstOrDefault();
-
-var currentCountry = db.Countries
-    .FirstOrDefault(c => c.Border.Contains(currentLocation));
-```
-
-## <a name="sql-server"></a>SQL Server
-
-SQL Server を使用している場合は、注意が必要な点がいくつかあります。
-
-### <a name="geography-or-geometry"></a>Geography または geometry
-
-既定では、空間プロパティは SQL Server の列にマップされ `geography` ます。 を使用するには `geometry` 、モデルの [列の型を構成](xref:core/modeling/entity-properties#column-data-types) します。
-
-### <a name="geography-polygon-rings"></a>Geography polygon リング
-
-列の型を使用する場合、SQL Server によって `geography` 、外部リング (またはシェル) と内部リング (または穴) に追加の要件が課されます。 外部リングの方向を反時計回りにし、内部リングを時計回りにする必要があります。 NTS は、データベースに値を送信する前にこのことを検証します。
-
-### <a name="fullglobe"></a>FullGlobe
-
-SQL Server には、列の型を使用するときに全地球を表す非標準の geometry 型があり `geography` ます。 また、地球全体に基づくポリゴンを表す方法も用意されています (外部リングは不要)。 これらのいずれも、NTS ではサポートされていません。
-
-> [!WARNING]
-> NTS では、これに基づく FullGlobe と多角形はサポートされていません。
-
-## <a name="sqlite"></a>SQLite
-
-SQLite を使用する場合の追加情報を次に示します。
-
-### <a name="installing-spatialite"></a>SpatiaLite のインストール
-
-Windows では、ネイティブ mod_spatialite ライブラリは NuGet パッケージの依存関係として配布されます。 他のプラットフォームでは、別のプラットフォームをインストールする必要があります。 通常、これはソフトウェアパッケージマネージャーを使用して行います。 たとえば、MacOS では、APT on Ubuntu と Homebrew を使用できます。
-
-``` sh
-# Ubuntu
-apt-get install libsqlite3-mod-spatialite
-
-# macOS
-brew install libspatialite
-```
-
-残念ながら、新しいバージョンの PROJ (SpatiaLite の依存関係) は EF の既定の [SQLitePCLRaw バンドル](/dotnet/standard/data/sqlite/custom-versions#bundles)と互換性がありません。 この問題を回避するには、システム SQLite ライブラリを使用するカスタム [SQLitePCLRaw プロバイダー](/dotnet/standard/data/sqlite/custom-versions#sqlitepclraw-providers) を作成するか、または SpatiaLite のカスタムビルドをインストールして、PROJ サポートを無効にします。
-
-``` sh
-curl https://www.gaia-gis.it/gaia-sins/libspatialite-4.3.0a.tar.gz | tar -xz
-cd libspatialite-4.3.0a
-
-if [[ `uname -s` == Darwin* ]]; then
-    # Mac OS requires some minor patching
-    sed -i "" "s/shrext_cmds='\`test \\.\$module = .yes && echo .so \\|\\| echo \\.dylib\`'/shrext_cmds='.dylib'/g" configure
-fi
-
-./configure --disable-proj
-make
-make install
-```
-
-### <a name="configuring-srid"></a>SRID の構成
-
-SpatiaLite では、列ごとに SRID を指定する必要があります。 既定の SRID は `0` です。 ForSqliteHasSrid メソッドを使用して、別の SRID を指定します。
-
-``` csharp
-modelBuilder.Entity<City>().Property(c => c.Location)
-    .ForSqliteHasSrid(4326);
-```
-
-### <a name="dimension"></a>Dimension
-
-SRID と同様に、列のディメンション (または座標) も列の一部として指定されます。 既定の座標は X と Y です。 ForSqliteHasDimension メソッドを使用して、追加の座標 (Z および M) を有効にします。
-
-``` csharp
-modelBuilder.Entity<City>().Property(c => c.Location)
-    .ForSqliteHasDimension(Ordinates.XYZ);
-```
-
-## <a name="translated-operations"></a>翻訳された操作
-
-次の表は、各 EF Core プロバイダーによってどの NTS メンバーが SQL に変換されるかを示しています。
-
-NetTopologySuite | SQL Server (geometry) | SQL Server (geography) | SQLite | Npgsql
---- |:---:|:---:|:---:|:---:
-Geometry. 面 | ✔ | ✔ | ✔ | ✔
-Geometry. AsBinary () | ✔ | ✔ | ✔ | ✔
-Geometry. AsText () | ✔ | ✔ | ✔ | ✔
-Geometry. 境界 | ✔ | | ✔ | ✔
-Geometry. Buffer (double) | ✔ | ✔ | ✔ | ✔
-Geometry. Buffer (double, int) | | | ✔ | ✔
-Geometry. 重心 | ✔ | | ✔ | ✔
-Geometry. Contains (Geometry) | ✔ | ✔ | ✔ | ✔
-ConvexHull () | ✔ | ✔ | ✔ | ✔
-Geometry (Geometry) | | | ✔ | ✔
-Geometry. カバー (Geometry) | | | ✔ | ✔
-Geometry. 交差 (Geometry) | ✔ | | ✔ | ✔
-Geometry. 差 (Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry. ディメンション | ✔ | ✔ | ✔ | ✔
-Geometry. 不整合 (Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry. Distance (Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry. エンベロープ | ✔ | | ✔ | ✔
-EqualsExact (Geometry) | | | | ✔
-EqualsTopologically (Geometry) | ✔ | ✔ | ✔ | ✔
-GeometryType | ✔ | ✔ | ✔ | ✔
-GetGeometryN (int) | ✔ | | ✔ | ✔
-InteriorPoint | ✔ | | ✔ | ✔
-Geometry. 積集合 (Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry. 交差 (Geometry) | ✔ | ✔ | ✔ | ✔
-IsEmpty | ✔ | ✔ | ✔ | ✔
-Geometry. IsSimple | ✔ | | ✔ | ✔
-Geometry. IsValid | ✔ | ✔ | ✔ | ✔
-Geometry. Iswithin Distance (Geometry, double) | ✔ | | ✔ | ✔
-Geometry. Length | ✔ | ✔ | ✔ | ✔
-Geometry. NumGeometries | ✔ | ✔ | ✔ | ✔
-Geometry. NumPoints | ✔ | ✔ | ✔ | ✔
-OgcGeometryType | ✔ | ✔ | ✔ | ✔
-Geometry. 重なり (Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry. PointOnSurface | ✔ | | ✔ | ✔
-Geometry. 関連付け (Geometry, string) | ✔ | | ✔ | ✔
-Geometry. Reverse () | | | ✔ | ✔
-SRID | ✔ | ✔ | ✔ | ✔
-Geometry. SymmetricDifference (Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry. ToBinary () | ✔ | ✔ | ✔ | ✔
-Geometry. ToText () | ✔ | ✔ | ✔ | ✔
-Geometry (Geometry) | ✔ | | ✔ | ✔
-Geometry. Union () | | | ✔ | ✔
-Geometry. 共用体 (Geometry) | ✔ | ✔ | ✔ | ✔
-Geometry. 内 (Geometry) | ✔ | ✔ | ✔ | ✔
-GeometryCollection | ✔ | ✔ | ✔ | ✔
-GeometryCollection [int] | ✔ | ✔ | ✔ | ✔
-LineString | ✔ | ✔ | ✔ | ✔
-LineString | ✔ | ✔ | ✔ | ✔
-LineString n (int) | ✔ | ✔ | ✔ | ✔
-LineString | ✔ | ✔ | ✔ | ✔
-LineString | ✔ | | ✔ | ✔
-LineString StartPoint | ✔ | ✔ | ✔ | ✔
-MultiLineString | ✔ | ✔ | ✔ | ✔
-Point. M | ✔ | ✔ | ✔ | ✔
-Point. X | ✔ | ✔ | ✔ | ✔
-Point. Y | ✔ | ✔ | ✔ | ✔
-Point. Z | ✔ | ✔ | ✔ | ✔
-ExteriorRing | ✔ | ✔ | ✔ | ✔
-GetInteriorRingN (int) | ✔ | ✔ | ✔ | ✔
-NumInteriorRings | ✔ | ✔ | ✔ | ✔
-
-## <a name="additional-resources"></a>その他のリソース
-
-* [SQL Server の空間データ](/sql/relational-databases/spatial/spatial-data-sql-server)
-* [SpatiaLite ホームページ](https://www.gaia-gis.it/fossil/libspatialite)
-* [Npgsql 空間のドキュメント](https://www.npgsql.org/efcore/mapping/nts.html)
-* [PostGIS のドキュメント](https://postgis.net/documentation/)
+* [SQL Server プロバイダーの空間データ](xref:core/providers/sql-server/spatial)
+* [SQLite プロバイダーの空間データ](xref:core/providers/sqlite/spatial)
+* [Npgsql プロバイダーの空間データ](https://www.npgsql.org/efcore/mapping/nts.html)
+* [NetTopologySuite のドキュメント](https://nettopologysuite.github.io/NetTopologySuite/)

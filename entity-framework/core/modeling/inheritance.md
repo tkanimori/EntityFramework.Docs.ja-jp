@@ -2,24 +2,18 @@
 title: 継承-EF Core
 description: Entity Framework Core を使用してエンティティ型の継承を構成する方法
 author: AndriySvyryd
-ms.author: ansvyryd
-ms.date: 10/27/2016
+ms.date: 10/01/2020
 uid: core/modeling/inheritance
-ms.openlocfilehash: 0e94013a0b894b162f4bb3ca8e7acb1aca349011
-ms.sourcegitcommit: 92d54fe3702e0c92e198334da22bacb42e9842b1
+ms.openlocfilehash: 47aae0d57d7203f0e6da5868bdc082ad85d59620
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 06/10/2020
-ms.locfileid: "84664053"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063869"
 ---
 # <a name="inheritance"></a>継承
 
 EF では、.NET 型階層をデータベースにマップできます。 これにより、基本型と派生型を使用して、通常どおりに .NET エンティティをコードに記述し、EF によって適切なデータベーススキーマの作成、クエリの実行などをシームレスに行うことができます。型階層のマッピング方法の実際の詳細は、プロバイダーに依存します。このページでは、リレーショナルデータベースのコンテキストでの継承のサポートについて説明します。
-
-現時点では、EF Core では、階層単位 (TPH) のパターンのみがサポートされています。 TPH は、1つのテーブルを使用して階層内のすべての型のデータを格納します。また、識別子列を使用して、各行が表す型を識別します。
-
-> [!NOTE]
-> EF6 によってサポートされている、型ごとのテーブル (TPT) と具象型 (TPC) は、EF Core ではまだサポートされていません。 TPT は EF Core 5.0 に対して計画されている主な機能です。
 
 ## <a name="entity-type-hierarchy-mapping"></a>エンティティ型階層のマッピング
 
@@ -29,25 +23,27 @@ EF では、.NET 型階層をデータベースにマップできます。 こ�
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/InheritanceDbSets.cs?name=InheritanceDbSets&highlight=3-4)]
 
-このモデルは、次のデータベーススキーマにマップされます (それぞれの行に格納されている*ブログ*の種類を識別する、暗黙的に作成された*識別子*の列に注意してください)。
+> [!NOTE]
+> TPH マッピングを使用する場合、データベース列は必要に応じて自動的に null 許容になります。 たとえば、列は `RssUrl` null 値を許容 `Blog` します。通常のインスタンスにはそのプロパティがないためです。
 
-![image](_static/inheritance-tph-data.png)
-
->[!NOTE]
-> TPH マッピングを使用する場合、データベース列は必要に応じて自動的に null 許容になります。 たとえば、 *RssUrl*列は null 値を許容します。通常の*ブログ*インスタンスにはそのプロパティがないためです。
-
-階層内の1つ以上のエンティティに対して DbSet を公開しない場合は、Fluent API を使用してモデルに含まれていることを確認することもできます。
+階層内の1つ以上のエンティティに対してを公開しない場合は、 `DbSet` FLUENT API を使用してモデルに含まれていることを確認することもできます。
 
 > [!TIP]
 > 規則に依存しない場合は、を使用して基本型を明示的に指定でき `HasBaseType` ます。 また、を使用し `.HasBaseType((Type)null)` て、階層からエンティティ型を削除することもできます。
 
-## <a name="discriminator-configuration"></a>識別子の構成
+## <a name="table-per-hierarchy-and-discriminator-configuration"></a>階層ごとのテーブルと識別子の構成
+
+既定では、EF は、 *階層単位* (TPH) パターンを使用して継承をマップします。 TPH は、1つのテーブルを使用して階層内のすべての型のデータを格納します。また、識別子列を使用して、各行が表す型を識別します。
+
+上記のモデルは、次のデータベーススキーマにマップされます (各行に格納されているの型を識別する、暗黙的に作成された列に注意して `Discriminator` `Blog` ください)。
+
+![image](_static/inheritance-tph-data.png)
 
 識別子の列の名前と種類と、階層内の各型を識別するために使用される値を構成できます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DiscriminatorConfiguration.cs?name=DiscriminatorConfiguration&highlight=4-6)]
 
-上の例では、EF によって、階層の基本エンティティに対して暗黙的に[シャドウプロパティ](xref:core/modeling/shadow-properties)として識別子が追加されています。 このプロパティは、次のように構成できます。
+上の例では、EF によって、階層の基本エンティティに対して暗黙的に [シャドウプロパティ](xref:core/modeling/shadow-properties) として識別子が追加されています。 このプロパティは、次のように構成できます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DiscriminatorPropertyConfiguration.cs?name=DiscriminatorPropertyConfiguration&highlight=4-5)]
 
@@ -55,8 +51,41 @@ EF では、.NET 型階層をデータベースにマップできます。 こ�
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/NonShadowDiscriminator.cs?name=NonShadowDiscriminator&highlight=4)]
 
-## <a name="shared-columns"></a>共有列
+### <a name="shared-columns"></a>共有列
 
 既定では、階層内の2つの兄弟エンティティ型に同じ名前のプロパティがある場合、2つの異なる列にマップされます。 ただし、型が同一の場合は、同じデータベース列にマップできます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/SharedTPHColumns.cs?name=SharedTPHColumns&highlight=9,13)]
+
+## <a name="table-per-type-configuration"></a>テーブルごとの構成
+
+> [!NOTE]
+> 型ごとのテーブル (TPT) は、EF Core 5.0 の新機能です。 EF6 では、具象型 (TPC) ごとにサポートされていますが、まだ EF Core サポートされていません。
+
+TPT mapping パターンでは、すべての型が個々のテーブルにマップされます。 基本データ型または派生型のみに属するプロパティは、その型にマップされたテーブルに格納されます。 派生型にマップされるテーブルには、派生テーブルとベーステーブルを結合する外部キーも格納されます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TPTConfiguration.cs?name=TPTConfiguration)]
+
+EF は、上記のモデルに対して次のデータベーススキーマを作成します。
+
+```sql
+CREATE TABLE [Blogs] (
+    [BlogId] int NOT NULL IDENTITY,
+    [Url] nvarchar(max) NULL,
+    CONSTRAINT [PK_Blogs] PRIMARY KEY ([BlogId])
+);
+
+CREATE TABLE [RssBlogs] (
+    [BlogId] int NOT NULL,
+    [RssUrl] nvarchar(max) NULL,
+    CONSTRAINT [PK_RssBlogs] PRIMARY KEY ([BlogId]),
+    CONSTRAINT [FK_RssBlogs_Blogs_BlogId] FOREIGN KEY ([BlogId]) REFERENCES [Blogs] ([BlogId]) ON DELETE NO ACTION
+);
+```
+
+> [!NOTE]
+> Primary key 制約の名前を変更すると、階層にマップされているすべてのテーブルに新しい名前が適用されます。将来の EF バージョンでは、 [問題 19970](https://github.com/dotnet/efcore/issues/19970) が修正されると、特定のテーブルに対してのみ制約の名前を変更できるようになります。
+
+一括構成を使用している場合は、を呼び出して、特定のテーブルの列名を取得でき <xref:Microsoft.EntityFrameworkCore.RelationalPropertyExtensions.GetColumnName%2A> ます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TPTConfiguration.cs?name=Metadata&highlight=10)]

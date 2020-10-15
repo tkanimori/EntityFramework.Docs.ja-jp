@@ -1,15 +1,15 @@
 ---
 title: プロキシの使用-EF6
 description: Entity Framework 6 でのプロキシの使用
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/proxies
-ms.openlocfilehash: e626a7dff67497a2fbb3dcd169704814ea4cf2cf
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 741fd72ee66b98ab132fb85f71c3101712e433fa
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070498"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063206"
 ---
 # <a name="working-with-proxies"></a>プロキシの使用
 POCO エンティティ型のインスタンスを作成する場合、Entity Framework は、多くの場合、エンティティのプロキシとして機能する動的に生成された派生型のインスタンスを作成します。 このプロキシは、プロパティにアクセスしたときにアクションを自動的に実行するフックを挿入するために、エンティティの一部の仮想プロパティをオーバーライドします。 たとえば、このメカニズムは、リレーションシップの遅延読み込みをサポートするために使用されます。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -61,7 +61,7 @@ Create メソッドは、エンティティ型自体のインスタンスを作�
 
 プロキシ型には、次のような名前が付いています。  
 
-System.object.... Blog_5E43C6C196972BF0754973E48C9C941092D86818CD94005E9A759B70BF6E48E6  
+System.Data.Entity.DynamicProxies.Blog_5E43C6C196972BF0754973E48C9C941092D86818CD94005E9A759B70BF6E48E6  
 
 このプロキシ型のエンティティ型は、ObjectContext の GetObjectType メソッドを使用して見つけることができます。 次に例を示します。  
 

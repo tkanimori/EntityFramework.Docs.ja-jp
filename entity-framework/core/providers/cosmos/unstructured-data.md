@@ -2,15 +2,14 @@
 title: Azure Cosmos DB プロバイダー-非構造化データの操作-EF Core
 description: Entity Framework Core を使用して Azure Cosmos DB 非構造化データを操作する方法
 author: AndriySvyryd
-ms.author: ansvyryd
 ms.date: 11/05/2019
 uid: core/providers/cosmos/unstructured-data
-ms.openlocfilehash: 9f96af00e8fcb012c33fc7528787560ea3a5e481
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: ac497c9f5540557b931db935f4f3ca480edf010d
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619044"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064025"
 ---
 # <a name="working-with-unstructured-data-in-ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダーでの非構造化データの操作
 
@@ -22,7 +21,7 @@ EF Core によって追跡されない [プロパティには](xref:core/modelin
 
 [!code-csharp[Unmapped](../../../../samples/core/Cosmos/UnstructuredData/Sample.cs?highlight=23,24&name=Unmapped)]
 
-``` json
+```json
 {
     "Id": 1,
     "PartitionKey": "1",

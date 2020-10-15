@@ -11,12 +11,12 @@ no-loc:
 - Tags
 - items
 - tags
-ms.openlocfilehash: 839f932f48e1cc6cb1b4c86d5e1405e888d5227a
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 07cde296f07a883ba6abf45f94a31e072fb6d6cb
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89617653"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063050"
 ---
 # <a name="ef-core-testing-sample"></a>EF Core テストのサンプル
 
@@ -183,7 +183,7 @@ XUnit は、ほとんどのテストフレームワークと同様に、テス�
 ## <a name="issues-using-different-database-providers"></a>さまざまなデータベースプロバイダーを使用する場合の問題
 
 実稼働アプリケーションで使用されているものとは異なるデータベースシステムを使用してテストすると、問題が発生する可能性があります。
-これらの詳細については、 [EF Core を使用するコードのテスト](xref:core/miscellaneous/testing/index)に関する概念レベルで説明されています。  
+これらの詳細については、 [EF Core を使用するコードのテスト](xref:core/miscellaneous/testing/index)に関する概念レベルで説明されています。
 以下のセクションでは、このサンプルのテストで示されている問題の2つの例について説明します。
 
 ### <a name="test-passes-when-the-application-is-broken"></a>アプリケーションが破損したときにテストに合格する
@@ -197,7 +197,7 @@ EF インメモリデータベースに対してこのテストを実行する�
 SQLite を使用すると、すべての問題が解決します。
 ただし、SQL Server に対して実行した場合、テストは失敗します。
 
-```console
+```output
 System.InvalidOperationException : Sequence contains more than one element
    at System.Linq.ThrowHelper.ThrowMoreThanOneElementException()
    at System.Linq.Enumerable.Single[TSource](IEnumerable`1 source)
@@ -224,7 +224,7 @@ EF Core では、大文字と小文字の区別の変更によってパフォー
 
 このテストは SQL Server と SQLite で成功しますが、EF インメモリデータベースでは失敗します。
 
-```console
+```output
 Assert.False() Failure
 Expected: False
 Actual:   True

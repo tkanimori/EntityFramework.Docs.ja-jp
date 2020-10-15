@@ -1,15 +1,15 @@
 ---
 title: EF4、EF5、および EF6 のパフォーマンスに関する考慮事項-EF6
 description: Entity Framework 4、5、および6のパフォーマンスに関する考慮事項
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/performance/perf-whitepaper
-ms.openlocfilehash: 65584382df3d510f314a576f41c5dee3d2e718e7
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: ae9374401b66f0493f7318ffcbfd9c4d6a24ada5
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070537"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063427"
 ---
 # <a name="performance-considerations-for-ef-4-5-and-6"></a>EF 4、5、および6のパフォーマンスに関する考慮事項
 David Obando、Eric Dettinger、その他
@@ -22,7 +22,7 @@ David Obando、Eric Dettinger、その他
 
 ## <a name="1-introduction"></a>1.はじめに
 
-オブジェクトリレーショナルマッピングフレームワークは、オブジェクト指向アプリケーションでのデータアクセスの抽象化を提供するのに便利な方法です。 .NET アプリケーションの場合、Microsoft の推奨される O/RM が Entity Framework ます。 ただし、抽象化を使用すると、パフォーマンスが問題になる可能性があります。
+Object-Relational マッピングフレームワークは、オブジェクト指向アプリケーションでのデータアクセスの抽象化を提供するのに便利な方法です。 .NET アプリケーションの場合、Microsoft の推奨される O/RM が Entity Framework ます。 ただし、抽象化を使用すると、パフォーマンスが問題になる可能性があります。
 
 このホワイトペーパーは、Entity Framework を使用してアプリケーションを開発するときのパフォーマンスに関する考慮事項を示し、開発者がパフォーマンスに影響を与える可能性のある Entity Framework 内部アルゴリズムを理解し、Entity Framework を使用するアプリケーションの調査とパフォーマンス向上のヒントを提供するために記述されました。 Web で既に利用可能なパフォーマンスに関する多くの優れたトピックがあります。また、可能な場合は、これらのリソースをポイントすることもできました。
 

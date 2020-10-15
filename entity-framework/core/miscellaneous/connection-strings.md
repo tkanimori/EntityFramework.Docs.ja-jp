@@ -1,15 +1,15 @@
 ---
 title: 接続文字列-EF Core
 description: Entity Framework Core を使用したさまざまな環境での接続文字列の管理
-author: rowanmiller
+author: bricelam
 ms.date: 10/27/2016
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: e4283ada88a557e4f1e3eeea3de2634a7d0dce61
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: f657d39f66e6a757380ca25436a638b47c11cd12
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071681"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062322"
 ---
 # <a name="connection-strings"></a>接続文字列
 
@@ -19,7 +19,7 @@ ms.locfileid: "90071681"
 
 WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト済みの接続文字列パターンが用意されています。 接続文字列は、アプリケーションの App.config ファイル (ASP.NET を使用している場合は Web.config) に追加する必要があります。 接続文字列にユーザー名やパスワードなどの機密情報が含まれている場合は、 [シークレットマネージャーツール](/aspnet/core/security/app-secrets#secret-manager)を使用して構成ファイルの内容を保護することができます。
 
-``` xml
+```xml
 <?xml version="1.0" encoding="utf-8"?>
 <configuration>
 
@@ -30,12 +30,12 @@ WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト�
 </configuration>
 ```
 
-> [!TIP]  
+> [!TIP]
 > `providerName`データベースプロバイダーがコードによって構成されているため、App.config に格納されている EF Core 接続文字列では、この設定は必要ありません。
 
 その後、 `ConfigurationManager` コンテキストのメソッドで API を使用して接続文字列を読み取ることができ `OnConfiguring` ます。 この API を使用できるようにするには、`System.Configuration` フレームワーク アセンブリに参照を追加しなければならない場合があります。
 
-``` csharp
+```csharp
 public class BloggingContext : DbContext
 {
     public DbSet<Blog> Blogs { get; set; }
@@ -52,7 +52,7 @@ public class BloggingContext : DbContext
 
 UWP アプリケーションの接続文字列は、通常、ローカルファイル名を指定するだけの SQLite 接続です。 これらは通常、機密情報を含んでいないため、アプリケーションの展開時に変更する必要はありません。 そのため、次に示すように、これらの接続文字列は通常、コードに残しておくのが適切です。 コードから移動する場合、UWP は設定の概念をサポートします。詳細については、 [uwp ドキュメントの「アプリ設定」セクション](/windows/uwp/app-settings/store-and-retrieve-app-data) を参照してください。
 
-``` csharp
+```csharp
 public class BloggingContext : DbContext
 {
     public DbSet<Blog> Blogs { get; set; }
@@ -78,7 +78,7 @@ dotnet ef dbcontext scaffold Name=ConnectionStrings.YourDatabaseAlias Microsoft.
 
 または、次の例は、に格納されている接続文字列を示して `appsettings.json` います。
 
-``` json
+```json
 {
   "ConnectionStrings": {
     "BloggingDatabase": "Server=(localdb)\\mssqllocaldb;Database=EFGetStarted.ConsoleApp.NewDb;Trusted_Connection=True;"
@@ -88,7 +88,7 @@ dotnet ef dbcontext scaffold Name=ConnectionStrings.YourDatabaseAlias Microsoft.
 
 その後、コンテキストは、通常、 `Startup.cs` 構成から読み取られる接続文字列を使用してで構成されます。 メソッドは、 `GetConnectionString()` キーがである構成値を検索し `ConnectionStrings:<connection string name>` ます。 この拡張メソッドを使用するには、 [Microsoft.Extensions.Configuration](/dotnet/api/microsoft.extensions.configuration) 名前空間をインポートする必要があります。
 
-``` csharp
+```csharp
 public void ConfigureServices(IServiceCollection services)
 {
     services.AddDbContext<BloggingContext>(options =>
