@@ -2,15 +2,14 @@
 title: Entity Framework Core ツールのリファレンス - EF Core
 description: Entity Framework Core CLI ツールと Visual Studio パッケージ マネージャー コンソールのリファレンス ガイド
 author: bricelam
-ms.author: bricelam
 ms.date: 09/19/2018
 uid: core/miscellaneous/cli/index
-ms.openlocfilehash: 7d5fb984aafed2cf45efa9e5b83bf4bc6c18a44a
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 90e8d799de8fa9426de6ac3d286bcd5458a43f0d
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619417"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92061997"
 ---
 # <a name="entity-framework-core-tools-reference"></a>Entity Framework Core ツールのリファレンス
 

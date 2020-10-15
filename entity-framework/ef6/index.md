@@ -1,15 +1,15 @@
 ---
 title: Entity Framework 6 の概要 - EF6
 description: Entity Framework 6 の概要
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/index
-ms.openlocfilehash: aff7aee51c4e12b278f7cab8b5122ee0edbbac0f
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 09b7cb9e0141e9739b15d6c9789286c2e47018cc
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072123"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065395"
 ---
 # <a name="entity-framework-6"></a>Entity Framework 6
 Entity Framework 6 (EF6) は、機能開発および安定化に何年もの時間が費やされてきた、十分に検証された .NET 用のオブジェクト リレーショナル マッパー (O/RM) です。
@@ -40,7 +40,7 @@ EF Core は完全に書き直されたもので、EF6 にはない機能が多�
 機能セットが要件に合う場合は、新しいアプリケーション内で EF Core を使用することを検討してください。
 「[EF Core と EF6 を比較する](xref:efcore-and-ef6/index)」ではこの選択についてより詳しく検証しています。
 
-## <a name="get-started"></a>[作業の開始](xref:ef6/get-started)
+## <a name="get-started"></a>[開始するには](xref:ef6/get-started)
 
 EntityFramework NuGet パッケージをプロジェクトに追加するか、[Entity Framework Tools for Visual Studio](https://aka.ms/AA6i8c5) をインストールします。 次いでビデオを見たり、チュートリアルやより高度なドキュメントを読み、EF6 を最大限に活用できるようにします。
 

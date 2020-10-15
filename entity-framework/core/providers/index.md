@@ -4,12 +4,12 @@ description: 特定のサポートされている Entity Framework Core プロ�
 author: ajcvickers
 ms.date: 12/17/2019
 uid: core/providers/index
-ms.openlocfilehash: 4a5490beccfb4d038f7dde04399ec3493941ac83
-ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
+ms.openlocfilehash: 76acd8bbb833fa7c377cc90cdb67278130694bd1
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2020
-ms.locfileid: "91210355"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063999"
 ---
 # <a name="database-providers"></a>データベース プロバイダー
 
@@ -17,11 +17,11 @@ Entity Framework Core は、データベース プロバイダーと呼ばれる
 
 ## <a name="current-providers"></a>現在のプロバイダー
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > EF Core プロバイダーは、さまざまなソースによってビルドされます。 一部のプロバイダーは、[Entity Framework Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore)の一部として保守管理されていません。 プロバイダーの利用を検討するとき、要件に合うよう、品質、使用許諾、サポートなどを必ず評価してください。 また、バージョンの互換性情報の詳細について、各プロバイダーのドキュメントを確認してください。
 
-> [!IMPORTANT]  
-> 通常、EF Core プロバイダーはマイナー バージョン間では動作しますが、メジャー バージョン間では動作しません。 たとえば、EF Core 2.1 用にリリースされたプロバイダーは EF Core 2.2 では動作しますが、EF Core 3.0 では動作しません。 
+> [!IMPORTANT]
+> 通常、EF Core プロバイダーはマイナー バージョン間では動作しますが、メジャー バージョン間では動作しません。 たとえば、EF Core 2.1 用にリリースされたプロバイダーは EF Core 2.2 では動作しますが、EF Core 3.0 では動作しません。
 
 | NuGet パッケージ                                                                                                                                                                         | サポートされているデータベース エンジン | メンテナンス/仕入先                                                           | メモ/要件     | ビルドの対象バージョン | 便利なリンク                                                                                                                                                                                       |
 |:--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|:---------------------------|:------------------------------------------------------------------------------|:-------------------------|:------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
@@ -48,7 +48,6 @@ Entity Framework Core は、データベース プロバイダーと呼ばれる
 | [Teradata.EntityFrameworkCore](https://www.nuget.org/packages/Teradata.EntityFrameworkCore/)                                                                                          | Teradata データベース 16.10 以上 | [Teradata](https://downloads.teradata.com/download/connectivity/net-data-provider-for-teradata) |   | 2.2               |[Web サイト](https://www.nuget.org/packages/Teradata.EntityFrameworkCore/)                                                                                                                            |
 | [EntityFrameworkCore.FirebirdSql](https://www.nuget.org/packages/EntityFrameworkCore.FirebirdSql/)                                                                                    | Firebird 2.5 および 3.x       | [Rafael Almeida](https://github.com/ralmsdeveloper)                           |                          | 2.1               | [wiki](https://github.com/ralmsdeveloper/EntityFrameworkCore.FirebirdSQL/wiki)                                                                                                                     |
 | [EntityFrameworkCore.OpenEdge](https://www.nuget.org/packages/EntityFrameworkCore.OpenEdge/)                                                                                          | Progress OpenEdge          | [Alex Wiese](https://github.com/alexwiese)                                    |                          | 2.1               | [readme](https://github.com/alexwiese/EntityFrameworkCore.OpenEdge/blob/master/README.md)                                                                                                          |
-| [Pomelo.EntityFrameworkCore.MyCat](https://www.nuget.org/packages/Pomelo.EntityFrameworkCore.MyCat)                                                                                   | MyCAT Server               | [Pomelo Foundation プロジェクト](https://github.com/PomeloFoundation)              | プレリリースのみ          | 1.1               | [readme](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MyCat/blob/master/README.md)                                                                                               |
 
 ## <a name="adding-a-database-provider-to-your-application"></a>データベース プロバイダーをアプリケーションに追加する
 
@@ -62,7 +61,7 @@ dotnet add package provider_package_name
 
 ## <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 install-package provider_package_name
 ```
 
@@ -71,10 +70,10 @@ install-package provider_package_name
 インストールされたら、`DbContext` で、`OnConfiguring` メソッド、または依存関係注入コンテナーを使用している場合は `AddDbContext` メソッドを使用してプロバイダーを構成します。
 たとえば、次の行は、渡された接続文字列を使用して、SQL Server プロバイダーを構成します。
 
-``` csharp
+```csharp
 optionsBuilder.UseSqlServer(
     "Server=(localdb)\mssqllocaldb;Database=MyDatabase;Trusted_Connection=True;");
-```  
+```
 
 データベース プロバイダーは、特定のデータベースに固有の機能を有効にするように EF Core を拡張できます。
 いくつかの概念はほとんどのデータベースに共通しており、プライマリ EF Core コンポーネントに含まれています。
@@ -84,7 +83,7 @@ optionsBuilder.UseSqlServer(
 その他の概念は、プロバイダーのクラスに固有のものです。
 たとえば、リレーショナル データベースの EF Core プロバイダーの場合、一般的な `Microsoft.EntityFrameworkCore.Relational` ライブラリに基づいてビルドします。このライブラリは、テーブルと列のマッピングや外部キー制約などを構成するための API を提供します。プロバイダーは通常、NuGet パッケージとして配布されます。
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > EF Core の新しい修正プログラムのバージョンがリリースされるときには、多くの場合 `Microsoft.EntityFrameworkCore.Relational` パッケージの更新プログラムが含まれます。
 > ユーザーがリレーショナル データベース プロバイダーを追加するとき、このパッケージは、アプリケーション依存関係が推移的になります。
 > しかし、多くのプロバイダーが EF Core から独立してリリースされ、そのパッケージの新しい修正プログラムのバージョンに依存するように更新されないことがあります。

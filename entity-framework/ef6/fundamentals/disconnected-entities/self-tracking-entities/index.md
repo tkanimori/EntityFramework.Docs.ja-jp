@@ -1,15 +1,15 @@
 ---
 title: 自己追跡エンティティ - EF6
 description: Entity Framework 6 での自己追跡エンティティ
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/disconnected-entities/self-tracking-entities/index
-ms.openlocfilehash: 9d5985a3f66b58a74536a1a56486bfc37c3f9f4d
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 56bcd79d0c9949b9ccc06efe4dbc5a36bb88b158
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070589"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065551"
 ---
 # <a name="self-tracking-entities"></a>自己追跡エンティティ
 

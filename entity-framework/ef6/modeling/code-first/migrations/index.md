@@ -1,15 +1,15 @@
 ---
 title: Code First Migrations - EF6
 description: Entity Framework 6 での Code First Migrations
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/code-first/migrations/index
-ms.openlocfilehash: 7233789c277d87d0fda420cdbdf669c8fd56cd22
-ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
+ms.openlocfilehash: 7b58ed82202e5a0b7e8676020e32deaac39bcf70
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2020
-ms.locfileid: "91210481"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064979"
 ---
 # <a name="code-first-migrations"></a>Code First Migrations
 Code First Migrations は、Code First ワークフローを使用している場合に、アプリケーションのデータベース スキーマを進化させるために推奨される方法です。 移行では次を許可するツール セットを提供します。

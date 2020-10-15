@@ -4,12 +4,12 @@ description: Entity Framework Core の各バージョンでサポートされて
 author: bricelam
 ms.date: 06/26/2020
 uid: core/platforms/index
-ms.openlocfilehash: f57002af869c16eeedf931085f5e5ff9e72e2984
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 3efec5fda2aecf44306a9d41386de1e9b9612850
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616658"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063973"
 ---
 # <a name="net-implementations-supported-by-ef-core"></a>EF Core でサポートされている .NET 実装
 
@@ -45,13 +45,13 @@ ms.locfileid: "89616658"
 
 プロジェクト ファイルを編集し、初期プロパティ グループに次のエントリが表示されるようにします。
 
-``` xml
+```xml
 <AutoGenerateBindingRedirects>true</AutoGenerateBindingRedirects>
 ```
 
 テスト プロジェクトの場合、次のエントリも必要です。
 
-``` xml
+```xml
 <GenerateBindingRedirectsOutputType>true</GenerateBindingRedirectsOutputType>
 ```
 
@@ -59,7 +59,7 @@ ms.locfileid: "89616658"
 
 また、可能であれば、NuGet の packages.config を PackageReference に移行することをお勧めします。 次のプロパティをプロジェクト ファイルに追加します。
 
-``` xml
+```xml
 <RestoreProjectStyle>PackageReference</RestoreProjectStyle>
 ```
 

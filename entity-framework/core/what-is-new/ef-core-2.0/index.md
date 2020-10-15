@@ -1,15 +1,15 @@
 ---
 title: EF Core 2.0 の新機能 - EF Core
 description: Entity Framework Core 2.0 での変更点と改善点
-author: divega
+author: ajcvickers
 ms.date: 02/20/2018
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: f553e620c088a65eda64c0761aaab49313041727
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 7438d8ad1a5ade971af71186a20ec57fd83713de
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072357"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92063453"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
 
@@ -26,7 +26,7 @@ EF Core が .NET Standard 2.0 対応になりました。つまり、.NET Core 2
 
 テーブル分割を利用するには、テーブルを共有するすべてのエンティティ型の間で依存リレーションシップ (外部キー プロパティが主キーを形成する) を構成する必要があります。
 
-``` csharp
+```csharp
 modelBuilder.Entity<Product>()
     .HasOne(e => e.Details).WithOne(e => e.Product)
     .HasForeignKey<ProductDetails>(e => e.Id);
@@ -42,7 +42,7 @@ modelBuilder.Entity<ProductDetails>().ToTable("Products");
 
 慣例によって、所有されている型に対してシャドウ主キーが作成され、テーブル分割を利用し、同じテーブルに所有者としてマッピングされます。 それによって、所有されている型を EF6 の複合型の使用方法と同じように使用できます。
 
-``` csharp
+```csharp
 modelBuilder.Entity<Order>().OwnsOne(p => p.OrderDetails, cb =>
     {
         cb.OwnsOne(c => c.BillingAddress);
@@ -79,7 +79,7 @@ EF Core 2.0 には、モデルレベルのクエリ フィルターと呼んで�
 
 次の単純なサンプルでは、上記の 2 つのシナリオに対してこの機能が使われています。
 
-``` csharp
+```csharp
 public class BloggingContext : DbContext
 {
     public DbSet<Blog> Blogs { get; set; }
@@ -113,7 +113,7 @@ EF Core 2.0 には、[Paul Middleton](https://github.com/pmiddleton) の重要�
 
 `DbContext` で静的メソッドを宣言し、それに `DbFunctionAttribute` で注釈を付けます。
 
-``` csharp
+```csharp
 public class BloggingContext : DbContext
 {
     [DbFunction]
@@ -126,7 +126,7 @@ public class BloggingContext : DbContext
 
 このようなメソッドが自動的に登録されます。 登録されると、LINQ クエリでのメソッドへの呼び出しが SQL での関数呼び出しに変換されます。
 
-``` csharp
+```csharp
 var query =
     from p in context.Posts
     where BloggingContext.PostReadCount(p.Id) > 5
@@ -143,7 +143,7 @@ var query =
 
 EF6 では、*EntityTypeConfiguration* から派生することで、特定のエンティティ型の Code First 構成をカプセル化できました。 EF Core 2.0 では、このパターンが復活します。
 
-``` csharp
+```csharp
 class CustomerConfiguration : IEntityTypeConfiguration<Customer>
 {
     public void Configure(EntityTypeBuilder<Customer> builder)
@@ -166,7 +166,7 @@ ASP.NET Core アプリケーションで EF Core を使用する基本パター�
 
 バージョン 2.0 では、依存関係挿入でカスタム DbContext 型を登録する新しい方法を導入しました。再利用可能な DbContext インスタンスのプールが透過的に導入されます。 DbContext プールを使用するには、サービス登録で `AddDbContext` の代わりに `AddDbContextPool` を使用します。
 
-``` csharp
+```csharp
 services.AddDbContextPool<BloggingContext>(
     options => options.UseSqlServer(connectionString));
 ```
@@ -179,7 +179,7 @@ services.AddDbContextPool<BloggingContext>(
 
 この新しい方法では、DbContext の `OnConfiguring()` メソッドでできることにいくつかの制限があります。
 
-> [!WARNING]  
+> [!WARNING]
 > 派生した DbContext クラス (要求間で共有できない) で独自の状態を維持する場合 (プライベート フィールドなど)、DbContext プールを使用しないでください。 EF Core は、DbContext インスタンスをプールに追加する前に認識した状態のみをリセットします。
 
 ### <a name="explicitly-compiled-queries"></a>明示的にコンパイルされたクエリ
@@ -190,7 +190,7 @@ services.AddDbContextPool<BloggingContext>(
 
 一般的に、EF Core は、ハッシュ後のクエリ式に基づいてクエリを自動的にコンパイルし、キャッシュできますが、このメカニズムを利用し、ハッシュとキャッシュ参照の計算をバイパスすることでパフォーマンスを少し上げることができます。アプリケーションは、デリゲートを呼び出すことで、コンパイル済みのクエリを利用できます。
 
-``` csharp
+```csharp
 // Create an explicitly compiled query
 private static Func<CustomerContext, int, Customer> _customerById =
     EF.CompileQuery((CustomerContext db, int id) =>
@@ -227,7 +227,7 @@ C# 6 では文字列補間が導入されました。この機能では、C# 式
 
 次に例を示します。
 
-``` csharp
+```csharp
 var city = "London";
 var contactTitle = "Sales Representative";
 
@@ -259,7 +259,7 @@ WHERE ""City"" = @p0
 
 EF Core またはプロバイダーが利用できる EF.Functions プロパティを追加しました。このプロパティは、LINQ クエリで呼び出せるようにデータベースの関数や演算子にマッピングされるメソッドを定義します。 このようなメソッドの最初の例が Like() です。
 
-``` csharp
+```csharp
 var aCustomers =
     from c in context.Customers
     where EF.Functions.Like(c.Name, "a%")
@@ -276,7 +276,7 @@ EF Core 2.0 では、新しい *IPluralizer* サービスが導入されまし�
 
 開発者が独自のプルーラライザーをフックインすると次のようになります。
 
-``` csharp
+```csharp
 public class MyDesignTimeServices : IDesignTimeServices
 {
     public void ConfigureDesignTimeServices(IServiceCollection services)

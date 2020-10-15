@@ -1,15 +1,15 @@
 ---
 title: デザイナー コード生成テンプレート - EF6
 description: Entity Framework 6 でのデザイナー コード生成テンプレート
-author: divega
+author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/modeling/designer/codegen/index
-ms.openlocfilehash: 4a8225d0186174ea2e2effbc1241389afcbe3921
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 9eb0a930d7b283e449f6b08c090c8483453de452
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070199"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92066487"
 ---
 # <a name="designer-code-generation-templates"></a>デザイナー コード生成テンプレート
 Entity Framework Designer を使用してモデルを作成するときには、クラスと派生コンテキストは自動的に生成されます。 既定のコードの生成に加えて、生成されるコードをカスタマイズするために使用できる多数のテンプレートも提供します。 これらのテンプレートは、T4 テキスト テンプレートとして提供され、必要な場合は、テンプレートをカスタマイズすることができます。

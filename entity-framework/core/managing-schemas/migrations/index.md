@@ -2,15 +2,14 @@
 title: 移行の概要 - EF Core
 description: Entity Framework Core で移行を使用してデータベース スキーマを管理する方法の概要
 author: bricelam
-ms.author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: f1197fb869c33c34672d20e9b727cd187c9c5601
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: eea2c32cccbb678cacaa63760c4f7d36d2d19bb1
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619473"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062283"
 ---
 # <a name="migrations-overview"></a>移行の概要
 
@@ -27,7 +26,7 @@ ms.locfileid: "89619473"
 
 次の単純なモデルが含まれる、あなたの初めての EF Core アプリケーションが完成したとします。
 
-```c#
+```csharp
 public class Blog
 {
     public int Id { get; set; }
@@ -56,7 +55,7 @@ dotnet ef migrations add InitialCreate
 
 #### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Add-Migration InitialCreate
 ```
 
@@ -75,7 +74,7 @@ dotnet ef database update
 ```
 #### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Update-Database
 ```
 
@@ -87,7 +86,7 @@ Update-Database
 
 数日後、ご自分のブログに作成のタイムスタンプを追加するように求められました。 ご自分のアプリケーションに必要な変更を行ったので、現在、ご自分のモデルは次のようになっています。
 
-```c#
+```csharp
 public class Blog
 {
     public int Id { get; set; }
@@ -106,7 +105,7 @@ dotnet ef migrations add AddBlogCreatedTimestamp
 
 #### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Add-Migration AddBlogCreatedTimestamp
 ```
 
@@ -125,7 +124,7 @@ dotnet ef database update
 ```
 #### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Update-Database
 ```
 

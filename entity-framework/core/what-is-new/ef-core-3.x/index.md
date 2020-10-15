@@ -1,15 +1,15 @@
 ---
 title: Entity Framework Core 3.x の新機能 - EF Core
 description: Entity Framework Core 3.x での変更点と改善点
-author: divega
+author: ajcvickers
 ms.date: 09/05/2020
 uid: core/what-is-new/ef-core-3.x/index
-ms.openlocfilehash: d2c887640a9e24cef49fb469ef435d6b08937876
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: b987ca1fdbe46105162c1c7623822e15bd01ef25
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072214"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065629"
 ---
 # <a name="new-features-in-entity-framework-core-3x"></a>Entity Framework Core 3.x の新機能
 
@@ -34,7 +34,7 @@ EF Core 3.x では、LINQ プロバイダーが再設計され、より多くの
 
 たとえば、EF Core 2.2 では、`Where()` 呼び出し内で述語を変換できなかった場合、フィルターなしで SQL ステートメントが実行され、すべての行がデータベースから転送された後、メモリ内でフィルター処理されます。
 
-``` csharp
+```csharp
 var specialCustomers = context.Customers
     .Where(c => c.Name.StartsWith(n) && IsSpecialCustomer(c));
 ```
@@ -46,7 +46,7 @@ EF Core 3.x で、クエリ内の他の場所では変換できない式が検�
 
 前の例のように述語の条件をクライアント上で評価するには、開発者がクエリの評価を LINQ to Objects に明示的に切り替えることが必要になりました。
 
-``` csharp
+```csharp
 var specialCustomers = context.Customers
     .Where(c => c.Name.StartsWith(n))
     .AsEnumerable() // switches to LINQ to Objects
@@ -75,7 +75,7 @@ EF Core 3.x では、次のいくつかの [C# 8.0 の新機能](/dotnet/csharp/
 
 非同期クエリの結果は、新しい標準 `IAsyncEnumerable<T>` インターフェイスを使用して公開されるようになり、`await foreach` を使用して使用できるようになりました。
 
-``` csharp
+```csharp
 var orders =
     from o in context.Orders
     where o.Status == OrderStatus.Pending
@@ -95,7 +95,7 @@ await foreach(var o in orders.AsAsyncEnumerable())
 
 たとえば、次のクラスでは、型 `string?` としてマークされたプロパティは省略可能として構成されますが、`string` は必須として構成されます。
 
-``` csharp
+```csharp
 public class Customer
 {
     public int Id { get; set; }
@@ -115,7 +115,7 @@ EF 6 に存在していたインターセプト機能と同様に、インター
 
 たとえば、コマンド テキストを操作するために、`DbCommandInterceptor` を作成することができます。
 
-``` csharp
+```csharp
 public class HintCommandInterceptor : DbCommandInterceptor
 {
     public override InterceptionResult<DbDataReader> ReaderExecuting(
@@ -132,7 +132,7 @@ public class HintCommandInterceptor : DbCommandInterceptor
 
 次に、 `DbContext` にこれを登録します。
 
-``` csharp
+```csharp
 services.AddDbContext(b => b
     .UseSqlServer(connectionString)
     .AddInterceptors(new HintCommandInterceptor()));
@@ -151,7 +151,7 @@ dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Tr
 
 すると、ツールによって、キーなしのビューとテーブルの型が自動的にスキャフォールディングされます。
 
-``` csharp
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Names>(entity =>
@@ -173,7 +173,7 @@ EF Core 3.x 以降では、`OrderDetails` が `Order` によって所有され�
 
 クエリ時には、必須プロパティのいずれかに値がない場合、または主キー以外に必須プロパティがなく、すべてのプロパティが `null` である場合、EF Core によって `OrderDetails` が `null` に設定されます。
 
-``` csharp
+```csharp
 public class Order
 {
     public int Id { get; set; }
