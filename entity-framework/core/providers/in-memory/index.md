@@ -1,19 +1,19 @@
 ---
 title: InMemory データベース プロバイダー - EF Core
 description: Entity Framework Core InMemory データベース プロバイダーに関する情報
-author: rowanmiller
+author: ajcvickers
 ms.date: 10/27/2016
 uid: core/providers/in-memory/index
-ms.openlocfilehash: 9d0a5d14cdb047b80788fbe4d9d34deccdbd4ce1
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 1857ebbfa0eded1572220825a5b0d75961bcf3dd
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071356"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064012"
 ---
 # <a name="ef-core-in-memory-database-provider"></a>EF Core In-Memory データベース プロバイダー
 
-このデータベース プロバイダーにより、メモリ内のデータベースで Entity Framework Core を使用すことが許可されます。 これはテストに役立つことがあります。ただし、リレーショナル データベースのテストの置き換えとしてはインメモリ モードの SQLite プロバイダーの方が適しています。 このプロバイダーは、[Entity Framework Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore)の一部として保守管理されています。
+このデータベース プロバイダーにより、メモリ内のデータベースで Entity Framework Core を使用すことが許可されます。 このメモリ内のデータベースはテストに役立つことがあります。ただし、リレーショナル データベースのテストの置き換えとしてはインメモリ モードの SQLite プロバイダーの方が適しています。 メモリ内のデータベースはテスト専用に設計されています。 このプロバイダーは、[Entity Framework Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore)の一部として保守管理されています。
 
 ## <a name="install"></a>インストール
 
@@ -27,7 +27,7 @@ dotnet add package Microsoft.EntityFrameworkCore.InMemory
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Install-Package Microsoft.EntityFrameworkCore.InMemory
 ```
 
@@ -42,4 +42,4 @@ Install-Package Microsoft.EntityFrameworkCore.InMemory
 
 ## <a name="supported-database-engines"></a>サポートされているデータベース エンジン
 
-インプロセス メモリ内データベース (テスト目的専用として設計されています)
+インプロセス メモリ内データベース (テスト専用に設計されています)。

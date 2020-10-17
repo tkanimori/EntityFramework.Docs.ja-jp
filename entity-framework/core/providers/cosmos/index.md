@@ -2,14 +2,14 @@
 title: Azure Cosmos DB プロバイダー - EF Core
 description: Azure Cosmos DB SQL API と共に Entity Framework Core を使えるようにするデータベース プロバイダーに関するドキュメントです
 author: AndriySvyryd
-ms.date: 09/14/2020
+ms.date: 10/09/2020
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 94ba29f3f2643e8f563a460e17dce9d15cb7c2df
-ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
+ms.openlocfilehash: 26be2b604453aa2d5b21ae45f590b294639db887
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2020
-ms.locfileid: "91210342"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92064051"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダー
 
@@ -35,7 +35,7 @@ dotnet add package Microsoft.EntityFrameworkCore.Cosmos
 
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
-``` powershell
+```powershell
 Install-Package Microsoft.EntityFrameworkCore.Cosmos
 ```
 
@@ -43,7 +43,7 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 
 ## <a name="get-started"></a>はじめに
 
-> [!TIP]  
+> [!TIP]
 > この記事の[サンプルは GitHub](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Cosmos) で確認できます。
 
 他のプロバイダーと同様に、最初の手順は [UseCosmos](/dotnet/api/Microsoft.EntityFrameworkCore.CosmosDbContextOptionsExtensions.UseCosmos) を呼び出すことです。
@@ -115,7 +115,7 @@ Cosmos の場合、所有エンティティは所有者と同じアイテムに�
 
 この構成では、上記の例の順序は次のように格納されます。
 
-``` json
+```json
 {
     "Id": 1,
     "PartitionKey": "1",
@@ -143,7 +143,7 @@ Cosmos の場合、所有エンティティは所有者と同じアイテムに�
 
 これは、次のように永続化されます。
 
-``` json
+```json
 {
     "Id": 1,
     "Discriminator": "Distributor",
@@ -183,7 +183,7 @@ EF Core には、追跡対象のすべてのエンティティに対して、内
 
 結果の JSON は次のようになります。
 
-``` json
+```json
 {
     "Id": 1,
     "Discriminator": "Distributor",
@@ -201,3 +201,16 @@ EF Core には、追跡対象のすべてのエンティティに対して、内
     "_ts": 1572917100
 }
 ```
+
+## <a name="optimistic-concurrency-with-etags"></a>eTag を使用したオプティミスティック同時実行制御
+
+> [!NOTE]
+> eTag 同時実行制御のサポートが EF Core 5.0 で追加されました。
+
+[オプティミスティック同時実行制御](xref:core/modeling/concurrency)を使用するようにエンティティ型を構成するには、`UseETagConcurrency` を呼び出します。 この呼び出しによって、[シャドウ状態](xref:core/modeling/shadow-properties)の `_etag` プロパティが作成され、同時実行制御トークンとして設定されます。
+
+[!code-csharp[Main](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=ETag)]
+
+同時実行制御エラーを簡単に解決できるようにするには、`IsETagConcurrency` を使用して、eTag を CLR プロパティにマップします。
+
+[!code-csharp[Main](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=ETagProperty)]
