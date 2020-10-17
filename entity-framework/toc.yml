@@ -113,7 +113,7 @@
               href: core/modeling/generated-properties.md
             - name: コンカレンシー トークン
               href: core/modeling/concurrency.md
-            - name: シャドウ プロパティ
+            - name: シャドウとインデクサーのプロパティ
               href: core/modeling/shadow-properties.md
             - name: リレーションシップ
               href: core/modeling/relationships.md
@@ -228,10 +228,15 @@
               items:
                 - name: 概要
                   href: core/providers/sql-server/index.md
+                - name: 関数のマッピング
+                  href: core/providers/sql-server/functions.md
                 - name: インデックス
                   href: core/providers/sql-server/indexes.md
                 - name: メモリ最適化テーブル
                   href: core/providers/sql-server/memory-optimized-tables.md
+                - name: 空間データ
+                  displayName: GIS
+                  href: core/providers/sql-server/spatial.md
                 - name: Azure SQL Database オプションを指定する
                   href: core/providers/sql-server/azure-sql-database.md
             - name: SQLite
@@ -240,6 +245,13 @@
                   href: core/providers/sqlite/index.md
                 - name: SQLite の制限事項
                   href: core/providers/sqlite/limitations.md
+                - name: 関数のマッピング
+                  href: core/providers/sqlite/functions.md
+                - name: 空間データ
+                  displayName: GIS
+                  href: core/providers/sqlite/spatial.md
+                - name: Microsoft.Data.Sqlite >>
+                  href: /dotnet/standard/data/sqlite/
             - name: Cosmos
               items:
                 - name: 概要
@@ -248,6 +260,8 @@
                   href: core/providers/cosmos/unstructured-data.md
                 - name: Cosmos の制限事項
                   href: core/providers/cosmos/limitations.md
+                - name: 関数のマッピング
+                  href: core/providers/cosmos/functions.md
             - name: InMemory (テスト用)
               href: core/providers/in-memory/index.md
             - name: データベース プロバイダーを記述する
