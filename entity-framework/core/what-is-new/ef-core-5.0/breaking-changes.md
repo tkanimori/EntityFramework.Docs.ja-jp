@@ -2,14 +2,14 @@
 title: EF Core 5.0 での破壊的変更 - EF Core
 description: Entity Framework Core 5.0 で導入された重大な変更の完全な一覧
 author: bricelam
-ms.date: 09/09/2020
+ms.date: 09/24/2020
 uid: core/what-is-new/ef-core-5.0/breaking-changes
-ms.openlocfilehash: 8e9df4e2ff81e20cf5a36855247c5aff89ea2394
-ms.sourcegitcommit: c0e6a00b64c2dcd8acdc0fe6d1b47703405cdf09
+ms.openlocfilehash: e64f2b387d236e96d0451f3d55b3241daaba32d8
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/24/2020
-ms.locfileid: "91210368"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065642"
 ---
 # <a name="breaking-changes-in-ef-core-50"></a>EF Core 5.0 での破壊的変更
 
@@ -30,6 +30,8 @@ ms.locfileid: "91210368"
 | [IMigrationsModelDiffer で IRelationalModel が使用されるようになりました](#relational-model)                                                                 | 低        |
 | [識別子が読み取り専用です](#read-only-discriminators)                                                                             | Low        |
 | [プロバイダー固有の EF.Functions メソッドによって InMemory プロバイダーに対してスローされます](#no-client-methods)                                              | Low        |
+| [IndexBuilder.HasName が古い形式に](#index-obsolete)                                                                               | 低        |
+| [リバース エンジニアリングされたモデルをスキャフォールディングするための pluarlizer が含まれるように](#pluralizer)                                                 | Low        |
 
 <a name="geometric-sqlite"></a>
 
@@ -53,7 +55,7 @@ HasGeometricDimension は、geometry 列で追加のディメンション (Z お
 
 `HasColumnType` を使用してディメンションを指定します。
 
-```cs
+```csharp
 modelBuilder.Entity<GeoEntity>(
     x =>
     {
@@ -81,7 +83,7 @@ modelBuilder.Entity<GeoEntity>(
 
 依存関係の終了を指定する前の `IsRequired` の呼び出しがあいまいになりました。
 
-```cs
+```csharp
 modelBuilder.Entity<Blog>()
     .HasOne(b => b.BlogImage)
     .WithOne(i => i.Blog)
@@ -97,7 +99,7 @@ modelBuilder.Entity<Blog>()
 
 依存関係へのナビゲーションから `RequiredAttribute` を削除し、代わりにプリンシパルへのナビゲーションに配置するか、または `OnModelCreating` でリレーションシップを構成します。
 
-```cs
+```csharp
 modelBuilder.Entity<Blog>()
     .HasOne(b => b.BlogImage)
     .WithOne(i => i.Blog)
@@ -127,7 +129,7 @@ modelBuilder.Entity<Blog>()
 
 パーティション キー プロパティを主キーに追加しないようにするには、`OnModelCreating` で構成します。
 
-```cs
+```csharp
 modelBuilder.Entity<Blog>()
     .HasKey(b => b.Id);
 ```
@@ -154,7 +156,7 @@ modelBuilder.Entity<Blog>()
 
 3\.x の動作に戻るには、`OnModelCreating` で `id` プロパティを構成します。
 
-```cs
+```csharp
 modelBuilder.Entity<Blog>()
     .Property<string>("id")
     .ToJsonProperty("id");
@@ -248,7 +250,7 @@ byte[] 型のプロパティは、base64 文字列として格納されるよう
 
 次のコードを使用して、`snapshot` のモデルを `context` のモデルと比較します。
 
-```cs
+```csharp
 var dependencies = context.GetService<ProviderConventionSetBuilderDependencies>();
 var relationalDependencies = context.GetService<RelationalConventionSetBuilderDependencies>();
 
@@ -288,7 +290,7 @@ EF では、追跡中のエンティティ型を変更することは想定さ�
 
 識別子の値を変更する必要があり、`SaveChanges` を呼び出した直後にコンテキストが破棄される場合は、識別子を変更可能にすることができます。
 
-```cs
+```csharp
 modelBuilder.Entity<BaseEntity>()
     .Property<string>("Discriminator")
     .Metadata.SetAfterSaveBehavior(PropertySaveBehavior.Save);
@@ -343,3 +345,49 @@ modelBuilder.Entity<BaseEntity>()
 **軽減策**
 
 データベース関数の動作を正確に模倣する方法がないため、それらが含まれるクエリを、実稼働環境と同じ種類のデータベースに対してテストする必要があります。
+
+<a name="index-obsolete"></a>
+
+### <a name="indexbuilderhasname-is-now-obsolete"></a>IndexBuilder.HasName が古い形式に
+
+[問題 #21089 の追跡](https://github.com/dotnet/efcore/issues/21089)
+
+**以前の動作**
+
+以前は、特定のプロパティ セットに対して定義できるインデックスは 1 つだけでした。 インデックスのデータベース名は、IndexBuilder.HasName を使用して構成されました。
+
+**新しい動作**
+
+同じセットまたはプロパティに対して、複数のインデックスが許可されるようになりました。 これらのインデックスは、モデル内の名前で区別されるようになりました。 慣例により、モデル名はデータベース名として使用されます。ただし、HasDatabaseName を使用して個別に構成することもできます。
+
+**理由**
+
+Microsoft では将来的に、昇順と降順の両方のインデックス、または同じプロパティ セットに対して異なる照合順序を持つインデックスを有効にしたいと考えています。 この変更により、その方向に新たな一歩を踏み出すことができます。
+
+**軽減策**
+
+以前に IndexBuilder.HasName を呼び出していたコードは、代わりに HasDatabaseName を呼び出すように更新する必要があります。
+
+EF Core バージョン 2.0.0 より前に生成された移行がプロジェクトに含まれている場合は、それらのファイルの警告を無視してもかまわず、`#pragma warning disable 612, 618` を追加して抑制することができます。
+
+<a name="pluralizer"></a>
+
+### <a name="a-pluarlizer-is-now-included-for-scaffolding-reverse-engineered-models"></a>リバース エンジニアリングされたモデルをスキャフォールディングするための pluarlizer が含まれるように
+
+[問題 #11160 の追跡](https://github.com/dotnet/efcore/issues/11160)
+
+**以前の動作**
+
+以前は、データベース スキーマのリバース エンジニアリングによって DbContext とエンティティ型をスキャフォールディングするときに、DbSet およびコレクション ナビゲーションの名前を複数化し、テーブル名を単数化するために、個別のプルーラライザー パッケージをインストールする必要がありました。
+
+**新しい動作**
+
+EF Core に、[Humanizer](https://github.com/Humanizr/Humanizer) ライブラリを使用するプルーラライザーが含まれるようになりました。 これは、変数名を推奨するために Visual Studio で使用されるライブラリと同じものです。
+
+**理由**
+
+コレクション プロパティに対して複数形の単語を使い、型および参照プロパティに対して単数形を使うのは、.NET では慣用的です。
+
+**軽減策**
+
+プルーラライザーを無効にするには、`dotnet ef dbcontext scaffold` で `--no-pluralize` オプションを使用するか、`Scaffold-DbContext` で `-NoPluralize` スイッチを使用します。

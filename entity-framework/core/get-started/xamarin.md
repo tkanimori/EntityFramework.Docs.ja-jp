@@ -5,12 +5,12 @@ author: codemillmatt
 ms.date: 07/07/2020
 ms.author: masoucou
 uid: core/get-started/xamarin
-ms.openlocfilehash: b4a7e2260337d74329d309e9db32fe97a2131d73
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 0552038d471e294834bed9e3bf1f05fd74c39192
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619285"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92062543"
 ---
 # <a name="getting-started-with-ef-core-and-xamarin"></a>EF Core と Xamarin の概要
 
@@ -72,6 +72,14 @@ Windows 上の Visual Studio または Visual Studio for Mac を使用すると�
 次のセクションでは、Xamarin.Forms で EF Core を使用して SQLite データベースからデータの読み取り、作成、更新、削除を行うサンプル プロジェクトのコードについて説明します。
 
 [データの表示](/xamarin/xamarin-forms/app-fundamentals/data-binding/)および[ページ間の移動](/xamarin/xamarin-forms/app-fundamentals/navigation/)に関する Xamarin.Forms トピックを理解していることを前提として説明します。
+
+> [!IMPORTANT]
+> Entity Framework Core ではリフレクションを使用して、**リリース** モード構成中は Xamarin.iOS リンカーによって削除できる関数が呼び出されます。 これは、次の 2 つの方法のいずれかで回避できます。
+> 
+> * 1 つ目は、**iOS ビルド** オプションの**追加 mtouch 引数**に `--linkskip System.Core` を追加することです。
+> * または、**iOS ビルド** オプションで Xamarin.iOS の **[リンカーの動作]** を `Don't Link` に設定します。
+> [こちらの記事に、Xamarin.iOS リンカーについての詳細が記載されています](/xamarin/ios/deploy-test/linker) (Xamarin.iOS の動作を設定する方法など)。
+> 
 
 ## <a name="entity-framework-core-nuget-packages"></a>Entity Framework Core NuGet パッケージ
 

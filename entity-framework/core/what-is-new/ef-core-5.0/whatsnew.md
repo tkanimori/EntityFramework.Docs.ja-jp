@@ -4,12 +4,12 @@ description: EF Core 5.0 の新機能の概要
 author: ajcvickers
 ms.date: 09/10/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew
-ms.openlocfilehash: 0605d021b46066c6af7b631c99e86c0e53caa8db
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 8fa45bf31cb5f1a7e35134f9513a40469719f8c2
+ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90070758"
+ms.lasthandoff: 10/14/2020
+ms.locfileid: "92065616"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -25,7 +25,7 @@ EF Core 5.0 に予定されていたすべての機能が揃いました。 こ�
 
 たとえば、次のようなエンティティ型を考えてみます。
 
-```C#
+```csharp
 public class Post
 {
     public int Id { get; set; }
@@ -43,7 +43,7 @@ public class Tag
 
 `Post` に `Tags` のコレクションが含まれており、`Tag` に `Posts` のコレクションが含まれていることに注目してください。 EF Core 5.0 では、規則に従って多対多のリレーションシップとしてこれが認識されます。 これは、`OnModelCreating` にコードが必要ないことを意味します。
 
-```C#
+```csharp
 public class BlogContext : DbContext
 {
     public DbSet<Post> Posts { get; set; }
@@ -79,7 +79,7 @@ CREATE INDEX [IX_PostTag_TagsId] ON [PostTag] ([TagsId]);
 
 `Blog` エンティティと `Post` エンティティを作成して関連付けると、結合テーブルの更新が自動的に行われます。 次に例を示します。
 
-```C#
+```csharp
 var beginnerTag = new Tag {Text = "Beginner"};
 var advancedTag = new Tag {Text = "Advanced"};
 var efCoreTag = new Tag {Text = "EF Core"};
@@ -107,7 +107,7 @@ VALUES (@p6, @p7),
 
 クエリの場合、Include およびその他のクエリ操作は、他のリレーションシップと同様に機能します。 次に例を示します。
 
-```C#
+```csharp
 foreach (var post in context.Posts.Include(e => e.Tags))
 {
     Console.Write($"Post \"{post.Name}\" has tags");
@@ -134,17 +134,27 @@ ORDER BY [p].[Id], [t0].[PostsId], [t0].[TagsId], [t0].[Id]
 
 EF6 とは異なり、EF Core では結合テーブルの完全なカスタマイズが可能です。 たとえば、次のコードは、結合エンティティへのナビゲーションも持つ多対多のリレーションシップを構成します。結合エンティティにはペイロード プロパティが含まれています。
 
-```c#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder
-        .Entity<Community>()
-        .HasMany(e => e.Members)
-        .WithMany(e => e.Memberships)
-        .UsingEntity<PersonCommunity>(
-            b => b.HasOne(e => e.Member).WithMany().HasForeignKey(e => e.MembersId),
-            b => b.HasOne(e => e.Membership).WithMany().HasForeignKey(e => e.MembershipsId))
-        .Property(e => e.MemberSince).HasDefaultValueSql("CURRENT_TIMESTAMP");
+        .Entity<Post>()
+        .HasMany(p => p.Tags)
+        .WithMany(p => p.Posts)
+        .UsingEntity<PostTag>(
+            j => j
+                .HasOne(pt => pt.Tag)
+                .WithMany()
+                .HasForeignKey(pt => pt.TagId),
+            j => j
+                .HasOne(pt => pt.Post)
+                .WithMany()
+                .HasForeignKey(pt => pt.PostId),
+            j =>
+            {
+                j.Property(pt => pt.PublicationDate).HasDefaultValueSql("CURRENT_TIMESTAMP");
+                j.HasKey(t => new { t.PostId, t.TagId });
+            });
 }
 ```
 
@@ -154,7 +164,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 たとえば、2 つのテーブルについて考えてみます。1 つには最新の投稿が含まれ、もう 1 つには従来の投稿が含まれています。 最新の投稿テーブルにはいくつかの列が追加されていますが、このアプリケーションの目的のために、最新の投稿と従来の投稿の両方を組み合わせて、必要なすべてのプロパティを持つエンティティ型にマップする必要があります。
 
-```c#
+```csharp
 public class Post
 {
     public int Id { get; set; }
@@ -167,7 +177,7 @@ public class Post
 
 EF Core 5.0 では、`ToSqlQuery` を使用して、このエンティティ型を、両方のテーブルから行をプルして結合するクエリにマップできます。
 
-```c#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Post>().ToSqlQuery(
@@ -181,7 +191,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 こうすると、このエンティティ型が、LINQ クエリの通常の方法で使用できるようになります。 次に例を示します。 LINQ クエリ:
 
-```c#
+```csharp
 var posts = context.Posts.Where(e => e.Blog.Name.Contains("Unicorn")).ToList();
 ```
 
@@ -230,7 +240,7 @@ EF Core 5.0 を使用すると、同じ CLR 型を複数の異なるエンティ
 
 たとえば、次の DbContext は、BCL 型 `Dictionary<string, object>` を製品とカテゴリの両方の共有型のエンティティ型として構成します。
 
-```c#
+```csharp
 public class ProductsContext : DbContext
 {
     public DbSet<Dictionary<string, object>> Products => Set<Dictionary<string, object>>("Product");
@@ -261,7 +271,7 @@ public class ProductsContext : DbContext
 
 ディクショナリ オブジェクト ("プロパティ バッグ") をエンティティ インスタンスとしてコンテキストに追加し、保存できるようになりました。 次に例を示します。
 
-```c#
+```csharp
 var beverages = new Dictionary<string, object>
 {
     ["Name"] = "Beverages",
@@ -275,7 +285,7 @@ context.SaveChanges();
 
 これらのエンティティは、その後、通常の方法でクエリおよび更新できます。
 
-```c#
+```csharp
 var foods = context.Categories.Single(e => e["Name"] == "Foods");
 var marmite = context.Products.Single(e => e["Name"] == "Marmite");
 
@@ -291,7 +301,7 @@ EF Core 5.0 には、SaveChanges が呼び出されたときにトリガーさ�
 
 イベントの使用は簡単です。次に例を示します。
 
-```c#
+```csharp
 context.SavingChanges += (sender, args) =>
 {
     Console.WriteLine($"Saving changes for {((DbContext)sender).Database.GetConnectionString()}");
@@ -309,7 +319,7 @@ context.SavedChanges += (sender, args) =>
 
 インターセプターは `ISaveChangesInterceptor` で定義されますが、すべてのメソッドの実装を回避するために、`SaveChangesInterceptor` から継承すると便利な場合がよくあります。 次に例を示します。
 
-```c#
+```csharp
 public class MySaveChangesInterceptor : SaveChangesInterceptor
 {
     public override InterceptionResult<int> SavingChanges(
@@ -339,11 +349,11 @@ public class MySaveChangesInterceptor : SaveChangesInterceptor
 
 インターセプターの欠点は、構築時に DbContext に登録する必要があることです。 次に例を示します。
 
-```c#
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
-        => optionsBuilder
-            .AddInterceptors(new MySaveChangesInterceptor())
-            .UseSqlite("Data Source = test.db");
+```csharp
+protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
+    => optionsBuilder
+        .AddInterceptors(new MySaveChangesInterceptor())
+        .UseSqlite("Data Source = test.db");
 ```
 
 これに対し、イベントは、いつでも DbContext インスタンスに登録できます。
@@ -356,7 +366,7 @@ public class MySaveChangesInterceptor : SaveChangesInterceptor
 
 次のコードでは、`AuthorizationContext` は `Users` テーブルに対する変更の移行を生成しますが、`ReportingContext` は生成しないため、移行の競合を防ぐことができます。
 
-```C#
+```csharp
 public class AuthorizationContext : DbContext
 {
     public DbSet<User> Users { get; set; }
@@ -377,7 +387,7 @@ public class ReportingContext : DbContext
 
 EF Core 3.1 では、一対一のリレーションシップの依存側は常に省略可能と見なされていました。 これは、所有エンティティを使用する場合に最も顕著でした。 たとえば、次のモデルと構成について考えてみます。
 
-```c#
+```csharp
 public class Person
 {
     public int Id { get; set; }
@@ -398,7 +408,7 @@ public class Address
 }
 ```
 
-```c#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Person>(b =>
@@ -442,7 +452,7 @@ CREATE TABLE "People" (
 
 EF Core 5.0 では、`HomeAddress` ナビゲーションを必要な依存として構成できるようになりました。 次に例を示します。
 
-```c#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Person>(b =>
@@ -570,7 +580,7 @@ ajcvickers@avickers420u:~/AllTogetherNow/Daily$
 
 カスタムの可変型の EF Core プロパティには、プロパティの変更を正しく検出するために[値の比較演算子が必要](xref:core/modeling/value-comparers)です。 これは、型の値変換の構成の一部として指定できるようになりました。 次に例を示します。
 
-```c#
+```csharp
 modelBuilder
     .Entity<EntityType>()
     .Property(e => e.MyProperty)
@@ -589,7 +599,7 @@ modelBuilder
 
 `TryGetValue` メソッドが `EntityEntry.CurrentValues` と `EntityEntry.OriginalValues` に追加されました。 これにより、プロパティが EF モデルでマップされているかどうかを最初に確認することなく、プロパティの値を要求することができます。 次に例を示します。
 
-```c#
+```csharp
 if (entry.CurrentValues.TryGetValue(propertyName, out var value))
 {
     Console.WriteLine(value);
@@ -621,7 +631,7 @@ EF Core 5.0 RC1 には、クエリ変換の機能強化がいくつか追加さ�
 
 最後に RC1 で、EF Core により ModelBuilder でフィールドとプロパティに対して、ラムダ メソッドを使用できるようになりました。 たとえば、あなたが何らかの理由でプロパティを嫌っていて、パブリック フィールドを使用することにした場合、これらのフィールドをラムダ ビルダーを使用してマッピングできるようになりました。
 
-```c#
+```csharp
 public class Post
 {
     public int Id;
@@ -639,7 +649,7 @@ public class Blog
 }
 ```
 
-```c#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Blog>(b =>
@@ -669,7 +679,7 @@ EF Core の既定では、.NET 型の継承階層が 1 つのデータベース 
 
 たとえば、次のようにマップされた階層を持つこのモデルを考えてみましょう。
 
-```c#
+```csharp
 public class Animal
 {
     public int Id { get; set; }
@@ -743,7 +753,7 @@ CREATE TABLE [Dogs] (
 
 エンティティ型を別のテーブルにマップするには、マッピング属性を使用します。
 
-```c#
+```csharp
 [Table("Animals")]
 public class Animal
 {
@@ -772,7 +782,7 @@ public class Dog : Pet
 
 または `ModelBuilder` 構成を使用します。
 
-```c#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder.Entity<Animal>().ToTable("Animals");
@@ -790,7 +800,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 たとえば、エンティティ型 `Unicorn` に対して作成された `Unicorns` テーブルがあるとします。
 
-```c#
+```csharp
 public class Unicorn
 {
     public int Id { get; set; }
@@ -877,7 +887,7 @@ EF Core モデルでは、この TVF を使用するために 2 つのエンテ�
 * 通常の方法で Employees テーブルにマップする `Employee` 型
 * TVF から返されるシェイプと一致する `Report` 型
 
-```c#
+```csharp
 public class Employee
 {
     public int Id { get; set; }
@@ -889,7 +899,7 @@ public class Employee
 }
 ```
 
-```c#
+```csharp
 public class Report
 {
     public string Name { get; set; }
@@ -899,7 +909,7 @@ public class Report
 
 これらの型は、EF Core モデルに含まれている必要があります。
 
-```c#
+```csharp
 modelBuilder.Entity<Employee>();
 modelBuilder.Entity(typeof(Report)).HasNoKey();
 ```
@@ -908,14 +918,14 @@ modelBuilder.Entity(typeof(Report)).HasNoKey();
 
 最後に、.NET メソッドをデータベースの TVF にマップする必要があります。 このメソッドは、新しい `FromExpression` メソッドを使用して DbContext に対して定義できます。
 
-```c#
+```csharp
 public IQueryable<Report> GetReports(int managerId)
     => FromExpression(() => GetReports(managerId));
 ```
 
 このメソッドには、上記で定義された TVF に一致するパラメーターと戻り値の型が使用されます。 次に、メソッドは OnModelCreating の EF Core モデルに追加されます
 
-```c#
+```csharp
 modelBuilder.HasDbFunction(() => GetReports(default));
 ```
 
@@ -923,7 +933,7 @@ modelBuilder.HasDbFunction(() => GetReports(default));
 
 これで、`GetReports` を呼び出して結果を構成するクエリを作成できるようになりました。 次に例を示します。
 
-```c#
+```csharp
 from e in context.Employees
 from rc in context.GetReports(e.Id)
 where rc.IsDeveloper == true
@@ -951,7 +961,7 @@ EF Core 5.0 では、同じエンティティ型を異なるデータベース �
 
 たとえば、エンティティ型はデータベース ビューとデータベース テーブルの両方にマップできます。
 
-```c#
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     modelBuilder
@@ -963,7 +973,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 既定では、EF Core はビューからクエリを実行し、更新をテーブルに送信します。 たとえば、次のコードを実行します。
 
-```c#
+```csharp
 var blog = context.Set<Blog>().Single(e => e.Name == "One Unicorn");
 
 blog.Name = "1unicorn2";
@@ -988,7 +998,7 @@ SELECT @@ROWCOUNT;
 
 分割クエリ (以下を参照してください) は、DbContext によって実行されるクエリの既定値として構成できるようになりました。 この構成はリレーショナル プロバイダーの場合にのみ使用できるため、`UseProvider` 構成の一部として指定する必要があります。 次に例を示します。
 
-```c#
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .UseSqlServer(
@@ -1158,7 +1168,7 @@ EF Core 5.0 では、関連するコレクションを含む単一の LINQ ク�
 
 たとえば、`Include` を使用して 2 つのレベルの関連コレクションを取得するクエリについて考えてみます。
 
-```CSharp
+```csharp
 var artists = context.Artists
     .Include(e => e.Albums).ThenInclude(e => e.Tags)
     .ToList();
@@ -1179,7 +1189,7 @@ ORDER BY "a"."Id", "t0"."Id", "t0"."Id0"
 
 新しい `AsSplitQuery` API を使用して、この動作を変更できます。 次に例を示します。
 
-```CSharp
+```csharp
 var artists = context.Artists
     .AsSplitQuery()
     .Include(e => e.Albums).ThenInclude(e => e.Tags)
@@ -1213,7 +1223,7 @@ OrderBy/Skip/Take でフィルター処理されたインクルードは、Previ
 
 `AsSplitQuery` は、コレクションがプロジェクションに読み込まれるときにも使用できます。 次に例を示します。
 
-```CSharp
+```csharp
 context.Artists
     .AsSplitQuery()
     .Select(e => new
@@ -1242,7 +1252,7 @@ ORDER BY "a"."Id"
 
 新しい IndexAttribute をエンティティ型に配置して、1 つの列のインデックスを指定することができます。 次に例を示します。
 
-```CSharp
+```csharp
 [Index(nameof(FullName), IsUnique = true)]
 public class User
 {
@@ -1263,7 +1273,7 @@ CREATE UNIQUE INDEX [IX_Users_FullName]
 
 IndexAttribute を使用して、複数の列にまたがるインデックスを指定することもできます。 次に例を示します。
 
-```CSharp
+```csharp
 [Index(nameof(FirstName), nameof(LastName), IsUnique = true)]
 public class User
 {
@@ -1291,7 +1301,7 @@ CREATE UNIQUE INDEX [IX_Users_FirstName_LastName]
 
 クエリ変換が失敗したときに生成される例外メッセージの改善を続けています。 たとえば、次のクエリでは、マップされていないプロパティ `IsSigned` を使用します。
 
-```CSharp
+```csharp
 var artists = context.Artists.Where(e => e.IsSigned).ToList();
 ```
 
@@ -1301,7 +1311,7 @@ EF Core は、`IsSigned` がマップされていないために変換が失敗�
 
 同様に、カルチャに依存するセマンティクスを使用して文字列の比較を変換しようとしたときに、より適切な例外メッセージが生成されるようになりました。 たとえば、次のクエリは `StringComparison.CurrentCulture` を使用しようとします。
 
-```CSharp
+```csharp
 var artists = context.Artists
     .Where(e => e.Name.Equals("The Unicorns", StringComparison.CurrentCulture))
     .ToList();
@@ -1317,7 +1327,7 @@ EF Core では、次の例外がスローされるようになりました。
 
 EF Core では、呼び出し全体のトランザクションの相関関係に対するトランザクション ID が公開されます。 この ID は通常、トランザクションの開始時に EF Core によって設定されます。 アプリケーションがトランザクションを代わりに開始する場合、この機能により、アプリケーションが、使用されるすべての場所で正しく関連付けられるように、トランザクション ID を明示的に設定できるようになります。 次に例を示します。
 
-```CSharp
+```csharp
 using (context.Database.UseTransaction(myTransaction, myId))
 {
    ...
@@ -1330,7 +1340,7 @@ using (context.Database.UseTransaction(myTransaction, myId))
 
 標準の .NET [IPAddress クラス](/dotnet/api/system.net.ipaddress)が、ネイティブ サポートをまだ持っていないデータベースの文字列型の列に自動的にマップされるようになりました。 たとえば、次のエンティティ型をマップすることを検討してください。
 
-```CSharp
+```csharp
 public class Host
 {
     public int Id { get; set; }
@@ -1349,7 +1359,7 @@ CREATE TABLE [Host] (
 
 これで、通常の方法でエンティティを追加できます。
 
-```CSharp
+```csharp
 context.AddRange(
     new Host { Address = IPAddress.Parse("127.0.0.1")},
     new Host { Address = IPAddress.Parse("0000:0000:0000:0000:0000:0000:0000:0001")});
@@ -1388,7 +1398,7 @@ Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' 
 
 FirstOrDefault と文字列内の文字に対する類似の演算子が変換されました。 たとえば、次の LINQ クエリ:
 
-```CSharp
+```csharp
 context.Customers.Where(c => c.ContactName.FirstOrDefault() == 'A').ToList();
 ```
 
@@ -1404,7 +1414,7 @@ WHERE SUBSTRING([c].[ContactName], 1, 1) = N'A'
 
 EF Core は、CASE ブロックを使用してより良いクエリを生成するようになりました。 たとえば、次の LINQ クエリ:
 
-```CSharp
+```csharp
 context.Weapons
     .OrderBy(w => w.Name.CompareTo("Marcus' Lancer") == 0)
     .ThenBy(w => w.Id)
@@ -1446,7 +1456,7 @@ END, [w].[Id]");
 
 データベースにおける既定の照合順序を EF モデルで指定できるようになりました。 これは、データベースの作成時に照合順序を設定するために生成された移行にフローします。 次に例を示します。
 
-```CSharp
+```csharp
 modelBuilder.UseCollation("German_PhoneBook_CI_AS");
 ```
 
@@ -1459,18 +1469,18 @@ COLLATE German_PhoneBook_CI_AS;
 
 特定のデータベース列に使用する照合順序を指定することもできます。 次に例を示します。
 
-```CSharp
- modelBuilder
-     .Entity<User>()
-     .Property(e => e.Name)
-     .UseCollation("German_PhoneBook_CI_AS");
+```csharp
+modelBuilder
+    .Entity<User>()
+    .Property(e => e.Name)
+    .UseCollation("German_PhoneBook_CI_AS");
 ```
 
 移行を使用しないものについては、DbContext をスキャフォールディングする際に、照合順序がデータベースからリバースエンジニアリングされるようになりました。
 
 最後に、`EF.Functions.Collate()` では、さまざまな照合順序を使用したアドホック クエリが可能です。 次に例を示します。
 
-```CSharp
+```csharp
 context.Users.Single(e => EF.Functions.Collate(e.Name, "French_CI_AS") == "Jean-Michel Jarre");
 ```
 
@@ -1496,7 +1506,7 @@ dotnet ef migrations add two --verbose --dev
 
 この引数は次にファクトリにフローされ、そこではコンテキストの作成方法および初期化方法を制御するために使用できます。 次に例を示します。
 
-```CSharp
+```csharp
 public class MyDbContextFactory : IDesignTimeDbContextFactory<SomeDbContext>
 {
     public SomeDbContext CreateDbContext(string[] args)
@@ -1510,13 +1520,13 @@ public class MyDbContextFactory : IDesignTimeDbContextFactory<SomeDbContext>
 
 識別子の解決を実行するように追跡なしのクエリ構成できるようになりました。 たとえば、次のクエリでは、各ブログの主キーが同じである場合でも、投稿ごとに新しいブログ インスタンスが作成されます。
 
-```CSharp
+```csharp
 context.Posts.AsNoTracking().Include(e => e.Blog).ToList();
 ```
 
 ただし、通常は速度が少し低下し、常により多くのメモリを使用することになりますが、1 つのブログ インスタンスだけを確実に作成するように、このクエリを変更することができます。
 
-```CSharp
+```csharp
 context.Posts.AsNoTracking().PerformIdentityResolution().Include(e => e.Blog).ToList();
 ```
 
@@ -1530,7 +1540,7 @@ context.Posts.AsNoTracking().PerformIdentityResolution().Include(e => e.Blog).To
 
 EF Core 5.0 では、計算列を格納済みとして構成できます。 次に例を示します。
 
-```CSharp
+```csharp
 modelBuilder
     .Entity<User>()
     .Property(e => e.SomethingComputed)
@@ -1547,7 +1557,7 @@ EF Core では、SQLite データベースの計算列がサポートされる�
 
 モデル ビルダーを使用して、プロパティの有効桁数と小数点以下桁数を指定できるようになりました。 次に例を示します。
 
-```CSharp
+```csharp
 modelBuilder
     .Entity<Blog>()
     .Property(b => b.Numeric)
@@ -1562,7 +1572,7 @@ modelBuilder
 
 SQL Server でインデックスを作成するときに、FILL FACTOR を指定できるようになりました。 次に例を示します。
 
-```CSharp
+```csharp
 modelBuilder
     .Entity<Customer>()
     .HasIndex(e => e.Name)
@@ -1575,7 +1585,7 @@ modelBuilder
 
 Include メソッドでは、インクルードされるエンティティのフィルター処理がサポートされるようになりました。 次に例を示します。
 
-```CSharp
+```csharp
 var blogs = context.Blogs
     .Include(e => e.Posts.Where(p => p.Title.Contains("Cheese")))
     .ToList();
@@ -1585,7 +1595,7 @@ var blogs = context.Blogs
 
 Skip と Take を使用して、インクルードされるエンティティの数を減らすこともできます。 次に例を示します。
 
-```CSharp
+```csharp
 var blogs = context.Blogs
     .Include(e => e.Posts.OrderByDescending(post => post.Title).Take(5)))
     .ToList();
@@ -1598,7 +1608,7 @@ var blogs = context.Blogs
 
 ナビゲーション プロパティは、主に[リレーションシップを定義する](xref:core/modeling/relationships)ときに構成されます。 ただし、ナビゲーション プロパティに追加の構成が必要な場合は、新しい `Navigation` メソッドを使用できます。 たとえば、フィールドが規約によって見つからない場合にナビゲーションにバッキング フィールドを設定するには、次を実行します。
 
-```CSharp
+```csharp
 modelBuilder.Entity<Blog>().Navigation(e => e.Posts).HasField("_myposts");
 ```
 
@@ -1635,7 +1645,7 @@ VS パッケージ マネージャー コンソールで使用される PowerShe
 
 次に例を示します。
 
-```CSharp
+```csharp
 protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
     => optionsBuilder
         .EnableDetailedErrors()
@@ -1649,7 +1659,7 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 
 指定されたクエリに使用するパーティション キーをクエリで指定できるようになりました。 次に例を示します。
 
-```CSharp
+```csharp
 await context.Set<Customer>()
              .WithPartitionKey(myPartitionKey)
              .FirstAsync();
@@ -1661,7 +1671,7 @@ await context.Set<Customer>()
 
 これには、新しい `EF.Functions.DataLength` メソッドを使用してアクセスできます。 次に例を示します。
 
-```CSharp
+```csharp
 var count = context.Orders.Count(c => 100 < EF.Functions.DataLength(c.OrderDate));
 ```
 
@@ -1671,7 +1681,7 @@ var count = context.Orders.Count(c => 100 < EF.Functions.DataLength(c.OrderDate)
 
 C# 属性を利用し、プロパティのバッキング フィールドを指定できるようになりました。 この属性を利用することで、EF Core では、バッキング フィールドが自動的に検出できないときでさえ、通常のようにバッキング フィールドとの間で読み書きできます。 次に例を示します。
 
-```CSharp
+```csharp
 public class Blog
 {
     private string _mainTitle;
@@ -1741,7 +1751,7 @@ EF Core 5.0 では、LINQ クエリの実行時に EF Core によって生成さ
 
 新しい `KeylessAttribute` を使用したキーを持たないようにエンティティ タイプを構成できるようになりました。 次に例を示します。
 
-```CSharp
+```csharp
 [Keyless]
 public class Address
 {
@@ -1789,7 +1799,7 @@ EF Core 5.0 では、C# インデクサー プロパティのマッピングが�
 
 EF Core 5.0 の移行で、列挙型プロパティのマッピングに CHECK 制約を生成できるようになりました。 次に例を示します。
 
-```SQL
+```sql
 MyEnumColumn VARCHAR(10) NOT NULL CHECK (MyEnumColumn IN ('Useful', 'Useless', 'Unknown'))
 ```
 
@@ -1799,7 +1809,7 @@ MyEnumColumn VARCHAR(10) NOT NULL CHECK (MyEnumColumn IN ('Useful', 'Useless', '
 
 既存の `IsSqlServer`、`IsSqlite`、`IsInMemory` に加えて、新しい `IsRelational` メソッドが追加されました。 このメソッドは、DbContext がリレーショナル データベース プロバイダーを使用しているかどうかをテストするために使用できます。 次に例を示します。
 
-```CSharp
+```csharp
 protected override void OnModelCreating(ModelBuilder modelBuilder)
 {
     if (Database.IsRelational())
@@ -1815,7 +1825,7 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 
 Azure Cosmos DB データベース プロバイダーで、Etag を使用したオプティミスティック同時実行制御がサポートされるようになりました。 OnModelCreating のモデル ビルダーを使用して ETag を構成します。
 
-```CSharp
+```csharp
 builder.Entity<Customer>().Property(c => c.ETag).IsEtagConcurrency();
 ```
 
@@ -1834,7 +1844,7 @@ SaveChanges はコンカレンシーの競合に対して `DbUpdateConcurrencyEx
 
 次に例を示します。
 
-```CSharp
+```csharp
 var count = context.Orders.Count(c => date > EF.Functions.DateFromParts(DateTime.Now.Year, 12, 25));
 
 ```
@@ -1853,7 +1863,7 @@ byte[] プロパティで Contains、Length、SequenceEqual などを使用す�
 
 `Reverse` を使用したクエリが変換されるようになりました。 次に例を示します。
 
-```CSharp
+```csharp
 context.Employees.OrderBy(e => e.EmployeeID).Reverse()
 ```
 
@@ -1863,7 +1873,7 @@ context.Employees.OrderBy(e => e.EmployeeID).Reverse()
 
 ビット処理演算子を使用するクエリが、次のようなケースでも変換されるようになりました。
 
-```CSharp
+```csharp
 context.Orders.Where(o => ~o.OrderID == negatedId)
 ```
 
