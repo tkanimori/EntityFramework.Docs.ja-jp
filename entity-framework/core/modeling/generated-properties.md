@@ -4,119 +4,123 @@ description: Entity Framework Core を使用する場合のプロパティの値
 author: AndriySvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
-ms.openlocfilehash: d89739cf8bd2612b97bbf338e9685e9888b6216b
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 347cedbf5fdebc985d75c6cad3c28f17d1344993
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062218"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429625"
 ---
-# <a name="generated-values"></a><span data-ttu-id="88c7f-103">生成された値</span><span class="sxs-lookup"><span data-stu-id="88c7f-103">Generated Values</span></span>
+# <a name="generated-values"></a><span data-ttu-id="043ad-103">生成された値</span><span class="sxs-lookup"><span data-stu-id="043ad-103">Generated Values</span></span>
 
-## <a name="value-generation-patterns"></a><span data-ttu-id="88c7f-104">値生成パターン</span><span class="sxs-lookup"><span data-stu-id="88c7f-104">Value generation patterns</span></span>
+## <a name="value-generation-patterns"></a><span data-ttu-id="043ad-104">値生成パターン</span><span class="sxs-lookup"><span data-stu-id="043ad-104">Value generation patterns</span></span>
 
-<span data-ttu-id="88c7f-105">プロパティに使用できる値生成パターンには、次の3つがあります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-105">There are three value generation patterns that can be used for properties:</span></span>
+<span data-ttu-id="043ad-105">プロパティに使用できる値生成パターンには、次の3つがあります。</span><span class="sxs-lookup"><span data-stu-id="043ad-105">There are three value generation patterns that can be used for properties:</span></span>
 
-* <span data-ttu-id="88c7f-106">値の生成なし</span><span class="sxs-lookup"><span data-stu-id="88c7f-106">No value generation</span></span>
-* <span data-ttu-id="88c7f-107">追加時に生成される値</span><span class="sxs-lookup"><span data-stu-id="88c7f-107">Value generated on add</span></span>
-* <span data-ttu-id="88c7f-108">追加または更新時に生成される値</span><span class="sxs-lookup"><span data-stu-id="88c7f-108">Value generated on add or update</span></span>
+* <span data-ttu-id="043ad-106">値の生成なし</span><span class="sxs-lookup"><span data-stu-id="043ad-106">No value generation</span></span>
+* <span data-ttu-id="043ad-107">追加時に生成される値</span><span class="sxs-lookup"><span data-stu-id="043ad-107">Value generated on add</span></span>
+* <span data-ttu-id="043ad-108">追加または更新時に生成される値</span><span class="sxs-lookup"><span data-stu-id="043ad-108">Value generated on add or update</span></span>
 
-### <a name="no-value-generation"></a><span data-ttu-id="88c7f-109">値の生成なし</span><span class="sxs-lookup"><span data-stu-id="88c7f-109">No value generation</span></span>
+### <a name="no-value-generation"></a><span data-ttu-id="043ad-109">値の生成なし</span><span class="sxs-lookup"><span data-stu-id="043ad-109">No value generation</span></span>
 
-<span data-ttu-id="88c7f-110">値の生成は、常にデータベースに保存される有効な値を指定することを意味します。</span><span class="sxs-lookup"><span data-stu-id="88c7f-110">No value generation means that you will always supply a valid value to be saved to the database.</span></span> <span data-ttu-id="88c7f-111">この有効な値は、コンテキストに追加する前に、新しいエンティティに割り当てる必要があります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-111">This valid value must be assigned to new entities before they are added to the context.</span></span>
+<span data-ttu-id="043ad-110">値の生成は、常にデータベースに保存される有効な値を指定することを意味します。</span><span class="sxs-lookup"><span data-stu-id="043ad-110">No value generation means that you will always supply a valid value to be saved to the database.</span></span> <span data-ttu-id="043ad-111">この有効な値は、コンテキストに追加する前に、新しいエンティティに割り当てる必要があります。</span><span class="sxs-lookup"><span data-stu-id="043ad-111">This valid value must be assigned to new entities before they are added to the context.</span></span>
 
-### <a name="value-generated-on-add"></a><span data-ttu-id="88c7f-112">追加時に生成される値</span><span class="sxs-lookup"><span data-stu-id="88c7f-112">Value generated on add</span></span>
+### <a name="value-generated-on-add"></a><span data-ttu-id="043ad-112">追加時に生成される値</span><span class="sxs-lookup"><span data-stu-id="043ad-112">Value generated on add</span></span>
 
-<span data-ttu-id="88c7f-113">追加時に生成される値は、新しいエンティティに対して値が生成されることを意味します。</span><span class="sxs-lookup"><span data-stu-id="88c7f-113">Value generated on add means that a value is generated for new entities.</span></span>
+<span data-ttu-id="043ad-113">追加時に生成される値は、新しいエンティティに対して値が生成されることを意味します。</span><span class="sxs-lookup"><span data-stu-id="043ad-113">Value generated on add means that a value is generated for new entities.</span></span>
 
-<span data-ttu-id="88c7f-114">使用するデータベースプロバイダーによっては、値が EF またはデータベースでクライアント側で生成される場合があります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-114">Depending on the database provider being used, values may be generated client side by EF or in the database.</span></span> <span data-ttu-id="88c7f-115">値がデータベースによって生成される場合、エンティティをコンテキストに追加するときに、EF によって一時的な値が割り当てられることがあります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-115">If the value is generated by the database, then EF may assign a temporary value when you add the entity to the context.</span></span> <span data-ttu-id="88c7f-116">この一時値は、の間にデータベースによって生成された値に置き換えられ `SaveChanges()` ます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-116">This temporary value will then be replaced by the database generated value during `SaveChanges()`.</span></span>
+<span data-ttu-id="043ad-114">使用するデータベースプロバイダーによっては、値が EF またはデータベースでクライアント側で生成される場合があります。</span><span class="sxs-lookup"><span data-stu-id="043ad-114">Depending on the database provider being used, values may be generated client side by EF or in the database.</span></span> <span data-ttu-id="043ad-115">値がデータベースによって生成される場合、エンティティをコンテキストに追加するときに、EF によって一時的な値が割り当てられることがあります。</span><span class="sxs-lookup"><span data-stu-id="043ad-115">If the value is generated by the database, then EF may assign a temporary value when you add the entity to the context.</span></span> <span data-ttu-id="043ad-116">この一時値は、の間にデータベースによって生成された値に置き換えられ `SaveChanges()` ます。</span><span class="sxs-lookup"><span data-stu-id="043ad-116">This temporary value will then be replaced by the database generated value during `SaveChanges()`.</span></span>
 
-<span data-ttu-id="88c7f-117">プロパティに値が割り当てられているコンテキストにエンティティを追加すると、EF は新しい値を生成するのではなく、その値を挿入しようとします。</span><span class="sxs-lookup"><span data-stu-id="88c7f-117">If you add an entity to the context that has a value assigned to the property, then EF will attempt to insert that value rather than generating a new one.</span></span> <span data-ttu-id="88c7f-118">CLR の既定値 (for、for、for など) が割り当てられていない場合、プロパティには値が割り当てられていると見なされ `null` `string` `0` `int` `Guid.Empty` `Guid` ます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-118">A property is considered to have a value assigned if it is not assigned the CLR default value (`null` for `string`, `0` for `int`, `Guid.Empty` for `Guid`, etc.).</span></span> <span data-ttu-id="88c7f-119">詳細については、「 [生成されるプロパティの明示的な値](xref:core/saving/explicit-values-generated-properties)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="88c7f-119">For more information, see [Explicit values for generated properties](xref:core/saving/explicit-values-generated-properties).</span></span>
-
-> [!WARNING]
-> <span data-ttu-id="88c7f-120">追加されたエンティティに対して値が生成される方法は、使用されているデータベースプロバイダーによって異なります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-120">How the value is generated for added entities will depend on the database provider being used.</span></span> <span data-ttu-id="88c7f-121">データベースプロバイダーでは、一部のプロパティの種類に対して値の生成が自動的に設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-121">Database providers may automatically setup value generation for some property types, but others may require you to manually setup how the value is generated.</span></span>
->
-> <span data-ttu-id="88c7f-122">たとえば、SQL Server を使用すると、プロパティに対して値が自動的に生成され `GUID` ます (SQL Server シーケンシャル GUID アルゴリズムを使用)。</span><span class="sxs-lookup"><span data-stu-id="88c7f-122">For example, when using SQL Server, values will be automatically generated for `GUID` properties (using the SQL Server sequential GUID algorithm).</span></span> <span data-ttu-id="88c7f-123">ただし、プロパティが追加時に生成されるように指定する場合は、 `DateTime` 値を生成する方法を設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-123">However, if you specify that a `DateTime` property is generated on add, then you must setup a way for the values to be generated.</span></span> <span data-ttu-id="88c7f-124">これを行う1つの方法は、既定値のを構成することです `GETDATE()` 。「 [既定値](#default-values)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="88c7f-124">One way to do this, is to configure a default value of `GETDATE()`, see [Default Values](#default-values).</span></span>
-
-### <a name="value-generated-on-add-or-update"></a><span data-ttu-id="88c7f-125">追加または更新時に生成される値</span><span class="sxs-lookup"><span data-stu-id="88c7f-125">Value generated on add or update</span></span>
-
-<span data-ttu-id="88c7f-126">追加または更新時に生成される値は、レコードが保存されるたびに新しい値が生成されることを意味します (insert または update)。</span><span class="sxs-lookup"><span data-stu-id="88c7f-126">Value generated on add or update means that a new value is generated every time the record is saved (insert or update).</span></span>
-
-<span data-ttu-id="88c7f-127">と同様に `value generated on add` 、エンティティの新しく追加されたインスタンスでプロパティの値を指定すると、生成される値ではなく、その値が挿入されます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-127">Like `value generated on add`, if you specify a value for the property on a newly added instance of an entity, that value will be inserted rather than a value being generated.</span></span> <span data-ttu-id="88c7f-128">更新時に明示的な値を設定することもできます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-128">It is also possible to set an explicit value when updating.</span></span> <span data-ttu-id="88c7f-129">詳細については、「 [生成されるプロパティの明示的な値](xref:core/saving/explicit-values-generated-properties)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="88c7f-129">For more information, see [Explicit values for generated properties](xref:core/saving/explicit-values-generated-properties).</span></span>
+<span data-ttu-id="043ad-117">プロパティに値が割り当てられているコンテキストにエンティティを追加すると、EF は新しい値を生成するのではなく、その値を挿入しようとします。</span><span class="sxs-lookup"><span data-stu-id="043ad-117">If you add an entity to the context that has a value assigned to the property, then EF will attempt to insert that value rather than generating a new one.</span></span> <span data-ttu-id="043ad-118">CLR の既定値 (for、for、for など) が割り当てられていない場合、プロパティには値が割り当てられていると見なされ `null` `string` `0` `int` `Guid.Empty` `Guid` ます。</span><span class="sxs-lookup"><span data-stu-id="043ad-118">A property is considered to have a value assigned if it is not assigned the CLR default value (`null` for `string`, `0` for `int`, `Guid.Empty` for `Guid`, etc.).</span></span> <span data-ttu-id="043ad-119">詳細については、「 [生成されるプロパティの明示的な値](xref:core/saving/explicit-values-generated-properties)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="043ad-119">For more information, see [Explicit values for generated properties](xref:core/saving/explicit-values-generated-properties).</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="88c7f-130">追加および更新されたエンティティの値がどのように生成されるかは、使用されているデータベースプロバイダーによって異なります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-130">How the value is generated for added and updated entities will depend on the database provider being used.</span></span> <span data-ttu-id="88c7f-131">データベースプロバイダーは、プロパティの種類によっては値の生成を自動的に設定する場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-131">Database providers may automatically setup value generation for some property types, while others will require you to manually setup how the value is generated.</span></span>
+> <span data-ttu-id="043ad-120">追加されたエンティティに対して値が生成される方法は、使用されているデータベースプロバイダーによって異なります。</span><span class="sxs-lookup"><span data-stu-id="043ad-120">How the value is generated for added entities will depend on the database provider being used.</span></span> <span data-ttu-id="043ad-121">データベースプロバイダーでは、一部のプロパティの型に対して自動的に値の生成が設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="043ad-121">Database providers may automatically set up value generation for some property types, but others may require you to manually set up how the value is generated.</span></span>
 >
-> <span data-ttu-id="88c7f-132">たとえば、SQL Server を使用する場合、 `byte[]` 追加または更新時に生成されるように設定され、同時実行トークンとしてマークされているプロパティは、データ型を使用して設定される `rowversion` ため、データベースに値が生成されます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-132">For example, when using SQL Server, `byte[]` properties that are set as generated on add or update and marked as concurrency tokens, will be setup with the `rowversion` data type - so that values will be generated in the database.</span></span> <span data-ttu-id="88c7f-133">ただし、 `DateTime` プロパティが追加または更新時に生成されるように指定する場合は、値を生成する方法を設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-133">However, if you specify that a `DateTime` property is generated on add or update, then you must setup a way for the values to be generated.</span></span> <span data-ttu-id="88c7f-134">これを行う1つの方法は、の既定値 `GETDATE()` ( [既定値](#default-values)を参照) を構成して、新しい行の値を生成することです。</span><span class="sxs-lookup"><span data-stu-id="88c7f-134">One way to do this, is to configure a default value of `GETDATE()` (see [Default Values](#default-values)) to generate values for new rows.</span></span> <span data-ttu-id="88c7f-135">次に、データベーストリガーを使用して、更新中に値を生成することができます (次の例のトリガーなど)。</span><span class="sxs-lookup"><span data-stu-id="88c7f-135">You could then use a database trigger to generate values during updates (such as the following example trigger).</span></span>
+> <span data-ttu-id="043ad-122">たとえば、SQL Server を使用すると、プロパティに対して値が自動的に生成され `GUID` ます (SQL Server シーケンシャル GUID アルゴリズムを使用)。</span><span class="sxs-lookup"><span data-stu-id="043ad-122">For example, when using SQL Server, values will be automatically generated for `GUID` properties (using the SQL Server sequential GUID algorithm).</span></span> <span data-ttu-id="043ad-123">ただし、追加時にプロパティが生成されるように指定する場合は、 `DateTime` 値を生成する方法を設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="043ad-123">However, if you specify that a `DateTime` property is generated on add, then you must set up a way for the values to be generated.</span></span> <span data-ttu-id="043ad-124">これを行う1つの方法は、既定値のを構成することです `GETDATE()` 。「 [既定値](#default-values)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="043ad-124">One way to do this, is to configure a default value of `GETDATE()`, see [Default Values](#default-values).</span></span>
+
+### <a name="value-generated-on-add-or-update"></a><span data-ttu-id="043ad-125">追加または更新時に生成される値</span><span class="sxs-lookup"><span data-stu-id="043ad-125">Value generated on add or update</span></span>
+
+<span data-ttu-id="043ad-126">追加または更新時に生成される値は、レコードが保存されるたびに新しい値が生成されることを意味します (insert または update)。</span><span class="sxs-lookup"><span data-stu-id="043ad-126">Value generated on add or update means that a new value is generated every time the record is saved (insert or update).</span></span>
+
+<span data-ttu-id="043ad-127">と同様に `value generated on add` 、エンティティの新しく追加されたインスタンスでプロパティの値を指定すると、生成される値ではなく、その値が挿入されます。</span><span class="sxs-lookup"><span data-stu-id="043ad-127">Like `value generated on add`, if you specify a value for the property on a newly added instance of an entity, that value will be inserted rather than a value being generated.</span></span> <span data-ttu-id="043ad-128">更新時に明示的な値を設定することもできます。</span><span class="sxs-lookup"><span data-stu-id="043ad-128">It is also possible to set an explicit value when updating.</span></span> <span data-ttu-id="043ad-129">詳細については、「 [生成されるプロパティの明示的な値](xref:core/saving/explicit-values-generated-properties)」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="043ad-129">For more information, see [Explicit values for generated properties](xref:core/saving/explicit-values-generated-properties).</span></span>
+
+> [!WARNING]
+> <span data-ttu-id="043ad-130">追加および更新されたエンティティの値がどのように生成されるかは、使用されているデータベースプロバイダーによって異なります。</span><span class="sxs-lookup"><span data-stu-id="043ad-130">How the value is generated for added and updated entities will depend on the database provider being used.</span></span> <span data-ttu-id="043ad-131">データベースプロバイダーでは、一部のプロパティの型に対して自動的に値の生成が設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="043ad-131">Database providers may automatically set up value generation for some property types, while others will require you to manually set up how the value is generated.</span></span>
+>
+> <span data-ttu-id="043ad-132">たとえば、SQL Server を使用する場合、 `byte[]` 追加または更新で生成されるように設定され、同時実行トークンとしてマークされているプロパティは、データ型で設定されるので、 `rowversion` データベースで値が生成されます。</span><span class="sxs-lookup"><span data-stu-id="043ad-132">For example, when using SQL Server, `byte[]` properties that are set as generated on add or update and marked as concurrency tokens, will be set up with the `rowversion` data type - so that values will be generated in the database.</span></span> <span data-ttu-id="043ad-133">ただし、 `DateTime` プロパティが追加または更新時に生成されるように指定する場合は、値を生成する方法を設定する必要があります。</span><span class="sxs-lookup"><span data-stu-id="043ad-133">However, if you specify that a `DateTime` property is generated on add or update, then you must set up a way for the values to be generated.</span></span> <span data-ttu-id="043ad-134">これを行う1つの方法は、の既定値 `GETDATE()` ( [既定値](#default-values)を参照) を構成して、新しい行の値を生成することです。</span><span class="sxs-lookup"><span data-stu-id="043ad-134">One way to do this, is to configure a default value of `GETDATE()` (see [Default Values](#default-values)) to generate values for new rows.</span></span> <span data-ttu-id="043ad-135">次に、データベーストリガーを使用して、更新中に値を生成することができます (次の例のトリガーなど)。</span><span class="sxs-lookup"><span data-stu-id="043ad-135">You could then use a database trigger to generate values during updates (such as the following example trigger).</span></span>
 >
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.sql)]
 
-## <a name="value-generated-on-add"></a><span data-ttu-id="88c7f-136">追加時に生成される値</span><span class="sxs-lookup"><span data-stu-id="88c7f-136">Value generated on add</span></span>
+## <a name="value-generated-on-add"></a><span data-ttu-id="043ad-136">追加時に生成される値</span><span class="sxs-lookup"><span data-stu-id="043ad-136">Value generated on add</span></span>
 
-<span data-ttu-id="88c7f-137">慣例として、short、int、long、または Guid 型の非複合主キーは、値がアプリケーションによって提供されていない場合、挿入されたエンティティに対して値が生成されるように設定されます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-137">By convention, non-composite primary keys of type short, int, long, or Guid are set up to have values generated for inserted entities, if a value isn't provided by the application.</span></span> <span data-ttu-id="88c7f-138">通常、データベースプロバイダーは必要な構成を行います。たとえば、SQL Server の数値主キーは、ID 列として自動的に設定されます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-138">Your database provider typically takes care of the necessary configuration; for example, a numeric primary key in SQL Server is automatically set up to be an IDENTITY column.</span></span>
+<span data-ttu-id="043ad-137">慣例として、short、int、long、または Guid 型の非複合主キーは、値がアプリケーションによって提供されていない場合、挿入されたエンティティに対して値が生成されるように設定されます。</span><span class="sxs-lookup"><span data-stu-id="043ad-137">By convention, non-composite primary keys of type short, int, long, or Guid are set up to have values generated for inserted entities, if a value isn't provided by the application.</span></span> <span data-ttu-id="043ad-138">通常、データベースプロバイダーは必要な構成を行います。たとえば、SQL Server の数値主キーは、ID 列として自動的に設定されます。</span><span class="sxs-lookup"><span data-stu-id="043ad-138">Your database provider typically takes care of the necessary configuration; for example, a numeric primary key in SQL Server is automatically set up to be an IDENTITY column.</span></span>
 
-<span data-ttu-id="88c7f-139">挿入されたエンティティに対して値が生成されるようにプロパティを構成するには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="88c7f-139">You can configure any property to have its value generated for inserted entities as follows:</span></span>
+<span data-ttu-id="043ad-139">挿入されたエンティティに対して値が生成されるようにプロパティを構成するには、次のようにします。</span><span class="sxs-lookup"><span data-stu-id="043ad-139">You can configure any property to have its value generated for inserted entities as follows:</span></span>
 
-### <a name="data-annotations"></a>[<span data-ttu-id="88c7f-140">データの注釈</span><span class="sxs-lookup"><span data-stu-id="88c7f-140">Data Annotations</span></span>](#tab/data-annotations)
+### <a name="data-annotations"></a>[<span data-ttu-id="043ad-140">データの注釈</span><span class="sxs-lookup"><span data-stu-id="043ad-140">Data Annotations</span></span>](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
-### <a name="fluent-api"></a>[<span data-ttu-id="88c7f-141">Fluent API</span><span class="sxs-lookup"><span data-stu-id="88c7f-141">Fluent API</span></span>](#tab/fluent-api)
+### <a name="fluent-api"></a>[<span data-ttu-id="043ad-141">Fluent API</span><span class="sxs-lookup"><span data-stu-id="043ad-141">Fluent API</span></span>](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
 
 ***
 
 > [!WARNING]
-> <span data-ttu-id="88c7f-142">これにより、追加されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。</span><span class="sxs-lookup"><span data-stu-id="88c7f-142">This just lets EF know that values are generated for added entities, it does not guarantee that EF will setup the actual mechanism to generate values.</span></span> <span data-ttu-id="88c7f-143">詳細については、「追加」セクション [で生成された値](#value-generated-on-add) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="88c7f-143">See [Value generated on add](#value-generated-on-add) section for more details.</span></span>
+> <span data-ttu-id="043ad-142">これにより、追加されたエンティティに対して値が生成されることを EF が認識できるだけでなく、EF が値を生成するための実際のメカニズムを設定することは保証されません。</span><span class="sxs-lookup"><span data-stu-id="043ad-142">This just lets EF know that values are generated for added entities, it does not guarantee that EF will set up the actual mechanism to generate values.</span></span> <span data-ttu-id="043ad-143">詳細については、「追加」セクション [で生成された値](#value-generated-on-add) を参照してください。</span><span class="sxs-lookup"><span data-stu-id="043ad-143">See [Value generated on add](#value-generated-on-add) section for more details.</span></span>
 
-### <a name="default-values"></a><span data-ttu-id="88c7f-144">既定値</span><span class="sxs-lookup"><span data-stu-id="88c7f-144">Default values</span></span>
+### <a name="default-values"></a><span data-ttu-id="043ad-144">既定の値</span><span class="sxs-lookup"><span data-stu-id="043ad-144">Default values</span></span>
 
-<span data-ttu-id="88c7f-145">リレーショナルデータベースでは、既定値を使用して列を構成できます。その列の値を指定せずに行が挿入されると、既定値が使用されます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-145">On relational databases, a column can be configured with a default value; if a row is inserted without a value for that column, the default value will be used.</span></span>
+<span data-ttu-id="043ad-145">リレーショナルデータベースでは、既定値を使用して列を構成できます。その列の値を指定せずに行が挿入されると、既定値が使用されます。</span><span class="sxs-lookup"><span data-stu-id="043ad-145">On relational databases, a column can be configured with a default value; if a row is inserted without a value for that column, the default value will be used.</span></span>
 
-<span data-ttu-id="88c7f-146">プロパティの既定値を構成できます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-146">You can configure a default value on a property:</span></span>
+<span data-ttu-id="043ad-146">プロパティの既定値を構成できます。</span><span class="sxs-lookup"><span data-stu-id="043ad-146">You can configure a default value on a property:</span></span>
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultValue.cs?name=DefaultValue&highlight=5)]
 
-<span data-ttu-id="88c7f-147">既定値の計算に使用される SQL フラグメントを指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-147">You can also specify a SQL fragment that is used to calculate the default value:</span></span>
+<span data-ttu-id="043ad-147">既定値の計算に使用される SQL フラグメントを指定することもできます。</span><span class="sxs-lookup"><span data-stu-id="043ad-147">You can also specify a SQL fragment that is used to calculate the default value:</span></span>
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DefaultValueSql.cs?name=DefaultValueSql&highlight=5)]
 
-<span data-ttu-id="88c7f-148">既定値を指定すると、プロパティは、追加時に生成される値として暗黙的に構成されます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-148">Specifying a default value will implicitly configure the property as value generated on add.</span></span>
+<span data-ttu-id="043ad-148">既定値を指定すると、プロパティは、追加時に生成される値として暗黙的に構成されます。</span><span class="sxs-lookup"><span data-stu-id="043ad-148">Specifying a default value will implicitly configure the property as value generated on add.</span></span>
 
-## <a name="value-generated-on-add-or-update"></a><span data-ttu-id="88c7f-149">追加または更新時に生成される値</span><span class="sxs-lookup"><span data-stu-id="88c7f-149">Value generated on add or update</span></span>
+## <a name="value-generated-on-add-or-update"></a><span data-ttu-id="043ad-149">追加または更新時に生成される値</span><span class="sxs-lookup"><span data-stu-id="043ad-149">Value generated on add or update</span></span>
 
-### <a name="data-annotations"></a>[<span data-ttu-id="88c7f-150">データの注釈</span><span class="sxs-lookup"><span data-stu-id="88c7f-150">Data Annotations</span></span>](#tab/data-annotations)
+### <a name="data-annotations"></a>[<span data-ttu-id="043ad-150">データの注釈</span><span class="sxs-lookup"><span data-stu-id="043ad-150">Data Annotations</span></span>](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
-### <a name="fluent-api"></a>[<span data-ttu-id="88c7f-151">Fluent API</span><span class="sxs-lookup"><span data-stu-id="88c7f-151">Fluent API</span></span>](#tab/fluent-api)
+### <a name="fluent-api"></a>[<span data-ttu-id="043ad-151">Fluent API</span><span class="sxs-lookup"><span data-stu-id="043ad-151">Fluent API</span></span>](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
-***
+<span data-ttu-id="043ad-152">\*\*_</span><span class="sxs-lookup"><span data-stu-id="043ad-152">\*\*_</span></span>
 
 > [!WARNING]
-> <span data-ttu-id="88c7f-152">これにより、追加または更新されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。</span><span class="sxs-lookup"><span data-stu-id="88c7f-152">This just lets EF know that values are generated for added or updated entities, it does not guarantee that EF will setup the actual mechanism to generate values.</span></span> <span data-ttu-id="88c7f-153">詳細について [は、「追加または更新セクションで生成された値](#value-generated-on-add-or-update) 」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="88c7f-153">See [Value generated on add or update](#value-generated-on-add-or-update) section for more details.</span></span>
+> <span data-ttu-id="043ad-153">これにより、追加または更新されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が値を生成するための実際のメカニズムを設定することは保証されません。</span><span class="sxs-lookup"><span data-stu-id="043ad-153">This just lets EF know that values are generated for added or updated entities, it does not guarantee that EF will set up the actual mechanism to generate values.</span></span> <span data-ttu-id="043ad-154">詳細について [は、「追加または更新セクションで生成された値](#value-generated-on-add-or-update) 」を参照してください。</span><span class="sxs-lookup"><span data-stu-id="043ad-154">See [Value generated on add or update](#value-generated-on-add-or-update) section for more details.</span></span>
 
-### <a name="computed-columns"></a><span data-ttu-id="88c7f-154">計算列</span><span class="sxs-lookup"><span data-stu-id="88c7f-154">Computed columns</span></span>
+### <a name="computed-columns"></a><span data-ttu-id="043ad-155">計算列</span><span class="sxs-lookup"><span data-stu-id="043ad-155">Computed columns</span></span>
 
-<span data-ttu-id="88c7f-155">一部のリレーショナルデータベースでは、データベース内の値を計算するように列を構成できます。通常は、他の列を参照する式を使用します。</span><span class="sxs-lookup"><span data-stu-id="88c7f-155">On some relational databases, a column can be configured to have its value computed in the database, typically with an expression referring to other columns:</span></span>
+<span data-ttu-id="043ad-156">ほとんどのリレーショナルデータベースでは、データベース内の値を計算するように列を構成できます。通常は、他の列を参照する式を使用します。</span><span class="sxs-lookup"><span data-stu-id="043ad-156">On most relational databases, a column can be configured to have its value computed in the database, typically with an expression referring to other columns:</span></span>
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=ComputedColumn&highlight=5)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=DefaultComputedColumn)]
+
+<span data-ttu-id="043ad-157">上の例では、データベースからフェッチされるたびに値が計算される、_virtual \* 計算列が作成されます。</span><span class="sxs-lookup"><span data-stu-id="043ad-157">The above creates a _virtual\* computed column, whose value is computed every time it is fetched from the database.</span></span> <span data-ttu-id="043ad-158">計算列を *格納* するように指定することもできます *。これ* は、計算列が行のすべての更新で計算され、通常の列と共にディスクに格納されることを意味します。</span><span class="sxs-lookup"><span data-stu-id="043ad-158">You may also specify that a computed column be *stored* (sometimes called *persisted* ), meaning that it is computed on every update of the row, and is stored on disk alongside regular columns:</span></span>
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=StoredComputedColumn)]
 
 > [!NOTE]
-> <span data-ttu-id="88c7f-156">場合によっては、列の値がフェッチされるたび ( *仮想* 列とも呼ばれます) に計算され、それ以外の場合は、行のすべての更新で計算され、格納されます ( *保存さ* れた列 *または保存* された列とも呼ばれます)。</span><span class="sxs-lookup"><span data-stu-id="88c7f-156">In some cases the column's value is computed every time it is fetched (sometimes called *virtual* columns), and in others it is computed on every update of the row and stored (sometimes called *stored* or *persisted* columns).</span></span> <span data-ttu-id="88c7f-157">これは、データベースプロバイダーによって異なります。</span><span class="sxs-lookup"><span data-stu-id="88c7f-157">This varies across database providers.</span></span>
+> <span data-ttu-id="043ad-159">格納されている計算列の作成のサポートが EF Core 5.0 で追加されました。</span><span class="sxs-lookup"><span data-stu-id="043ad-159">Support for creating stored computed columns was added in EF Core 5.0.</span></span>
 
-## <a name="no-value-generation"></a><span data-ttu-id="88c7f-158">値の生成なし</span><span class="sxs-lookup"><span data-stu-id="88c7f-158">No value generation</span></span>
+## <a name="no-value-generation"></a><span data-ttu-id="043ad-160">値の生成なし</span><span class="sxs-lookup"><span data-stu-id="043ad-160">No value generation</span></span>
 
-<span data-ttu-id="88c7f-159">プロパティの値生成を無効にすることは、通常、規則によって値の生成用に構成される場合に必要です。</span><span class="sxs-lookup"><span data-stu-id="88c7f-159">Disabling value generation on a property is typically necessary if a convention configures it for value generation.</span></span> <span data-ttu-id="88c7f-160">たとえば、int 型の主キーがある場合、それは暗黙的に add によって生成される値として設定されます。これは、次の方法で無効にできます。</span><span class="sxs-lookup"><span data-stu-id="88c7f-160">For example, if you have a primary key of type int, it will be implicitly set configured as value generated on add; you can disable this via the following:</span></span>
+<span data-ttu-id="043ad-161">プロパティの値生成を無効にすることは、通常、規則によって値の生成用に構成される場合に必要です。</span><span class="sxs-lookup"><span data-stu-id="043ad-161">Disabling value generation on a property is typically necessary if a convention configures it for value generation.</span></span> <span data-ttu-id="043ad-162">たとえば、int 型の主キーがある場合、それは暗黙的に add によって生成される値として設定されます。これは、次の方法で無効にできます。</span><span class="sxs-lookup"><span data-stu-id="043ad-162">For example, if you have a primary key of type int, it will be implicitly set configured as value generated on add; you can disable this via the following:</span></span>
 
-### <a name="data-annotations"></a>[<span data-ttu-id="88c7f-161">データの注釈</span><span class="sxs-lookup"><span data-stu-id="88c7f-161">Data Annotations</span></span>](#tab/data-annotations)
+### <a name="data-annotations"></a>[<span data-ttu-id="043ad-163">データの注釈</span><span class="sxs-lookup"><span data-stu-id="043ad-163">Data Annotations</span></span>](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=3)]
 
-### <a name="fluent-api"></a>[<span data-ttu-id="88c7f-162">Fluent API</span><span class="sxs-lookup"><span data-stu-id="88c7f-162">Fluent API</span></span>](#tab/fluent-api)
+### <a name="fluent-api"></a>[<span data-ttu-id="043ad-164">Fluent API</span><span class="sxs-lookup"><span data-stu-id="043ad-164">Fluent API</span></span>](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedNever.cs?name=ValueGeneratedNever&highlight=5)]
 
