@@ -4,12 +4,12 @@ description: Entity Framework Core を使用してエンティティのプロパ
 author: roji
 ms.date: 05/27/2020
 uid: core/modeling/entity-properties
-ms.openlocfilehash: 99b0a9ee1e11714e98ebea8b2e6ac53bd2dc6e55
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 55c6f31543d4ce3257cf203eaf9fd2191301ea7e
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062296"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429597"
 ---
 # <a name="entity-properties"></a>エンティティのプロパティ
 
@@ -45,7 +45,7 @@ ms.locfileid: "92062296"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnName.cs?Name=ColumnName&highlight=3-5)]
 
-***
+**_
 
 ## <a name="column-data-types"></a>列のデータ型
 
@@ -63,7 +63,7 @@ ms.locfileid: "92062296"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnDataType.cs?name=ColumnDataType&highlight=5-6)]
 
-***
+_*_
 
 ### <a name="maximum-length"></a>最大長
 
@@ -82,7 +82,7 @@ ms.locfileid: "92062296"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/MaxLength.cs?name=MaxLength&highlight=3-5)]
 
-***
+_*_
 
 ### <a name="precision-and-scale"></a>有効桁数と小数点以下桁数
 
@@ -97,7 +97,7 @@ EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点�
 
 #### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
-現在、データ注釈を使用してを構成することはできません。
+現在、データ注釈を使用して有効桁数と小数点以下桁数を構成することはできません。
 
 #### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
@@ -106,7 +106,7 @@ EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点�
 > [!NOTE]
 > 小数点以下桁数が定義されていない場合は、小数点以下桁数を定義するための Fluent API が使用され `HasPrecision(precision, scale)` ます。
 
-***
+_*_
 
 ## <a name="required-and-optional-properties"></a>必須および省略可能なプロパティ
 
@@ -116,18 +116,18 @@ EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点�
 
 慣例により、.NET 型に null を含めることができるプロパティはオプションとして構成されますが、.NET 型に null を含めることができないプロパティは必要に応じて構成されます。 たとえば、.net 値の型 (、、など) を持つすべてのプロパティは必須として構成され、 `int` `decimal` `bool` null 許容型の .net 値型 (、、など) を持つすべてのプロパティ `int?` `decimal?` `bool?` はオプションとして構成されます。
 
-C# 8 では、null [許容参照型](/dotnet/csharp/tutorials/nullable-reference-types)と呼ばれる新しい機能が導入されました。これにより、参照型に注釈を付けて、null を含むかどうかを示すことができます。 この機能は既定で無効になっています。有効にすると、EF Core の動作が次のように変更されます。
+C# 8 では、null [許容参照型 (NRT)](/dotnet/csharp/tutorials/nullable-reference-types)と呼ばれる新しい機能が導入されました。これにより、参照型に注釈を付け、null を含むかどうかを示すことができます。 この機能は既定で無効になっており、次のように EF Core の動作に影響します。
 
-* Null 許容の参照型が無効になっている場合 (既定)、.NET 参照型を持つすべてのプロパティは、規約によってオプションとして構成されます (たとえば、 `string` )。
+_ Null 許容の参照型が無効になっている場合 (既定)、.NET 参照型を持つすべてのプロパティは、規約によってオプションとして構成されます (たとえば、 `string` )。
 * Null 値を許容する参照型が有効になっている場合、プロパティは、その .NET 型の C# の null 値の許容属性に基づいて構成されます。 `string?` オプションとして構成されますが、必要に応じて構成されます `string` 。
 
 次の例は、必須プロパティと省略可能なプロパティを持つエンティティ型を示しています。 null 許容の参照機能が無効 (既定値) で、有効になっています。
 
-#### <a name="without-nullable-reference-types-default"></a>[Null 値を許容する参照型を使用しない場合 (既定)](#tab/without-nrt)
+#### <a name="without-nrt-default"></a>[NRT なし (既定)](#tab/without-nrt)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/CustomerWithoutNullableReferenceTypes.cs?name=Customer&highlight=4-8)]
 
-#### <a name="with-nullable-reference-types"></a>[Null 値を許容する参照型を持つ](#tab/with-nrt)
+#### <a name="with-nrt"></a>[NRT を使用](#tab/with-nrt)
 
 [!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Customer.cs?name=Customer&highlight=4-6)]
 

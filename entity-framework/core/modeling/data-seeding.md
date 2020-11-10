@@ -4,12 +4,12 @@ description: データシード処理を使用した、Entity Framework Core を
 author: AndriySvyryd
 ms.date: 11/02/2018
 uid: core/modeling/data-seeding
-ms.openlocfilehash: f8284d7473c6fbcafde25d01ec0709c2d50b666f
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: fefa6232496cd250d52a436971251f59af09f5c6
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063700"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429677"
 ---
 # <a name="data-seeding"></a>データのシード処理
 
@@ -66,6 +66,7 @@ EF6 とは異なり、EF Core では、シード処理データをモデル構�
 
 * テスト用の一時データ
 * データベースの状態に依存するデータ
+* サイズの大きいデータ (データのシード処理は移行スナップショットでキャプチャされ、大きなデータは非常に大きなファイルになり、パフォーマンスが低下する可能性があります)。
 * Id として代替キーを使用するエンティティを含む、データベースによって生成されるキー値を必要とするデータ
 * 一部のパスワードのハッシュなど、カスタム変換を必要とする ( [値の変換](xref:core/modeling/value-conversions)によって処理されない) データ
 * ASP.NET Core Id ロールやユーザーの作成など、外部 API の呼び出しを必要とするデータ

@@ -2,23 +2,21 @@
 title: Azure Cosmos DB プロバイダー-制限事項-EF Core
 description: 他のプロバイダーと比較した Entity Framework Core Azure Cosmos DB プロバイダーの制限事項
 author: AndriySvyryd
-ms.date: 11/05/2019
+ms.date: 11/05/2020
 uid: core/providers/cosmos/limitations
-ms.openlocfilehash: e4d1c38da14d1e722797f8543313a69c7fb088cc
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: f7517954b854c8ea1020c039e490b4fb0dea7181
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92064038"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430197"
 ---
 # <a name="ef-core-azure-cosmos-db-provider-limitations"></a>EF Core Azure Cosmos DB プロバイダーの制限事項
 
-Cosmos プロバイダーにはいくつかの制限があります。 これらの制限の多くは、基になる Cosmos データベースエンジンの制限の結果であり、EF に固有のものではありません。 しかし、ほとんどの場合、 [まだ実装されて](https://github.com/aspnet/EntityFrameworkCore/issues?page=1&q=is%3Aissue+is%3Aopen+Cosmos+in%3Atitle+label%3Atype-enhancement+sort%3Areactions-%2B1-desc)いません。
+Cosmos プロバイダーにはいくつかの制限があります。 これらの制限の多くは、基になる Cosmos データベースエンジンの制限の結果であり、EF に固有のものではありません。 しかし、ほとんどの場合、 [まだ実装されて](https://github.com/dotnet/efcore/issues?page=1&q=is%3Aissue+is%3Aopen+Cosmos+in%3Atitle+label%3Atype-enhancement+sort%3Areactions-%2B1-desc)いません。
 
 ## <a name="temporary-limitations"></a>一時的な制限事項
 
-- コンテナーにマップされた継承を持たないエンティティ型が1つしかない場合でも、識別子プロパティは保持されます。
-- パーティションキーを持つエンティティ型が、一部のシナリオで正しく機能しない
 - `Include` 呼び出しはサポートされていません
 - `Join` 呼び出しはサポートされていません
 
@@ -34,4 +32,4 @@ Cosmos プロバイダーにはいくつかの制限があります。 これら
 [Azure Cosmos DB サポートされている機能](/azure/cosmos-db/modeling-data)の完全な概要については、リレーショナルデータベースと比較した場合の最も重要な違いを次に示します。
 
 - クライアントによって開始されたトランザクションはサポートされていません
-- パーティション分割されたクエリの中には、サポートされていないものや、関係する演算子によっては処理速度が遅いものがあります
+- パーティション分割されたクエリの中には、関連する演算子 (やなど) によって速度が低下するものがあります `Skip/Take` `OFFSET LIMIT` 。

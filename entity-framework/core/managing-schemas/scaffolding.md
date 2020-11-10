@@ -4,12 +4,12 @@ description: Entity Framework Core を使用した既存のデータベースか
 author: bricelam
 ms.date: 11/13/2018
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: e1b4ed8d5209688fbe5c89ae60cf0d981136305f
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 11ffa2e62136e47959ebbfd54ccb55c2b9e23e04
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92061971"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429768"
 ---
 # <a name="reverse-engineering"></a> リバース エンジニアリング
 
@@ -17,7 +17,7 @@ ms.locfileid: "92061971"
 
 ## <a name="installing"></a>インストール
 
-リバースエンジニアリングを行う前に、 [PMC ツール](xref:core/miscellaneous/cli/powershell) (Visual Studio のみ) または [CLI ツール](xref:core/miscellaneous/cli/dotnet)のいずれかをインストールする必要があります。 詳細については、「リンク」を参照してください。
+リバースエンジニアリングを行う前に、 [PMC ツール](xref:core/cli/powershell) (Visual Studio のみ) または [CLI ツール](xref:core/cli/dotnet)のいずれかをインストールする必要があります。 詳細については、「リンク」を参照してください。
 
 また、リバースエンジニアリングするデータベーススキーマに適切な [データベースプロバイダー](xref:core/providers/index) をインストールする必要もあります。
 
@@ -80,7 +80,7 @@ dotnet ef dbcontext scaffold ... --table Artist --table Album
 Scaffold-DbContext ... -Tables Artist, Album
 ```
 
-***
+**_
 
 ## <a name="preserving-names"></a>名前の保持
 
@@ -108,7 +108,7 @@ public string Title { get; set; }
 
 ## <a name="dbcontext-name"></a>DbContext 名
 
-スキャフォールディング DbContext クラス名は、既定で *コンテキスト* がサフィックスとして付けられたデータベースの名前になります。 別のものを指定するには、PMC でを使用し、.NET Core CLI でを使用し `-Context` `--context` ます。
+スキャフォールディング DbContext クラス名は、既定では _Context * でサフィックスが付けられたデータベースの名前になります。 別のものを指定するには、PMC でを使用し、.NET Core CLI でを使用し `-Context` `--context` ます。
 
 ## <a name="directories-and-namespaces"></a>ディレクトリと名前空間
 
@@ -157,7 +157,7 @@ Scaffold-DbContext ... -Namespace Your.Namespace -ContextNamespace Your.DbContex
 * モデルに関するすべての情報は、データベーススキーマを使用して表すことはできません。 たとえば、 [**継承階層**](xref:core/modeling/inheritance)、 [**所有型**](xref:core/modeling/owned-entities)、および [**テーブル分割**](xref:core/modeling/table-splitting) に関する情報は、データベーススキーマには存在しません。 このため、これらの構造はリバースエンジニアリングされません。
 * また、 **一部の列の型** は、EF Core プロバイダーでサポートされない場合があります。 これらの列はモデルに含まれません。
 * EF Core モデルで [**同時実行トークン**](xref:core/modeling/concurrency)を定義して、2人のユーザーが同時に同じエンティティを更新できないようにすることができます。 一部のデータベースには、この種類の列を表す特殊な型 (SQL Server での rowversion など) があります。この場合、この情報をリバースエンジニアリングできます。ただし、その他の同時実行トークンはリバースエンジニアリングされません。
-* [C# 8 nullable 参照型機能は、現在、](/dotnet/csharp/tutorials/nullable-reference-types) リバースエンジニアリングではサポートされていません。 EF Core は、機能が無効になっていると想定している c# コードを常に生成します。 たとえば、null 値が許容されるテキスト列は、 `string` `string?` プロパティが必須かどうかを構成するために使用される Fluent API またはデータ注釈を使用してではなく、型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、C# の Null 値の許容属性に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/aspnet/EntityFrameworkCore/issues/15520)問題によって追跡されます。
+* [C# 8 nullable 参照型機能は、現在、](/dotnet/csharp/tutorials/nullable-reference-types) リバースエンジニアリングではサポートされていません。 EF Core は、機能が無効になっていると想定している c# コードを常に生成します。 たとえば、null 値が許容されるテキスト列は、 `string` `string?` プロパティが必須かどうかを構成するために使用される Fluent API またはデータ注釈を使用してではなく、型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、C# の Null 値の許容属性に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/dotnet/efcore/issues/15520)問題によって追跡されます。
 
 ## <a name="customizing-the-model"></a>モデルのカスタマイズ
 
@@ -173,7 +173,7 @@ EF Core によって生成されるコードはコードです。 自由に変�
 
 ただし、大幅な変更は、手動で簡単に行うことができません。 一般的なワークフローの1つは、 `-Force` (PMC) または (CLI) を使用してデータベースからモデルを再度リバースエンジニアリングし、 `--force` 既存のモデルを更新されたモデルで上書きすることです。
 
-一般的に要求されるもう1つの機能は、名前変更、型階層などのカスタマイズを維持しながら、データベースからモデルを更新する機能です。この機能の進行状況を追跡するには、[問題 [#831](https://github.com/aspnet/EntityFrameworkCore/issues/831) を使用します。
+一般的に要求されるもう1つの機能は、名前変更、型階層などのカスタマイズを維持しながら、データベースからモデルを更新する機能です。この機能の進行状況を追跡するには、[問題 [#831](https://github.com/dotnet/efcore/issues/831) を使用します。
 
 > [!WARNING]
 > データベースからモデルを再度リバースエンジニアリングする場合、ファイルに加えた変更はすべて失われます。

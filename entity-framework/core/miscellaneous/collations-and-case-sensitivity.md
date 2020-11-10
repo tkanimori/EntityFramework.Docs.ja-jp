@@ -4,12 +4,12 @@ description: データベースおよび Entity Framework Core を使用した�
 author: roji
 ms.date: 04/27/2020
 uid: core/miscellaneous/collations-and-case-sensitivity
-ms.openlocfilehash: e327df8adf777bfa5603a71eca8297a051f5bd56
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: cced7e11f7bf02223d3f181677ad1707c1da4051
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071720"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429742"
 ---
 # <a name="collations-and-case-sensitivity"></a>照合順序と大文字と小文字の区別
 
@@ -20,7 +20,7 @@ ms.locfileid: "90071720"
 
 ## <a name="introduction-to-collations"></a>照合順序の概要
 
-テキスト処理の基本的な概念は *照合順序*です。これは、テキスト値の順序と等価性を比較する方法を決定する一連のルールです。 たとえば、大文字と小文字を区別しない照合順序では、等値比較の目的で大文字と小文字の違いが無視されますが、大文字と小文字を区別する照合順序では区別されません。 ただし、大文字と小文字の区別はカルチャに依存しているため (たとえば `i` 、と `I` はトルコ語で異なる文字を表します)、大文字と小文字を区別しない照合順序が複数存在し、それぞれに独自のルールセットがあります。 照合順序のスコープは、文字データのその他の側面にも大文字と小文字の区別を加えたものです。たとえば、ドイツ語では、 `ä` とを `ae` 同一として扱うことが望ましい場合があります (常にではありません)。 最後に、照合順序では、テキスト値の *順序付け*方法も定義されています。の後、ドイツ語の `ä` `a` 場合、スウェーデン語はアルファベットの最後に配置されます。
+テキスト処理の基本的な概念は *照合順序* です。これは、テキスト値の順序と等価性を比較する方法を決定する一連のルールです。 たとえば、大文字と小文字を区別しない照合順序では、等値比較の目的で大文字と小文字の違いが無視されますが、大文字と小文字を区別する照合順序では区別されません。 ただし、大文字と小文字の区別はカルチャに依存しているため (たとえば `i` 、と `I` はトルコ語で異なる文字を表します)、大文字と小文字を区別しない照合順序が複数存在し、それぞれに独自のルールセットがあります。 照合順序のスコープは、文字データのその他の側面にも大文字と小文字の区別を加えたものです。たとえば、ドイツ語では、 `ä` とを `ae` 同一として扱うことが望ましい場合があります (常にではありません)。 最後に、照合順序では、テキスト値の *順序付け* 方法も定義されています。の後、ドイツ語の `ä` `a` 場合、スウェーデン語はアルファベットの最後に配置されます。
 
 データベース内のすべてのテキスト操作では、照合順序を使用して、明示的にも暗黙的にも、操作で文字列を比較および順序付けする方法を決定します。 使用可能な照合順序とその名前付けスキームの実際の一覧は、データベースに固有のものです。さまざまなデータベースの関連ドキュメントページへのリンクについて [は、以下のセクション](#database-specific-information) を参照してください。 データベースでは、通常、データベースレベルまたは列レベルで既定の照合順序を定義したり、クエリの特定の操作に使用する照合順序を明示的に指定したりすることができます。
 
@@ -69,9 +69,15 @@ WHERE [c].[Name] COLLATE SQL_Latin1_General_CP1_CS_AS = N'John'
 
 さらに、.NET は [`string.Equals`](/dotnet/api/system.string.equals#System_String_Equals_System_String_System_StringComparison_) 列挙型を受け入れるオーバーロードを提供し [`StringComparison`](/dotnet/api/system.stringcomparison) ます。これにより、比較に大文字と小文字の区別とカルチャを指定できます。 仕様により、これらのオーバーロードを SQL に変換することによって EF Core し、それらを使用しようとすると、例外が発生します。 1つの点として、EF Core では、大文字と小文字を区別しない照合順序を使用する必要があります。 さらに重要なこととして、照合順序を適用すると、ほとんどの場合、インデックスの使用が妨げられ、非常に基本的で一般的に使用される .NET コンストラクトのパフォーマンスに大きく影響します。 クエリで大文字と小文字を区別するか、大文字と小文字を区別しない比較を使用するには、前述のようにを使用して明示的に照合順序を指定し `EF.Functions.Collate` ます[detailed above](#explicit-collations-and-indexes)
 
-## <a name="database-specific-information"></a>データベース固有の情報
+## <a name="additional-resources"></a>その他のリソース
+
+### <a name="database-specific-information"></a>データベース固有の情報
 
 * [照合順序に関するドキュメントを SQL Server](/sql/relational-databases/collations/collation-and-unicode-support)します。
 * [照合順序に関する Microsoft Data Sqlite ドキュメント](/dotnet/standard/data/sqlite/collation)。
 * [照合順序に関する PostgreSQL ドキュメント](https://www.postgresql.org/docs/current/collation.html)。
 * [照合順序に関する MySQL ドキュメント](https://dev.mysql.com/doc/refman/en/charset-general.html)。
+
+### <a name="other-resources"></a>その他のリソース
+
+* [EF Core コミュニティのスタンドアップセッション](https://www.youtube.com/watch?v=OgMhLVa_VfA&list=PLdo4fOcmZ0oX-DBuRG4u58ZTAJgBAeQ-t&index=1)、照合順序の導入、およびパフォーマンスとインデックスの作成に関する側面。

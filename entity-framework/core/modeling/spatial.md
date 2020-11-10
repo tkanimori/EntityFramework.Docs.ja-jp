@@ -4,12 +4,12 @@ description: Entity Framework Core モデルでの空間データの使用
 author: bricelam
 ms.date: 10/02/2020
 uid: core/modeling/spatial
-ms.openlocfilehash: 2c0cd7a8acf7e4b58eadf8805afa1fe4a1d6e949
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: fa9cf30ddb4291d96486934544b568b67b126846
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063934"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430522"
 ---
 # <a name="spatial-data"></a>空間データ
 
@@ -78,7 +78,7 @@ LINQ では、データベース関数として使用できる NTS のメソッ�
 
 ## <a name="reverse-engineering"></a>リバースエンジニアリング
 
-空間 NuGet パッケージでは、空間プロパティを使用してモデルの [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) を行うこともできますが、またはを実行する ***前*** にパッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
+空間 NuGet パッケージによって、空間プロパティを持つ [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) モデルも有効になりますが、またはを実行する *_前に_* 、パッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
 ## <a name="srid-ignored-during-client-operations"></a>クライアント操作中に SRID が無視されました
 
@@ -95,11 +95,17 @@ ProjNet4GeoAPI を使用して2つの都市間の距離を計算する例を次�
 > [!NOTE]
 > 4326は、GPS などの地理的システムで使用される標準の WGS 84 を指します。
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他のリソース
+
+### <a name="database-specific-information"></a>データベース固有の情報
 
 空間データの操作の詳細については、プロバイダーのドキュメントを参照してください。
 
-* [SQL Server プロバイダーの空間データ](xref:core/providers/sql-server/spatial)
+[SQL Server プロバイダーの _ 空間データ](xref:core/providers/sql-server/spatial)
 * [SQLite プロバイダーの空間データ](xref:core/providers/sqlite/spatial)
 * [Npgsql プロバイダーの空間データ](https://www.npgsql.org/efcore/mapping/nts.html)
+
+### <a name="other-resources"></a>その他のリソース
+
 * [NetTopologySuite のドキュメント](https://nettopologysuite.github.io/NetTopologySuite/)
+* [EF Core コミュニティのスタンドアップセッション](https://www.youtube.com/watch?v=IHslY5rrxD0&list=PLdo4fOcmZ0oX-DBuRG4u58ZTAJgBAeQ-t&index=15)。空間データと NetTopologySuite に焦点を絞っています。

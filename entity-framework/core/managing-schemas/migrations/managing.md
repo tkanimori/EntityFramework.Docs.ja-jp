@@ -2,21 +2,21 @@
 title: 移行の管理-EF Core
 description: Entity Framework Core を使用したデータベーススキーマの移行の追加、削除、および管理
 author: bricelam
-ms.date: 05/06/2020
+ms.date: 10/27/2020
 uid: core/managing-schemas/migrations/managing
-ms.openlocfilehash: fdfda6f3dea306fbbc343c1be3f4d5754d1f65c4
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 81f7cec54510d95b1e2432d56ff95110224fd9bf
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062062"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429854"
 ---
 # <a name="managing-migrations"></a>移行の管理
 
-モデルが変更されると、通常の開発の一環として移行が追加および削除され、移行ファイルがプロジェクトのソース管理にチェックインされます。 移行を管理するには、まず [EF Core コマンドラインツール](xref:core/miscellaneous/cli/index)をインストールする必要があります。
+モデルが変更されると、通常の開発の一環として移行が追加および削除され、移行ファイルがプロジェクトのソース管理にチェックインされます。 移行を管理するには、まず [EF Core コマンドラインツール](xref:core/cli/index)をインストールする必要があります。
 
 > [!TIP]
-> `DbContext` がスタートアップ プロジェクトとは異なるアセンブリに含まれている場合、ターゲットとスタートアップ プロジェクトは[パッケージ マネージャー コンソール ツール](xref:core/miscellaneous/cli/powershell#target-and-startup-project)または [.NET Core CLI ツール](xref:core/miscellaneous/cli/dotnet#target-project-and-startup-project)のいずれかに明示的に指定できます。
+> `DbContext` がスタートアップ プロジェクトとは異なるアセンブリに含まれている場合、ターゲットとスタートアップ プロジェクトは[パッケージ マネージャー コンソール ツール](xref:core/cli/powershell#target-and-startup-project)または [.NET Core CLI ツール](xref:core/cli/dotnet#target-project-and-startup-project)のいずれかに明示的に指定できます。
 
 ## <a name="add-a-migration"></a>移行を追加する
 
@@ -40,29 +40,35 @@ Add-Migration AddBlogCreatedTimestamp
 
 **[移行]** ディレクトリの下で 3 つのファイルがプロジェクトに追加されます。
 
-* **XXXXXXXXXXXXXX_AddCreatedTimestamp**、メインの移行ファイルです。 (`Up` で) 移行を適用し、(`Down` で) それを元に戻すために必要な操作が含まれます。
-* **XXXXXXXXXXXXXX_AddCreatedTimestamp**、移行メタデータファイルです。 EF によって使用される情報が含まれます。
-* **MyContextModelSnapshot.cs**--現在のモデルのスナップショット。 次の移行を追加するときの変更内容の決定に使用されます。
+* **XXXXXXXXXXXXXX_AddCreatedTimestamp** 、メインの移行ファイルです。 (`Up` で) 移行を適用し、(`Down` で) それを元に戻すために必要な操作が含まれます。
+* **XXXXXXXXXXXXXX_AddCreatedTimestamp** 、移行メタデータファイルです。 EF によって使用される情報が含まれます。
+* **MyContextModelSnapshot.cs** --現在のモデルのスナップショット。 次の移行を追加するときの変更内容の決定に使用されます。
 
 変更の進行がわかるように、ファイル名のタイムスタンプは時系列順で維持されます。
 
 ### <a name="namespaces"></a>名前空間
 
-移行ファイルは自由に移動し、手動で名前空間を変更できます。 新しい移行は前回の移行の兄弟として作成されます。 または、次のように、生成時に名前空間を指定することもできます。
+移行ファイルは自由に移動し、手動で名前空間を変更できます。 新しい移行は前回の移行の兄弟として作成されます。 または、次のように生成時にディレクトリを指定することもできます。
 
-### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+#### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
-dotnet ef migrations add InitialCreate --namespace Your.Namespace
+dotnet ef migrations add InitialCreate --output-dir Your/Directory
 ```
 
-### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
+> [!NOTE]
+> EF Core 5.0 では、を使用して、ディレクトリとは無関係に名前空間を変更することもでき `--namespace` ます。
+
+#### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ```powershell
-Add-Migration InitialCreate -Namespace Your.Namespace
+Add-Migration InitialCreate -OutputDir Your\Directory
 ```
 
-***
+> [!NOTE]
+> EF Core 5.0 では、を使用して、ディレクトリとは無関係に名前空間を変更することもでき `-Namespace` ます。
+
+**_
 
 ## <a name="customize-migration-code"></a>移行コードをカスタマイズする
 
@@ -153,9 +159,12 @@ migrationBuilder.Sql(
         RETURN @LastName + @FirstName;')");
 ```
 
+> [!TIP]
+> `EXEC` ステートメントが SQL バッチ内の最初のステートメントまたは1つのステートメントである必要がある場合に使用します。 また、参照されている列がテーブルに存在しない場合に発生する可能性があるべき等移行スクリプトで、パーサーエラーを回避するためにも使用できます。
+
 これを使用すると、次のようなデータベースのあらゆる側面を管理できます。
 
-* ストアド プロシージャ
+_ ストアドプロシージャ
 * フルテキスト検索
 * 関数
 * トリガー
@@ -163,7 +172,7 @@ migrationBuilder.Sql(
 
 ほとんどの場合、移行を適用すると、EF Core によって各移行が独自のトランザクションで自動的にラップされます。 残念ながら、一部のデータベースでは、一部の移行操作をトランザクション内で実行することはできません。このような場合は、に渡すことによってトランザクションをオプトアウトすることができ `suppressTransaction: true` `migrationBuilder.Sql` ます。
 
-`DbContext` がスタートアップ プロジェクトとは異なるアセンブリに含まれている場合、ターゲットとスタートアップ プロジェクトは[パッケージ マネージャー コンソール ツール](xref:core/miscellaneous/cli/powershell#target-and-startup-project)または [.NET Core CLI ツール](xref:core/miscellaneous/cli/dotnet#target-project-and-startup-project)のいずれかに明示的に指定できます。
+`DbContext` がスタートアップ プロジェクトとは異なるアセンブリに含まれている場合、ターゲットとスタートアップ プロジェクトは[パッケージ マネージャー コンソール ツール](xref:core/cli/powershell#target-and-startup-project)または [.NET Core CLI ツール](xref:core/cli/dotnet#target-project-and-startup-project)のいずれかに明示的に指定できます。
 
 ## <a name="remove-a-migration"></a>移行を削除する
 
@@ -192,20 +201,33 @@ Remove-Migration
 
 次のように、すべての既存の移行を一覧表示できます。
 
+### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+
 ```dotnetcli
 dotnet ef migrations list
 ```
 
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
+
+> [!NOTE]
+> このコマンドは EF Core 5.0 で追加されました。
+
+```powershell
+Get-Migration
+```
+
+**_
+
 ## <a name="resetting-all-migrations"></a>すべての移行をリセットしています
 
-極端なケースでは、すべての移行を削除してからやり直すことが必要になる場合があります。 これは、 **移行** フォルダーを削除して、データベースを削除することで簡単に行うことができます。この時点で、新しい初期移行を作成できます。これには、現在のスキーマ全体が含まれます。
+極端なケースでは、すべての移行を削除してからやり直すことが必要になる場合があります。 これは、_ *マイグレーション* * フォルダーを削除し、データベースを削除することで簡単に行うことができます。この時点で、新しい初期移行を作成できます。これには、現在のスキーマ全体が含まれます。
 
 すべての移行をリセットし、データを失うことなく1つの移行を作成することもできます。 これは "スカッシュ" と呼ばれることもあり、手動での作業が必要です。
 
-* **マイグレーション**フォルダーの削除
+* **マイグレーション** フォルダーの削除
 * 新しい移行を作成し、その移行用の SQL スクリプトを生成する
 * データベースで、移行履歴テーブルからすべての行を削除します。
 * 1つの行を移行履歴に挿入して、最初の移行が既に適用されていることを記録します。これは、テーブルが既に存在しているためです。 Insert SQL は、上記で生成された SQL スクリプトの最後の操作です。
 
 > [!WARNING]
-> **移行フォルダーが**削除されると、[カスタム移行コード](#customize-migration-code)は失われます。  すべてのカスタマイズを保存するには、新しい初期移行に手動で適用する必要があります。
+> **移行フォルダーが** 削除されると、 [カスタム移行コード](#customize-migration-code)は失われます。  すべてのカスタマイズを保存するには、新しい初期移行に手動で適用する必要があります。

@@ -4,20 +4,51 @@ description: Entity Framework Core を使用したさまざまな環境での接
 author: bricelam
 ms.date: 10/27/2016
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: f657d39f66e6a757380ca25436a638b47c11cd12
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: fee7e8f6de1faa11203cfcdab033b73a0a8ef6ea
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062322"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429729"
 ---
 # <a name="connection-strings"></a>接続文字列
 
 ほとんどのデータベースプロバイダーでは、データベースに接続するために何らかの形式の接続文字列が必要です。 この接続文字列には、保護する必要がある機密情報が含まれている場合があります。 また、開発、テスト、運用などの環境間でアプリケーションを移動するときに、接続文字列の変更が必要になる場合もあります。
 
+## <a name="aspnet-core"></a>ASP.NET Core
+
+ASP.NET Core 構成システムは非常に柔軟であり、接続文字列は `appsettings.json` 、環境変数、ユーザーシークレットストア、または別の構成ソースに格納できます。 詳細については [、ASP.NET Core のドキュメントの構成セクション](/aspnet/core/fundamentals/configuration) を参照してください。
+
+たとえば、 [シークレットマネージャーツール](/aspnet/core/security/app-secrets#secret-manager) を使用してデータベースパスワードを格納し、スキャフォールディングで、単純にで構成される接続文字列を使用でき `Name=<database-alias>` ます。
+
+```dotnetcli
+dotnet user-secrets set ConnectionStrings.YourDatabaseAlias "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase"
+dotnet ef dbcontext scaffold Name=ConnectionStrings.YourDatabaseAlias Microsoft.EntityFrameworkCore.SqlServer
+```
+
+または、次の例は、に格納されている接続文字列を示して `appsettings.json` います。
+
+```json
+{
+  "ConnectionStrings": {
+    "BloggingDatabase": "Server=(localdb)\\mssqllocaldb;Database=EFGetStarted.ConsoleApp.NewDb;Trusted_Connection=True;"
+  },
+}
+```
+
+その後、コンテキストは、通常、 `Startup.cs` 構成から読み取られる接続文字列を使用してで構成されます。 メソッドは、 `GetConnectionString()` キーがである構成値を検索し `ConnectionStrings:<connection string name>` ます。 この拡張メソッドを使用するには、 [Microsoft.Extensions.Configuration](/dotnet/api/microsoft.extensions.configuration) 名前空間をインポートする必要があります。
+
+```csharp
+public void ConfigureServices(IServiceCollection services)
+{
+    services.AddDbContext<BloggingContext>(options =>
+        options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
+}
+```
+
 ## <a name="winforms--wpf-applications"></a>WinForms & WPF アプリケーション
 
-WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト済みの接続文字列パターンが用意されています。 接続文字列は、アプリケーションの App.config ファイル (ASP.NET を使用している場合は Web.config) に追加する必要があります。 接続文字列にユーザー名やパスワードなどの機密情報が含まれている場合は、 [シークレットマネージャーツール](/aspnet/core/security/app-secrets#secret-manager)を使用して構成ファイルの内容を保護することができます。
+WinForms、WPF、および ASP.NET 4 アプリケーションには、テスト済みの接続文字列パターンが用意されています。 接続文字列は、アプリケーションの App.config ファイル (ASP.NET を使用している場合は Web.config) に追加する必要があります。 接続文字列にユーザー名やパスワードなどの機密情報が含まれている場合は、 [保護さ](/dotnet/framework/data/adonet/connection-strings-and-configuration-files#encrypting-configuration-file-sections-using-protected-configuration)れた構成を使用して構成ファイルの内容を保護することができます。
 
 ```xml
 <?xml version="1.0" encoding="utf-8"?>
@@ -62,36 +93,5 @@ public class BloggingContext : DbContext
     {
             optionsBuilder.UseSqlite("Data Source=blogging.db");
     }
-}
-```
-
-## <a name="aspnet-core"></a>ASP.NET Core
-
-ASP.NET Core 構成システムは非常に柔軟であり、接続文字列は `appsettings.json` 、環境変数、ユーザーシークレットストア、または別の構成ソースに格納できます。 詳細については [、ASP.NET Core のドキュメントの構成セクション](/aspnet/core/fundamentals/configuration) を参照してください。
-
-たとえば、 [シークレットマネージャーツール](/aspnet/core/security/app-secrets#secret-manager) を使用してデータベースパスワードを格納し、スキャフォールディングで、単純にで構成される接続文字列を使用でき `Name=<database-alias>` ます。
-
-```dotnetcli
-dotnet user-secrets set ConnectionStrings.YourDatabaseAlias "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase"
-dotnet ef dbcontext scaffold Name=ConnectionStrings.YourDatabaseAlias Microsoft.EntityFrameworkCore.SqlServer
-```
-
-または、次の例は、に格納されている接続文字列を示して `appsettings.json` います。
-
-```json
-{
-  "ConnectionStrings": {
-    "BloggingDatabase": "Server=(localdb)\\mssqllocaldb;Database=EFGetStarted.ConsoleApp.NewDb;Trusted_Connection=True;"
-  },
-}
-```
-
-その後、コンテキストは、通常、 `Startup.cs` 構成から読み取られる接続文字列を使用してで構成されます。 メソッドは、 `GetConnectionString()` キーがである構成値を検索し `ConnectionStrings:<connection string name>` ます。 この拡張メソッドを使用するには、 [Microsoft.Extensions.Configuration](/dotnet/api/microsoft.extensions.configuration) 名前空間をインポートする必要があります。
-
-```csharp
-public void ConfigureServices(IServiceCollection services)
-{
-    services.AddDbContext<BloggingContext>(options =>
-        options.UseSqlServer(Configuration.GetConnectionString("BloggingDatabase")));
 }
 ```

@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するときにエンティティ型
 author: AndriySvyryd
 ms.date: 10/01/2020
 uid: core/modeling/relationships
-ms.openlocfilehash: 71d960a15dfb938af1dcc7035dc2587df7ad4677
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 567d212ddf41f33ee32443d85d2a17234fbc026b
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063843"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430184"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -85,7 +85,7 @@ ms.locfileid: "92063843"
 > プロパティが主キーであるか、またはプリンシパルキーと互換性のない型である場合、外部キーとして構成されません。
 
 > [!NOTE]
-> 3.0 より EF Core 前では、プリンシパルキープロパティとまったく同じ名前のプロパティが、[外部キーとも一致](https://github.com/aspnet/EntityFrameworkCore/issues/13274)していました。
+> 3.0 より EF Core 前では、プリンシパルキープロパティとまったく同じ名前のプロパティが、[外部キーとも一致](https://github.com/dotnet/efcore/issues/13274)していました。
 
 ### <a name="no-foreign-key-property"></a>外部キープロパティがありません
 
@@ -149,7 +149,7 @@ Fluent API でリレーションシップを構成するには、まず、リレ
 ### <a name="configuring-navigation-properties"></a>ナビゲーションプロパティの構成
 
 > [!NOTE]
-> この機能は EF Core 5.0 で追加されました。
+> この機能は、EF Core 5.0 で追加されました。
 
 ナビゲーションプロパティが作成された後で、さらに構成する必要がある場合があります。
 
@@ -194,7 +194,7 @@ Fluent API を使用して、特定のリレーションシップの複合外部
 
 #### <a name="foreign-key-constraint-name"></a>外部キー制約名
 
-規則により、リレーショナルデータベースを対象とする場合、外部キー制約には FK_ という名前が付けられ <dependent type name> _<principal type name>_ <foreign key property name> ます。 複合外部キーの場合 <foreign key property name> は、外部キープロパティ名のアンダースコアで区切られたリストになります。
+慣例により、リレーショナルデータベースを対象とする場合、外部キー制約には FK という名前が付けられ \_ \<dependent type name> \_ \<principal type name> \_ \<foreign key property name> ます。 複合外部キーの場合、は、 \<foreign key property name> 外部キープロパティ名のアンダースコアで区切られたリストになります。
 
 制約名は次のように構成することもできます。
 
@@ -325,3 +325,10 @@ CREATE TABLE [PostTag] (
 結合エンティティ型を追加し、2つの個別の一対多リレーションシップをマッピングするだけで、多対多リレーションシップを表すこともできます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?name=ManyToMany&highlight=11-14,16-19,39-46)]
+
+> [!NOTE]
+> データベースからの多対多リレーションシップのスキャフォールディングのサポートはまだ追加されていません。 「 [問題の追跡](https://github.com/dotnet/efcore/issues/22475)」を参照してください。
+
+## <a name="additional-resources"></a>その他のリソース
+
+* [EF Core コミュニティのスタンドアップセッション](https://www.youtube.com/watch?v=W1sxepfIMRM&list=PLdo4fOcmZ0oX-DBuRG4u58ZTAJgBAeQ-t&index=32)。多対多とインフラストラクチャの中核的土台を深く掘り下げています。

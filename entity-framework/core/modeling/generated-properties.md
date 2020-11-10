@@ -4,12 +4,12 @@ description: Entity Framework Core を使用する場合のプロパティの値
 author: AndriySvyryd
 ms.date: 11/06/2019
 uid: core/modeling/generated-properties
-ms.openlocfilehash: d89739cf8bd2612b97bbf338e9685e9888b6216b
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 347cedbf5fdebc985d75c6cad3c28f17d1344993
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062218"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429625"
 ---
 # <a name="generated-values"></a>生成された値
 
@@ -34,9 +34,9 @@ ms.locfileid: "92062218"
 プロパティに値が割り当てられているコンテキストにエンティティを追加すると、EF は新しい値を生成するのではなく、その値を挿入しようとします。 CLR の既定値 (for、for、for など) が割り当てられていない場合、プロパティには値が割り当てられていると見なされ `null` `string` `0` `int` `Guid.Empty` `Guid` ます。 詳細については、「 [生成されるプロパティの明示的な値](xref:core/saving/explicit-values-generated-properties)」を参照してください。
 
 > [!WARNING]
-> 追加されたエンティティに対して値が生成される方法は、使用されているデータベースプロバイダーによって異なります。 データベースプロバイダーでは、一部のプロパティの種類に対して値の生成が自動的に設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。
+> 追加されたエンティティに対して値が生成される方法は、使用されているデータベースプロバイダーによって異なります。 データベースプロバイダーでは、一部のプロパティの型に対して自動的に値の生成が設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。
 >
-> たとえば、SQL Server を使用すると、プロパティに対して値が自動的に生成され `GUID` ます (SQL Server シーケンシャル GUID アルゴリズムを使用)。 ただし、プロパティが追加時に生成されるように指定する場合は、 `DateTime` 値を生成する方法を設定する必要があります。 これを行う1つの方法は、既定値のを構成することです `GETDATE()` 。「 [既定値](#default-values)」を参照してください。
+> たとえば、SQL Server を使用すると、プロパティに対して値が自動的に生成され `GUID` ます (SQL Server シーケンシャル GUID アルゴリズムを使用)。 ただし、追加時にプロパティが生成されるように指定する場合は、 `DateTime` 値を生成する方法を設定する必要があります。 これを行う1つの方法は、既定値のを構成することです `GETDATE()` 。「 [既定値](#default-values)」を参照してください。
 
 ### <a name="value-generated-on-add-or-update"></a>追加または更新時に生成される値
 
@@ -45,9 +45,9 @@ ms.locfileid: "92062218"
 と同様に `value generated on add` 、エンティティの新しく追加されたインスタンスでプロパティの値を指定すると、生成される値ではなく、その値が挿入されます。 更新時に明示的な値を設定することもできます。 詳細については、「 [生成されるプロパティの明示的な値](xref:core/saving/explicit-values-generated-properties)」を参照してください。
 
 > [!WARNING]
-> 追加および更新されたエンティティの値がどのように生成されるかは、使用されているデータベースプロバイダーによって異なります。 データベースプロバイダーは、プロパティの種類によっては値の生成を自動的に設定する場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。
+> 追加および更新されたエンティティの値がどのように生成されるかは、使用されているデータベースプロバイダーによって異なります。 データベースプロバイダーでは、一部のプロパティの型に対して自動的に値の生成が設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。
 >
-> たとえば、SQL Server を使用する場合、 `byte[]` 追加または更新時に生成されるように設定され、同時実行トークンとしてマークされているプロパティは、データ型を使用して設定される `rowversion` ため、データベースに値が生成されます。 ただし、 `DateTime` プロパティが追加または更新時に生成されるように指定する場合は、値を生成する方法を設定する必要があります。 これを行う1つの方法は、の既定値 `GETDATE()` ( [既定値](#default-values)を参照) を構成して、新しい行の値を生成することです。 次に、データベーストリガーを使用して、更新中に値を生成することができます (次の例のトリガーなど)。
+> たとえば、SQL Server を使用する場合、 `byte[]` 追加または更新で生成されるように設定され、同時実行トークンとしてマークされているプロパティは、データ型で設定されるので、 `rowversion` データベースで値が生成されます。 ただし、 `DateTime` プロパティが追加または更新時に生成されるように指定する場合は、値を生成する方法を設定する必要があります。 これを行う1つの方法は、の既定値 `GETDATE()` ( [既定値](#default-values)を参照) を構成して、新しい行の値を生成することです。 次に、データベーストリガーを使用して、更新中に値を生成することができます (次の例のトリガーなど)。
 >
 > [!code-sql[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.sql)]
 
@@ -68,9 +68,9 @@ ms.locfileid: "92062218"
 ***
 
 > [!WARNING]
-> これにより、追加されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。 詳細については、「追加」セクション [で生成された値](#value-generated-on-add) を参照してください。
+> これにより、追加されたエンティティに対して値が生成されることを EF が認識できるだけでなく、EF が値を生成するための実際のメカニズムを設定することは保証されません。 詳細については、「追加」セクション [で生成された値](#value-generated-on-add) を参照してください。
 
-### <a name="default-values"></a>既定値
+### <a name="default-values"></a>既定の値
 
 リレーショナルデータベースでは、既定値を使用して列を構成できます。その列の値を指定せずに行が挿入されると、既定値が使用されます。
 
@@ -94,19 +94,23 @@ ms.locfileid: "92062218"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
-***
+**_
 
 > [!WARNING]
-> これにより、追加または更新されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が実際のメカニズムを設定して値を生成することは保証されません。 詳細について [は、「追加または更新セクションで生成された値](#value-generated-on-add-or-update) 」を参照してください。
+> これにより、追加または更新されたエンティティに対して値が生成されたことを EF が認識できるだけでなく、EF が値を生成するための実際のメカニズムを設定することは保証されません。 詳細について [は、「追加または更新セクションで生成された値](#value-generated-on-add-or-update) 」を参照してください。
 
 ### <a name="computed-columns"></a>計算列
 
-一部のリレーショナルデータベースでは、データベース内の値を計算するように列を構成できます。通常は、他の列を参照する式を使用します。
+ほとんどのリレーショナルデータベースでは、データベース内の値を計算するように列を構成できます。通常は、他の列を参照する式を使用します。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=ComputedColumn&highlight=5)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=DefaultComputedColumn)]
+
+上の例では、データベースからフェッチされるたびに値が計算される、_virtual * 計算列が作成されます。 計算列を *格納* するように指定することもできます *。これ* は、計算列が行のすべての更新で計算され、通常の列と共にディスクに格納されることを意味します。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ComputedColumn.cs?name=StoredComputedColumn)]
 
 > [!NOTE]
-> 場合によっては、列の値がフェッチされるたび ( *仮想* 列とも呼ばれます) に計算され、それ以外の場合は、行のすべての更新で計算され、格納されます ( *保存さ* れた列 *または保存* された列とも呼ばれます)。 これは、データベースプロバイダーによって異なります。
+> 格納されている計算列の作成のサポートが EF Core 5.0 で追加されました。
 
 ## <a name="no-value-generation"></a>値の生成なし
 

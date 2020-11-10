@@ -4,16 +4,16 @@ description: Entity Framework Core を使用するときに所有されている
 author: AndriySvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: a49d9aab735232dfd5a3db456410d527f94f3c18
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 36f756b70c9ad1727c48b5c789fd324c9dc6cd29
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063778"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429438"
 ---
 # <a name="owned-entity-types"></a>所有されているエンティティ型
 
-EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、 _所有エンティティ型_と呼ばれます。 所有エンティティ型を含むエンティティは、その _所有者_です。
+EF Core を使用すると、他のエンティティ型のナビゲーションプロパティにのみ表示されるエンティティ型をモデル化できます。 これらは、 _所有エンティティ型_ と呼ばれます。 所有エンティティ型を含むエンティティは、その _所有者_ です。
 
 所有されているエンティティは、本質的に所有者の一部であり、存在しない場合は、概念的には [集計](https://martinfowler.com/bliki/DDD_Aggregate.html)に似ています。 つまり、所有されているエンティティは、所有者とのリレーションシップの依存側の定義によって決まります。
 
@@ -36,6 +36,10 @@ EF Core を使用すると、他のエンティティ型のナビゲーション
 `ShippingAddress`プロパティが型でプライベートである場合は、 `Order` メソッドの文字列バージョンを使用でき `OwnsOne` ます。
 
 [!code-csharp[OwnsOneString](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsOneString)]
+
+上記のモデルは、次のデータベーススキーマにマップされています。
+
+![所有参照を含むエンティティのデータベースモデルの Sceenshot](_static/owned-entities-ownsone.png)
 
 詳細なコンテキストについては、 [完全なサンプルプロジェクト](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/OwnedEntities) を参照してください。
 
@@ -69,11 +73,15 @@ EF Core がこれらのオブジェクトを追跡する方法を理解するに
 
 [!code-csharp[OwnsMany](../../../samples/core/Modeling/OwnedEntities/OwnedEntityContext.cs?name=OwnsMany)]
 
+上記のモデルは、次のデータベーススキーマにマップされています。
+
+![所有コレクションを含むエンティティのデータベースモデルの Sceenshot](_static/owned-entities-ownsmany.png)
+
 ## <a name="mapping-owned-types-with-table-splitting"></a>所有型のテーブル分割へのマッピング
 
 リレーショナルデータベースを使用する場合、既定では、参照所有型は、所有者と同じテーブルにマップされます。 そのためには、テーブルを2つの列に分割する必要があります。つまり、所有者のデータを格納するために使用される列と、所有されているエンティティのデータを格納するために使用される列があります。 これは、 [テーブル分割](xref:core/modeling/table-splitting)と呼ばれる一般的な機能です。
 
-既定では、EF Core は、 _Navigation_OwnedEntityProperty_のパターンに従って、所有されているエンティティ型のプロパティのデータベース列に名前を指定します。 そのため、' `StreetAddress` Orders ' テーブルには ' ShippingAddress_Street ' と ' ShippingAddress_City ' という名前のプロパティが表示されます。
+既定では、EF Core は、 _Navigation_OwnedEntityProperty_ のパターンに従って、所有されているエンティティ型のプロパティのデータベース列に名前を指定します。 そのため、' `StreetAddress` Orders ' テーブルには ' ShippingAddress_Street ' と ' ShippingAddress_City ' という名前のプロパティが表示されます。
 
 これらの列の `HasColumnName` 名前を変更するには、メソッドを使用します。
 
@@ -119,6 +127,10 @@ EF Core がこれらのオブジェクトの追跡対象インスタンスを区
 また `OwnedAttribute` 、との両方でを使用して、この結果を実現することもでき `OrderDetails` `StreetAddress` ます。
 
 また、の呼び出しに注意して `Navigation` ください。 EFCore 5.0 では、所有されている型へのナビゲーションプロパティを、所有され [ていないナビゲーションプロパティのため](xref:core/modeling/relationships#configuring-navigation-properties)にさらに構成できます。
+
+上記のモデルは、次のデータベーススキーマにマップされています。
+
+![入れ子になった所有参照を含むエンティティのデータベースモデルの Sceenshot](_static/owned-entities-nested.png)
 
 ## <a name="storing-owned-types-in-separate-tables"></a>個別のテーブルへの所有型の格納
 

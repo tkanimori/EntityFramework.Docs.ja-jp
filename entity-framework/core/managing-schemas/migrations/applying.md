@@ -4,12 +4,12 @@ description: Entity Framework Core を使用して、運用データベースと
 author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/applying
-ms.openlocfilehash: 68d482a34e5f5c7acf968acdfd8825e1d21ecb13
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 7ff84636fb0999941b832c6a2d65d77b0ad368c5
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062348"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429853"
 ---
 # <a name="applying-migrations"></a>移行の適用
 
@@ -83,6 +83,7 @@ Script-Migration AddNewTables
 ```powershell
 Script-Migration AddNewTables AddAuditTable
 ```
+
 ロールバック スクリプトを生成するために、`to` より新しい `from` を使用することができます。 *データ損失の可能性のあるシナリオには注意してください。*
 
 ***
@@ -98,25 +99,25 @@ Script-Migration AddNewTables AddAuditTable
 
 次の例では、べき等移行が生成されます。
 
-#### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
+### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef migrations script --idempotent
 ```
 
-#### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
+### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ```powershell
 Script-Migration -Idempotent
 ```
 
-***
+**_
 
 ## <a name="command-line-tools"></a>コマンドライン ツール
 
 EF コマンドラインツールを使用すると、データベースに移行を適用できます。 移行のローカル開発とテストの生産性を維持しながら、この方法は運用データベースの管理には適していません。
 
-* SQL コマンドはツールによって直接適用されます。開発者はこのコマンドを検査または変更することはできません。 これは、運用環境では危険である可能性があります。
+_ SQL コマンドはツールによって直接適用されるので、開発者はそれを検査または変更することはできません。 これは、運用環境では危険である可能性があります。
 * .NET SDK と EF ツールは、実稼働サーバーにインストールする必要があります。
 
 ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
@@ -159,7 +160,7 @@ Update-Database AddNewTables
 
 ***
 
-コマンドラインツールを使用した移行の適用の詳細については、「 [EF Core ツールリファレンス](xref:core/miscellaneous/cli/index)」を参照してください。
+コマンドラインツールを使用した移行の適用の詳細については、「 [EF Core ツールリファレンス](xref:core/cli/index)」を参照してください。
 
 ## <a name="apply-migrations-at-runtime"></a>実行時に移行を適用する
 

@@ -4,16 +4,16 @@ description: Entity Framework Core を使用してエンティティ型を構成
 author: roji
 ms.date: 10/06/2020
 uid: core/modeling/entity-types
-ms.openlocfilehash: bfefa29c08679a1524c00769b3495d75a301e2d3
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 9094193640e7cab6db3fed7ae0ab818a455156ca
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062231"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429586"
 ---
 # <a name="entity-types"></a>エンティティ型
 
-型の DbSet をコンテキストに含めることは、それが EF Core のモデルに含まれることを意味します。通常、このような型は *エンティティ*として参照されます。 EF Core は、データベースとの間でエンティティインスタンスの読み取りと書き込みを行うことができます。リレーショナルデータベースを使用している場合は、EF Core によって、移行によってエンティティのテーブルを作成できます。
+型の DbSet をコンテキストに含めることは、それが EF Core のモデルに含まれることを意味します。通常、このような型は *エンティティ* として参照されます。 EF Core は、データベースとの間でエンティティインスタンスの読み取りと書き込みを行うことができます。リレーショナルデータベースを使用している場合は、EF Core によって、移行によってエンティティのテーブルを作成できます。
 
 ## <a name="including-types-in-the-model"></a>モデルに型を含める
 
@@ -50,9 +50,9 @@ ms.locfileid: "92062231"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TableExcludeFromMigrations.cs?name=TableExcludeFromMigrations&highlight=4)]
 
-この構成を使用すると、テーブルは作成されませんが、 `blogs` `Blog` モデルに含まれ、通常どおりに使用できます。
+この構成を使用すると、テーブルは作成されませんが、 `AspNetUsers` `IdentityUser` モデルに含まれ、通常どおりに使用できます。
 
-移行を使用してテーブルの管理を再開する必要がある場合は、が除外されないように新しい移行を作成する必要があり `blogs` ます。 次の移行には、テーブルに加えられた変更がすべて含まれるようになります。
+移行を使用してテーブルの管理を再開する必要がある場合は、が除外されないように新しい移行を作成する必要があり `AspNetUsers` ます。 次の移行には、テーブルに加えられた変更がすべて含まれるようになります。
 
 ## <a name="table-name"></a>テーブル名
 
@@ -68,7 +68,7 @@ ms.locfileid: "92062231"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TableName.cs?Name=TableName&highlight=3-4)]
 
-***
+**_
 
 ## <a name="table-schema"></a>テーブル スキーマ
 
@@ -84,7 +84,7 @@ ms.locfileid: "92062231"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TableNameAndSchema.cs?name=TableNameAndSchema&highlight=3-4)]
 
-***
+_**
 
 各テーブルのスキーマを指定するのではなく、fluent API を使用してモデルレベルで既定のスキーマを定義することもできます。
 
@@ -101,4 +101,7 @@ ms.locfileid: "92062231"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ViewNameAndSchema.cs?name=ViewNameAndSchema&highlight=1)]
 
- ビューにマップすると、既定のテーブルマッピングが削除されますが、エンティティ型を明示的にテーブルにマップすることもできます。 この場合、クエリにはクエリマッピングが使用され、更新にはテーブルマッピングが使用されます。
+ ビューにマッピングすると、既定のテーブルマッピングが削除されますが、EF 5.0 以降では、エンティティ型を明示的にテーブルにマップすることもできます。 この場合、クエリにはクエリマッピングが使用され、更新にはテーブルマッピングが使用されます。
+
+> [!TIP]
+> メモリ内のプロバイダーを使用してビューにマップされたエンティティ型をテストするには、を使用してクエリにマップし `ToInMemoryQuery` ます。 詳細については、この手法を使用した実行可能な [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing/ItemsWebApi/) を参照してください。

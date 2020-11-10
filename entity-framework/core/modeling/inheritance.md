@@ -4,12 +4,12 @@ description: Entity Framework Core を使用してエンティティ型の継承
 author: AndriySvyryd
 ms.date: 10/01/2020
 uid: core/modeling/inheritance
-ms.openlocfilehash: 47aae0d57d7203f0e6da5868bdc082ad85d59620
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 3ec6e7bd98f9c9716c460d69fc707d95e5e47a05
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063869"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429521"
 ---
 # <a name="inheritance"></a>継承
 
@@ -37,7 +37,7 @@ EF では、.NET 型階層をデータベースにマップできます。 こ�
 
 上記のモデルは、次のデータベーススキーマにマップされます (各行に格納されているの型を識別する、暗黙的に作成された列に注意して `Discriminator` `Blog` ください)。
 
-![image](_static/inheritance-tph-data.png)
+![階層ごとのテーブルパターンを使用してブログエンティティ階層にクエリを実行した結果のスクリーンショット](_static/inheritance-tph-data.png)
 
 識別子の列の名前と種類と、階層内の各型を識別するために使用される値を構成できます。
 
@@ -50,6 +50,10 @@ EF では、.NET 型階層をデータベースにマップできます。 こ�
 また、識別子は、エンティティ内の通常の .NET プロパティにもマップできます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/NonShadowDiscriminator.cs?name=NonShadowDiscriminator&highlight=4)]
+
+TPH パターンを使用する派生エンティティに対してクエリを実行すると、EF Core によってクエリの識別子列に述語が追加されます。 このフィルターにより、結果に含まれていない基本データ型または兄弟型に対して追加の行が取得されないようにします。 基本エンティティに対してクエリを実行すると、階層内のすべてのエンティティの結果が取得されるため、基本エンティティ型に対してこのフィルター述語はスキップされます。 クエリから結果を具体化する場合、モデル内のエンティティ型にマップされていない識別子の値を使用すると、結果を具体化する方法がわからないため、例外がスローされます。 このエラーが発生するのは、EF モデルでマップされていない識別子の値を持つ行がデータベースに含まれている場合のみです。 このようなデータがある場合は、EF Core モデルの識別子マッピングを不完全としてマークして、階層内の任意の型に対してクエリを実行するためのフィルター述語を常に追加する必要があることを示すことができます。 `IsComplete(false)` 識別子の構成でを呼び出すと、マッピングは不完全としてマークされます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/DiscriminatorMappingIncomplete.cs?name=DiscriminatorMappingIncomplete&highlight=5)]
 
 ### <a name="shared-columns"></a>共有列
 
