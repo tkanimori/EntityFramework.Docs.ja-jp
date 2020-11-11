@@ -4,12 +4,12 @@ description: EF6 と EF Core から選択する方法に関するガイダンス
 author: ajcvickers
 ms.date: 01/23/2019
 uid: efcore-and-ef6/index
-ms.openlocfilehash: 02e5e20d270d1966154e9f564256c9afa9b2d5b4
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: e95bc572ac723dd22daa10117f5704f29ba97738
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90073618"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430457"
 ---
 # <a name="compare-ef-core--ef6"></a>EF Core と EF6 を比較する
 
@@ -140,7 +140,7 @@ EF Core 列には、この機能が初めて登場した製品のバージョン
 
 ### <a name="supported-platforms"></a>サポートされているプラットフォーム
 
-EF Core 3.1 は .NET Standard 2.0 を使用して、.NET Core と .NET Framework で実行されます。 ただし、EF Core 5.0 は .NET Framework では実行されません。 詳細については、[プラットフォーム](xref:core/platforms/index)に関するページを参照してください。
+EF Core 3.1 は .NET Standard 2.0 を使用して、.NET Core と .NET Framework で実行されます。 ただし、EF Core 5.0 は .NET Framework では実行されません。 詳細については、[プラットフォーム](xref:core/miscellaneous/platforms)に関するページを参照してください。
 
 EF 6.4 は、複数バージョン対応によって .NET Core と .NET Framework で実行されます。
 

@@ -4,19 +4,19 @@ description: Entity Framework Core 2.0 での変更点と改善点
 author: ajcvickers
 ms.date: 02/20/2018
 uid: core/what-is-new/ef-core-2.0
-ms.openlocfilehash: 7438d8ad1a5ade971af71186a20ec57fd83713de
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: a670cba56c9ba4ebc45c81c1185faa114b78c146
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063453"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429378"
 ---
 # <a name="new-features-in-ef-core-20"></a>EF Core 2.0 の新機能
 
 ## <a name="net-standard-20"></a>.NET Standard 2.0
 
 EF Core が .NET Standard 2.0 対応になりました。つまり、.NET Core 2.0、.NET Framework 4.6.1、および .NET Standard 2.0 を実装するその他のライブラリで使えるようになりました。
-サポート対象の詳細については、「[Supported .NET Implementations](xref:core/platforms/index)」 (サポートされている .NET 実装) を参照してください。
+サポート対象の詳細については、「[Supported .NET Implementations](xref:core/miscellaneous/platforms)」 (サポートされている .NET 実装) を参照してください。
 
 ## <a name="modeling"></a>モデリング
 
@@ -141,7 +141,7 @@ var query =
 
 ### <a name="self-contained-type-configuration-for-code-first"></a>Code First の自己完結型構成
 
-EF6 では、*EntityTypeConfiguration* から派生することで、特定のエンティティ型の Code First 構成をカプセル化できました。 EF Core 2.0 では、このパターンが復活します。
+EF6 では、 *EntityTypeConfiguration* から派生することで、特定のエンティティ型の Code First 構成をカプセル化できました。 EF Core 2.0 では、このパターンが復活します。
 
 ```csharp
 class CustomerConfiguration : IEntityTypeConfiguration<Customer>
@@ -309,7 +309,7 @@ public class MyPluralizer : IPluralizer
 
 プロバイダーがモデルと対話するしくみが大幅に増強され、規則、注釈、fluent API がさまざまプロバイダーと連動するしくみが単純になりました。
 
-EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、*一般的なリレーショナル メタデータ コンセプト*へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。
+EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](https://github.com/aspnet/EntityFramework/blob/master/src/EFCore/Metadata/IModel.cs) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、 *一般的なリレーショナル メタデータ コンセプト* へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。
 
 ### <a name="consolidated-logging-and-diagnostics"></a>統合されたログと診断
 

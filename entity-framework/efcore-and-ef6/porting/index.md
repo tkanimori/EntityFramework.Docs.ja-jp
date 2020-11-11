@@ -4,12 +4,12 @@ description: Entity Framework 6 から Entity Framework Core へのアプリケ�
 author: ajcvickers
 ms.date: 10/27/2016
 uid: efcore-and-ef6/porting/index
-ms.openlocfilehash: 0dfb4cc5f7c65aa081d0175708a0db95b0688e50
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: d50def47e65455c8cf5242cad4386f157148c0bc
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92064212"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429209"
 ---
 # <a name="porting-from-ef6-to-ef-core"></a>EF6 から EF Core へ移植
 
@@ -33,17 +33,12 @@ EF6 では、エンティティに対して `DbSet.Add()` を呼び出すと、�
 
 **EF Core でも同様の再帰的な検索が実行されますが、若干異なる規則がいくつか使われます。**
 
-*  ルート エンティティは常に要求された状態になります (`DbSet.Add` の場合は追加済み、`DbSet.Attach` の場合は変更なし)。
-
-*  **ナビゲーション プロパティの再帰的な検索中に検出されたエンティティの場合:**
-
-    *  **エンティティの主キーがストアで生成されたものだった場合**
-
-        * 主キーが値に設定されていない場合、状態は追加済みに設定されます。 主キーに対してそのプロパティの型の CLR 既定値 (たとえば、`int` に対して `0`、`string` に対して `null` など) が割り当てられていた場合、それは "未設定" と見なされます。
-
-        * 主キーが値に設定されていた場合、その状態は変更なしに設定されます。
-
-    *  主キーがデータベースで生成されたものではなかった場合、そのエンティティはルートと同じ状態になります。
+* ルート エンティティは常に要求された状態になります (`DbSet.Add` の場合は追加済み、`DbSet.Attach` の場合は変更なし)。
+* **ナビゲーション プロパティの再帰的な検索中に検出されたエンティティの場合:**
+  * **エンティティの主キーがストアで生成されたものだった場合**
+    * 主キーが値に設定されていない場合、状態は追加済みに設定されます。 主キーに対してそのプロパティの型の CLR 既定値 (たとえば、`int` に対して `0`、`string` に対して `null` など) が割り当てられていた場合、それは "未設定" と見なされます。
+    * 主キーが値に設定されていた場合、その状態は変更なしに設定されます。
+  * 主キーがデータベースで生成されたものではなかった場合、そのエンティティはルートと同じ状態になります。
 
 ### <a name="code-first-database-initialization"></a>Code First のデータベース初期化
 

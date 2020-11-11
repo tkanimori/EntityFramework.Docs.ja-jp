@@ -4,12 +4,12 @@ description: 現在の EF Core のリリースと、今後のリリースのス�
 author: ajcvickers
 ms.date: 06/11/2020
 uid: core/what-is-new/index
-ms.openlocfilehash: 4424f9233016edbc8d98e8df840091f2adaf1ee9
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: 24b814bd906ece9cc485bf96713b9f8feac5eb2c
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618593"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430535"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core のリリースと計画
 
@@ -25,7 +25,7 @@ ms.locfileid: "89618593"
 | ~~[EF Core 1.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.1.6)~~ | .NET Standard 1.3 | 2019 年 6 月 27 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-1-1/)
 | ~~[EF Core 1.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/1.0.6)~~ | .NET Standard 1.3 | 2019 年 6 月 27 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/entity-framework-core-1-0-0-available/)
 
-各 EF Core リリースでサポートされている特定のプラットフォームの詳細については、「[サポートされているプラットフォーム](xref:core/platforms/index)」を参照してください。
+各 EF Core リリースでサポートされている特定のプラットフォームの詳細については、「[サポートされているプラットフォーム](xref:core/miscellaneous/platforms)」を参照してください。
 
 サポートの有効期限と長期的なサポート (LTS) のリリースについては、[.NET のサポート ポリシー](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)を参照してください。
 
@@ -55,9 +55,9 @@ Microsoft では、これを改善するために取り組んでいます。
 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指 👍) することです。
 このデータが、次のリリースの計画プロセスに取り込まれます。
 
-### <a name="get-it-now"></a>今すぐ入手しましょう
+### <a name="get-it-now"></a>今すぐ入手する
 
-EF Core 5.0 のパッケージは**今すぐ**、
+EF Core 5.0 のパッケージは **今すぐ** 、
 
 * [デイリー ビルド](https://github.com/dotnet/aspnetcore/blob/master/docs/DailyBuilds.md)として入手できます。
   * すべての最新の機能とバグの修正。 一般に非常に安定しています。57,000 以上のテストが各ビルドに対して実行されます。
