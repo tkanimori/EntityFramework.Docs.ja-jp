@@ -4,12 +4,12 @@ description: EF Core 診断のグローバルな消費に DiagnosticListener を
 author: ajcvickers
 ms.date: 10/16/2020
 uid: core/logging-events-diagnostics/diagnostic-listeners
-ms.openlocfilehash: dba82a910e2b551e692f37d721d41968981849cf
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: a2a962ac714cf80c42c269cee3770699aaa4c0c9
+ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431297"
+ms.lasthandoff: 11/11/2020
+ms.locfileid: "94503229"
 ---
 # <a name="using-diagnostic-listeners-in-ef-core"></a>EF Core での診断リスナーの使用
 
@@ -95,7 +95,7 @@ public class KeyValueObserver : IObserver<KeyValuePair<string, object>>
 たとえば、上記のコードでは、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId.ContextInitialized> イベントとイベントを処理し <xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.ConnectionOpening> ます。 最初の部分では、ペイロードは <xref:Microsoft.EntityFrameworkCore.Diagnostics.ContextInitializedEventData> です。 2つ目は、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.ConnectionEventData> です。
 
 > [!TIP]
-> ToString は、イベントの同等のログメッセージを生成するために、すべての EF Core イベントデータクラスでオーバーライドされます。 たとえば、を呼び出すと、 `ContextInitializedEventData.ToString` "Entity Framework Core 2.20475.6" というプロバイダー ' Microsoft. EntityFrameworkCore. Sqlite ' を使用して ' ブログ Scontext ' が初期化され、オプション: None "が生成されます。
+> ToString は、イベントの同等のログメッセージを生成するために、すべての EF Core イベントデータクラスでオーバーライドされます。 たとえば、を呼び出すと、 `ContextInitializedEventData.ToString` プロバイダー ' Microsoft. EntityFrameworkCore. Sqlite ' とオプション: None "を使用して、" Entity Framework Core 5.0.0 で初期化された ' ブログ Scontext ' が生成されます。
 
 この [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners) には、ブログデータベースを変更し、検出された診断イベントを出力する単純なコンソールアプリケーションが含まれています。
 

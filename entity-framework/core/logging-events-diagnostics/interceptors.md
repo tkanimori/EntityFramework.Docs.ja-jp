@@ -4,12 +4,12 @@ description: データベース操作とその他のイベントのインター�
 author: ajcvickers
 ms.date: 10/08/2020
 uid: core/logging-events-diagnostics/interceptors
-ms.openlocfilehash: 6ee54c0bd45c55de1fae3e1949bfa2d5b3b2566e
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 61ec6968344798af8ecffb878a1e47a6a8e031cd
+ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431288"
+ms.lasthandoff: 11/11/2020
+ms.locfileid: "94503203"
 ---
 # <a name="interceptors"></a>インターセプター
 
@@ -502,7 +502,7 @@ public class EntityAudit
 * SaveChanges が成功すると、監査メッセージが更新され、成功を示すメッセージが表示されます。
 * SaveChanges が失敗した場合は、失敗を示す監査メッセージが更新されます。
 
-最初の段階は、の上書きを使用してデータベースに変更が送信される前に処理されます。 `ISaveChangesInterceptor.SavingChanges` <!-- Issue #2748 -->  と `ISaveChangesInterceptor.SavingChangesAsync`<!-- Issue #2748 -->.
+最初の段階は、の上書きを使用してデータベースに変更が送信される前に処理されます。 `ISaveChangesInterceptor.SavingChanges` <!-- Issue #2748 --> そして `ISaveChangesInterceptor.SavingChangesAsync`<!-- Issue #2748 -->.
 
 <!--
     public async ValueTask<InterceptionResult<int>> SavingChangesAsync(
@@ -594,7 +594,7 @@ public class EntityAudit
 結果として、エンティティ `SaveChangesAudit` のコレクションが `EntityAudit` 挿入、更新、または削除ごとに1つずつ含まれます。 インターセプターは、これらのエンティティを監査データベースに挿入します。
 
 > [!TIP]
-> ToString は、イベントの同等のログメッセージを生成するために、すべての EF Core イベントデータクラスでオーバーライドされます。 たとえば、を呼び出すと、 `ContextInitializedEventData.ToString` "Entity Framework Core 2.20475.6" というプロバイダー ' Microsoft. EntityFrameworkCore. Sqlite ' を使用して ' ブログ Scontext ' が初期化され、オプション: None "が生成されます。
+> ToString は、イベントの同等のログメッセージを生成するために、すべての EF Core イベントデータクラスでオーバーライドされます。 たとえば、を呼び出すと、 `ContextInitializedEventData.ToString` プロバイダー ' Microsoft. EntityFrameworkCore. Sqlite ' とオプション: None "を使用して、" Entity Framework Core 5.0.0 で初期化された ' ブログ Scontext ' が生成されます。
 
 #### <a name="detecting-success"></a>成功の検出
 

@@ -4,16 +4,18 @@ description: Entity Framework Core モデルでの shadow および indexer プ�
 author: AndriySvyryd
 ms.date: 10/09/2020
 uid: core/modeling/shadow-properties
-ms.openlocfilehash: f03dc000bb111253ae74c05a668703f2e6237a57
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 180478212b683a271d2519cc1a4c79be5d3f11b9
+ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430418"
+ms.lasthandoff: 11/11/2020
+ms.locfileid: "94503190"
 ---
 # <a name="shadow-and-indexer-properties"></a>Shadow および Indexer プロパティ
 
-Shadow プロパティは、.NET エンティティクラスで定義されていないが、EF Core モデルでそのエンティティ型に対して定義されているプロパティです。 これらのプロパティの値と状態は、単に変更トラッカーに保持されます。 シャドウプロパティは、マップされたエンティティ型では公開できないデータがデータベースに存在する場合に便利です。
+Shadow プロパティは、.NET エンティティクラスで定義されていないが、EF Core モデルでそのエンティティ型に対して定義されているプロパティです。 これらのプロパティの値と状態は、単に変更トラッカーに保持されます。 シャドウプロパティは、マップされたエンティティ型では公開されないデータがデータベースに存在する場合に便利です。
+
+インデクサーのプロパティはエンティティ型のプロパティであり、.NET エンティティクラスの [インデクサー](/dotnet/csharp/programming-guide/indexers/) によってサポートされています。 これらは、.NET クラスインスタンスのインデクサーを使用してアクセスできます。 また、CLR クラスを変更せずに、エンティティ型に追加のプロパティを追加することもできます。
 
 ## <a name="foreign-key-shadow-properties"></a>外部キーのシャドウのプロパティ
 
@@ -50,11 +52,19 @@ var blogs = context.Blogs
 
 返されるエンティティは変更トラッカーによって追跡されないため、no tracking クエリの後にシャドウプロパティにアクセスすることはできません。
 
+## <a name="configuring-indexer-properties"></a>インデクサーのプロパティの構成
+
+Fluent API を使用して、インデクサーのプロパティを構成できます。 メソッドを呼び出した後は、 `IndexerProperty` 他のプロパティに対して行う任意の構成呼び出しを連鎖させることができます。 次の例では、にインデクサーが定義されて `Blog` おり、インデクサープロパティを作成するために使用されます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexerProperty.cs?name=ShadowProperty&highlight=3)]
+
+メソッドに指定した名前が `IndexerProperty` 既存のインデクサープロパティの名前と一致する場合、コードによって既存のプロパティが構成されます。 エンティティ型に、エンティティクラスのプロパティによってサポートされるプロパティがある場合、インデクサープロパティにはインデクサー経由でのみアクセスする必要があるため、例外がスローされます。
+
 ## <a name="property-bag-entity-types"></a>プロパティバッグのエンティティ型
 
 > [!NOTE]
 > プロパティバッグエンティティ型のサポートは EF Core 5.0 で追加されました。
 
-インデクサープロパティのみを含むエンティティ型は、プロパティバッグエンティティ型と呼ばれます。 これらのエンティティ型には、シャドウプロパティはありません。 現時点 `Dictionary<string, object>` では、プロパティバッグエンティティ型としてのみサポートされています。 これは、一意の名前を持つ共有エンティティ型として構成する必要があり、対応する `DbSet` プロパティは呼び出しを使用して実装する必要があることを意味し `Set` ます。
+インデクサープロパティのみを含むエンティティ型は、プロパティバッグエンティティ型と呼ばれます。 これらのエンティティ型にはシャドウプロパティがないため、EF はインデクサープロパティを作成します。 現時点 `Dictionary<string, object>` では、プロパティバッグエンティティ型としてのみサポートされています。 これは、一意の名前を持つ共有エンティティ型として構成する必要があり、対応する `DbSet` プロパティは呼び出しを使用して実装する必要があり `Set` ます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/SharedType.cs?name=SharedType&highlight=3,7)]
