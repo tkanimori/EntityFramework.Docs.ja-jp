@@ -4,12 +4,12 @@ description: Entity Framework Core 5.0 で計画されている機能
 author: ajcvickers
 ms.date: 08/22/2020
 uid: core/what-is-new/ef-core-5.0/plan
-ms.openlocfilehash: 5ac7a48a70959b625b7c602ee48dc08a360bee73
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: f2639e41499f3bfca5942d613922fd97212fc2b9
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618667"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429235"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Entity Framework Core 5.0 の計画
 
@@ -44,18 +44,18 @@ EF Core 5.0 への大規模な投資の基礎となる、いくつかの主要�
 
 開発リーダー: @smitpatel、@AndriySvyryd、@lajones
 
-追跡: [#10508](https://github.com/aspnet/EntityFrameworkCore/issues/10508)
+追跡: [#10508](https://github.com/dotnet/efcore/issues/10508)
 
 規模: L
 
 状態: 完了
 
-多対多は、GitHub バックログで[最も要求の多かった機能](https://github.com/aspnet/EntityFrameworkCore/issues/1368)です (506 票)。
+多対多は、GitHub バックログで[最も要求の多かった機能](https://github.com/dotnet/efcore/issues/1368)です (506 票)。
 
 多対多リレーションシップのサポートは、次の 3 つの主要領域に分けることができます。
 
 * スキップ ナビゲーションのプロパティ -- 次のテーマで取り上げます。
-* property-bag エンティティ型。 これにより、標準の CLR 型 (例: `Dictionary`) をエンティティ インスタンスに使用できるようになり、エンティティ型ごとに明示的な CLR 型は不要になります。 追跡: [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914)
+* property-bag エンティティ型。 これにより、標準の CLR 型 (例: `Dictionary`) をエンティティ インスタンスに使用できるようになり、エンティティ型ごとに明示的な CLR 型は不要になります。 追跡: [#9914](https://github.com/dotnet/efcore/issues/9914)
 * 多対多リレーションシップを簡単に構成するための Sugar。
 
 スキップ ナビゲーションのサポートに加えて、完全なエクスペリエンスが提供されるように、多対多のその他の領域を EF Core 5.0 に導入しました。
@@ -64,7 +64,7 @@ EF Core 5.0 への大規模な投資の基礎となる、いくつかの主要�
 
 開発リーダー: @smitpatel、@AndriySvyryd
 
-追跡: [#19003](https://github.com/aspnet/EntityFrameworkCore/issues/19003)
+追跡: [#19003](https://github.com/dotnet/efcore/issues/19003)
 
 規模: L
 
@@ -79,7 +79,7 @@ EF Core 5.0 への大規模な投資の基礎となる、いくつかの主要�
 
 開発リーダー: @AndriySvyryd、@smitpatel
 
-追跡: [#2266](https://github.com/aspnet/EntityFrameworkCore/issues/2266)
+追跡: [#2266](https://github.com/dotnet/efcore/issues/2266)
 
 規模: XL
 
@@ -91,7 +91,7 @@ TPT の作業が行われているのは、要求の多かった機能である�
 
 開発リーダー: @maumar
 
-追跡: [#1833](https://github.com/aspnet/EntityFrameworkCore/issues/1833)
+追跡: [#1833](https://github.com/dotnet/efcore/issues/1833)
 
 規模: M
 
@@ -131,7 +131,7 @@ EF Core 3.0 では、所有されている型を含むすべての依存関係�
 
 開発リーダー: @AndriySvyryd、@smitpatel
 
-追跡: [#17270](https://github.com/aspnet/EntityFrameworkCore/issues/17270)
+追跡: [#17270](https://github.com/dotnet/efcore/issues/17270)
 
 規模: L
 
@@ -284,7 +284,7 @@ EF チームも、Microsoft.Data.Sqlite ADO.NET プロバイダーを所有し�
 
 状態: 進行中
 
-この執筆時点では、5.0 リリースでの修正対象として 135 件のバグがトリアージされていますが (62 件は既に修正済み)、上記の「_一般的なクエリの機能強化_」セクションとかなり重複しています。
+この執筆時点では、5.0 リリースでの修正対象として 135 件のバグがトリアージされていますが (62 件は既に修正済み)、上記の「 _一般的なクエリの機能強化_ 」セクションとかなり重複しています。
 
 発生率 (マイルストーンで作業するようになった問題) は、3.0 リリースの全体を通して、1 か月あたり約 23 件の問題でした。 これらのすべてを 5.0 で修正する必要はありません。 大まかな見積もりとして、5.0 の時間枠では 150 件の問題をさらに修正することが計画されています。
 
@@ -302,9 +302,9 @@ EF チームも、Microsoft.Data.Sqlite ADO.NET プロバイダーを所有し�
 
 ## <a name="below-the-line"></a>対象外
 
-追跡: [`consider-for-next-release` というラベルが付けられている問題](https://github.com/aspnet/EntityFrameworkCore/issues?q=is%3Aopen+is%3Aissue+label%3Aconsider-for-next-release)
+追跡: [`consider-for-next-release` というラベルが付けられている問題](https://github.com/dotnet/efcore/issues?q=is%3Aopen+is%3Aissue+label%3Aconsider-for-next-release)
 
-これらは、現時点では 5.0 リリースで予定されて**いない**バグ修正および機能強化ですが、上記の作業の進行状況によっては、努力目標として見られています。
+これらは、現時点では 5.0 リリースで予定されて **いない** バグ修正および機能強化ですが、上記の作業の進行状況によっては、努力目標として見られています。
 
 また、計画を立てるときは常に、[最も投票が多かった問題](https://github.com/dotnet/efcore/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)が考慮されています。 これらの問題をリリースから切り捨てることは常に苦痛ですが、保有するリソースにとって現実的な計画を立てる必要があります。
 

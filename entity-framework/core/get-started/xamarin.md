@@ -5,12 +5,12 @@ author: codemillmatt
 ms.date: 07/07/2020
 ms.author: masoucou
 uid: core/get-started/xamarin
-ms.openlocfilehash: 0552038d471e294834bed9e3bf1f05fd74c39192
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: a08c5582b063f4a7748a43811c2bf28e8f3e5c14
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062543"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429911"
 ---
 # <a name="getting-started-with-ef-core-and-xamarin"></a>EF Core と Xamarin の概要
 
@@ -74,12 +74,12 @@ Windows 上の Visual Studio または Visual Studio for Mac を使用すると�
 [データの表示](/xamarin/xamarin-forms/app-fundamentals/data-binding/)および[ページ間の移動](/xamarin/xamarin-forms/app-fundamentals/navigation/)に関する Xamarin.Forms トピックを理解していることを前提として説明します。
 
 > [!IMPORTANT]
-> Entity Framework Core ではリフレクションを使用して、**リリース** モード構成中は Xamarin.iOS リンカーによって削除できる関数が呼び出されます。 これは、次の 2 つの方法のいずれかで回避できます。
-> 
-> * 1 つ目は、**iOS ビルド** オプションの**追加 mtouch 引数**に `--linkskip System.Core` を追加することです。
-> * または、**iOS ビルド** オプションで Xamarin.iOS の **[リンカーの動作]** を `Don't Link` に設定します。
+> Entity Framework Core ではリフレクションを使用して、 **リリース** モード構成中は Xamarin.iOS リンカーによって削除できる関数が呼び出されます。 これは、次の 2 つの方法のいずれかで回避できます。
+>
+> * 1 つ目は、 **iOS ビルド** オプションの **追加 mtouch 引数** に `--linkskip System.Core` を追加することです。
+> * または、 **iOS ビルド** オプションで Xamarin.iOS の **[リンカーの動作]** を `Don't Link` に設定します。
 > [こちらの記事に、Xamarin.iOS リンカーについての詳細が記載されています](/xamarin/ios/deploy-test/linker) (Xamarin.iOS の動作を設定する方法など)。
-> 
+>
 
 ## <a name="entity-framework-core-nuget-packages"></a>Entity Framework Core NuGet パッケージ
 
@@ -206,6 +206,6 @@ using (var blogContext = new BloggingContext())
 
 Xamarin 開発者にお勧めのその他の Entity Framework Core トピック:
 
-* [`DbContext` の構成](xref:core/miscellaneous/configuring-dbcontext)
+* [`DbContext` の構成](xref:core/dbcontext-configuration/index)
 * [LINQ クエリ式](/dotnet/csharp/programming-guide/concepts/linq/basic-linq-query-operations)について参照してください
 * [required](xref:core/modeling/entity-properties#required-and-optional-properties) や [maximum length](xref:core/modeling/entity-properties#maximum-length) などを指定し、[モデルを構成](xref:core/modeling/index)します

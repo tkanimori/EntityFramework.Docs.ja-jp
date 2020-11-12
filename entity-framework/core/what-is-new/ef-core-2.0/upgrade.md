@@ -4,12 +4,12 @@ description: Entity Framework Core 2.0 へのアップグレードの手順と�
 author: ajcvickers
 ms.date: 08/13/2017
 uid: core/what-is-new/ef-core-2.0/upgrade
-ms.openlocfilehash: c7c736629209da99f191ceb0d4000d19f40414b9
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 5054661d308e7ea6acd433981dfb2af6026b7765
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063440"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430093"
 ---
 # <a name="upgrading-applications-from-previous-versions-to-ef-core-20"></a>以前のバージョンから EF Core 2.0 へのアプリケーションのアップグレード
 
@@ -17,11 +17,11 @@ ms.locfileid: "92063440"
 
 既存のアプリケーションを EF Core 2.0 に更新する場合は、次のことが必要になることがあります。
 
-1. アプリケーションのターゲット .NET 実装を、.NET Standard 2.0 をサポートするものにアップグレードします。 詳細については、[サポートされている .NET 実装](xref:core/platforms/index)に関するページを参照してください。
+1. アプリケーションのターゲット .NET 実装を、.NET Standard 2.0 をサポートするものにアップグレードします。 詳細については、[サポートされている .NET 実装](xref:core/miscellaneous/platforms)に関するページを参照してください。
 
 2. EF Core 2.0 と互換性のあるターゲット データベース用のプロバイダーを特定します。 「[EF Core 2.0 には 2.0 データベース プロバイダーが必要](#ef-core-20-requires-a-20-database-provider)」を参照してください。
 
-3. すべての EF Core パッケージ (ランタイムおよびツール) を 2.0 にアップグレードします。 詳細については、「[EF Core のインストール](xref:core/get-started/install/index)」を参照してください。
+3. すべての EF Core パッケージ (ランタイムおよびツール) を 2.0 にアップグレードします。 詳細については、「[EF Core のインストール](xref:core/get-started/overview/install)」を参照してください。
 
 4. このドキュメントの残りの部分で説明されている破壊的変更を補正するために必要なコード変更を行います。
 
@@ -58,7 +58,7 @@ namespace AspNetCoreDotNetCore2._0App
 }
 ```
 
-アプリケーションを 2.0 に更新するとき、この新しいパターンを採用することを強くお勧めします。このことは、Entity Framework Core Migrations などの製品機能を動作させるために必要です。 もう 1 つの一般的な方法は、[*IDesignTimeDbContextFactory\<TContext> を実装する*](xref:core/miscellaneous/cli/dbcontext-creation#from-a-design-time-factory)ことです。
+アプリケーションを 2.0 に更新するとき、この新しいパターンを採用することを強くお勧めします。このことは、Entity Framework Core Migrations などの製品機能を動作させるために必要です。 もう 1 つの一般的な方法は、 [*IDesignTimeDbContextFactory\<TContext> を実装する*](xref:core/cli/dbcontext-creation#from-a-design-time-factory)ことです。
 
 ## <a name="idbcontextfactory-renamed"></a>IDbContextFactory の名前変更
 
@@ -96,7 +96,7 @@ SQL Server および SQLite プロバイダーは EF チームによって出荷
 
 [ILogger](/dotnet/api/microsoft.extensions.logging.ilogger) に送信されるメッセージのイベント ID が 2.0 で変更されました。 イベント ID が EF Core コード全体で一意になりました。 これらのメッセージはまた、たとえば MVC で使用される構造化されたログ記録の標準パターンに従います。
 
-ロガー カテゴリも変更されました。 現在、[DbLoggerCategory](https://github.com/aspnet/EntityFrameworkCore/blob/rel/2.0.0/src/EFCore/DbLoggerCategory.cs) 経由でアクセスされる既知のカテゴリ セットがあります。
+ロガー カテゴリも変更されました。 現在、[DbLoggerCategory](https://github.com/dotnet/efcore/blob/rel/2.0.0/src/EFCore/DbLoggerCategory.cs) 経由でアクセスされる既知のカテゴリ セットがあります。
 
 [DiagnosticSource](https://github.com/dotnet/corefx/blob/master/src/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) イベントでは、それに対応する `ILogger` メッセージと同じイベント ID 名が使用されるようになりました。 イベント ペイロードはすべて、[EventData](/dotnet/api/microsoft.entityframeworkcore.diagnostics.eventdata) から派生する標準型です。
 
@@ -106,7 +106,7 @@ ID もまた、Microsoft.EntityFrameworkCore.Infrastructure から新しい Micr
 
 ## <a name="ef-core-relational-metadata-api-changes"></a>EF Core リレーショナル メタデータ API の変更
 
-EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](/dotnet/api/microsoft.entityframeworkcore.metadata.imodel) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、_一般的なリレーショナル メタデータ コンセプト_へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。たとえば、次のような 1.1.x コードがあるとします。
+EF Core 2.0 は、使用されるプロバイダーごとに異なる [IModel](/dotnet/api/microsoft.entityframeworkcore.metadata.imodel) をビルドするようになりました。 これは通常、アプリケーションに対して透過的です。 下位レベルのメタデータ API が単純になり、 _一般的なリレーショナル メタデータ コンセプト_ へのあらゆるアクセスが `.SqlServer` や `.Sqlite` などではなく、`.Relational` の呼び出しで常に行われます。たとえば、次のような 1.1.x コードがあるとします。
 
 ```csharp
 var tableName = context.Model.FindEntityType(typeof(User)).SqlServer().TableName;
@@ -125,7 +125,7 @@ modelBuilder.Entity<User>().ToTable(
     Database.IsSqlServer() ? "SqlServerName" : "OtherName");
 ```
 
-この変更は_すべての_リレーショナル プロバイダーに対して定義されている API およびメタデータにのみ適用されることに注意してください。 API とメタデータは、1 つのプロバイダーのみに限定されている場合、変りありません。 たとえば、クラスター化インデックスは SQL Server に固有のものであるため、`ForSqlServerIsClustered` と `.SqlServer().IsClustered()` を引き続き使用する必要があります。
+この変更は _すべての_ リレーショナル プロバイダーに対して定義されている API およびメタデータにのみ適用されることに注意してください。 API とメタデータは、1 つのプロバイダーのみに限定されている場合、変りありません。 たとえば、クラスター化インデックスは SQL Server に固有のものであるため、`ForSqlServerIsClustered` と `.SqlServer().IsClustered()` を引き続き使用する必要があります。
 
 ## <a name="dont-take-control-of-the-ef-service-provider"></a>EF サービス プロバイダーを制御しない
 

@@ -4,12 +4,12 @@ description: Entity Framework Core 2.1 での変更点と改善点
 author: ajcvickers
 ms.date: 02/20/2018
 uid: core/what-is-new/ef-core-2.1
-ms.openlocfilehash: c98a44f9bc06447bb41f0278c59b412f770c5bd4
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: f235c310cbd336da65cd05d25e1338d87534eb2a
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92065707"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429339"
 ---
 # <a name="new-features-in-ef-core-21"></a>EF Core 2.1 の新機能
 
@@ -154,7 +154,7 @@ public class Order
 
 _dotnet-ef_ コマンドは .NET Core SDK の一部になりました。したがって、移行を使用したり、既存のデータベースから DbContext をスキャフォールディングしたりするために、プロジェクトで DotNetCliToolReference を利用する必要がなくなります。
 
-さまざまなバージョンの .NET Core SDK と EF Core でコマンド ライン ツールを有効にする方法の詳細については、「[ツールのインストール](xref:core/miscellaneous/cli/dotnet#installing-the-tools)」のセクションを参照してください。
+さまざまなバージョンの .NET Core SDK と EF Core でコマンド ライン ツールを有効にする方法の詳細については、「[ツールのインストール](xref:core/cli/dotnet#installing-the-tools)」のセクションを参照してください。
 
 ## <a name="microsoftentityframeworkcoreabstractions-package"></a>Microsoft.EntityFrameworkCore.Abstractions パッケージ
 
@@ -166,7 +166,7 @@ _dotnet-ef_ コマンドは .NET Core SDK の一部になりました。した�
 
 ## <a name="raw-sql-parameter-analyzer"></a>生 SQL パラメーター アナライザー
 
-EF Core に組み込まれた新しいコード アナライザーは、`FromSql` や `ExecuteSqlCommand` などの生 SQL API の安全ではない可能性がある使用法を検出します。 たとえば次のクエリでは、_minAge_ がパラメーター化されていないため、警告が発生します。
+EF Core に組み込まれた新しいコード アナライザーは、`FromSql` や `ExecuteSqlCommand` などの生 SQL API の安全ではない可能性がある使用法を検出します。 たとえば次のクエリでは、 _minAge_ がパラメーター化されていないため、警告が発生します。
 
 ```csharp
 var sql = $"SELECT * FROM People WHERE Age > {minAge}";
@@ -178,4 +178,4 @@ var query = context.People.FromSql(sql);
 EF Core 2.1 を操作する場合は、更新済みであるか、少なくともテスト済みであるプロバイダーで EF Core 2.1 を使用することをお勧めします。
 
 > [!TIP]
-> 予期しない非互換性や新機能で何らかの問題が見つかった場合、またはそれらに対するフィードバックがある場合は、[問題の追跡ツール](https://github.com/aspnet/EntityFrameworkCore/issues/new)を使用して報告してください。
+> 予期しない非互換性や新機能で何らかの問題が見つかった場合、またはそれらに対するフィードバックがある場合は、[問題の追跡ツール](https://github.com/dotnet/efcore/issues/new)を使用して報告してください。

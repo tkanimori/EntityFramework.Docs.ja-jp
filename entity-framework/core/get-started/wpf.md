@@ -5,12 +5,12 @@ author: jeremylikness
 ms.author: jeliknes
 ms.date: 07/24/2020
 uid: core/get-started/wpf
-ms.openlocfilehash: 1198da5c9564663ca26392b33462c727275a432d
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: f183064fafbe2d0e7b8dbdafa921169afc9ffe78
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89619304"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429924"
 ---
 # <a name="getting-started-with-wpf"></a>WPF の概要
 
@@ -25,16 +25,14 @@ ms.locfileid: "89619304"
 
 ## <a name="pre-requisites"></a>前提条件
 
-* このチュートリアルを完了するには、Visual Studio 2019 16.3 以降がインストールされ、 **.NET デスクトップ ワークロード**が選択されている必要があります。
-    
-    Visual Studio の最新バージョンのインストールの詳細については、「[Visual Studio のインストール](/visualstudio/install/install-visual-studio)」を参照してください。
+このチュートリアルを完了するには、Visual Studio 2019 16.3 以降がインストールされ、 **.NET デスクトップ ワークロード** が選択されている必要があります。 Visual Studio の最新バージョンのインストールの詳細については、「[Visual Studio のインストール](/visualstudio/install/install-visual-studio)」を参照してください。
 
 ## <a name="create-the-application"></a>アプリケーションを作成する
 
 1. Visual Studio を開く
-2. スタート ウィンドウで、**[新しいプロジェクトの作成]** を選択します。
+2. スタート ウィンドウで、 **[新しいプロジェクトの作成]** を選択します。
 3. "WPF" を検索し、 **[WPF アプリ (.NET Core)]** を選択して、 **[次へ]** を選択します。
-4. 次の画面で、プロジェクトの名前を指定し (例: **GetStartedWPF**)、 **[作成]** を選択します。
+4. 次の画面で、プロジェクトの名前を指定し (例: **GetStartedWPF** )、 **[作成]** を選択します。
 
 ## <a name="install-the-entity-framework-nuget-packages"></a>Entity Framework NuGet パッケージをインストールする
 
@@ -48,10 +46,10 @@ ms.locfileid: "89619304"
 
     ![Sqlite パッケージ](_static/wpf-tutorial-sqlite.jpg)
 
-1. 同じようにして、`entityframeworkcore.proxies` を検索し、**Microsoft.EntityFrameworkCore.Proxies** をインストールします。
+1. 同じようにして、`entityframeworkcore.proxies` を検索し、 **Microsoft.EntityFrameworkCore.Proxies** をインストールします。
 
 > [!NOTE]
-> Sqlite パッケージをインストールすると、関連する **Microsoft.EntityFrameworkCore** 基本パッケージが自動的にプルされます。 **Microsoft.EntityFrameworkCore.Proxies** パッケージでは、データの "遅延読み込み" がサポートされています。 これは、子エンティティを持つエンティティがある場合、最初の読み込みでは親のみがフェッチされることを意味します。 子エンティティにアクセスしようとすると、プロキシによって検出され、必要に応じて自動的に読み込まれます。 
+> Sqlite パッケージをインストールすると、関連する **Microsoft.EntityFrameworkCore** 基本パッケージが自動的にプルされます。 **Microsoft.EntityFrameworkCore.Proxies** パッケージでは、データの "遅延読み込み" がサポートされています。 これは、子エンティティを持つエンティティがある場合、最初の読み込みでは親のみがフェッチされることを意味します。 子エンティティにアクセスしようとすると、プロキシによって検出され、必要に応じて自動的に読み込まれます。
 
 ## <a name="define-a-model"></a>モデルを定義する
 
@@ -69,7 +67,7 @@ ms.locfileid: "89619304"
 
 [!code-csharp[](../../../samples/core/WPF/GetStartedWPF/GetStartedWPF/Category.cs)]
 
-**Category** クラスの **Products** プロパティと、**Product** クラスの **Category** プロパティは、ナビゲーション プロパティです。 Entity Framework では、ナビゲーション プロパティによって、2 つのエンティティ型間のリレーションシップをナビゲートする手段が提供されます。
+**Category** クラスの **Products** プロパティと、 **Product** クラスの **Category** プロパティは、ナビゲーション プロパティです。 Entity Framework では、ナビゲーション プロパティによって、2 つのエンティティ型間のリレーションシップをナビゲートする手段が提供されます。
 
 エンティティを定義するだけでなく、DbContext から派生して DbSet&lt;TEntity&gt; プロパティを公開するクラスを定義する必要があります。 DbSet&lt;TEntity&gt; プロパティにより、モデルに含める型をコンテキストに認識させることができます。
 
@@ -82,7 +80,7 @@ DbContext の派生型のインスタンスによって、実行時にエンテ�
 [!code-csharp[](../../../samples/core/WPF/GetStartedWPF/GetStartedWPF/ProductContext.cs)]
 
 * `DbSet` により、データベースにマップする必要のある C# エンティティが EF Core に示されます。
-* EF Core の `DbContext` を構成するには、さまざまな方法があります。 詳しくは次を参照してください: 「[DbContext の構成](xref:core/miscellaneous/configuring-dbcontext)」。
+* EF Core の `DbContext` を構成するには、さまざまな方法があります。 詳しくは次を参照してください: 「[DbContext の構成](xref:core/dbcontext-configuration/index)」。
 * この例では、`OnConfiguring` のオーバーライドを使用して、Sqlite データ ファイルを指定します。
 * `UseLazyLoadingProxies` の呼び出しにより、遅延読み込みを実装するよう EF Core に指示されるため、子エンティティは親からアクセスされた時点で自動的に読み込まれます。
 
@@ -93,11 +91,11 @@ DbContext の派生型のインスタンスによって、実行時にエンテ�
 
 ## <a name="lazy-loading"></a>遅延読み込み
 
-**Category** クラスの **Products** プロパティと、**Product** クラスの **Category** プロパティは、ナビゲーション プロパティです。 Entity Framework Core では、ナビゲーション プロパティによって、2 つのエンティティ型間のリレーションシップをナビゲートする手段が提供されます。
+**Category** クラスの **Products** プロパティと、 **Product** クラスの **Category** プロパティは、ナビゲーション プロパティです。 Entity Framework Core では、ナビゲーション プロパティによって、2 つのエンティティ型間のリレーションシップをナビゲートする手段が提供されます。
 
 EF Core を使用すると、ナビゲーション プロパティに初めてアクセスしたときに、関連エンティティをデータベースから自動的に読み込むことができます。 この種類の読み込み (遅延読み込みと呼ばれます) では、各ナビゲーション プロパティに初めてアクセスしたときに、コンテンツがコンテキスト内に存在しない場合、データベースに対して別のクエリが実行されることに注意してください。
 
-"単純な従来の C# オブジェクト" (POCO) エンティティ型を使用すると、EF Core では、実行中に派生プロキシ型のインスタンスを作成してから、クラス内の仮想プロパティをオーバーライドして読み込みフックを追加することにより、遅延読み込みが実現されます。 関連オブジェクトの遅延読み込みを行うには、ナビゲーション プロパティ ゲッターを **public** および **virtual** (Visual Basic では **Overridable**) として宣言する必要があり、クラスを **sealed** (Visual Basic では **NotOverridable**) にしないようにする必要があります。 Database First を使用すると、遅延読み込みを有効にするために、ナビゲーション プロパティは自動的に virtual にされます。 
+"単純な従来の C# オブジェクト" (POCO) エンティティ型を使用すると、EF Core では、実行中に派生プロキシ型のインスタンスを作成してから、クラス内の仮想プロパティをオーバーライドして読み込みフックを追加することにより、遅延読み込みが実現されます。 関連オブジェクトの遅延読み込みを行うには、ナビゲーション プロパティ ゲッターを **public** および **virtual** (Visual Basic では **Overridable** ) として宣言する必要があり、クラスを **sealed** (Visual Basic では **NotOverridable** ) にしないようにする必要があります。 Database First を使用すると、遅延読み込みを有効にするために、ナビゲーション プロパティは自動的に virtual にされます。
 
 ## <a name="bind-object-to-controls"></a>オブジェクトをコントロールにバインドする
 
@@ -143,7 +141,7 @@ EF Core を使用すると、ナビゲーション プロパティに初めて�
 
 これにより、フォームのコード ビハインドが表示されます。`ProductContext` を使用してデータ アクセスを実行するように、コードを編集します。 次に示すようにコードを更新します。
 
-このコードでは、`ProductContext` の実行時間の長いインスタンスが宣言されています。 データをクエリしてデータベースに保存するには、`ProductContext` オブジェクトを使用します。 その後、`ProductContext` インスタンスの `Dispose()` メソッドを、オーバーライドされた `OnClosing` メソッドから呼び出します。コードのコメントで各ステップの動作内容が説明されています。
+このコードでは、`ProductContext` の実行時間の長いインスタンスが宣言されています。 データをクエリしてデータベースに保存するには、`ProductContext` オブジェクトを使用します。 その後、`ProductContext` インスタンスの `Dispose()` メソッドを、オーバーライドされた `OnClosing` メソッドから呼び出します。 コードのコメントで各ステップの動作内容が説明されています。
 
 **`MainWindow.xaml.cs`**
 
@@ -174,4 +172,4 @@ EF Core を使用すると、ナビゲーション プロパティに初めて�
 
 ## <a name="next-steps"></a>次の手順
 
-[DbContext の構成](xref:core/miscellaneous/configuring-dbcontext)の詳細について確認します。
+[DbContext の構成](xref:core/dbcontext-configuration/index)の詳細について確認します。
