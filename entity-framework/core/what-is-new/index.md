@@ -2,14 +2,14 @@
 title: EF Core のリリースと計画
 description: 現在の EF Core のリリースと、今後のリリースのスケジュール/計画の詳細
 author: ajcvickers
-ms.date: 06/11/2020
+ms.date: 10/11/2020
 uid: core/what-is-new/index
-ms.openlocfilehash: 24b814bd906ece9cc485bf96713b9f8feac5eb2c
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 983a8b21d353481df4f1db232d00761e070d893b
+ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430535"
+ms.lasthandoff: 11/11/2020
+ms.locfileid: "94503143"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core のリリースと計画
 
@@ -17,7 +17,8 @@ ms.locfileid: "94430535"
 
 | リリース | [対象とする Framework] | サポート期限 | リンク
 |:--------|------------------|-----------------|------
-| [EF Core 3.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) | .NET Standard 2.0 | 2022 年 12 月 3 日 (LTS) | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
+| [EF Core 5.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore) | .NET Standard 2.1 | 2022 年 2 月中旬 | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-the-release-of-ef-core-5-0/) / [破壊的変更](xref:core/what-is-new/ef-core-5.0/breaking-changes)
+| [EF Core 3.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.1.10) | .NET Standard 2.0 | 2022 年 12 月 3 日 (LTS) | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-3-1-and-entity-framework-6-4/)
 | ~~[EF Core 3.0](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/3.0.3)~~ | .NET Standard 2.1 | 2020 年 3 月 3 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-ef-core-3-0-and-ef-6-3-general-availability/) / [破壊的変更](xref:core/what-is-new/ef-core-3.x/breaking-changes)
 | ~~[EF Core 2.2](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.2.6)~~ | .NET Standard 2.0 | 2019 年 12 月 23 日に期限切れ | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-2/)
 | [EF Core 2.1](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore/2.1.14) | .NET Standard 2.0 | 2021 年 8 月 21 日 (LTS) | [お知らせ](https://devblogs.microsoft.com/dotnet/announcing-entity-framework-core-2-1/)
@@ -31,7 +32,7 @@ ms.locfileid: "94430535"
 
 ## <a name="guidance-on-updating-to-new-releases"></a>新しいリリースへの更新に関するガイダンス
 
-* サポートされているリリースでは、セキュリティおよびその他の重要なバグが修正されています。 常に、特定のリリースの最新のパッチを使用してください。 たとえば、EF Core 2.1 の場合は、2.1.14 を使用します。
+* サポートされているリリースでは、セキュリティおよびその他の重要なバグが修正されています。 常に、特定のリリースの最新のパッチを使用してください。 たとえば、EF Core 2.1 では、使用可能な最高の "x" に対して 2.1. x を使用します。
 * メジャー バージョンの更新 (たとえば、EF Core 2 から EF Core 3) には、多くの場合、破壊的変更が含まれています。 メジャー バージョン間で更新を行う場合は、完全なテストを行うことをお勧めします。 破壊的変更に対処するためのガイダンスについては、上の破壊的変更に関するリンクをご覧ください。
 * マイナー バージョンの更新には、通常、破壊的変更は含まれていません。 ただし、新しい機能によって回帰が生じる可能性があるため、やはり完全なテストを行うことをお勧めします。
 
@@ -45,11 +46,11 @@ Microsoft では、これを改善するために取り組んでいます。
 各リリースで出荷される内容の決定方法の詳細については、「[リリースの計画プロセス](xref:core/what-is-new/release-planning)」を参照してください。
 通常、次のメジャー リリースまたはマイナー リリースよりもさらに詳細な計画を行うことはありません。
 
-## <a name="ef-core-50"></a>EF Core 5.0
+## <a name="ef-core-60"></a>EF Core 6.0
 
-次に予定されている安定版リリースは、2020 年 11 月にスケジュールされている **EF Core 5.0** です。
+次に予定されている安定版リリースは、 **2021 年 11 月** にスケジュールされている **EF Core 6.0** です。
 
-[EF Core 5.0 の大まかな計画](xref:core/what-is-new/ef-core-5.0/plan)は、[リリース計画プロセス](xref:core/what-is-new/release-planning)のドキュメントに従って作成されています。
+現在、[リリース計画プロセス](xref:core/what-is-new/release-planning)に基づいて、高レベルの計画に取り組んでいます。
 
 計画に関するフィードバックは重要です。
 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指 👍) することです。
@@ -57,12 +58,12 @@ Microsoft では、これを改善するために取り組んでいます。
 
 ### <a name="get-it-now"></a>今すぐ入手する
 
-EF Core 5.0 のパッケージは **今すぐ** 、
+EF Core 6.0 のパッケージは **今すぐ** 、
 
 * [デイリー ビルド](https://github.com/dotnet/aspnetcore/blob/master/docs/DailyBuilds.md)として入手できます。
   * すべての最新の機能とバグの修正。 一般に非常に安定しています。57,000 以上のテストが各ビルドに対して実行されます。
-* [NuGet でのプレビュー](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore)
-  * デイリー ビルドに対して遅れはありますが、対応する ASP.NET Core および .NET Core のプレビューで機能することがテストされます。
+
+また、進行状況に応じて、頻繁なプレビューが NuGet にプッシュされます。 デイリー ビルドに対してプレビューの遅れはありますが、対応する ASP.NET Core および .NET Core のプレビューで機能することがテストされます。
 
 デイリー ビルドのプレビューを使用することは、イシューを発見し、できるだけ早くフィードバックを提供するための優れた方法です。
 フィードバックが早く得られるほど、次の公式リリースまでに対処できる可能性が高くなります。

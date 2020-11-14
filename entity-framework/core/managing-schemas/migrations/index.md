@@ -2,14 +2,14 @@
 title: 移行の概要 - EF Core
 description: Entity Framework Core で移行を使用してデータベース スキーマを管理する方法の概要
 author: bricelam
-ms.date: 05/06/2020
+ms.date: 10/28/2020
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: eea2c32cccbb678cacaa63760c4f7d36d2d19bb1
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 9f1c9e266d60b7ed4aed783bb8e01864c93867ea
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062283"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429820"
 ---
 # <a name="migrations-overview"></a>移行の概要
 
@@ -38,14 +38,14 @@ public class Blog
 
 ### <a name="install-the-tools"></a>ツールのインストール
 
-まず、[EF Core のコマンドライン ツール](xref:core/miscellaneous/cli/index)をインストールする必要があります。
+まず、[EF Core のコマンドライン ツール](xref:core/cli/index)をインストールする必要があります。
 
-* 一般的に、どのプラットフォームでも動作する [.NET Core CLI ツール](xref:core/miscellaneous/cli/dotnet)の使用が推奨されます。
-* Visual Studio 内で作業するのに慣れている場合や、EF6 での移行経験がある場合は、[パッケージ マネージャー コンソール ツール](xref:core/miscellaneous/cli/powershell)を使用することもできます。
+* 一般的に、どのプラットフォームでも動作する [.NET Core CLI ツール](xref:core/cli/dotnet)の使用が推奨されます。
+* Visual Studio 内で作業するのに慣れている場合や、EF6 での移行経験がある場合は、[パッケージ マネージャー コンソール ツール](xref:core/cli/powershell)を使用することもできます。
 
 ### <a name="create-your-first-migration"></a>ご自分の最初の移行を作成する
 
-これで、ご自分の最初の移行を追加する準備ができました。 EF Core に **InitialCreate**という名前の移行を作成するように指示します。
+これで、ご自分の最初の移行を追加する準備ができました。 EF Core に **InitialCreate** という名前の移行を作成するように指示します。
 
 #### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
@@ -59,9 +59,9 @@ dotnet ef migrations add InitialCreate
 Add-Migration InitialCreate
 ```
 
-***
+**_
 
-EF Core により、ご自分のプロジェクトに **Migrations** というディレクトリが作成され、いくつかのファイルが生成されます。 EF Core で生成された内容を確認し、場合によっては修正することが推奨されますが、ここではそれは省きます。
+EF Core により、ご自分のプロジェクトに _ *Migrations* * というディレクトリが作成され、いくつかのファイルが生成されます。 EF Core で生成された内容を確認し、場合によっては修正することが推奨されますが、ここではそれは省きます。
 
 ### <a name="create-your-database-and-schema"></a>ご自分のデータベースとスキーマを作成する
 
@@ -72,13 +72,14 @@ EF Core により、ご自分のプロジェクトに **Migrations** という�
 ```dotnetcli
 dotnet ef database update
 ```
+
 #### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ```powershell
 Update-Database
 ```
 
-***
+**_
 
 これで完了です。SQL を 1 行も記述せずに、ご自分のアプリケーションをご自分の新しいデータベースで実行する準備ができました。 この方法での移行の適用は、ローカルでの開発には適していますが、運用環境には適していません。詳細については、[移行の適用](xref:core/managing-schemas/migrations/applying)に関するページを参照してください。
 
@@ -109,7 +110,7 @@ dotnet ef migrations add AddBlogCreatedTimestamp
 Add-Migration AddBlogCreatedTimestamp
 ```
 
-***
+_*_
 
 移行には、後でプロジェクト履歴がわかりやすいように、わかりやすい名前が付いていることに着目してください。
 
@@ -117,21 +118,39 @@ Add-Migration AddBlogCreatedTimestamp
 
 これで、以前と同じようにご自分の移行を適用できるようになりました。
 
+<!--markdownlint-disable MD024-->
+
 #### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)
 
 ```dotnetcli
 dotnet ef database update
 ```
+
 #### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 ```powershell
 Update-Database
 ```
 
-***
+<!--markdownlint-enable MD024-->
+
+_*_
 
 今回は、データベースが既に存在していることが EF によって検出されていることに着目してください。 また、上記の最初の移行が適用されたとき、その事実がご自分のデータベースの特別な移行履歴テーブルに記録されました。これにより、EF は新しい移行のみを自動的に適用します。
 
+### <a name="excluding-parts-of-your-model"></a>モデルの一部を除外する
+
+> [!NOTE]
+> この機能は、EF Core 5.0 で追加されました。
+
+別の DbContext の型を参照する必要がある場合があります。 これにより、移行の競合が発生する可能性があります。 これを回避するには、いずれかの DbContext の移行から型を除外します。
+
+[!code-csharp[](../../../../samples/core/Modeling/FluentAPI/TableExcludeFromMigrations.cs#TableExcludeFromMigrations)]
+
 ### <a name="next-steps"></a>次の手順
 
-上では、移行について簡単に説明しました。 [移行の管理](xref:core/managing-schemas/migrations/managing)および[それの適用](xref:core/managing-schemas/migrations/applying)などについては、その他のドキュメント ページを参照してください。 [.NET Core CLI ツール リファレンス](xref:core/miscellaneous/cli/index)にも、さまざまなコマンドに関する有用な情報があります。
+上では、移行について簡単に説明しました。 [移行の管理](xref:core/managing-schemas/migrations/managing)および[それの適用](xref:core/managing-schemas/migrations/applying)などについては、その他のドキュメント ページを参照してください。 [.NET Core CLI ツール リファレンス](xref:core/cli/index)にも、さまざまなコマンドに関する有用な情報があります。
+
+## <a name="additional-resources"></a>その他のリソース
+
+EF Core 5.0 の新しい移行機能について詳しく調べる [EF Core コミュニティ スタンドアップ セッション](https://www.youtube.com/watch?v=mSsGERmrhnE&list=PLdo4fOcmZ0oX-DBuRG4u58ZTAJgBAeQ-t&index=20)。

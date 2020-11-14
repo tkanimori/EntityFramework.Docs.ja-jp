@@ -2,29 +2,46 @@
 title: モデルの作成と構成 - EF Core
 description: Entity Framework Core を使用したモデルの作成と構成の概要
 author: AndriySvyryd
-ms.date: 11/05/2019
+ms.date: 10/13/2020
 uid: core/modeling/index
-ms.openlocfilehash: 7f8ef17f33a294dc0b8cc9c4e514a8a29b761342
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: b18db0059efd335abe2fc44bbc78e0106717e058
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063063"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429612"
 ---
 # <a name="creating-and-configuring-a-model"></a>モデルの作成と構成
 
 Entity Framework では、一連の規則を利用し、エンティティ クラスの形状に基づいてモデルがビルドされます。 規則にあるものを捕捉する/オーバーライドする目的で、追加構成を指定できます。
 
-この記事では、あらゆるデータ ストアをターゲットにするモデルに適用できる構成、あらゆるリレーショナル データベースをターゲットにするときに適用できる構成について取り上げます。 プロバイダーも、特定のデータ ストアに固有の構成を有効にできます。 プロバイダー固有の構成については、「 [データベース プロバイダー](xref:core/providers/index) 」セクションを参照してください。
+この記事では、あらゆるデータ ストアをターゲットにするモデルに適用できる構成、あらゆるリレーショナル データベースをターゲットにするときに適用できる構成について取り上げます。 プロバイダーも、特定のデータ ストアに固有の構成を有効にできます。 プロバイダー固有の構成については、「[データベース プロバイダー](xref:core/providers/index)」セクションを参照してください。
 
 > [!TIP]  
-> この記事の [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples) は GitHub で確認できます。
+> この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples)は GitHub で確認できます。
 
 ## <a name="use-fluent-api-to-configure-a-model"></a>fluent API を使用してモデルを構成する
 
-派生コンテキストで  `OnModelCreating`  メソッドをオーバーライドし、 `ModelBuilder API` を使用してモデルを構成できます。 これは最も強力な構成方法であり、エンティティ クラスを変更しなくても構成を指定できます。 Fluent API 構成には一番上の優先度が与えられ、規則やデータ注釈をオーバーライドします。
+派生コンテキストで `OnModelCreating` メソッドをオーバーライドし、`ModelBuilder API` を使用してモデルを構成できます。 これは最も強力な構成方法であり、エンティティ クラスを変更しなくても構成を指定できます。 Fluent API 構成には一番上の優先度が与えられ、規則やデータ注釈をオーバーライドします。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Required.cs?highlight=12-14)]
+
+### <a name="grouping-configuration"></a>構成のグループ化
+
+<xref:System.Data.Entity.DbContext.OnModelCreating%2A> メソッドのサイズを小さくするため、エンティティ型のすべての構成を、<xref:Microsoft.EntityFrameworkCore.IEntityTypeConfiguration%601> を実装する個別のクラスに抽出できます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/EntityTypeConfiguration.cs?Name=IEntityTypeConfiguration)]
+
+その後、`OnModelCreating` から `Configure` メソッドを呼び出すだけです。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/EntityTypeConfiguration.cs?Name=ApplyIEntityTypeConfiguration)]
+
+特定のアセンブリ内の `IEntityTypeConfiguration` を実装する型で指定されたすべての構成を適用できます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/EntityTypeConfiguration.cs?Name=ApplyConfigurationsFromAssembly)]
+
+> [!NOTE]
+> 構成が適用される順序は定義されていないため、このメソッドは順序が重要でない場合にのみ使用する必要があります。
 
 ## <a name="use-data-annotations-to-configure-a-model"></a>データ注釈を使用してモデルを構成する
 

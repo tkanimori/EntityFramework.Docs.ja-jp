@@ -10,17 +10,17 @@ metadata:
   author: WadePickett
   ms.author: wpickett
   ms.date: 04/15/2020
-  ms.openlocfilehash: a97ca698d4fcd2cf26066e6088a0f88ebc5cf187
-  ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+  ms.openlocfilehash: 6d10d0c8487114548ed70d5ad9b152010ccfbf69
+  ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
   ms.translationtype: HT
   ms.contentlocale: ja-JP
-  ms.lasthandoff: 09/14/2020
-  ms.locfileid: "90070355"
+  ms.lasthandoff: 11/10/2020
+  ms.locfileid: "94429196"
 highlightedContent:
   items:
   - title: Entity Framework Core
     itemType: get-started
-    url: core/get-started/index.md
+    url: core/get-started/overview/first-app.md
   - title: Entity Framework Core でリレーショナル データを保持および取得する
     itemType: learn
     url: /learn/modules/persist-data-ef-core/
@@ -36,13 +36,16 @@ highlightedContent:
   - title: API リファレンス ブラウザー
     itemType: reference
     url: /dotnet/api/?view=efcore-3.1
+  - title: EF Core 6 のアンケートに答える
+    itemType: reference
+    url: https://www.surveymonkey.com/r/XRL3JBL
 additionalContent:
   sections:
   - title: Entity Framework Core を使用して開発する
     items:
     - title: 最初のアプリを開発する
       links:
-      - url: core/get-started/index.md
+      - url: core/get-started/overview/first-app.md
         text: EF Core を使用して SQLite にアクセスする .NET Core コンソール アプリ
       - url: /aspnet/core/data/ef-rp/
         text: EF Core を使用して SQL Server LocalDB または SQLite にアクセスする ASP.NET Core Razor Pages Web アプリ
@@ -70,7 +73,7 @@ additionalContent:
         text: 現在のすべてのデータベース プロバイダー
     - title: プラットフォーム
       links:
-      - url: core/platforms/index.md
+      - url: core/miscellaneous/platforms.md
         text: すべてのサポートされているプラットフォーム
       - url: /aspnet/core/data/ef-rp/intro
         text: ASP.NET Core Razor Pages
@@ -88,13 +91,13 @@ additionalContent:
       links:
       - url: core/miscellaneous/connection-strings.md
         text: 接続文字列
-      - url: core/miscellaneous/logging.md
+      - url: core/logging-events-diagnostics/index.md
         text: ログの記録
       - url: core/miscellaneous/connection-resiliency.md
         text: 接続の復元性
-      - url: core/miscellaneous/testing/index.md
+      - url: core/testing/index.md
         text: テスト
-      - url: core/miscellaneous/configuring-dbcontext.md
+      - url: core/dbcontext-configuration/index.md
         text: DbContext を構成する
       - url: core/miscellaneous/nullable-reference-types.md
         text: null 許容参照型
@@ -178,15 +181,15 @@ additionalContent:
         text: 接続解除エンティティ
     - title: コマンド ライン リファレンス
       links:
-      - url: core/miscellaneous/cli/index.md
+      - url: core/cli/index.md
         text: 概要
-      - url: core/miscellaneous/cli/powershell.md
+      - url: core/cli/powershell.md
         text: パッケージ マネージャー コンソール (Visual Studio)
-      - url: core/miscellaneous/cli/dotnet.md
+      - url: core/cli/dotnet.md
         text: .NET Core CLI
-      - url: core/miscellaneous/cli/dbcontext-creation.md
+      - url: core/cli/dbcontext-creation.md
         text: デザイン時 DbContext 作成
-      - url: core/miscellaneous/cli/services.md
+      - url: core/cli/services.md
         text: デザイン時サービス
     - title: 以前のバージョン
       links:

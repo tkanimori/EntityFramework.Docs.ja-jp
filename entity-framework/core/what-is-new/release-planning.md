@@ -4,12 +4,12 @@ description: Entity Framework Core の計画とリリースの方法に関する
 author: ajcvickers
 ms.date: 01/28/2020
 uid: core/what-is-new/release-planning
-ms.openlocfilehash: 91a130b4ddae66f626bcff8e70283a7e03192542
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: f84b8cef40a74245575df6013d94fcda5738e229
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89618557"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429144"
 ---
 # <a name="release-planning-process"></a>リリースの計画プロセス
 
@@ -25,7 +25,7 @@ ms.locfileid: "89618557"
 ### <a name="patch-releases"></a>パッチ リリース
 
 パッチ リリースでは、バージョンの "パッチ" 部分のみが変更されます。
-たとえば、EF Core 3.1.**1** は、EF Core 3.1.**0** で見つかった問題を修正するためのリリースです。
+たとえば、EF Core 3.1. **1** は、EF Core 3.1. **0** で見つかった問題を修正するためのリリースです。
 
 パッチ リリースは、重大な顧客のバグを修正することを目的としています。
 つまり、パッチ リリースには、新機能は含まれていません。
@@ -36,14 +36,16 @@ ms.locfileid: "89618557"
 そのため、決定プロセスにおいては、高価値および低リスクが重要視されます。
 
 次の場合、問題が修正される可能性が高くなります。
-  * 複数の顧客に影響がある
-  * 以前のリリースからの再発である
-  * 問題が原因でデータが破損する
+
+* 複数の顧客に影響がある
+* 以前のリリースからの再発である
+* 問題が原因でデータが破損する
 
 次の場合、問題が修正される可能性は低くなります。
-  * 適切な回避策がある
-  * 修正によって他の問題が発生する危険性が高い
-  * バグが奥深い場所にある
+
+* 適切な回避策がある
+* 修正によって他の問題が発生する危険性が高い
+* バグが奥深い場所にある
 
 このハードルは、[長期サポート (LTS)](https://dotnet.microsoft.com/platform/support/policy/dotnet-core) リリースの有効期間において徐々に上がっていきます。 これは、LTS リリースでは安定性が重視されるためです。
 
@@ -52,9 +54,10 @@ ms.locfileid: "89618557"
 ### <a name="minor-releases"></a>マイナー リリース
 
 マイナー リリースでは、バージョンの "マイナー" 部分のみが変更されます。
-たとえば、EF Core 3.**1**.0 は、EF Core 3.**0**.0 に対する改良を行うためのリリースです。
+たとえば、EF Core 3. **1**.0 は、EF Core 3. **0**.0 に対する改良を行うためのリリースです。
 
 マイナー リリース:
+
 * 以前のリリースの品質と機能を改良することを目的としています
 * 通常、バグの修正と新機能が含まれています
 * 重大な変更は意図的には含まれません
@@ -66,6 +69,7 @@ ms.locfileid: "89618557"
 たとえば、EF Core **3**.0.0 は、EF Core 2.2.x を大きく前進させたメジャー リリースです。
 
 メジャー リリース:
+
 * 以前のリリースの品質と機能を改良することを目的としています
 * 通常、バグの修正と新機能が含まれています
   * EF Core の動作方法に対する根本的な変更となる新機能がある場合もあります
@@ -98,7 +102,7 @@ GitHub 上の問題には、次の情報があります。
   * バージョン番号が付けられたマイルストーン内の対応済みの問題は、そのバージョンで完了した問題です。 バージョンがまだリリースされていない可能性があることに注意してください。 たとえば、[これらは EF Core 3.0 で完了した問題です](https://github.com/dotnet/efcore/issues?q=is%3Aissue+milestone%3A3.0.0+is%3Aclosed)。
 * 投票
   * 投票は、ある問題が自分にとって重要であるということを示す、最善の方法です。
-  * 投票するには、その問題に対して "上向きの親指" 👍 を追加するだけです。 たとえば、[これらが投票数の多い問題です](https://github.com/dotnet/efcore/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
+  * 投票するには、その問題に対して "上向きの親指" 👍を追加するだけです。 たとえば、[これらが投票数の多い問題です](https://github.com/dotnet/efcore/issues?q=is%3Aissue+is%3Aopen+sort%3Areactions-%2B1-desc)
   * また、そうすることで効果が生まれると思われる場合は、機能を必要とする具体的な理由についてコメントしてください。 「+ 1」などのコメントを付けても、効果は生まれません。
 
 ### <a name="the-planning-process"></a>計画プロセス

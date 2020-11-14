@@ -4,12 +4,12 @@ description: Entity Framework Core 3.x での変更点と改善点
 author: ajcvickers
 ms.date: 09/05/2020
 uid: core/what-is-new/ef-core-3.x/index
-ms.openlocfilehash: b987ca1fdbe46105162c1c7623822e15bd01ef25
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 0c005345505c1c2f3712e489ab69ec4a20564293
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92065629"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429261"
 ---
 # <a name="new-features-in-entity-framework-core-3x"></a>Entity Framework Core 3.x の新機能
 
@@ -130,7 +130,7 @@ public class HintCommandInterceptor : DbCommandInterceptor
 }
 ```
 
-次に、 `DbContext` にこれを登録します。
+次に、それを `DbContext` に登録します。
 
 ```csharp
 services.AddDbContext(b => b
@@ -143,7 +143,7 @@ services.AddDbContext(b => b
 クエリ型 (データベースから読み取ることはできても更新は行えないデータを表す) は、[キーなしエンティティ型](xref:core/modeling/keyless-entity-types)に名前が変更されました。
 それはほとんどのシナリオでデータベース ビューのマッピングに対して最適であるため、データベース ビューのリバース エンジニアリングを行う場合に、EF Core によってキーなしエンティティ型が自動的に作成されるようになりました。
 
-たとえば、[dotnet ef コマンドライン ツール](xref:core/miscellaneous/cli/dotnet)を使って次のように入力します。
+たとえば、[dotnet ef コマンドライン ツール](xref:core/cli/dotnet)を使って次のように入力します。
 
 ```dotnetcli
 dotnet ef dbcontext scaffold "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Connection=True;" Microsoft.EntityFrameworkCore.SqlServer
@@ -202,5 +202,5 @@ public class OrderDetails
 
 EF Core 3.x 向けに最初に計画された一部の機能は、今後のリリースに延期されました。
 
-- 移行でモデルの一部を無視する機能。[#2725](https://github.com/aspnet/EntityFrameworkCore/issues/2725) として追跡されています。
-- プロパティ バッグのエンティティ。2 つの異なるイシューとして追跡されています: 共有型のエンティティに関する [#9914](https://github.com/aspnet/EntityFrameworkCore/issues/9914) と、インデックス付きプロパティ マッピングのサポートに関する [#13610](https://github.com/aspnet/EntityFrameworkCore/issues/13610)。
+- 移行でモデルの一部を無視する機能。[#2725](https://github.com/dotnet/efcore/issues/2725) として追跡されています。
+- プロパティ バッグのエンティティ。2 つの異なるイシューとして追跡されています: 共有型のエンティティに関する [#9914](https://github.com/dotnet/efcore/issues/9914) と、インデックス付きプロパティ マッピングのサポートに関する [#13610](https://github.com/dotnet/efcore/issues/13610)。

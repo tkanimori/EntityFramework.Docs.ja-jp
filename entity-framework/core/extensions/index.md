@@ -4,12 +4,12 @@ description: Entity Framework Core の外部ツールと拡張機能
 author: ErikEJ
 ms.date: 04/11/2020
 uid: core/extensions/index
-ms.openlocfilehash: 7c29203d802e801170ed10dca26e693d8ed19d2b
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: c7056bcb0831ae1919b3060aacf73dc5cb9c8cb1
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90072002"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429937"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -28,13 +28,13 @@ LLBLGen Pro は、Entity Framework と Entity Framework Core のサポートを�
 
 ### <a name="devart-entity-developer"></a>Devart Entity Developer
 
-Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な ORM デザインです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。 対象の EF Core:1、2、3、5。
+Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な O/RM デザイナーです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。 対象の EF Core:1、2、3、5。
 
 [Web サイト](https://www.devart.com/entitydeveloper/)
 
 ### <a name="nhydrate-orm-for-entity-framework"></a>Entity Framework 用の nHydrate ORM
 
-厳密に型指定された、Entity Framework 用に拡張できるクラスを作成する ORM です。 生成されたコードは Entity Framework Core になります。 これらに違いはありません。 これは、EF またはカスタム ORM に代わるものではありません。 チームが複雑なデータベース スキーマを管理できるビジュアルのモデリング レイヤーです。 これは、Git のような SCM ソフトウェアに適しており、最小限の競合でご利用のモデルへのマルチ ユーザー アクセスが可能になります。 インストーラーによって、モデルの変更が追跡され、アップグレード スクリプトが作成されます。 対象の EF Core:3.
+厳密に型指定された、Entity Framework 用に拡張できるクラスを作成する O/RM です。 生成されたコードは Entity Framework Core になります。 これらに違いはありません。 これは、EF またはカスタム O/RM に代わるものではありません。 チームが複雑なデータベース スキーマを管理できるビジュアルのモデリング レイヤーです。 これは、Git のような SCM ソフトウェアに適しており、最小限の競合でご利用のモデルへのマルチ ユーザー アクセスが可能になります。 インストーラーによって、モデルの変更が追跡され、アップグレード スクリプトが作成されます。 対象の EF Core:3.
 
 [GitHub サイト](https://github.com/nHydrate/nHydrate)
 
@@ -46,7 +46,7 @@ EF Core のパワー ツールは、シンプルなユーザー インターフ�
 
 ### <a name="entity-framework-visual-editor"></a>Entity Framework のビジュアル エディター
 
-Entity Framework のビジュアル エディターは、EF 6 のビジュアル デザインの ORM デザイナーと EF Core のクラスを追加する、Visual Studio の拡張機能です。 コードは T4 テンプレートを使用して生成されるため、あらゆるニーズに合わせてカスタマイズできます。 継承、一方向および双方向の関連付け、列挙体がサポートされ、クラスの色分けが可能になり、潜在的な設計の難解な部分を説明するテキストのブロックを追加できるようになります。 対象の EF Core:2.
+Entity Framework のビジュアル エディターは、EF 6 のビジュアル デザインの O/RM デザイナーと EF Core のクラスを追加する、Visual Studio の拡張機能です。 コードは T4 テンプレートを使用して生成されるため、あらゆるニーズに合わせてカスタマイズできます。 継承、一方向および双方向の関連付け、列挙体がサポートされ、クラスの色分けが可能になり、潜在的な設計の難解な部分を説明するテキストのブロックを追加できるようになります。 対象の EF Core:2.
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
@@ -83,13 +83,13 @@ Geco (ジェネレーター コンソール) は .NET Core 上で実行され、
 
 [GitHub リポジトリ](https://github.com/iQuarc/Geco)
 
-### <a name="entityframeworkcorescaffoldinghandlebars"></a>EntityFrameworkCore.Scaffolding.Handlebars 
+### <a name="entityframeworkcorescaffoldinghandlebars"></a>EntityFrameworkCore.Scaffolding.Handlebars
 
 Entity Framework Core ツールチェーンと Handlebars テンプレートを使用して、既存のデータベースからリバース エンジニアリングされたクラスのカスタマイズを可能にします。 対象の EF Core:2、3。
 
 [GitHub リポジトリ](https://github.com/TrackableEntities/EntityFrameworkCore.Scaffolding.Handlebars)
 
-### <a name="neinlinqentityframeworkcore"></a>NeinLinq.EntityFrameworkCore 
+### <a name="neinlinqentityframeworkcore"></a>NeinLinq.EntityFrameworkCore
 
 NeinLinq は、Entity Framework などの LINQ プロバイダーを拡張し、関数の再利用、クエリの書き直し、変換可能な述語とセレクターを使用した動的クエリの構築などを可能にします。 対象の EF Core:2、3。
 
@@ -143,13 +143,11 @@ EF Core コード、エンティティ、および既に定義済みのマッピ
 
 [GitHub リポジトリ](https://github.com/VantageSoftware/EFCore.TimeTraveler)
 
-
 ### <a name="entityframeworkcoretemporaltables"></a>EntityFrameworkCore.TemporalTables
 
 SQL Server を使用している開発者がテンポラル テーブルを簡単に使用できるようにする、Entity Framework Core の拡張ライブラリ。 対象の EF Core:2.
 
 [GitHub リポジトリ](https://github.com/findulov/EntityFrameworkCore.TemporalTables)
-
 
 ### <a name="entityframeworkcorecacheable"></a>EntityFrameworkCore.Cacheable
 
@@ -236,3 +234,9 @@ CTE、一括コピー、テーブル ヒント、ウィンドウ関数、一時�
 エンティティの論理的な削除のための実装。 対象の EF Core:3.
 
 [NuGet](https://www.nuget.org/packages/EFCore.SoftDelete)
+
+### <a name="entityframeworkcoreconfigurationmanager"></a>EntityFrameworkCore.ConfigurationManager
+
+EF Core を拡張して、App.config からの接続文字列を解決します。対象の EF Core:3.
+
+[GitHub リポジトリ](https://github.com/efcore/EFCore.ConfigurationManager)

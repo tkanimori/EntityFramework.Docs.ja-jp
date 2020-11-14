@@ -4,19 +4,19 @@ description: Azure Cosmos DB SQL API と共に Entity Framework Core を使え�
 author: AndriySvyryd
 ms.date: 10/09/2020
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 26be2b604453aa2d5b21ae45f590b294639db887
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 825517e79891378a61f9564c90dbf4522459e9d0
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92064051"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430317"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダー
 
 > [!NOTE]
 > このプロバイダーは、EF Core 3.0 で新しく追加されたものです。
 
-このデータベース プロバイダーにより、Azure Cosmos DB と共に Entity Framework Core を使用できます。 このプロバイダーは、[Entity Framework Core プロジェクト](https://github.com/aspnet/EntityFrameworkCore)の一部として保守管理されています。
+このデータベース プロバイダーにより、Azure Cosmos DB と共に Entity Framework Core を使用できます。 このプロバイダーは、[Entity Framework Core プロジェクト](https://github.com/dotnet/efcore)の一部として保守管理されています。
 
 このセクションを読む前に、[Azure Cosmos DB のドキュメント](/azure/cosmos-db/introduction)を理解することを強くお勧めします。
 
@@ -103,9 +103,14 @@ EF Core では、派生エンティティ型がない場合でも、特定の項
 > [!NOTE]
 >パーティション キーのプロパティは、それが[文字列に変換される](xref:core/modeling/value-conversions)限り、任意の型にすることができます。
 
-一度構成したら、パーティション キーのプロパティは常に null 以外の値を持つ必要があります。 クエリを発行するときに、条件を追加して単一パーティションにすることができます。
+一度構成したら、パーティション キーのプロパティは常に null 以外の値を持つ必要があります。 `WithPartitionKey` 呼び出しを追加して、クエリを単一パーティションにすることができます。
 
-[!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=PartitionKey)]
+[!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=PartitionKey&highlight=15)]
+
+> [!NOTE]
+> `WithPartitionKey` は、EF Core 5.0 で追加されました。
+
+通常、プライマリ キーにパーティション キーを追加することが推奨されます。それにより、サーバーのセマンティクスが最もよく反映され、`FindAsync` などで、いくつかの最適化が可能になるためです。
 
 ## <a name="embedded-entities"></a>埋め込みエンティティ
 
