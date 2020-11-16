@@ -21,7 +21,7 @@
           href: core/index.md
         - name: EF Core 6 のアンケートに答える >>
           href: 'https://www.surveymonkey.com/r/XRL3JBL'
-        - name: はじめに
+        - name: 作業の開始
           items:
             - name: EF Core の概要
               items:
@@ -154,6 +154,10 @@
           items:
             - name: 概要
               href: core/querying/index.md
+            - name: クライアントとサーバーの評価
+              href: core/querying/client-eval.md
+            - name: 追跡と非追跡
+              href: core/querying/tracking.md
             - name: 関連データを読み込む
               items:
                 - name: 概要
@@ -166,16 +170,14 @@
                   href: core/querying/related-data/lazy.md
                 - name: 関連データとシリアル化
                   href: core/querying/related-data/serialization.md
-            - name: クライアントとサーバーの評価
-              href: core/querying/client-eval.md
-            - name: 追跡と非追跡
-              href: core/querying/tracking.md
             - name: 分割クエリ
               href: core/querying/single-split-queries.md
             - name: 複雑なクエリ演算子
               href: core/querying/complex-query-operators.md
             - name: 生 SQL クエリ
               href: core/querying/raw-sql.md
+            - name: データベース関数
+              href: core/querying/database-functions.md
             - name: グローバル クエリ フィルター
               href: core/querying/filters.md
             - name: クエリのタグ
@@ -238,7 +240,7 @@
               href: core/miscellaneous/collations-and-case-sensitivity.md
             - name: 接続の回復性
               href: core/miscellaneous/connection-resiliency.md
-            - name: 接続文字列
+            - name: Connection strings
               href: core/miscellaneous/connection-strings.md
             - name: コンテキスト プール
               href: core/miscellaneous/context-pooling.md
