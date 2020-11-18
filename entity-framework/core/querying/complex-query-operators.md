@@ -4,12 +4,12 @@ description: Entity Framework Core を使用する場合の複雑な LINQ クエ
 author: smitpatel
 ms.date: 10/03/2019
 uid: core/querying/complex-query-operators
-ms.openlocfilehash: 03375e6c46a68a719df82572333f0a57e7de6262
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 84c2518972355d31cf5a6a7bafc57b44162412c8
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062621"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430483"
 ---
 # <a name="complex-query-operators"></a>複雑なクエリ演算子
 
@@ -20,7 +20,7 @@ ms.locfileid: "92062621"
 
 ## <a name="join"></a>Join
 
-LINQ Join 演算子を使用すると、各ソースのキー セレクターに基づいて 2 つのデータ ソースを接続でき、キーが一致したときに値のタプルが生成されます。 リレーショナル データベースでは、必然的に `INNER JOIN` に変換されます。 LINQ Join には外部および内部のキー セレクターがありますが、データベースには単一の結合条件が必要です。 したがって、EF Core では、外部キー セレクターと内部キー セレクターが等価であるかどうかを比較して、結合条件を生成します。 さらに、キー セレクターが匿名型である場合、EF Core では、等価要素ごとに比較する結合条件を生成します。
+LINQ Join 演算子を使用すると、各ソースのキー セレクターに基づいて 2 つのデータ ソースを接続でき、キーが一致したときに値のタプルが生成されます。 リレーショナル データベースでは、必然的に `INNER JOIN` に変換されます。 LINQ Join には外部および内部のキー セレクターがありますが、データベースには単一の結合条件が必要です。 したがって、EF Core では、外部キー セレクターと内部キー セレクターが等価であるかどうかを比較して、結合条件を生成します。
 
 [!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Program.cs#Join)]
 
@@ -28,6 +28,16 @@ LINQ Join 演算子を使用すると、各ソースのキー セレクターに
 SELECT [p].[PersonId], [p].[Name], [p].[PhotoId], [p0].[PersonPhotoId], [p0].[Caption], [p0].[Photo]
 FROM [PersonPhoto] AS [p0]
 INNER JOIN [Person] AS [p] ON [p0].[PersonPhotoId] = [p].[PhotoId]
+```
+
+さらに、キー セレクターが匿名型である場合、コンポーネントごとに等価性を比較するため、EF Core によって結合条件が生成されます。
+
+[!code-csharp[Main](../../../samples/core/Querying/ComplexQuery/Program.cs#JoinComposite)]
+
+```sql
+SELECT [p].[PersonId], [p].[Name], [p].[PhotoId], [p0].[PersonPhotoId], [p0].[Caption], [p0].[Photo]
+FROM [PersonPhoto] AS [p0]
+INNER JOIN [Person] AS [p] ON ([p0].[PersonPhotoId] = [p].[PhotoId] AND ([p0].[Caption] = N'SN'))
 ```
 
 ## <a name="groupjoin"></a>GroupJoin

@@ -4,16 +4,19 @@ description: Entity Framework Core 内部でのクエリのコンパイルおよ
 author: ajcvickers
 ms.date: 03/17/2020
 uid: core/querying/how-query-works
-ms.openlocfilehash: f3a6794b9bfdf70ae40bc8e97ee41861931b9b46
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 7b3014cf64f8467ccbec10598ea1bb47304dfe43
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071187"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430470"
 ---
 # <a name="how-queries-work"></a>クエリのしくみ
 
 Entity Framework Core では統合言語クエリ (LINQ) を使用し、データベースにデータを問い合わせます。 LINQ では C# (あるいは自分で選んだ .NET 言語) を使用し、派生コンテキストとエンティティ クラスに基づいて、厳密に型指定されたクエリを記述できます。
+
+> [!NOTE]
+> この記事は最新ではありません。クエリ パイプラインの設計で行われた変更に対応して、一部を更新する必要があります。 ここに記載されている何らかの動作について疑問がある場合は、[質問をお送りください](https://github.com/dotnet/efcore/issues/new/choose)。
 
 ## <a name="the-life-of-a-query"></a>クエリの全体像
 
