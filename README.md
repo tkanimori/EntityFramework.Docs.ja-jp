@@ -1,12 +1,12 @@
-## <a name="entity-framework-docs"></a>Entity Framework ドキュメント
+# <a name="entity-framework-docs"></a>Entity Framework ドキュメント
 
-このプロジェクトには、[docs.microsoft.com/ef](https://docs.microsoft.com/ef/) にある EF Core および EF6 のドキュメントのソースが含まれています。 
+このプロジェクトには、[docs.microsoft.com/ef](https://docs.microsoft.com/ef/) にある EF Core および EF6 のドキュメントのソースが含まれています。
 
 EF Core と EF6 の両方に関するドキュメントの問題は、このリポジトリに提出する必要があります。 製品の問題 (バグ) は、必要に応じて、[EF Core リポジトリ](https://github.com/dotnet/efcore)または [EF6 リポジトリ](https://github.com/dotnet/ef6)に提出する必要があります。
 
 **pull requests を受け付けています。**
 
-## <a name="fixing-typosspellinggrammaretc"></a>誤字、スペル、文法などを修正します。
+## <a name="fixing-typosspellinggrammaretc"></a>誤字、スペル、文法などを修正する
 
 問題を提出するのではなく、プル要求を送信することを検討してください。 これは、Web で完全に行うことができます。
 

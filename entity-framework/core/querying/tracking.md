@@ -2,14 +2,14 @@
 title: 追跡と追跡なしのクエリ - EF Core
 description: Entity Framework Core の追跡クエリと非追跡クエリに関する情報
 author: smitpatel
-ms.date: 10/10/2019
+ms.date: 11/09/2020
 uid: core/querying/tracking
-ms.openlocfilehash: dff6c14edcd69e7d16be8bab5fa3088c2c1288e1
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: b4c059f9a9b726697009589271e007bd1d2afd56
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063661"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430444"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 
@@ -27,9 +27,11 @@ Entity Framework Core によってその変更トラッカー内のエンティ�
 
 [!code-csharp[Main](../../../samples/core/Querying/Tracking/Program.cs#Tracking)]
 
+追跡クエリで結果が返されると、EF Core で、エンティティが既にコンテキスト内に存在するかどうかがチェックされます。 EF Core で既存のエンティティが検出された場合は、同じインスタンスが返されます。 EF Core では、エントリ内にあるエンティティのプロパティの現在の値と元の値がデータベースの値で上書きされません。 エンティティがコンテキスト内に見つからない場合は、EF Core で新しいエンティティ インスタンスが作成され、コンテキストにアタッチされます。 クエリ結果には、エンティティが含まれません。エンティティはコンテキストに追加されますが、まだデータベースには保存されていません。
+
 ## <a name="no-tracking-queries"></a>追跡なしのクエリ
 
-追跡なしのクエリは、読み取り専用のシナリオで結果が使用される場合に役立ちます。 これらは、変更の追跡情報を設定する必要がないため、より高速に実行できます。 データベースから取得されたエンティティを更新する必要がない場合は、追跡なしのクエリを使用することをお勧めします。 個別のクエリをスワップして、追跡なしにできます。
+追跡なしのクエリは、読み取り専用のシナリオで結果が使用される場合に役立ちます。 これらは、変更の追跡情報を設定する必要がないため、より高速に実行できます。 データベースから取得されたエンティティを更新する必要がない場合は、追跡なしのクエリを使用することをお勧めします。 個別のクエリをスワップして、追跡なしにできます。 追跡なしのクエリでは、ローカルの変更や追加されたエンティティとは関係なく、データベースの内容に基づいた結果も取得されます。
 
 [!code-csharp[Main](../../../samples/core/Querying/Tracking/Program.cs#NoTracking)]
 
@@ -40,6 +42,10 @@ Entity Framework Core によってその変更トラッカー内のエンティ�
 ## <a name="identity-resolution"></a>識別子の解決
 
 追跡クエリでは変更トラッカーが使用されます。そのため、EF Core では追跡クエリで ID 解決が実行されます。 エンティティを具体化するとき、それが既に追跡されている場合は、EF Core によって変更トラッカーから同じエンティティ インスタンスが返されます。 結果に同じエンティティが複数回含まれている場合は、そのたびに同じインスタンスが返されます。 追跡なしのクエリでは変更トラッカーが使用されず、ID 解決は実行されません。 そのため、同じエンティティが結果に複数回含まれている場合でも、エンティティの新しいインスタンスが返されます。 この動作は、EF Core 3.0 以前のバージョンでは異なります (「[以前のバージョン](#previous-versions)」を参照)。
+
+EF Core 5.0 以降では、同じクエリで上記の両方の動作を組み合わせることができます。 つまり、追跡なしのクエリを使用できます。これにより、結果で ID 解決が行われます。 クエリ可能な `AsNoTracking()` 演算子と同じように、別の `AsNoTrackingWithIdentityResolution()` 演算子が追加されました。 <xref:Microsoft.EntityFrameworkCore.QueryTrackingBehavior> 列挙型にも、関連するエントリが追加されています。 追跡なしで ID 解決を使用するようにクエリを構成すると、クエリ結果の生成時に、スタンドアロンの変更トラッカーがバックグラウンドで使用されます。そのため、各インスタンスが 1 回だけ具体化されます。 この変更トラッカーはコンテキスト内のものとは異なるため、結果はコンテキストによって追跡されません。 クエリが完全に列挙されると、変更トラッカーはスコープ外になり、必要に応じてガベージ コレクションが実行されます。
+
+[!code-csharp[Main](../../../samples/core/Querying/Tracking/Program.cs#NoTrackingWithIdentityResolution)]
 
 ## <a name="tracking-and-custom-projections"></a>追跡とカスタム プロジェクション
 

@@ -4,12 +4,12 @@ description: Entity Framework Core で結果をフィルター処理すること
 author: maumar
 ms.date: 11/03/2017
 uid: core/querying/filters
-ms.openlocfilehash: 8a9eabd7e86864c9ebb4b1dc4a06bf7fc207d496
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 6436f9f8e2e09d44ef9528fd2022720d40095fe0
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062608"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430132"
 ---
 # <a name="global-query-filters"></a>グローバル クエリ フィルター
 
@@ -46,6 +46,21 @@ ms.locfileid: "92062608"
 ## <a name="use-of-navigations"></a>ナビゲーションの使用
 
 グローバル クエリ フィルターを定義するときにも、ナビゲーションを使用することができます。 クエリ フィルターでナビゲーションを使用すると、クエリ フィルターが再帰的に適用されます。 クエリ フィルターで使用されているナビゲーションが EF Core によって拡張されると、参照先エンティティで定義されているクエリ フィルターも適用されます。
+
+これを説明するために、次のように `OnModelCreating` でクエリ フィルターを構成します。[!code-csharp[Main](../../../samples/core/Querying/QueryFilters/FilteredBloggingContextRequired.cs#NavigationInFilter)]
+
+次に、すべての `Blog` エンティティに対してクエリを実行します。[!code-csharp[Main](../../../samples/core/Querying/QueryFilters/FilteredBloggingContextRequired.cs#QueriesNavigation)]
+
+このクエリでは、次の SQL が生成されます。これにより、`Blog` と `Post` の両方のエンティティに定義されたクエリ フィルターが適用されます。
+
+```sql
+SELECT [b].[BlogId], [b].[Name], [b].[Url]
+FROM [Blogs] AS [b]
+WHERE (
+    SELECT COUNT(*)
+    FROM [Posts] AS [p]
+    WHERE ([p].[Title] LIKE N'%fish%') AND ([b].[BlogId] = [p].[BlogId])) > 0
+```
 
 > [!NOTE]
 > 現在、グローバル クエリ フィルター定義内のサイクルは EF Core によって検出されないため、それらを定義する際には注意が必要です。 正しく指定されていない場合は、クエリの変換中にサイクルが無限ループになる可能性があります。

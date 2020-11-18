@@ -2,14 +2,14 @@
 title: クライアントとサーバーの評価 - EF Core
 description: Entity Framework Core を使用した、クライアントおよびサーバーでのクエリの評価
 author: smitpatel
-ms.date: 10/03/2019
+ms.date: 11/09/2020
 uid: core/querying/client-eval
-ms.openlocfilehash: f2e80541439de8cc824c182e52400f730dd2af48
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: a1ddfb625be36cb05f01da08eb3be29512c54ab5
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062712"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94430145"
 ---
 # <a name="client-vs-server-evaluation"></a>クライアントとサーバーの評価
 
@@ -46,6 +46,9 @@ ms.locfileid: "92062712"
 
 [!code-csharp[Main](../../../samples/core/Querying/ClientEvaluation/Program.cs#ExplicitClientEvaluation)]
 
+> [!TIP]
+> `AsAsyncEnumerable` を使用していて、さらにクライアント側でクエリを作成する場合は、async 列挙体の演算子を定義する [System.Interactive.Async](https://www.nuget.org/packages/System.Interactive.Async/) ライブラリを使用できます。 詳細については、[クライアント側の linq 演算子](xref:core/miscellaneous/async#client-side-async-linq-operators)に関するページをご覧ください。
+
 ## <a name="potential-memory-leak-in-client-evaluation"></a>クライアント評価での潜在的なメモリ リーク
 
 クエリの変換とコンパイルにはコストがかかるため、EF Core ではコンパイル済みのクエリ プランをキャッシュします。 キャッシュされたデリゲートでは、最上位レベルのプロジェクションのクライアント評価を行うときに、クライアント コードを使用する場合があります。 EF Core では、クライアントによって評価されるツリーの部分のパラメーターが生成され、パラメーター値を置き換えることによってクエリ プランが再利用されます。 しかし、式ツリー内の特定の定数をパラメーターに変換することはできません。 キャッシュされたデリゲートにこのような定数が含まれている場合、それらのオブジェクトは、まだ参照されているため、ガベージ コレクションを行うことはできません。 このようなオブジェクトに DbContext またはその他のサービスが含まれている場合、アプリのメモリ使用量が時間の経過と共に増加する可能性があります。 通常、この動作はメモリ リークの兆候です。 現在のデータベース プロバイダーを使用してマップできない型の定数が見つかるたびに、EF Core で例外がスローされます。 一般的な原因とその解決策は次のとおりです。
@@ -58,7 +61,7 @@ ms.locfileid: "92062712"
 
 次のセクションは、3.0 より前のバージョンの EF Core に適用されます。
 
-以前の EF Core バージョンでは、最上位レベルのプロジェクションだけでなく、クエリのどの部分でもクライアント評価がサポートされていました。 そのため、[サポートされていないクライアント評価](#unsupported-client-evaluation)に関するセクションで示されているものと同様のクエリが正常に動作していました。 この動作によってパフォーマンスの問題が発生する可能性があるため、EF Core ではクライアント評価の警告がログに記録されていました。 ログ記録出力の表示について詳しくは、「[ログの記録](xref:core/miscellaneous/logging)」を参照してください。
+以前の EF Core バージョンでは、最上位レベルのプロジェクションだけでなく、クエリのどの部分でもクライアント評価がサポートされていました。 そのため、[サポートされていないクライアント評価](#unsupported-client-evaluation)に関するセクションで示されているものと同様のクエリが正常に動作していました。 この動作によってパフォーマンスの問題が発生する可能性があるため、EF Core ではクライアント評価の警告がログに記録されていました。 ログ記録出力の表示について詳しくは、「[ログの記録](xref:core/logging-events-diagnostics/index)」を参照してください。
 
 必要に応じて、EF Core では既定の動作を変更し、クライアントの評価を行うときに例外をスローするか、何も実行しないようにすることができました (プロジェクションの場合を除く)。 例外をスローする動作は、3.0 の動作と似たようなものになります。 動作を変更するには、(通常は `DbContext.OnConfiguring` で、または ASP.NET Core を使用している場合は `Startup.cs` で) コンテキストのオプションを設定するときに警告を構成する必要があります。
 

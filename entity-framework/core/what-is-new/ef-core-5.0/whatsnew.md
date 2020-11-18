@@ -4,12 +4,12 @@ description: EF Core 5.0 の新機能の概要
 author: ajcvickers
 ms.date: 09/10/2020
 uid: core/what-is-new/ef-core-5.0/whatsnew
-ms.openlocfilehash: 8fa45bf31cb5f1a7e35134f9513a40469719f8c2
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 3efa883cdfac1ecd412112ef06c7763f1a7e12f1
+ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92065616"
+ms.lasthandoff: 11/10/2020
+ms.locfileid: "94429248"
 ---
 # <a name="whats-new-in-ef-core-50"></a>EF Core 5.0 の新機能
 
@@ -47,7 +47,7 @@ public class Tag
 public class BlogContext : DbContext
 {
     public DbSet<Post> Posts { get; set; }
-    public DbSet<Blog> Blogs { get; set; }
+    public DbSet<Tag> Tags { get; set; }
 }
 ```
 
@@ -77,7 +77,7 @@ CREATE TABLE [PostTag] (
 CREATE INDEX [IX_PostTag_TagsId] ON [PostTag] ([TagsId]);
 ```
 
-`Blog` エンティティと `Post` エンティティを作成して関連付けると、結合テーブルの更新が自動的に行われます。 次に例を示します。
+`Tag` エンティティと `Post` エンティティを作成して関連付けると、結合テーブルの更新が自動的に行われます。 次に例を示します。
 
 ```csharp
 var beginnerTag = new Tag {Text = "Beginner"};
@@ -158,6 +158,9 @@ protected override void OnModelCreating(ModelBuilder modelBuilder)
 }
 ```
 
+> [!NOTE]
+> データベースから多対多リレーションシップのスキャフォールディングを行うためのサポートは、まだ追加されていません。 [問題の追跡](https://github.com/dotnet/efcore/issues/22475)を参照してください。
+
 ### <a name="map-entity-types-to-queries"></a>エンティティ型をクエリにマップする
 
 エンティティ型は通常、その型に対してクエリを実行するときに、EF Core によってテーブルまたはビューの内容がプルバックされるようなテーブルまたはビューにマップされます。 EF Core 5.0 では、エンティティ型を "クエリの定義" にマップできます (これは以前のバージョンでは部分的にサポートされていましたが、大幅に改善され、EF Core 5.0 では構文が異なります)。
@@ -214,13 +217,13 @@ WHERE ('Unicorn' = '') OR (instr("b"."Name", 'Unicorn') > 0)
 
 [.NET イベント カウンター](https://devblogs.microsoft.com/dotnet/introducing-diagnostics-improvements-in-net-core-3-0/)は、アプリケーションからパフォーマンス メトリックを効率的に公開するための手段です。 EF Core 5.0 には、`Microsoft.EntityFrameworkCore` カテゴリの下にイベント カウンターが含まれています。 次に例を示します。
 
-```
+```console
 dotnet counters monitor Microsoft.EntityFrameworkCore -p 49496
 ```
 
 これは、プロセス 49496 の EF Core イベントの収集を開始するように dotnet カウンターに指示します。 これにより、コンソールに次のような出力が生成されます。
 
-```
+```console
 [Microsoft.EntityFrameworkCore]
     Active DbContexts                                               1
     Execution Strategy Operation Failures (Count / 1 sec)           0
@@ -314,6 +317,7 @@ context.SavedChanges += (sender, args) =>
 ```
 
 次のことに注意してください。
+
 * イベントの送信元は `DbContext` インスタンス
 * `SavedChanges` イベントの引数には、データベースに保存されたエンティティの数が含まれている
 
@@ -344,6 +348,7 @@ public class MySaveChangesInterceptor : SaveChangesInterceptor
 ```
 
 次のことに注意してください。
+
 * インターセプターには同期と非同期の両方のメソッドがあります。 これは、監査サーバーへの書き込みなど、非同期 I/O を実行する必要がある場合に便利です。
 * インターセプターでは、すべてのインターセプターに共通の `InterceptionResult` メカニズムを使用して SaveChanges をスキップできます。
 
@@ -564,7 +569,7 @@ COMMIT;
 
 `dotnet ef migrations list` コマンドを使用すると、データベースにまだ適用されていない移行が表示されるようになりました。 次に例を示します。
 
-```
+```console
 ajcvickers@avickers420u:~/AllTogetherNow/Daily$ dotnet ef migrations list
 Build started...
 Build succeeded.
@@ -839,6 +844,7 @@ PRAGMA foreign_keys = 1;
 ```
 
 次のことに注意してください。
+
 * 新しいテーブルに必要なスキーマを使用して一時テーブルが作成されます
 * データは現在のテーブルから一時テーブルにコピーされます
 * 外部キーの適用はオフに切り替えられます
@@ -884,6 +890,7 @@ END
 ```
 
 EF Core モデルでは、この TVF を使用するために 2 つのエンティティ型が必要です。
+
 * 通常の方法で Employees テーブルにマップする `Employee` 型
 * TVF から返されるシェイプと一致する `Report` 型
 
@@ -1307,7 +1314,10 @@ var artists = context.Artists.Where(e => e.IsSigned).ToList();
 
 EF Core は、`IsSigned` がマップされていないために変換が失敗したことを示す次の例外をスローします。
 
-> ハンドルされていない例外です。 System.InvalidOperationException:LINQ 式 'DbSet<Artist>() .Where(a => a.IsSigned)' を変換できませんでした。 追加情報:エンティティ型 'Artist' のメンバー 'IsSigned' の変換に失敗しました。 指定されたメンバーがマップされていない可能性があります。 変換できる形式でクエリを書き直すか、AsEnumerable()、AsAsyncEnumerable()、ToList()、または ToListAsync() のいずれかの呼び出しを挿入して、クライアント評価に明示的に切り替えてください。 詳細については、「 https://go.microsoft.com/fwlink/?linkid=2101038 」を参照してください。
+```exception
+Unhandled exception. System.InvalidOperationException: The LINQ expression 'DbSet<Artist>()
+   .Where(a => a.IsSigned)' could not be translated. Additional information: Translation of member 'IsSigned' on entity type 'Artist' failed. Possibly the specified member is not mapped. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to either AsEnumerable(), AsAsyncEnumerable(), ToList(), or ToListAsync(). See <https://go.microsoft.com/fwlink/?linkid=2101038> for more information.
+```
 
 同様に、カルチャに依存するセマンティクスを使用して文字列の比較を変換しようとしたときに、より適切な例外メッセージが生成されるようになりました。 たとえば、次のクエリは `StringComparison.CurrentCulture` を使用しようとします。
 
@@ -1319,7 +1329,12 @@ var artists = context.Artists
 
 EF Core では、次の例外がスローされるようになりました。
 
-> ハンドルされていない例外です。 System.InvalidOperationException:LINQ 式 'DbSet<Artist>() .Where(a => a.Name.Equals( value: "The Unicorns", comparisonType: CurrentCulture))' を変換できませんでした。 追加情報:'StringComparison' 引数を受け取る 'string.Equals' メソッドの変換はサポートされていません。 詳細については、「 https://go.microsoft.com/fwlink/?linkid=2129535 」を参照してください。 変換できる形式でクエリを書き直すか、AsEnumerable()、AsAsyncEnumerable()、ToList()、または ToListAsync() のいずれかの呼び出しを挿入して、クライアント評価に明示的に切り替えてください。 詳細については、「 https://go.microsoft.com/fwlink/?linkid=2101038 」を参照してください。
+```exception
+Unhandled exception. System.InvalidOperationException: The LINQ expression 'DbSet<Artist>()
+     .Where(a => a.Name.Equals(
+         value: "The Unicorns",
+         comparisonType: CurrentCulture))' could not be translated. Additional information: Translation of 'string.Equals' method which takes 'StringComparison' argument is not supported. See <https://go.microsoft.com/fwlink/?linkid=2129535> for more information. Either rewrite the query in a form that can be translated, or switch to client evaluation explicitly by inserting a call to either AsEnumerable(), AsAsyncEnumerable(), ToList(), or ToListAsync(). See <https://go.microsoft.com/fwlink/?linkid=2101038> for more information.
+```
 
 ### <a name="specify-transaction-id"></a>トランザクション ID を指定する
 
@@ -1380,13 +1395,13 @@ DbContext が既存のデータベースからスキャフォールディング�
 
 これに対処するため、スキャフォールディング コマンドに、OnConfiguring の生成を省略するように指示できるようになりました。 次に例を示します。
 
-```
+```console
 dotnet ef dbcontext scaffold "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook" Microsoft.EntityFrameworkCore.SqlServer --no-onconfiguring
 ```
 
 または、パッケージ マネージャー コンソールで:
 
-```
+```console
 Scaffold-DbContext 'Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook' Microsoft.EntityFrameworkCore.SqlServer -NoOnConfiguring
 ```
 
@@ -1500,7 +1515,7 @@ WHERE [u].[Name] COLLATE French_CI_AS = N'Jean-Michel Jarre'
 
 引数は、コマンド ラインから [IDesignTimeDbContextFactory](/dotnet/api/microsoft.entityframeworkcore.design.idesigntimedbcontextfactory-1)の `CreateDbContext` メソッドにフローされるようになりました。 たとえば、これが開発ビルドであることを示すために、カスタム引数 (`dev` など) をコマンド ラインで渡すことができます。
 
-```
+```console
 dotnet ef migrations add two --verbose --dev
 ```
 
@@ -1600,6 +1615,7 @@ var blogs = context.Blogs
     .Include(e => e.Posts.OrderByDescending(post => post.Title).Take(5)))
     .ToList();
 ```
+
 このクエリでは、ブログ 1 件あたり最大 5 件の投稿が含まれるブログが返されます。
 
 詳細については、[インクルードに関するドキュメント](xref:core/querying/related-data#filtered-include)を参照してください。
@@ -1633,7 +1649,7 @@ dotnet ef dbcontext scaffold "connection string" Microsoft.EntityFrameworkCore.S
 dotnet ef database update --connection "connection string"
 ```
 
-詳細については、[ツールのドキュメント](xref:core/miscellaneous/cli/dotnet#dotnet-ef-database-update)を参照してください。
+詳細については、[ツールのドキュメント](xref:core/cli/dotnet#dotnet-ef-database-update)を参照してください。
 
 VS パッケージ マネージャー コンソールで使用される PowerShell コマンドにも、同等のパラメーターが追加されています。
 
