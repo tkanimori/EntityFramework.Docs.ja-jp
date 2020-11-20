@@ -4,12 +4,12 @@ description: Entity Framework Core モデルでの shadow および indexer プ�
 author: AndriySvyryd
 ms.date: 10/09/2020
 uid: core/modeling/shadow-properties
-ms.openlocfilehash: 180478212b683a271d2519cc1a4c79be5d3f11b9
-ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
+ms.openlocfilehash: d419de2da2a9fc29e675dde76e824217347d2e9c
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94503190"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003433"
 ---
 # <a name="shadow-and-indexer-properties"></a>Shadow および Indexer プロパティ
 
@@ -63,7 +63,7 @@ Fluent API を使用して、インデクサーのプロパティを構成でき
 ## <a name="property-bag-entity-types"></a>プロパティバッグのエンティティ型
 
 > [!NOTE]
-> プロパティバッグエンティティ型のサポートは EF Core 5.0 で追加されました。
+> プロパティバッグエンティティ型のサポートは EF Core 5.0 で導入されました。
 
 インデクサープロパティのみを含むエンティティ型は、プロパティバッグエンティティ型と呼ばれます。 これらのエンティティ型にはシャドウプロパティがないため、EF はインデクサープロパティを作成します。 現時点 `Dictionary<string, object>` では、プロパティバッグエンティティ型としてのみサポートされています。 これは、一意の名前を持つ共有エンティティ型として構成する必要があり、対応する `DbSet` プロパティは呼び出しを使用して実装する必要があり `Set` ます。
 

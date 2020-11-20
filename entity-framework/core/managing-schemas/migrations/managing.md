@@ -4,12 +4,12 @@ description: Entity Framework Core を使用したデータベーススキーマ
 author: bricelam
 ms.date: 10/27/2020
 uid: core/managing-schemas/migrations/managing
-ms.openlocfilehash: 81f7cec54510d95b1e2432d56ff95110224fd9bf
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: ef5e1b9bb10d6f1cd428db2fee327ec513c3f528
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429854"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003277"
 ---
 # <a name="managing-migrations"></a>移行の管理
 
@@ -40,9 +40,9 @@ Add-Migration AddBlogCreatedTimestamp
 
 **[移行]** ディレクトリの下で 3 つのファイルがプロジェクトに追加されます。
 
-* **XXXXXXXXXXXXXX_AddCreatedTimestamp** 、メインの移行ファイルです。 (`Up` で) 移行を適用し、(`Down` で) それを元に戻すために必要な操作が含まれます。
-* **XXXXXXXXXXXXXX_AddCreatedTimestamp** 、移行メタデータファイルです。 EF によって使用される情報が含まれます。
-* **MyContextModelSnapshot.cs** --現在のモデルのスナップショット。 次の移行を追加するときの変更内容の決定に使用されます。
+* **XXXXXXXXXXXXXX_AddCreatedTimestamp**、メインの移行ファイルです。 (`Up` で) 移行を適用し、(`Down` で) それを元に戻すために必要な操作が含まれます。
+* **XXXXXXXXXXXXXX_AddCreatedTimestamp**、移行メタデータファイルです。 EF によって使用される情報が含まれます。
+* **MyContextModelSnapshot.cs**--現在のモデルのスナップショット。 次の移行を追加するときの変更内容の決定に使用されます。
 
 変更の進行がわかるように、ファイル名のタイムスタンプは時系列順で維持されます。
 
@@ -210,7 +210,7 @@ dotnet ef migrations list
 ### <a name="visual-studio"></a>[Visual Studio](#tab/vs)
 
 > [!NOTE]
-> このコマンドは EF Core 5.0 で追加されました。
+> このコマンドは EF Core 5.0 で導入されました。
 
 ```powershell
 Get-Migration
@@ -220,7 +220,7 @@ Get-Migration
 
 ## <a name="resetting-all-migrations"></a>すべての移行をリセットしています
 
-極端なケースでは、すべての移行を削除してからやり直すことが必要になる場合があります。 これは、_ *マイグレーション* * フォルダーを削除し、データベースを削除することで簡単に行うことができます。この時点で、新しい初期移行を作成できます。これには、現在のスキーマ全体が含まれます。
+極端なケースでは、すべての移行を削除してからやり直すことが必要になる場合があります。 これは、_ *マイグレーション** フォルダーを削除し、データベースを削除することで簡単に行うことができます。この時点で、新しい初期移行を作成できます。これには、現在のスキーマ全体が含まれます。
 
 すべての移行をリセットし、データを失うことなく1つの移行を作成することもできます。 これは "スカッシュ" と呼ばれることもあり、手動での作業が必要です。
 
@@ -230,4 +230,4 @@ Get-Migration
 * 1つの行を移行履歴に挿入して、最初の移行が既に適用されていることを記録します。これは、テーブルが既に存在しているためです。 Insert SQL は、上記で生成された SQL スクリプトの最後の操作です。
 
 > [!WARNING]
-> **移行フォルダーが** 削除されると、 [カスタム移行コード](#customize-migration-code)は失われます。  すべてのカスタマイズを保存するには、新しい初期移行に手動で適用する必要があります。
+> **移行フォルダーが** 削除されると、[カスタム移行コード](#customize-migration-code)は失われます。  すべてのカスタマイズを保存するには、新しい初期移行に手動で適用する必要があります。

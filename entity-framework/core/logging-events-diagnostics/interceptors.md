@@ -4,20 +4,20 @@ description: データベース操作とその他のイベントのインター�
 author: ajcvickers
 ms.date: 10/08/2020
 uid: core/logging-events-diagnostics/interceptors
-ms.openlocfilehash: 61ec6968344798af8ecffb878a1e47a6a8e031cd
-ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
+ms.openlocfilehash: 22d860a083c5ece9be109be630c3ce01dd742bf2
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94503203"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003414"
 ---
 # <a name="interceptors"></a>インターセプター
 
-Entity Framework Core (EF Core) インターセプターを使用すると、EF Core 操作のインターセプト、変更、または抑制を有効にできます。 これには、コマンドの実行などの低レベルのデータベース操作や、SaveChanges の呼び出しなどの上位レベルの操作が含まれます。
+Entity Framework Core (EF Core) インターセプターを使用すると、EF Core 操作のインターセプト、変更、または抑制を有効にできます。 これには、コマンド実行などの低レベルのデータベース操作と SaveChanges の呼び出しなどの上位レベルの操作が含まれます。
 
-インターセプターは、傍受される操作の変更または抑制を許可するという点で、ログ記録と診断とは異なります。 ログ記録の[選択肢とし](xref:core/logging-events-diagnostics/extensions-logging)ては、[単純なログ](xref:core/logging-events-diagnostics/simple-logging)記録や、ログ記録の方が適しています。
+インターセプターは、インターセプトしている操作を変更または抑制できる点がログや診断と異なります。 ログ記録には、[シンプルなログ](xref:core/logging-events-diagnostics/simple-logging)または [Microsoft.Extensions.Logging](xref:core/logging-events-diagnostics/extensions-logging) の使用をお勧めします。
 
-インターセプターは、コンテキストが構成されているときに DbContext インスタンスごとに登録されます。 [診断リスナー](xref:core/logging-events-diagnostics/diagnostic-listeners)を使用して、プロセス内のすべての dbcontext インスタンスで同じ情報を取得します。
+インターセプターは DbContext インスタンスごとに登録され、この登録はいつでも行うことができます。 プロセス内のすべての DbContext インスタンスで同じ情報を取得するには、[診断リスナー](xref:core/logging-events-diagnostics/diagnostic-listeners)を使用します。
 
 ## <a name="registering-interceptors"></a>インターセプターの登録
 
@@ -56,8 +56,8 @@ public class TaggedQueryCommandInterceptorContext : BlogsContext
 ## <a name="database-interception"></a>データベースの傍受
 
 > [!NOTE]
-> データベースインターセプトは EF Core 3.0 で追加されたため、リレーショナルデータベースプロバイダーでのみ使用できます。
-> EF Core 5.0 でセーブポイントのサポートが追加されました。
+> データベースインターセプトは EF Core 3.0 で導入されたものであり、リレーショナルデータベースプロバイダーでのみ使用できます。
+> セーブポイントのサポートは EF Core 5.0 で導入されました。
 
 低レベルのデータベース傍受は、次の表に示す3つのインターフェイスに分割されます。
 
@@ -396,7 +396,7 @@ Free beer for unicorns
 ## <a name="savechanges-interception"></a>SaveChanges インターセプト
 
 > [!NOTE]
-> SaveChanges インターセプトが EF Core 5.0 で追加されました。
+> SaveChanges インターセプトは EF Core 5.0 で導入されました。
 
 > [!TIP]  
 > [SaveChanges インターセプターサンプルは](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/SaveChangesInterception)GitHub からダウンロードできます。

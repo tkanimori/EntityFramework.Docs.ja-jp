@@ -4,12 +4,12 @@ description: Entity Framework Core SQL Server プロバイダーに固有のイ�
 author: roji
 ms.date: 9/1/2020
 uid: core/providers/sql-server/indexes
-ms.openlocfilehash: a01ab3d12f5bf5f05f0925c93d90c0ee40fe977c
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 66b4e3ce5ab1d4da855c106a6a2d2e75c43081f7
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92061867"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003161"
 ---
 # <a name="index-features-specific-to-the-entity-framework-core-sql-server-provider"></a>Entity Framework Core SQL Server プロバイダーに固有のインデックス機能
 
@@ -28,7 +28,7 @@ ms.locfileid: "92061867"
 ## <a name="fill-factor"></a>FILL FACTOR
 
 > [!NOTE]
-> この機能は EF Core 5.0 で導入されています。
+> この機能は EF Core 5.0 で導入されました。
 
 インデックスのデータストレージとパフォーマンスを微調整するために、インデックスの fill factor オプションが用意されています。 詳細については、 [FILL FACTOR に関する SQL Server のドキュメント](/sql/relational-databases/indexes/specify-fill-factor-for-an-index)を参照してください。
 

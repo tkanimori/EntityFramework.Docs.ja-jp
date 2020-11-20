@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するときにエンティティ型
 author: AndriySvyryd
 ms.date: 10/01/2020
 uid: core/modeling/relationships
-ms.openlocfilehash: c92fa1904436ec43ff8918354a99440079e2a96a
-ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
+ms.openlocfilehash: 716c034bd73d831996b727da18c2c1f83dd55290
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94503216"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003264"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -149,7 +149,7 @@ Fluent API でリレーションシップを構成するには、まず、リレ
 ### <a name="configuring-navigation-properties"></a>ナビゲーションプロパティの構成
 
 > [!NOTE]
-> この機能は、EF Core 5.0 で追加されました。
+> この機能は EF Core 5.0 で導入されました。
 
 ナビゲーションプロパティが作成された後で、さらに構成する必要がある場合があります。
 
@@ -269,7 +269,7 @@ Fluent API との関係を構成する場合は、 `HasOne` メソッドとメ�
 > [Null 非許容の参照型](/dotnet/csharp/nullable-references)を使用している場合は、を呼び出す `IsRequired` 必要はありません。
 
 > [!NOTE]
-> EF Core 5.0 に、依存関係が必要かどうかを構成する機能が追加されました。
+> 依存関係が必須かどうかを構成する機能は、EF Core 5.0 で導入されました。
 
 ### <a name="many-to-many"></a>多対多
 
@@ -320,14 +320,14 @@ CREATE TABLE [PostTag] (
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyPayload.cs?name=ManyToManyPayload)]
 
 > [!NOTE]
-> EF Core 5.0 では、多対多リレーションシップを構成する機能が追加されました。以前のバージョンでは、次の方法を使用します。
+> EF Core 5.0 では、多対多リレーションシップを構成する機能が導入されました。以前のバージョンでは、次の方法を使用します。
 
 結合エンティティ型を追加し、2つの個別の一対多リレーションシップをマッピングするだけで、多対多リレーションシップを表すこともできます。
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?name=ManyToMany&highlight=11-14,16-19,39-46)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToMany.cs?name=ManyToMany&highlight=16-19,21-24)]
 
 > [!NOTE]
-> データベースからの多対多リレーションシップのスキャフォールディングのサポートはまだ追加されていません。 「 [問題の追跡](https://github.com/dotnet/efcore/issues/22475)」を参照してください。
+> データベースから多対多リレーションシップのスキャフォールディングを行うためのサポートは、まだ追加されていません。 [問題の追跡](https://github.com/dotnet/efcore/issues/22475)を参照してください。
 
 ## <a name="additional-resources"></a>その他のリソース
 

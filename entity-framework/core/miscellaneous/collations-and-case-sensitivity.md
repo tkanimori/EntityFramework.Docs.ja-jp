@@ -4,17 +4,17 @@ description: データベースおよび Entity Framework Core を使用した�
 author: roji
 ms.date: 04/27/2020
 uid: core/miscellaneous/collations-and-case-sensitivity
-ms.openlocfilehash: cced7e11f7bf02223d3f181677ad1707c1da4051
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: eca68af6e658f76e1480b1e1083212f160fa765c
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429742"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003459"
 ---
 # <a name="collations-and-case-sensitivity"></a>照合順序と大文字と小文字の区別
 
 > [!NOTE]
-> この機能は EF Core 5.0 で導入されています。
+> この機能は EF Core 5.0 で導入されました。
 
 データベースでのテキスト処理は複雑になる可能性があり、それには問題があると考えられるより多くのユーザーの注意が必要です。 1つの点として、データベースはテキストの処理方法に大きく異なります。たとえば、一部のデータベースでは既定で大文字と小文字が区別されますが (例: Sqlite, PostgreSQL)、他のデータベースでは大文字と小文字が区別されません (SQL Server、MySQL)。 また、インデックスの使用により、大文字と小文字の区別や類似した側面がクエリのパフォーマンスに大きく影響する可能性があります。これにより、大文字と小文字を区別するデータベースで大文字と小文字を区別し `string.Lower` ない比較を強制的に実行でき、アプリケーションでインデックスを使用できなくなる可能性があります。 このページでは、大文字と小文字の区別を構成する方法、一般的な照合順序、およびクエリのパフォーマンスを低下させずに効率的に行う方法について詳しく説明します。
 

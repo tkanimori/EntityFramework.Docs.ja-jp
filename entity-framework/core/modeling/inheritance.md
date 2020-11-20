@@ -4,12 +4,12 @@ description: Entity Framework Core を使用してエンティティ型の継承
 author: AndriySvyryd
 ms.date: 10/01/2020
 uid: core/modeling/inheritance
-ms.openlocfilehash: 3ec6e7bd98f9c9716c460d69fc707d95e5e47a05
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 33429bbc4a9941ff8ea98a8f99cc652c8ea26455
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429521"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003628"
 ---
 # <a name="inheritance"></a>継承
 
@@ -64,7 +64,7 @@ TPH パターンを使用する派生エンティティに対してクエリを�
 ## <a name="table-per-type-configuration"></a>テーブルごとの構成
 
 > [!NOTE]
-> 型ごとのテーブル (TPT) は、EF Core 5.0 の新機能です。 EF6 では、具象型 (TPC) ごとにサポートされていますが、まだ EF Core サポートされていません。
+> TPT (テーブル単位) 機能は EF Core 5.0 で導入されました。 EF6 では、具象型 (TPC) ごとにサポートされていますが、まだ EF Core サポートされていません。
 
 TPT mapping パターンでは、すべての型が個々のテーブルにマップされます。 基本データ型または派生型のみに属するプロパティは、その型にマップされたテーブルに格納されます。 派生型にマップされるテーブルには、派生テーブルとベーステーブルを結合する外部キーも格納されます。
 

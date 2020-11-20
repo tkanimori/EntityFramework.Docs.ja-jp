@@ -4,17 +4,17 @@ description: Entity Framework Core モデルでの空間データの使用
 author: bricelam
 ms.date: 10/02/2020
 uid: core/modeling/spatial
-ms.openlocfilehash: fa9cf30ddb4291d96486934544b568b67b126846
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: a38e75e150b3d3404f2ed7619d05ba478c411117
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430522"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003446"
 ---
 # <a name="spatial-data"></a>空間データ
 
 > [!NOTE]
-> この機能は EF Core 2.2 で追加されました。
+> この機能は EF Core 2.2 で導入されました。
 
 空間データは、オブジェクトの物理的な位置と形状を表します。 多くのデータベースでは、この種類のデータをサポートしているため、他のデータと共にインデックスを作成してクエリを実行できます。 一般的なシナリオとしては、ある場所からの特定の距離にあるオブジェクトのクエリ、または特定の場所を含む罫線を持つオブジェクトの選択などがあります。 EF Core では、NetTopologySuite 空間ライブラリを使用した空間データ型へのマッピングがサポートされています。
 
@@ -78,7 +78,7 @@ LINQ では、データベース関数として使用できる NTS のメソッ�
 
 ## <a name="reverse-engineering"></a>リバースエンジニアリング
 
-空間 NuGet パッケージによって、空間プロパティを持つ [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) モデルも有効になりますが、またはを実行する *_前に_* 、パッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
+空間 NuGet パッケージによって、空間プロパティを持つ [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) モデルも有効になりますが、またはを実行する *_前に_*、パッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
 ## <a name="srid-ignored-during-client-operations"></a>クライアント操作中に SRID が無視されました
 

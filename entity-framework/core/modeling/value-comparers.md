@@ -4,22 +4,22 @@ description: 値比較子を使用してプロパティ値を比較 EF Core 方�
 author: ajcvickers
 ms.date: 03/20/2020
 uid: core/modeling/value-comparers
-ms.openlocfilehash: d07aee866a542f55c4e1074c5782e67cb4035a89
-ms.sourcegitcommit: 7c3939504bb9da3f46bea3443638b808c04227c2
+ms.openlocfilehash: d59ab093c7e9d251aac80420972d3e35edabae0b
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/09/2020
-ms.locfileid: "89616678"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003615"
 ---
 # <a name="value-comparers"></a>値の比較演算子
 
 > [!NOTE]  
-> この機能は EF Core 3.0 で新たに追加されています。
+> この機能は EF Core 3.0 で導入されました。
 
 > [!TIP]  
 > このドキュメントのコードは、実行可能な [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/ValueConversions/)として GitHub にあります。
 
-## <a name="background"></a>背景
+## <a name="background"></a>バックグラウンド
 
 EF Core では、次の場合にプロパティ値を比較する必要があります。
 
@@ -47,7 +47,7 @@ FK プロパティが、比較する必要のある PK プロパティと _同�
 ### <a name="snapshots"></a>スナップショット
 
 変更可能な型の詳細な比較では、プロパティ値の詳細な "スナップショット" を作成する機能が EF Core に必要です。
-代わりに参照をコピーするだけで、現在の値とスナップショットの両方が変更されます。これは、 _同じオブジェクト_であるためです。
+代わりに参照をコピーするだけで、現在の値とスナップショットの両方が変更されます。これは、 _同じオブジェクト_ であるためです。
 したがって、変更可能な型に対して詳細比較を使用する場合は、ディープスナップショットも必要です。
 
 ## <a name="properties-with-value-converters"></a>値コンバーターを持つプロパティ
