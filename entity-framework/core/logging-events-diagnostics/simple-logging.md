@@ -4,17 +4,17 @@ description: LogTo を使用した EF Core DbContext からのログ記録
 author: ajcvickers
 ms.date: 10/03/2020
 uid: core/logging-events-diagnostics/simple-logging
-ms.openlocfilehash: 49619cc10ea098e39e71dde347e00bbc3c39b13a
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 274fca39c45c4e2ccfd47f3c4eeb0834e00d18aa
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431285"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003511"
 ---
-# <a name="simple-logging"></a>単純なログ記録
+# <a name="simple-logging"></a>シンプルなログ
 
 > [!NOTE]
-> この機能は、EF Core 5.0 で追加されました。
+> この機能は EF Core 5.0 で導入されました。
 
 > [!TIP]  
 > [この記事のサンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/SimpleLogging)は GitHub からダウンロードできます。
@@ -26,7 +26,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 ## <a name="configuration"></a>構成
 
-[Logto を](https://github.com/dotnet/efcore/blob/ec3df8fd7e4ea4ebeebfa747619cef37b23ab2c6/src/EFCore/DbContextOptionsBuilder.cs#L135)使用すると、任意の種類のアプリケーションから EF Core ログにアクセスできます。 <!-- Issue #2748 <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> --> ([DbContext インスタンスの構成時](xref:core/dbcontext-configuration/index))。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
+[LogTo](https://github.com/dotnet/efcore/blob/ec3df8fd7e4ea4ebeebfa747619cef37b23ab2c6/src/EFCore/DbContextOptionsBuilder.cs#L135) を使用すると、任意の種類のアプリケーションから EF Core ログにアクセスできます <!-- Issue #2748 <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> --> ([DbContext インスタンスの構成時](xref:core/dbcontext-configuration/index))。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -143,7 +143,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 すべてのログメッセージは、名前付きの階層 logger カテゴリに割り当てられます。 カテゴリは次のとおりです。
 
-| カテゴリ                                             | Messages
+| カテゴリ                                             | [メッセージ]
 |:-----------------------------------------------------|-------------------------------------------------
 | Microsoft.EntityFrameworkCore                        | すべての EF Core メッセージ
 | Microsoft EntityFrameworkCore. データベース               | すべてのデータベースの相互作用

@@ -4,12 +4,12 @@ description: Entity Framework Core を使用してエンティティ型を構成
 author: roji
 ms.date: 10/06/2020
 uid: core/modeling/entity-types
-ms.openlocfilehash: 9094193640e7cab6db3fed7ae0ab818a455156ca
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 9d86b959b5e0360df6d782d8d1c1c2f9393fdf8b
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429586"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003498"
 ---
 # <a name="entity-types"></a>エンティティ型
 
@@ -44,7 +44,7 @@ ms.locfileid: "94429586"
 ### <a name="excluding-from-migrations"></a>移行から除外する
 
 > [!NOTE]
-> EF Core 5.0 では、移行からテーブルを除外する機能が追加されました。
+> 移行からテーブルを除外する機能は、EF Core 5.0 で導入されました。
 
 同じエンティティ型を複数の型にマップすると便利な場合があり `DbContext` ます。 これは、境界付けられたコンテキストごとに異なる型を使用することが一般的である、境界付けられた [コンテキスト](https://www.martinfowler.com/bliki/BoundedContext.html)を使用する場合に特に当てはまり `DbContext` ます。
 
