@@ -19,8 +19,6 @@
       items:
         - name: ようこそ。
           href: core/index.md
-        - name: EF Core 6 のアンケートに答える >>
-          href: 'https://www.surveymonkey.com/r/XRL3JBL'
         - name: 作業の開始
           items:
             - name: EF Core の概要
@@ -216,6 +214,8 @@
               href: core/logging-events-diagnostics/interceptors.md
             - name: 診断リスナー
               href: core/logging-events-diagnostics/diagnostic-listeners.md
+            - name: イベント カウンター
+              href: core/logging-events-diagnostics/event-counters.md
         - name: テスト
           items:
             - name: EF Core を使用するコードのテスト
