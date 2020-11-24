@@ -4,12 +4,12 @@ description: Entity Framework Core で移行を使用してデータベース �
 author: bricelam
 ms.date: 10/28/2020
 uid: core/managing-schemas/migrations/index
-ms.openlocfilehash: 9f1c9e266d60b7ed4aed783bb8e01864c93867ea
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: b9547298714af59453aeae6d05742a03c067708b
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429820"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003396"
 ---
 # <a name="migrations-overview"></a>移行の概要
 
@@ -61,7 +61,7 @@ Add-Migration InitialCreate
 
 **_
 
-EF Core により、ご自分のプロジェクトに _ *Migrations* * というディレクトリが作成され、いくつかのファイルが生成されます。 EF Core で生成された内容を確認し、場合によっては修正することが推奨されますが、ここではそれは省きます。
+EF Core により、ご自分のプロジェクトに _ *Migrations** というディレクトリが作成され、いくつかのファイルが生成されます。 EF Core で生成された内容を確認し、場合によっては修正することが推奨されますが、ここではそれは省きます。
 
 ### <a name="create-your-database-and-schema"></a>ご自分のデータベースとスキーマを作成する
 
@@ -141,7 +141,7 @@ _*_
 ### <a name="excluding-parts-of-your-model"></a>モデルの一部を除外する
 
 > [!NOTE]
-> この機能は、EF Core 5.0 で追加されました。
+> この機能は EF Core 5.0 で導入されました。
 
 別の DbContext の型を参照する必要がある場合があります。 これにより、移行の競合が発生する可能性があります。 これを回避するには、いずれかの DbContext の移行から型を除外します。
 

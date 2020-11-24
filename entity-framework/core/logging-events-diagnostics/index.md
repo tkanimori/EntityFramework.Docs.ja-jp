@@ -4,12 +4,12 @@ description: EF Core のログ、イベント、インターセプター、診�
 author: ajcvickers
 ms.date: 10/01/2020
 uid: core/logging-events-diagnostics/index
-ms.openlocfilehash: fdf536dc6ec15e6e520d574b14527a4e7a7b1d72
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 2c44772b22112645f85cf0bffa680bc510ea5afb
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431128"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003524"
 ---
 # <a name="overview-of-logging-and-interception"></a>ログとインターセプトの概要
 
@@ -27,12 +27,12 @@ Entity Framework Core (EF Core) には、ログの生成、イベントへの応
 | インターセプター | Yes | コンテキストごと | コンテキスト構成 | EF 操作の取り扱い
 | 診断リスナー | いいえ | プロセス | グローバル | アプリケーション診断
 
-*通常、`Microsoft.Extensions.Logging` は依存関係の挿入を使用してアプリケーションごとに構成されますが、EF レベルでは、必要に応じて異なるロガーを使用して各コンテキストを構成 _できます_ 。
+*通常、`Microsoft.Extensions.Logging` は依存関係の挿入を使用してアプリケーションごとに構成されますが、EF レベルでは、必要に応じて異なるロガーを使用して各コンテキストを構成 _できます_。
 
 ## <a name="simple-logging"></a>シンプルなログ
 
 > [!NOTE]
-> この機能は、EF Core 5.0 で追加されました。
+> この機能は EF Core 5.0 で導入されました。
 
 [LogTo](https://github.com/dotnet/efcore/blob/ec3df8fd7e4ea4ebeebfa747619cef37b23ab2c6/src/EFCore/DbContextOptionsBuilder.cs#L135) を使用すると、任意の種類のアプリケーションから EF Core ログにアクセスできます <!-- Issue #2748 <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> --> ([DbContext インスタンスの構成時](xref:core/dbcontext-configuration/index))。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
 
@@ -55,7 +55,7 @@ Entity Framework Core (EF Core) には、ログの生成、イベントへの応
 ## <a name="events"></a>イベント
 
 > [!NOTE]
-> EF Core 5.0 では、イベントが追加されました。
+> EF Core 5.0 では、追加のイベントが導入されました。
 
 EF Core では、EF Core コードで特定の処理が発生したときにコールバックとして機能する [.NET イベント](/dotnet/standard/events/)が公開されます。 イベントはインターセプターよりシンプルであり、より柔軟な登録が可能です。 ただし、これらは同期のみであるため、非ブロッキングの非同期 I/O を実行することはできません。
 
@@ -66,7 +66,7 @@ EF Core では、EF Core コードで特定の処理が発生したときにコ�
 ## <a name="interception"></a>interception
 
 > [!NOTE]
-> この機能は、EF Core 3.0 で追加されました。 EF Core 5.0 では、インターセプターが追加されました。
+> この機能は EF Core 3.0 で導入されました。 EF Core 5.0 では、追加のインターセプターが導入されました。
 
 EF Core インターセプターを使用すると、EF Core 操作をインターセプト、変更、抑制できます。 これには、コマンド実行などの低レベルのデータベース操作と SaveChanges の呼び出しなどの上位レベルの操作が含まれます。
 

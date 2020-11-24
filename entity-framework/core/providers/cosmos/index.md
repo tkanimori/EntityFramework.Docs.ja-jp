@@ -4,17 +4,17 @@ description: Azure Cosmos DB SQL API と共に Entity Framework Core を使え�
 author: AndriySvyryd
 ms.date: 10/09/2020
 uid: core/providers/cosmos/index
-ms.openlocfilehash: 825517e79891378a61f9564c90dbf4522459e9d0
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: b167f53515799efdaead232f44ad5eab37fb0b14
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430317"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003602"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダー
 
 > [!NOTE]
-> このプロバイダーは、EF Core 3.0 で新しく追加されたものです。
+> このプロバイダーは、EF Core 3.0 で導入されました。
 
 このデータベース プロバイダーにより、Azure Cosmos DB と共に Entity Framework Core を使用できます。 このプロバイダーは、[Entity Framework Core プロジェクト](https://github.com/dotnet/efcore)の一部として保守管理されています。
 
@@ -73,7 +73,7 @@ Install-Package Microsoft.EntityFrameworkCore.Cosmos
 [!code-csharp[Configuration](../../../../samples/core/Cosmos/ModelBuilding/OptionsContext.cs?name=Configuration)]
 
 > [!NOTE]
-> これらのオプションのほとんどは、EF Core Cosmos 5.0 で新しく追加されたものです。
+> これらのオプションのほとんどは EF Core 5.0 で導入されました。
 
 > [!TIP]
 > 前述の各オプションの効果の詳細については、[Azure Cosmos DB のオプションに関するドキュメント](/dotnet/api/microsoft.azure.cosmos.cosmosclientoptions) を参照してください。
@@ -108,7 +108,7 @@ EF Core では、派生エンティティ型がない場合でも、特定の項
 [!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=PartitionKey&highlight=15)]
 
 > [!NOTE]
-> `WithPartitionKey` は、EF Core 5.0 で追加されました。
+> `WithPartitionKey` は、EF Core 5.0 で導入されました。
 
 通常、プライマリ キーにパーティション キーを追加することが推奨されます。それにより、サーバーのセマンティクスが最もよく反映され、`FindAsync` などで、いくつかの最適化が可能になるためです。
 
@@ -210,7 +210,7 @@ EF Core には、追跡対象のすべてのエンティティに対して、内
 ## <a name="optimistic-concurrency-with-etags"></a>eTag を使用したオプティミスティック同時実行制御
 
 > [!NOTE]
-> eTag 同時実行制御のサポートが EF Core 5.0 で追加されました。
+> eTag 同時実行制御のサポートが EF Core 5.0 で導入されました。
 
 [オプティミスティック同時実行制御](xref:core/modeling/concurrency)を使用するようにエンティティ型を構成するには、`UseETagConcurrency` を呼び出します。 この呼び出しによって、[シャドウ状態](xref:core/modeling/shadow-properties)の `_etag` プロパティが作成され、同時実行制御トークンとして設定されます。
 
