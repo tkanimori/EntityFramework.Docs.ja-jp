@@ -4,12 +4,12 @@ description: Entity Framework Core の SQL での単一クエリと分割クエ�
 author: smitpatel
 ms.date: 10/03/2019
 uid: core/querying/single-split-queries
-ms.openlocfilehash: 1c99d931c01b99de199710ffe661e1aac7a37263
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: ba282a0c5242b2eb87d681906571036d4751f6ac
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431188"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003563"
 ---
 # <a name="single-vs-split-queries"></a>単一クエリと分割クエリ
 
@@ -29,7 +29,7 @@ ORDER BY [b].[BlogId], [p].[PostId]
 ## <a name="split-queries"></a>分割クエリ
 
 > [!NOTE]
-> この機能は EF Core 5.0 で導入されています。 `Include` を使用した場合にのみ機能します。 [このイシュー](https://github.com/dotnet/efcore/issues/21234)により、`Include` を使用しないプロジェクションで関連データを読み込むときの分割クエリのサポートが追跡されています。
+> この機能は EF Core 5.0 で導入されました。 `Include` を使用した場合にのみ機能します。 [このイシュー](https://github.com/dotnet/efcore/issues/21234)により、`Include` を使用しないプロジェクションで関連データを読み込むときの分割クエリのサポートが追跡されています。
 
 EF では、特定の LINQ クエリを複数の SQL クエリに "*分割*" するように指定できます。 分割クエリを使用すると、JOIN ではなく、含まれているコレクション ナビゲーションごとに追加の SQL クエリが生成されます。
 
