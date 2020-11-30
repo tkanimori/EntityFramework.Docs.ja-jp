@@ -4,12 +4,12 @@ description: Entity Framework Core でデータを保存する場合の原子性
 author: roji
 ms.date: 9/26/2020
 uid: core/saving/transactions
-ms.openlocfilehash: 2cefe23068a40122b7a37c21536213456eef7b66
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: b5e1fa2a0bcc466f22f03fee7ecaef9dcea1efaf
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063622"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003550"
 ---
 # <a name="using-transactions"></a>トランザクションの使用
 
@@ -34,7 +34,13 @@ ms.locfileid: "92063622"
 
 ## <a name="savepoints"></a>セーブポイント
 
+> [!NOTE]
+> この機能は EF Core 5.0 で導入されました。
+
 `SaveChanges` が呼び出され、そのコンテキストでトランザクションが既に進行中である場合、EF ではデータを保存する前に自動的に "*セーブポイント*" が作成されます。 セーブポイントとは、エラーが発生した場合やその他の理由で、後でロールバックする可能性のある、データベース トランザクション内のポイントです。 `SaveChanges` でエラーが発生した場合、トランザクションは自動的にセーブポイントにロールバックされ、開始されていない場合と同じ状態でトランザクションが残ります。 これにより、[オプティミスティック同時実行制御](xref:core/saving/concurrency)に関する問題が発生した場合は特に、問題を修正して保存を再試行できる可能性があります。
+
+> [!WARNING]
+> セーブポイントは、SQL Server の複数のアクティブな結果セットと互換性がなく、使用されません。 `SaveChanges` の間にエラーが発生した場合、トランザクションは不明な状態のままになる可能性があります。
 
 また、トランザクションの場合と同様に、セーブポイントを手動で管理することもできます。 次の例では、トランザクション内にセーブポイントを作成し、障害発生時にそこへロールバックします。
 

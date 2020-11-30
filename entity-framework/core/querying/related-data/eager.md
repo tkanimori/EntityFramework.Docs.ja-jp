@@ -4,12 +4,12 @@ description: Entity Framework Core による関連データの一括読み込み
 author: roji
 ms.date: 9/8/2020
 uid: core/querying/related-data/eager
-ms.openlocfilehash: bd9c9045c1c2707d69ee4070bea59ad8066789f3
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 66956fcd85bb21a08c69fa93b93c12382bbfc8eb
+ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430106"
+ms.lasthandoff: 11/20/2020
+ms.locfileid: "95003576"
 ---
 # <a name="eager-loading-of-related-data"></a>関連データの一括読み込み
 
@@ -47,10 +47,15 @@ ms.locfileid: "94430106"
 
 [!code-csharp[Main](../../../../samples/core/Querying/RelatedData/Program.cs#MultipleLeafIncludes)]
 
+> [!TIP]
+> 1 つの `Include` メソッドを使用して複数のナビゲーションを読み込むこともできます。 これは、すべて参照であるナビゲーション "チェーン" の場合、または 1 つのコレクションで終わる場合に可能です。
+
+[!code-csharp[Main](../../../../samples/core/Querying/RelatedData/Program.cs#IncludeMultipleNavigationsWithSingleInclude)]
+
 ## <a name="filtered-include"></a>フィルター処理されたインクルード
 
 > [!NOTE]
-> この機能は EF Core 5.0 で導入されています。
+> この機能は EF Core 5.0 で導入されました。
 
 インクルードを適用して関連データを読み込む場合は、インクルードされているコレクション ナビゲーションに特定の列挙可能な操作を追加できます。これにより、結果のフィルター処理と並べ替えを行うことができます。
 
