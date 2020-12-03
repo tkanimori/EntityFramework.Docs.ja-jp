@@ -59,7 +59,7 @@ dotnet ef migrations add InitialCreate
 Add-Migration InitialCreate
 ```
 
-<span data-ttu-id="34351-124">\*\*_</span><span class="sxs-lookup"><span data-stu-id="34351-124">\*\*_</span></span>
+***
 
 <span data-ttu-id="34351-125">EF Core により、ご自分のプロジェクトに _ *Migrations*\* というディレクトリが作成され、いくつかのファイルが生成されます。</span><span class="sxs-lookup"><span data-stu-id="34351-125">EF Core will create a directory called _ *Migrations*\* in your project, and generate some files.</span></span> <span data-ttu-id="34351-126">EF Core で生成された内容を確認し、場合によっては修正することが推奨されますが、ここではそれは省きます。</span><span class="sxs-lookup"><span data-stu-id="34351-126">It's a good idea to inspect what exactly EF Core generated - and possibly amend it - but we'll skip over that for now.</span></span>
 
