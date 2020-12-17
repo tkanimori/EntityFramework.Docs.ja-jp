@@ -4,12 +4,12 @@ description: Entity Framework Core を使用したデータの非同期クエリ
 author: roji
 ms.date: 9/2/2020
 uid: core/miscellaneous/async
-ms.openlocfilehash: cefbe32b34a38ed6d749ef3ddfff210d5db12332
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: d887bf898d741070f3f3d64b3baf0311b0ab2b63
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071901"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635797"
 ---
 # <a name="asynchronous-programming"></a>非同期プログラミング
 
@@ -23,6 +23,9 @@ ms.locfileid: "90071901"
 
 > [!WARNING]
 > EF Core では、同じコンテキスト インスタンスで実行される複数の並列操作はサポートされていません。 次の操作を開始する前に、操作が完了するまで常に待機する必要があります。 これは通常、各非同期操作で `await` キーワードを使用することで行われます。
+
+> [!WARNING]
+> [Microsoft](https://github.com/dotnet/SqlClient)の非同期実装には、既知の問題がいくつかあります ( [#593](https://github.com/dotnet/SqlClient/issues/593)、 [#601](https://github.com/dotnet/SqlClient/issues/601)など)。
 
 > [!NOTE]
 > EF Core は、使用中の基になるデータベースプロバイダー (例: Microsoft. Data. SqlClient) にキャンセルトークンを渡します。 これらのトークンは受け入れられない場合があります。データベースプロバイダーのドキュメントを参照してください。  

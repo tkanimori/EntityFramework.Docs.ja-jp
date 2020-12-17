@@ -4,12 +4,12 @@ description: Entity Framework Core を使用してエンティティのプロパ
 author: roji
 ms.date: 05/27/2020
 uid: core/modeling/entity-properties
-ms.openlocfilehash: 67ea6eb9cc62c01c16ef33d4d1d1597576ec8b3d
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: fe6dd2c24b8f8ffffa8e0101f69966b7b7c74036
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003413"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635550"
 ---
 # <a name="entity-properties"></a>エンティティのプロパティ
 
@@ -152,7 +152,7 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Required.cs?name=Required&highlight=3-5)]
 
-***
+**_
 
 ## <a name="column-collations"></a>列の照合順序
 
@@ -166,3 +166,20 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 データベース内のすべての列で特定の照合順序を使用する必要がある場合は、代わりにデータベースレベルで照合順序を定義します。
 
 照合順序のサポート EF Core に関する一般情報については、 [照合順序のドキュメントページ](xref:core/miscellaneous/collations-and-case-sensitivity)を参照してください。
+
+## <a name="column-comments"></a>列のコメント
+
+データベース列に対して設定された任意のテキストコメントを設定して、データベース内のスキーマをドキュメント化できます。
+
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
+
+> [!NOTE]
+> データ注釈を使用したコメントの設定は EF Core 5.0 で導入されました。
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ColumnComment.cs?name=ColumnComment&highlight=4)]
+
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnComment.cs?name=ColumnComment&highlight=5)]
+
+_**

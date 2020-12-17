@@ -4,12 +4,12 @@ description: LogTo を使用した EF Core DbContext からのログ記録
 author: ajcvickers
 ms.date: 10/03/2020
 uid: core/logging-events-diagnostics/simple-logging
-ms.openlocfilehash: 274fca39c45c4e2ccfd47f3c4eeb0834e00d18aa
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: 076c4b12aa033b51a2b839686c520a76520ee415
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003511"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635615"
 ---
 # <a name="simple-logging"></a>シンプルなログ
 
@@ -26,7 +26,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 ## <a name="configuration"></a>構成
 
-[LogTo](https://github.com/dotnet/efcore/blob/ec3df8fd7e4ea4ebeebfa747619cef37b23ab2c6/src/EFCore/DbContextOptionsBuilder.cs#L135) を使用すると、任意の種類のアプリケーションから EF Core ログにアクセスできます <!-- Issue #2748 <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> --> ([DbContext インスタンスの構成時](xref:core/dbcontext-configuration/index))。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
+<xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> [Dbcontext インスタンスを構成](xref:core/dbcontext-configuration/index)するときにを使用することで、任意の種類のアプリケーションから EF Core ログにアクセスできます。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -143,7 +143,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 すべてのログメッセージは、名前付きの階層 logger カテゴリに割り当てられます。 カテゴリは次のとおりです。
 
-| カテゴリ                                             | [メッセージ]
+| カテゴリ                                             | メッセージ
 |:-----------------------------------------------------|-------------------------------------------------
 | Microsoft.EntityFrameworkCore                        | すべての EF Core メッセージ
 | Microsoft EntityFrameworkCore. データベース               | すべてのデータベースの相互作用
@@ -188,7 +188,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 [!code-csharp[CustomFilter](../../../samples/core/Miscellaneous/Logging/SimpleLogging/Program.cs?name=CustomFilter)]
 
 > [!TIP]
-> カスタムフィルターを使用したフィルター処理、またはここに示されている他のオプションの使用は、LogTo デリゲートでのフィルター処理よりも効率的です。 これは、フィルターによってメッセージがログに記録されないと判断された場合、ログメッセージは作成されません。
+> カスタムフィルターを使用したフィルター処理、またはここに示されている他のオプションの使用は、デリゲートでのフィルター処理よりも効率的です `LogTo` 。 これは、フィルターによってメッセージがログに記録されないと判断された場合、ログメッセージは作成されません。
 
 ## <a name="configuration-for-specific-messages"></a>特定のメッセージの構成
 
@@ -260,14 +260,14 @@ dbug: 10/6/2020 10:52:45.585 RelationalEventId.TransactionCommitted[20202] (Micr
       Committed transaction.
 ```
 
-このコンテンツは、 [DbContextLoggerOptions](https://github.com/dotnet/efcore/blob/ec3df8fd7e4ea4ebeebfa747619cef37b23ab2c6/src/EFCore/Diagnostics/DbContextLoggerOptions.cs#L15)から値を渡すことによってカスタマイズできます。 <!-- Issue #2748 <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions> -->(次のセクションを参照)。
+このコンテンツは <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions> 、次のセクションに示すように、から値を渡すことによってカスタマイズできます。
 
 > [!TIP]
 > ログの書式設定をより詳細に制御するには、 [Microsoft の拡張子](/aspnet/core/fundamentals/logging) を使用することを検討してください。
 
 ### <a name="using-utc-time"></a>UTC 時刻の使用
 
-既定では、timestamnps はデバッグ中にローカルで使用するように設計されています。 `DbContextLoggerOptions.DefaultWithUtcTime`代わりに、カルチャに依存しない UTC タイムスタンプを使用するためにを使用します。ただし、その他はすべて同じままにしておきます。 次に例を示します。
+既定では、タイムスタンプはデバッグ中にローカルで使用するように設計されています。 <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions.DefaultWithUtcTime?displayProperty=nameWithType>代わりに、カルチャに依存しない UTC タイムスタンプを使用するためにを使用します。ただし、その他はすべて同じままにしておきます。 次に例を示します。
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -295,7 +295,7 @@ dbug: 2020-10-06T17:55:39.0351684Z RelationalEventId.TransactionCommitted[20202]
 
 ### <a name="single-line-logging"></a>単一行のログ記録
 
-ログメッセージごとに1行だけを取得すると便利な場合があります。 これは、で有効にすることができ `DbContextLoggerOptions.SingleLine` ます。 次に例を示します。
+ログメッセージごとに1行だけを取得すると便利な場合があります。 これは、で有効にすることができ <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions.SingleLine?displayProperty=nameWithType> ます。 次に例を示します。
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -316,7 +316,7 @@ dbug: 10/6/2020 10:52:45.725 RelationalEventId.TransactionCommitted[20202] (Micr
 
 ### <a name="other-content-options"></a>その他のコンテンツオプション
 
-[DbContextLoggerOptions](https://github.com/dotnet/efcore/blob/ec3df8fd7e4ea4ebeebfa747619cef37b23ab2c6/src/EFCore/Diagnostics/DbContextLoggerOptions.cs#L15)のその他のフラグ <!-- Issue #2748 <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions> --> を使用すると、ログに含まれるメタデータの量を減らすことができます。 これは、単一行ログと組み合わせて使用すると便利です。 次に例を示します。
+の他のフラグを <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions> 使用して、ログに含まれるメタデータの量を減らすことができます。 これは、単一行ログと組み合わせて使用すると便利です。 次に例を示します。
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

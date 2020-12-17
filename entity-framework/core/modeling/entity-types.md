@@ -4,12 +4,12 @@ description: Entity Framework Core を使用してエンティティ型を構成
 author: roji
 ms.date: 10/06/2020
 uid: core/modeling/entity-types
-ms.openlocfilehash: 9d86b959b5e0360df6d782d8d1c1c2f9393fdf8b
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: ca8cb8560afe374218e763bc0476839187a40ece
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003498"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635771"
 ---
 # <a name="entity-types"></a>エンティティ型
 
@@ -84,7 +84,7 @@ ms.locfileid: "95003498"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TableNameAndSchema.cs?name=TableNameAndSchema&highlight=3-4)]
 
-_**
+_*_
 
 各テーブルのスキーマを指定するのではなく、fluent API を使用してモデルレベルで既定のスキーマを定義することもできます。
 
@@ -105,3 +105,63 @@ _**
 
 > [!TIP]
 > メモリ内のプロバイダーを使用してビューにマップされたエンティティ型をテストするには、を使用してクエリにマップし `ToInMemoryQuery` ます。 詳細については、この手法を使用した実行可能な [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Testing/ItemsWebApi/) を参照してください。
+
+## <a name="table-valued-function-mapping"></a>テーブル値関数のマッピング
+
+データベース内のテーブルではなく、エンティティ型をテーブル値関数 (TVF) にマップすることができます。 これを説明するために、複数の投稿を含むブログを表す別のエンティティを定義してみましょう。 この例では、エンティティは [キーなし](xref:core/modeling/keyless-entity-types)ですが、である必要はありません。
+
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/EntityTypes.cs#BlogWithMultiplePostsEntity)]
+
+次に、データベースに次のテーブル値関数を作成します。これにより、複数の投稿を含むブログだけでなく、これらの各ブログに関連付けられている投稿の数も返されます。
+
+```sql
+CREATE FUNCTION dbo.BlogsWithMultiplePosts()
+RETURNS TABLE
+AS
+RETURN
+(
+    SELECT b.Url, COUNT(p.BlogId) AS PostCount
+    FROM Blogs AS b
+    JOIN Posts AS p ON b.BlogId = p.BlogId
+    GROUP BY b.BlogId, b.Url
+    HAVING COUNT(p.BlogId) > 1
+)
+```
+
+これで、エンティティを `BlogWithMultiplePost` 次のようにこの関数にマップできます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/EntityTypes.cs#QueryableFunctionConfigurationToFunction)]
+
+> [!NOTE]
+> エンティティをテーブル値関数にマップするには、関数をパラメーターなしにする必要があります。
+
+慣例として、エンティティのプロパティは、TVF によって返される一致する列にマップされます。 TVF によって返される列の名前がエンティティプロパティと異なる場合は、通常のテーブルにマップする場合と同様に、メソッドを使用して構成でき `HasColumnName` ます。
+
+エンティティ型をテーブル値関数にマップすると、次のクエリが実行されます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/Conventions/Program.cs#ToFunctionQuery)]
+
+これは次の SQL を生成します。
+
+```sql
+SELECT [b].[Url], [b].[PostCount]
+FROM [dbo].[BlogsWithMultiplePosts]() AS [b]
+WHERE [b].[PostCount] > 3
+```
+
+## <a name="table-comments"></a>テーブルのコメント
+
+データベーステーブルに対して設定された任意のテキストコメントを設定して、データベース内のスキーマをドキュメント化できます。
+
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
+
+> [!NOTE]
+> データ注釈を使用したコメントの設定は EF Core 5.0 で導入されました。
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/TableComment.cs?name=TableComment&highlight=1)]
+
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/TableComment.cs?name=TableComment&highlight=4)]
+
+_**

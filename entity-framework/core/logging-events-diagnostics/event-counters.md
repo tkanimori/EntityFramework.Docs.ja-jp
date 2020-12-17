@@ -4,12 +4,12 @@ description: .NET イベントカウンターを使用して EF Core パフォ�
 author: roji
 ms.date: 11/17/2020
 uid: core/logging-events-diagnostics/event-counters
-ms.openlocfilehash: 46acfe82d8aeb7d16146bae0cc2cd4ff733e2831
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: 73d360b266db3d3252defbf4a4035c0eb430e22e
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003689"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635823"
 ---
 # <a name="event-counters"></a>イベントカウンター
 
@@ -77,7 +77,7 @@ Press p to pause, r to resume, q to quit.
 
 カウンター名                          | 説明
 ------------------------------------- | ----
-アクティブな DbContexts                     | 現在アプリケーション内にある、アクティブな破棄解除済みの DbContext インスタンスの数。 この数が継続的に増加している場合は、DbContext インスタンスが正しく破棄されていないためにリークが発生する可能性があります。 [コンテキストプーリング](xref:core/miscellaneous/context-pooling)が有効になっている場合、この数には、現在使用されていないプール済み dbcontext インスタンスが含まれていることに注意してください。
+アクティブな DbContexts                     | 現在アプリケーション内にある、アクティブな破棄解除済みの DbContext インスタンスの数。 この数が継続的に増加している場合は、DbContext インスタンスが正しく破棄されていないためにリークが発生する可能性があります。 [コンテキストプーリング](xref:core/performance/advanced-performance-topics#dbcontext-pooling)が有効になっている場合、この数には、現在使用されていないプール済み dbcontext インスタンスが含まれていることに注意してください。
 実行戦略操作の失敗 | データベース操作の実行に失敗した回数。 再試行中の実行戦略が有効になっている場合は、同じ操作に対して複数回試行されるたびに個々のエラーが発生します。 これは、インフラストラクチャに関する一時的な問題を検出するために使用できます。
 オプティミスティック同時実行制御エラー       | `SaveChanges`オプティミスティック同時実行制御エラーのために失敗した回数。データストア内のデータは、コードの読み込み後に変更されています。 これは、 <xref:Microsoft.EntityFrameworkCore.DbUpdateConcurrencyException> スローされるに対応します。
 クエリ                               | 実行されたクエリの数。

@@ -4,21 +4,22 @@ description: 他のプロバイダーと比較した Entity Framework Core Azure
 author: AndriySvyryd
 ms.date: 11/05/2020
 uid: core/providers/cosmos/limitations
-ms.openlocfilehash: f7517954b854c8ea1020c039e490b4fb0dea7181
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 088f593dddd9b5691d87566d7e31a699ba90d7c5
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430197"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635719"
 ---
 # <a name="ef-core-azure-cosmos-db-provider-limitations"></a>EF Core Azure Cosmos DB プロバイダーの制限事項
 
 Cosmos プロバイダーにはいくつかの制限があります。 これらの制限の多くは、基になる Cosmos データベースエンジンの制限の結果であり、EF に固有のものではありません。 しかし、ほとんどの場合、 [まだ実装されて](https://github.com/dotnet/efcore/issues?page=1&q=is%3Aissue+is%3Aopen+Cosmos+in%3Atitle+label%3Atype-enhancement+sort%3Areactions-%2B1-desc)いません。
 
-## <a name="temporary-limitations"></a>一時的な制限事項
+一般的に要求される機能の一部を次に示します。
 
-- `Include` 呼び出しはサポートされていません
-- `Join` 呼び出しはサポートされていません
+- [`Include` ご](https://github.com/dotnet/efcore/issues/16920)
+- [`Join` ご](https://github.com/dotnet/efcore/issues/17314)
+- [プリミティブ型のコレクションのサポート](https://github.com/dotnet/efcore/issues/14762)
 
 ## <a name="azure-cosmos-db-sdk-limitations"></a>Azure Cosmos DB SDK の制限事項
 

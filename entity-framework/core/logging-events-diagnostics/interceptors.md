@@ -4,12 +4,12 @@ description: データベース操作とその他のイベントのインター�
 author: ajcvickers
 ms.date: 10/08/2020
 uid: core/logging-events-diagnostics/interceptors
-ms.openlocfilehash: 22d860a083c5ece9be109be630c3ce01dd742bf2
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: fba9f3d02b8cf504c2cadca8eb844cd3e818e915
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003414"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635810"
 ---
 # <a name="interceptors"></a>インターセプター
 
@@ -401,7 +401,7 @@ Free beer for unicorns
 > [!TIP]  
 > [SaveChanges インターセプターサンプルは](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/SaveChangesInterception)GitHub からダウンロードできます。
 
-<xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> および <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A> インターセプトポイントは、 `ISaveChangesInterceptor` <!-- Issue #2748 --> efi. 他のインターセプターと同様、 `SaveChangesInterceptor` <!-- Issue #2748 --> 非 op メソッドを含む基本クラスは、便宜上提供されています。
+<xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> および <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A> インターセプトポイントは、インターフェイスによって定義され <xref:Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor> ます。 他のインターセプターと同様に、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesInterceptor> 非 op メソッドを含む基本クラスが便宜的に提供されます。
 
 > [!TIP]
 > インターセプターは強力です。 ただし、多くの場合、SaveChanges メソッドをオーバーライドするか、DbContext で公開されている [savechanges に .net イベント](xref:core/logging-events-diagnostics/events) を使用する方が簡単な場合があります。
@@ -502,7 +502,7 @@ public class EntityAudit
 * SaveChanges が成功すると、監査メッセージが更新され、成功を示すメッセージが表示されます。
 * SaveChanges が失敗した場合は、失敗を示す監査メッセージが更新されます。
 
-最初の段階は、の上書きを使用してデータベースに変更が送信される前に処理されます。 `ISaveChangesInterceptor.SavingChanges` <!-- Issue #2748 --> そして `ISaveChangesInterceptor.SavingChangesAsync`<!-- Issue #2748 -->.
+最初の段階は、およびの上書きを使用してデータベースに変更が送信される前に処理され <xref:Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor.SavingChanges%2A?displayProperty=nameWithType> <xref:Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor.SavingChangesAsync%2A?displayProperty=nameWithType> ます。
 
 <!--
     public async ValueTask<InterceptionResult<int>> SavingChangesAsync(
@@ -538,7 +538,7 @@ public class EntityAudit
 -->
 [!code-csharp[SavingChanges](../../../samples/core/Miscellaneous/SaveChangesInterception/AuditingInterceptor.cs?name=SavingChanges)]
 
-同期と非同期の両方のメソッドをオーバーライドすると、SaveChanges または SaveChangesAsync が呼び出されているかどうかにかかわらず、監査が確実に行われます。 非同期のオーバーロードは、監査データベースに対して非ブロッキング非同期 i/o を実行できることにも注意してください。 すべてのデータベース i/o が非同期であることを確認するために、sync SavingChanges メソッドからをスローすることをお勧めします。 この場合、アプリケーションは常に SaveChangesAsync を呼び出し、SaveChanges を呼び出す必要はありません。
+同期と非同期の両方のメソッドをオーバーライドすると、またはが呼び出されたかどうかにかかわらず、監査が確実に行われ `SaveChanges` `SaveChangesAsync` ます。 非同期のオーバーロードは、監査データベースに対して非ブロッキング非同期 i/o を実行できることにも注意してください。 `SavingChanges`すべてのデータベース i/o が非同期であることを確認するために、同期メソッドからをスローすることをお勧めします。 そのためには、アプリケーションが常にを呼び出し、常に呼び出さないようにする必要があり `SaveChangesAsync` `SaveChanges` ます。
 
 #### <a name="the-audit-message"></a>監査メッセージ
 
@@ -598,7 +598,7 @@ public class EntityAudit
 
 #### <a name="detecting-success"></a>成功の検出
 
-この監査エンティティはインターセプターに格納されるので、SaveChanges が成功または失敗した場合に再びアクセスできるようになります。 成功した場合は、 `ISaveChangesInterceptor.SavedChanges` <!-- Issue #2748 --> または `ISaveChangesInterceptor.SavedChangesAsync` <!-- Issue #2748 -->  が呼ばれたとき。
+この監査エンティティはインターセプターに格納されるので、SaveChanges が成功または失敗した場合に再びアクセスできるようになります。 成功した場合 <xref:Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor.SavedChanges%2A?displayProperty=nameWithType> は、または <xref:Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor.SavedChangesAsync%2A?displayProperty=nameWithType> が呼び出されます。
 
 <!--
     public int SavedChanges(SaveChangesCompletedEventData eventData, int result)
@@ -638,7 +638,7 @@ Audit エンティティはデータベースに既に存在し、更新する�
 
 #### <a name="detecting-failure"></a>検出 (エラーを)
 
-障害は成功とほぼ同じように処理されますが、 `ISaveChangesInterceptor.SaveChangesFailed` <!-- Issue #2748 --> または `ISaveChangesInterceptor.SaveChangesFailedAsync` <!-- Issue #2748 --> メソッドをオーバーライドします。 イベントデータには、スローされた例外が含まれます。
+エラーは成功とほぼ同じように処理されますが、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor.SaveChangesFailed%2A?displayProperty=nameWithType> メソッドまたはメソッドで処理され <xref:Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor.SaveChangesFailedAsync%2A?displayProperty=nameWithType> ます。 イベントデータには、スローされた例外が含まれます。
 
 <!--
     public void SaveChangesFailed(DbContextErrorEventData eventData)

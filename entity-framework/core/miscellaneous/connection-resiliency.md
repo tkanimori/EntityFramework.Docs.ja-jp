@@ -4,12 +4,12 @@ description: 接続の回復性を使用して、失敗したコマンドを Ent
 author: AndriySvyryd
 ms.date: 11/15/2016
 uid: core/miscellaneous/connection-resiliency
-ms.openlocfilehash: db0666a49cbd41ef3eacf447eaeed1fb54ffcbf4
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: bcafdf5de26ecfd7539d426388154550a39332ab
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92061919"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635784"
 ---
 # <a name="connection-resiliency"></a>接続の回復
 
@@ -32,6 +32,9 @@ public void ConfigureServices(IServiceCollection services)
             providerOptions => providerOptions.EnableRetryOnFailure()));
 }
 ```
+
+> [!NOTE]
+> 失敗時に再試行を有効にすると、EF が内部的に結果セットをバッファーに格納するため、大きな結果セットを返すクエリのメモリ要件が大幅に増加する可能性があります。 詳細については [、「バッファリングとストリーミング](xref:core/performance/efficient-querying#buffering-and-streaming) 」を参照してください。
 
 ## <a name="custom-execution-strategy"></a>カスタム実行戦略
 
@@ -108,6 +111,6 @@ protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
 > [!NOTE]
 > 検証に使用されるコンテキストに、トランザクションのコミット中に失敗した場合の検証中に再び失敗する可能性があるという実行方法が定義されていることを確認します。
 
-## <a name="additional-resources"></a>その他の資料
+## <a name="additional-resources"></a>その他のリソース
 
 * [Azure SQL Database と SQL Managed Instance での一時的な接続エラーのトラブルシューティング](/azure/azure-sql/database/troubleshoot-common-connectivity-issues)

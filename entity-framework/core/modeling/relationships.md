@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するときにエンティティ型
 author: AndriySvyryd
 ms.date: 10/01/2020
 uid: core/modeling/relationships
-ms.openlocfilehash: 716c034bd73d831996b727da18c2c1f83dd55290
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: 9c8fe469c4e0b8714a36624ff5bcf236e5b1652f
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003264"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635745"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -301,11 +301,13 @@ CREATE TABLE [PostTag] (
 );
 ```
 
-内部的には、EF は、結合エンティティ型と呼ばれる結合テーブルを表すエンティティ型を作成します。 このに使用できる特定の CLR 型がないため、 `Dictionary<string, object>` が使用されます。 複数の多対多リレーションシップがモデルに存在する可能性があるため、結合エンティティ型には一意の名前を指定する必要があります (この場合は) `PostTag` 。 これを可能にする機能は、共有型のエンティティ型と呼ばれます。
+内部的には、EF は、結合エンティティ型と呼ばれる結合テーブルを表すエンティティ型を作成します。 `Dictionary<string, object>` は、外部キープロパティの任意の組み合わせを処理するために使用されます。詳細については、「 [プロパティバッグエンティティ型](shadow-properties.md#property-bag-entity-types) 」を参照してください。 複数の多対多リレーションシップがモデルに存在する可能性があるため、結合エンティティ型には一意の名前を指定する必要があります (この場合は) `PostTag` 。 これを可能にする機能は、共有型のエンティティ型と呼ばれます。
 
-多対多のナビゲーションは、結合エンティティ型を効果的にスキップするため、"スキップナビゲーション" と呼ばれます。 一括構成を使用している場合は、すべてのスキップナビゲーションをから取得でき `GetSkipNavigations` ます。
+多対多のナビゲーションは、結合エンティティ型を効果的にスキップするため、"スキップナビゲーション" と呼ばれます。 一括構成を使用している場合は、すべてのスキップナビゲーションをから取得でき <xref:Microsoft.EntityFrameworkCore.Metadata.IEntityType.GetSkipNavigations%2A> ます。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyShared.cs?name=Metadata)]
+
+#### <a name="join-entity-type-configuration"></a>エンティティ型の構成の結合
 
 結合エンティティ型に構成を適用するのは一般的です。 この操作は、を使用して実行でき `UsingEntity` ます。
 
@@ -319,8 +321,16 @@ CREATE TABLE [PostTag] (
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyPayload.cs?name=ManyToManyPayload)]
 
+#### <a name="joining-relationships-configuration"></a>リレーションシップの結合構成
+
+EF は、多対多リレーションシップを表すために、結合エンティティ型の 2 1 対多のリレーションシップを使用します。 これらのリレーションシップは、引数で構成でき `UsingEntity` ます。
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/ManyToManyShared.cs?name=Components)]
+
 > [!NOTE]
 > EF Core 5.0 では、多対多リレーションシップを構成する機能が導入されました。以前のバージョンでは、次の方法を使用します。
+
+#### <a name="indirect-many-to-many-relationships"></a>間接的な多対多リレーションシップ
 
 結合エンティティ型を追加し、2つの個別の一対多リレーションシップをマッピングするだけで、多対多リレーションシップを表すこともできます。
 

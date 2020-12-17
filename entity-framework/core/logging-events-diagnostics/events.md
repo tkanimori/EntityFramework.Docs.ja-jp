@@ -4,31 +4,31 @@ description: EF Core によって定義された .NET イベント
 author: ajcvickers
 ms.date: 10/15/2020
 uid: core/logging-events-diagnostics/events
-ms.openlocfilehash: 21ee65b7a2c5155c4d5b45350f3f47bdcee22921
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 51c0bba5cf25e1d9ddd1fd9aebea50b9a03481a3
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431291"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635693"
 ---
 # <a name="net-events-in-ef-core"></a>EF Core での .NET イベント
 
 > [!TIP]  
 > GitHub から [イベントのサンプルをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Events) できます。
 
-Entity Framework Core (EF Core) は、EF Core コードで特定の処理が発生したときにコールバックとして機能する [.net イベント](/dotnet/standard/events/) を公開します。 イベントは [インターセプター](xref:core/logging-events-diagnostics/interceptors) よりも単純であり、より柔軟な登録が可能です。 ただし、これらは同期のみであるため、非ブロッキング非同期 i/o を実行することはできません。
+Entity Framework Core (EF Core) は、EF Core コードで特定の処理が発生したときにコールバックとして機能する [.net イベント](/dotnet/standard/events/) を公開します。 イベントは [インターセプター](xref:core/logging-events-diagnostics/interceptors) よりも単純であり、より柔軟な登録が可能です。 ただし、これらは同期のみであるため、非ブロッキングの非同期 I/O を実行することはできません。
 
-イベントはインスタンスごとに登録され `DbContext` ます。 [診断リスナー](xref:core/logging-events-diagnostics/diagnostic-listeners)を使用して、プロセス内のすべての dbcontext インスタンスで同じ情報を取得します。
+イベントはインスタンスごとに登録され `DbContext` ます。 プロセス内のすべての DbContext インスタンスで同じ情報を取得するには、[診断リスナー](xref:core/logging-events-diagnostics/diagnostic-listeners)を使用します。
 
 ## <a name="events-raised-by-ef-core"></a>EF Core によって発生したイベント
 
 EF Core によって、次のイベントが発生します。
 
-| イベント | 導入されたバージョン | 発生した場合
+| Event | 導入されたバージョン | 発生した場合
 |:------|--------------------|-------
-| `DbContext.SavingChanges` <!-- Issue #2748 -->| 5.0 | またはの開始時 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A><xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A>
-| `DbContext.SavedChanges`  <!-- Issue #2748 -->| 5.0 | 成功した場合、 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> または <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A>
-| `DbContext.SaveChangesFailed`  <!-- Issue #2748 -->| 5.0 | 失敗したまたはの終了時 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A><xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A>
+| <xref:Microsoft.EntityFrameworkCore.DbContext.SavingChanges?displayProperty=nameWithType> | 5.0 | またはの開始時 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A><xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A>
+| <xref:Microsoft.EntityFrameworkCore.DbContext.SavedChanges?displayProperty=nameWithType> | 5.0 | 成功した場合、 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> または <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A>
+| <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesFailed?displayProperty=nameWithType> | 5.0 | 失敗したまたはの終了時 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A><xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A>
 | <xref:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.Tracked?displayProperty=nameWithType> | 2.1 | エンティティがコンテキストによって追跡される場合
 | <xref:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.StateChanged?displayProperty=nameWithType> | 2.1 | 追跡対象のエンティティの状態が変化したとき
 
