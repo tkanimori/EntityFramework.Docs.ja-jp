@@ -4,12 +4,12 @@ description: Azure Cosmos DB SQL API と共に Entity Framework Core を使え�
 author: AndriySvyryd
 ms.date: 10/09/2020
 uid: core/providers/cosmos/index
-ms.openlocfilehash: b167f53515799efdaead232f44ad5eab37fb0b14
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: 8bfce78465e8194544562c3ecac4d3398ca91265
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003602"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635589"
 ---
 # <a name="ef-core-azure-cosmos-db-provider"></a>EF Core Azure Cosmos DB プロバイダー
 
@@ -103,12 +103,12 @@ EF Core では、派生エンティティ型がない場合でも、特定の項
 > [!NOTE]
 >パーティション キーのプロパティは、それが[文字列に変換される](xref:core/modeling/value-conversions)限り、任意の型にすることができます。
 
-一度構成したら、パーティション キーのプロパティは常に null 以外の値を持つ必要があります。 `WithPartitionKey` 呼び出しを追加して、クエリを単一パーティションにすることができます。
+一度構成したら、パーティション キーのプロパティは常に null 以外の値を持つ必要があります。 <xref:Microsoft.EntityFrameworkCore.CosmosQueryableExtensions.WithPartitionKey%2A> 呼び出しを追加して、クエリを単一パーティションにすることができます。
 
 [!code-csharp[PartitionKey](../../../../samples/core/Cosmos/ModelBuilding/Sample.cs?name=PartitionKey&highlight=15)]
 
 > [!NOTE]
-> `WithPartitionKey` は、EF Core 5.0 で導入されました。
+> <xref:Microsoft.EntityFrameworkCore.CosmosQueryableExtensions.WithPartitionKey%2A> は、EF Core 5.0 で導入されました。
 
 通常、プライマリ キーにパーティション キーを追加することが推奨されます。それにより、サーバーのセマンティクスが最もよく反映され、`FindAsync` などで、いくつかの最適化が可能になるためです。
 
@@ -212,10 +212,10 @@ EF Core には、追跡対象のすべてのエンティティに対して、内
 > [!NOTE]
 > eTag 同時実行制御のサポートが EF Core 5.0 で導入されました。
 
-[オプティミスティック同時実行制御](xref:core/modeling/concurrency)を使用するようにエンティティ型を構成するには、`UseETagConcurrency` を呼び出します。 この呼び出しによって、[シャドウ状態](xref:core/modeling/shadow-properties)の `_etag` プロパティが作成され、同時実行制御トークンとして設定されます。
+[オプティミスティック同時実行制御](xref:core/modeling/concurrency)を使用するようにエンティティ型を構成するには、<xref:Microsoft.EntityFrameworkCore.CosmosEntityTypeBuilderExtensions.UseETagConcurrency%2A> を呼び出します。 この呼び出しによって、[シャドウ状態](xref:core/modeling/shadow-properties)の `_etag` プロパティが作成され、同時実行制御トークンとして設定されます。
 
 [!code-csharp[Main](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=ETag)]
 
-同時実行制御エラーを簡単に解決できるようにするには、`IsETagConcurrency` を使用して、eTag を CLR プロパティにマップします。
+同時実行制御エラーを簡単に解決できるようにするには、<xref:Microsoft.EntityFrameworkCore.CosmosPropertyBuilderExtensions.IsETagConcurrency%2A> を使用して、eTag を CLR プロパティにマップします。
 
 [!code-csharp[Main](../../../../samples/core/Cosmos/ModelBuilding/OrderContext.cs?name=ETagProperty)]

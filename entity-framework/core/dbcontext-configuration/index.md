@@ -4,12 +4,12 @@ description: 依存関係の挿入がある場合とない場合の DbContext �
 author: ajcvickers
 ms.date: 11/07/2020
 uid: core/dbcontext-configuration/index
-ms.openlocfilehash: f4d51e10555844b5a14000a464f86d3440d5749e
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: 93d5942fbc81ee0ae9aeff0c5c8b9e20b160d512
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003290"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635393"
 ---
 # <a name="dbcontext-lifetime-configuration-and-initialization"></a>DbContext の有効期間、構成、および初期化
 
@@ -17,7 +17,7 @@ ms.locfileid: "95003290"
 
 ## <a name="the-dbcontext-lifetime"></a>DbContext の有効期間
 
-`DbContext` の有効期間は、インスタンスが作成された時点で開始し、インスタンスが[破棄された](/dotnet/standard/garbage-collection/unmanaged)時点で終了します。 `DbContext` インスタンスは、"_単一_" の[作業単位](https://www.martinfowler.com/eaaCatalog/unitOfWork.html)で使用するように設計されています。 これは、`DbContext` インスタンスの有効期間が通常は非常に短いことを意味します。
+`DbContext` の有効期間は、インスタンスが作成された時点で開始し、インスタンスが[破棄された](/dotnet/standard/garbage-collection/unmanaged)時点で終了します。 `DbContext` インスタンスは、"_単一_" の [作業単位](https://www.martinfowler.com/eaaCatalog/unitOfWork.html)で使用するように設計されています。 これは、`DbContext` インスタンスの有効期間が通常は非常に短いことを意味します。
 
 > [!TIP]
 > 上のリンクから Martin Fowler 氏の言葉を引用します。「作業単位によって、データベースに影響する可能性があるビジネス トランザクションの間に実行した処理がすべて追跡されます。 完了時に、作業の結果としてデータベースを変更するために何を実行する必要があるかがすべて示されます。」
@@ -42,7 +42,7 @@ Entity Framework Core (EF Core) を使用する場合の一般的な作業単位
 
 多くの Web アプリケーションでは、各 HTTP 要求は 1 つの作業単位に対応します。 このため、コンテキストの有効期間を要求のものに結び付けることが、Web アプリケーションの適切な既定値になります。
 
-ASP.NET Core アプリケーションは、[依存関係の挿入を使用して構成されます](/aspnet/core/fundamentals/startup)。 EF Core は、`Startup.cs` の [`ConfigurureServices`](/aspnet/core/fundamentals/startup#the-configureservices-method) メソッド内で <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> を使用することで、この構成に追加することができます。 次に例を示します。
+ASP.NET Core アプリケーションは、[依存関係の挿入を使用して構成されます](/aspnet/core/fundamentals/startup)。 EF Core は、`Startup.cs` の [`ConfigureServices`](/aspnet/core/fundamentals/startup#the-configureservices-method) メソッド内で <xref:Microsoft.Extensions.DependencyInjection.EntityFrameworkServiceCollectionExtensions.AddDbContext%2A> を使用することで、この構成に追加することができます。 次に例を示します。
 
 <!--
         public void ConfigureServices(IServiceCollection services)
