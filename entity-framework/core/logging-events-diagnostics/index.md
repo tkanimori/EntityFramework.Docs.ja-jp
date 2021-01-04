@@ -4,12 +4,12 @@ description: EF Core のログ、イベント、インターセプター、診�
 author: ajcvickers
 ms.date: 10/01/2020
 uid: core/logging-events-diagnostics/index
-ms.openlocfilehash: 2c44772b22112645f85cf0bffa680bc510ea5afb
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: d85a506167661523bf70b62d3a075a6248180d11
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003524"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635680"
 ---
 # <a name="overview-of-logging-and-interception"></a>ログとインターセプトの概要
 
@@ -34,7 +34,7 @@ Entity Framework Core (EF Core) には、ログの生成、イベントへの応
 > [!NOTE]
 > この機能は EF Core 5.0 で導入されました。
 
-[LogTo](https://github.com/dotnet/efcore/blob/ec3df8fd7e4ea4ebeebfa747619cef37b23ab2c6/src/EFCore/DbContextOptionsBuilder.cs#L135) を使用すると、任意の種類のアプリケーションから EF Core ログにアクセスできます <!-- Issue #2748 <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> --> ([DbContext インスタンスの構成時](xref:core/dbcontext-configuration/index))。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
+[DbContext インスタンスの構成](xref:core/dbcontext-configuration/index)時に <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> を使用すると、任意の種類のアプリケーションから EF Core ログにアクセスできます。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
