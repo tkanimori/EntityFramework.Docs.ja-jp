@@ -176,6 +176,8 @@
               href: core/querying/raw-sql.md
             - name: データベース関数
               href: core/querying/database-functions.md
+            - name: ユーザー定義関数のマッピング
+              href: core/querying/user-defined-function-mapping.md
             - name: グローバル クエリ フィルター
               href: core/querying/filters.md
             - name: クエリのタグ
@@ -228,6 +230,20 @@
               href: core/testing/sqlite.md
             - name: InMemory でテストする
               href: core/testing/in-memory.md
+        - name: パフォーマンス
+          items:
+            - name: はじめに
+              href: core/performance/index.md
+            - name: パフォーマンス診断
+              href: core/performance/performance-diagnosis.md
+            - name: 効率的なクエリ
+              href: core/performance/efficient-querying.md
+            - name: 効率的な更新
+              href: core/performance/efficient-updating.md
+            - name: パフォーマンスのモデリング
+              href: core/performance/modeling-for-performance.md
+            - name: 高度なパフォーマンスのトピック
+              href: core/performance/advanced-performance-topics.md
         - name: その他
           items:
             - name: サポートされている .NET 実装
@@ -307,7 +323,7 @@
             - name: デザイン時サービス
               href: core/cli/services.md
         - name: EF Core API リファレンス >>
-          href: /dotnet/api/?view=efcore-3.1
+          href: /dotnet/api/?view=efcore-5.0
     - name: Entity Framework 6
       items:
         - name: 概要
