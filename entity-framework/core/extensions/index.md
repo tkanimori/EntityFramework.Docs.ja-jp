@@ -2,14 +2,14 @@
 title: ツールと拡張機能 - EF Core
 description: Entity Framework Core の外部ツールと拡張機能
 author: ErikEJ
-ms.date: 04/11/2020
+ms.date: 11/22/2020
 uid: core/extensions/index
-ms.openlocfilehash: dc8125ab522b5b0c5126fda2d7c8093c2babdc29
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: 4136710567d0f6b088a0dd5ad9895d8b93313e5e
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003303"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635407"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
@@ -22,13 +22,13 @@ ms.locfileid: "95003303"
 
 ### <a name="llblgen-pro"></a>LLBLGen Pro
 
-LLBLGen Pro は、Entity Framework と Entity Framework Core のサポートを備えたエンティティ モデリング ソリューションです。 これにより、エンティティ モデルを定義し、データベースに Database-First または Model-First を使って簡単にマップできるようになるため、クエリの記述をすぐに始めることができます。 対象の EF Core:2、3
+LLBLGen Pro は、Entity Framework と Entity Framework Core のサポートを備えたエンティティ モデリング ソリューションです。 これにより、エンティティ モデルを定義し、データベースに Database-First または Model-First を使って簡単にマップできるようになるため、クエリの記述をすぐに始めることができます。 対象の EF Core:2、3。
 
 [Web サイト](https://www.llblgen.com/)
 
 ### <a name="devart-entity-developer"></a>Devart Entity Developer
 
-Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な O/RM デザイナーです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。 対象の EF Core:1、2、3、5。
+Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Telerik Data Access、LINQ to SQL 用の強力な O/RM デザイナーです。 モデル ファーストまたはデータベース ファーストのアプローチを使用した EF Core モデルの視覚的なデザイン、そして C# または Visual Basic のコード生成をサポートします。 対象の EF Core:2、3、5。
 
 [Web サイト](https://www.devart.com/entitydeveloper/)
 
@@ -40,13 +40,13 @@ Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Teler
 
 ### <a name="ef-core-power-tools"></a>EF Core のパワー ツール
 
-EF Core のパワー ツールは、シンプルなユーザー インターフェイスで EF Core デザイン時のさまざまなタスクを公開する Visual Studio の拡張機能です。 既存のデータベースと [SQL Server DACPAC](/sql/relational-databases/data-tier-applications/data-tier-applications) からの DbContext とエンティティ クラスのリバース エンジニアリング、データベース移行の管理、モデルの視覚化が含まれます。 対象の EF Core:2、3。
+EF Core のパワー ツールは、シンプルなユーザー インターフェイスで EF Core デザイン時のさまざまなタスクを公開する Visual Studio の拡張機能です。 既存のデータベースと [SQL Server DACPAC](/sql/relational-databases/data-tier-applications/data-tier-applications) からの DbContext とエンティティ クラスのリバース エンジニアリング、データベース移行の管理、モデルの視覚化が含まれます。 対象の EF Core:3、5。
 
 [GitHub の Wiki](https://github.com/ErikEJ/EFCorePowerTools/wiki)
 
 ### <a name="entity-framework-visual-editor"></a>Entity Framework のビジュアル エディター
 
-Entity Framework のビジュアル エディターは、EF 6 のビジュアル デザインの O/RM デザイナーと EF Core のクラスを追加する、Visual Studio の拡張機能です。 コードは T4 テンプレートを使用して生成されるため、あらゆるニーズに合わせてカスタマイズできます。 継承、一方向および双方向の関連付け、列挙体がサポートされ、クラスの色分けが可能になり、潜在的な設計の難解な部分を説明するテキストのブロックを追加できるようになります。 対象の EF Core:2.
+Entity Framework のビジュアル エディターは、EF 6 のビジュアル デザインの O/RM デザイナーと EF Core のクラスを追加する、Visual Studio の拡張機能です。 コードは T4 テンプレートを使用して生成されるため、あらゆるニーズに合わせてカスタマイズできます。 継承、一方向および双方向の関連付け、列挙体がサポートされ、クラスの色分けが可能になり、潜在的な設計の難解な部分を説明するテキストのブロックを追加できるようになります。 対象の EF Core:2、3、5。
 
 [Marketplace](https://marketplace.visualstudio.com/items?itemName=michaelsawczyn.EFDesigner)
 
@@ -67,13 +67,13 @@ Entity Framework Core Generator (efg) は既存のデータベースから EF Co
 
 ### <a name="microsoftentityframeworkcoreautohistory"></a>Microsoft.EntityFrameworkCore.AutoHistory
 
-EF Core によって実行されたデータ変更を履歴テーブルに自動的に記録できるプラグイン ライブラリ。 対象の EF Core:2.
+EF Core によって実行されたデータ変更を履歴テーブルに自動的に記録できるプラグイン ライブラリ。 対象の EF Core:2、3。
 
 [GitHub リポジトリ](https://github.com/Arch/AutoHistory/)
 
 ### <a name="efcoresecondlevelcacheinterceptor"></a>EFCoreSecondLevelCacheInterceptor
 
-第 2 レベルのキャッシュは、クエリ キャッシュです。 EF コマンドの結果はキャッシュに保存されます。これにより同じ EF コマンドが実行されたときにデータベースからではなくキャッシュからデータが取得されるようになります。 対象の EF Core:3.
+第 2 レベルのキャッシュは、クエリ キャッシュです。 EF コマンドの結果はキャッシュに保存されます。これにより同じ EF コマンドが実行されたときにデータベースからではなくキャッシュからデータが取得されるようになります。 対象の EF Core:3、5。
 
 [GitHub リポジトリ](https://github.com/VahidN/EFCoreSecondLevelCacheInterceptor)
 
@@ -85,19 +85,19 @@ Geco (ジェネレーター コンソール) は .NET Core 上で実行され、
 
 ### <a name="entityframeworkcorescaffoldinghandlebars"></a>EntityFrameworkCore.Scaffolding.Handlebars
 
-Entity Framework Core ツールチェーンと Handlebars テンプレートを使用して、既存のデータベースからリバース エンジニアリングされたクラスのカスタマイズを可能にします。 対象の EF Core:2、3。
+Entity Framework Core ツールチェーンと Handlebars テンプレートを使用して、既存のデータベースからリバース エンジニアリングされたクラスのカスタマイズを可能にします。 対象の EF Core:2、3、5。
 
 [GitHub リポジトリ](https://github.com/TrackableEntities/EntityFrameworkCore.Scaffolding.Handlebars)
 
 ### <a name="neinlinqentityframeworkcore"></a>NeinLinq.EntityFrameworkCore
 
-NeinLinq は、Entity Framework などの LINQ プロバイダーを拡張し、関数の再利用、クエリの書き直し、変換可能な述語とセレクターを使用した動的クエリの構築などを可能にします。 対象の EF Core:2、3。
+NeinLinq は、Entity Framework などの LINQ プロバイダーを拡張し、関数の再利用、クエリの書き直し、変換可能な述語とセレクターを使用した動的クエリの構築などを可能にします。 対象の EF Core:2、3、5。
 
 [GitHub リポジトリ](https://github.com/axelheer/nein-linq/)
 
 ### <a name="microsoftentityframeworkcoreunitofwork"></a>Microsoft.EntityFrameworkCore.UnitOfWork
 
-リポジトリ、作業パターン、分散トランザクション対応の複数のデータベースをサポートする Microsoft.EntityFrameworkCore のプラグイン。 対象の EF Core:2.
+リポジトリ、作業パターン、分散トランザクション対応の複数のデータベースをサポートする Microsoft.EntityFrameworkCore のプラグイン。 対象の EF Core:2、3。
 
 [GitHub リポジトリ](https://github.com/Arch/UnitOfWork/)
 
@@ -109,13 +109,13 @@ NeinLinq は、Entity Framework などの LINQ プロバイダーを拡張し、
 
 ### <a name="bricelamentityframeworkcorepluralizer"></a>Bricelam.EntityFrameworkCore.Pluralizer
 
-デザイン時の複数形化を追加します。 対象の EF Core:2.
+デザイン時の複数形化を追加します。 対象の EF Core:2、3。
 
 [GitHub リポジトリ](https://github.com/bricelam/EFCore.Pluralizer)
 
 ### <a name="toolbeltentityframeworkcoreindexattribute"></a>Toolbelt.EntityFrameworkCore.IndexAttribute
 
-[Index] 属性のリバイバルです (モデル構築のための拡張機能を含む)。 対象の EF Core:2、3。
+[Index] 属性のリバイバルです (モデル構築のための拡張機能を含む)。 対象の EF Core:2、3、5。
 
 [GitHub リポジトリ](https://github.com/jsakamoto/EntityFrameworkCore.IndexAttribute)
 
@@ -137,15 +137,9 @@ EF Core のメモリ内データベース プロバイダーに関するラッ�
 
 [GitHub リポジトリ](https://github.com/glautrou/EfCoreTemporalTable)
 
-### <a name="efcoretimetraveler"></a>EFCore.TimeTraveler
-
-EF Core コード、エンティティ、および既に定義済みのマッピングを使用して、[SQL Server テンポラル履歴](/sql/relational-databases/tables/temporal-table-usage-scenarios#point-in-time-analysis-time-travel)に対するフル機能の Entity Framework Core クエリを実行できるようにします。  コードを `using (TemporalQuery.AsOf(targetDateTime)) {...}` でラップすることにより、時間に関係なく使用できます。 対象の EF Core:3.
-
-[GitHub リポジトリ](https://github.com/VantageSoftware/EFCore.TimeTraveler)
-
 ### <a name="entityframeworkcoretemporaltables"></a>EntityFrameworkCore.TemporalTables
 
-SQL Server を使用している開発者がテンポラル テーブルを簡単に使用できるようにする、Entity Framework Core の拡張ライブラリ。 対象の EF Core:2.
+SQL Server を使用している開発者がテンポラル テーブルを簡単に使用できるようにする、Entity Framework Core の拡張ライブラリ。 対象の EF Core:2、3。
 
 [GitHub リポジトリ](https://github.com/findulov/EntityFrameworkCore.TemporalTables)
 
@@ -157,13 +151,19 @@ SQL Server を使用している開発者がテンポラル テーブルを簡�
 
 ### <a name="entityframeworkcorencache"></a>EntityFrameworkCore.NCache
 
-NCache Entity Framework Core Provider は、クエリの結果をキャッシュする、分散された第 2 レベルのキャッシュ プロバイダーです。 NCache の分散アーキテクチャにより、拡張性と可用性が向上しています。 対象は EF Core 2 です。
+NCache Entity Framework Core Provider は、クエリの結果をキャッシュする、分散された第 2 レベルのキャッシュ プロバイダーです。 NCache の分散アーキテクチャにより、拡張性と可用性が向上しています。 対象の EF Core: 2、3。
 
 [Web サイト](https://www.alachisoft.com/ncache/ef-core-cache.html)
 
+### <a name="entityframeworkcoretriggered"></a>EntityFrameworkCore.Triggered
+
+EF Core のトリガー。 データベースにコミットされる前と後の DbContext の変更に応答します。 トリガーは完全に非同期であり、依存関係の挿入、継承、カスケードなどがサポートされます。 対象の EF Core:3、5。
+
+[GitHub リポジトリ](https://github.com/koenbeuk/EntityFrameworkCore.Triggered)
+
 ### <a name="entity-framework-plus"></a>Entity Framework Plus
 
-次のような機能によって DbContext を拡張します:Include Filter、Auditing、Caching、Query Future、Batch Delete、Batch Update など。 対象の EF Core:2、3。
+次のような機能によって DbContext を拡張します:Include Filter、Auditing、Caching、Query Future、Batch Delete、Batch Update など。 対象の EF Core:2、3、5。
 
 [Web サイト](https://entityframework-plus.net/)
 [GitHub リポジトリ](https://github.com/zzzprojects/EntityFramework-Plus)
@@ -180,16 +180,16 @@ LINQ ラムダ式で拡張メソッドを呼び出すためのサポートを追
 
 [GitHub リポジトリ](https://github.com/ClaveConsulting/Expressionify)
 
-### <a name="xlinq"></a>XLinq
+### <a name="elinq"></a>ELinq
 
 リレーショナル データベース用の統合言語クエリ (LINQ) テクノロジ。 C# を使用して、厳密に型指定されたクエリを記述できます。 対象の EF Core:3.
 
 - クエリの作成時のラムダ、変数、関数内での複数のステートメントなどの C# の完全なサポート。
-- SQL と意味的な違いはありません。 XLinq では SQL ステートメント (`SELECT`、`FROM`、`WHERE`) を第一級の C# メソッドとして、使い慣れた構文を intellisense、タイプ セーフおよびリファクタリングと組み合わせ宣言します。
+- SQL と意味的な違いはありません。 ELinq では SQL ステートメント (`SELECT`、`FROM`、`WHERE`) を第一級の C# メソッドとして、使い慣れた構文を intellisense、タイプ セーフおよびリファクタリングと組み合わせ宣言します。
 
 その結果、SQL はその API をローカルに公開する、文字どおりの *"統合言語 SQL"* である "もう 1 つの" クラス ライブラリになります。
 
-[Web サイト](http://xlinq.live/)
+[Web サイト](https://entitylinq.com/)
 
 ### <a name="ramses"></a>Ramses
 
@@ -205,7 +205,7 @@ LINQ ラムダ式で拡張メソッドを呼び出すためのサポートを追
 
 ### <a name="simplersoftwareentityframeworkcoresqlservernodatime"></a>SimplerSoftware.EntityFrameworkCore.SqlServer.NodaTime
 
-NodaTime の SQL Server 用 EntityFrameworkCore にネイティブ サポートを追加します。 対象の EF Core:3.
+NodaTime の SQL Server 用 EntityFrameworkCore にネイティブ サポートを追加します。 対象の EF Core:3、5。
 
 [GitHub リポジトリ](https://github.com/StevenRasmussen/EFCore.SqlServer.NodaTime)
 
@@ -223,7 +223,7 @@ SQL Server EF Core プロバイダーに hierarchyid のサポートを追加し
 
 ### <a name="linq2dbentityframeworkcore"></a>linq2db.EntityFrameworkCore
 
-SQL 式に対する LINQ クエリの代替トランスレーター。 対象の EF Core:3.
+SQL 式に対する LINQ クエリの代替トランスレーター。 対象の EF Core:3、5。
 
 CTE、一括コピー、テーブル ヒント、ウィンドウ関数、一時テーブル、データベース側の作成、更新、削除作などの高度な SQL 機能のサポートが含まれています。
 
