@@ -4,12 +4,12 @@ description: Entity Framework Core による関連データの遅延読み込み
 author: roji
 ms.date: 9/8/2020
 uid: core/querying/related-data/lazy
-ms.openlocfilehash: c42cde469e2be38d53a46cb6c5c252a088978e5c
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 55622b9c5a8f70ef4e7246d6eb14678036948f18
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90078877"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635459"
 ---
 # <a name="lazy-loading-of-related-data"></a>関連データの遅延読み込み
 
@@ -52,6 +52,9 @@ public class Post
     public virtual Blog Blog { get; set; }
 }
 ```
+
+> [!WARNING]
+> 遅延読み込みにより、不要な追加のデータベース ラウンドトリップが発生するおそれがあり (いわゆる N+1 問題)、これを回避するように注意する必要があります。 詳細については、[パフォーマンスのセクション](xref:core/performance/efficient-querying#beware-of-lazy-loading)を参照してください。
 
 ## <a name="lazy-loading-without-proxies"></a>プロキシを使用しない遅延読み込み
 

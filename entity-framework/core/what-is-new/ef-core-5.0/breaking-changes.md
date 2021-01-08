@@ -4,12 +4,12 @@ description: Entity Framework Core 5.0 で導入された重大な変更の完�
 author: bricelam
 ms.date: 11/07/2020
 uid: core/what-is-new/ef-core-5.0/breaking-changes
-ms.openlocfilehash: e2537dbc1d5dba48450bd0fea7712054ba2fa622
-ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
+ms.openlocfilehash: 7a13c9a6f6bd299991c379ec490480e1fbb4ba46
+ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94503177"
+ms.lasthandoff: 12/17/2020
+ms.locfileid: "97635472"
 ---
 # <a name="breaking-changes-in-ef-core-50"></a>EF Core 5.0 での破壊的変更
 
@@ -28,11 +28,14 @@ ms.locfileid: "94503177"
 | [Cosmos: byte[] が、数値配列ではなく base64 文字列として格納されるようになりました](#cosmos-byte)                                             | 低        |
 | [Cosmos: GetPropertyName と SetPropertyName の名前が変更されました](#cosmos-metadata)                                                          | 低        |
 | [エンティティの状態が Detached から Unchanged、Updated、または Deleted に変更されると、値ジェネレーターが呼び出されます](#non-added-generation) | 低        |
-| [IMigrationsModelDiffer で IRelationalModel が使用されるようになりました](#relational-model)                                                                 | Low        |
+| [IMigrationsModelDiffer で IRelationalModel が使用されるようになりました](#relational-model)                                                                 | 低        |
+| [移行による ToView() の処理方法が変更されました](#toview)                                                                              | 低        |
+| [ToTable(null) により、エンティティ型はテーブルにマップされていないものとしてマークされます](#totable)                                                              | 低        |
 | [識別子が読み取り専用です](#read-only-discriminators)                                                                             | Low        |
 | [プロバイダー固有の EF.Functions メソッドによって InMemory プロバイダーに対してスローされます](#no-client-methods)                                              | 低        |
-| [IndexBuilder.HasName が古い形式に](#index-obsolete)                                                                               | Low        |
-| [リバース エンジニアリングされたモデルをスキャフォールディングするための pluarlizer が含まれるように](#pluralizer)                                                 | Low        |
+| [IProperty.GetColumnName() は古い形式になりました](#getcolumnname-obsolete)                                                                  | 低        |
+| [IndexBuilder.HasName が古い形式に](#index-obsolete)                                                                               | 低        |
+| [リバース エンジニアリングされたモデルをスキャフォールディングするため、プルーラライザーが含まれるようになっています](#pluralizer)                                                 | Low        |
 | [スキップ ナビゲーションをサポートするため一部の API で INavigation が INavigationBase に置き換えられます](#inavigationbase)                                     | 低        |
 | [相関コレクションが含まれ、`Distinct` または `GroupBy` も使用されている一部のクエリが、サポートされなくなりました](#collection-distinct-groupby) | 低        |
 | [プロジェクションでのクエリ可能型のコレクションの使用はサポートされていません](#queryable-projection)                                          | 低        |
@@ -340,6 +343,64 @@ var hasDifferences = modelDiffer.HasDifferences(
 
 6\.0 でこのエクスペリエンスを向上させることを計画しています ([#22031](https://github.com/dotnet/efcore/issues/22031) を参照)
 
+<a name="toview"></a>
+
+### <a name="toview-is-treated-differently-by-migrations"></a>移行による ToView() の処理方法が変更されました
+
+[問題 #2725 の追跡](https://github.com/dotnet/efcore/issues/2725)
+
+#### <a name="old-behavior"></a>以前の動作
+
+`ToView(string)` を呼び出すと、エンティティ型がビューにマップされるだけでなく、移行時に無視されます。
+
+#### <a name="new-behavior"></a>新しい動作
+
+`ToView(string)` により、エンティティ型はビューにマップされるだけでなく、テーブルにマップされていないものとしてマークされるようになりました。 その結果、EF Core 5 にアップグレードした後の最初の移行時に、このエンティティ型の既定のテーブルは無視されなくなったため、ドロップが試行されます。
+
+#### <a name="why"></a>理由
+
+EF Core では、エンティティ型をテーブルとビューの両方に同時にマップできるようになったため、`ToView` は、移行時に無視する必要があることを示す有効なインジケーターではなくなりました。
+
+#### <a name="mitigations"></a>軽減策
+
+マップされたテーブルを移行の除外対象としてマークするには、次のコードを使用してください。
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<User>().ToTable("UserView", t => t.ExcludeFromMigrations());
+}
+```
+
+<a name="totable"></a>
+
+### <a name="totablenull-marks-the-entity-type-as-not-mapped-to-a-table"></a>ToTable(null) により、エンティティ型はテーブルにマップされていないものとしてマークされます
+
+[問題 #21172 の追跡](https://github.com/dotnet/efcore/issues/21172)
+
+#### <a name="old-behavior"></a>以前の動作
+
+`ToTable(null)` により、テーブル名が既定値にリセットされます。
+
+#### <a name="new-behavior"></a>新しい動作
+
+`ToTable(null)` により、エンティティ型はどのテーブルにもマップされていないものとしてマークされるようになりました。
+
+#### <a name="why"></a>理由
+
+EF Core では、エンティティ型をテーブルとビューの両方に同時にマップできるようになったため、`ToTable(null)` は、どのテーブルにもマップされていないことを示すために使用されます。
+
+#### <a name="mitigations"></a>軽減策
+
+ビューまたは DbFunction にマップされていない場合、次のコードを使用してテーブル名を既定値にリセットします。
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<User>().Metadata.RemoveAnnotation(RelationalAnnotationNames.TableName);
+}
+```
+
 <a name="read-only-discriminators"></a>
 
 ### <a name="discriminators-are-read-only"></a>識別子が読み取り専用です
@@ -389,6 +450,32 @@ modelBuilder.Entity<BaseEntity>()
 #### <a name="mitigations"></a>軽減策
 
 データベース関数の動作を正確に模倣する方法がないため、それらが含まれるクエリを、実稼働環境と同じ種類のデータベースに対してテストする必要があります。
+
+<a name="getcolumnname-obsolete"></a>
+
+### <a name="ipropertygetcolumnname-is-now-obsolete"></a>IProperty.GetColumnName() は古い形式になりました
+
+[問題 #2266 の追跡](https://github.com/dotnet/efcore/issues/2266)
+
+#### <a name="old-behavior"></a>以前の動作
+
+`GetColumnName()` からは、プロパティがマップされている列の名前が返されていました。
+
+#### <a name="new-behavior"></a>新しい動作
+
+`GetColumnName()` からは引き続きプロパティがマップされている列の名前が返されますが、EF Core 5 では、TPT と、ビューまたは関数への同時マッピングがサポートされており、これらのマッピングにより、同じプロパティに異なる列名が使用される可能性があります。
+
+#### <a name="why"></a>理由
+
+ユーザーをより正確なオーバーロードに導くために、このメソッド <xref:Microsoft.EntityFrameworkCore.RelationalPropertyExtensions.GetColumnName(Microsoft.EntityFrameworkCore.Metadata.IProperty,Microsoft.EntityFrameworkCore.Metadata.StoreObjectIdentifier@)> を廃止とマークしました。
+
+#### <a name="mitigations"></a>軽減策
+
+特定のテーブルの列名を取得するには、次のコードを使用します。
+
+```csharp
+var columnName = property.GetColumnName(StoreObjectIdentifier.Table("Users", null)));
+```
 
 <a name="index-obsolete"></a>
 
