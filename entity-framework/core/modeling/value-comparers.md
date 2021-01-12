@@ -4,60 +4,51 @@ description: 値比較子を使用してプロパティ値を比較 EF Core 方�
 author: ajcvickers
 ms.date: 03/20/2020
 uid: core/modeling/value-comparers
-ms.openlocfilehash: d59ab093c7e9d251aac80420972d3e35edabae0b
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: 618341315de05f6efae8f43384809ed72226e18b
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003615"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128512"
 ---
 # <a name="value-comparers"></a>値の比較演算子
 
-> [!NOTE]  
+> [!NOTE]
 > この機能は EF Core 3.0 で導入されました。
 
-> [!TIP]  
+> [!TIP]
 > このドキュメントのコードは、実行可能な [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Modeling/ValueConversions/)として GitHub にあります。
 
 ## <a name="background"></a>バックグラウンド
 
-EF Core では、次の場合にプロパティ値を比較する必要があります。
+変更の追跡とは、読み込まれたエンティティインスタンスでアプリケーションによって行われた変更を EF Core が自動的に判断することを意味します。これにより、が呼び出されたときに、これらの変更をデータベースに保存することができ <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> ます。 EF Core は、通常、インスタンスがデータベースから読み込まれたときにその *スナップショットを取得* し、そのスナップショットをアプリケーションに渡されたインスタンスと *比較* することによってこれを実行します。
 
-* [更新プログラムの変更の検出](xref:core/saving/basic)の一部としてプロパティが変更されているかどうかを確認する
-* リレーションシップの解決時に2つのキー値が等しいかどうかを判断する
+EF Core には、データベースで使用されるほとんどの標準的な種類を比較するための組み込みロジックが付属しているため、ユーザーは通常このトピックについて心配する必要はありません。 ただし、プロパティが [値コンバーター](xref:core/modeling/value-conversions)によってマップされている場合、EF Core は、複雑になる可能性がある任意のユーザー型に対して比較を実行する必要があります。 既定では、EF Core は型によって定義された既定の等値比較 (メソッドなど) を使用し `Equals` ます。スナップショットの場合は、スナップショットを作成するために値型がコピーされます。参照型の場合はコピーが行われず、同じインスタンスがスナップショットとして使用されます。
 
-これは、int、bool、DateTime などの一般的なプリミティブ型に対して自動的に処理されます。
+組み込みの比較動作が適切でない場合は、ユーザーが *値の比較子* を提供することがあります。これには、スナップショットのロジック、ハッシュコードの比較と計算が含まれます。 たとえば、次の例では、プロパティの値変換を `List<int>` データベースの JSON 文字列に変換された値に設定し、適切な値の比較子も定義しています。
 
-より複雑な型については、比較の実行方法を選択する必要があります。
-たとえば、バイト配列は次のように比較できます。
+[!code-csharp[ListProperty](../../../samples/core/Modeling/ValueConversions/MappingListProperty.cs?name=ConfigureListProperty)]
+
+詳細については、以下の「変更可能な [クラス](#mutable-classes) 」を参照してください。
+
+リレーションシップを解決するときに2つのキー値が等しいかどうかを判断するときにも、値の比較演算子が使用されます。これについては以下で説明します。
+
+## <a name="shallow-vs-deep-comparison"></a>浅い比較と詳細な比較
+
+小規模な場合は、 `int` EF Core の既定のロジックが適切に機能します。スナップショット時に値がそのままコピーされ、型の組み込みの等価比較と比較されます。 独自の値の比較子を実装する場合は、ディープまたは浅い比較 (およびスナップショット) のロジックが適切かどうかを検討することが重要です。
+
+バイト配列を検討します。これは任意の大きさにすることができます。 次の比較を行うことができます。
 
 * 新しいバイト配列が使用されている場合にのみ、違いが検出されるように、参照渡し
 * 詳細な比較により、配列内のバイトの変化が検出されます。
 
-既定では、EF Core は、キー以外のバイト配列に対してこれらの方法の1つ目を使用します。
-つまり、参照のみが比較され、既存のバイト配列が新しいバイト配列に置き換えられた場合にのみ、変更が検出されます。
-これは、SaveChanges を実行するときに多くの大きなバイト配列の深い比較を回避する、実際的な決定です。
-ただし、別のイメージを使用したイメージがパフォーマンスの高い方法で処理されるという一般的なシナリオがあります。
+既定では、EF Core は、キー以外のバイト配列に対してこれらの方法の1つ目を使用します。 つまり、参照のみが比較され、既存のバイト配列が新しいバイト配列に置き換えられた場合にのみ、変更が検出されます。 これは、配列全体のコピーを回避し、実行時にバイト対バイトを比較することを回避するための実用的な決定です <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> 。また、ある画像を別のイメージと交換する一般的なシナリオは、パフォーマンスの高い方法で処理されます。
 
-一方、バイナリキーを表すためにバイト配列が使用されている場合、参照の等価性は機能しません。
-FK プロパティが、比較する必要のある PK プロパティと _同じインスタンス_ に設定されていることはほとんどありません。
-そのため、EF Core は、キーとして機能するバイト配列の詳細な比較を使用します。
-これは、通常、バイナリキーが短いため、パフォーマンスが大幅に低下する可能性があります。
+一方、バイト配列がバイナリキーを表すために使用される場合、参照の等価性は機能しません。これは、FK プロパティが比較する必要がある PK プロパティと _同じインスタンス_ に設定されている可能性が非常に高いためです。 そのため、EF Core はキーとして機能するバイト配列に対して詳細な比較を使用します。これは、通常、バイナリキーが短いため、パフォーマンスが大幅に低下する可能性があります。
 
-### <a name="snapshots"></a>スナップショット
+選択した比較とスナップショットのロジックは互いに対応している必要があることに注意してください。詳細な比較を行うには、ディープスナップショットが正しく機能する必要があります。
 
-変更可能な型の詳細な比較では、プロパティ値の詳細な "スナップショット" を作成する機能が EF Core に必要です。
-代わりに参照をコピーするだけで、現在の値とスナップショットの両方が変更されます。これは、 _同じオブジェクト_ であるためです。
-したがって、変更可能な型に対して詳細比較を使用する場合は、ディープスナップショットも必要です。
-
-## <a name="properties-with-value-converters"></a>値コンバーターを持つプロパティ
-
-上の例では、EF Core によってバイト配列のネイティブマッピングがサポートされているため、適切な既定値を自動的に選択できます。
-ただし、プロパティが [値コンバーター](xref:core/modeling/value-conversions)によってマップされている場合、EF Core は、必ず適切な比較を決定できません。
-代わりに、EF Core は常に、プロパティの型によって定義された既定の等値比較を使用します。
-多くの場合、これは適切ですが、より複雑な型をマップするときにオーバーライドする必要があります。
-
-### <a name="simple-immutable-classes"></a>単純な変更できないクラス
+## <a name="simple-immutable-classes"></a>単純な変更できないクラス
 
 値コンバーターを使用して単純な変更できないクラスをマップするプロパティについて考えてみます。
 
@@ -72,7 +63,7 @@ FK プロパティが、比較する必要のある PK プロパティと _同�
 
 この場合、EF Core の既定の動作はそのままです。
 
-### <a name="simple-immutable-structs"></a>単純な変更できない構造体
+## <a name="simple-immutable-structs"></a>単純な変更できない構造体
 
 単純な構造体のマッピングも単純であり、特別な比較子やスナップショットは必要ありません。
 
@@ -81,11 +72,11 @@ FK プロパティが、比較する必要のある PK プロパティと _同�
 [!code-csharp[ConfigureImmutableStructProperty](../../../samples/core/Modeling/ValueConversions/MappingImmutableStructProperty.cs?name=ConfigureImmutableStructProperty)]
 
 EF Core には、構造体のプロパティのコンパイル済みのメンバーごとの比較を生成するためのサポートが組み込まれています。
-これは、構造体が EF に対して等値オーバーライドを必要としないことを意味しますが、 [他の理由](/dotnet/csharp/programming-guide/statements-expressions-operators/how-to-define-value-equality-for-a-type)でこれを行うこともできます。
-また、特別なスナップショットは必要ありません。構造体は変更できず、常にメンバーごとにコピーされるためです。
+これは、構造体が EF Core に対して等値オーバーライドを持つ必要がないことを意味しますが、 [その他の理由](/dotnet/csharp/programming-guide/statements-expressions-operators/how-to-define-value-equality-for-a-type)でこれを行うこともできます。
+また、構造体は不変であり、常にメンバーごとにコピーされるため、特別なスナップショットは必要ありません。
 (これは変更可能な構造体にも当てはまりますが、変更 [可能な構造体は一般に避ける必要があり](/dotnet/csharp/write-safe-efficient-code)ます)。
 
-### <a name="mutable-classes"></a>変更可能なクラス
+## <a name="mutable-classes"></a>変更可能なクラス
 
 可能な限り、変更できない型 (クラスまたは構造体) を値コンバーターと共に使用することをお勧めします。
 これは通常、より効率的であり、変更可能な型を使用する場合よりも明確なセマンティクスを持ちます。
@@ -95,28 +86,28 @@ EF Core には、構造体のプロパティのコンパイル済みのメンバ
 
 [!code-csharp[ListProperty](../../../samples/core/Modeling/ValueConversions/MappingListProperty.cs?name=ListProperty)]
 
-[ `List<T>` クラス](/dotnet/api/system.collections.generic.list-1):
+<xref:System.Collections.Generic.List%601> クラスでは次のことが行われます。
 
 * 参照の等価性があります。同じ値を含む2つのリストは、異なるものとして扱われます。
 * 変更可能です。リスト内の値は、追加および削除できます。
 
 リストプロパティの一般的な値の変換では、リストを JSON との間で変換することができます。
 
-[!code-csharp[ConfigureListProperty](../../../samples/core/Modeling/ValueConversions/MappingListProperty.cs?name=ConfigureListProperty)]
+### <a name="ef-core-50"></a>[EF Core 5.0](#tab/ef5)
 
-そのためには、プロパティにを設定して、 `ValueComparer<T>` この変換で正しい比較を使用 EF Core ようにする必要があります。
+[!code-csharp[ListProperty](../../../samples/core/Modeling/ValueConversions/MappingListProperty.cs?name=ConfigureListProperty&highlight=7-10)]
 
-[!code-csharp[ConfigureListPropertyComparer](../../../samples/core/Modeling/ValueConversions/MappingListProperty.cs?name=ConfigureListPropertyComparer)]
+### <a name="older-versions"></a>[以前のバージョン](#tab/older-versions)
 
-> [!NOTE]  
-> 値の比較子を設定するためのモデルビルダー ("fluent") API は、まだ実装されていません。
-> 代わりに、上記のコードは、ビルダーによって公開されている下位レベルの IMutableProperty に対して ' Metadata ' として SetValueComparer を呼び出します。
+[!code-csharp[ListProperty](../../../samples/core/Modeling/ValueConversions/MappingListPropertyOld.cs?name=ConfigureListProperty&highlight=8-11,17)]
 
-コンストラクターは、 `ValueComparer<T>` 次の3つの式を受け取ります。
+***
+
+コンストラクターは、 <xref:Microsoft.EntityFrameworkCore.ChangeTracking.ValueComparer%601> 次の3つの式を受け取ります。
 
 * 等しいかどうかをチェックする式
 * ハッシュコードを生成するための式
-* 値をスナップショットにする式  
+* 値をスナップショットにする式
 
 この場合、比較は、数値のシーケンスが同じであるかどうかをチェックすることによって行われます。
 
@@ -124,28 +115,27 @@ EF Core には、構造体のプロパティのコンパイル済みのメンバ
 (これは変更可能な値を超えるハッシュコードであるため、 [問題が発生](https://ericlippert.com/2011/02/28/guidelines-and-rules-for-gethashcode/)する可能性があります。
 可能であれば、変更不可にしてください。)
 
-スナップショットは、リストを ToList で複製することによって作成されます。
+スナップショットは、でリストを複製することによって作成され `ToList` ます。
 ここでも、リストを変換する場合にのみ必要です。
 可能であれば、変更できないようにします。
 
-> [!NOTE]  
+> [!NOTE]
 > 値コンバーターと比較子は、単純なデリゲートではなく、式を使用して構築されます。
-> これは、EF によって、これらの式がより複雑な式ツリーに挿入され、その後、entity shaper デリゲートにコンパイルされるためです。
+> これは、EF Core によって、これらの式がより複雑な式ツリーに挿入され、その後、エンティティ shaper デリゲートにコンパイルされるためです。
 > 概念的には、これはコンパイラのインライン展開に似ています。
 > たとえば、単純な変換は、別のメソッドを呼び出して変換を行うのではなく、キャストでコンパイルされるだけである場合があります。
 
-### <a name="key-comparers"></a>キー比較子
+## <a name="key-comparers"></a>キー比較子
 
 [背景] セクションでは、キーの比較によって特殊なセマンティクスが必要になる理由を説明します。
 プライマリ、プリンシパル、または外部キーのプロパティでキーを設定するときに、キーに適した比較子を作成してください。
 
-同じプロパティに異なるセマンティクスが必要なまれなケースでは、 [Setkeyvaluecomparer](/dotnet/api/microsoft.entityframeworkcore.mutablepropertyextensions.setkeyvaluecomparer) を使用します。
+<xref:Microsoft.EntityFrameworkCore.MutablePropertyExtensions.SetKeyValueComparer%2A>同じプロパティに異なるセマンティクスが必要なまれなケースでは、を使用します。
 
-> [!NOTE]  
-> SetStructuralComparer は EF Core 5.0 で廃止されました。
-> 代わりに、SetKeyValueComparer を使用してください。
+> [!NOTE]
+> <xref:Microsoft.EntityFrameworkCore.MutablePropertyExtensions.SetStructuralValueComparer%2A> は EF Core 5.0 で廃止されました。 代わりに <xref:Microsoft.EntityFrameworkCore.MutablePropertyExtensions.SetKeyValueComparer%2A> を使用してください
 
-### <a name="overriding-defaults"></a>既定値のオーバーライド
+## <a name="overriding-the-default-comparer"></a>既定の比較子のオーバーライド
 
 EF Core によって使用される既定の比較が適切でない場合があります。
 たとえば、バイト配列の変異は、既定では EF Core で検出されません。

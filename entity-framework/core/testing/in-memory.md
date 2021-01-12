@@ -4,18 +4,18 @@ description: EF のメモリ内データベースを使用して Entity Framewor
 author: ajcvickers
 ms.date: 10/27/2016
 uid: core/testing/in-memory
-ms.openlocfilehash: db91570dc9d5a4b95d513df509867e9bca406356
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 78dcac3d0fd69110986c99a097a864104caa1951
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431241"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128811"
 ---
 # <a name="testing-with-the-ef-in-memory-database"></a>EF In-Memory データベースを使用したテスト
 
 > [!WARNING]
 > EF のメモリ内データベースは、多くの場合、リレーショナルデータベースとは動作が異なります。
-> 「 [EF Core を使用するコードのテスト](xref:core/testing/index)」で説明されているように、関連する問題とトレードオフについて十分に理解した後は、EF のメモリ内データベースのみを使用してください。  
+> 「 [EF Core を使用するコードのテスト](xref:core/testing/index)」で説明されているように、関連する問題とトレードオフについて十分に理解した後は、EF のメモリ内データベースのみを使用してください。
 
 > [!TIP]
 > SQLite はリレーショナルプロバイダーであり、メモリ内のデータベースを使用することもできます。

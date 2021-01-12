@@ -4,16 +4,16 @@ description: Entity Framework Core モデルでのシーケンスの構成
 author: roji
 ms.date: 12/18/2019
 uid: core/modeling/sequences
-ms.openlocfilehash: 8848a7237934091c1253ec61a37eea1c4326d1cb
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: e388bde11b1251564b37227e8884d2b8c34dc02e
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071395"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128525"
 ---
 # <a name="sequences"></a>シーケンス
 
-> [!NOTE]  
+> [!NOTE]
 > シーケンスは、通常、リレーショナルデータベースでのみサポートされる機能です。 Cosmos などの非リレーショナルデータベースを使用している場合は、一意の値の生成に関するデータベースドキュメントを確認してください。
 
 シーケンスは、データベース内で一意の連続する数値を生成します。 シーケンスは特定のテーブルに関連付けられていません。また、複数のテーブルを設定して、同じシーケンスから値を描画することもできます。

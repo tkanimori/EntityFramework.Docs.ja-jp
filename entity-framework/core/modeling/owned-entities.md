@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するときに所有されている
 author: AndriySvyryd
 ms.date: 11/06/2019
 uid: core/modeling/owned-entities
-ms.openlocfilehash: 36f756b70c9ad1727c48b5c789fd324c9dc6cd29
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 0cd6bfd25d4462509a3e6c112b892d652d29e45e
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429438"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128629"
 ---
 # <a name="owned-entity-types"></a>所有されているエンティティ型
 
@@ -48,7 +48,7 @@ EF Core を使用すると、他のエンティティ型のナビゲーション
 
 ## <a name="implicit-keys"></a>暗黙のキー
 
-参照ナビゲーションを使用して構成された所有型 `OwnsOne` は、常に所有者との一対一のリレーションシップを持ちます。したがって、外部キーの値が一意であるため、独自のキー値は必要ありません。 前の例では、 `StreetAddress` 型はキープロパティを定義する必要はありません。  
+参照ナビゲーションを使用して構成された所有型 `OwnsOne` は、常に所有者との一対一のリレーションシップを持ちます。したがって、外部キーの値が一意であるため、独自のキー値は必要ありません。 前の例では、 `StreetAddress` 型はキープロパティを定義する必要はありません。
 
 EF Core がこれらのオブジェクトを追跡する方法を理解するには、主キーが所有型の [シャドウプロパティ](xref:core/modeling/shadow-properties) として作成されていることを把握しておくと便利です。 所有されている型のインスタンスのキーの値は、所有者インスタンスのキーの値と同じになります。
 
@@ -130,7 +130,7 @@ EF Core がこれらのオブジェクトの追跡対象インスタンスを区
 
 上記のモデルは、次のデータベーススキーマにマップされています。
 
-![入れ子になった所有参照を含むエンティティのデータベースモデルの Sceenshot](_static/owned-entities-nested.png)
+![入れ子になった所有参照を含むエンティティのデータベースモデルのスクリーンショット](_static/owned-entities-nested.png)
 
 ## <a name="storing-owned-types-in-separate-tables"></a>個別のテーブルへの所有型の格納
 

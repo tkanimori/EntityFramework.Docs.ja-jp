@@ -4,12 +4,12 @@ description: Entity Framework Core を使用する場合のエンティティ型
 author: AndriySvyryd
 ms.date: 11/06/2019
 uid: core/modeling/keys
-ms.openlocfilehash: ea744315514b19465aba9a311055a9b5e49fa3f8
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 805396a13227aa62ed86ac17c742d055d7a22bbf
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063791"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129188"
 ---
 # <a name="keys"></a>[キー]
 
@@ -34,7 +34,7 @@ ms.locfileid: "92063791"
 
 ***
 
-また、エンティティのキーとして複数のプロパティを構成することもできます。これは、複合キーと呼ばれます。 複合キーは、Fluent API を使用してのみ構成できます。規則は複合キーを設定するのではなく、データ注釈を使用して構成することはできません。
+また、エンティティのキーとして複数のプロパティを構成することもできます。これは、複合キーと呼ばれます。 複合キーは、Fluent API を使用してのみ構成できます。規則では、複合キーは設定されず、データ注釈を使用して構成することはできません。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/KeyComposite.cs?name=KeyComposite&highlight=4)]
 

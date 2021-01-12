@@ -4,18 +4,18 @@ description: Entity Framework Core を使用するときにエンティティ型
 author: AndriySvyryd
 ms.date: 10/01/2020
 uid: core/modeling/relationships
-ms.openlocfilehash: 9c8fe469c4e0b8714a36624ff5bcf236e5b1652f
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: 2bc17365adb802f2e813077731ae70c68f8e3be3
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97635745"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129175"
 ---
 # <a name="relationships"></a>リレーションシップ
 
 リレーションシップは、2つのエンティティが相互にどのように関連しているかを定義します。 リレーショナルデータベースでは、これは foreign key 制約によって表されます。
 
-> [!NOTE]  
+> [!NOTE]
 > この記事のほとんどのサンプルでは、一対多の関係を使用して概念を示しています。 一対一および多対多リレーションシップの例については、記事の最後にある「 [その他のリレーションシップパターン](#other-relationship-patterns) 」を参照してください。
 
 ## <a name="definition-of-terms"></a>用語の定義
@@ -37,7 +37,7 @@ ms.locfileid: "97635745"
   * **参照ナビゲーションプロパティ:** 単一の関連エンティティへの参照を保持するナビゲーションプロパティ。
 
   * **逆ナビゲーションプロパティ:** この用語は、特定のナビゲーションプロパティを説明するときに、リレーションシップのもう一方の端のナビゲーションプロパティを参照します。
-  
+
 * **自己参照リレーションシップ:** 依存エンティティ型とプリンシパルエンティティ型が同じリレーションシップ。
 
 次のコードは、との間の一対多リレーションシップを示しています。 `Blog``Post`
@@ -62,7 +62,7 @@ ms.locfileid: "97635745"
 
 既定では、型に対してナビゲーションプロパティが検出されると、リレーションシップが作成されます。 プロパティは、参照先の型が現在のデータベースプロバイダーによってスカラー型としてマップされていない場合、ナビゲーションプロパティと見なされます。
 
-> [!NOTE]  
+> [!NOTE]
 > 規則によって検出されたリレーションシップは、常にプリンシパルエンティティの主キーを対象とします。 代替キーをターゲットにするには、Fluent API を使用して追加の構成を実行する必要があります。
 
 ### <a name="fully-defined-relationships"></a>完全に定義されたリレーションシップ
@@ -178,7 +178,7 @@ Fluent API を使用して、特定のリレーションシップの複合外部
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Relationships/ForeignKey.cs?name=ForeignKey&highlight=17)]
 
-> [!TIP]  
+> [!TIP]
 > 注釈は、 `[ForeignKey]` リレーションシップのいずれかのナビゲーションプロパティに配置できます。 依存エンティティクラスのナビゲーションプロパティに移動する必要はありません。
 
 > [!NOTE]
@@ -218,7 +218,7 @@ Fluent API を使用して、特定のリレーションシップの複合外部
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Relationships/CompositePrincipalKey.cs?name=CompositePrincipalKey&highlight=11)]
 
-> [!WARNING]  
+> [!WARNING]
 > プリンシパルキープロパティを指定する順序は、外部キーに指定されている順序と一致している必要があります。
 
 ---
@@ -250,7 +250,7 @@ Fluent API を使用して、特定のリレーションシップに対して連
 
 [!code-csharp[Main](../../../samples/core/Modeling/Conventions/Relationships/OneToOne.cs?name=OneToOne&highlight=6,15-16)]
 
-> [!NOTE]  
+> [!NOTE]
 > EF は、外部キープロパティを検出する機能に基づいて、依存するエンティティの1つを選択します。 依存関係として間違ったエンティティが選択されている場合は、Fluent API を使用してこれを修正できます。
 
 Fluent API との関係を構成する場合は、 `HasOne` メソッドとメソッドを使用し `WithOne` ます。

@@ -4,12 +4,12 @@ description: 複数のテスト間でデータベースを共有する方法を�
 author: ajcvickers
 ms.date: 04/25/2020
 uid: core/testing/sharing-databases
-ms.openlocfilehash: 95b756c80b983356a07fd836aa1b02f2835e6629
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 7a90a144271d5c34e9d5043aa439f84db805c6af
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431240"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128837"
 ---
 # <a name="sharing-databases-between-tests"></a>テスト間でのデータベースの共有
 
@@ -29,7 +29,7 @@ SQLite または EF のメモリ内データベースを使用する場合は、
 
 * テスト間でオブジェクトを安全に共有する方法
 * テストフレームワークが並列でテストを実行する場合
-* すべてのテストでデータベースをクリーンな状態に保つ方法  
+* すべてのテストでデータベースをクリーンな状態に保つ方法
 
 ## <a name="the-fixture"></a>フィクスチャ
 
@@ -65,7 +65,7 @@ SQLite または EF のメモリ内データベースを使用する場合は、
 データベース接続は、フィクスチャが破棄されると破棄されます。
 この時点で、テストデータベースの削除を検討することもできます。
 ただし、フィクスチャが複数のテストクラスで共有されている場合は、追加のロックと参照カウントが必要になります。
-また、多くの場合、失敗したテストをデバッグするためにテストデータベースを使用できるようにすると便利です。  
+また、多くの場合、失敗したテストをデバッグするためにテストデータベースを使用できるようにすると便利です。
 
 ## <a name="using-the-fixture"></a>フィクスチャの使用
 
@@ -85,7 +85,7 @@ XUnit には、テストフィクスチャをテストのクラスに関連付�
 ただし、これらの変更は、クリーンなシード処理されたデータベースを想定している他のテストに影響を与えます。
 
 これは、トランザクション内で変更テストを実行することで処理できます。
-次に例を示します。
+例:
 
 [!code-csharp[CanAddItem](../../../samples/core/Miscellaneous/Testing/ItemsWebApi/SharedDatabaseTests/SharedDatabaseTest.cs?name=CanAddItem)]
 

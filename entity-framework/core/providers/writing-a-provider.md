@@ -4,22 +4,22 @@ description: 新しい Entity Framework Core プロバイダーの作成に関�
 author: ajcvickers
 ms.date: 10/27/2016
 uid: core/providers/writing-a-provider
-ms.openlocfilehash: 898a7a50211e68400ee012daa542bed14bdcec1c
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: e66c5b94d826e35bb5148d57897a1081de4e9736
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430496"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128421"
 ---
 # <a name="writing-a-database-provider"></a>データベース プロバイダーを記述する
 
 Entity Framework Core データベースプロバイダーの作成の詳細については、「 [Arthur ヴィッカース](https://github.com/ajcvickers)」を参照して[EF Core プロバイダーを作成](https://blog.oneunicorn.com/2016/11/11/so-you-want-to-write-an-ef-core-provider/)することをお勧めします。
 
 > [!NOTE]
-> これらの投稿は EF Core 1.1 以降に更新されていないため、その時点以降に大幅な変更が加えられています。  
+> これらの投稿は EF Core 1.1 以降に更新されていないため、その時点以降に大幅な変更が加えられています。
 [問題 681](https://github.com/dotnet/EntityFramework.Docs/issues/681) は、このドキュメントの更新を追跡しています。
 
-EF Core codebase はオープンソースであり、参照として使用できるデータベースプロバイダーがいくつか含まれています。 ソースコードについては、「」を参照して <https://github.com/dotnet/efcore> ください。 また、 [Npgsql](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL)、 [Pomelo MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)、 [SQL Server Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact)など、一般的に使用されるサードパーティプロバイダーのコードを確認すると役立つ場合もあります。 特に、これらのプロジェクトは、NuGet で公開する機能テストをから拡張して実行するように設定されています。 この種のセットアップは強くお勧めします。
+EF Core codebase はオープンソースであり、参照として使用できるデータベースプロバイダーがいくつか含まれています。 ソースコードについては、「」を参照して <https://github.com/dotnet/efcore> ください。 また、 [Npgsql](https://github.com/npgsql/Npgsql.EntityFrameworkCore.PostgreSQL)、 [Pomelo MySQL](https://github.com/PomeloFoundation/Pomelo.EntityFrameworkCore.MySql)、 [SQL Server Compact](https://github.com/ErikEJ/EntityFramework.SqlServerCompact)など、一般的に使用されるサードパーティプロバイダーのコードを確認すると役立つ場合もあります。 特に、これらのプロジェクトは、NuGet で公開する機能テストから拡張して実行するように設定されています。 この種のセットアップは強くお勧めします。
 
 ## <a name="keeping-up-to-date-with-provider-changes"></a>プロバイダーの変更を最新の状態に保つ
 

@@ -4,23 +4,23 @@ description: EF Core 診断のグローバルな消費に DiagnosticListener を
 author: ajcvickers
 ms.date: 10/16/2020
 uid: core/logging-events-diagnostics/diagnostic-listeners
-ms.openlocfilehash: a2a962ac714cf80c42c269cee3770699aaa4c0c9
-ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
+ms.openlocfilehash: afb80aa8f05f70761e423f58653f681938079858
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94503229"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129266"
 ---
 # <a name="using-diagnostic-listeners-in-ef-core"></a>EF Core での診断リスナーの使用
 
-> [!TIP]  
+> [!TIP]
 > [この記事のサンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners)は GitHub からダウンロードできます。
 
 診断リスナーを使用すると、現在の .NET プロセスで発生する任意の EF Core イベントをリッスンできます。 クラスは、 <xref:System.Diagnostics.DiagnosticListener> 実行中のアプリケーションから診断情報を取得するための、 [.net 全体の共通メカニズム](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) の一部です。
 
-診断リスナーは、単一の DbContext インスタンスからイベントを取得するのに適していません。 EF Core [インターセプター](xref:core/logging-events-diagnostics/interceptors) は、コンテキストごとの登録で同じイベントにアクセスできるようにします。
+診断リスナーは、単一の DbContext インスタンスからイベントを取得するのには適していません。 EF Core [インターセプター](xref:core/logging-events-diagnostics/interceptors) は、コンテキストごとの登録で同じイベントにアクセスできるようにします。
 
-診断リスナーは、ログ記録用には設計されていません。 ログ記録には、 [単純なログ](xref:core/logging-events-diagnostics/simple-logging) 記録または [Microsoft 拡張子のログ](xref:core/logging-events-diagnostics/extensions-logging) 記録を使用することを検討してください。
+診断リスナーは、ログ記録向けに設計されていません。 ログ記録には、 [単純なログ](xref:core/logging-events-diagnostics/simple-logging) 記録または [Microsoft 拡張子のログ](xref:core/logging-events-diagnostics/extensions-logging) 記録を使用することを検討してください。
 
 ## <a name="example-observing-diagnostic-events"></a>例: 診断イベントの監視
 
@@ -29,10 +29,10 @@ EF Core イベントの解決は、2段階のプロセスです。 まず、そ�
 <!--
 public class DiagnosticObserver : IObserver<DiagnosticListener>
 {
-    public void OnCompleted() 
+    public void OnCompleted()
         => throw new NotImplementedException();
-    
-    public void OnError(Exception error) 
+
+    public void OnError(Exception error)
         => throw new NotImplementedException();
 
     public void OnNext(DiagnosticListener value)
@@ -55,15 +55,15 @@ public class DiagnosticObserver : IObserver<DiagnosticListener>
 -->
 [!code-csharp[RegisterDiagnosticListener](../../../samples/core/Miscellaneous/DiagnosticListeners/Program.cs?name=RegisterDiagnosticListener)]
 
-次に、EF Core DiagnosticListener が見つかると、新しいキー値オブザーバーが作成され、実際の EF Core イベントをサブスクライブします。 次に例を示します。
+次に、EF Core DiagnosticListener が見つかると、新しいキー値オブザーバーが作成され、実際の EF Core イベントをサブスクライブします。 例:
 
 <!--
 public class KeyValueObserver : IObserver<KeyValuePair<string, object>>
 {
-    public void OnCompleted() 
+    public void OnCompleted()
         => throw new NotImplementedException();
-    
-    public void OnError(Exception error) 
+
+    public void OnError(Exception error)
         => throw new NotImplementedException();
 
     public void OnNext(KeyValuePair<string, object> value)
@@ -105,12 +105,12 @@ public class KeyValueObserver : IObserver<KeyValuePair<string, object>>
         #region RegisterDiagnosticListener
         DiagnosticListener.AllListeners.Subscribe(new DiagnosticObserver());
         #endregion
-        
+
         using (var context = new BlogsContext())
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            
+
             context.Add(
                 new Blog
                 {

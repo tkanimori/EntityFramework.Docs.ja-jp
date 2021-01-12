@@ -4,12 +4,12 @@ description: Entity Framework Core を使用したデータの非同期クエリ
 author: roji
 ms.date: 9/2/2020
 uid: core/miscellaneous/async
-ms.openlocfilehash: d887bf898d741070f3f3d64b3baf0311b0ab2b63
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: 52b3ac20a50babbed6937ebe3365ac1947dcaef1
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97635797"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128577"
 ---
 # <a name="asynchronous-programming"></a>非同期プログラミング
 
@@ -28,7 +28,7 @@ ms.locfileid: "97635797"
 > [Microsoft](https://github.com/dotnet/SqlClient)の非同期実装には、既知の問題がいくつかあります ( [#593](https://github.com/dotnet/SqlClient/issues/593)、 [#601](https://github.com/dotnet/SqlClient/issues/601)など)。
 
 > [!NOTE]
-> EF Core は、使用中の基になるデータベースプロバイダー (例: Microsoft. Data. SqlClient) にキャンセルトークンを渡します。 これらのトークンは受け入れられない場合があります。データベースプロバイダーのドキュメントを参照してください。  
+> EF Core は、使用中の基になるデータベースプロバイダー (例: Microsoft. Data. SqlClient) にキャンセルトークンを渡します。 これらのトークンは受け入れられない場合があります。データベースプロバイダーのドキュメントを参照してください。
 
 ## <a name="async-linq-operators"></a>非同期 LINQ 演算子
 

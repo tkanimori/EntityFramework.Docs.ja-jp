@@ -4,19 +4,19 @@ description: SQLite を使用した Entity Framework Core アプリケーショ�
 author: ajcvickers
 ms.date: 04/24/2020
 uid: core/testing/sqlite
-ms.openlocfilehash: ebfcd36bf236cb83cab8683a8c31d4752d437998
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: da2504cfe7997a10a5ee8c447b1c6ef00dd02369
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431333"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129058"
 ---
 # <a name="using-sqlite-to-test-an-ef-core-application"></a>SQLite を使用した EF Core アプリケーションのテスト
 
 > [!WARNING]
 > SQLite を使用すると、EF Core アプリケーションをテストする効果的な方法になります。
 > ただし、SQLite の動作が他のデータベースシステムと異なる場合は、問題が発生する可能性があります。
-> 問題とトレードオフの詳細については、「 [EF Core を使用したコードのテスト](xref:core/testing/index) 」を参照してください。  
+> 問題とトレードオフの詳細については、「 [EF Core を使用したコードのテスト](xref:core/testing/index) 」を参照してください。
 
 このドキュメントでは、 [EF Core を使用するアプリケーションのテスト方法を示すサンプル](xref:core/testing/testing-sample)で導入された概念について説明します。
 このサンプルのコード例を次に示します。
@@ -33,7 +33,7 @@ SQLite では、単にメモリ内で作成されたデータベースを使用�
 * データベースへの接続が閉じられると、データベースは削除されます。
 
 指定されている場合、既に開いている接続が使用されるため、EF Core は閉じようとしません。
-そのため、メモリ内の SQLite データベースで EF Core を使用するには、EF に渡す前に接続を開く必要があります。  
+そのため、メモリ内の SQLite データベースで EF Core を使用するには、EF に渡す前に接続を開く必要があります。
 
 この [サンプル](xref:core/testing/testing-sample) では、次のコードを使用してこれを実現します。
 

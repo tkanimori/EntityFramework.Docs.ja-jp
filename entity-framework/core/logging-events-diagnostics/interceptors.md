@@ -4,12 +4,12 @@ description: データベース操作とその他のイベントのインター�
 author: ajcvickers
 ms.date: 10/08/2020
 uid: core/logging-events-diagnostics/interceptors
-ms.openlocfilehash: fba9f3d02b8cf504c2cadca8eb844cd3e818e915
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: e3b2f1a0f1a97d211bcaba0633955a7fe9c0aa91
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97635810"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128590"
 ---
 # <a name="interceptors"></a>インターセプター
 
@@ -21,12 +21,12 @@ Entity Framework Core (EF Core) インターセプターを使用すると、EF 
 
 ## <a name="registering-interceptors"></a>インターセプターの登録
 
-インターセプターは <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.AddInterceptors%2A> [、dbcontext インスタンスを構成](xref:core/dbcontext-configuration/index)するときにを使用して登録されます。 これは、通常、のオーバーライドで行われ <xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> ます。 次に例を示します。
+インターセプターは <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.AddInterceptors%2A> [、dbcontext インスタンスを構成](xref:core/dbcontext-configuration/index)するときにを使用して登録されます。 これは、通常、のオーバーライドで行われ <xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> ます。 例:
 
 <!--
 public class ExampleContext : BlogsContext
 {
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.AddInterceptors(new TaggedQueryCommandInterceptor());
 }
 -->
@@ -37,15 +37,15 @@ public class ExampleContext : BlogsContext
 > [!TIP]
 > AddDbContext が使用されている場合、または DbContext コンストラクターに DbContextOptions インスタンスが渡された場合、OnConfiguring は引き続き呼び出されます。 これにより、DbContext の構築方法に関係なく、コンテキスト構成を適用するための理想的な場所となります。
 
-通常、インターセプターはステートレスであるため、1つのインターセプターインスタンスをすべての DbContext インスタンスに使用できます。 次に例を示します。
+通常、インターセプターはステートレスであるため、1つのインターセプターインスタンスをすべての DbContext インスタンスに使用できます。 例:
 
 <!--
 public class TaggedQueryCommandInterceptorContext : BlogsContext
 {
-    private static readonly TaggedQueryCommandInterceptor _interceptor 
+    private static readonly TaggedQueryCommandInterceptor _interceptor
         = new TaggedQueryCommandInterceptor();
 
-    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder) 
+    protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.AddInterceptors(_interceptor);
 }
 -->
@@ -75,12 +75,12 @@ public class TaggedQueryCommandInterceptorContext : BlogsContext
 
 ### <a name="example-command-interception-to-add-query-hints"></a>例: クエリヒントを追加するためのコマンドインターセプト
 
-> [!TIP]  
+> [!TIP]
 > [コマンドインターセプターのサンプルは](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/CommandInterception)GitHub からダウンロードできます。
 
 は、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.IDbCommandInterceptor> データベースに送信される前に SQL を変更するために使用できます。 この例では、クエリヒントを含めるように SQL を変更する方法を示します。
 
-多くの場合、インターセプトの難しい部分は、コマンドが変更する必要があるクエリに対応するかどうかを判断することです。 SQL の解析は1つのオプションですが、脆弱になる傾向があります。 別の方法として、 [EF Core クエリタグ](xref:core/querying/tags) を使用して、変更する各クエリにタグを付けることもできます。 次に例を示します。
+多くの場合、インターセプトの難しい部分は、コマンドが変更する必要があるクエリに対応するかどうかを判断することです。 SQL の解析は1つのオプションですが、脆弱になる傾向があります。 別の方法として、 [EF Core クエリタグ](xref:core/querying/tags) を使用して、変更する各クエリにタグを付けることもできます。 例:
 
 <!--
             var blogs1 = context.Blogs.TagWith("Use hint: robust plan").ToList();
@@ -148,10 +148,10 @@ FROM [Blogs] AS [b]
 
 ### <a name="example-connection-interception-for-sql-azure-authentication-using-add"></a>例: ADD を使用した SQL Azure 認証の接続の傍受
 
-> [!TIP]  
+> [!TIP]
 > [接続インターセプターのサンプルは](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/ConnectionInterception)GitHub からダウンロードできます。
 
-は <xref:Microsoft.EntityFrameworkCore.Diagnostics.IDbConnectionInterceptor> 、データベースへの接続に使用する前に、を操作するために使用でき <xref:System.Data.Common.DbConnection> ます。 これは、Azure Active Directory (AAD) アクセストークンを取得するために使用できます。 次に例を示します。
+は <xref:Microsoft.EntityFrameworkCore.Diagnostics.IDbConnectionInterceptor> 、データベースへの接続に使用する前に、を操作するために使用でき <xref:System.Data.Common.DbConnection> ます。 これは、Azure Active Directory (AAD) アクセストークンを取得するために使用できます。 例:
 
 <!--
 public class AadAuthenticationInterceptor : DbConnectionInterceptor
@@ -192,7 +192,7 @@ public class AadAuthenticationInterceptor : DbConnectionInterceptor
 
 ### <a name="example-advanced-command-interception-for-caching"></a>例: キャッシュ用の高度なコマンドインターセプト
 
-> [!TIP]  
+> [!TIP]
 > [詳細なコマンドインターセプターサンプルは](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/CachingInterception)GitHub からダウンロードできます。
 
 EF Core インターセプターは次のことができます。
@@ -343,7 +343,7 @@ EF Core インターセプターは次のことができます。
         {
             Console.WriteLine(await GetDailyMessage(context));
         }
-        
+
         #region GetDailyMessage
         async Task<string> GetDailyMessage(DailyMessageContext context)
             => (await context.DailyMessages.TagWith("Get_Daily_Message").OrderBy(e => e.Id).LastAsync()).Message;
@@ -398,7 +398,7 @@ Free beer for unicorns
 > [!NOTE]
 > SaveChanges インターセプトは EF Core 5.0 で導入されました。
 
-> [!TIP]  
+> [!TIP]
 > [SaveChanges インターセプターサンプルは](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/SaveChangesInterception)GitHub からダウンロードできます。
 
 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> および <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A> インターセプトポイントは、インターフェイスによって定義され <xref:Microsoft.EntityFrameworkCore.Diagnostics.ISaveChangesInterceptor> ます。 他のインターセプターと同様に、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.SaveChangesInterceptor> 非 op メソッドを含む基本クラスが便宜的に提供されます。

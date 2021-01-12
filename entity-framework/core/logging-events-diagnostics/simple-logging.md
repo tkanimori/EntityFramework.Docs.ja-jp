@@ -4,20 +4,20 @@ description: LogTo を使用した EF Core DbContext からのログ記録
 author: ajcvickers
 ms.date: 10/03/2020
 uid: core/logging-events-diagnostics/simple-logging
-ms.openlocfilehash: 076c4b12aa033b51a2b839686c520a76520ee415
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: 5c2dc41122dfa3919d1e6a26b0760883d77ee1a0
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97635615"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129214"
 ---
 # <a name="simple-logging"></a>シンプルなログ
 
 > [!NOTE]
 > この機能は EF Core 5.0 で導入されました。
 
-> [!TIP]  
-> [この記事のサンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/SimpleLogging)は GitHub からダウンロードできます。
+> [!TIP]
+> [この記事のサンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Logging/SimpleLogging)は GitHub からダウンロードできます。
 
 Entity Framework Core (EF Core) 単純なログを使用して、アプリケーションの開発とデバッグを行うときに簡単にログを取得できます。 この形式のログ記録では、最小限の構成と追加の NuGet パッケージは必要ありません。
 
@@ -26,7 +26,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 ## <a name="configuration"></a>構成
 
-<xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> [Dbcontext インスタンスを構成](xref:core/dbcontext-configuration/index)するときにを使用することで、任意の種類のアプリケーションから EF Core ログにアクセスできます。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
+[DbContext インスタンスの構成](xref:core/dbcontext-configuration/index)時に <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A> を使用すると、任意の種類のアプリケーションから EF Core ログにアクセスできます。 この構成は、通常、<xref:Microsoft.EntityFrameworkCore.DbContext.OnConfiguring%2A?displayProperty=nameWithType> のオーバーライドで行われます。 次に例を示します。
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -49,7 +49,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 ### <a name="logging-to-the-debug-window"></a>[デバッグ] ウィンドウへのログ記録
 
-<xref:System.Diagnostics.Debug.WriteLine%2A?displayProperty=nameWithType> は、Visual Studio または他の Ide のデバッグウィンドウに出力を送信するために使用できます。 この場合、クラスはリリースビルドからコンパイルされるため、[ラムダ構文](/dotnet/csharp/language-reference/operators/lambda-expressions)を使用する必要があり `Debug` ます。 次に例を示します。
+<xref:System.Diagnostics.Debug.WriteLine%2A?displayProperty=nameWithType> は、Visual Studio または他の Ide のデバッグウィンドウに出力を送信するために使用できます。 この場合、クラスはリリースビルドからコンパイルされるため、[ラムダ構文](/dotnet/csharp/language-reference/operators/lambda-expressions)を使用する必要があり `Debug` ます。 例:
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -59,10 +59,10 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 ### <a name="logging-to-a-file"></a>ファイルへのログ記録
 
-ファイルに書き込むに <xref:System.IO.StreamWriter> は、ファイルのまたは同様のを作成する必要があります。 この <xref:System.IO.StreamWriter.WriteLine%2A> メソッドは、上記の他の例のように使用できます。 コンテキストが破棄されたときにライターを破棄することによって、ファイルが正常に閉じられていることを確認してください。 次に例を示します。
+ファイルに書き込むに <xref:System.IO.StreamWriter> は、ファイルのまたは同様のを作成する必要があります。 この <xref:System.IO.StreamWriter.WriteLine%2A> メソッドは、上記の他の例のように使用できます。 コンテキストが破棄されたときにライターを破棄することによって、ファイルが正常に閉じられていることを確認してください。 例:
 
 <!--
-    private readonly StreamWriter _logStream = new StreamWriter("mylog.txt", append: true); 
+    private readonly StreamWriter _logStream = new StreamWriter("mylog.txt", append: true);
 
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         => optionsBuilder.LogTo(_logStream.WriteLine);
@@ -72,7 +72,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
         base.Dispose();
         _logStream.Dispose();
     }
-    
+
     public override async ValueTask DisposeAsync()
     {
         await base.DisposeAsync();
@@ -90,7 +90,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 既定では、EF Core には、例外メッセージ内のデータの値は含まれません。 これは、このようなデータは機密情報である可能性があるため、例外が処理されない場合に実稼働環境でも明らかになる可能性があるためです。
 
-ただし、特にキーのデータ値を把握することは、デバッグ時に非常に役立ちます。 これは、を呼び出すことによって EF Core で有効にすることができ <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.EnableSensitiveDataLogging> ます。 次に例を示します。
+ただし、特にキーのデータ値を把握することは、デバッグ時に非常に役立ちます。 これは、を呼び出すことによって EF Core で有効にすることができ <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.EnableSensitiveDataLogging> ます。 例:
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -104,7 +104,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 パフォーマンス上の理由により、EF Core は、try-catch ブロック内のデータベースプロバイダーから値を読み取る各呼び出しをラップしません。 ただし、これにより、特に、モデルで許可されていない場合にデータベースが NULL を返す場合に、診断が困難な例外が発生することがあります。
 
-オンに <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.EnableDetailedErrors%2A> すると、EF によってこれらの try-catch ブロックが導入されるため、より詳細なエラーが発生します。 次に例を示します。
+オンに <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.EnableDetailedErrors%2A> すると、EF によってこれらの try-catch ブロックが導入されるため、より詳細なエラーが発生します。 例:
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -130,7 +130,7 @@ Entity Framework Core (EF Core) 単純なログを使用して、アプリケー
 
 すべてのログメッセージにはが割り当てられ <xref:Microsoft.Extensions.Logging.EventId> ます。 これらの Id <xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId> には、クラスから、または <xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId> リレーショナル固有のメッセージのクラスからアクセスできます。 データベースプロバイダーには、同様のクラスのプロバイダー固有の Id が含まれる場合もあります。 たとえば、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.SqlServerEventId> SQL Server プロバイダーの場合はです。
 
-`LogTo` は、1つまたは複数のイベント Id に関連付けられたメッセージのみをログに記録するように構成できます。 たとえば、初期化または破棄されたコンテキストのメッセージのみをログに記録するには、次のようにします。  
+`LogTo` は、1つまたは複数のイベント Id に関連付けられたメッセージのみをログに記録するように構成できます。 たとえば、初期化または破棄されたコンテキストのメッセージのみをログに記録するには、次のようにします。
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -214,7 +214,7 @@ EF Core <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.ConfigureWar
 
 ### <a name="suppress-logging-an-event"></a>イベントのログ記録を抑制する
 
-同様に、個々のイベントをログに記録しないようにすることもできます。 これは、確認して理解した警告を無視する場合に特に便利です。 次に例を示します。
+同様に、個々のイベントをログに記録しないようにすることもできます。 これは、確認して理解した警告を無視する場合に特に便利です。 例:
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -245,7 +245,7 @@ EF Core <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.ConfigureWar
 * <xref:Microsoft.Extensions.Logging.EventId>コピー/貼り付けを使用して、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId> または他のいずれかのクラスからのメンバーを取得し、 `EventId` 生の ID 値を含む、フォーム内の。
 * 前に説明したように、イベントカテゴリ。
 
-次に例を示します。
+例:
 
 ```output
 info: 10/6/2020 10:52:45.581 RelationalEventId.CommandExecuted[20101] (Microsoft.EntityFrameworkCore.Database.Command)
@@ -267,7 +267,7 @@ dbug: 10/6/2020 10:52:45.585 RelationalEventId.TransactionCommitted[20202] (Micr
 
 ### <a name="using-utc-time"></a>UTC 時刻の使用
 
-既定では、タイムスタンプはデバッグ中にローカルで使用するように設計されています。 <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions.DefaultWithUtcTime?displayProperty=nameWithType>代わりに、カルチャに依存しない UTC タイムスタンプを使用するためにを使用します。ただし、その他はすべて同じままにしておきます。 次に例を示します。
+既定では、タイムスタンプはデバッグ中にローカルで使用するように設計されています。 <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions.DefaultWithUtcTime?displayProperty=nameWithType>代わりに、カルチャに依存しない UTC タイムスタンプを使用するためにを使用します。ただし、その他はすべて同じままにしておきます。 例:
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -295,7 +295,7 @@ dbug: 2020-10-06T17:55:39.0351684Z RelationalEventId.TransactionCommitted[20202]
 
 ### <a name="single-line-logging"></a>単一行のログ記録
 
-ログメッセージごとに1行だけを取得すると便利な場合があります。 これは、で有効にすることができ <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions.SingleLine?displayProperty=nameWithType> ます。 次に例を示します。
+ログメッセージごとに1行だけを取得すると便利な場合があります。 これは、で有効にすることができ <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions.SingleLine?displayProperty=nameWithType> ます。 例:
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
@@ -316,7 +316,7 @@ dbug: 10/6/2020 10:52:45.725 RelationalEventId.TransactionCommitted[20202] (Micr
 
 ### <a name="other-content-options"></a>その他のコンテンツオプション
 
-の他のフラグを <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions> 使用して、ログに含まれるメタデータの量を減らすことができます。 これは、単一行ログと組み合わせて使用すると便利です。 次に例を示します。
+の他のフラグを <xref:Microsoft.EntityFrameworkCore.Diagnostics.DbContextLoggerOptions> 使用して、ログに含まれるメタデータの量を減らすことができます。 これは、単一行ログと組み合わせて使用すると便利です。 例:
 
 <!--
     protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)

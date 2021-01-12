@@ -4,16 +4,16 @@ description: EF Core によって定義された .NET イベント
 author: ajcvickers
 ms.date: 10/15/2020
 uid: core/logging-events-diagnostics/events
-ms.openlocfilehash: 51c0bba5cf25e1d9ddd1fd9aebea50b9a03481a3
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: 0888009af0bedfb63690e72c4a0e08979a9e9cf3
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97635693"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129253"
 ---
 # <a name="net-events-in-ef-core"></a>EF Core での .NET イベント
 
-> [!TIP]  
+> [!TIP]
 > GitHub から [イベントのサンプルをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/Events) できます。
 
 Entity Framework Core (EF Core) は、EF Core コードで特定の処理が発生したときにコールバックとして機能する [.net イベント](/dotnet/standard/events/) を公開します。 イベントは [インターセプター](xref:core/logging-events-diagnostics/interceptors) よりも単純であり、より柔軟な登録が可能です。 ただし、これらは同期のみであるため、非ブロッキングの非同期 I/O を実行することはできません。
@@ -24,7 +24,7 @@ Entity Framework Core (EF Core) は、EF Core コードで特定の処理が発�
 
 EF Core によって、次のイベントが発生します。
 
-| Event | 導入されたバージョン | 発生した場合
+| event | 導入されたバージョン | 発生した場合
 |:------|--------------------|-------
 | <xref:Microsoft.EntityFrameworkCore.DbContext.SavingChanges?displayProperty=nameWithType> | 5.0 | またはの開始時 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A><xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A>
 | <xref:Microsoft.EntityFrameworkCore.DbContext.SavedChanges?displayProperty=nameWithType> | 5.0 | 成功した場合、 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> または <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A>
@@ -97,7 +97,7 @@ public interface IHasTimestamps
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            
+
             context.Add(
                 new Blog
                 {

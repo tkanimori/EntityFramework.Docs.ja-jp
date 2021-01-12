@@ -4,35 +4,66 @@ description: Entity Framework Core モデルでのインデックスの構成
 author: roji
 ms.date: 12/16/2019
 uid: core/modeling/indexes
-ms.openlocfilehash: 3a89f1ae9727dcd8f086e915e666721572636314
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: ab81b108c4ff518cf98b7e835da3553c0c41efed
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90071408"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128538"
 ---
 # <a name="indexes"></a>Indexes
 
-インデックスは、多くのデータストアで共通の概念です。 データストアでの実装は異なる場合がありますが、列または列のセットに基づいて参照を作成するために使用されます。
+インデックスは、多くのデータストアで共通の概念です。 データストアでの実装は異なる場合がありますが、列または列のセットに基づいて参照を作成するために使用されます。 適切なインデックスの使用方法の詳細については、パフォーマンスドキュメントの「 [インデックス」セクション](xref:core/performance/efficient-querying#use-indexes-properly) を参照してください。
 
-データ注釈を使用してインデックスを作成することはできません。 Fluent API を使用して、次のように1つの列にインデックスを指定できます。
+列に対してインデックスを指定するには、次のようにします。
+
+## <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Index.cs?name=Index&highlight=1)]
+
+> [!NOTE]
+> データ注釈を使用したインデックスの構成は、EF Core 5.0 で導入されました。
+
+## <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Index.cs?name=Index&highlight=4)]
 
-複数の列に対してインデックスを指定することもできます。
-
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexComposite.cs?name=Composite&highlight=4)]
+***
 
 > [!NOTE]
 > 規則により、外部キーとして使用される各プロパティ (またはプロパティのセット) にインデックスが作成されます。
 >
-> EF Core では、個別のプロパティセットごとに1つのインデックスのみがサポートされます。 Fluent API を使用して、既にインデックスが定義されている一連のプロパティ (規則または以前の構成) のインデックスを構成する場合は、そのインデックスの定義を変更します。 これは、規則によって作成されたインデックスをさらに構成する場合に便利です。
+> EF Core では、個別のプロパティセットごとに1つのインデックスのみがサポートされます。 規則または以前の構成によって既にインデックスが定義されている一連のプロパティにインデックスを構成する場合は、そのインデックスの定義を変更します。 これは、規則によって作成されたインデックスをさらに構成する場合に便利です。
+
+## <a name="composite-index"></a>複合インデックス
+
+インデックスは、複数の列にまたがることもできます。
+
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/IndexComposite.cs?name=Composite&highlight=1)]
+
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
+
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexComposite.cs?name=Composite&highlight=4)]
+
+**_
+
+複数の列に対するインデックス (_composite インデックス * とも呼ばれます) は、インデックスの列をフィルター処理するクエリを高速化しますが、インデックスによってカバーされる *最初* の列に対してのみフィルター処理を行うクエリも行います。 詳細については、パフォーマンスに関する [ドキュメント](xref:core/performance/efficient-querying#use-indexes-properly) を参照してください。
 
 ## <a name="index-uniqueness"></a>インデックスの一意性
 
 既定では、インデックスは一意ではありません。複数の行がインデックスの列セットに対して同じ値を持つことができます。 次のように、インデックスを一意にすることができます。
 
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/IndexUnique.cs?name=IndexUnique&highlight=1)]
+
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
+
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexUnique.cs?name=IndexUnique&highlight=5)]
+
+***
 
 インデックスの列セットに同じ値を持つ複数のエンティティを挿入しようとすると、例外がスローされます。
 
@@ -40,9 +71,17 @@ ms.locfileid: "90071408"
 
 慣例により、リレーショナルデータベースに作成されたインデックスにはという名前が付けられ `IX_<type name>_<property name>` ます。 複合インデックスの場合、は、 `<property name>` アンダースコアで区切られたプロパティ名のリストになります。
 
-Fluent API を使用して、データベースに作成されたインデックスの名前を設定できます。
+次のように、データベースに作成されたインデックスの名前を設定できます。
+
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
+
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/IndexName.cs?name=IndexName&highlight=1)]
+
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexName.cs?name=IndexName&highlight=5)]
+
+***
 
 ## <a name="index-filter"></a>インデックスフィルター
 

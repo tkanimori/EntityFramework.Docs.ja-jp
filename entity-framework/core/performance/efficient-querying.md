@@ -4,12 +4,12 @@ description: Entity Framework Core を使用した効率的なクエリのパフ
 author: roji
 ms.date: 12/1/2020
 uid: core/performance/efficient-querying
-ms.openlocfilehash: acd5388745e74a42925c8500ce610aef83e75384
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: e945a1e0f734d62ce8948904bcbe819455fcbefa
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97657722"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128486"
 ---
 # <a name="efficient-querying"></a>効率的なクエリ
 
@@ -17,7 +17,7 @@ ms.locfileid: "97657722"
 
 ## <a name="use-indexes-properly"></a>インデックスを適切に使用する
 
-クエリが高速に実行されるかどうかを判断する主な要因は、適切なインデックスを使用するかどうかを決定することです。データベースは通常、大量のデータを保持するために使用され、テーブル全体をスキャンするクエリは、重大なパフォーマンスの問題の原因になります。 インデックス作成の問題は、特定のクエリでインデックスを使用するかどうかがすぐに明らかにならないため、簡単に見つけることができません。 次に例を示します。
+クエリが高速に実行されるかどうかを判断する主な要因は、適切なインデックスを使用するかどうかを決定することです。データベースは通常、大量のデータを保持するために使用され、テーブル全体をスキャンするクエリは、重大なパフォーマンスの問題の原因になります。 インデックス作成の問題は、特定のクエリでインデックスを使用するかどうかがすぐに明らかにならないため、簡単に見つけることができません。 例:
 
 [!code-csharp[Main](../../../samples/core/Performance/Program.cs#Indexes)]
 
@@ -136,7 +136,7 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 
 どうなっているのでしょうか? 上記の単純なループに対してこれらのクエリがすべて送信されるのはなぜですか。 遅延読み込みを使用すると、投稿のプロパティにアクセスしたときにのみ、ブログの投稿が読み込まれます。その結果、内部 foreach の各反復処理では、独自のラウンドトリップで、追加のデータベースクエリがトリガーされます。 その結果、最初のクエリによってすべてのブログが読み込まれた後、 *ブログごと* に別のクエリが作成され、すべての投稿が読み込まれます。これは、 *N + 1* の問題と呼ばれることもあり、非常に重大なパフォーマンスの問題が発生する可能性があります。
 
-ブログの投稿をすべて必要としている場合は、代わりに一括読み込みを使用するのが理にかなっています。 [Include](xref:core/querying/related-data/eager#eager-loading)演算子を使用して読み込みを実行できますが、必要なのはブログの url だけであるため、必要なもののみを[読み込む](xref:core/performance/efficient-updating#project-only-properties-you-need)必要があるためです。 そのため、代わりに射影を使用します。
+ブログの投稿をすべて必要としている場合は、代わりに一括読み込みを使用するのが理にかなっています。 [Include](xref:core/querying/related-data/eager#eager-loading)演算子を使用して読み込みを実行できますが、必要なのはブログの url だけであるため、必要なもののみを[読み込む](xref:core/performance/efficient-querying#project-only-properties-you-need)必要があるためです。 そのため、代わりに射影を使用します。
 
 [!code-csharp[Main](../../../samples/core/Performance/Program.cs#EagerlyLoadRelatedAndProject)]
 
@@ -147,7 +147,7 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 
 ## <a name="buffering-and-streaming"></a>バッファリングとストリーミング
 
-バッファリングとは、すべてのクエリ結果をメモリに読み込むことを指します。一方、ストリーミングでは、EF はアプリケーションを毎回1つの結果にすることを意味し、メモリ内に結果セット全体が含まれることはありません。 原則として、ストリーミングクエリのメモリ要件は固定されています。クエリが1行または1000を返すかどうかは同じです。一方、バッファリングクエリでは、より多くのメモリが必要になるため、より多くの行が返されます。 大きな結果セットを生成するクエリの場合、これは重要なパフォーマンス要因になることがあります。
+バッファリングとは、すべてのクエリ結果をメモリに読み込むことを指します。一方、ストリーミングでは、EF は毎回アプリケーションを1つの結果にし、メモリ内に結果セット全体を格納しないことを意味します。 原則として、ストリーミングクエリのメモリ要件は固定されています。クエリが1行または1000を返すかどうかは同じです。一方、バッファリングクエリでは、より多くのメモリが必要になるため、より多くの行が返されます。 大きな結果セットを生成するクエリの場合、これは重要なパフォーマンス要因になることがあります。
 
 クエリのバッファーまたはストリームがどのように評価されるかによって異なります。
 
@@ -156,7 +156,7 @@ info: Microsoft.EntityFrameworkCore.Database.Command[20101]
 クエリから返される結果がわずかである場合は、これについて心配する必要はありません。 ただし、クエリで大量の行が返される可能性がある場合は、バッファー処理ではなくストリーミングすることを検討してください。
 
 > [!NOTE]
-> <xref:System.Linq.Enumerable.ToList%2A>結果に対して別の LINQ 演算子を使用する場合は、またはを使用しない <xref:System.Linq.Enumerable.ToArray%2A> でください。これにより、すべての結果が不必要にメモリにバッファーされます。 代わりに、<xref:System.Linq.Enumerable.AsEnumerable%2A> を使用してください。
+> <xref:System.Linq.Enumerable.ToList%2A>結果に対して別の LINQ 演算子を使用する場合は、またはを使用しない <xref:System.Linq.Enumerable.ToArray%2A> でください。これにより、すべての結果が不必要にメモリにバッファーされます。 代わりに <xref:System.Linq.Enumerable.AsEnumerable%2A> を使用してください
 
 ### <a name="internal-buffering-by-ef"></a>EF による内部バッファリング
 
@@ -208,3 +208,7 @@ EF は、が呼び出されたときに、エンティティインスタンス�
 
 > [!WARNING]
 > 同一のアプリケーションに同期コードと非同期コードを混在させないでください。誤ってスレッドプール不足の問題が発生した場合は、非常に簡単にトリガーできます。
+
+## <a name="additional-resources"></a>その他のリソース
+
+Null 許容値を比較する場合のベストプラクティスについては、「null 比較」ドキュメントページの「 [パフォーマンス」セクション](xref:core/querying/null-comparisons#writing-performant-queries) を参照してください。

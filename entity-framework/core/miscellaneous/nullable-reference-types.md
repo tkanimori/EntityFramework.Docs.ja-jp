@@ -4,12 +4,12 @@ description: Entity Framework Core を使用する場合の C# null 許容の参
 author: roji
 ms.date: 09/09/2019
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: 648b79576838d2ba424b5216d5ad6811912f8ccb
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 749fef8560c6777dcb2314126b11d2dd6a3562f8
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429716"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128564"
 ---
 # <a name="working-with-nullable-reference-types"></a>Null 許容の参照型の使用
 
@@ -76,4 +76,4 @@ Terser として、null に対応していない演算子 (!) のヘルプを使
 ## <a name="limitations"></a>制限事項
 
 * リバースエンジニアリングでは、現在、 [C# 8 の null 許容参照型 (NRTs)](/dotnet/csharp/tutorials/nullable-reference-types)はサポートされていません。 EF Core は、機能がオフであることを前提とする c# コードを常に生成します。 たとえば、null 値が許容されるテキスト列は、 `string` `string?` プロパティが必須かどうかを構成するために使用される Fluent API またはデータ注釈を使用してではなく、型のプロパティとしてスキャフォールディングされます。 スキャフォールディングコードを編集し、C# の Null 値の許容属性に置き換えることができます。 Null 許容型参照型のスキャフォールディングサポートは、 [#15520](https://github.com/dotnet/efcore/issues/15520)問題によって追跡されます。
-* EF Core のパブリック API サーフェイスには、null 値の許容属性 (パブリック API が "無関係") に対してまだ注釈が付けられていないため、NRT 機能が有効になっているときに使用するのが困難な場合があります。 これには、特に、EF Core によって公開される非同期 LINQ 演算子 (たとえば、「」を含む) が含ま[れます。](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_) 5.0 リリースでは、このことに対処する予定です。
+* EF Core のパブリック API サーフェイスには、null 値の許容属性 (パブリック API が "無関係") に対してまだ注釈が付けられていないため、NRT 機能が有効になっているときに使用するのが困難な場合があります。 これには、特に、EF Core によって公開される非同期 LINQ 演算子 (たとえば、「」を含む) が含ま[れます。](/dotnet/api/microsoft.entityframeworkcore.entityframeworkqueryableextensions.firstordefaultasync#Microsoft_EntityFrameworkCore_EntityFrameworkQueryableExtensions_FirstOrDefaultAsync__1_System_Linq_IQueryable___0__System_Linq_Expressions_Expression_System_Func___0_System_Boolean___System_Threading_CancellationToken_) 6.0 リリースでは、このことに対処する予定です。
