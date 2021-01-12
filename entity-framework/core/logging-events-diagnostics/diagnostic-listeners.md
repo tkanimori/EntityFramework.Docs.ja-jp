@@ -4,35 +4,35 @@ description: EF Core 診断のグローバルな消費に DiagnosticListener を
 author: ajcvickers
 ms.date: 10/16/2020
 uid: core/logging-events-diagnostics/diagnostic-listeners
-ms.openlocfilehash: a2a962ac714cf80c42c269cee3770699aaa4c0c9
-ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
+ms.openlocfilehash: afb80aa8f05f70761e423f58653f681938079858
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94503229"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129266"
 ---
-# <a name="using-diagnostic-listeners-in-ef-core"></a><span data-ttu-id="20a86-103">EF Core での診断リスナーの使用</span><span class="sxs-lookup"><span data-stu-id="20a86-103">Using Diagnostic Listeners in EF Core</span></span>
+# <a name="using-diagnostic-listeners-in-ef-core"></a><span data-ttu-id="715fc-103">EF Core での診断リスナーの使用</span><span class="sxs-lookup"><span data-stu-id="715fc-103">Using Diagnostic Listeners in EF Core</span></span>
 
-> [!TIP]  
-> <span data-ttu-id="20a86-104">[この記事のサンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners)は GitHub からダウンロードできます。</span><span class="sxs-lookup"><span data-stu-id="20a86-104">You can [download this article's sample](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners) from GitHub.</span></span>
+> [!TIP]
+> <span data-ttu-id="715fc-104">[この記事のサンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners)は GitHub からダウンロードできます。</span><span class="sxs-lookup"><span data-stu-id="715fc-104">You can [download this article's sample](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners) from GitHub.</span></span>
 
-<span data-ttu-id="20a86-105">診断リスナーを使用すると、現在の .NET プロセスで発生する任意の EF Core イベントをリッスンできます。</span><span class="sxs-lookup"><span data-stu-id="20a86-105">Diagnostic listeners allow listening for any EF Core event that occurs in the current .NET process.</span></span> <span data-ttu-id="20a86-106">クラスは、 <xref:System.Diagnostics.DiagnosticListener> 実行中のアプリケーションから診断情報を取得するための、 [.net 全体の共通メカニズム](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) の一部です。</span><span class="sxs-lookup"><span data-stu-id="20a86-106">The <xref:System.Diagnostics.DiagnosticListener> class is a part of a [common mechanism across .NET](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) for obtaining diagnostic information from running applications.</span></span>
+<span data-ttu-id="715fc-105">診断リスナーを使用すると、現在の .NET プロセスで発生する任意の EF Core イベントをリッスンできます。</span><span class="sxs-lookup"><span data-stu-id="715fc-105">Diagnostic listeners allow listening for any EF Core event that occurs in the current .NET process.</span></span> <span data-ttu-id="715fc-106">クラスは、 <xref:System.Diagnostics.DiagnosticListener> 実行中のアプリケーションから診断情報を取得するための、 [.net 全体の共通メカニズム](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) の一部です。</span><span class="sxs-lookup"><span data-stu-id="715fc-106">The <xref:System.Diagnostics.DiagnosticListener> class is a part of a [common mechanism across .NET](https://github.com/dotnet/runtime/blob/master/src/libraries/System.Diagnostics.DiagnosticSource/src/DiagnosticSourceUsersGuide.md) for obtaining diagnostic information from running applications.</span></span>
 
-<span data-ttu-id="20a86-107">診断リスナーは、単一の DbContext インスタンスからイベントを取得するのに適していません。</span><span class="sxs-lookup"><span data-stu-id="20a86-107">Diagnostic listeners are not suitable for getting events from a single DbContext instance.</span></span> <span data-ttu-id="20a86-108">EF Core [インターセプター](xref:core/logging-events-diagnostics/interceptors) は、コンテキストごとの登録で同じイベントにアクセスできるようにします。</span><span class="sxs-lookup"><span data-stu-id="20a86-108">EF Core [interceptors](xref:core/logging-events-diagnostics/interceptors) provide access to the same events with per-context registration.</span></span>
+<span data-ttu-id="715fc-107">診断リスナーは、単一の DbContext インスタンスからイベントを取得するのには適していません。</span><span class="sxs-lookup"><span data-stu-id="715fc-107">Diagnostic listeners are not suitable for getting events from a single DbContext instance.</span></span> <span data-ttu-id="715fc-108">EF Core [インターセプター](xref:core/logging-events-diagnostics/interceptors) は、コンテキストごとの登録で同じイベントにアクセスできるようにします。</span><span class="sxs-lookup"><span data-stu-id="715fc-108">EF Core [interceptors](xref:core/logging-events-diagnostics/interceptors) provide access to the same events with per-context registration.</span></span>
 
-<span data-ttu-id="20a86-109">診断リスナーは、ログ記録用には設計されていません。</span><span class="sxs-lookup"><span data-stu-id="20a86-109">Diagnostic listeners are not designed for logging.</span></span> <span data-ttu-id="20a86-110">ログ記録には、 [単純なログ](xref:core/logging-events-diagnostics/simple-logging) 記録または [Microsoft 拡張子のログ](xref:core/logging-events-diagnostics/extensions-logging) 記録を使用することを検討してください。</span><span class="sxs-lookup"><span data-stu-id="20a86-110">Consider using [simple logging](xref:core/logging-events-diagnostics/simple-logging) or [Microsoft.Extensions.Logging](xref:core/logging-events-diagnostics/extensions-logging) for logging.</span></span>
+<span data-ttu-id="715fc-109">診断リスナーは、ログ記録向けに設計されていません。</span><span class="sxs-lookup"><span data-stu-id="715fc-109">Diagnostic listeners are not designed for logging.</span></span> <span data-ttu-id="715fc-110">ログ記録には、 [単純なログ](xref:core/logging-events-diagnostics/simple-logging) 記録または [Microsoft 拡張子のログ](xref:core/logging-events-diagnostics/extensions-logging) 記録を使用することを検討してください。</span><span class="sxs-lookup"><span data-stu-id="715fc-110">Consider using [simple logging](xref:core/logging-events-diagnostics/simple-logging) or [Microsoft.Extensions.Logging](xref:core/logging-events-diagnostics/extensions-logging) for logging.</span></span>
 
-## <a name="example-observing-diagnostic-events"></a><span data-ttu-id="20a86-111">例: 診断イベントの監視</span><span class="sxs-lookup"><span data-stu-id="20a86-111">Example: Observing diagnostic events</span></span>
+## <a name="example-observing-diagnostic-events"></a><span data-ttu-id="715fc-111">例: 診断イベントの監視</span><span class="sxs-lookup"><span data-stu-id="715fc-111">Example: Observing diagnostic events</span></span>
 
-<span data-ttu-id="20a86-112">EF Core イベントの解決は、2段階のプロセスです。</span><span class="sxs-lookup"><span data-stu-id="20a86-112">Resolving EF Core events is a two-step process.</span></span> <span data-ttu-id="20a86-113">まず、それ自体の [オブザーバー](/dotnet/standard/events/observer-design-pattern) を `DiagnosticListener` 作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="20a86-113">First, an [observer](/dotnet/standard/events/observer-design-pattern) for `DiagnosticListener` itself must be created:</span></span>
+<span data-ttu-id="715fc-112">EF Core イベントの解決は、2段階のプロセスです。</span><span class="sxs-lookup"><span data-stu-id="715fc-112">Resolving EF Core events is a two-step process.</span></span> <span data-ttu-id="715fc-113">まず、それ自体の [オブザーバー](/dotnet/standard/events/observer-design-pattern) を `DiagnosticListener` 作成する必要があります。</span><span class="sxs-lookup"><span data-stu-id="715fc-113">First, an [observer](/dotnet/standard/events/observer-design-pattern) for `DiagnosticListener` itself must be created:</span></span>
 
 <!--
 public class DiagnosticObserver : IObserver<DiagnosticListener>
 {
-    public void OnCompleted() 
+    public void OnCompleted()
         => throw new NotImplementedException();
-    
-    public void OnError(Exception error) 
+
+    public void OnError(Exception error)
         => throw new NotImplementedException();
 
     public void OnNext(DiagnosticListener value)
@@ -46,24 +46,24 @@ public class DiagnosticObserver : IObserver<DiagnosticListener>
 -->
 [!code-csharp[DiagnosticObserver](../../../samples/core/Miscellaneous/DiagnosticListeners/Program.cs?name=DiagnosticObserver)]
 
-<span data-ttu-id="20a86-114">`OnNext`メソッドは EF Core から取得した DiagnosticListener を検索します。</span><span class="sxs-lookup"><span data-stu-id="20a86-114">The `OnNext` method looks for the DiagnosticListener that comes from EF Core.</span></span> <span data-ttu-id="20a86-115">このリスナーの名前は "Microsoft. EntityFrameworkCore" で、次 <xref:Microsoft.EntityFrameworkCore.DbLoggerCategory> に示すようにクラスから取得できます。</span><span class="sxs-lookup"><span data-stu-id="20a86-115">This listener has the name "Microsoft.EntityFrameworkCore", which can be obtained from the <xref:Microsoft.EntityFrameworkCore.DbLoggerCategory> class as shown.</span></span>
+<span data-ttu-id="715fc-114">`OnNext`メソッドは EF Core から取得した DiagnosticListener を検索します。</span><span class="sxs-lookup"><span data-stu-id="715fc-114">The `OnNext` method looks for the DiagnosticListener that comes from EF Core.</span></span> <span data-ttu-id="715fc-115">このリスナーの名前は "Microsoft. EntityFrameworkCore" で、次 <xref:Microsoft.EntityFrameworkCore.DbLoggerCategory> に示すようにクラスから取得できます。</span><span class="sxs-lookup"><span data-stu-id="715fc-115">This listener has the name "Microsoft.EntityFrameworkCore", which can be obtained from the <xref:Microsoft.EntityFrameworkCore.DbLoggerCategory> class as shown.</span></span>
 
-<span data-ttu-id="20a86-116">このオブザーバーは、アプリケーションのメソッドなど、グローバルに登録する必要があり `Main` ます。</span><span class="sxs-lookup"><span data-stu-id="20a86-116">This observer must then be registered globally, for example in the application's `Main` method:</span></span>
+<span data-ttu-id="715fc-116">このオブザーバーは、アプリケーションのメソッドなど、グローバルに登録する必要があり `Main` ます。</span><span class="sxs-lookup"><span data-stu-id="715fc-116">This observer must then be registered globally, for example in the application's `Main` method:</span></span>
 
 <!--
         DiagnosticListener.AllListeners.Subscribe(new DiagnosticObserver());
 -->
 [!code-csharp[RegisterDiagnosticListener](../../../samples/core/Miscellaneous/DiagnosticListeners/Program.cs?name=RegisterDiagnosticListener)]
 
-<span data-ttu-id="20a86-117">次に、EF Core DiagnosticListener が見つかると、新しいキー値オブザーバーが作成され、実際の EF Core イベントをサブスクライブします。</span><span class="sxs-lookup"><span data-stu-id="20a86-117">Second, once the EF Core DiagnosticListener is found, a new key-value observer is created to subscribe to the actual EF Core events.</span></span> <span data-ttu-id="20a86-118">次に例を示します。</span><span class="sxs-lookup"><span data-stu-id="20a86-118">For example:</span></span>
+<span data-ttu-id="715fc-117">次に、EF Core DiagnosticListener が見つかると、新しいキー値オブザーバーが作成され、実際の EF Core イベントをサブスクライブします。</span><span class="sxs-lookup"><span data-stu-id="715fc-117">Second, once the EF Core DiagnosticListener is found, a new key-value observer is created to subscribe to the actual EF Core events.</span></span> <span data-ttu-id="715fc-118">例:</span><span class="sxs-lookup"><span data-stu-id="715fc-118">For example:</span></span>
 
 <!--
 public class KeyValueObserver : IObserver<KeyValuePair<string, object>>
 {
-    public void OnCompleted() 
+    public void OnCompleted()
         => throw new NotImplementedException();
-    
-    public void OnError(Exception error) 
+
+    public void OnError(Exception error)
         => throw new NotImplementedException();
 
     public void OnNext(KeyValuePair<string, object> value)
@@ -84,20 +84,20 @@ public class KeyValueObserver : IObserver<KeyValuePair<string, object>>
 -->
 [!code-csharp[KeyValueObserver](../../../samples/core/Miscellaneous/DiagnosticListeners/Program.cs?name=KeyValueObserver)]
 
-<span data-ttu-id="20a86-119">メソッドは、 `OnNext` EF Core イベントごとにキーと値のペアを指定して呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="20a86-119">The `OnNext` method is this time called with a key/value pair for each EF Core event.</span></span> <span data-ttu-id="20a86-120">キーはイベントの名前で、次のいずれかから取得できます。</span><span class="sxs-lookup"><span data-stu-id="20a86-120">The key is the name of the event, which can be obtained from one of:</span></span>
+<span data-ttu-id="715fc-119">メソッドは、 `OnNext` EF Core イベントごとにキーと値のペアを指定して呼び出されます。</span><span class="sxs-lookup"><span data-stu-id="715fc-119">The `OnNext` method is this time called with a key/value pair for each EF Core event.</span></span> <span data-ttu-id="715fc-120">キーはイベントの名前で、次のいずれかから取得できます。</span><span class="sxs-lookup"><span data-stu-id="715fc-120">The key is the name of the event, which can be obtained from one of:</span></span>
 
-* <span data-ttu-id="20a86-121"><xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId> すべての EF Core データベースプロバイダーに共通のイベントの場合</span><span class="sxs-lookup"><span data-stu-id="20a86-121"><xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId> for events common to all EF Core database providers</span></span>
-* <span data-ttu-id="20a86-122"><xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId> すべてのリレーショナルデータベースプロバイダーに共通のイベントの場合</span><span class="sxs-lookup"><span data-stu-id="20a86-122"><xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId> for events common to all relational database providers</span></span>
-* <span data-ttu-id="20a86-123">現在のデータベースプロバイダーに固有のイベントの類似クラス。</span><span class="sxs-lookup"><span data-stu-id="20a86-123">A similar class for events specific to the current database provider.</span></span> <span data-ttu-id="20a86-124">たとえば、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.SqlServerEventId> SQL Server プロバイダーの場合はです。</span><span class="sxs-lookup"><span data-stu-id="20a86-124">For example, <xref:Microsoft.EntityFrameworkCore.Diagnostics.SqlServerEventId> for the SQL Server provider.</span></span>
+* <span data-ttu-id="715fc-121"><xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId> すべての EF Core データベースプロバイダーに共通のイベントの場合</span><span class="sxs-lookup"><span data-stu-id="715fc-121"><xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId> for events common to all EF Core database providers</span></span>
+* <span data-ttu-id="715fc-122"><xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId> すべてのリレーショナルデータベースプロバイダーに共通のイベントの場合</span><span class="sxs-lookup"><span data-stu-id="715fc-122"><xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId> for events common to all relational database providers</span></span>
+* <span data-ttu-id="715fc-123">現在のデータベースプロバイダーに固有のイベントの類似クラス。</span><span class="sxs-lookup"><span data-stu-id="715fc-123">A similar class for events specific to the current database provider.</span></span> <span data-ttu-id="715fc-124">たとえば、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.SqlServerEventId> SQL Server プロバイダーの場合はです。</span><span class="sxs-lookup"><span data-stu-id="715fc-124">For example, <xref:Microsoft.EntityFrameworkCore.Diagnostics.SqlServerEventId> for the SQL Server provider.</span></span>
 
-<span data-ttu-id="20a86-125">キー/値ペアの値は、イベントに固有のペイロードの種類です。</span><span class="sxs-lookup"><span data-stu-id="20a86-125">The value of the key/value pair is a payload type specific to the event.</span></span> <span data-ttu-id="20a86-126">想定するペイロードの種類は、これらのイベントクラスで定義されている各イベントに記載されています。</span><span class="sxs-lookup"><span data-stu-id="20a86-126">The type of payload to expect is documented on each event defined in these event classes.</span></span>
+<span data-ttu-id="715fc-125">キー/値ペアの値は、イベントに固有のペイロードの種類です。</span><span class="sxs-lookup"><span data-stu-id="715fc-125">The value of the key/value pair is a payload type specific to the event.</span></span> <span data-ttu-id="715fc-126">想定するペイロードの種類は、これらのイベントクラスで定義されている各イベントに記載されています。</span><span class="sxs-lookup"><span data-stu-id="715fc-126">The type of payload to expect is documented on each event defined in these event classes.</span></span>
 
-<span data-ttu-id="20a86-127">たとえば、上記のコードでは、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId.ContextInitialized> イベントとイベントを処理し <xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.ConnectionOpening> ます。</span><span class="sxs-lookup"><span data-stu-id="20a86-127">For example, the code above handles the <xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId.ContextInitialized> and the <xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.ConnectionOpening> events.</span></span> <span data-ttu-id="20a86-128">最初の部分では、ペイロードは <xref:Microsoft.EntityFrameworkCore.Diagnostics.ContextInitializedEventData> です。</span><span class="sxs-lookup"><span data-stu-id="20a86-128">For the first of these, the payload is <xref:Microsoft.EntityFrameworkCore.Diagnostics.ContextInitializedEventData>.</span></span> <span data-ttu-id="20a86-129">2つ目は、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.ConnectionEventData> です。</span><span class="sxs-lookup"><span data-stu-id="20a86-129">For the second, it is <xref:Microsoft.EntityFrameworkCore.Diagnostics.ConnectionEventData>.</span></span>
+<span data-ttu-id="715fc-127">たとえば、上記のコードでは、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId.ContextInitialized> イベントとイベントを処理し <xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.ConnectionOpening> ます。</span><span class="sxs-lookup"><span data-stu-id="715fc-127">For example, the code above handles the <xref:Microsoft.EntityFrameworkCore.Diagnostics.CoreEventId.ContextInitialized> and the <xref:Microsoft.EntityFrameworkCore.Diagnostics.RelationalEventId.ConnectionOpening> events.</span></span> <span data-ttu-id="715fc-128">最初の部分では、ペイロードは <xref:Microsoft.EntityFrameworkCore.Diagnostics.ContextInitializedEventData> です。</span><span class="sxs-lookup"><span data-stu-id="715fc-128">For the first of these, the payload is <xref:Microsoft.EntityFrameworkCore.Diagnostics.ContextInitializedEventData>.</span></span> <span data-ttu-id="715fc-129">2つ目は、 <xref:Microsoft.EntityFrameworkCore.Diagnostics.ConnectionEventData> です。</span><span class="sxs-lookup"><span data-stu-id="715fc-129">For the second, it is <xref:Microsoft.EntityFrameworkCore.Diagnostics.ConnectionEventData>.</span></span>
 
 > [!TIP]
-> <span data-ttu-id="20a86-130">ToString は、イベントの同等のログメッセージを生成するために、すべての EF Core イベントデータクラスでオーバーライドされます。</span><span class="sxs-lookup"><span data-stu-id="20a86-130">ToString is overridden in every EF Core event data class to generate the equivalent log message for the event.</span></span> <span data-ttu-id="20a86-131">たとえば、を呼び出すと、 `ContextInitializedEventData.ToString` プロバイダー ' Microsoft. EntityFrameworkCore. Sqlite ' とオプション: None "を使用して、" Entity Framework Core 5.0.0 で初期化された ' ブログ Scontext ' が生成されます。</span><span class="sxs-lookup"><span data-stu-id="20a86-131">For example, calling `ContextInitializedEventData.ToString` generates "Entity Framework Core 5.0.0 initialized 'BlogsContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite' with options: None".</span></span>
+> <span data-ttu-id="715fc-130">ToString は、イベントの同等のログメッセージを生成するために、すべての EF Core イベントデータクラスでオーバーライドされます。</span><span class="sxs-lookup"><span data-stu-id="715fc-130">ToString is overridden in every EF Core event data class to generate the equivalent log message for the event.</span></span> <span data-ttu-id="715fc-131">たとえば、を呼び出すと、 `ContextInitializedEventData.ToString` プロバイダー ' Microsoft. EntityFrameworkCore. Sqlite ' とオプション: None "を使用して、" Entity Framework Core 5.0.0 で初期化された ' ブログ Scontext ' が生成されます。</span><span class="sxs-lookup"><span data-stu-id="715fc-131">For example, calling `ContextInitializedEventData.ToString` generates "Entity Framework Core 5.0.0 initialized 'BlogsContext' using provider 'Microsoft.EntityFrameworkCore.Sqlite' with options: None".</span></span>
 
-<span data-ttu-id="20a86-132">この [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners) には、ブログデータベースを変更し、検出された診断イベントを出力する単純なコンソールアプリケーションが含まれています。</span><span class="sxs-lookup"><span data-stu-id="20a86-132">The [sample](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners) contains a simple console application that makes changes to the blogging database and prints out the diagnostic events encountered.</span></span>
+<span data-ttu-id="715fc-132">この [サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners) には、ブログデータベースを変更し、検出された診断イベントを出力する単純なコンソールアプリケーションが含まれています。</span><span class="sxs-lookup"><span data-stu-id="715fc-132">The [sample](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Miscellaneous/DiagnosticListeners) contains a simple console application that makes changes to the blogging database and prints out the diagnostic events encountered.</span></span>
 
 <!--
     public static void Main()
@@ -105,12 +105,12 @@ public class KeyValueObserver : IObserver<KeyValuePair<string, object>>
         #region RegisterDiagnosticListener
         DiagnosticListener.AllListeners.Subscribe(new DiagnosticObserver());
         #endregion
-        
+
         using (var context = new BlogsContext())
         {
             context.Database.EnsureDeleted();
             context.Database.EnsureCreated();
-            
+
             context.Add(
                 new Blog
                 {
@@ -140,7 +140,7 @@ public class KeyValueObserver : IObserver<KeyValuePair<string, object>>
 -->
 [!code-csharp[Program](../../../samples/core/Miscellaneous/DiagnosticListeners/Program.cs?name=Program)]
 
-<span data-ttu-id="20a86-133">このコードからの出力は、検出されたイベントを示しています。</span><span class="sxs-lookup"><span data-stu-id="20a86-133">The output from this code shows the events detected:</span></span>
+<span data-ttu-id="715fc-133">このコードからの出力は、検出されたイベントを示しています。</span><span class="sxs-lookup"><span data-stu-id="715fc-133">The output from this code shows the events detected:</span></span>
 
 ```output
 EF is initializing BlogsContext
