@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するアプリケーションをテ
 author: ajcvickers
 ms.date: 04/22/2020
 uid: core/testing/index
-ms.openlocfilehash: db25a51ec83bff15ff8c8a959a5f1707dbcf7f0f
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: d94c40bdb1082473ee88e7c3c1fbfecee90ba4ff
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431140"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129071"
 ---
 # <a name="testing-code-that-uses-ef-core"></a>EF Core を使用するコードのテスト
 
@@ -19,7 +19,7 @@ ms.locfileid: "94431140"
 * 管理がより容易な他のデータベース システムに、クエリと更新プログラムを実行する。
 * データベースをまったく使用しない、テスト ダブルまたはその他のメカニズムを使用する。
 
-このドキュメントでは、これらの各選択肢とのトレードオフについて概説し、各方法で EF Core を使用する方法を示します。  
+このドキュメントでは、これらの各選択肢とのトレードオフについて概説し、各方法で EF Core を使用する方法を示します。
 
 > [!TIP]
 > ここで紹介した概念を示すコードについては、「[EF Core テストのサンプル](xref:core/testing/testing-sample)」を参照してください。
@@ -35,7 +35,7 @@ EF Core データベース プロバイダーは、この共通のフレーム�
 ただし、リレーショナル データベース同士には共通性が多いため、多くの場合、これで機能します。
 これには良い点と悪い点があります。
 良い点は、データベース システムを比較的簡単に切り替えることができることです。
-悪い点は、アプリケーションが新しいデータベース システムで完全にテストされていない場合、セキュリティについて誤った意識を与える可能性があるということです。  
+悪い点は、アプリケーションが新しいデータベース システムで完全にテストされていない場合、セキュリティについて誤った意識を与える可能性があるということです。
 
 ## <a name="approach-1-production-database-system"></a>アプローチ 1: 運用データベース システム
 
@@ -65,7 +65,7 @@ LocalDB に問題がないわけではありません。
 個人的には、私は自分の開発用コンピューターでデータベース サービスの実行が問題になったことはなく、開発者向けバージョンの一般使用をお勧めしています。
 ただし、LocalDB は特にあまり高性能ではない開発用コンピューターを使用している一部のユーザーには適していると言えるでしょう。
 
-開発マシン上でデータベース システムを直接実行しないようにするには、Docker コンテナー (または同様のもの) で [SQL Server を実行する](/sql/linux/quickstart-install-connect-docker) (または他のデータベース システムを実行する) 方法もあります。  
+開発マシン上でデータベース システムを直接実行しないようにするには、Docker コンテナー (または同様のもの) で [SQL Server を実行する](/sql/linux/quickstart-install-connect-docker) (または他のデータベース システムを実行する) 方法もあります。
 
 ## <a name="approach-2-sqlite"></a>アプローチ 2: SQLite
 
@@ -96,7 +96,7 @@ EF Core 固有のガイダンスについては、「[SQLite を使用したテ�
 ## <a name="approach-3-the-ef-core-in-memory-database"></a>アプローチ 3:EF Core のインメモリ データベース
 
 EF Core には、EF Core 自体の内部テストに使用するインメモリ データベースが付属しています。
-一般に、このデータベースは、 **EF Core を使用するアプリケーションのテストには適していません** 。 具体的には、次のように使用します。
+一般に、このデータベースは、**EF Core を使用するアプリケーションのテストには適していません**。 具体的には、次のように使用します。
 
 * リレーショナル データベースではありません。
 * トランザクションはサポートされていません。

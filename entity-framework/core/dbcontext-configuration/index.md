@@ -4,12 +4,12 @@ description: 依存関係の挿入がある場合とない場合の DbContext �
 author: ajcvickers
 ms.date: 11/07/2020
 uid: core/dbcontext-configuration/index
-ms.openlocfilehash: 93d5942fbc81ee0ae9aeff0c5c8b9e20b160d512
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: 10ed474df2c4c52e61083d9d671909be02cd8cef
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97635393"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129032"
 ---
 # <a name="dbcontext-lifetime-configuration-and-initialization"></a>DbContext の有効期間、構成、および初期化
 
@@ -48,7 +48,7 @@ ASP.NET Core アプリケーションは、[依存関係の挿入を使用して
         public void ConfigureServices(IServiceCollection services)
         {
             services.AddControllers();
-            
+
             services.AddDbContext<ApplicationDbContext>(
                 options => options.UseSqlServer("name=ConnectionStrings:DefaultConnection"));
         }
@@ -303,7 +303,7 @@ EF Core で接続文字列を使用する方法の詳細については、「[�
 |:-------------------------------------------------------------------------------------------|-------------------------------------------------------------|--------------
 | <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.UseQueryTrackingBehavior%2A>   | クエリの既定の追跡動作が設定されます              | [クエリの追跡動作](xref:core/querying/tracking)
 | <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.LogTo%2A>                      | EF Core ログを取得するシンプルな方法 (EF Core 5.0 以降)    | [ログ、イベント、診断](xref:core/logging-events-diagnostics/index)
-| <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.UseLoggerFactory%2A>           | `Micrsofot.Extensions.Logging` ファクトリが登録されます         | [ログ、イベント、診断](xref:core/logging-events-diagnostics/index)
+| <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.UseLoggerFactory%2A>           | `Microsoft.Extensions.Logging` ファクトリが登録されます         | [ログ、イベント、診断](xref:core/logging-events-diagnostics/index)
 | <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.EnableSensitiveDataLogging%2A> | 例外とログにアプリケーション データが含められます         | [ログ、イベント、診断](xref:core/logging-events-diagnostics/index)
 | <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.EnableDetailedErrors%2A>       | より詳細なクエリ エラー (パフォーマンスの低下と引き換え)  | [ログ、イベント、診断](xref:core/logging-events-diagnostics/index)
 | <xref:Microsoft.EntityFrameworkCore.DbContextOptionsBuilder.ConfigureWarnings%2A>          | 警告やその他のイベントが無視またはスローされます               | [ログ、イベント、診断](xref:core/logging-events-diagnostics/index)
