@@ -5,12 +5,12 @@ author: codemillmatt
 ms.date: 07/07/2020
 ms.author: masoucou
 uid: core/get-started/xamarin
-ms.openlocfilehash: a08c5582b063f4a7748a43811c2bf28e8f3e5c14
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: c19c70903926c2c8ff4b51cca7781859af7e3567
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429911"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128785"
 ---
 # <a name="getting-started-with-ef-core-and-xamarin"></a>EF Core と Xamarin の概要
 
@@ -74,10 +74,10 @@ Windows 上の Visual Studio または Visual Studio for Mac を使用すると�
 [データの表示](/xamarin/xamarin-forms/app-fundamentals/data-binding/)および[ページ間の移動](/xamarin/xamarin-forms/app-fundamentals/navigation/)に関する Xamarin.Forms トピックを理解していることを前提として説明します。
 
 > [!IMPORTANT]
-> Entity Framework Core ではリフレクションを使用して、 **リリース** モード構成中は Xamarin.iOS リンカーによって削除できる関数が呼び出されます。 これは、次の 2 つの方法のいずれかで回避できます。
+> Entity Framework Core ではリフレクションを使用して、**リリース** モード構成中は Xamarin.iOS リンカーによって削除できる関数が呼び出されます。 これは、次の 2 つの方法のいずれかで回避できます。
 >
-> * 1 つ目は、 **iOS ビルド** オプションの **追加 mtouch 引数** に `--linkskip System.Core` を追加することです。
-> * または、 **iOS ビルド** オプションで Xamarin.iOS の **[リンカーの動作]** を `Don't Link` に設定します。
+> * 1 つ目は、**iOS ビルド** オプションの **追加 mtouch 引数** に `--linkskip System.Core` を追加することです。
+> * または、**iOS ビルド** オプションで Xamarin.iOS の **[リンカーの動作]** を `Don't Link` に設定します。
 > [こちらの記事に、Xamarin.iOS リンカーについての詳細が記載されています](/xamarin/ios/deploy-test/linker) (Xamarin.iOS の動作を設定する方法など)。
 >
 
@@ -165,7 +165,7 @@ using (var blogContext = new BloggingContext())
 
 * 既存のレコードが更新されます。
   * `AddPostPage.xaml.cs` の `Save_Clicked` 関数を使用すると、既存の `Blog` オブジェクトが新しい `Post` で更新されます。
-  
+
 ```csharp
 var newPost = new Post
 {

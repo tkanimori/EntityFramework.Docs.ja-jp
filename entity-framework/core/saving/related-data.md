@@ -4,18 +4,18 @@ description: 関連エンティティのグラフの保存と Entity Framework C
 author: ajcvickers
 ms.date: 10/27/2016
 uid: core/saving/related-data
-ms.openlocfilehash: 25b4e265f19e658097be7332f9cba6fec3b560db
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: f1cc752587e6a3eb58d070f5f573450b51986f70
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062946"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129097"
 ---
 # <a name="saving-related-data"></a>関連データの保存
 
 分離されたエンティティに加え、モデルに定義されたリレーションシップを活用することもできます。
 
-> [!TIP]  
+> [!TIP]
 > この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Saving/RelatedData/)は GitHub で確認できます。
 
 ## <a name="adding-a-graph-of-new-entities"></a>新しいエンティティ グループの追加
@@ -26,7 +26,7 @@ ms.locfileid: "92062946"
 
 [!code-csharp[Main](../../../samples/core/Saving/RelatedData/Sample.cs#AddingGraphOfEntities)]
 
-> [!TIP]  
+> [!TIP]
 > 単一のエンティティの状態を設定するには、EntityEntry.State プロパティを使用します。 たとえば、「 `context.Entry(blog).State = EntityState.Modified` 」のように入力します。
 
 ## <a name="adding-a-related-entity"></a>関連エンティティの追加

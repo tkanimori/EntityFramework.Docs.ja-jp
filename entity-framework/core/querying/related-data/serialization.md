@@ -4,12 +4,12 @@ description: Entity Framework Core による関連データのサイクルがシ
 author: roji
 ms.date: 9/8/2020
 uid: core/querying/related-data/serialization
-ms.openlocfilehash: 6b28a1fc79a8c23e5249d36386c8ed06805dbe30
-ms.sourcegitcommit: abda0872f86eefeca191a9a11bfca976bc14468b
+ms.openlocfilehash: 3e1152f09493d039032d9d88493b52a5ef425eb9
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 09/14/2020
-ms.locfileid: "90078874"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129136"
 ---
 # <a name="related-data-and-serialization"></a>関連データとシリアル化
 

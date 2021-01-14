@@ -4,12 +4,12 @@ description: Entity Framework Core 内部でのクエリのコンパイルおよ
 author: ajcvickers
 ms.date: 03/17/2020
 uid: core/querying/how-query-works
-ms.openlocfilehash: 7b3014cf64f8467ccbec10598ea1bb47304dfe43
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 4f856bf7e084d020edee1585d5c6c64873a5ed15
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430470"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129006"
 ---
 # <a name="how-queries-work"></a>クエリのしくみ
 
@@ -43,5 +43,5 @@ LINQ 演算子を呼び出すと、クエリのメモリ内表現が単純にビ
 * `for` ループ内で結果を反復処理する
 * `ToList`、`ToArray`、`Single`、`Count` または同等の非同期オーバーロードなどの演算子を使用する
 
-> [!WARNING]  
+> [!WARNING]
 > **ユーザー入力を常に検証する:** クエリでパラメーターを使用し、リテラルをエスケープすることで、EF Core によって SQL インジェクション攻撃から保護されていますが、入力は検証されません。 信頼されていないソースの値が LINQ クエリで使用されたり、エンティティ プロパティに割り当てられたり、他の EF Core API に渡される前に、アプリケーションの要件ごとに適切な検証を実行する必要があります。 これには、動的にクエリを構築する際に使用されるユーザー入力も含まれます。 LINQ を使用している場合であっても、式をビルドするためのユーザー入力を許可しているなら、目的の式だけは構築できることを確認する必要があります。

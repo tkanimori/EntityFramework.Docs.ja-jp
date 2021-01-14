@@ -4,12 +4,12 @@ description: Entity Framework Core の複数のコンテキスト インスタ�
 author: ajcvickers
 ms.date: 10/27/2016
 uid: core/saving/disconnected-entities
-ms.openlocfilehash: f21cc71ef11ee4ef37618a68d5a5219e8174bf8b
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 4ddae08b68aa99fb81de77fed8a195c60927e0bb
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063570"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128850"
 ---
 # <a name="disconnected-entities"></a>接続解除エンティティ
 
@@ -45,7 +45,7 @@ DbContext インスタンスでは、データベースから返されるエン�
 
 [!code-csharp[Main](../../../samples/core/Saving/Disconnected/Sample.cs#IsItNewGeneral)]
 
-> [!TIP]  
+> [!TIP]
 > エンティティがコンテキストによって追跡されると、エンティティが追加済みの状態になっていても、すぐにキーが設定されます。 これは、TrackGraph API を使用している場合など、エンティティのグラフを走査して各グラフで行う操作を決定する際に役立ちます。 キー値は、エンティティを追跡するために何らかの呼び出しが行われる "_前_" に、ここに示された方法でのみ使用する必要があります。
 
 ### <a name="with-other-keys"></a>他のキーを利用する
@@ -84,7 +84,7 @@ Update メソッドは通常、挿入ではなく、更新用のエンティテ�
   * SetValues を使用して、このエンティティ上のすべてのプロパティの値を、クライアントから受信したプロパティに設定します。
   * SetValues の呼び出しでは、必要に応じて更新されるエンティティをマークします。
 
-> [!TIP]  
+> [!TIP]
 > SetValues は、追跡されたエンティティのプロパティに別の値を保持しているプロパティを、変更済みとしてマークすることしか行いません。 これは、更新が送信されると、実際に変更されたそれらの列のみが更新されることを意味します  (また、何も変更されなかった場合は、更新もまったく送信されません)。
 
 ## <a name="working-with-graphs"></a>グラフを操作する

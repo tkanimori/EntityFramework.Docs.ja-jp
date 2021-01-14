@@ -4,12 +4,12 @@ description: Entity Framework Core の追跡クエリと非追跡クエリに関
 author: smitpatel
 ms.date: 11/09/2020
 uid: core/querying/tracking
-ms.openlocfilehash: b4c059f9a9b726697009589271e007bd1d2afd56
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 1b3c1db702438390c0de4a2ad5d13e868a522b65
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94430444"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128902"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 
@@ -18,7 +18,7 @@ Entity Framework Core によってその変更トラッカー内のエンティ�
 > [!NOTE]
 > [キーなしエンティティ型](xref:core/modeling/keyless-entity-types)は追跡されません。 この記事でエンティティ型に関する言及がある場合は、必ずキーが定義されているエンティティ型を参照しています。
 
-> [!TIP]  
+> [!TIP]
 > この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying/Tracking)は GitHub で確認できます。
 
 ## <a name="tracking-queries"></a>追跡クエリ

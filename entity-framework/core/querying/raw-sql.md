@@ -4,18 +4,18 @@ description: Entity Framework Core のクエリに対する生 SQL の使用
 author: smitpatel
 ms.date: 10/08/2019
 uid: core/querying/raw-sql
-ms.openlocfilehash: 9c480d13c46c7c84554996bcb581627a1df318dd
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 56724f9fddc9126fd4dfe0f348a0c525b43a3478
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062595"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128382"
 ---
 # <a name="raw-sql-queries"></a>生 SQL クエリ
 
 Entity Framework Core を使用すると、リレーショナル データベースを操作するときに生 SQL クエリにドロップ ダウンすることができます。 生 SQL クエリは、必要なクエリが LINQ を使用して表現できない場合に便利です。 また、生 SQL クエリは、LINQ クエリを使うと、効率の悪い SQL クエリになる場合にも使用されます。 生 SQL クエリは、通常のエンティティ型か、モデルの一部である[キーレス エンティティ型](xref:core/modeling/keyless-entity-types)を返すことができます。
 
-> [!TIP]  
+> [!TIP]
 > この記事の[サンプル](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/Querying/RawSQL)は GitHub で確認できます。
 
 ## <a name="basic-raw-sql-queries"></a>基本的な生 SQL クエリ
