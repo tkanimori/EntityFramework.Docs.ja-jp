@@ -19,6 +19,8 @@
       items:
         - name: ようこそ。
           href: core/index.md
+        - name: EF Core 5.0 の新機能
+          href: /ef/core/what-is-new/ef-core-5.0/whatsnew
         - name: 作業の開始
           items:
             - name: EF Core の概要
@@ -41,6 +43,14 @@
               href: core/what-is-new/index.md
             - name: リリースの計画プロセス
               href: core/what-is-new/release-planning.md
+            - name: EF Core 6.0
+              items:
+                - name: 大まかな計画
+                  href: core/what-is-new/ef-core-6.0/plan.md
+                - name: 新着記事
+                  href: core/what-is-new/ef-core-6.0/whatsnew.md
+                - name: 互換性に影響する変更
+                  href: core/what-is-new/ef-core-6.0/breaking-changes.md
             - name: EF Core 5.0
               items:
                 - name: 大まかな計画
@@ -182,6 +192,8 @@
               href: core/querying/filters.md
             - name: クエリのタグ
               href: core/querying/tags.md
+            - name: クエリ内の null 値との比較
+              href: core/querying/null-comparisons.md
             - name: クエリのしくみ
               href: core/querying/how-query-works.md
         - name: データを保存する
@@ -202,6 +214,24 @@
               href: core/saving/disconnected-entities.md
             - name: 生成値の明示的値
               href: core/saving/explicit-values-generated-properties.md
+        - name: 変更の追跡
+          items:
+            - name: 概要
+              href: core/change-tracking/index.md
+            - name: エンティティの明示的な追跡
+              href: core/change-tracking/explicit-tracking.md
+            - name: 追跡対象のエンティティへのアクセス
+              href: core/change-tracking/entity-entries.md
+            - name: 外部キーとナビゲーションの変更
+              href: core/change-tracking/relationship-changes.md
+            - name: 変更の検出と通知
+              href: core/change-tracking/change-detection.md
+            - name: 識別子の解決
+              href: core/change-tracking/identity-resolution.md
+            - name: その他の変更の追跡機能
+              href: core/change-tracking/miscellaneous.md
+            - name: 変更トラッカーのデバッグ
+              href: core/change-tracking/debug-views.md
         - name: ログ、イベント、診断
           items:
             - name: 概要
