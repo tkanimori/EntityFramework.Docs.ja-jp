@@ -2,20 +2,20 @@
 title: ツールと拡張機能 - EF Core
 description: Entity Framework Core の外部ツールと拡張機能
 author: ErikEJ
-ms.date: 11/22/2020
+ms.date: 01/06/2021
 uid: core/extensions/index
-ms.openlocfilehash: 4136710567d0f6b088a0dd5ad9895d8b93313e5e
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: 1198cd586902cd6222a94225056d076c847c9197
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97635407"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129019"
 ---
 # <a name="ef-core-tools--extensions"></a>EF Core のツールと拡張機能
 
 以下のツールと拡張機能は、Entity Framework Core 2.1 およびそれ以降の追加機能を提供します。
 
-> [!IMPORTANT]  
+> [!IMPORTANT]
 > 拡張機能はさまざまなソースから構築されており、Entity Framework Core プロジェクトの一部として保守管理されていません。 サードパーティ拡張機能の利用を検討するとき、要件に合うよう、品質、使用許諾、互換性、サポートなどを必ず評価してください。 特に、古いバージョンの EF Core 用に構築された拡張機能は、最新バージョンで動作させる前に更新が必要になる場合があります。
 
 ## <a name="tools"></a>ツール
@@ -36,7 +36,7 @@ Entity Developer は ADO.NET Entity Framework、NHibernate、LinqConnect、Teler
 
 厳密に型指定された、Entity Framework 用に拡張できるクラスを作成する O/RM です。 生成されたコードは Entity Framework Core になります。 これらに違いはありません。 これは、EF またはカスタム O/RM に代わるものではありません。 チームが複雑なデータベース スキーマを管理できるビジュアルのモデリング レイヤーです。 これは、Git のような SCM ソフトウェアに適しており、最小限の競合でご利用のモデルへのマルチ ユーザー アクセスが可能になります。 インストーラーによって、モデルの変更が追跡され、アップグレード スクリプトが作成されます。 対象の EF Core:3.
 
-[GitHub サイト](https://github.com/nHydrate/nHydrate)
+[GitHub リポジトリ](https://github.com/nHydrate/nHydrate)
 
 ### <a name="ef-core-power-tools"></a>EF Core のパワー ツール
 
@@ -119,11 +119,23 @@ NeinLinq は、Entity Framework などの LINQ プロバイダーを拡張し、
 
 [GitHub リポジトリ](https://github.com/jsakamoto/EntityFrameworkCore.IndexAttribute)
 
-### <a name="efcoreinmemoryhelpers"></a>EfCore.InMemoryHelpers
+### <a name="verifyentityframework"></a>Verify.EntityFramework
 
-EF Core のメモリ内データベース プロバイダーに関するラッパーを提供します。 リレーショナル プロバイダーのような動作になります。 対象の EF Core:2.
+EntityFramework を使用したスナップショット テストが可能になるように [Verify](https://github.com/VerifyTests/Verify) が拡張されます。 対象の EF Core:3、5。
 
-[GitHub リポジトリ](https://github.com/SimonCropp/EfCore.InMemoryHelpers)
+[GitHub リポジトリ](https://github.com/VerifyTests/Verify.EntityFramework)
+
+### <a name="localdb"></a>LocalDb
+
+[SQL Server Express LocalDB](https://docs.microsoft.com/sql/database-engine/configure-windows/sql-server-express-localdb) のラッパーが提供され、Entity Framework に対するテストの実行が簡略化されます。 対象の EF Core:3、5。
+
+[GitHub リポジトリ](https://github.com/SimonCropp/LocalDb)
+
+### <a name="effluentvalidation"></a>EfFluentValidation
+
+Entity Framework に [FluentValidation](https://fluentvalidation.net/) のサポートが追加されます。 対象の EF Core:3、5。
+
+[GitHub リポジトリ](https://github.com/SimonCropp/EfFluentValidation)
 
 ### <a name="efcoretemporalsupport"></a>EFCore.TemporalSupport
 
@@ -170,7 +182,7 @@ EF Core のトリガー。 データベースにコミットされる前と後�
 
 ### <a name="entity-framework-extensions"></a>Entity Framework Extensions
 
-高パフォーマンスの一括操作によって DbContext を拡張します:BulkSaveChanges、BulkInsert、BulkUpdate、BulkDelete、BulkMerge など。 対象の EF Core:2、3。
+高パフォーマンスの一括操作によって DbContext を拡張します:BulkSaveChanges、BulkInsert、BulkUpdate、BulkDelete、BulkMerge など。 対象の EF Core:2、3、5。
 
 [Web サイト](https://entityframework-extensions.net/)
 
@@ -246,3 +258,21 @@ EF Core を拡張して、App.config からの接続文字列を解決します�
 コンポジション/集計処理を含む DTO エンティティ マッパー (GraphDiff に似ています)。 対象の EF Core:3、5。
 
 [NuGet](https://www.nuget.org/packages/Detached.Mappers.EntityFramework)
+
+### <a name="entityframeworkcoresqlitenodatime"></a>EntityFrameworkCore.Sqlite.NodaTime
+
+[SQLite](https://sqlite.org) を使用する場合に [NodaTime](https://nodatime.org) 型のサポートが追加されます。 対象の EF Core:5.
+
+[GitHub リポジトリ](https://github.com/khellang/EFCore.Sqlite.NodaTime)
+
+### <a name="erikejentityframeworkcoresqlserverdacpac"></a>ErikEJ.EntityFrameworkCore.SqlServer.Dacpac
+
+SQL Server データ層アプリケーション パッケージ (.dacpac) からの EF Core モデルのリバース エンジニアリングを可能にします。 対象の EF Core:3、5。
+
+[GitHub の Wiki](https://github.com/ErikEJ/EFCorePowerTools/wiki/ErikEJ.EntityFrameworkCore.SqlServer.Dacpac)
+
+### <a name="erikejentityframeworkcoredgmlbuilder"></a>ErikEJ.EntityFrameworkCore.DgmlBuilder
+
+DbContext を視覚化する DGML (Graph) コンテンツが生成されます。 DbContext クラスに AsDgml() 拡張メソッドが追加されます。 対象の EF Core:3、5。
+
+[GitHub の Wiki](https://github.com/ErikEJ/EFCorePowerTools/wiki/Inspect-your-DbContext-model)

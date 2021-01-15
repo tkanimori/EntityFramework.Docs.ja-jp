@@ -2,14 +2,14 @@
 title: EF Core のリリースと計画
 description: 現在の EF Core のリリースと、今後のリリースのスケジュール/計画の詳細
 author: ajcvickers
-ms.date: 10/11/2020
+ms.date: 01/12/2021
 uid: core/what-is-new/index
-ms.openlocfilehash: 983a8b21d353481df4f1db232d00761e070d893b
-ms.sourcegitcommit: 42bbf7f68e92c364c5fff63092d3eb02229f568d
+ms.openlocfilehash: 18d8055840b5a38dc62d20e7e18c440b7360c9e4
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/11/2020
-ms.locfileid: "94503143"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128330"
 ---
 # <a name="ef-core-releases-and-planning"></a>EF Core のリリースと計画
 
@@ -48,9 +48,9 @@ Microsoft では、これを改善するために取り組んでいます。
 
 ## <a name="ef-core-60"></a>EF Core 6.0
 
-次に予定されている安定版リリースは、 **2021 年 11 月** にスケジュールされている **EF Core 6.0** です。
+次に予定されている安定版リリースは、**2021 年 11 月** にスケジュールされている **EF Core 6.0** です。
 
-現在、[リリース計画プロセス](xref:core/what-is-new/release-planning)に基づいて、高レベルの計画に取り組んでいます。
+[EF Core 6.0 の大まかな計画](xref:core/what-is-new/ef-core-6.0/plan)は、ドキュメントに記載されている[リリース計画プロセス](xref:core/what-is-new/release-planning)に従って作成されています。
 
 計画に関するフィードバックは重要です。
 イシューの重要度を示す最善の方法は、GitHub でそのイシューに投票 (上向きの親指 👍) することです。
@@ -58,10 +58,10 @@ Microsoft では、これを改善するために取り組んでいます。
 
 ### <a name="get-it-now"></a>今すぐ入手する
 
-EF Core 6.0 のパッケージは **今すぐ** 、
+EF Core 6.0 のパッケージは **今すぐ**、
 
 * [デイリー ビルド](https://github.com/dotnet/aspnetcore/blob/master/docs/DailyBuilds.md)として入手できます。
-  * すべての最新の機能とバグの修正。 一般に非常に安定しています。57,000 以上のテストが各ビルドに対して実行されます。
+  * すべての最新の機能とバグの修正。 一般に非常に安定しています。75,000 回以上のテストが各ビルドに対して実行されます。
 
 また、進行状況に応じて、頻繁なプレビューが NuGet にプッシュされます。 デイリー ビルドに対してプレビューの遅れはありますが、対応する ASP.NET Core および .NET Core のプレビューで機能することがテストされます。
 
