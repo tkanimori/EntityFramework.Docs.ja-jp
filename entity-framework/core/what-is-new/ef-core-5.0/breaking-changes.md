@@ -4,12 +4,12 @@ description: Entity Framework Core 5.0 で導入された重大な変更の完�
 author: bricelam
 ms.date: 11/07/2020
 uid: core/what-is-new/ef-core-5.0/breaking-changes
-ms.openlocfilehash: 7a13c9a6f6bd299991c379ec490480e1fbb4ba46
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: 4a463e785edaceaf5dd96164c39e2cc9b5f86de4
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97635472"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98128746"
 ---
 # <a name="breaking-changes-in-ef-core-50"></a>EF Core 5.0 での破壊的変更
 
@@ -19,28 +19,119 @@ ms.locfileid: "97635472"
 
 | **重大な変更**                                                                                                                   | **影響** |
 |:--------------------------------------------------------------------------------------------------------------------------------------|------------|
+| [EF Core 5.0 では .NET Framework がサポートされていません](#netstandard21)                                                                         | 中間     |
+| [IProperty.GetColumnName() は古い形式になりました](#getcolumnname-obsolete)                                                                  | 中間     |
+| [10 進数には有効桁数と小数点以下桁数が必要です](#decimals)                                                                            | 中間     |
 | [プリンシパルへのナビゲーションと依存関係へのナビゲーションでは、Required のセマンティクスが異なります](#required-dependent)                                 | 中間     |
 | [クエリの定義は、プロバイダー固有のメソッドに置き換えられます](#defining-query)                                                          | 中間     |
 | [非 null 参照ナビゲーションがクエリによって上書きされません](#nonnullreferences)                                                   | 中間     |
+| [移行による ToView() の処理方法が変更されました](#toview)                                                                              | Medium     |
+| [ToTable(null) により、エンティティ型はテーブルにマップされていないものとしてマークされます](#totable)                                                              | 中間     |
 | [SQLite NTS 拡張機能から HasGeometricDimension メソッドが削除されました](#geometric-sqlite)                                                   | 低        |
 | [Cosmos: パーティション キーが主キーに追加されるようになりました](#cosmos-partition-key)                                                        | 低        |
 | [Cosmos: `id` プロパティの名前が `__id` に変更されました](#cosmos-id)                                                                                 | 低        |
 | [Cosmos: byte[] が、数値配列ではなく base64 文字列として格納されるようになりました](#cosmos-byte)                                             | 低        |
-| [Cosmos: GetPropertyName と SetPropertyName の名前が変更されました](#cosmos-metadata)                                                          | 低        |
+| [Cosmos: GetPropertyName と SetPropertyName の名前が変更されました](#cosmos-metadata)                                                          | Low        |
 | [エンティティの状態が Detached から Unchanged、Updated、または Deleted に変更されると、値ジェネレーターが呼び出されます](#non-added-generation) | 低        |
 | [IMigrationsModelDiffer で IRelationalModel が使用されるようになりました](#relational-model)                                                                 | 低        |
-| [移行による ToView() の処理方法が変更されました](#toview)                                                                              | 低        |
-| [ToTable(null) により、エンティティ型はテーブルにマップされていないものとしてマークされます](#totable)                                                              | 低        |
-| [識別子が読み取り専用です](#read-only-discriminators)                                                                             | Low        |
-| [プロバイダー固有の EF.Functions メソッドによって InMemory プロバイダーに対してスローされます](#no-client-methods)                                              | 低        |
-| [IProperty.GetColumnName() は古い形式になりました](#getcolumnname-obsolete)                                                                  | 低        |
+| [識別子が読み取り専用です](#read-only-discriminators)                                                                             | 低        |
+| [プロバイダー固有の EF.Functions メソッドによって InMemory プロバイダーに対してスローされます](#no-client-methods)                                              | Low        |
 | [IndexBuilder.HasName が古い形式に](#index-obsolete)                                                                               | 低        |
-| [リバース エンジニアリングされたモデルをスキャフォールディングするため、プルーラライザーが含まれるようになっています](#pluralizer)                                                 | Low        |
+| [リバース エンジニアリングされたモデルをスキャフォールディングするため、プルーラライザーが含まれるようになっています](#pluralizer)                                                 | 低        |
 | [スキップ ナビゲーションをサポートするため一部の API で INavigation が INavigationBase に置き換えられます](#inavigationbase)                                     | 低        |
 | [相関コレクションが含まれ、`Distinct` または `GroupBy` も使用されている一部のクエリが、サポートされなくなりました](#collection-distinct-groupby) | 低        |
 | [プロジェクションでのクエリ可能型のコレクションの使用はサポートされていません](#queryable-projection)                                          | 低        |
 
 ## <a name="medium-impact-changes"></a>影響が中程度の変更
+
+<a name="netstandard21"></a>
+
+### <a name="ef-core-50-does-not-support-net-framework"></a>EF Core 5.0 では .NET Framework がサポートされていません
+
+[問題 #15498 の追跡](https://github.com/dotnet/efcore/issues/15498)
+
+#### <a name="old-behavior"></a>以前の動作
+
+EF Core 3.1 のターゲットは .NET Framework によってサポートされている .NET Standard 2.0 です。
+
+#### <a name="new-behavior"></a>新しい動作
+
+EF Core 5.0 のターゲットは、.NET Framework でサポートされていない .NET Standard 2.1 です。 つまり、EF Core 5.0 を .NET Framework アプリケーションで使用することはできません。
+
+#### <a name="why"></a>理由
+
+これは、1 つの .NET ターゲット フレームワークへの統合を目的とした .NET チーム全体でのより広範な移行の一部です。 詳細については、「[.NET Standardの将来](https://devblogs.microsoft.com/dotnet/the-future-of-net-standard/)」を参照してください。
+
+#### <a name="mitigations"></a>軽減策
+
+.NET Framework アプリケーションでは、[長期的なサポート (LTS) リリース](https://dotnet.microsoft.com/platform/support/policy/dotnet-core)である EF Core 3.1 を引き続き使用できます。 あるいは、.NET Core 2.1、.NET Core 3.1、.NET 5 (これらすべてで、.NET Standard 2.1 がサポートされています) を使用するようにアプリケーションを更新することもできます。
+
+<a name="getcolumnname-obsolete"></a>
+
+### <a name="ipropertygetcolumnname-is-now-obsolete"></a>IProperty.GetColumnName() は古い形式になりました
+
+[問題 #2266 の追跡](https://github.com/dotnet/efcore/issues/2266)
+
+#### <a name="old-behavior"></a>以前の動作
+
+`GetColumnName()` からは、プロパティがマップされている列の名前が返されていました。
+
+#### <a name="new-behavior"></a>新しい動作
+
+`GetColumnName()` からは引き続きプロパティがマップされている列の名前が返されますが、EF Core 5 では、TPT と、ビューまたは関数への同時マッピングがサポートされており、これらのマッピングにより、同じプロパティに異なる列名が使用される可能性があります。
+
+#### <a name="why"></a>理由
+
+ユーザーをより正確なオーバーロードに導くために、このメソッド <xref:Microsoft.EntityFrameworkCore.RelationalPropertyExtensions.GetColumnName(Microsoft.EntityFrameworkCore.Metadata.IProperty,Microsoft.EntityFrameworkCore.Metadata.StoreObjectIdentifier@)> を廃止とマークしました。
+
+#### <a name="mitigations"></a>軽減策
+
+特定のテーブルの列名を取得するには、次のコードを使用します。
+
+```csharp
+var columnName = property.GetColumnName(StoreObjectIdentifier.Table("Users", null)));
+```
+
+<a name="decimals"></a>
+
+### <a name="precision-and-scale-are-required-for-decimals"></a>10 進数には有効桁数と小数点以下桁数が必要です
+
+[問題 #19293 の追跡](https://github.com/dotnet/efcore/issues/19293)
+
+#### <a name="old-behavior"></a>以前の動作
+
+<xref:Microsoft.Data.SqlClient.SqlParameter> オブジェクトの有効桁数と小数点以下桁数は、通常、EF Core によって設定されませんでした。 これは、完全な有効桁数と小数点以下桁数が SQL Server に送信され、その時点で SQL Server によりデータベース列の有効桁数と小数点以下桁数に基づいて丸められていたことを意味します。
+
+#### <a name="new-behavior"></a>新しい動作
+
+有効桁数と小数点以下桁数は、EF Core によって、EF Core モデル内のプロパティに対して構成された値を使用してパラメーター上に設定されるようになりました。 これは、SqlClient で丸め処理が行われることを意味します。 その結果、構成された有効桁数と小数点以下桁数がデータベースの有効桁数と小数点以下桁数と一致しない場合は、丸めの表示が変わることがあります。
+
+#### <a name="why"></a>理由
+
+Always Encrypted などの新しい SQL Server 機能を使用するには、パラメーター ファセットが完全に指定されている必要があります。 さらに、10 進値を切り捨てるのではなく、丸めるように SqlClient に変更が加えられ、SQL Server の動作と一致することになりました。 これにより、適切に構成された 10 進数に対する動作を変更することなしに、これらのファセットを EF Core で設定できるようになりました。
+
+#### <a name="mitigations"></a>軽減策
+
+有効桁数と小数点以下桁数を含む型名を使用して、10 進数のプロパティをマップします。 次に例を示します。
+
+```csharp
+public class Blog
+{
+    public int Id { get; set; }
+
+    [Column(TypeName = "decimal(16, 5")]
+    public decimal Score { get; set; }
+}
+```
+
+または、モデル構築 API で `HasPrecision` を使用します。 次に例を示します。
+
+```csharp
+    protected override void OnModelCreating(ModelBuilder modelBuilder)
+    {
+        modelBuilder.Entity<Blog>().Property(e => e.Score).HasPrecision(16, 5);
+    }
+```
 
 <a name="required-dependent"></a>
 
@@ -140,11 +231,69 @@ public class Blog
 
 通常、ブログと作成者のクエリにおいては、最初に `Blog` インスタンスを作成した後、データベースから返されたデータに基づいて適切な `Author` インスタンスを設定します。 ただし、この場合、`Blog.Author` のすべてのプロパティは、空の `Author` に既に初期化されています。 ただし、EF Core には、このインスタンスが "空" であることを認識する方法がありません。 そのため、このインスタンスを上書きすると、有効な `Author` が暗黙的に破棄される可能性があります。 したがって、EF Core 5.0 では、既に初期化されているナビゲーションは常に上書きされないようになりました。
 
-この新しい動作は、EF6 の動作ともほとんどの場合は一致しますが、調査において EF6 と一致しない場合がいくつか見つかっています。  
+この新しい動作は、EF6 の動作ともほとんどの場合は一致しますが、調査において EF6 と一致しない場合がいくつか見つかっています。
 
 #### <a name="mitigations"></a>軽減策
 
 この断絶が発生した場合の修正方法は、参照ナビゲーション プロパティの意図的な初期化を止めることです。
+
+<a name="toview"></a>
+
+### <a name="toview-is-treated-differently-by-migrations"></a>移行による ToView() の処理方法が変更されました
+
+[問題 #2725 の追跡](https://github.com/dotnet/efcore/issues/2725)
+
+#### <a name="old-behavior"></a>以前の動作
+
+`ToView(string)` を呼び出すと、エンティティ型がビューにマップされるだけでなく、移行時に無視されます。
+
+#### <a name="new-behavior"></a>新しい動作
+
+`ToView(string)` により、エンティティ型はビューにマップされるだけでなく、テーブルにマップされていないものとしてマークされるようになりました。 その結果、EF Core 5 にアップグレードした後の最初の移行時に、このエンティティ型の既定のテーブルは無視されなくなったため、ドロップが試行されます。
+
+#### <a name="why"></a>理由
+
+EF Core では、エンティティ型をテーブルとビューの両方に同時にマップできるようになったため、`ToView` は、移行時に無視する必要があることを示す有効なインジケーターではなくなりました。
+
+#### <a name="mitigations"></a>軽減策
+
+マップされたテーブルを移行の除外対象としてマークするには、次のコードを使用してください。
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<User>().ToTable("UserView", t => t.ExcludeFromMigrations());
+}
+```
+
+<a name="totable"></a>
+
+### <a name="totablenull-marks-the-entity-type-as-not-mapped-to-a-table"></a>ToTable(null) により、エンティティ型はテーブルにマップされていないものとしてマークされます
+
+[問題 #21172 の追跡](https://github.com/dotnet/efcore/issues/21172)
+
+#### <a name="old-behavior"></a>以前の動作
+
+`ToTable(null)` により、テーブル名が既定値にリセットされます。
+
+#### <a name="new-behavior"></a>新しい動作
+
+`ToTable(null)` により、エンティティ型はどのテーブルにもマップされていないものとしてマークされるようになりました。
+
+#### <a name="why"></a>理由
+
+EF Core では、エンティティ型をテーブルとビューの両方に同時にマップできるようになったため、`ToTable(null)` は、どのテーブルにもマップされていないことを示すために使用されます。
+
+#### <a name="mitigations"></a>軽減策
+
+ビューまたは DbFunction にマップされていない場合、次のコードを使用してテーブル名を既定値にリセットします。
+
+```csharp
+protected override void OnModelCreating(ModelBuilder modelBuilder)
+{
+    modelBuilder.Entity<User>().Metadata.RemoveAnnotation(RelationalAnnotationNames.TableName);
+}
+```
 
 ## <a name="low-impact-changes"></a>影響が少ない変更
 
@@ -343,64 +492,6 @@ var hasDifferences = modelDiffer.HasDifferences(
 
 6\.0 でこのエクスペリエンスを向上させることを計画しています ([#22031](https://github.com/dotnet/efcore/issues/22031) を参照)
 
-<a name="toview"></a>
-
-### <a name="toview-is-treated-differently-by-migrations"></a>移行による ToView() の処理方法が変更されました
-
-[問題 #2725 の追跡](https://github.com/dotnet/efcore/issues/2725)
-
-#### <a name="old-behavior"></a>以前の動作
-
-`ToView(string)` を呼び出すと、エンティティ型がビューにマップされるだけでなく、移行時に無視されます。
-
-#### <a name="new-behavior"></a>新しい動作
-
-`ToView(string)` により、エンティティ型はビューにマップされるだけでなく、テーブルにマップされていないものとしてマークされるようになりました。 その結果、EF Core 5 にアップグレードした後の最初の移行時に、このエンティティ型の既定のテーブルは無視されなくなったため、ドロップが試行されます。
-
-#### <a name="why"></a>理由
-
-EF Core では、エンティティ型をテーブルとビューの両方に同時にマップできるようになったため、`ToView` は、移行時に無視する必要があることを示す有効なインジケーターではなくなりました。
-
-#### <a name="mitigations"></a>軽減策
-
-マップされたテーブルを移行の除外対象としてマークするには、次のコードを使用してください。
-
-```csharp
-protected override void OnModelCreating(ModelBuilder modelBuilder)
-{
-    modelBuilder.Entity<User>().ToTable("UserView", t => t.ExcludeFromMigrations());
-}
-```
-
-<a name="totable"></a>
-
-### <a name="totablenull-marks-the-entity-type-as-not-mapped-to-a-table"></a>ToTable(null) により、エンティティ型はテーブルにマップされていないものとしてマークされます
-
-[問題 #21172 の追跡](https://github.com/dotnet/efcore/issues/21172)
-
-#### <a name="old-behavior"></a>以前の動作
-
-`ToTable(null)` により、テーブル名が既定値にリセットされます。
-
-#### <a name="new-behavior"></a>新しい動作
-
-`ToTable(null)` により、エンティティ型はどのテーブルにもマップされていないものとしてマークされるようになりました。
-
-#### <a name="why"></a>理由
-
-EF Core では、エンティティ型をテーブルとビューの両方に同時にマップできるようになったため、`ToTable(null)` は、どのテーブルにもマップされていないことを示すために使用されます。
-
-#### <a name="mitigations"></a>軽減策
-
-ビューまたは DbFunction にマップされていない場合、次のコードを使用してテーブル名を既定値にリセットします。
-
-```csharp
-protected override void OnModelCreating(ModelBuilder modelBuilder)
-{
-    modelBuilder.Entity<User>().Metadata.RemoveAnnotation(RelationalAnnotationNames.TableName);
-}
-```
-
 <a name="read-only-discriminators"></a>
 
 ### <a name="discriminators-are-read-only"></a>識別子が読み取り専用です
@@ -450,32 +541,6 @@ modelBuilder.Entity<BaseEntity>()
 #### <a name="mitigations"></a>軽減策
 
 データベース関数の動作を正確に模倣する方法がないため、それらが含まれるクエリを、実稼働環境と同じ種類のデータベースに対してテストする必要があります。
-
-<a name="getcolumnname-obsolete"></a>
-
-### <a name="ipropertygetcolumnname-is-now-obsolete"></a>IProperty.GetColumnName() は古い形式になりました
-
-[問題 #2266 の追跡](https://github.com/dotnet/efcore/issues/2266)
-
-#### <a name="old-behavior"></a>以前の動作
-
-`GetColumnName()` からは、プロパティがマップされている列の名前が返されていました。
-
-#### <a name="new-behavior"></a>新しい動作
-
-`GetColumnName()` からは引き続きプロパティがマップされている列の名前が返されますが、EF Core 5 では、TPT と、ビューまたは関数への同時マッピングがサポートされており、これらのマッピングにより、同じプロパティに異なる列名が使用される可能性があります。
-
-#### <a name="why"></a>理由
-
-ユーザーをより正確なオーバーロードに導くために、このメソッド <xref:Microsoft.EntityFrameworkCore.RelationalPropertyExtensions.GetColumnName(Microsoft.EntityFrameworkCore.Metadata.IProperty,Microsoft.EntityFrameworkCore.Metadata.StoreObjectIdentifier@)> を廃止とマークしました。
-
-#### <a name="mitigations"></a>軽減策
-
-特定のテーブルの列名を取得するには、次のコードを使用します。
-
-```csharp
-var columnName = property.GetColumnName(StoreObjectIdentifier.Table("Users", null)));
-```
 
 <a name="index-obsolete"></a>
 

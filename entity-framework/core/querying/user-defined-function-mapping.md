@@ -3,13 +3,13 @@ title: ユーザー定義関数のマッピング ‐ EF Core
 description: データベース関数にユーザー定義関数をマッピングする
 author: maumar
 ms.date: 11/23/2020
-uid: core/user-defined-function-mapping
-ms.openlocfilehash: ba60abdc9c81b34b8f4ed8f501cf2f7e52ba9d7d
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+uid: core/querying/user-defined-function-mapping
+ms.openlocfilehash: 3e49ed9c49b38b98430128ffdc7ceef0b844b9df
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97657698"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129123"
 ---
 # <a name="user-defined-function-mapping"></a>ユーザー定義関数のマッピング
 
@@ -94,6 +94,52 @@ CLR メソッドは次のとおりです。
 SELECT 100 * (ABS(CAST([p].[BlogId] AS float) - 3) / ((CAST([p].[BlogId] AS float) + 3) / 2))
 FROM [Posts] AS [p]
 ```
+
+## <a name="configuring-nullability-of-user-defined-function-based-on-its-arguments"></a>引数に基づいてユーザー定義関数の NULL 値の許容を構成する
+
+1 つ以上の引数が `null` の場合にのみ、ユーザー定義関数で `null` を返すことができる場合は、EF Core を使用すると、それを指定することができ、よりパフォーマンスが高い SQL が実現します。 これを行うには、`PropagatesNullability()` 呼び出しを関連する関数パラメーター モデル構成に追加します。
+
+これを説明するために、ユーザー関数 `ConcatStrings` を定義します。
+
+```sql
+CREATE FUNCTION [dbo].[ConcatStrings] (@prm1 nvarchar(max), @prm2 nvarchar(max))
+RETURNS nvarchar(max)
+AS
+BEGIN
+    RETURN @prm1 + @prm2;
+END
+```
+
+それにマップする 2 つの CLR メソッド:
+
+[!code-csharp[Main](../../../samples/core/Querying/UserDefinedFunctionMapping/Model.cs#NullabilityPropagationFunctionDefinition)]
+
+モデル構成 (`OnModelCreating` メソッド内) は次のとおりです。
+
+[!code-csharp[Main](../../../samples/core/Querying/UserDefinedFunctionMapping/Model.cs#NullabilityPropagationModelConfiguration)]
+
+最初の関数は、標準の方法で構成されます。 2 番目の関数は、NULL 値の許容の伝達の最適化を利用するように構成されており、関数が null パラメーターの近くでどのように動作するかについて詳しい情報を提供します。
+
+次のクエリを発行すると:
+
+[!code-csharp[Main](../../../samples/core/Querying/UserDefinedFunctionMapping/Program.cs#NullabilityPropagationExamples)]
+
+次の SQL が得られます。
+
+```sql
+SELECT [b].[BlogId], [b].[Rating], [b].[Url]
+FROM [Blogs] AS [b]
+WHERE ([dbo].[ConcatStrings]([b].[Url], CONVERT(VARCHAR(11), [b].[Rating])) <> N'Lorem ipsum...') OR [dbo].[ConcatStrings]([b].[Url], CONVERT(VARCHAR(11), [b].[Rating])) IS NULL
+
+SELECT [b].[BlogId], [b].[Rating], [b].[Url]
+FROM [Blogs] AS [b]
+WHERE ([dbo].[ConcatStrings]([b].[Url], CONVERT(VARCHAR(11), [b].[Rating])) <> N'Lorem ipsum...') OR ([b].[Url] IS NULL OR [b].[Rating] IS NULL)
+```
+
+2 番目のクエリでは、NULL 値の許容をテストするために関数自体を再評価する必要はありません。
+
+> [!NOTE]
+> この最適化は、パラメーターが `null` の場合にのみ関数で `null` を返すことができる場合にのみ使用してください。
 
 ## <a name="mapping-a-queryable-function-to-a-table-valued-function"></a>クエリ可能型関数のテーブル値関数へのマッピング
 

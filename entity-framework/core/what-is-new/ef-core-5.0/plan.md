@@ -4,14 +4,17 @@ description: Entity Framework Core 5.0 で計画されている機能
 author: ajcvickers
 ms.date: 08/22/2020
 uid: core/what-is-new/ef-core-5.0/plan
-ms.openlocfilehash: f2639e41499f3bfca5942d613922fd97212fc2b9
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: ba56a5f3c79dacc25b3402be114c57067da49433
+ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429235"
+ms.lasthandoff: 01/12/2021
+ms.locfileid: "98129045"
 ---
 # <a name="plan-for-entity-framework-core-50"></a>Entity Framework Core 5.0 の計画
+
+> [!IMPORTANT]
+> EF Core 5.0 が[リリースされました](xref:core/what-is-new/index)。 このページは、プランの履歴レコードとして残ります。
 
 [計画プロセス](xref:core/what-is-new/release-planning)で説明されているように、EF Core 5.0 リリースの暫定的な計画には関係者からの意見が取り込まれています。
 
@@ -284,7 +287,7 @@ EF チームも、Microsoft.Data.Sqlite ADO.NET プロバイダーを所有し�
 
 状態: 進行中
 
-この執筆時点では、5.0 リリースでの修正対象として 135 件のバグがトリアージされていますが (62 件は既に修正済み)、上記の「 _一般的なクエリの機能強化_ 」セクションとかなり重複しています。
+この執筆時点では、5.0 リリースでの修正対象として 135 件のバグがトリアージされていますが (62 件は既に修正済み)、上記の「_一般的なクエリの機能強化_」セクションとかなり重複しています。
 
 発生率 (マイルストーンで作業するようになった問題) は、3.0 リリースの全体を通して、1 か月あたり約 23 件の問題でした。 これらのすべてを 5.0 で修正する必要はありません。 大まかな見積もりとして、5.0 の時間枠では 150 件の問題をさらに修正することが計画されています。
 
