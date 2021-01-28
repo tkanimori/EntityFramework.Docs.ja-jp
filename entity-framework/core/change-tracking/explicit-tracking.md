@@ -4,27 +4,27 @@ description: 追加、アタッチ、更新、および削除を使用して、D
 author: ajcvickers
 ms.date: 12/30/2020
 uid: core/change-tracking/explicit-tracking
-ms.openlocfilehash: 28a6ec3e3c25dad70882b8681f78744a5979efe6
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: 1428096b362c8016f7924c72ec9ac3e2f9203ed6
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98129621"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983275"
 ---
 # <a name="explicitly-tracking-entities"></a>エンティティの明示的な追跡
 
-各 <xref:Microsoft.EntityFrameworkCore.DbContext> インスタンスは、エンティティに加えられた変更を追跡します。 これらの追跡対象エンティティは、が呼び出されると、データベースへの変更を <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> 行います。
+各 <xref:Microsoft.EntityFrameworkCore.DbContext> インスタンスによって、エンティティに加えられる変更が追跡されます。 さらに、これらの追跡対象エンティティによって、<xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> が呼び出されたときにデータベースへの変更が実行されます。
 
-Entity Framework Core (EF Core) の変更の追跡は、同じ <xref:Microsoft.EntityFrameworkCore.DbContext> インスタンスを使用してエンティティのクエリを実行し、を呼び出すことによって更新する場合に最適 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> です。 これは、EF Core によってクエリされたエンティティの状態が自動的に追跡され、SaveChanges が呼び出されたときにこれらのエンティティに加えられた変更が検出されるためです。 この方法については、 [EF Core の Change Tracking](xref:core/change-tracking/index)に記載されています。
+Entity Framework Core (EF Core) の変更の追跡は、同じ <xref:Microsoft.EntityFrameworkCore.DbContext> インスタンスを使用してエンティティのクエリを実行し、を呼び出すことによって更新する場合に最適 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> です。 これは、EF Core によって、クエリされたエンティティの状態が自動的に追跡され、SaveChanges が呼び出されたときにこれらのエンティティに加えられた変更が検出されるためです。 この方法については、 [EF Core の Change Tracking](xref:core/change-tracking/index)に記載されています。
 
 > [!TIP]
 > このドキュメントでは、EF Core の変更の追跡のエンティティの状態と基本について理解していることを前提としています。 これらのトピックの詳細については、 [EF Core の Change Tracking](xref:core/change-tracking/index) を参照してください。
 
 > [!TIP]
-> [GitHub からサンプルコードをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/ChangeTracking/ChangeTrackingInEFCore)することで、このドキュメントのすべてのコードを実行し、デバッグすることができます。
+> このドキュメントに含まれているすべてのコードは、[GitHub からサンプル コードをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/ChangeTracking/ChangeTrackingInEFCore)することで実行およびデバッグできます。
 
 > [!TIP]
-> わかりやすくするために、このドキュメントではを使用し、などの非同期的なメソッドを参照して <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A> います。 特に明記されていない限り、非同期メソッドの呼び出しと待機は置き換えることができます。
+> わかりやすくするために、このドキュメントでは <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> などの同期メソッドを使用および参照しています。その非同期バージョンである <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChangesAsync%2A> などは使用していません。 特に明記されていない限り、非同期メソッドの呼び出しと待機は置き換えることができます。
 
 ## <a name="introduction"></a>はじめに
 
@@ -311,7 +311,7 @@ Post {Id: 2} Unchanged
 これは、明示的なキー値を使用した前の例とまったく同じ終了状態です。
 
 > [!TIP]
-> 生成されたキー値を使用している場合でも、明示的なキー値を設定できます。 EF Core は、このキー値を使用してを挿入しようとします。 Id 列を含む SQL Server を含む一部のデータベース構成では、このような挿入がサポートされていないため、がスローされます。
+> 生成されたキー値を使用している場合でも、明示的なキー値を設定できます。 EF Core は、このキー値を使用してを挿入しようとします。 Id 列を含む SQL Server を含む一部のデータベース構成では、このような挿入がサポートされていないため、スローされます ([回避策については、これらのドキュメントを参照してください](xref:core/providers/sql-server/value-generation#inserting-explicit-values-into-identity-columns))。
 
 ## <a name="attaching-existing-entities"></a>既存のエンティティのアタッチ
 
@@ -394,35 +394,6 @@ Post {Id: 2} Unchanged
 ### <a name="generated-key-values"></a>生成されたキー値
 
 前述のように、既定では、[自動的に生成されたキー値](xref:core/modeling/generated-properties)を使用するように整数と GUID の[キープロパティ](xref:core/modeling/keys)が構成されています。 これは、接続されていないエンティティを使用する場合の大きな利点です。未設定のキー値は、エンティティがまだデータベースに挿入されていないことを示します。 これにより、変更トラッカーは新しいエンティティを自動的に検出し、状態にすることができ `Added` ます。 たとえば、次のブログと投稿のグラフを添付することを検討してください。
-
-```c#
-            context.Attach(
-                new Blog
-                {
-                    Id = 1,
-                    Name = ".NET Blog",
-                    Posts =
-                    {
-                        new Post
-                        {
-                            Id = 1,
-                            Title = "Announcing the Release of EF Core 5.0",
-                            Content = "Announcing the release of EF Core 5.0, a full featured cross-platform..."
-                        },
-                        new Post
-                        {
-                            Id = 2,
-                            Title = "Announcing F# 5",
-                            Content = "F# 5 is the latest version of F#, the functional programming language..."
-                        },
-                        new Post
-                        {
-                            Title = "Announcing .NET 5.0",
-                            Content = ".NET 5.0 includes many enhancements, including single file applications, more..."
-                        },
-                    }
-                });
-```
 
 <!--
             context.Attach(
@@ -922,7 +893,7 @@ SaveChanges が完了した後、削除されたすべてのエンティティ�
 
 <xref:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.TrackGraph%2A?displayProperty=nameWithType> は `Add` と似 `Attach` て `Update` いますが、追跡する前にすべてのエンティティインスタンスに対してコールバックを生成する点が異なります。 これにより、グラフ内の個々のエンティティを追跡する方法を決定するときに、カスタムロジックを使用できます。
 
-たとえば、生成されたキー値を持つエンティティを追跡するときに使用 EF Core ルールを考えてみます。 kye 値がゼロの場合、エンティティは新しいので、挿入する必要があります。 このルールを拡張して、キー値が負であるかどうかを示し、エンティティを削除する必要があります。 これにより、切断されたグラフのエンティティの主キー値を変更して、削除されたエンティティをマークすることができます。
+たとえば、生成されたキー値を持つエンティティを追跡するときに使用 EF Core ルールを考えてみます。キー値がゼロの場合、エンティティは新しいので、挿入する必要があります。 このルールを拡張して、キー値が負であるかどうかを示し、エンティティを削除する必要があります。 これにより、切断されたグラフのエンティティの主キー値を変更して、削除されたエンティティをマークすることができます。
 
 <!--
             blog.Posts.Add(

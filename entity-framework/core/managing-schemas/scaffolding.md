@@ -4,12 +4,12 @@ description: Entity Framework Core を使用した既存のデータベースか
 author: bricelam
 ms.date: 11/13/2018
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: 11ffa2e62136e47959ebbfd54ccb55c2b9e23e04
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 4cad43f4b1300e1ef3cb31e60d3e9890826d974d
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429768"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983574"
 ---
 # <a name="reverse-engineering"></a> リバース エンジニアリング
 
@@ -48,8 +48,8 @@ ASP.NET Core のプロジェクトがある場合は、構文を使用して `Na
 これは、 [シークレットマネージャーツール](/aspnet/core/security/app-secrets#secret-manager) を使用すると、データベースのパスワードをコードベースとは別に保持するのに適しています。
 
 ```dotnetcli
-dotnet user-secrets set ConnectionStrings.Chinook "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook"
-dotnet ef dbcontext scaffold Name=ConnectionStrings.Chinook Microsoft.EntityFrameworkCore.SqlServer
+dotnet user-secrets set ConnectionStrings:Chinook "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=Chinook"
+dotnet ef dbcontext scaffold Name=ConnectionStrings:Chinook Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 ## <a name="provider-name"></a>プロバイダー名

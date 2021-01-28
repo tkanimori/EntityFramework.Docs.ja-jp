@@ -4,12 +4,12 @@ description: Entity Framework Core Visual Studio パッケージマネージャ�
 author: bricelam
 ms.date: 10/27/2020
 uid: core/cli/powershell
-ms.openlocfilehash: 4a1ab889fc1117b67252ace51fd3df4797b6c8d3
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 51f2dbcad0606a0d5571e96d7a7951cf595e2b9e
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431314"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983509"
 ---
 # <a name="entity-framework-core-tools-reference---package-manager-console-in-visual-studio"></a>Entity Framework Core ツールリファレンス-Visual Studio のパッケージマネージャーコンソール
 
@@ -31,7 +31,7 @@ Install-Package Microsoft.EntityFrameworkCore.Tools
 Update-Package Microsoft.EntityFrameworkCore.Tools
 ```
 
-### <a name="verify-the-installation"></a>インストール環境を確認する
+### <a name="verify-the-installation"></a>インストールの確認
 
 次のコマンドを実行して、ツールがインストールされていることを確認します。
 
@@ -71,9 +71,9 @@ SHORT DESCRIPTION
 
 これらのコマンドは、 *プロジェクト* と *スタートアッププロジェクト* を参照します。
 
-* *プロジェクト* は *ターゲットプロジェクト* とも呼ばれます。これは、コマンドによってファイルが追加または削除されるためです。 既定では、 **パッケージマネージャーコンソール** で選択された **既定のプロジェクト** はターゲットプロジェクトです。 オプションを使用して、別のプロジェクトをターゲットプロジェクトとして指定でき <nobr>`--project`</nobr> ます。
+* *プロジェクト* は *ターゲットプロジェクト* とも呼ばれます。これは、コマンドによってファイルが追加または削除されるためです。 既定では、**パッケージマネージャーコンソール** で選択された **既定のプロジェクト** はターゲットプロジェクトです。 オプションを使用して、別のプロジェクトをターゲットプロジェクトとして指定でき <nobr>`--project`</nobr> ます。
 
-* *スタートアッププロジェクト* は、ツールをビルドして実行するためのものです。 このツールでは、デザイン時にアプリケーションコードを実行して、プロジェクトに関する情報 (データベース接続文字列やモデルの構成など) を取得する必要があります。 既定では、 **ソリューションエクスプローラー** の **スタートアッププロジェクト** はスタートアッププロジェクトです。 オプションを使用して、別のプロジェクトをスタートアッププロジェクトとして指定でき <nobr>`--startup-project`</nobr> ます。
+* *スタートアッププロジェクト* は、ツールをビルドして実行するためのものです。 このツールでは、デザイン時にアプリケーションコードを実行して、プロジェクトに関する情報 (データベース接続文字列やモデルの構成など) を取得する必要があります。 既定では、**ソリューションエクスプローラー** の **スタートアッププロジェクト** はスタートアッププロジェクトです。 オプションを使用して、別のプロジェクトをスタートアッププロジェクトとして指定でき <nobr>`--startup-project`</nobr> ます。
 
 多くの場合、スタートアッププロジェクトとターゲットプロジェクトは同じプロジェクトです。 個別のプロジェクトである一般的なシナリオは、次のような場合です。
 
@@ -105,8 +105,8 @@ Update-Database -Args '--environment Production'
 | パラメーター                 | 説明                                                                                                                                                                                                          |
 |:--------------------------|:---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | -コンテキスト \<String>        | 使用する `DbContext` クラス。 クラス名のみ、または名前空間で完全修飾されています。  このパラメーターを省略した場合、EF Core によってコンテキストクラスが検索されます。 複数のコンテキストクラスがある場合は、このパラメーターが必要です。 |
-| -Project \<String>        | ターゲットプロジェクト。 このパラメーターを省略すると、 **パッケージマネージャーコンソール** の **既定のプロジェクト** がターゲットプロジェクトとして使用されます。                                                                             |
-| <nobr>-Startupproject</nobr>\<String> | スタートアッププロジェクト。 このパラメーターを省略すると、 **ソリューションのプロパティ** の **スタートアッププロジェクト** がターゲットプロジェクトとして使用されます。                                                                                 |
+| -Project \<String>        | ターゲットプロジェクト。 このパラメーターを省略すると、**パッケージマネージャーコンソール** の **既定のプロジェクト** がターゲットプロジェクトとして使用されます。                                                                             |
+| <nobr>-Startupproject</nobr>\<String> | スタートアッププロジェクト。 このパラメーターを省略すると、**ソリューションのプロパティ** の **スタートアッププロジェクト** がターゲットプロジェクトとして使用されます。                                                                                 |
 | -Args \<String>           | アプリケーションに渡される引数。 EF Core 5.0 で追加されました。                                                                                                                                                           |
 | -Verbose                  | 詳細出力を表示します。                                                                                                                                                                                                 |
 
@@ -212,7 +212,7 @@ Scaffold-DbContext "Server=(localdb)\mssqllocaldb;Database=Blogging;Trusted_Conn
 次の例では、 [共有マネージャーツール](/aspnet/core/security/app-secrets#secret-manager)を使用して、プロジェクトの構成から接続文字列を読み取ります。
 
 ```powershell
-Scaffold-DbContext "Name=ConnectionStrings.Blogging" Microsoft.EntityFrameworkCore.SqlServer
+Scaffold-DbContext "Name=ConnectionStrings:Blogging" Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 ## <a name="script-dbcontext"></a>Script-DbContext

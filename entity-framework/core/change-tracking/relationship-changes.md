@@ -4,12 +4,12 @@ description: 外部キーとナビゲーションを操作してエンティテ�
 author: ajcvickers
 ms.date: 12/30/2020
 uid: core/change-tracking/relationship-changes
-ms.openlocfilehash: ac2110509b6748e85411dbb14989522465925ecf
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: b1ebe77ed29291beeef3708b603db026c38bbbec
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98129620"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983613"
 ---
 # <a name="changing-foreign-keys-and-navigations"></a>外部キーとナビゲーションの変更
 
@@ -25,7 +25,7 @@ Entity Framework Core (EF Core) モデルのリレーションシップは、外
 > このドキュメントでは、EF Core の変更の追跡のエンティティの状態と基本について理解していることを前提としています。 これらのトピックの詳細については、 [EF Core の Change Tracking](xref:core/change-tracking/index) を参照してください。
 
 > [!TIP]
-> [GitHub からサンプルコードをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/ChangeTracking/ChangingFKsAndNavigations)することで、このドキュメントのすべてのコードを実行し、デバッグすることができます。
+> このドキュメントに含まれているすべてのコードは、[GitHub からサンプル コードをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/ChangeTracking/ChangingFKsAndNavigations)することで実行およびデバッグできます。
 
 ### <a name="example-model"></a>モデルの例
 
@@ -184,8 +184,8 @@ Post {Id: 4} Unchanged
         var posts = context.Posts.ToList();
         Console.WriteLine(context.ChangeTracker.DebugView.LongView);
 -->
-[! code-csharp[Relationship_fixup_2](../../../ samples / core / ChangeTracking / ChangingFKsAndNavigations / OptionalRelationshipsSamples.cs ? name = Relationship_fixup_2
-) ]もう一度デバッグビューを見て、最初のクエリが2つのブログだけを追跡した後に、次のように追跡します。
+[!code-csharp[Relationship_fixup_2](../../../samples/core/ChangeTracking/ChangingFKsAndNavigations/OptionalRelationshipsSamples.cs?name=Relationship_fixup_2)]
+もう一度デバッグビューを見て、最初のクエリが2つのブログだけを追跡した後に、次のように追跡します。
 
 ```output
 Blog {Id: 1} Unchanged
@@ -421,7 +421,7 @@ EF Core は、新しい依存/子エンティティがコレクションのナ�
 -->
 [!code-csharp[Fixup_for_added_or_deleted_entities_1](../../../samples/core/ChangeTracking/ChangingFKsAndNavigations/OptionalRelationshipsSamples.cs?name=Fixup_for_added_or_deleted_entities_1)]
 
-移動先:
+変更後:
 
 <!--
         var post = vsBlog.Posts.Single(e => e.Title.StartsWith("Disassembly improvements"));
@@ -746,7 +746,7 @@ Post {Id: 4} Modified
 
 次のことに注意してください。
 
-- ブログはとしてマークされて `Deleted` います。
+- ブログは `Deleted` としてマークされています。
 - 削除されたブログに関連する資産に、null の FK 値 ( `BlogId: <null> FK Modified Originally 2` ) と null 参照のナビゲーション () が含まれています。 `Blog: <null>`
 - 削除されたブログに関連する各投稿には、null の FK 値 ( `BlogId: <null> FK Modified Originally 2` ) と null 参照のナビゲーション () があります。 `Blog: <null>`
 
@@ -790,7 +790,7 @@ Post {Id: 4} Deleted
 連鎖削除、およびオーファンの削除は、を呼び出すことによっていつでも強制でき <xref:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.CascadeChanges?displayProperty=nameWithType> ます。 連鎖削除のタイミングをに設定してこれを組み合わせると、 `Never` EF Core が明示的に指定されていない限り、連鎖削除は行われません。
 
 > [!TIP]
-> 連鎖削除および孤立削除は密接に関連しています。 どちらの場合も、必要なプリンシパル/親とのリレーションシップが切断されると、依存/子エンティティが削除されます。 Cascade delete の場合、この切断は、プリンシパル/親自体が削除されているために発生します。 孤立した場合、プリンシパル/親エンティティは依然として存在しますが、依存/子エンティティに関連付けられなくなります。
+> カスケード削除と孤立の削除は密接に関連しています。 どちらの場合も、必須のプリンシパルまたは親とのリレーションシップが切断されると、依存または子エンティティが削除されます。 カスケード削除の場合、この切断は、プリンシパルまたは親自体が削除されたことが原因で発生します。 孤立の場合、プリンシパルまたは親エンティティは依然として存在しますが、依存または子エンティティとの関連付けはなくなっています。
 
 ## <a name="many-to-many-relationships"></a>多対多のリレーションシップ
 

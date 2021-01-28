@@ -2,18 +2,20 @@
 title: キー-EF Core
 description: Entity Framework Core を使用する場合のエンティティ型のキーの構成方法
 author: AndriySvyryd
-ms.date: 11/06/2019
+ms.date: 1/10/2021
 uid: core/modeling/keys
-ms.openlocfilehash: 805396a13227aa62ed86ac17c742d055d7a22bbf
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: c79ab0445e80b0b6f4a8b49ef0d4c063bf938851
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98129188"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983534"
 ---
 # <a name="keys"></a>[キー]
 
 キーは、各エンティティインスタンスの一意の識別子として機能します。 EF のほとんどのエンティティには、リレーショナルデータベースの *主キー* の概念にマップされる1つのキーがあります (キーのないエンティティについては、「 [キーなしエンティティ](xref:core/modeling/keyless-entity-types)」を参照してください)。 エンティティには、主キーを超える追加のキーを含めることができます (詳細については、「 [代替キー](#alternate-keys) 」を参照してください)。
+
+## <a name="configuring-a-primary-key"></a>主キーの構成
 
 慣例により、またはという名前のプロパティは、 `Id` `<type name>Id` エンティティの主キーとして構成されます。
 
@@ -24,11 +26,11 @@ ms.locfileid: "98129188"
 
 次のように、1つのプロパティをエンティティの主キーとして構成できます。
 
-## <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
+### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
 [!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/KeySingle.cs?name=KeySingle&highlight=3)]
 
-## <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
+### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/KeySingle.cs?name=KeySingle&highlight=4)]
 
@@ -37,6 +39,10 @@ ms.locfileid: "98129188"
 また、エンティティのキーとして複数のプロパティを構成することもできます。これは、複合キーと呼ばれます。 複合キーは、Fluent API を使用してのみ構成できます。規則では、複合キーは設定されず、データ注釈を使用して構成することはできません。
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/KeyComposite.cs?name=KeyComposite&highlight=4)]
+
+## <a name="value-generation"></a>価値の創出
+
+非複合数値および GUID 主キーの場合、EF Core によって、規則に従って値の生成が設定されます。 たとえば、SQL Server の数値主キーは、ID 列として自動的に設定されます。 詳細については、 [値の生成に関するドキュメント](xref:core/modeling/generated-properties)を参照してください。
 
 ## <a name="primary-key-name"></a>主キー名
 
@@ -51,7 +57,7 @@ EF Core は、、などを含む任意のプリミティブ型のプロパティ
 新しいエンティティをコンテキストに追加する場合、キープロパティには既定値以外の値が常に設定されている必要がありますが、 [データベースによって生成](xref:core/modeling/generated-properties)される型もあります。 その場合、EF は、追跡のためにエンティティが追加されると、一時値の生成を試みます。 [SaveChanges](/dotnet/api/Microsoft.EntityFrameworkCore.DbContext.SaveChanges)が呼び出された後、一時的な値はデータベースによって生成される値に置き換えられます。
 
 > [!Important]
-> キープロパティの値がデータベースによって生成され、エンティティの追加時に既定値以外の値が指定されている場合、EF は、そのエンティティがデータベースに既に存在していると見なし、新しいエンティティを挿入する代わりに更新しようとします。 これを回避するには、値の生成をオフにするか、 [生成されたプロパティに明示的な値を指定する方法](xref:core/saving/explicit-values-generated-properties)を参照してください。
+> キープロパティの値がデータベースによって生成され、エンティティの追加時に既定値以外の値が指定されている場合、EF は、そのエンティティがデータベースに既に存在していると見なし、新しいエンティティを挿入する代わりに更新しようとします。 これを回避するには、値の生成をオフにするか、 [生成されたプロパティに明示的な値を指定する方法](xref:core/modeling/generated-properties#overriding-value-generation)を参照してください。
 
 ## <a name="alternate-keys"></a>代替キー
 

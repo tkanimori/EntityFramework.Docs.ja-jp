@@ -4,12 +4,12 @@ description: Entity Framework Core を使用するときにエンティティ型
 author: AndriySvyryd
 ms.date: 10/01/2020
 uid: core/modeling/relationships
-ms.openlocfilehash: 2bc17365adb802f2e813077731ae70c68f8e3be3
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: 93d129435a3583ac5f741cc27952fb702f415a01
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98129175"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983470"
 ---
 # <a name="relationships"></a>リレーションシップ
 
@@ -58,7 +58,7 @@ ms.locfileid: "98129175"
 
 * `Post.Blog` はの逆ナビゲーションプロパティです `Blog.Posts` (逆も同様)。
 
-## <a name="conventions"></a>規約
+## <a name="conventions"></a>規則
 
 既定では、型に対してナビゲーションプロパティが検出されると、リレーションシップが作成されます。 プロパティは、参照先の型が現在のデータベースプロバイダーによってスカラー型としてマップされていない場合、ナビゲーションプロパティと見なされます。
 
@@ -301,7 +301,10 @@ CREATE TABLE [PostTag] (
 );
 ```
 
-内部的には、EF は、結合エンティティ型と呼ばれる結合テーブルを表すエンティティ型を作成します。 `Dictionary<string, object>` は、外部キープロパティの任意の組み合わせを処理するために使用されます。詳細については、「 [プロパティバッグエンティティ型](shadow-properties.md#property-bag-entity-types) 」を参照してください。 複数の多対多リレーションシップがモデルに存在する可能性があるため、結合エンティティ型には一意の名前を指定する必要があります (この場合は) `PostTag` 。 これを可能にする機能は、共有型のエンティティ型と呼ばれます。
+内部的には、EF は、結合エンティティ型と呼ばれる結合テーブルを表すエンティティ型を作成します。 `Dictionary<string, object>` は、外部キープロパティの任意の組み合わせを処理するために現在使用されています。詳細については、「 [プロパティバッグエンティティ型](shadow-properties.md#property-bag-entity-types) 」を参照してください。 複数の多対多リレーションシップがモデルに存在する可能性があるため、結合エンティティ型には一意の名前を指定する必要があります (この場合は) `PostTag` 。 これを可能にする機能は、共有型のエンティティ型と呼ばれます。
+
+> [!IMPORTANT]
+> 規則に従ってエンティティ型を結合するために使用される CLR 型は、パフォーマンスを向上させるために将来のリリースで変更される可能性があります。 `Dictionary<string, object>`次のセクションで説明するように、このが明示的に構成されている場合を除き、結合の種類に依存しないでください。
 
 多対多のナビゲーションは、結合エンティティ型を効果的にスキップするため、"スキップナビゲーション" と呼ばれます。 一括構成を使用している場合は、すべてのスキップナビゲーションをから取得でき <xref:Microsoft.EntityFrameworkCore.Metadata.IEntityType.GetSkipNavigations%2A> ます。
 

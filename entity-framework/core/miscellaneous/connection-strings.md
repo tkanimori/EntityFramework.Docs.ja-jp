@@ -4,12 +4,12 @@ description: Entity Framework Core を使用したさまざまな環境での接
 author: bricelam
 ms.date: 10/27/2016
 uid: core/miscellaneous/connection-strings
-ms.openlocfilehash: fee7e8f6de1faa11203cfcdab033b73a0a8ef6ea
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 75e364eddd02087cffdffd1c152d1e988a99817b
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429729"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983561"
 ---
 # <a name="connection-strings"></a>接続文字列
 
@@ -22,8 +22,8 @@ ASP.NET Core 構成システムは非常に柔軟であり、接続文字列は 
 たとえば、 [シークレットマネージャーツール](/aspnet/core/security/app-secrets#secret-manager) を使用してデータベースパスワードを格納し、スキャフォールディングで、単純にで構成される接続文字列を使用でき `Name=<database-alias>` ます。
 
 ```dotnetcli
-dotnet user-secrets set ConnectionStrings.YourDatabaseAlias "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase"
-dotnet ef dbcontext scaffold Name=ConnectionStrings.YourDatabaseAlias Microsoft.EntityFrameworkCore.SqlServer
+dotnet user-secrets set ConnectionStrings:YourDatabaseAlias "Data Source=(localdb)\MSSQLLocalDB;Initial Catalog=YourDatabase"
+dotnet ef dbcontext scaffold Name=ConnectionStrings:YourDatabaseAlias Microsoft.EntityFrameworkCore.SqlServer
 ```
 
 または、次の例は、に格納されている接続文字列を示して `appsettings.json` います。
