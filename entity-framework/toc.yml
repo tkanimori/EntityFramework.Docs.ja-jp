@@ -212,8 +212,6 @@
               href: core/saving/transactions.md
             - name: 接続解除エンティティ
               href: core/saving/disconnected-entities.md
-            - name: 生成値の明示的値
-              href: core/saving/explicit-values-generated-properties.md
         - name: 変更の追跡
           items:
             - name: 概要
@@ -298,6 +296,8 @@
               items:
                 - name: 概要
                   href: core/providers/sql-server/index.md
+                - name: 価値の創出
+                  href: core/providers/sql-server/value-generation.md
                 - name: 関数のマッピング
                   href: core/providers/sql-server/functions.md
                 - name: インデックス
