@@ -4,12 +4,12 @@ description: 依存関係の挿入がある場合とない場合の DbContext �
 author: ajcvickers
 ms.date: 11/07/2020
 uid: core/dbcontext-configuration/index
-ms.openlocfilehash: 10ed474df2c4c52e61083d9d671909be02cd8cef
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: 5b3143edbcfb82312b8026fb09c96dac85427831
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98129032"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983522"
 ---
 # <a name="dbcontext-lifetime-configuration-and-initialization"></a>DbContext の有効期間、構成、および初期化
 
@@ -314,7 +314,7 @@ EF Core で接続文字列を使用する方法の詳細については、「[�
 > [!NOTE]
 > <xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseLazyLoadingProxies%2A> と <xref:Microsoft.EntityFrameworkCore.ProxiesExtensions.UseChangeTrackingProxies%2A> は、[Microsoft.EntityFrameworkCore.Proxies](https://www.nuget.org/packages/Microsoft.EntityFrameworkCore.Proxies/) NuGet パッケージの拡張メソッドです。 この種の ".UseXXX()" 呼び出しは、他のパッケージに含まれている EF Core の拡張機能を構成または使用するための推奨される方法です。
 
-### <a name="dbcontextoptions-verses-dbcontextoptionstcontext"></a>`DbContextOptions` の `DbContextOptions<TContext>` への変更
+### <a name="dbcontextoptions-versus-dbcontextoptionstcontext"></a>`DbContextOptions` と `DbContextOptions<TContext>`
 
 `DbContextOptions` を受け入れるほとんどの `DbContext` サブクラスでは、[ジェネリック](/dotnet/csharp/programming-guide/generics/)の `DbContextOptions<TContext>` バリエーションを使用する必要があります。 次に例を示します。
 
