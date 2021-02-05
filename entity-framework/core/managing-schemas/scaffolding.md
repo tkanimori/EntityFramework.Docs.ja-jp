@@ -8,7 +8,7 @@ ms.openlocfilehash: 4cad43f4b1300e1ef3cb31e60d3e9890826d974d
 ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/28/2021
+ms.lasthandoff: 02/05/2021
 ms.locfileid: "98983574"
 ---
 # <a name="reverse-engineering"></a> リバース エンジニアリング
@@ -80,7 +80,7 @@ dotnet ef dbcontext scaffold ... --table Artist --table Album
 Scaffold-DbContext ... -Tables Artist, Album
 ```
 
-**_
+***
 
 ## <a name="preserving-names"></a>名前の保持
 
@@ -108,7 +108,7 @@ public string Title { get; set; }
 
 ## <a name="dbcontext-name"></a>DbContext 名
 
-スキャフォールディング DbContext クラス名は、既定では _Context * でサフィックスが付けられたデータベースの名前になります。 別のものを指定するには、PMC でを使用し、.NET Core CLI でを使用し `-Context` `--context` ます。
+スキャフォールディング DbContext クラス名は、既定で *コンテキスト* がサフィックスとして付けられたデータベースの名前になります。 別のものを指定するには、PMC でを使用し、.NET Core CLI でを使用し `-Context` `--context` ます。
 
 ## <a name="directories-and-namespaces"></a>ディレクトリと名前空間
 

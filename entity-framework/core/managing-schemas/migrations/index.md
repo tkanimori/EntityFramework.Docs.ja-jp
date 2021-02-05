@@ -5,10 +5,10 @@ author: bricelam
 ms.date: 10/28/2020
 uid: core/managing-schemas/migrations/index
 ms.openlocfilehash: b9547298714af59453aeae6d05742a03c067708b
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/19/2020
+ms.lasthandoff: 02/04/2021
 ms.locfileid: "95003396"
 ---
 # <a name="migrations-overview"></a>移行の概要
@@ -59,9 +59,9 @@ dotnet ef migrations add InitialCreate
 Add-Migration InitialCreate
 ```
 
-**_
+***
 
-EF Core により、ご自分のプロジェクトに _ *Migrations** というディレクトリが作成され、いくつかのファイルが生成されます。 EF Core で生成された内容を確認し、場合によっては修正することが推奨されますが、ここではそれは省きます。
+EF Core により、ご自分のプロジェクトに **Migrations** というディレクトリが作成され、いくつかのファイルが生成されます。 EF Core で生成された内容を確認し、場合によっては修正することが推奨されますが、ここではそれは省きます。
 
 ### <a name="create-your-database-and-schema"></a>ご自分のデータベースとスキーマを作成する
 
@@ -79,7 +79,7 @@ dotnet ef database update
 Update-Database
 ```
 
-**_
+***
 
 これで完了です。SQL を 1 行も記述せずに、ご自分のアプリケーションをご自分の新しいデータベースで実行する準備ができました。 この方法での移行の適用は、ローカルでの開発には適していますが、運用環境には適していません。詳細については、[移行の適用](xref:core/managing-schemas/migrations/applying)に関するページを参照してください。
 
@@ -110,7 +110,7 @@ dotnet ef migrations add AddBlogCreatedTimestamp
 Add-Migration AddBlogCreatedTimestamp
 ```
 
-_*_
+***
 
 移行には、後でプロジェクト履歴がわかりやすいように、わかりやすい名前が付いていることに着目してください。
 
@@ -134,7 +134,7 @@ Update-Database
 
 <!--markdownlint-enable MD024-->
 
-_*_
+***
 
 今回は、データベースが既に存在していることが EF によって検出されていることに着目してください。 また、上記の最初の移行が適用されたとき、その事実がご自分のデータベースの特別な移行履歴テーブルに記録されました。これにより、EF は新しい移行のみを自動的に適用します。
 
@@ -153,4 +153,4 @@ _*_
 
 ## <a name="additional-resources"></a>その他のリソース
 
-EF Core 5.0 の新しい移行機能について詳しく調べる [EF Core コミュニティ スタンドアップ セッション](https://www.youtube.com/watch?v=mSsGERmrhnE&list=PLdo4fOcmZ0oX-DBuRG4u58ZTAJgBAeQ-t&index=20)。
+* EF Core 5.0 の新しい移行機能について詳しく調べる [EF Core コミュニティ スタンドアップ セッション](https://www.youtube.com/watch?v=mSsGERmrhnE&list=PLdo4fOcmZ0oX-DBuRG4u58ZTAJgBAeQ-t&index=20)。

@@ -5,10 +5,10 @@ author: roji
 ms.date: 12/16/2019
 uid: core/modeling/indexes
 ms.openlocfilehash: ab81b108c4ff518cf98b7e835da3553c0c41efed
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
+ms.lasthandoff: 02/05/2021
 ms.locfileid: "98128538"
 ---
 # <a name="indexes"></a>Indexes
@@ -47,9 +47,9 @@ ms.locfileid: "98128538"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/IndexComposite.cs?name=Composite&highlight=4)]
 
-**_
+***
 
-複数の列に対するインデックス (_composite インデックス * とも呼ばれます) は、インデックスの列をフィルター処理するクエリを高速化しますが、インデックスによってカバーされる *最初* の列に対してのみフィルター処理を行うクエリも行います。 詳細については、パフォーマンスに関する [ドキュメント](xref:core/performance/efficient-querying#use-indexes-properly) を参照してください。
+複数の列に対するインデックス ( *複合インデックス* とも呼ばれます) は、インデックスの列をフィルター処理するクエリを高速化しますが、インデックスの対象となる *最初* の列に対してのみフィルター処理を行うクエリも行います。 詳細については、パフォーマンスに関する [ドキュメント](xref:core/performance/efficient-querying#use-indexes-properly) を参照してください。
 
 ## <a name="index-uniqueness"></a>インデックスの一意性
 

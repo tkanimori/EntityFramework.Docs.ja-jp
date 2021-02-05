@@ -5,10 +5,10 @@ author: roji
 ms.date: 05/27/2020
 uid: core/modeling/entity-properties
 ms.openlocfilehash: fe6dd2c24b8f8ffffa8e0101f69966b7b7c74036
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/19/2020
+ms.lasthandoff: 02/05/2021
 ms.locfileid: "97635550"
 ---
 # <a name="entity-properties"></a>エンティティのプロパティ
@@ -45,7 +45,7 @@ ms.locfileid: "97635550"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnName.cs?Name=ColumnName&highlight=3-5)]
 
-**_
+***
 
 ## <a name="column-data-types"></a>列のデータ型
 
@@ -63,7 +63,7 @@ ms.locfileid: "97635550"
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnDataType.cs?name=ColumnDataType&highlight=5-6)]
 
-_*_
+***
 
 ### <a name="maximum-length"></a>最大長
 
@@ -82,7 +82,7 @@ _*_
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/MaxLength.cs?name=MaxLength&highlight=3-5)]
 
-_*_
+***
 
 ### <a name="precision-and-scale"></a>有効桁数と小数点以下桁数
 
@@ -106,19 +106,19 @@ EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点�
 > [!NOTE]
 > 小数点以下桁数が定義されていない場合は、小数点以下桁数を定義するための Fluent API が使用され `HasPrecision(precision, scale)` ます。
 
-_*_
+***
 
 ## <a name="required-and-optional-properties"></a>必須および省略可能なプロパティ
 
 プロパティが有効である場合、プロパティは省略可能と見なされ `null` ます。 `null`がプロパティに割り当てられる有効な値でない場合、必須プロパティと見なされます。 リレーショナルデータベーススキーマにマップする場合、必要なプロパティは null 非許容列として作成され、オプションのプロパティは null 値が許容される列として作成されます。
 
-### <a name="conventions"></a>規約
+### <a name="conventions"></a>規則
 
 慣例により、.NET 型に null を含めることができるプロパティはオプションとして構成されますが、.NET 型に null を含めることができないプロパティは必要に応じて構成されます。 たとえば、.net 値の型 (、、など) を持つすべてのプロパティは必須として構成され、 `int` `decimal` `bool` null 許容型の .net 値型 (、、など) を持つすべてのプロパティ `int?` `decimal?` `bool?` はオプションとして構成されます。
 
 C# 8 では、null [許容参照型 (NRT)](/dotnet/csharp/tutorials/nullable-reference-types)と呼ばれる新しい機能が導入されました。これにより、参照型に注釈を付け、null を含むかどうかを示すことができます。 この機能は既定で無効になっており、次のように EF Core の動作に影響します。
 
-_ Null 許容の参照型が無効になっている場合 (既定)、.NET 参照型を持つすべてのプロパティは、規約によってオプションとして構成されます (たとえば、 `string` )。
+* Null 許容の参照型が無効になっている場合 (既定)、.NET 参照型を持つすべてのプロパティは、規約によってオプションとして構成されます (たとえば、 `string` )。
 * Null 値を許容する参照型が有効になっている場合、プロパティは、その .NET 型の C# の null 値の許容属性に基づいて構成されます。 `string?` オプションとして構成されますが、必要に応じて構成されます `string` 。
 
 次の例は、必須プロパティと省略可能なプロパティを持つエンティティ型を示しています。 null 許容の参照機能が無効 (既定値) で、有効になっています。
@@ -152,7 +152,7 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/Required.cs?name=Required&highlight=3-5)]
 
-**_
+***
 
 ## <a name="column-collations"></a>列の照合順序
 
@@ -182,4 +182,4 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnComment.cs?name=ColumnComment&highlight=5)]
 
-_**
+***

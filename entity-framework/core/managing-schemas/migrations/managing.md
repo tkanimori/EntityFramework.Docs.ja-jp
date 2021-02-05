@@ -5,10 +5,10 @@ author: bricelam
 ms.date: 10/27/2020
 uid: core/managing-schemas/migrations/managing
 ms.openlocfilehash: ef5e1b9bb10d6f1cd428db2fee327ec513c3f528
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
+ms.lasthandoff: 02/05/2021
 ms.locfileid: "95003277"
 ---
 # <a name="managing-migrations"></a>移行の管理
@@ -68,7 +68,7 @@ Add-Migration InitialCreate -OutputDir Your\Directory
 > [!NOTE]
 > EF Core 5.0 では、を使用して、ディレクトリとは無関係に名前空間を変更することもでき `-Namespace` ます。
 
-**_
+***
 
 ## <a name="customize-migration-code"></a>移行コードをカスタマイズする
 
@@ -164,7 +164,7 @@ migrationBuilder.Sql(
 
 これを使用すると、次のようなデータベースのあらゆる側面を管理できます。
 
-_ ストアドプロシージャ
+* ストアド プロシージャ
 * フルテキスト検索
 * 関数
 * トリガー
@@ -216,11 +216,11 @@ dotnet ef migrations list
 Get-Migration
 ```
 
-**_
+***
 
 ## <a name="resetting-all-migrations"></a>すべての移行をリセットしています
 
-極端なケースでは、すべての移行を削除してからやり直すことが必要になる場合があります。 これは、_ *マイグレーション** フォルダーを削除し、データベースを削除することで簡単に行うことができます。この時点で、新しい初期移行を作成できます。これには、現在のスキーマ全体が含まれます。
+極端なケースでは、すべての移行を削除してからやり直すことが必要になる場合があります。 これは、 **移行** フォルダーを削除して、データベースを削除することで簡単に行うことができます。この時点で、新しい初期移行を作成できます。これには、現在のスキーマ全体が含まれます。
 
 すべての移行をリセットし、データを失うことなく1つの移行を作成することもできます。 これは "スカッシュ" と呼ばれることもあり、手動での作業が必要です。
 
