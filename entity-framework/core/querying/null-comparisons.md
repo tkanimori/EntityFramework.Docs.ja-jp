@@ -4,12 +4,12 @@ description: Entity Framework Core でクエリ内の null 値の比較を処理
 author: maumar
 ms.date: 11/11/2020
 uid: core/querying/null-comparisons
-ms.openlocfilehash: d1235eb8df7fd22c7a930b3661ec38a99f75e5fa
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: fc63d0e0e6aea09e46b1700152312d4b74270219
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98129547"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983353"
 ---
 # <a name="query-null-semantics"></a>クエリの null セマンティクス
 
@@ -77,7 +77,7 @@ WHERE [e].[String1] IS NULL OR [e].[String2] IS NULL
 
 - null 非許容列の比較は、Null 許容列の比較よりもシンプルで高速です。 可能な限り、列を null 非許容としてマークすることを検討してください。
 
-- 等価性 (`==`) のチェックは、非等価性 (`!=`) のチェックよりもシンプルで高速です。`null` と `false` の結果をクエリで区別する必要がないからです。 可能な限り、等価比較を使用してください。ただし、単に `==` 比較を否定することは事実上 `!=` と同じであるため、パフォーマンスの向上にはつながりません。
+- 等価性 (`==`) のチェックは、非等価性 (`!=`) のチェックよりもシンプルで高速です。`null` と `false` の結果をクエリで区別する必要がないからです。 可能な場合は、等価比較を使用してください。 ただし、単に `==` 比較を否定することは事実上 `!=` と同じであるため、パフォーマンスの向上にはつながりません。
 
 - 場合によっては、列から `null` 値を明示的に除外することによって複雑な比較を簡略化することができます。たとえば、`null` 値が存在しない場合や、これらの値が結果に関係しない場合などです。 次に例を示します。
 

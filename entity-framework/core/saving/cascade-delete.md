@@ -4,12 +4,12 @@ description: エンティティがプリンシパルまたは親から切断さ�
 author: ajcvickers
 ms.date: 01/07/2021
 uid: core/saving/cascade-delete
-ms.openlocfilehash: 7c35de900930cf42da0e534df76124b5fb19ca52
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: 27ba84fa5d7e0d72e66ccbd96df9b6a5008791fb
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98128863"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983340"
 ---
 # <a name="cascade-delete"></a>連鎖削除
 
@@ -473,11 +473,11 @@ SELECT @@ROWCOUNT;
 |:----------------------|--------------------------
 | Cascade               | ON DELETE CASCADE
 | 制限              | ON DELETE NO ACTION
-| NoAction              | <database default>
+| NoAction              | データベースの既定値
 | SetNull               | ON DELETE SET NULL
 | ClientSetNull         | ON DELETE NO ACTION
 | ClientCascade         | ON DELETE NO ACTION
-| ClientNoAction        | <database default>
+| ClientNoAction        | データベースの既定値
 
 > [!NOTE]
 > この表は混乱しやすいため、今後のリリースで再検討される予定です。 [GitHub のイシュー #21252](https://github.com/dotnet/efcore/issues/21252) を参照してください。

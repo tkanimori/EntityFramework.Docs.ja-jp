@@ -4,12 +4,12 @@ description: Entity Framework Core の追跡クエリと非追跡クエリに関
 author: smitpatel
 ms.date: 11/09/2020
 uid: core/querying/tracking
-ms.openlocfilehash: 1b3c1db702438390c0de4a2ad5d13e868a522b65
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: cb18125fb3453bb533981afb36480b12727cd6f2
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98128902"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983418"
 ---
 # <a name="tracking-vs-no-tracking-queries"></a>追跡と追跡なしのクエリ
 
@@ -83,4 +83,4 @@ EF Core では、結果に含まれているキーなしのエンティティ �
     [!code-csharp[Main](../../../samples/core/Querying/Tracking/Program.cs#CustomProjection2)]
 
 - クエリ結果にキーなしエンティティ型が含まれていた場合は、常にクエリ全体が追跡なしになりました。 つまり、結果に含まれている、キーを持つエンティティ型も追跡されませんでした。
-- EF Core により、追跡なしのクエリで ID 解決が実行されました。 既に返されているエンティティを追跡するために、弱参照が使用されました。 そのため、結果セットに同じエンティティが複数回含まれていた場合は、そのたびに同じインスタンスが返されました。 同じ ID を持つ前の結果がスコープから外れ、ガベージ コレクションが行われても、EF Core により新しいインスタンスが返されました。
+- 以前は、EF Core により、追跡なしのクエリで ID 解決が実行されていました。 既に返されているエンティティを追跡するために、弱参照が使用されました。 そのため、結果セットに同じエンティティが複数回含まれていた場合は、そのたびに同じインスタンスが返されました。 同じ ID を持つ前の結果がスコープから外れ、ガベージ コレクションが行われても、EF Core により新しいインスタンスが返されました。

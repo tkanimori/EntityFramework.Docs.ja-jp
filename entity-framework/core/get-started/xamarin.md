@@ -5,12 +5,12 @@ author: codemillmatt
 ms.date: 07/07/2020
 ms.author: masoucou
 uid: core/get-started/xamarin
-ms.openlocfilehash: c19c70903926c2c8ff4b51cca7781859af7e3567
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: e4a26d7a0c6909002be0974ee9fe1c5db7c1046a
+ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
 ms.translationtype: HT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98128785"
+ms.lasthandoff: 01/28/2021
+ms.locfileid: "98983600"
 ---
 # <a name="getting-started-with-ef-core-and-xamarin"></a>EF Core と Xamarin の概要
 
@@ -78,8 +78,7 @@ Windows 上の Visual Studio または Visual Studio for Mac を使用すると�
 >
 > * 1 つ目は、**iOS ビルド** オプションの **追加 mtouch 引数** に `--linkskip System.Core` を追加することです。
 > * または、**iOS ビルド** オプションで Xamarin.iOS の **[リンカーの動作]** を `Don't Link` に設定します。
-> [こちらの記事に、Xamarin.iOS リンカーについての詳細が記載されています](/xamarin/ios/deploy-test/linker) (Xamarin.iOS の動作を設定する方法など)。
->
+> [こちらの記事に、Xamarin.iOS リンカーについての詳細が記載されています](/xamarin/ios/deploy-test/linker) (Xamarin.iOS の動作を設定する方法など)。 (この方法は、ストアからの拒否が発生する可能性があるため、理想的ではありません)。
 
 ## <a name="entity-framework-core-nuget-packages"></a>Entity Framework Core NuGet パッケージ
 
