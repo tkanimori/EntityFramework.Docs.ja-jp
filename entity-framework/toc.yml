@@ -29,6 +29,8 @@
                   href: core/get-started/overview/install.md
                 - name: 初めての EF Core アプリ
                   href: core/get-started/overview/first-app.md
+                - name: NuGet パッケージ
+                  href: core/what-is-new/nuget-packages.md
             - name: ASP.NET Core のチュートリアル >>
               href: /aspnet/core/data/ef-rp/intro
             - name: EF Core を使用した Blazor Server に関するガイド >>
