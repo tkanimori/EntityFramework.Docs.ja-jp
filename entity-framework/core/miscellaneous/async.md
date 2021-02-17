@@ -4,12 +4,12 @@ description: Entity Framework Core を使用したデータの非同期クエリ
 author: roji
 ms.date: 9/2/2020
 uid: core/miscellaneous/async
-ms.openlocfilehash: 52b3ac20a50babbed6937ebe3365ac1947dcaef1
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: 78c109e9fd73dbb0451f9e29562799e4d22d66c9
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98128577"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543355"
 ---
 # <a name="asynchronous-programming"></a>非同期プログラミング
 
@@ -43,7 +43,7 @@ Where や OrderBy などの一部の LINQ 演算子には、LINQ 式ツリーを
 
 ## <a name="client-side-async-linq-operators"></a>クライアント側の非同期 LINQ 演算子
 
-上記で説明した非同期 LINQ 演算子は、EF クエリでのみ使用できます。クライアント側の LINQ to Objects クエリでは使用できません。 EF 以外でクライアント側の非同期 LINQ 操作を実行するには、system.string [パッケージ](https://www.nuget.org/packages/System.Interactive.Async)を使用します。このパッケージは、サーバーで評価用に変換できないクライアント上の操作を実行する場合に特に便利です。
+上記で説明した非同期 LINQ 演算子は、EF クエリでのみ使用できます。クライアント側の LINQ to Objects クエリでは使用できません。 EF の外部でクライアント側の非同期 LINQ 操作を実行するには、 [. async パッケージ](https://www.nuget.org/packages/System.Linq.Async)を使用します。このパッケージは、サーバーで評価用に変換できないクライアント上の操作を実行する場合に特に便利です。
 
 残念ながら、system.string を参照すると、EF の DbSets に適用された LINQ 演算子に対して、あいまいな呼び出しコンパイルエラーが発生します。これにより、同じプロジェクト内で EF と system.servicemodel の両方を使用することが難しくなります。 この問題を回避するには、DbSet に AsQueryable を追加します。
 

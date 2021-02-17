@@ -4,12 +4,12 @@ description: Entity Framework Core を使用した効率的な更新のパフォ
 author: roji
 ms.date: 12/1/2020
 uid: core/performance/efficient-updating
-ms.openlocfilehash: 92766d2339fb04ed5ebc3123429171cc9be424b1
-ms.sourcegitcommit: 4860d036ea0fb392c28799907bcc924c987d2d7b
+ms.openlocfilehash: f8e222991af52cd7cae6089e95ad6634b6b949f8
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 12/17/2020
-ms.locfileid: "97657731"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543134"
 ---
 # <a name="efficient-updating"></a>効率的な更新
 
@@ -19,7 +19,7 @@ EF Core は、すべての更新を1回のラウンドトリップで自動的�
 
 [!code-csharp[Main](../../../samples/core/Performance/Program.cs#SaveChangesBatching)]
 
-上の例では、データベースからブログを読み込み、その名前を変更して、2つの新しいブログを追加しています。これを適用するには、2つの SQL INSERT ステートメントと1つの UPDATE ステートメントをデータベースに送信します。 ブログのインスタンスが追加されると、これらの変更が1つずつ送信されるのではなく、EF Core によって内部的に追跡され、が呼び出されると、1回のラウンドトリップで実行 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> されます。
+上の例では、データベースからブログを読み込み、その URL を変更して、2つの新しいブログを追加しています。これを適用するには、2つの SQL INSERT ステートメントと1つの UPDATE ステートメントをデータベースに送信します。 ブログのインスタンスが追加されると、これらの変更が1つずつ送信されるのではなく、EF Core によって内部的に追跡され、が呼び出されると、1回のラウンドトリップで実行 <xref:Microsoft.EntityFrameworkCore.DbContext.SaveChanges%2A> されます。
 
 EF が1回のラウンドトリップでバッチを処理するステートメントの数は、使用されているデータベースプロバイダーによって異なります。 たとえば、パフォーマンス分析では、4つ未満のステートメントが関係している場合に、SQL Server の効率が低下するようにバッチ処理が行われています。 同様に、バッチ処理の利点は SQL Server に対して40ステートメントの後で低下するので、EF Core は既定では1つのバッチで最大42ステートメントのみを実行し、別のラウンドトリップで追加のステートメントを実行します。
 

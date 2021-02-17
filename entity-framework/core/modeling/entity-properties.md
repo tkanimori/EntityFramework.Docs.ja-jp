@@ -4,12 +4,12 @@ description: Entity Framework Core を使用してエンティティのプロパ
 author: roji
 ms.date: 05/27/2020
 uid: core/modeling/entity-properties
-ms.openlocfilehash: fe6dd2c24b8f8ffffa8e0101f69966b7b7c74036
-ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
+ms.openlocfilehash: 3c64f5ac1c86a83b6456df9e29472dc0b22d8524
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/05/2021
-ms.locfileid: "97635550"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543368"
 ---
 # <a name="entity-properties"></a>エンティティのプロパティ
 
@@ -57,11 +57,11 @@ ms.locfileid: "97635550"
 
 ### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ColumnDataType.cs?name=ColumnDataType&highlight=4,6)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ColumnDataType.cs?name=ColumnDataType&highlight=5,8)]
 
 ### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
-[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnDataType.cs?name=ColumnDataType&highlight=5-6)]
+[!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ColumnDataType.cs?name=ColumnDataType&highlight=6-7)]
 
 ***
 
@@ -76,7 +76,7 @@ ms.locfileid: "97635550"
 
 #### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/MaxLength.cs?name=MaxLength&highlight=4)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/MaxLength.cs?name=MaxLength&highlight=5)]
 
 #### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
@@ -112,7 +112,7 @@ EFCore 5.0 以降では、fluent API を使用して、有効桁数と小数点�
 
 プロパティが有効である場合、プロパティは省略可能と見なされ `null` ます。 `null`がプロパティに割り当てられる有効な値でない場合、必須プロパティと見なされます。 リレーショナルデータベーススキーマにマップする場合、必要なプロパティは null 非許容列として作成され、オプションのプロパティは null 値が許容される列として作成されます。
 
-### <a name="conventions"></a>規則
+### <a name="conventions"></a>規約
 
 慣例により、.NET 型に null を含めることができるプロパティはオプションとして構成されますが、.NET 型に null を含めることができないプロパティは必要に応じて構成されます。 たとえば、.net 値の型 (、、など) を持つすべてのプロパティは必須として構成され、 `int` `decimal` `bool` null 許容型の .net 値型 (、、など) を持つすべてのプロパティ `int?` `decimal?` `bool?` はオプションとして構成されます。
 
@@ -125,7 +125,7 @@ C# 8 では、null [許容参照型 (NRT)](/dotnet/csharp/tutorials/nullable-ref
 
 #### <a name="without-nrt-default"></a>[NRT なし (既定)](#tab/without-nrt)
 
-[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/CustomerWithoutNullableReferenceTypes.cs?name=Customer&highlight=4-8)]
+[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/CustomerWithoutNullableReferenceTypes.cs?name=Customer&highlight=5,8)]
 
 #### <a name="with-nrt"></a>[NRT を使用](#tab/with-nrt)
 
@@ -146,7 +146,7 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 
 #### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Required.cs?name=Required&highlight=4)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/Required.cs?name=Required&highlight=5)]
 
 #### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
@@ -161,7 +161,7 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 
 照合順序は、テキスト列に対して定義し、比較および順序付けの方法を決定できます。 たとえば、次のコードスニペットでは、SQL Server 列が大文字と小文字を区別しないように構成されています。
 
-[!code-csharp[Main](../../../samples/core/Miscellaneous/Collations/Program.cs?range=42-43)]
+[!code-csharp[Main](../../../samples/core/Miscellaneous/Collations/Program.cs?name=ColumnCollation)]
 
 データベース内のすべての列で特定の照合順序を使用する必要がある場合は、代わりにデータベースレベルで照合順序を定義します。
 
@@ -176,7 +176,7 @@ Null 許容型の参照型と EF Core での使用方法の詳細については
 > [!NOTE]
 > データ注釈を使用したコメントの設定は EF Core 5.0 で導入されました。
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ColumnComment.cs?name=ColumnComment&highlight=4)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ColumnComment.cs?name=ColumnComment&highlight=5)]
 
 ### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 

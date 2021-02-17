@@ -4,12 +4,12 @@ description: Entity Framework Core を使用したデザイン時の DbContext �
 author: bricelam
 ms.date: 10/27/2020
 uid: core/cli/dbcontext-creation
-ms.openlocfilehash: 144ed26dcf605dc29d53519ad2ea9cea58fb4e44
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: 1a2c0e853047cf4ab54a320d0bef413a114e90bc
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94431318"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543407"
 ---
 # <a name="design-time-dbcontext-creation"></a>デザイン時 DbContext 作成
 
@@ -44,11 +44,11 @@ DbContext をアプリケーションサービスプロバイダーから取得�
 > EFCore 5.0 より前では、 `args` パラメーターは使用されていませんでした ( [この問題][8]を参照してください)。
 > これは EFCore 5.0 で修正され、追加のデザイン時引数は、そのパラメーターを通じてアプリケーションに渡されます。
 
-デザイン時のファクトリは、実行時とは異なる方法で DbContext をデザイン時に構成する必要がある場合、コンストラクターが DI に登録されていない場合、 `DbContext` di を使用していない場合、または何らかの理由で `CreateHostBuilder` ASP.NET Core アプリケーションのクラスにメソッドを使用しない場合に特に便利です `Main` 。
+デザイン時のファクトリは、実行時とは異なる方法でデザイン時に構成する必要がある場合 `DbContext` 、コンストラクターが di に登録されていない場合、 `DbContext` di を使用していない場合、または何らかの理由で `CreateHostBuilder` ASP.NET Core アプリケーションのクラスにメソッドを指定しない場合に特に便利です `Main` 。
 
 ## <a name="args"></a>Args
 
-IDesignTimeDbContextFactory. CreateDbContext とプログラム Createdbcontext の両方がコマンドライン引数を受け入れます。
+<xref:Microsoft.EntityFrameworkCore.Design.IDesignTimeDbContextFactory%601.CreateDbContext%2A?displayProperty=nameWithType>との両方が `Program.CreateHostBuilder` コマンドライン引数を受け入れます。
 
 EF Core 5.0 以降では、ツールから次の引数を指定できます。
 

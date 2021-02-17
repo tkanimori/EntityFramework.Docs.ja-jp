@@ -4,18 +4,18 @@ description: Entity Framework Core を使用した既存のデータベースか
 author: bricelam
 ms.date: 11/13/2018
 uid: core/managing-schemas/scaffolding
-ms.openlocfilehash: 4cad43f4b1300e1ef3cb31e60d3e9890826d974d
-ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
+ms.openlocfilehash: 0f33ee23393819aa86bf1e28ee0eca48110203f6
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 02/05/2021
-ms.locfileid: "98983574"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543381"
 ---
 # <a name="reverse-engineering"></a> リバース エンジニアリング
 
 リバースエンジニアリングは、データベーススキーマに基づいてエンティティ型クラスおよび DbContext クラスをスキャフォールディングするプロセスです。 これは、 `Scaffold-DbContext` EF Core パッケージマネージャーコンソール (PMC) ツールのコマンド、または `dotnet ef dbcontext scaffold` .net コマンドラインインターフェイス (CLI) ツールのコマンドを使用して実行できます。
 
-## <a name="installing"></a>インストール
+## <a name="installing"></a>インストール中
 
 リバースエンジニアリングを行う前に、 [PMC ツール](xref:core/cli/powershell) (Visual Studio のみ) または [CLI ツール](xref:core/cli/dotnet)のいずれかをインストールする必要があります。 詳細については、「リンク」を参照してください。
 

@@ -2,14 +2,14 @@
 title: 関数のマッピング-Microsoft SQL Server データベースプロバイダー-EF Core
 description: Microsoft SQL Server データベースプロバイダーの関数マッピング
 author: bricelam
-ms.date: 10/07/2020
+ms.date: 1/26/2021
 uid: core/providers/sql-server/functions
-ms.openlocfilehash: 8eb66521b00f2f4879a098200239849c7219a095
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: c39e81fca52854e7fa7d5b2e81b80511e8184b90
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92066563"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543225"
 ---
 # <a name="function-mappings-of-the-microsoft-sql-server-provider"></a>Microsoft SQL Server プロバイダーの関数マッピング
 
@@ -20,8 +20,10 @@ ms.locfileid: "92066563"
 .NET                         | SQL                           | 追加されたバージョン:
 ---------------------------- | ----------------------------- | --------
 メモリ.Contains (値)        | CHARINDEX ( @value , @bytes ) > 0 | EF Core 5.0
+メモリ.最初の ()                | SUBSTRING ( @bytes , 1, 1)       | EF Core 6.0
 メモリ.数                 | DATALENGTH ( @bytes )            | EF Core 5.0
 メモリ.SequenceEqual (second)  | @bytes = @second              | EF Core 5.0
+バイト [i]                     | SUBSTRING ( @bytes , @i + 1, 1)  | EF Core 6.0
 EF.関数. DataLength (arg) | DATALENGTH ( @arg )              | EF Core 5.0
 
 ## <a name="conversion-functions"></a>変換関数
@@ -121,8 +123,9 @@ timeSpan. 秒                                            | DATEPART (second, @ti
 
 ## <a name="numeric-functions"></a>数値関数
 
-.NET                    | SQL
------------------------ | ---
+.NET                    | SQL                  | 追加されたバージョン:
+----------------------- | -------------------- | --------
+EF.Functions。 Random ()   | RAND ()               | EF Core 6.0
 Math. Abs (値)         | ABS ( @value )
 Math. Acos (d)            | ACOS ( @d )
 数値演算 (d)            | アークサイン ( @d )
@@ -153,11 +156,12 @@ EF.Functions。 Contains (propertyReference, searchCondition)               | CO
 EF.Functions。 Contains (propertyReference, searchCondition, 言語用語) | ( @propertyReference 、 @searchCondition 、言語 @languageTerm ) を含みます。 | EF Core 2.2
 EF.関数 FreeText (propertyReference, freeText)                      | FREETEXT ( @propertyReference 、 @freeText )
 EF.関数 FreeText (propertyReference, freeText, 言語用語)        | FREETEXT ( @propertyReference 、 @freeText 、言語 @languageTerm )
+EF.IsNumeric (式)                                      | ISNUMERIC ( @expression )                                                 | EF Core 6.0
 EF.関数。 Like (matchExpression、pattern)                             | @matchExpression という感じで @pattern
 EF.関数。 Like (matchExpression、pattern、escapeCharacter)            | @matchExpression LIKE @pattern ESCAPE @escapeCharacter
 String.compare (strA, strB)                                              | 場合: @strA = @strB THEN 0...終わり
 文字列.Concat (str0, str1)                                               | @str0 + @str1
-文字列.IsNullOrEmpty (値)                                             | @value NULL または @value = N ' '
+文字列.IsNullOrEmpty (値)                                             | @value が NULL であるか、 @value N ' ' のようになります。
 文字列.IsNullOrWhiteSpace (値)                                        | @value が NULL または LTRIM (RTRIM ( @value )) = N ' ' です。
 stringValue (strB)                                             | 場合: @stringValue = @strB THEN 0...終わり
 stringValue。 Contains (値)                                             | @stringValue LIKE N '% ' + @value + N '% '

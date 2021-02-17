@@ -4,12 +4,12 @@ description: Entity Framework Core モデルでの空間データの使用
 author: bricelam
 ms.date: 10/02/2020
 uid: core/modeling/spatial
-ms.openlocfilehash: a38e75e150b3d3404f2ed7619d05ba478c411117
-ms.sourcegitcommit: 788a56c2248523967b846bcca0e98c2ed7ef0d6b
+ms.openlocfilehash: 721aa2628d17b89b79160f8f658f8ef0dd78d6a6
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/20/2020
-ms.locfileid: "95003446"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543290"
 ---
 # <a name="spatial-data"></a>空間データ
 
@@ -18,7 +18,7 @@ ms.locfileid: "95003446"
 
 空間データは、オブジェクトの物理的な位置と形状を表します。 多くのデータベースでは、この種類のデータをサポートしているため、他のデータと共にインデックスを作成してクエリを実行できます。 一般的なシナリオとしては、ある場所からの特定の距離にあるオブジェクトのクエリ、または特定の場所を含む罫線を持つオブジェクトの選択などがあります。 EF Core では、NetTopologySuite 空間ライブラリを使用した空間データ型へのマッピングがサポートされています。
 
-## <a name="installing"></a>インストール
+## <a name="installing"></a>インストール中
 
 EF Core で空間データを使用するには、適切なサポート NuGet パッケージをインストールする必要があります。 どのパッケージをインストールする必要があるかは、使用しているプロバイダーによって異なります。
 
@@ -78,15 +78,18 @@ LINQ では、データベース関数として使用できる NTS のメソッ�
 
 ## <a name="reverse-engineering"></a>リバースエンジニアリング
 
-空間 NuGet パッケージによって、空間プロパティを持つ [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) モデルも有効になりますが、またはを実行する *_前に_*、パッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
+空間 NuGet パッケージでは、空間プロパティを使用してモデルの [リバースエンジニアリング](xref:core/managing-schemas/scaffolding) を行うこともできますが、またはを実行する ***前*** にパッケージをインストールする必要があり `Scaffold-DbContext` `dotnet ef dbcontext scaffold` ます。 そうしないと、列の型マッピングが見つからないことに関する警告が表示され、列はスキップされます。
 
 ## <a name="srid-ignored-during-client-operations"></a>クライアント操作中に SRID が無視されました
 
-NTS は、操作中に SRID の値を無視します。 平面座標系を前提としています。 これは、経度と緯度の観点で座標を指定した場合、クライアントによって評価される値 (距離、長さ、領域など) は、メーターではなく、度数で表されることを意味します。 意味のある値については、まず、 [ProjNet4GeoAPI](https://github.com/NetTopologySuite/ProjNet4GeoAPI) のようなライブラリを使用して、これらの値を計算する前に、別の座標系の座標を射影する必要があります。
+NTS は、操作中に SRID の値を無視します。 平面座標系を前提としています。 これは、経度と緯度の観点で座標を指定した場合、クライアントによって評価される値 (距離、長さ、領域など) は、メーターではなく、度数で表されることを意味します。 意味のある値については、まず、 [Projnet (GeoAPI)](https://github.com/NetTopologySuite/ProjNet4GeoAPI)などのライブラリを使用して、別の座標系の座標を射影する必要があります。
+
+> [!NOTE]
+> ProjNet4GeoAPI という古いパッケージでは **なく**、新しい [projnet NuGet パッケージ](https://www.nuget.org/packages/ProjNet/)を使用します。
 
 操作が SQL を介して EF Core によってサーバーによって評価される場合、結果の単位はデータベースによって決定されます。
 
-ProjNet4GeoAPI を使用して2つの都市間の距離を計算する例を次に示します。
+次に、ProjNet を使用して2つの都市間の距離を計算する例を示します。
 
 [!code-csharp[](../../../samples/core/Spatial/Projections/GeometryExtensions.cs?name=snippet_GeometryExtensions)]
 
@@ -101,7 +104,7 @@ ProjNet4GeoAPI を使用して2つの都市間の距離を計算する例を次�
 
 空間データの操作の詳細については、プロバイダーのドキュメントを参照してください。
 
-[SQL Server プロバイダーの _ 空間データ](xref:core/providers/sql-server/spatial)
+* [SQL Server プロバイダーの空間データ](xref:core/providers/sql-server/spatial)
 * [SQLite プロバイダーの空間データ](xref:core/providers/sqlite/spatial)
 * [Npgsql プロバイダーの空間データ](https://www.npgsql.org/efcore/mapping/nts.html)
 

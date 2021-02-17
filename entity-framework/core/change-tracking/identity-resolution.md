@@ -4,12 +4,12 @@ description: 主キー値を使用して複数のエンティティインスタ�
 author: ajcvickers
 ms.date: 12/30/2020
 uid: core/change-tracking/identity-resolution
-ms.openlocfilehash: f94b61371dcead27853799719dabc7849500d466
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: d4c8f935c8d0ab92eaecd8fc7a4156bd824713d4
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98129636"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543615"
 ---
 # <a name="identity-resolution-in-ef-core"></a>EF Core での id 解決
 
@@ -19,7 +19,7 @@ ms.locfileid: "98129636"
 > このドキュメントでは、EF Core の変更の追跡のエンティティの状態と基本について理解していることを前提としています。 これらのトピックの詳細については、 [EF Core の Change Tracking](xref:core/change-tracking/index) を参照してください。
 
 > [!TIP]
-> [GitHub からサンプルコードをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/ChangeTracking/IdentityResolutionInEFCore)することで、このドキュメントのすべてのコードを実行し、デバッグすることができます。
+> このドキュメントに含まれているすべてのコードは、[GitHub からサンプル コードをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/ChangeTracking/IdentityResolutionInEFCore)することで実行およびデバッグできます。
 
 ## <a name="introduction"></a>はじめに
 
@@ -66,7 +66,7 @@ ms.locfileid: "98129636"
 
 ### <a name="call-update"></a>Update の呼び出し
 
-多くの場合、更新するエンティティは、SaveChanges に使用する DbContext に対するクエリからは取得されません。 たとえば、web アプリケーションで、POST 要求の情報からエンティティインスタンスを作成できます。 これを処理する最も簡単な方法は、またはを使用することです <xref:Microsoft.EntityFrameworkCore.DbContext.Update%2A?displayProperty=nameWithType> <xref:Microsoft.EntityFrameworkCore.DbSet%601.Update%2A?displayProperty=nameWithType> 。 例:
+多くの場合、更新するエンティティは、SaveChanges に使用する DbContext に対するクエリからは取得されません。 たとえば、web アプリケーションで、POST 要求の情報からエンティティインスタンスを作成できます。 これを処理する最も簡単な方法は、またはを使用することです <xref:Microsoft.EntityFrameworkCore.DbContext.Update%2A?displayProperty=nameWithType> <xref:Microsoft.EntityFrameworkCore.DbSet%601.Update%2A?displayProperty=nameWithType> 。 次に例を示します。
 
 <!--
     public static void UpdateFromHttpPost1(Blog blog)
@@ -89,7 +89,7 @@ ms.locfileid: "98129636"
 
 ### <a name="query-then-apply-changes"></a>クエリを実行し、変更を適用する
 
-通常、POST 要求の情報からエンティティが作成されるときに、どのプロパティ値が実際に変更されたかは不明です。 多くの場合、前の例で行ったように、データベース内のすべての値を更新するだけで十分です。 ただし、アプリケーションが多数のエンティティを処理していて、それらの少数の部分だけが実際の変更を行っている場合は、送信される更新プログラムを制限すると便利な場合があります。 これを実現するには、クエリを実行して、データベース内に現在存在しているエンティティを追跡し、それらの追跡対象エンティティに変更を適用します。 例:
+通常、POST 要求の情報からエンティティが作成されるときに、どのプロパティ値が実際に変更されたかは不明です。 多くの場合、前の例で行ったように、データベース内のすべての値を更新するだけで十分です。 ただし、アプリケーションが多数のエンティティを処理していて、それらの少数の部分だけが実際の変更を行っている場合は、送信される更新プログラムを制限すると便利な場合があります。 これを実現するには、クエリを実行して、データベース内に現在存在しているエンティティを追跡し、それらの追跡対象エンティティに変更を適用します。 次に例を示します。
 
 <!--
     public static void UpdateFromHttpPost2(Blog blog)
@@ -129,7 +129,7 @@ EF Core には、このようなプロパティ値を転送するためのヘル
 -->
 [!code-csharp[Updating_an_entity_3](../../../samples/core/ChangeTracking/IdentityResolutionInEFCore/IdentityResolutionSamples.cs?name=Updating_an_entity_3)]
 
-`SetValues` では、エンティティ型のプロパティと一致するプロパティ名を持つデータ転送オブジェクト (Dto) を含む、さまざまなオブジェクトの種類を使用できます。 例:
+`SetValues` では、エンティティ型のプロパティと一致するプロパティ名を持つデータ転送オブジェクト (Dto) を含む、さまざまなオブジェクトの種類を使用できます。 次に例を示します。
 
 <!--
     public static void UpdateFromHttpPost4(BlogDto dto)
@@ -165,7 +165,7 @@ EF Core には、このようなプロパティ値を転送するためのヘル
 
 ### <a name="use-original-values"></a>元の値を使用する
 
-ここまでの手順では、更新を行う前にクエリを実行したか、変更されたかどうかに関係なくすべてのプロパティ値を更新しました。 更新の一部としてクエリを実行せずに変更された値のみを更新するには、変更されたプロパティ値に関する特定の情報が必要です。 この情報を取得する一般的な方法は、HTTP Post または同様に、現在の値と元の値の両方を返すことです。 例:
+ここまでの手順では、更新を行う前にクエリを実行したか、変更されたかどうかに関係なくすべてのプロパティ値を更新しました。 更新の一部としてクエリを実行せずに変更された値のみを更新するには、変更されたプロパティ値に関する特定の情報が必要です。 この情報を取得する一般的な方法は、HTTP Post または同様に、現在の値と元の値の両方を返すことです。 次に例を示します。
 
 <!--
     public static void UpdateFromHttpPost6(Blog blog, Dictionary<string, object> originalValues)
@@ -290,7 +290,7 @@ JSON には、重複するブログや投稿がないことに注意してくだ
 
 ### <a name="handling-duplicates"></a>重複の処理
 
-前の例のコードでは、各ブログに関連する投稿をシリアル化しています。 これが、関連付けられているブログと共に各投稿をシリアル化するように変更された場合は、シリアル化された JSON に重複が導入されます。 例:
+前の例のコードでは、各ブログに関連する投稿をシリアル化しています。 これが、関連付けられているブログと共に各投稿をシリアル化するように変更された場合は、シリアル化された JSON に重複が導入されます。 次に例を示します。
 
 <!--
             using var context = new BlogsContext();
@@ -403,7 +403,7 @@ JSON には、重複するブログや投稿がないことに注意してくだ
 
 #### <a name="preserve-references"></a>参照を保持する
 
-Json.NET は、 `PreserveReferencesHandling` これを処理するオプションを提供します。 例:
+Json.NET は、 `PreserveReferencesHandling` これを処理するオプションを提供します。 次に例を示します。
 
 <!--
             var serialized = JsonConvert.SerializeObject(
@@ -490,7 +490,7 @@ Json.NET は、 `PreserveReferencesHandling` これを処理するオプショ�
 
 この JSON では `"$ref": "5"` 、グラフ内の既存のインスタンスを参照するのような参照で重複部分が置換されていることに注意してください。 このグラフは、上に示すように、の単純な呼び出しを使用して追跡でき `Update` ます。
 
-<xref:System.Text.Json>.Net 基底クラスライブラリ (BCL) でのサポートには同様のオプションがあるため、同じ結果が得られます。 例:
+<xref:System.Text.Json>.Net 基底クラスライブラリ (BCL) でのサポートには同様のオプションがあるため、同じ結果が得られます。 次に例を示します。
 
 <!--
             var serialized = System.Text.Json.JsonSerializer.Serialize(posts, new System.Text.Json.JsonSerializerOptions
@@ -503,7 +503,7 @@ Json.NET は、 `PreserveReferencesHandling` これを処理するオプショ�
 
 #### <a name="resolve-duplicates"></a>重複の解決
 
-シリアル化プロセスで重複を排除できない場合は、を使用してその <xref:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.TrackGraph%2A?displayProperty=nameWithType> 処理方法を提供します。 TrackGraph はと同様に動作 `Add` `Attach` し `Update` ますが、追跡する前にすべてのエンティティインスタンスに対してコールバックが生成される点が異なります。 このコールバックを使用して、エンティティを追跡するか無視することができます。 例:
+シリアル化プロセスで重複を排除できない場合は、を使用してその <xref:Microsoft.EntityFrameworkCore.ChangeTracking.ChangeTracker.TrackGraph%2A?displayProperty=nameWithType> 処理方法を提供します。 TrackGraph はと同様に動作 `Add` `Attach` し `Update` ますが、追跡する前にすべてのエンティティインスタンスに対してコールバックが生成される点が異なります。 このコールバックを使用して、エンティティを追跡するか無視することができます。 次に例を示します。
 
 <!--
         public static void UpdatePostsFromJsonWithIdentityResolution(string json)
@@ -617,7 +617,7 @@ Discarding duplicate EntityType: Post entity with key value 4
 
 ## <a name="identity-resolution-and-queries"></a>Id の解決とクエリ
 
-Id 解決は、エンティティがクエリから追跡されるときに自動的に行われます。 これは、特定のキー値を持つエンティティインスタンスが既に追跡されている場合に、新しいインスタンスを作成する代わりに、この既存の追跡対象インスタンスが使用されることを意味します。 これには重要な結果があります。データベースでデータが変更された場合、クエリの結果には反映されません。 これは、「 [Dbcontext の初期化と構成](xref:core/dbcontext-configuration/index)」で説明されているように、作業単位ごとに新しい dbcontext インスタンスを使用し、 [EF Core の Change Tracking](xref:core/change-tracking/index)で詳細を使用する理由です。
+Id 解決は、エンティティがクエリから追跡されるときに自動的に行われます。 これは、特定のキー値を持つエンティティインスタンスが既に追跡されている場合に、新しいインスタンスを作成する代わりに、この既存の追跡対象インスタンスが使用されることを意味します。 これには重要な結果があります。データベースでデータが変更された場合、クエリの結果には反映されません。 これは、「 [Dbcontext の初期化と構成](xref:core/dbcontext-configuration/index)」で説明されているように、作業単位ごとに新しい dbcontext インスタンスを使用し、 [EF Core の Change Tracking](xref:core/change-tracking/index)で詳細を使用することをお勧めします。
 
 > [!IMPORTANT]
 > EF Core は常にデータベースに対して DbSet に対して LINQ クエリを実行し、データベースの内容に基づいてのみ結果を返すことを理解しておくことが重要です。 ただし、追跡クエリの場合、返されたエンティティが既に追跡されている場合は、データベース内のデータからインスタンスを作成する代わりに、追跡対象のインスタンスが使用されます。
@@ -657,7 +657,7 @@ EF Core は、エンティティインスタンスを比較するときに [参�
 
 (.NET 5 以降では、これはとして BCL に含まれてい <xref:System.Collections.Generic.ReferenceEqualityComparer> ます)。
 
-この比較子は、コレクションナビゲーションを作成するときに使用できます。 例:
+この比較子は、コレクションナビゲーションを作成するときに使用できます。 次に例を示します。
 
 <!--
         public ICollection<Order> Orders { get; set; }

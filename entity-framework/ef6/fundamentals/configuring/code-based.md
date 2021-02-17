@@ -4,12 +4,12 @@ description: Entity Framework 6 のコードベースの構成
 author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/configuring/code-based
-ms.openlocfilehash: ff86b542dead260190bbb0b0788a231f720fbeaf
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: b16cbcef85708730dcc6b82a38635cc60cb2206a
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92063282"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543173"
 ---
 # <a name="code-based-configuration"></a>コードベースの構成
 > [!NOTE]
@@ -19,20 +19,20 @@ Entity Framework アプリケーションの構成は、構成ファイル (app.
 
 構成ファイルの構成については、 [別の記事](xref:ef6/fundamentals/configuring/config-file)で説明します。 構成ファイルは、コードベースの構成よりも優先されます。 つまり、構成オプションがコードと構成ファイルの両方で設定されている場合、構成ファイルの設定が使用されます。  
 
-## <a name="using-dbconfiguration"></a>DbConfiguration の使用  
+## <a name="using-dbconfiguration"></a>`DbConfiguration` の使用
 
-EF6 以降のコードベースの構成は、System.Data.Entity.Config のサブクラスを作成することによって実現されます。DbConfiguration. DbConfiguration をサブクラス化する場合は、次のガイドラインに従う必要があります。  
+EF6 以降のコードベースの構成は、のサブクラスを作成することによって実現され `System.Data.Entity.Config.DbConfiguration` ます。 サブクラス化する場合は、次のガイドラインに従う必要があり `DbConfiguration` ます。  
 
-- アプリケーションの DbConfiguration クラスを1つだけ作成します。 このクラスは、アプリドメイン全体の設定を指定します。  
-- DbConfiguration クラスを Dbconfiguration クラスと同じアセンブリに配置します。 (これを変更する場合は、「 *DbConfiguration の移動* 」セクションを参照してください)。  
-- DbConfiguration クラスにパブリックのパラメーターなしのコンストラクターを指定します。  
-- このコンストラクター内から保護された DbConfiguration メソッドを呼び出すことによって、構成オプションを設定します。  
+- `DbConfiguration`アプリケーションのクラスを1つだけ作成します。 このクラスは、アプリドメイン全体の設定を指定します。  
+- クラス `DbConfiguration` をクラスと同じアセンブリに配置し `DbContext` ます。 (これを変更する場合は、「*移動 `DbConfiguration`* 」セクションを参照してください)。  
+- クラスに `DbConfiguration` パブリックなパラメーターなしのコンストラクターを指定します。  
+- このコンストラクター内から保護されたメソッドを呼び出すことによって、構成オプションを設定 `DbConfiguration` します。  
 
 これらのガイドラインに従うことで、EF は、モデルにアクセスする必要があるツールとアプリケーションの実行時の両方で、構成を自動的に検出して使用できるようになります。  
 
 ## <a name="example"></a>例  
 
-DbConfiguration から派生したクラスは次のようになります。  
+から派生したクラスは次の `DbConfiguration` ようになります。  
 
 ``` csharp
 using System.Data.Entity;
@@ -54,11 +54,11 @@ namespace MyNamespace
 
 このクラスは、SQL Azure の実行戦略を使用するように EF を設定します。これにより、失敗したデータベース操作を自動的に再試行し、Code First から規則によって作成されたデータベースに対してローカル DB を使用します。  
 
-## <a name="moving-dbconfiguration"></a>DbConfiguration の移動  
+## <a name="moving-dbconfiguration"></a>動き `DbConfiguration`  
 
-DbConfiguration クラスを Dbconfiguration クラスと同じアセンブリに配置できない場合があります。 たとえば、それぞれ異なるアセンブリに2つの DbContext クラスがあるとします。 この処理には、2つのオプションがあります。  
+クラスと同じアセンブリにクラスを配置できない場合があり `DbConfiguration` `DbContext` ます。 たとえば、2つのクラスが `DbContext` それぞれ異なるアセンブリに存在する場合があります。 この処理には、2つのオプションがあります。  
 
-1つ目のオプションは、構成ファイルを使用して、使用する DbConfiguration インスタンスを指定する方法です。 これを行うには、entityFramework セクションの codeConfigurationType 属性を設定します。 次に例を示します。  
+最初のオプションでは、構成ファイルを使用して、 `DbConfiguration` 使用するインスタンスを指定します。 これを行うには、entityFramework セクションの codeConfigurationType 属性を設定します。 次に例を示します。  
 
 ``` xml
 <entityFramework codeConfigurationType="MyNamespace.MyDbConfiguration, MyAssembly">
@@ -66,9 +66,9 @@ DbConfiguration クラスを Dbconfiguration クラスと同じアセンブリ�
 </entityFramework>
 ```  
 
-CodeConfigurationType の値は、アセンブリおよび DbConfiguration クラスの名前空間修飾名である必要があります。  
+CodeConfigurationType の値は、クラスのアセンブリおよび名前空間修飾名である必要があり `DbConfiguration` ます。  
 
-2つ目の方法は、コンテキストクラスに DbConfigurationTypeAttribute を配置することです。 次に例を示します。  
+2番目のオプションは、コンテキストクラスに配置することです `DbConfigurationTypeAttribute` 。 次に例を示します。  
 
 ``` csharp  
 [DbConfigurationType(typeof(MyDbConfiguration))]
@@ -77,7 +77,7 @@ public class MyContextContext : DbContext
 }
 ```  
 
-属性に渡す値は、上に示すように DbConfiguration 型にするか、アセンブリと名前空間で修飾された型名の文字列にすることができます。 次に例を示します。  
+属性に渡される値は、 `DbConfiguration` 上に示すように型にするか、アセンブリと名前空間で修飾された型名の文字列にすることができます。 次に例を示します。  
 
 ``` csharp
 [DbConfigurationType("MyNamespace.MyDbConfiguration, MyAssembly")]
@@ -86,28 +86,28 @@ public class MyContextContext : DbContext
 }
 ```  
 
-## <a name="setting-dbconfiguration-explicitly"></a>DbConfiguration を明示的に設定する  
+## <a name="setting-dbconfiguration-explicitly"></a>設定 ( `DbConfiguration` 明示的に)  
 
-DbContext 型を使用する前に構成が必要になる状況もあります。 この例には以下のようなものがあります。  
+型を使用する前に構成が必要になる状況もあり `DbContext` ます。 この例には以下のようなものがあります。  
 
-- DbModelBuilder を使用してコンテキストなしでモデルを構築する  
-- アプリケーションコンテキストが使用される前にそのコンテキストが使用される DbContext を利用する他のフレームワーク/ユーティリティコードを使用する  
+- を使用して `DbModelBuilder` コンテキストなしでモデルを構築する  
+- `DbContext`アプリケーションコンテキストが使用される前にコンテキストが使用されるを利用する他のフレームワーク/ユーティリティコードを使用する  
 
 このような状況では、EF は構成を自動的に検出できないため、代わりに次のいずれかを実行する必要があります。  
 
-- 上の「 *DbConfiguration の移動* 」セクションで説明したように、構成ファイルで dbconfiguration 型を設定します。
-- アプリケーションの起動時に、静的な DbConfiguration. SetConfiguration メソッドを呼び出します。  
+- 上の `DbConfiguration` 「 *`DbConfiguration` 移動*」セクションで説明したように、構成ファイルで型を設定します。
+- 静的を呼び出し `DbConfiguration` ます。アプリケーションの起動中の SetConfiguration メソッド  
 
-## <a name="overriding-dbconfiguration"></a>DbConfiguration のオーバーライド  
+## <a name="overriding-dbconfiguration"></a>オーバーライド `DbConfiguration`  
 
-DbConfiguration で構成セットを上書きする必要がある状況もあります。 これは通常、アプリケーション開発者によって行われるのではなく、派生した DbConfiguration クラスを使用できないサードパーティプロバイダーやプラグインによって実行されます。  
+で構成セットを上書きする必要がある状況もあり `DbConfiguration` ます。 これは通常、アプリケーション開発者によって行われるのではなく、派生クラスを使用できないサードパーティプロバイダーやプラグインによって実行され `DbConfiguration` ます。  
 
 このため、EntityFramework では、ロックダウンの直前に既存の構成を変更できるイベントハンドラーを登録できます。  また、EF サービスロケーターによって返されるサービスを置き換えるための、砂糖の方法も提供します。 これは、次のように使用することを意図しています。  
 
 - (EF が使用される前に) アプリの起動時に、プラグインまたはプロバイダーがこのイベントのイベントハンドラーメソッドを登録する必要があります。 (これは、アプリケーションで EF を使用する前に行う必要があることに注意してください)。  
 - イベントハンドラーは、置き換える必要があるすべてのサービスに対して、交換用 Eservice を呼び出します。  
 
-たとえば、IDbConnectionFactory と DbProviderService を置き換えるには、次のようなハンドラーを登録します。  
+たとえば、を置き換えるには、次の `IDbConnectionFactory` `DbProviderService` ようにハンドラーを登録します。  
 
 ``` csharp
 DbConfiguration.Loaded += (_, a) =>
@@ -117,10 +117,10 @@ DbConfiguration.Loaded += (_, a) =>
    };
 ```  
 
-上記のコードでは、MyProviderServices と Myproviderservices がサービスの実装を表しています。  
+上記のコードでは、 `MyProviderServices` とは `MyConnectionFactory` サービスの実装を表しています。  
 
 また、依存関係ハンドラーを追加して同じ効果を得ることもできます。  
 
-この方法で DbProviderFactory をラップすることもできますが、これを行うと EF にのみ影響し、EF の外部では DbProviderFactory を使用しないことに注意してください。 このため、以前と同じように引き続き DbProviderFactory をラップすることをお勧めします。  
+この方法でラップすることもでき `DbProviderFactory` ますが、これを行うと ef にのみ影響し、 `DbProviderFactory` ef の外部では使用されません。 このため、以前と同じように、引き続きラップする必要があり `DbProviderFactory` ます。  
 
-また、パッケージマネージャーコンソールから移行を実行する場合など、アプリケーションの外部で実行するサービスについても考慮する必要があります。 コンソールから移行を実行すると、DbConfiguration の検索が試行されます。 ただし、ラップされたサービスを取得するかどうかは、イベントハンドラーの登録場所によって異なります。 DbConfiguration の構築の一部として登録されている場合は、コードを実行し、サービスをラップする必要があります。 通常、これは当てはまりません。これは、ツールがラップされたサービスを取得しないことを意味します。  
+また、パッケージマネージャーコンソールから移行を実行する場合など、アプリケーションの外部で実行するサービスについても考慮する必要があります。 コンソールから移行を実行すると、の検索が試行され `DbConfiguration` ます。 ただし、ラップされたサービスを取得するかどうかは、イベントハンドラーの登録場所によって異なります。 の構築の一部として登録されている場合 `DbConfiguration` 、コードを実行し、サービスをラップする必要があります。 通常、これは当てはまりません。これは、ツールがラップされたサービスを取得しないことを意味します。  

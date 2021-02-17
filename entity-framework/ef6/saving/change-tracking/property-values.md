@@ -4,12 +4,12 @@ description: Entity Framework 6 でのプロパティ値の使用
 author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/saving/change-tracking/property-values
-ms.openlocfilehash: deb110df1dbb2b433b54b98a684bc06e696c4351
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 4e9912df960481232c492f8a83d15595800edec3
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92064446"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543563"
 ---
 # <a name="working-with-property-values"></a>プロパティ値の操作
 ほとんどの場合 Entity Framework は、エンティティインスタンスのプロパティの状態、元の値、および現在の値の追跡を行います。 ただし、接続が切断されたシナリオなど、EF がプロパティについての情報を表示または操作する場合もあります。 このトピックで紹介するテクニックは、Code First および EF Designer で作成されたモデルに等しく使用できます。  
@@ -222,7 +222,7 @@ using (var context = new BloggingContext())
 {
     var blog = context.Blogs.Find(1);
 
-    var newValues = new Dictionary\<string, object>
+    var newValues = new Dictionary<string, object>
     {
         { "Name", "The New ADO.NET Blog" },
         { "Url", "blogs.msdn.com/adonet" },
@@ -250,7 +250,7 @@ using (var context = new BloggingContext())
 {
     var user = context.Users.Find("johndoe1987");
 
-    var newValues = new Dictionary\<string, object>
+    var newValues = new Dictionary<string, object>
     {
         { "Name", "John Doe" },
         { "Location.City", "Redmond" },

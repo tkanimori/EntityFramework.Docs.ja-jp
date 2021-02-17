@@ -2,14 +2,14 @@
 title: 関数のマッピング-SQLite データベースプロバイダー-EF Core
 description: SQLite EF Core データベースプロバイダーの関数マッピング
 author: bricelam
-ms.date: 10/06/2020
+ms.date: 1/26/2021
 uid: core/providers/sqlite/functions
-ms.openlocfilehash: 0787981a0c6fa401a7ef4b4c3c2b406f78117ad1
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: 66fb24219465b8c34407d279450b7d501e7a572d
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92066551"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543212"
 ---
 # <a name="function-mappings-of-the-sqlite-ef-core-provider"></a>SQLite EF Core プロバイダーの関数マッピング
 
@@ -17,11 +17,36 @@ ms.locfileid: "92066551"
 
 ## <a name="binary-functions"></a>Binary 関数
 
-.NET                        | SQL                             | 追加されたバージョン:
---------------------------- | ------------------------------- | --------
-メモリ.Contains (値)       | instr ( @bytes , char ( @value )) > 0 | EF Core 5.0
-メモリ.数                | 長さ ( @bytes )                  | EF Core 5.0
-メモリ.SequenceEqual (second) | @bytes = @second                | EF Core 5.0
+.NET                                           | SQL                                  | 追加されたバージョン:
+---------------------------------------------- | ------------------------------------ | --------
+メモリ.Contains (値)                          | instr ( @bytes , char ( @value )) > 0      | EF Core 5.0
+メモリ.数                                   | 長さ ( @bytes )                       | EF Core 5.0
+メモリ.SequenceEqual (second)                    | @bytes = @second                     | EF Core 5.0
+EF.関数. Hex (バイト)                        | hex ( @bytes )                          | EF Core 6.0
+EF.Substr (bytes, startIndex)         | substr ( @bytes , @startIndex )          | EF Core 6.0
+EF.Substr (bytes, startIndex, length) | substr ( @bytes , @startIndex , @length ) | EF Core 6.0
+
+## <a name="conversion-functions"></a>変換関数
+
+.NET                      | SQL                           | 追加されたバージョン:
+------------------------- | ----------------------------- | --------
+ブール値。 ToString ()      | CAST ( @boolValue テキストとして)      | EF Core 6.0
+byteValue。 ToString ()      | CAST ( @byteValue テキストとして)      | EF Core 6.0
+メモリ.ToString ()          | CAST ( @bytes テキストとして)          | EF Core 6.0
+charValue。 ToString ()      | CAST ( @charValue テキストとして)      | EF Core 6.0
+dateTime. ToString ()       | CAST ( @dateTime テキストとして)       | EF Core 6.0
+dateTimeOffset () | CAST ( @dateTimeOffset テキストとして) | EF Core 6.0
+decimalValue ()   | CAST ( @decimalValue テキストとして)   | EF Core 6.0
+doubleValue ()    | CAST ( @doubleValue テキストとして)    | EF Core 6.0
+floatValue ()     | CAST ( @floatValue テキストとして)     | EF Core 6.0
+guid.ToString ()           | CAST ( @guid テキストとして)           | EF Core 6.0
+intValue。 ToString ()       | CAST ( @intValue テキストとして)       | EF Core 6.0
+longValue。 ToString ()      | CAST ( @longValue テキストとして)      | EF Core 6.0
+sbyteValue. ToString ()     | CAST ( @sbyteValue テキストとして)     | EF Core 6.0
+短い値です。 ToString ()     | CAST ( @shortValue テキストとして)     | EF Core 6.0
+timeSpan。 ToString ()       | CAST ( @timeSpan テキストとして)       | EF Core 6.0
+uintValue。 ToString ()      | CAST ( @uintValue テキストとして)      | EF Core 6.0
+ushortValue ()    | CAST ( @ushortValue テキストとして)    | EF Core 6.0
 
 ## <a name="date-and-time-functions"></a>日付と時刻関数
 
@@ -56,20 +81,21 @@ dateTime. Year                   | strftime ('% Y ', @dateTime )
 
 ## <a name="numeric-functions"></a>数値関数
 
-.NET                  | SQL                                  | 追加されたバージョン:
---------------------- | ------------------------------------ | --------
--decimalValue         | ef_negate ( @decimalValue )             | EF Core 5.0
-decimalValue-d      | ef_add ( @decimalValue 、ef_negate ( @d )) | EF Core 5.0
-decimalValue * d      | ef_multiply ( @decimalValue 、 @d )       | EF Core 5.0
-decimalValue/d      | ef_divide ( @decimalValue 、 @d )         | EF Core 5.0
-decimalValue% d      | ef_mod ( @decimalValue 、 @d )            | EF Core 5.0
-decimalValue + d      | ef_add ( @decimalValue 、 @d )            | EF Core 5.0
-decimalValue < d      | ef_compare ( @decimalValue , @d ) < 0    | EF Core 5.0
-decimalValue <= d     | ef_compare ( @decimalValue , @d ) <= 0   | EF Core 5.0
-decimalValue > d      | ef_compare ( @decimalValue , @d ) > 0    | EF Core 5.0
-decimalValue >= d     | ef_compare ( @decimalValue , @d ) >= 0   | EF Core 5.0
-doubleValue% d       | ef_mod ( @doubleValue 、 @d )             | EF Core 5.0
-floatValue% d        | ef_mod ( @floatValue 、 @d )              | EF Core 5.0
+.NET                  | SQL                                   | 追加されたバージョン:
+--------------------- | ------------------------------------- | --------
+-decimalValue         | ef_negate ( @decimalValue )              | EF Core 5.0
+decimalValue-d      | ef_add ( @decimalValue 、ef_negate ( @d ))  | EF Core 5.0
+decimalValue * d      | ef_multiply ( @decimalValue 、 @d )        | EF Core 5.0
+decimalValue/d      | ef_divide ( @decimalValue 、 @d )          | EF Core 5.0
+decimalValue% d      | ef_mod ( @decimalValue 、 @d )             | EF Core 5.0
+decimalValue + d      | ef_add ( @decimalValue 、 @d )             | EF Core 5.0
+decimalValue < d      | ef_compare ( @decimalValue , @d ) < 0     | EF Core 5.0
+decimalValue <= d     | ef_compare ( @decimalValue , @d ) <= 0    | EF Core 5.0
+decimalValue > d      | ef_compare ( @decimalValue , @d ) > 0     | EF Core 5.0
+decimalValue >= d     | ef_compare ( @decimalValue , @d ) >= 0    | EF Core 5.0
+doubleValue% d       | ef_mod ( @doubleValue 、 @d )              | EF Core 5.0
+EF.Functions。 Random () | abs (random ()/9223372036854780000.0) | EF Core 6.0
+floatValue% d        | ef_mod ( @floatValue 、 @d )               | EF Core 5.0
 Math. Abs (値)       | abs ( @value )
 Math. Max (val1, val2)  | max ( @val1 , @val2 )
 Math. Min (val1, val2)  | min ( @val1 , @val2 )
@@ -77,15 +103,19 @@ Math. Round (d)         | round ( @d )
 Math. Round (d, digits) | round ( @d , @digits )
 
 > [!TIP]
-> *Ef*で始まる SQL 関数は、EF Core によって作成されます。
+> *Ef* で始まる SQL 関数は、EF Core によって作成されます。
 
 ## <a name="string-functions"></a>文字列関数
 
 .NET                                                         | SQL                                                    | 追加されたバージョン:
 ------------------------------------------------------------ | ------------------------------------------------------ | --------
+char.ToLower (c)                                              | lower ( @c )                                              | EF Core 6.0
+char.ToUpper (c)                                              | upper ( @c )                                              | EF Core 6.0
 EF.関数。 Collate (オペランド、照合順序)                     | @operand 照合 @collation                            | EF Core 5.0
+EF.Functions. Glob (matchExpression, pattern)                  | glob ( @pattern , @matchExpression )                       | EF Core 6.0
 EF.関数。 Like (matchExpression、pattern)                  | @matchExpression という感じで @pattern
 EF.関数。 Like (matchExpression、pattern、escapeCharacter) | @matchExpression LIKE @pattern ESCAPE @escapeCharacter
+IsMatch (input, pattern)                                | regexp ( @pattern , @input )                               | EF Core 6.0
 String.compare (strA, strB)                                   | 場合: @strA = @strB THEN 0...終わり
 文字列.Concat (str0, str1)                                    | @str0 \|\| @str1
 文字列.IsNullOrEmpty (値)                                  | @value IS NULL または @value = ' '

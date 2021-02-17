@@ -4,12 +4,12 @@ description: 追加、アタッチ、更新、および削除を使用して、D
 author: ajcvickers
 ms.date: 12/30/2020
 uid: core/change-tracking/explicit-tracking
-ms.openlocfilehash: 1428096b362c8016f7924c72ec9ac3e2f9203ed6
-ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
+ms.openlocfilehash: 3d9142cecf272c635c3a041fe6c5d9c49a26c33d
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/28/2021
-ms.locfileid: "98983275"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543186"
 ---
 # <a name="explicitly-tracking-entities"></a>エンティティの明示的な追跡
 
@@ -42,7 +42,7 @@ Web アプリケーションは、これらのエンティティを再アタッ�
 > [!TIP]
 > 通常は、クエリの対象となったのと _同じ DbContext インスタンス_ にエンティティをアタッチする必要はありません。 定期的に追跡しないクエリを実行し、返されたエンティティを同じコンテキストにアタッチすることは避けてください。 これは、追跡クエリを使用した場合よりも遅くなります。また、シャドウプロパティの値がないなどの問題が発生し、適切に機能しなくなる可能性があります。
 
-### <a name="generated-verses-explicit-key-values"></a>生成されたキー値
+### <a name="generated-versus-explicit-key-values"></a>生成されたキー値と明示的なキー値
 
 既定では、整数と GUID の [キープロパティ](xref:core/modeling/keys) は、 [自動的に生成されたキー値](xref:core/modeling/generated-properties)を使用するように構成されています。 **変更の追跡には大きな利点があります。未設定のキー値は、エンティティが "新規" であることを示し** ます。 "New" によって、データベースにまだ挿入されていないことを意味します。
 
@@ -693,7 +693,7 @@ SaveChanges が完了した後、削除されたエンティティはデータ�
 
 これは、前の例とまったく同じように動作します。これは、追跡されていないエンティティに対してを呼び出すと、 `Remove` 最初にアタッチされてからとしてマークが付けられるため `Deleted` です。
 
-より現実的な例では、エンティティのグラフが最初にアタッチされ、それらのエンティティの一部が削除済みとしてマークされます。 例:
+より現実的な例では、エンティティのグラフが最初にアタッチされ、それらのエンティティの一部が削除済みとしてマークされます。 次に例を示します。
 
 <!--
             // Attach a blog and associated posts
@@ -764,7 +764,7 @@ Post {Id: 1} Unchanged
 
 ### <a name="optional-relationships"></a>省略可能なリレーションシップ
 
-`Post.BlogId`外部キープロパティは、使用しているモデルで null 値が許容されます。 つまり、リレーションシップは省略可能であるため、EF Core の既定の動作では、 `BlogId` ブログが削除されるときに、外部キープロパティが null に設定されます。 例:
+`Post.BlogId`外部キープロパティは、使用しているモデルで null 値が許容されます。 つまり、リレーションシップは省略可能であるため、EF Core の既定の動作では、 `BlogId` ブログが削除されるときに、外部キープロパティが null に設定されます。 次に例を示します。
 
 <!--
             // Attach a blog and associated posts

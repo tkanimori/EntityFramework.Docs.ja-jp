@@ -4,12 +4,12 @@ description: Entity Framework Core を使用して、運用データベースと
 author: bricelam
 ms.date: 05/06/2020
 uid: core/managing-schemas/migrations/applying
-ms.openlocfilehash: 7ff84636fb0999941b832c6a2d65d77b0ad368c5
-ms.sourcegitcommit: f3512e3a98e685a3ba409c1d0157ce85cc390cf4
+ms.openlocfilehash: cb4e6f719ba5ab4ef70e2e1d06760db1de5658b4
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 11/10/2020
-ms.locfileid: "94429853"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543602"
 ---
 # <a name="applying-migrations"></a>移行の適用
 
@@ -88,7 +88,7 @@ Script-Migration AddNewTables AddAuditTable
 
 ***
 
-スクリプトの生成では、次の2つの引数を使用して、どの移行範囲を生成する必要があるかを示します。
+スクリプトの生成では、次の2つの引数を使用して、どの移行範囲を生成する必要があるかを示すことができます。
 
 * **from** 移行は、スクリプトの実行前にデータベースに適用される最後の移行にする必要があります。 移行が適用されていない場合、`0` を指定します (これは既定です)。
 * **to** 移行は、スクリプトの実行後にデータベースに適用される最後の移行です。 これは既定でプロジェクトの最後の移行になります。
@@ -111,13 +111,13 @@ dotnet ef migrations script --idempotent
 Script-Migration -Idempotent
 ```
 
-**_
+***
 
 ## <a name="command-line-tools"></a>コマンドライン ツール
 
 EF コマンドラインツールを使用すると、データベースに移行を適用できます。 移行のローカル開発とテストの生産性を維持しながら、この方法は運用データベースの管理には適していません。
 
-_ SQL コマンドはツールによって直接適用されるので、開発者はそれを検査または変更することはできません。 これは、運用環境では危険である可能性があります。
+* SQL コマンドはツールによって直接適用されます。開発者はこのコマンドを検査または変更することはできません。 これは、運用環境では危険である可能性があります。
 * .NET SDK と EF ツールは、実稼働サーバーにインストールする必要があります。
 
 ### <a name="net-core-cli"></a>[.NET Core CLI](#tab/dotnet-core-cli)

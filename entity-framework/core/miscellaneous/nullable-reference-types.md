@@ -4,12 +4,12 @@ description: Entity Framework Core を使用する場合の C# null 許容の参
 author: roji
 ms.date: 09/09/2019
 uid: core/miscellaneous/nullable-reference-types
-ms.openlocfilehash: 749fef8560c6777dcb2314126b11d2dd6a3562f8
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: 0747b1328458fbaddd9e3cca117e378bbad5b365
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98128564"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543433"
 ---
 # <a name="working-with-nullable-reference-types"></a>Null 許容の参照型の使用
 
@@ -28,7 +28,7 @@ C# 8 では、null 値を [許容する参照型 (NRT)](/dotnet/csharp/tutorials
 
 Null 値を許容する参照型が有効になっている場合、C# コンパイラは、初期化されていない null 非許容のプロパティに対して警告を出力します。 その結果、次のように、エンティティ型を記述する一般的な方法は使用できません。
 
-[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/CustomerWithWarning.cs?name=CustomerWithWarning&highlight=4-5)]
+[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/CustomerWithWarning.cs?name=CustomerWithWarning&highlight=5-6)]
 
 [コンストラクターバインド](xref:core/modeling/constructors) は、null 非許容のプロパティが初期化されるようにするための便利な手法です。
 
@@ -65,11 +65,11 @@ Terser として、null に対応していない演算子 (!) のヘルプを使
 
 オプションのリレーションシップを処理する場合、実際の null 参照例外が発生しないというコンパイラの警告が表示される可能性があります。 LINQ クエリの変換と実行時に、オプションの関連エンティティが存在しない場合は、スローされるのではなく、その関連エンティティへのナビゲーションが無視されることが EF Core 保証されます。 ただし、コンパイラはこの EF Core 保証を認識しないため、LINQ クエリがメモリ内で実行されたかのように、LINQ to Objects を使用して警告を生成します。 結果として、null を許容しない演算子 (!) を使用して、実際の null 値が不可能であることをコンパイラに通知する必要があります。
 
-[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Program.cs?range=46)]
+[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Program.cs?name=Navigating)]
 
 次のような場合にも同様の問題が発生します。
 
-[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Program.cs?range=36-39&highlight=2)]
+[!code-csharp[Main](../../../samples/core/Miscellaneous/NullableReferenceTypes/Program.cs?name=Including&highlight=2)]
 
 これを頻繁に実行し、問題のエンティティ型が EF Core クエリで主に (または排他的に) 使用されている場合は、ナビゲーションプロパティを null 非許容にし、Fluent API またはデータ注釈を使用してオプションとして構成することを検討してください。 これにより、リレーションシップを省略可能にしたまま、すべてのコンパイラ警告が削除されます。ただし、EF Core の外部でエンティティを走査した場合、プロパティには null 非許容として注釈が付けられますが、null 値を確認することができます。
 

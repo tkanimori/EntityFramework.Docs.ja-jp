@@ -4,22 +4,22 @@ description: Entity Framework 6 で事前に生成されたマッピングビュ
 author: ajcvickers
 ms.date: 10/23/2016
 uid: ef6/fundamentals/performance/pre-generated-views
-ms.openlocfilehash: 0c698e50f5c747d9953d9cf55dbbd8824ff8126d
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: bea0cdc59161068a8186ad2106516ba4f34910a9
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92062959"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543147"
 ---
 # <a name="pre-generated-mapping-views"></a>事前に生成されたマッピングビュー
-Entity Framework がクエリを実行したり、データソースへの変更を保存したりする前に、データベースにアクセスするための一連のマッピングビューを生成する必要があります。 これらのマッピングビューは、データベースを抽象的な方法で表す一連の Entity SQL ステートメントであり、アプリケーションドメインごとにキャッシュされるメタデータの一部です。 同じアプリケーションドメイン内に同じコンテキストの複数のインスタンスを作成すると、キャッシュされたメタデータからのマッピングビューが再生成されるのではなく再利用されます。 マッピングビューの生成は最初のクエリの実行にかかる全体的なコストの重要な部分であるため、Entity Framework を使用すると、マッピングビューを事前に生成し、コンパイル済みのプロジェクトに含めることができます。詳細については、「  [パフォーマンスに関する考慮事項 (Entity Framework)](xref:ef6/fundamentals/performance/perf-whitepaper)」を参照してください。
+Entity Framework がクエリを実行したり、データソースへの変更を保存したりする前に、データベースにアクセスするための一連のマッピングビューを生成する必要があります。 これらのマッピングビューは、データベースを抽象的な方法で表す一連の Entity SQL ステートメントであり、アプリケーションドメインごとにキャッシュされるメタデータの一部です。 同じアプリケーションドメイン内に同じコンテキストの複数のインスタンスを作成すると、キャッシュされたメタデータからのマッピングビューが再生成されるのではなく再利用されます。 マッピングビューの生成は最初のクエリの実行にかかる全体的なコストの重要な部分であるため、Entity Framework を使用すると、マッピングビューを事前に生成し、コンパイル済みのプロジェクトに含めることができます。 詳細については、「  [パフォーマンスに関する考慮事項 (Entity Framework)](xref:ef6/fundamentals/performance/perf-whitepaper)」を参照してください。
 
 ## <a name="generating-mapping-views-with-the-ef-power-tools-community-edition"></a>EF Power Tools Community Edition を使用したマッピングビューの生成
 
 ビューを事前に生成する最も簡単な方法は、 [EF Power Tools Community エディション](https://marketplace.visualstudio.com/items?itemName=ErikEJ.EntityFramework6PowerToolsCommunityEdition)を使用することです。 パワーツールをインストールすると、次のように、ビューを生成するメニューオプションが表示されます。
 
--   **Code First**モデルの場合は、dbcontext クラスを含むコードファイルを右クリックします。
--   **EF デザイナー**モデルの場合は、EDMX ファイルを右クリックします。
+-   **Code First** モデルの場合は、dbcontext クラスを含むコードファイルを右クリックします。
+-   **EF デザイナー** モデルの場合は、EDMX ファイルを右クリックします。
 
 ![ビューの生成](~/ef6/media/generateviews.png)
 
@@ -49,7 +49,7 @@ Entity Framework がクエリを実行したり、データソースへの変更
 StorageMappingItemCollection を取得すると、GenerateViews と ComputeMappingHashValue メソッドにアクセスできるようになります。
 
 ``` csharp
-    public Dictionary\<EntitySetBase, DbMappingView> GenerateViews(IList<EdmSchemaError> errors)
+    public Dictionary<EntitySetBase, DbMappingView> GenerateViews(IList<EdmSchemaError> errors)
     public string ComputeMappingHashValue()
 ```
 

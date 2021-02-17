@@ -4,12 +4,12 @@ description: EF Core の変更の追跡に関連するその他の機能とシ�
 author: ajcvickers
 ms.date: 12/30/2020
 uid: core/change-tracking/miscellaneous
-ms.openlocfilehash: db1e32948b2a60ad1b85e300bbbccd54d49a84e5
-ms.sourcegitcommit: 032a1767d7a6e42052a005f660b80372c6521e7e
+ms.openlocfilehash: 9eb3186f4eef300e4824dc86700497444ece4a2c
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/12/2021
-ms.locfileid: "98129617"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543420"
 ---
 # <a name="additional-change-tracking-features"></a>その他の Change Tracking 機能
 
@@ -19,9 +19,9 @@ ms.locfileid: "98129617"
 > このドキュメントでは、EF Core の変更の追跡のエンティティの状態と基本について理解していることを前提としています。 これらのトピックの詳細については、 [EF Core の Change Tracking](xref:core/change-tracking/index) を参照してください。
 
 > [!TIP]
-> [GitHub からサンプルコードをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/ChangeTracking/AdditionalChangeTrackingFeatures)することで、このドキュメントのすべてのコードを実行し、デバッグすることができます。
+> このドキュメントに含まれているすべてのコードは、[GitHub からサンプル コードをダウンロード](https://github.com/dotnet/EntityFramework.Docs/tree/master/samples/core/ChangeTracking/AdditionalChangeTrackingFeatures)することで実行およびデバッグできます。
 
-## <a name="add-verses-addasync"></a>定型非同期の追加
+## <a name="add-versus-addasync"></a>`Add` と `AddAsync`
 
 Entity Framework Core (EF Core) は、そのメソッドを使用すると、データベースとの対話が発生する可能性がある場合に、非同期メソッドを提供します。 また、高パフォーマンスの非同期アクセスをサポートしていないデータベースを使用する場合のオーバーヘッドを避けるために、同期メソッドも用意されています。
 
@@ -29,16 +29,16 @@ Entity Framework Core (EF Core) は、そのメソッドを使用すると、デ
 
 、、などのその他の同様のメソッド `Update` に `Attach` `Remove` は、新しいキー値を生成しないため、データベースにアクセスする必要がないため、非同期のオーバーロードはありません。
 
-## <a name="addrange-updaterange-attachrange-and-removerange"></a>AddRange、UpdateRange、AttachRange、および RemoveRange 種類
+## <a name="addrange-updaterange-attachrange-and-removerange"></a>`AddRange`、`UpdateRange`、`AttachRange`、および `RemoveRange`
 
-<xref:Microsoft.EntityFrameworkCore.DbSet%601> とは <xref:Microsoft.EntityFrameworkCore.DbContext> `Add` 、 `Update` `Attach` `Remove` 1 回の呼び出しで複数のインスタンスを受け入れる、、、およびの代替バージョンを提供します。 これらのメソッドは `AddRange` 、それぞれ、、、 `UpdateRange` およびと呼ばれ `AttachRange` `RemoveRange` ます。
+<xref:Microsoft.EntityFrameworkCore.DbSet%601> とは <xref:Microsoft.EntityFrameworkCore.DbContext> `Add` 、 `Update` `Attach` `Remove` 1 回の呼び出しで複数のインスタンスを受け入れる、、、およびの代替バージョンを提供します。 これらのメソッドは <xref:Microsoft.EntityFrameworkCore.DbSet%601.AddRange%2A> 、それぞれ、、、 <xref:Microsoft.EntityFrameworkCore.DbSet%601.UpdateRange%2A> <xref:Microsoft.EntityFrameworkCore.DbSet%601.AttachRange%2A> および <xref:Microsoft.EntityFrameworkCore.DbSet%601.RemoveRange%2A> です。
 
 これらのメソッドは便利な方法として提供されています。 "Range" メソッドを使用すると、同等の非範囲メソッドを複数回呼び出した場合と同じ機能が得られます。 2つの方法には、パフォーマンスに大きな違いはありません。
 
 > [!NOTE]
-> これは EF6 とは異なります。この場合、AddRange とは両方とも自動的に検出された変更として呼び出されますが、Add を複数回呼び出すと、検出された変更が1回ではなく複数回呼び出される原因になります。 これにより、EF6 での AddRange の効率が向上しました。 EF Core では、どちらのメソッドも、検出された変更を自動的に呼び出すことはありません。
+> これは EF6 とは異なり、 `AddRange` との `Add` 両方が自動的に呼び出され `DetectChanges` ますが、複数回呼び出すと、検出され `Add` た変更が1回ではなく複数回呼び出される原因になります。 これ `AddRange` は、EF6 でより効率的になりました。 EF Core では、これらのメソッドはどちらも自動的にを呼び出しません `DetectChanges` 。
 
-## <a name="dbcontext-verses-dbset-methods"></a>DbContext と Dbcontext メソッド
+## <a name="dbcontext-versus-dbset-methods"></a>DbContext と Dbcontext メソッド
 
 、、、などの多くのメソッドには、 `Add` `Update` `Attach` `Remove` との両方に実装があり <xref:Microsoft.EntityFrameworkCore.DbSet%601> <xref:Microsoft.EntityFrameworkCore.DbContext> ます。 これらのメソッドの動作は、通常のエンティティ型 _とまったく同じ_ です。 これは、エンティティの CLR 型が、EF Core モデルの1つのエンティティ型にのみマップされるためです。 したがって、CLR 型は、エンティティがモデルに適合する場所を完全に定義するので、使用する DbSet を暗黙的に決定できます。
 
@@ -89,14 +89,14 @@ Entity Framework Core (EF Core) は、そのメソッドを使用すると、デ
 
             context.SaveChanges();
 -->
-[!code-csharp[DbContext_verses_DbSet_methods_1](../../../samples/core/ChangeTracking/AdditionalChangeTrackingFeatures/Samples.cs?name=DbContext_verses_DbSet_methods_1)]
+[!code-csharp[DbContext_versus_DbSet_methods_1](../../../samples/core/ChangeTracking/AdditionalChangeTrackingFeatures/Samples.cs?name=DbContext_versus_DbSet_methods_1)]
 
 <xref:Microsoft.EntityFrameworkCore.DbContext.Set%60%601(System.String)?displayProperty=nameWithType>は、エンティティ型の DbSet を作成するために使用されることに注意 `PostTag` してください。 この DbSet を使用し `Add` て、新しい結合エンティティインスタンスでを呼び出すことができます。
 
 > [!IMPORTANT]
 > 規則に従ってエンティティ型を結合するために使用される CLR 型は、パフォーマンスを向上させるために将来のリリースで変更される可能性があります。 上記のコードでのの実行として明示的に構成されている場合を除き、特定の結合エンティティ型に依存しないでください `Dictionary<string, int>` 。
 
-## <a name="property-verses-field-access"></a>プロパティとフィールドのアクセス
+## <a name="property-versus-field-access"></a>プロパティとフィールドのアクセス
 
 EF Core 3.0 以降では、エンティティプロパティへのアクセスには、既定でプロパティのバッキングフィールドが使用されます。 これは効率的であり、プロパティの getter と setter を呼び出すことによる副作用のトリガーを回避します。 たとえば、遅延読み込みによって無限ループがトリガーされるのを防ぐことができます。 モデルでのバッキングフィールドの構成の詳細については、「 [バッキングフィールド](xref:core/modeling/backing-field) 」を参照してください。
 
@@ -287,7 +287,7 @@ EF Core を指定すると、プロパティは、の呼び出し時にデータ
 -->
 [!code-csharp[OnModelCreating_Token](../../../samples/core/ChangeTracking/AdditionalChangeTrackingFeatures/DefaultValueSamples.cs?name=OnModelCreating_Token)]
 
-この型のエンティティを挿入すると、明示的な値が設定されていない限り、EF Core によってデータベースで値が生成されます。 例:
+この型のエンティティを挿入すると、明示的な値が設定されていない限り、EF Core によってデータベースで値が生成されます。 次に例を示します。
 
 <!--
             using var context = new BlogsContext();
@@ -341,7 +341,7 @@ public class Foo1
 -->
 [!code-csharp[OnModelCreating_Foo1](../../../samples/core/ChangeTracking/AdditionalChangeTrackingFeatures/DefaultValueSamples.cs?name=OnModelCreating_Foo1)]
 
-その目的は、明示的な値が設定されていない場合に、既定の-1 が使用されることです。 ただし、値を 0 (整数の CLR の既定値) に設定しても、値が設定されていないことを EF Core すると区別できないため、このプロパティに0を挿入することはできません。 例:
+その目的は、明示的な値が設定されていない場合に、既定の-1 が使用されることです。 ただし、値を 0 (整数の CLR の既定値) に設定しても、値が設定されていないことを EF Core すると区別できないため、このプロパティに0を挿入することはできません。 次に例を示します。
 
 <!--
         using var context = new BlogsContext();
@@ -395,7 +395,7 @@ public class Foo2
 
 このプロパティを null 許容にすると、ドメインモデルで概念的に null 値が許容されないことに問題があります。 このため、プロパティを強制的に nullable にすると、モデルは侵害されます。
 
-EF Core 5.0 以降では、プロパティを null 非許容にすることができます。これにより、バッキングフィールドだけを null 許容にすることができます。 例:
+EF Core 5.0 以降では、プロパティを null 非許容にすることができます。これにより、バッキングフィールドだけを null 許容にすることができます。 次に例を示します。
 
 <!--
 public class Foo3
@@ -412,7 +412,7 @@ public class Foo3
 -->
 [!code-csharp[Foo3](../../../samples/core/ChangeTracking/AdditionalChangeTrackingFeatures/DefaultValueSamples.cs?name=Foo3)]
 
-これにより、プロパティが明示的に0に設定されている場合に CLR の既定値 (0) を挿入できるようになります。一方、ドメインモデルでは、プロパティを null 許容として公開する必要はありません。 例:
+これにより、プロパティが明示的に0に設定されている場合に CLR の既定値 (0) を挿入できるようになります。一方、ドメインモデルでは、プロパティを null 許容として公開する必要はありません。 次に例を示します。
 
 <!--
             using var context = new BlogsContext();

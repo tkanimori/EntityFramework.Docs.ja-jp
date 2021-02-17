@@ -4,12 +4,12 @@ description: Entity Framework Core .NET Core CLI ツールのリファレンス�
 author: bricelam
 ms.date: 10/27/2020
 uid: core/cli/dotnet
-ms.openlocfilehash: 60655c03a7fc29137ccb8d9304c94dac6b803cb2
-ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
+ms.openlocfilehash: 5f25ad67060e59507285af6e78269baa784c5288
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/28/2021
-ms.locfileid: "98983587"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543394"
 ---
 # <a name="entity-framework-core-tools-reference---net-core-cli"></a>Entity Framework Core ツールリファレンス-.NET Core CLI
 
@@ -128,7 +128,7 @@ dotnet ef database update -- --environment Production
 
 EF Core 5.0 以降では、追加の引数はアプリケーションに渡されます。
 
-## <a name="dotnet-ef-database-drop"></a>dotnet ef データベースの削除
+## `dotnet ef database drop`
 
 データベースを削除します。
 
@@ -141,7 +141,7 @@ EF Core 5.0 以降では、追加の引数はアプリケーションに渡さ�
 
 [一般的なオプション](#common-options)は上記のとおりです。
 
-## <a name="dotnet-ef-database-update"></a>dotnet ef データベースの更新
+## `dotnet ef database update`
 
 最後に移行したデータベース、または指定した移行にデータベースを更新します。
 
@@ -166,19 +166,19 @@ dotnet ef database update InitialCreate
 dotnet ef database update 20180904195021_InitialCreate --connection your_connection_string
 ```
 
-## <a name="dotnet-ef-dbcontext-info"></a>dotnet ef dbcontext 情報
+## `dotnet ef dbcontext info`
 
 型に関する情報を取得し `DbContext` ます。
 
 [一般的なオプション](#common-options)は上記のとおりです。
 
-## <a name="dotnet-ef-dbcontext-list"></a>dotnet ef dbcontext の一覧
+## `dotnet ef dbcontext list`
 
 使用可能な種類が一覧表示さ `DbContext` れます。
 
 [一般的なオプション](#common-options)は上記のとおりです。
 
-## <a name="dotnet-ef-dbcontext-scaffold"></a>dotnet ef dbcontext スキャフォールディング
+## `dotnet ef dbcontext scaffold`
 
 `DbContext`データベースのおよびエンティティ型のコードを生成します。 このコマンドでエンティティ型を生成するには、データベーステーブルに主キーが必要です。
 
@@ -227,7 +227,7 @@ dotnet user-secrets set ConnectionStrings:Blogging "Data Source=(localdb)\MSSQLL
 dotnet ef dbcontext scaffold Name=ConnectionStrings:Blogging Microsoft.EntityFrameworkCore.SqlServer
 ```
 
-## <a name="dotnet-ef-dbcontext-script"></a>dotnet ef dbcontext スクリプト
+## `dotnet ef dbcontext script`
 
 DbContext から SQL スクリプトを生成します。 すべての移行をバイパスします。 EF Core 3.0 で追加されました。
 
@@ -239,7 +239,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 [一般的なオプション](#common-options)は上記のとおりです。
 
-## <a name="dotnet-ef-migrations-add"></a>dotnet ef 移行の追加
+## `dotnet ef migrations add`
 
 新しい移行を追加します。
 
@@ -258,7 +258,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 [一般的なオプション](#common-options)は上記のとおりです。
 
-## <a name="dotnet-ef-migrations-list"></a>dotnet ef 移行リスト
+## `dotnet ef migrations list`
 
 使用可能な移行を一覧表示します。
 
@@ -271,7 +271,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 [一般的なオプション](#common-options)は上記のとおりです。
 
-## <a name="dotnet-ef-migrations-remove"></a>dotnet ef 移行の削除
+## `dotnet ef migrations remove`
 
 最後の移行を削除します (移行のために実行されたコード変更をロールバックします)。
 
@@ -283,7 +283,7 @@ DbContext から SQL スクリプトを生成します。 すべての移行を�
 
 [一般的なオプション](#common-options)は上記のとおりです。
 
-## <a name="dotnet-ef-migrations-script"></a>dotnet ef 移行スクリプト
+## `dotnet ef migrations script`
 
 移行から SQL スクリプトを生成します。
 

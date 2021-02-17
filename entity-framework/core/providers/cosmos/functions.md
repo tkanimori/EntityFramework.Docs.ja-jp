@@ -2,14 +2,14 @@
 title: 関数のマッピング-Azure Cosmos DB Provider-EF Core
 description: Azure Cosmos DB EF Core プロバイダーの関数マッピング
 author: bricelam
-ms.date: 10/08/2020
+ms.date: 1/26/2021
 uid: core/providers/cosmos/functions
-ms.openlocfilehash: ffcf82fbe57ea16e6fc62f3c9c80c572b3e1ed91
-ms.sourcegitcommit: 0a25c03fa65ae6e0e0e3f66bac48d59eceb96a5a
+ms.openlocfilehash: d4d45ba7db50befb5eb775feed0af44468ee3f74
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 10/14/2020
-ms.locfileid: "92066519"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543589"
 ---
 # <a name="function-mappings-of-the-azure-cosmos-db-ef-core-provider"></a>Azure Cosmos DB EF Core プロバイダーの関数マッピング
 
@@ -18,6 +18,7 @@ ms.locfileid: "92066519"
 .NET                          | SQL                              | 追加されたバージョン:
 ----------------------------- | -------------------------------- | --------
 表す.Contains (item)     | @item から @collection
+EF.Functions。 Random ()         | RAND ()                           | EF Core 6.0
 stringValue。 Contains (値)   | CONTAINS ( @stringValue , @value )   | EF Core 5.0
 EndsWith (値)   | ENDSWITH ( @stringValue , @value )   | EF Core 5.0
 FirstOrDefault ()  | LEFT ( @stringValue , 1)            | EF Core 5.0

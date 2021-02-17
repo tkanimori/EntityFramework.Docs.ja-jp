@@ -4,12 +4,12 @@ description: Entity Framework Core を使用する場合のプロパティの値
 author: AndriySvyryd
 ms.date: 1/10/2021
 uid: core/modeling/generated-properties
-ms.openlocfilehash: 76fa4454c88a5ef7afb9864c2a4b1063ac75e37e
-ms.sourcegitcommit: 7700840119b1639275f3b64836e7abb59103f2e7
+ms.openlocfilehash: a9e43f3b755bf028bc76581135988e831a42d0d1
+ms.sourcegitcommit: 704240349e18b6404e5a809f5b7c9d365b152e2e
 ms.translationtype: MT
 ms.contentlocale: ja-JP
-ms.lasthandoff: 01/28/2021
-ms.locfileid: "98983548"
+ms.lasthandoff: 02/16/2021
+ms.locfileid: "100543342"
 ---
 # <a name="generated-values"></a>生成された値
 
@@ -52,7 +52,7 @@ ms.locfileid: "98983548"
 
 ### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=5)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAdd.cs?name=ValueGeneratedOnAdd&highlight=6)]
 
 ### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
@@ -64,16 +64,16 @@ ms.locfileid: "98983548"
 
 ### <a name="data-annotations"></a>[データの注釈](#tab/data-annotations)
 
-[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
+[!code-csharp[Main](../../../samples/core/Modeling/DataAnnotations/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=6)]
 
 ### <a name="fluent-api"></a>[Fluent API](#tab/fluent-api)
 
 [!code-csharp[Main](../../../samples/core/Modeling/FluentAPI/ValueGeneratedOnAddOrUpdate.cs?name=ValueGeneratedOnAddOrUpdate&highlight=5)]
 
-**_
+***
 
 > [!WARNING]
-> 既定値または計算列とは異なり _how * 値が生成されます。これは、使用されているデータベースプロバイダーによって異なります。 データベースプロバイダーでは、一部のプロパティの型に対して自動的に値の生成が設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。
+> 既定値または計算列とは異なり、ここでは値の生成 *方法* を指定していません。これは、使用されているデータベースプロバイダーによって異なります。 データベースプロバイダーでは、一部のプロパティの型に対して自動的に値の生成が設定される場合がありますが、その他の場合は、値の生成方法を手動で設定する必要があります。
 >
 > たとえば、SQL Server で、GUID プロパティが追加時に生成された値として構成されている場合、プロバイダーは、最適なシーケンシャル GUID 値を生成するアルゴリズムを使用して、値生成クライアント側を自動的に実行します。 ただし、DateTime プロパティにを指定しても `ValueGeneratedOnAdd()` 効果はありません ([datetime 値の生成については、以下のセクションを参照して](#datetime-value-generation)ください)。
 >
